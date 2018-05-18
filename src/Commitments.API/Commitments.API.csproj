@@ -30,7 +30,6 @@
     <Folder Include="Features\DigitalAssets\" />
     <Folder Include="Features\Behaviours\" />
     <Folder Include="Features\Commitments\" />
-    <Folder Include="Features\Profiles\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 

@@ -1,13 +1,14 @@
 import { Component, Input, Renderer, ElementRef, HostListener } from '@angular/core';
 import { Subject } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { takeUntil, tap, map } from 'rxjs/operators';
+import { takeUntil, tap, map, switchMap } from 'rxjs/operators';
 import { MatSnackBarRef, SimpleSnackBar } from '@angular/material';
 import { ENTER } from '@angular/cdk/keycodes';
 import { AuthService } from '../core/auth.service';
 import { LoginRedirectService } from '../core/redirect.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorService } from '../core/error.service';
+import { ProfileService } from '../profiles/profile.service';
 
 @Component({
   templateUrl: './login.component.html',
@@ -20,6 +21,7 @@ export class LoginComponent {
     private _elementRef: ElementRef,
     private _errorService: ErrorService,
     private _loginRedirectService: LoginRedirectService,
+    private _profileService: ProfileService,
     private _renderer: Renderer
   ) {}
 
@@ -59,7 +61,11 @@ export class LoginComponent {
         username: $event.value.username,
         password: $event.value.password
       })
-      .pipe(takeUntil(this.onDestroy))
+      .pipe(
+        takeUntil(this.onDestroy),
+        switchMap(() => this._profileService.current()),
+        tap(profile => console.log(profile))
+      )
       .subscribe(
         () => this._loginRedirectService.redirectPreLogin(),
         errorResponse => this.handleErrorResponse(errorResponse)

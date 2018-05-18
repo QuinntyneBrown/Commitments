@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -10,24 +11,17 @@ namespace Commitments.API.Features.Profiles
     [Route("api/profiles")]
     public class ProfilesController
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMediator _mediator;
 
-        public ProfilesController(IMediator mediator) => _mediator = mediator;
-
-        [HttpPost]
-        public async Task<ActionResult<SaveProfileCommand.Response>> Save(SaveProfileCommand.Request request)
-            => await _mediator.Send(request);
+        public ProfilesController(IHttpContextAccessor httpContextAccessor, IMediator mediator) {
+            _httpContextAccessor = httpContextAccessor;
+            _mediator = mediator;
+        }
         
-        [HttpDelete("{Profile.ProfileId}")]
-        public async Task Remove(RemoveProfileCommand.Request request)
-            => await _mediator.Send(request);            
+        [HttpGet("current")]
+        public async Task<ActionResult<GetProfileByUsernameQuery.Response>> GetCurrent()
+            => await _mediator.Send(new GetProfileByUsernameQuery.Request() { Username = _httpContextAccessor.HttpContext.User.Identity.Name });
 
-        [HttpGet("{ProfileId}")]
-        public async Task<ActionResult<GetProfileByIdQuery.Response>> GetById([FromRoute]GetProfileByIdQuery.Request request)
-            => await _mediator.Send(request);
-
-        [HttpGet]
-        public async Task<ActionResult<GetProfilesQuery.Response>> Get()
-            => await _mediator.Send(new GetProfilesQuery.Request());
     }
 }

@@ -8,6 +8,7 @@ import { CommitmentService } from './commitment.service';
 import { MyCommimentsPageComponent } from './my-commiments-page.component';
 import { EditCommitmentPageComponent } from './edit-commitment-page.component';
 import { AddCommitmentsOverlayComponent } from './add-commitments-overlay.component';
+import { BehavioursModule } from '../behaviours/behaviours.module';
 
 const declarations = [
   MyCommimentsPageComponent,
@@ -31,6 +32,7 @@ const entryComponents = [
     ReactiveFormsModule,
     RouterModule,
 
+    BehavioursModule,
     CoreModule,
     SharedModule
   ],

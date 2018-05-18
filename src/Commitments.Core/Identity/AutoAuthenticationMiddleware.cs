@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Commitments.Core.Identity
@@ -8,13 +6,16 @@ namespace Commitments.Core.Identity
     public class AutoAuthenticationMiddleware
     {
         private readonly RequestDelegate _next;
-        public AutoAuthenticationMiddleware(RequestDelegate next) => _next = next;
+        private readonly ITokenProvider _tokenProvider;
+        public AutoAuthenticationMiddleware(RequestDelegate next, ITokenProvider tokenProvider) {
+            _next = next;
+            _tokenProvider = tokenProvider;
+        }
 
         public async Task Invoke(HttpContext httpContext)
         {
-            var identity = new ClaimsIdentity("Commitments");
-            identity.AddClaim(new Claim(JwtRegisteredClaimNames.UniqueName, "quinntynebrown@gmail.com"));
-            httpContext.User.AddIdentity(identity);
+            var token = _tokenProvider.Get("quinntynebrown@gmail.com");
+            httpContext.Request.Headers.Add("Authorization", $"Bearer {token}");
             await _next.Invoke(httpContext);
         }
     }

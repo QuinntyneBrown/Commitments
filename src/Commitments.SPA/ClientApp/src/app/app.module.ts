@@ -19,6 +19,7 @@ import { TagsPageComponent } from './tags/tags-page.component';
 import { SettingsModule } from './settings/settings.module';
 import { SharedModule } from './shared/shared.module';
 import { CommitmentsModule } from './commitments/commitments.module';
+import { ProfilesModule } from './profiles/profiles.module';
 
 @NgModule({
   declarations: [AppComponent, AnonymousMasterPageComponent, MasterPageComponent],
@@ -33,6 +34,7 @@ import { CommitmentsModule } from './commitments/commitments.module';
     CommitmentsModule,
     CoreModule,
     NotesModule,
+    ProfilesModule,
     SettingsModule,
     SharedModule,
     TagsModule,

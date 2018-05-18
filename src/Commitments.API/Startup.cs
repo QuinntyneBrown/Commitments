@@ -23,6 +23,7 @@ namespace Commitments.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
             services.AddCustomMvc();
             services.AddCustomSecurity(Configuration);
             services.AddCustomSignalR();                        
@@ -40,10 +41,8 @@ namespace Commitments.API
         
         public void Configure(IApplicationBuilder app)
         {
-            _ = IsTest() 
-                ? app.UseMiddleware<AutoAuthenticationMiddleware>()
-                : app.UseAuthentication();
-            
+            if (IsTest()) app.UseMiddleware<AutoAuthenticationMiddleware>();                
+            app.UseAuthentication();            
             app.UseCors("CorsPolicy");            
             app.UseMvc();
             app.UseSignalR(routes => routes.MapHub<AppHub>("/hub"));
