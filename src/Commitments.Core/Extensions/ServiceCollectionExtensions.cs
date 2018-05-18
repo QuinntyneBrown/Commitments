@@ -76,7 +76,7 @@ namespace Commitments.Core.Extensions
                 .AllowAnyHeader()
                 .AllowCredentials()));
             
-            services.TryAddSingleton<ITokenProvider, TokenProvider>();
+            services.AddSingleton<ITokenProvider, TokenProvider>();
 
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
 

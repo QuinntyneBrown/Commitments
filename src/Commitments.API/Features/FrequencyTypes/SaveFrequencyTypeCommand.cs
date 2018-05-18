@@ -5,24 +5,24 @@ using System.Threading;
 using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.API.Features.Commitments
+namespace Commitments.API.Features.FrequencyTypes
 {
-    public class SaveCommitmentCommand
+    public class SaveFrequencyTypeCommand
     {
         public class Validator: AbstractValidator<Request> {
             public Validator()
             {
-                RuleFor(request => request.Commitment.CommitmentId).NotNull();
+                RuleFor(request => request.FrequencyType.FrequencyTypeId).NotNull();
             }
         }
 
         public class Request : IRequest<Response> {
-            public CommitmentApiModel Commitment { get; set; }
+            public FrequencyTypeApiModel FrequencyType { get; set; }
         }
 
         public class Response
         {			
-            public int CommitmentId { get; set; }
+            public int FrequencyTypeId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -33,16 +33,15 @@ namespace Commitments.API.Features.Commitments
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var commitment = await _context.Commitments.FindAsync(request.Commitment.CommitmentId);
+                var frequencyType = await _context.FrequencyTypes.FindAsync(request.FrequencyType.FrequencyTypeId);
 
-                if (commitment == null) _context.Commitments.Add(commitment = new Commitment());
+                if (frequencyType == null) _context.FrequencyTypes.Add(frequencyType = new FrequencyType());
 
-                commitment.BehaviourId = request.Commitment.BehaviourId;
-                commitment.ProfileId = request.Commitment.ProfileId;
+                frequencyType.Name = request.FrequencyType.Name;
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response() { CommitmentId = commitment.CommitmentId };
+                return new Response() { FrequencyTypeId = frequencyType.FrequencyTypeId };
             }
         }
     }

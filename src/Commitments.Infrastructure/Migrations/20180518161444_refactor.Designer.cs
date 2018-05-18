@@ -10,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Commitments.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180518161444_refactor")]
+    partial class refactor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,7 +55,7 @@ namespace Commitments.Infrastructure.Migrations
                     b.Property<int>("BehaviourTypeId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Type");
 
                     b.HasKey("BehaviourTypeId");
 
@@ -68,11 +69,17 @@ namespace Commitments.Infrastructure.Migrations
 
                     b.Property<int>("BehaviourId");
 
+                    b.Property<int>("CommitmentFailFrequencyId");
+
+                    b.Property<int>("CommitmentFrequencyId");
+
                     b.Property<DateTime>("CreatedOn");
 
                     b.Property<bool>("IsDeleted");
 
                     b.Property<DateTime>("LastModifiedOn");
+
+                    b.Property<string>("Name");
 
                     b.Property<int>("ProfileId");
 

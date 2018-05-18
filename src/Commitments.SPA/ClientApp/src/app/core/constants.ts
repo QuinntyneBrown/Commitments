@@ -1,4 +1,5 @@
 export const accessTokenKey = 'accessTokenKey';
+export const currentProfileIdKey = 'currentProfileIdKey';
 export const baseUrl = 'baseUrl';
 export const dateFormat = 'MMMM D; YYYY';
 export const minimumLogLevel = 'minimumLogLevel';

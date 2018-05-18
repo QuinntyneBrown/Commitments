@@ -19,7 +19,7 @@ namespace Commitments.API.Features.Behaviours
             => await _mediator.Send(request);
         
         [HttpDelete("{Behaviour.BehaviourId}")]
-        public async Task Remove(RemoveBehaviourCommand.Request request)
+        public async Task Remove([FromRoute]RemoveBehaviourCommand.Request request)
             => await _mediator.Send(request);            
 
         [HttpGet("{BehaviourId}")]

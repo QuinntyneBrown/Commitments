@@ -9,6 +9,8 @@ import { LoginRedirectService } from '../core/redirect.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorService } from '../core/error.service';
 import { ProfileService } from '../profiles/profile.service';
+import { LocalStorageService } from '../core/local-storage.service';
+import { currentProfileIdKey } from '../core/constants';
 
 @Component({
   templateUrl: './login.component.html',
@@ -22,7 +24,8 @@ export class LoginComponent {
     private _errorService: ErrorService,
     private _loginRedirectService: LoginRedirectService,
     private _profileService: ProfileService,
-    private _renderer: Renderer
+    private _renderer: Renderer,
+    private _storage: LocalStorageService
   ) {}
 
   ngOnInit() {
@@ -64,7 +67,7 @@ export class LoginComponent {
       .pipe(
         takeUntil(this.onDestroy),
         switchMap(() => this._profileService.current()),
-        tap(profile => console.log(profile))
+        tap(profile => this._storage.put({ name: currentProfileIdKey, value: profile.profileId }))
       )
       .subscribe(
         () => this._loginRedirectService.redirectPreLogin(),

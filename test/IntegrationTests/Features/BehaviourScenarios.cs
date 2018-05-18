@@ -1,7 +1,9 @@
 using Commitments.API.Features.Behaviours;
+using Commitments.Core.Entities;
 using Commitments.Core.Extensions;
-using System;
+using Commitments.Core.Interfaces;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -15,15 +17,22 @@ namespace IntegrationTests.Features
         {
             using (var server = CreateServer())
             {
+                IAppDbContext context = server.Host.Services.GetService(typeof(IAppDbContext)) as IAppDbContext;
+                
                 var response = await server.CreateClient()
                     .PostAsAsync<SaveBehaviourCommand.Request, SaveBehaviourCommand.Response>(Post.Behaviours, new SaveBehaviourCommand.Request() {
                         Behaviour = new BehaviourApiModel()
                         {
-
+                            Name = "Running",
+                            Description = "Running",                       
                         }
                     });
 
-                Assert.True(response.BehaviourId != default(int));
+                var entity = context.Behaviours.First();
+
+                Assert.Equal("Running", entity.Name);
+                Assert.Equal("Running", entity.Description);
+                Assert.Equal("running", entity.Slug);
             }
         }
 
@@ -32,10 +41,21 @@ namespace IntegrationTests.Features
         {
             using (var server = CreateServer())
             {
+                IAppDbContext context = server.Host.Services.GetService(typeof(IAppDbContext)) as IAppDbContext;
+
+                context.Behaviours.Add(new Behaviour()
+                {
+                    Name = "Running",
+                    Description = "Running",
+                    Slug = "slug"
+                });
+
+                await context.SaveChangesAsync(default(CancellationToken));
+
                 var response = await server.CreateClient()
                     .GetAsync<GetBehavioursQuery.Response>(Get.Behaviours);
 
-                Assert.True(response.Behaviours.Count() > 0);
+                Assert.Single(response.Behaviours);
             }
         }
 
@@ -45,6 +65,17 @@ namespace IntegrationTests.Features
         {
             using (var server = CreateServer())
             {
+                IAppDbContext context = server.Host.Services.GetService(typeof(IAppDbContext)) as IAppDbContext;
+
+                context.Behaviours.Add(new Behaviour()
+                {
+                    Name = "Running",
+                    Description = "Running",
+                    Slug = "slug"
+                });
+
+                await context.SaveChangesAsync(default(CancellationToken));
+
                 var response = await server.CreateClient()
                     .GetAsync<GetBehaviourByIdQuery.Response>(Get.BehaviourById(1));
 
@@ -57,18 +88,29 @@ namespace IntegrationTests.Features
         {
             using (var server = CreateServer())
             {
-                var getByIdResponse = await server.CreateClient()
-                    .GetAsync<GetBehaviourByIdQuery.Response>(Get.BehaviourById(1));
+                IAppDbContext context = server.Host.Services.GetService(typeof(IAppDbContext)) as IAppDbContext;
 
-                Assert.True(getByIdResponse.Behaviour.BehaviourId != default(int));
+                context.Behaviours.Add(new Behaviour()
+                {
+                    Name = "Running",
+                    Description = "Running",
+                    Slug = "slug"
+                });
 
-                var saveResponse = await server.CreateClient()
+                await context.SaveChangesAsync(default(CancellationToken));
+
+                var response = await server.CreateClient()
                     .PostAsAsync<SaveBehaviourCommand.Request, SaveBehaviourCommand.Response>(Post.Behaviours, new SaveBehaviourCommand.Request()
                     {
-                        Behaviour = getByIdResponse.Behaviour
+                        Behaviour = new BehaviourApiModel()
+                        {
+                            BehaviourId = 1,
+                            Name = "Jogging",
+                            Description = "Joggin"
+                        }
                     });
 
-                Assert.True(saveResponse.BehaviourId != default(int));
+                Assert.Equal(1, response.BehaviourId);
             }
         }
         
@@ -77,6 +119,17 @@ namespace IntegrationTests.Features
         {
             using (var server = CreateServer())
             {
+                IAppDbContext context = server.Host.Services.GetService(typeof(IAppDbContext)) as IAppDbContext;
+
+                context.Behaviours.Add(new Behaviour()
+                {
+                    Name = "Running",
+                    Description = "Running",
+                    Slug = "slug"
+                });
+
+                await context.SaveChangesAsync(default(CancellationToken));
+
                 var response = await server.CreateClient()
                     .DeleteAsync(Delete.Behaviour(1));
 

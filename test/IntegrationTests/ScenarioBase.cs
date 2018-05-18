@@ -27,7 +27,7 @@ namespace IntegrationTests
                     });
 
             var testServer = new TestServer(webHostBuilder);
-
+            
             ResetDatabase(testServer.Host);
 
             return testServer;

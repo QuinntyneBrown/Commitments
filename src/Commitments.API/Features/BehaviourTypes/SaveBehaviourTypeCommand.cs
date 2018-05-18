@@ -5,24 +5,24 @@ using System.Threading;
 using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.API.Features.Commitments
+namespace Commitments.API.Features.BehaviourTypes
 {
-    public class SaveCommitmentCommand
+    public class SaveBehaviourTypeCommand
     {
         public class Validator: AbstractValidator<Request> {
             public Validator()
             {
-                RuleFor(request => request.Commitment.CommitmentId).NotNull();
+                RuleFor(request => request.BehaviourType.BehaviourTypeId).NotNull();
             }
         }
 
         public class Request : IRequest<Response> {
-            public CommitmentApiModel Commitment { get; set; }
+            public BehaviourTypeApiModel BehaviourType { get; set; }
         }
 
         public class Response
         {			
-            public int CommitmentId { get; set; }
+            public int BehaviourTypeId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -33,16 +33,15 @@ namespace Commitments.API.Features.Commitments
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var commitment = await _context.Commitments.FindAsync(request.Commitment.CommitmentId);
+                var behaviourType = await _context.BehaviourTypes.FindAsync(request.BehaviourType.BehaviourTypeId);
 
-                if (commitment == null) _context.Commitments.Add(commitment = new Commitment());
+                if (behaviourType == null) _context.BehaviourTypes.Add(behaviourType = new BehaviourType());
 
-                commitment.BehaviourId = request.Commitment.BehaviourId;
-                commitment.ProfileId = request.Commitment.ProfileId;
+                behaviourType.Name = request.BehaviourType.Name;
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response() { CommitmentId = commitment.CommitmentId };
+                return new Response() { BehaviourTypeId = behaviourType.BehaviourTypeId };
             }
         }
     }
