@@ -21,16 +21,29 @@ namespace Commitments.Infrastructure.Data
                     => category == DbLoggerCategory.Database.Command.Name 
                 && level == LogLevel.Information, true) });
 
+        public DbSet<Behaviour> Behaviours { get; set; }
+        public DbSet<BehaviourType> BehaviourTypes { get; set; }
         public DbSet<Commitment> Commitments { get; set; }
         public DbSet<CommitmentFrequency> CommitmentFrequencies { get; set; }
-        public DbSet<CommitmentType> CommitmentTypes { get; set; }
         public DbSet<DigitalAsset> DigitalAssets { get; set; }
+        public DbSet<Note> Notes { get; set; }
         public DbSet<Profile> Profiles { get; set; }
-        public DbSet<ProfileCommitment> ProfileCommitments { get; set; }
+        public DbSet<Commitment> ProfileCommitments { get; set; }
+        public DbSet<Tag> Tags { get; set; }
         public DbSet<User> Users { get; set; }
+
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {            
             ChangeTracker.DetectChanges();
+
+            foreach (var entity in ChangeTracker.Entries()
+                .Where(e => e.Entity is ILoggable && ((e.State == EntityState.Added || (e.State == EntityState.Modified))))
+                .Select(x => x.Entity as ILoggable))
+            {
+                var isNew = entity.CreatedOn == default(DateTime);
+                entity.CreatedOn = isNew ? DateTime.UtcNow : entity.CreatedOn;   
+                entity.LastModifiedOn = DateTime.UtcNow;
+            }
 
             foreach (var item in ChangeTracker.Entries().Where(e => e.State == EntityState.Deleted))
             {
@@ -43,8 +56,27 @@ namespace Commitments.Infrastructure.Data
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Note>()
+                .HasQueryFilter(e => !e.IsDeleted);
+
+            modelBuilder.Entity<NoteTag>()
+                .HasQueryFilter(e => !e.IsDeleted);
+
+            modelBuilder.Entity<Tag>()
+                .HasQueryFilter(e => !e.IsDeleted);
+
             modelBuilder.Entity<User>()
                 .HasQueryFilter(e => !e.IsDeleted);
+
+            modelBuilder.Entity<NoteTag>()
+                .HasOne(nt => nt.Note)
+                .WithMany(n => n.NoteTags)
+                .HasForeignKey(nt => nt.NoteId);
+
+            modelBuilder.Entity<NoteTag>()
+                .HasOne(nt => nt.Tag)
+                .WithMany(t => t.NoteTags)
+                .HasForeignKey(nt => nt.TagId);
 
             base.OnModelCreating(modelBuilder);
         }       

@@ -1,9 +1,9 @@
+using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using FluentValidation;
-using Commitments.Core.Interfaces;
 using Commitments.Core.Entities;
+using Commitments.Core.Interfaces;
 
 namespace Commitments.API.Features.Profiles
 {
@@ -28,10 +28,8 @@ namespace Commitments.API.Features.Profiles
         public class Handler : IRequestHandler<Request, Response>
         {
             public IAppDbContext _context { get; set; }
-            public Handler(IAppDbContext context)
-            {
-                _context = context;
-            }
+            
+			public Handler(IAppDbContext context) => _context = context;
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {

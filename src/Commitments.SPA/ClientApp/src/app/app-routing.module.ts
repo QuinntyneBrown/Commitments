@@ -16,6 +16,8 @@ import { AuthGuard } from './core/auth.guard';
 import { TagsResolver } from './tags/tags-resolver.service';
 import { NoteResolver } from './notes/note-resolver.service';
 import { NotesByTagPageComponent } from './notes/notes-by-tag-page.component';
+import { MyCommimentsPageComponent } from './commitments/my-commiments-page.component';
+import { EditCommitmentPageComponent } from './commitments/edit-commitment-page.component';
 
 export const routes: Routes = [
   {
@@ -35,12 +37,27 @@ export const routes: Routes = [
     children: [
       {
         path: '',
+        component: MyCommimentsPageComponent,
+        canActivate: [LanguageGuard]
+      },
+      {
+        path: 'commitments/create',
+        component: EditCommitmentPageComponent,
+        canActivate: [LanguageGuard]
+      },
+      {
+        path: 'notes/create',
         component: EditNotePageComponent,
         canActivate: [LanguageGuard],
         resolve: {
           tags: TagsResolver,
           note: NoteResolver
         }
+      },
+      {
+        path: 'my-commitments',
+        component: MyCommimentsPageComponent,
+        canActivate: [LanguageGuard]
       },
       {
         path: 'notes',
