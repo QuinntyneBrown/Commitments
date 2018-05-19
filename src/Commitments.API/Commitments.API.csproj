@@ -33,6 +33,7 @@
     <Folder Include="Features\FrequencyTypes\" />
     <Folder Include="Features\CommitmentFrequencies\" />
     <Folder Include="Features\BehaviourTypes\" />
+    <Folder Include="Features\Frequencies\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 

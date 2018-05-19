@@ -135,6 +135,22 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("DigitalAssets");
                 });
 
+            modelBuilder.Entity("Commitments.Core.Entities.Frequency", b =>
+                {
+                    b.Property<int>("FrequencyId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Frequency");
+
+                    b.Property<int>("FrequencyTypeId");
+
+                    b.HasKey("FrequencyId");
+
+                    b.HasIndex("FrequencyTypeId");
+
+                    b.ToTable("Frequencies");
+                });
+
             modelBuilder.Entity("Commitments.Core.Entities.FrequencyType", b =>
                 {
                     b.Property<int>("FrequencyTypeId")
@@ -306,6 +322,14 @@ namespace Commitments.Infrastructure.Migrations
                     b.HasOne("Commitments.Core.Entities.Commitment", "Commitment")
                         .WithMany("CommitmentPreConditions")
                         .HasForeignKey("CommitmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Commitments.Core.Entities.Frequency", b =>
+                {
+                    b.HasOne("Commitments.Core.Entities.FrequencyType", "FrequencyType")
+                        .WithMany()
+                        .HasForeignKey("FrequencyTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

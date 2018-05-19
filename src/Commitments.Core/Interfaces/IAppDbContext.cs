@@ -13,6 +13,7 @@ namespace Commitments.Core.Interfaces
         DbSet<Commitment> Commitments { get; set; }
         DbSet<CommitmentFrequency> CommitmentFrequencies { get; set; }
         DbSet<DigitalAsset> DigitalAssets { get; set; }
+        DbSet<Frequency> Frequencies { get; set; }
         DbSet<FrequencyType> FrequencyTypes { get; set; }
         DbSet<Note> Notes { get; set; }
         DbSet<Profile> Profiles { get; set; }

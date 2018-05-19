@@ -26,6 +26,7 @@ namespace Commitments.Infrastructure.Data
         public DbSet<Commitment> Commitments { get; set; }
         public DbSet<CommitmentFrequency> CommitmentFrequencies { get; set; }
         public DbSet<DigitalAsset> DigitalAssets { get; set; }
+        public DbSet<Frequency> Frequencies { get; set; }
         public DbSet<FrequencyType> FrequencyTypes { get; set; }
         public DbSet<Note> Notes { get; set; }
         public DbSet<Profile> Profiles { get; set; }

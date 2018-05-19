@@ -12,6 +12,13 @@ export class CommitmentService {
     private _client: HttpClient
   ) { }
 
+  public getByCurrentProfile(): Observable<Array<Commitment>> {
+    return this._client.get<{ commitments: Array<Commitment> }>(`${this._baseUrl}api/commitments/currentProfile`)
+      .pipe(
+        map(x => x.commitments)
+      );
+  }
+
   public get(): Observable<Array<Commitment>> {
     return this._client.get<{ commitments: Array<Commitment> }>(`${this._baseUrl}api/commitments`)
       .pipe(

@@ -9,15 +9,21 @@ import { MyCommimentsPageComponent } from './my-commiments-page.component';
 import { EditCommitmentPageComponent } from './edit-commitment-page.component';
 import { AddCommitmentsOverlayComponent } from './add-commitments-overlay.component';
 import { BehavioursModule } from '../behaviours/behaviours.module';
+import { CommitmentFrequencyEditorComponent } from './commitment-frequency-editor.component';
+import { CommitmentFrequencyService } from './commitment-frequency.service';
+import { FrequencyTypeService } from './frequency-type.service';
 
 const declarations = [
   MyCommimentsPageComponent,
   EditCommitmentPageComponent,
-  AddCommitmentsOverlayComponent
+  AddCommitmentsOverlayComponent,
+  CommitmentFrequencyEditorComponent
 ];
 
 const providers = [
-  CommitmentService
+  CommitmentService,
+  CommitmentFrequencyService,
+  FrequencyTypeService
 ];
 
 const entryComponents = [

@@ -1,6 +1,8 @@
+import { CommitmentFrequency } from "./commitment-frequency.model";
+
 export class Commitment {
   public commitmentId: number;
-  public name: string;
-  public description: string;
-  public slug: string;
+  public behaviourId: number;
+  public profileId: number;
+  public commitmentFrequencies: Array<CommitmentFrequency> = [];
 }
