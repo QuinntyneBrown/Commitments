@@ -6,7 +6,7 @@ div.ql-editor.ql-blank {
 .page-content-container {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: min-content 1fr min-content min-content min-content;
+  grid-template-rows: min-content min-content 1fr min-content min-content;
   grid-gap: 20px;
   padding: 20px 20px 20px 20px;
   margin: 0 auto;

@@ -4,13 +4,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BehaviourService } from './behaviour.service';
 import { EditBehaviourPageComponent } from './edit-behaviour-page.component';
+import { CoreModule } from '../core/core.module';
+import { SharedModule } from '../shared/shared.module';
+import { BehaviourTypeService } from './behaviour-type.service';
 
 const declarations = [
   EditBehaviourPageComponent
 ];
 
 const providers = [
-  BehaviourService
+  BehaviourService,
+  BehaviourTypeService
 ];
 
 @NgModule({
@@ -19,7 +23,10 @@ const providers = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule	
+    RouterModule,
+
+    CoreModule,
+    SharedModule
   ],
   providers,
 })

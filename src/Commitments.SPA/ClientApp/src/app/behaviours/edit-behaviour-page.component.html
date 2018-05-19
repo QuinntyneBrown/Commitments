@@ -4,11 +4,15 @@
 
 <form class="page-content-container" novalidate autocomplete="off" spellcheck="false" [formGroup]="form">
   <mat-form-field>
-    <input matInput placeholder="{{ 'Name' | translate }}" id="name" formControlName="name">
+    <mat-select placeholder="Behaviour Type" formControlName="behaviourTypeId" name="behaviourTypeId">
+      <mat-option *ngFor="let behaviourType of (behaviourTypes$ | async)" [value]="behaviourType.behaviourTypeId">
+        {{ behaviourType.name }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 
   <mat-form-field>
-    <mat-checkbox id="isDesired" formControlName="isDesired">{{ 'Is Desired' | translate }}</mat-checkbox>
+    <input matInput placeholder="{{ 'Name' | translate }}" id="name" formControlName="name">
   </mat-form-field>
 
   <app-quill-text-editor formControlName="description" [editorPlaceholder]="'Description'"></app-quill-text-editor>
