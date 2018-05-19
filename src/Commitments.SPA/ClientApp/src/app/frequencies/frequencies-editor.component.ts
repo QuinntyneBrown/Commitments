@@ -31,6 +31,17 @@ export class FrequenciesEditorComponent {
     params.api.sizeColumnsToFit();
   }
 
+  public handleSaveClick() {
+    console.log(this.frequencies$.value);
+  }
+
+  public remove(frequency) {
+    var frequencies: any[] = [...this.frequencies$.value];
+    var index = frequencies.findIndex(x => x.frequency == frequency.data.frequency && x.frequencyTypeId == frequency.data.frequencyTypeId);    
+    frequencies.splice(index, 1);
+    this.frequencies$.next(frequencies);
+  }
+
   public columnDefs: Array<ColDef> = [
     {
       headerName: 'Frequency',
@@ -39,6 +50,10 @@ export class FrequenciesEditorComponent {
     {
       headerName: 'Frequency Type',
       field: 'frequencyTypeId'
+    },
+    {      
+      template: `<a>Remove</a>`,
+      onCellClicked: frequency => this.remove(frequency)
     }
   ];
 }

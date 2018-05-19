@@ -5,6 +5,10 @@
 
 <ag-grid-angular class="ag-theme-material"
                  [columnDefs]="columnDefs"
-                 [rowData]="frequencies$ | async"                                  
+                 [rowData]="frequencies$ | async"
                  (gridReady)="onGridReady($event)">
 </ag-grid-angular>
+
+<div class="actions">
+  <button mat-button (click)="handleSaveClick()">{{ "Save" | translate }}</button>
+</div>
