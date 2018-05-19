@@ -20,6 +20,7 @@ import { SettingsModule } from './settings/settings.module';
 import { SharedModule } from './shared/shared.module';
 import { CommitmentsModule } from './commitments/commitments.module';
 import { ProfilesModule } from './profiles/profiles.module';
+import { FrequenciesModule } from './frequencies/frequencies.module';
 
 @NgModule({
   declarations: [AppComponent, AnonymousMasterPageComponent, MasterPageComponent],
@@ -33,6 +34,7 @@ import { ProfilesModule } from './profiles/profiles.module';
 
     CommitmentsModule,
     CoreModule,
+    FrequenciesModule,
     NotesModule,
     ProfilesModule,
     SettingsModule,

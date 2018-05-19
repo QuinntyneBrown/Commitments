@@ -1,0 +1,10 @@
+<app-frequency-editor [frequencyTypes]="frequencyTypes"
+                      (save)="handleFrequencySave($event)">
+
+</app-frequency-editor>
+
+<ag-grid-angular class="ag-theme-material"
+                 [columnDefs]="columnDefs"
+                 [rowData]="frequencies$ | async"                                  
+                 (gridReady)="onGridReady($event)">
+</ag-grid-angular>

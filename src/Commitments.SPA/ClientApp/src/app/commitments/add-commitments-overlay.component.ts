@@ -8,7 +8,7 @@ import { BehaviourService } from "../behaviours/behaviour.service";
 import { Behaviour } from "../behaviours/behaviour.model";
 import { FrequencyTypeService } from "./frequency-type.service";
 import { FrequencyType } from "./frequency-type.model";
-import { FormGroup } from "@angular/forms";
+import { FormGroup, FormControl } from "@angular/forms";
 
 @Component({
   templateUrl: "./add-commitments-overlay.component.html",
@@ -52,6 +52,6 @@ export class AddCommitmentsOverlayComponent {
   public commitments$: Observable<Array<Commitment>>;
 
   public form: FormGroup = new FormGroup({
-    frequency
+    frequency: new FormControl(null,[])
   });
 }

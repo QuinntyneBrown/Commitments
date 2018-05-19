@@ -26,8 +26,8 @@ export class EditCommitmentPageComponent {
   public handleSaveClick() {
     var commitment = new Commitment();
 
-    commitment.name = this.form.value.name;
-    commitment.description = this.form.value.description;
+    //commitment.name = this.form.value.name;
+    //commitment.description = this.form.value.description;
 
     this._commitmentService.save({ commitment })
       .pipe(takeUntil(this.onDestroy),tap(() => this._router.navigateByUrl("/")))

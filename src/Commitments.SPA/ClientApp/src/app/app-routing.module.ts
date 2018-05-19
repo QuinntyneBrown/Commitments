@@ -19,6 +19,7 @@ import { NotesByTagPageComponent } from './notes/notes-by-tag-page.component';
 import { MyCommimentsPageComponent } from './commitments/my-commiments-page.component';
 import { EditCommitmentPageComponent } from './commitments/edit-commitment-page.component';
 import { EditBehaviourPageComponent } from './behaviours/edit-behaviour-page.component';
+import { FrequencyPageComponent } from './frequencies/frequency-page.component';
 
 export const routes: Routes = [
   {
@@ -38,7 +39,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: MyCommimentsPageComponent,
+        component: FrequencyPageComponent,
         canActivate: [LanguageGuard]
       },
       {
