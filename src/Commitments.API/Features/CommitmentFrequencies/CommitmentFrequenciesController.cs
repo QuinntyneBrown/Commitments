@@ -19,7 +19,7 @@ namespace Commitments.API.Features.CommitmentFrequencies
             => await _mediator.Send(request);
         
         [HttpDelete("{CommitmentFrequency.CommitmentFrequencyId}")]
-        public async Task Remove([FromRoute]RemoveCommitmentFrequencyCommand.Request request)
+        public async Task Remove(RemoveCommitmentFrequencyCommand.Request request)
             => await _mediator.Send(request);            
 
         [HttpGet("{CommitmentFrequencyId}")]

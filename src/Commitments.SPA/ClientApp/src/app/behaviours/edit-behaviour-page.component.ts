@@ -31,14 +31,15 @@ export class EditBehaviourPageComponent {
 
   public behaviour: Behaviour;
   
-  public handleSave($event) {
+  public handleSaveClick() {
 
     var entity = new Behaviour();
-
+    entity.isDesired = this.form.value.isDesired;
+    entity.behaviourTypeId = this.form.value.behaviourTypeId;
     entity.name = this.form.value.name;
     entity.description = this.form.value.description;
 
-    this._behaviourService.save({ behaviour: $event.behaviour })
+    this._behaviourService.save({ behaviour: entity })
       .pipe(takeUntil(this.onDestroy))
       .subscribe(() => this._router.navigateByUrl("/"));
   }
@@ -50,7 +51,7 @@ export class EditBehaviourPageComponent {
   public form = new FormGroup({
     name: new FormControl(null, [Validators.required]),
     description: new FormControl(null, [Validators.required]),
-    isDesired: new FormControl(null, [Validators.required]),
+    isDesired: new FormControl(true, [Validators.required]),
     behaviourTypeId: new FormControl(null,[Validators.required])
   });
 

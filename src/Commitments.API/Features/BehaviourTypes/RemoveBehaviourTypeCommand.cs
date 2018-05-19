@@ -13,13 +13,13 @@ namespace Commitments.API.Features.BehaviourTypes
         {
             public Validator()
             {
-                RuleFor(request => request.BehaviourType.BehaviourTypeId).NotEqual(0);
+                RuleFor(request => request.BehaviourTypeId).NotEqual(0);
             }
         }
 
         public class Request : IRequest
         {
-            public BehaviourType BehaviourType { get; set; }
+            public int BehaviourTypeId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request>
@@ -30,7 +30,7 @@ namespace Commitments.API.Features.BehaviourTypes
 
             public async Task Handle(Request request, CancellationToken cancellationToken)
             {
-                _context.BehaviourTypes.Remove(await _context.BehaviourTypes.FindAsync(request.BehaviourType.BehaviourTypeId));
+                _context.BehaviourTypes.Remove(await _context.BehaviourTypes.FindAsync(request.BehaviourTypeId));
                 await _context.SaveChangesAsync(cancellationToken);
             }
 

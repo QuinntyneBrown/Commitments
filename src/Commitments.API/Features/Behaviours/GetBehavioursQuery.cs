@@ -26,7 +26,7 @@ namespace Commitments.API.Features.Behaviours
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    Behaviours = await _context.Behaviours.Select(x => BehaviourApiModel.FromBehaviour(x)).ToListAsync()
+                    Behaviours = await _context.Behaviours.Include(x => x.BehaviourType).Select(x => BehaviourApiModel.FromBehaviour(x)).ToListAsync()
                 };
         }
     }

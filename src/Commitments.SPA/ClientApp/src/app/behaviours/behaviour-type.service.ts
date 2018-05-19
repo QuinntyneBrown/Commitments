@@ -13,24 +13,24 @@ export class BehaviourTypeService {
   ) { }
 
   public get(): Observable<Array<BehaviourType>> {
-    return this._client.get<{ behaviourTypes: Array<BehaviourType> }>(`${this._baseUrl}/api/behaviourTypes`)
+    return this._client.get<{ behaviourTypes: Array<BehaviourType> }>(`${this._baseUrl}api/behaviourTypes`)
       .pipe(
         map(x => x.behaviourTypes)
       );
   }
 
   public getById(options: { behaviourTypeId: number }): Observable<BehaviourType> {
-    return this._client.get<{ behaviourType: BehaviourType }>(`${this._baseUrl}/api/behaviourTypes/${options.behaviourTypeId}`)
+    return this._client.get<{ behaviourType: BehaviourType }>(`${this._baseUrl}api/behaviourTypes/${options.behaviourTypeId}`)
       .pipe(
         map(x => x.behaviourType)
       );
   }
 
   public remove(options: { behaviourType: BehaviourType }): Observable<void> {
-    return this._client.delete<void>(`${this._baseUrl}/api/behaviourTypes/${options.behaviourType.behaviourTypeId}`);
+    return this._client.delete<void>(`${this._baseUrl}api/behaviourTypes/${options.behaviourType.behaviourTypeId}`);
   }
 
   public save(options: { behaviourType: BehaviourType }): Observable<{ behaviourTypeId: number }> {
-    return this._client.post<{ behaviourTypeId: number }>(`${this._baseUrl}/api/behaviourTypes`, { behaviourType: options.behaviourType });
+    return this._client.post<{ behaviourTypeId: number }>(`${this._baseUrl}api/behaviourTypes`, { behaviourType: options.behaviourType });
   }
 }

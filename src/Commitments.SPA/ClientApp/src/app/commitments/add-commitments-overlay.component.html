@@ -3,13 +3,14 @@
 </mat-card-title>
 
 <section>
-  <mat-selection-list #commitments dense>
-    <mat-list-option *ngFor="let commitment of (commitments$ |async)" [value]="commitment">
-      {{ commitment.name }}
+  <mat-selection-list #behaviours>
+    <mat-list-option *ngFor="let behaviour of (behaviours$ |async)" [value]="behaviour">
+      {{ behaviour.name }}
     </mat-list-option>
   </mat-selection-list>
 
   <div class="actions">
-    <button mat-button (click)="handleSaveClick(commitments)">Save</button>
+    <button mat-button (click)="handleSaveClick(behaviours)">Save</button>
+    <button mat-button (click)="handleCancelClick()">Cancel</button>
   </div>
 </section>

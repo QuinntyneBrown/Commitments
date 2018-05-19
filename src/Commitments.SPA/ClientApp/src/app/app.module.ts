@@ -40,7 +40,7 @@ import { ProfilesModule } from './profiles/profiles.module';
     TagsModule,
     UsersModule
   ],
-  providers: [{ provide: baseUrl, useValue: 'http://localhost:9611/' }],
+  providers: [{ provide: baseUrl, useValue: 'http://localhost:9613/' }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

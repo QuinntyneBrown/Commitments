@@ -18,7 +18,7 @@ namespace Commitments.API.Features.BehaviourTypes
         public async Task<ActionResult<SaveBehaviourTypeCommand.Response>> Save(SaveBehaviourTypeCommand.Request request)
             => await _mediator.Send(request);
         
-        [HttpDelete("{BehaviourType.BehaviourTypeId}")]
+        [HttpDelete("{BehaviourTypeId}")]
         public async Task Remove([FromRoute]RemoveBehaviourTypeCommand.Request request)
             => await _mediator.Send(request);            
 

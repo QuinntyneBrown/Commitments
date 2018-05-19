@@ -19,7 +19,7 @@ namespace Commitments.API.Features.FrequencyTypes
             => await _mediator.Send(request);
         
         [HttpDelete("{FrequencyType.FrequencyTypeId}")]
-        public async Task Remove([FromRoute]RemoveFrequencyTypeCommand.Request request)
+        public async Task Remove(RemoveFrequencyTypeCommand.Request request)
             => await _mediator.Send(request);            
 
         [HttpGet("{FrequencyTypeId}")]

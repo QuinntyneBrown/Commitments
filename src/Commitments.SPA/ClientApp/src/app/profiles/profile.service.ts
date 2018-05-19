@@ -13,7 +13,7 @@ export class ProfileService {
   ) { }
 
   public current(): Observable<Profile> {
-    return this._client.get<{ profile: Profile }>(`${this._baseUrl}/api/profiles/current`)
+    return this._client.get<{ profile: Profile }>(`${this._baseUrl}api/profiles/current`)
       .pipe(
         map(x => x.profile)
       );

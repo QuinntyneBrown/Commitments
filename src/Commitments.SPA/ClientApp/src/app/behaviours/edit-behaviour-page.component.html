@@ -15,6 +15,10 @@
     <input matInput placeholder="{{ 'Name' | translate }}" id="name" formControlName="name">
   </mat-form-field>
 
+  <section>
+    <mat-checkbox id="isDesired" formControlName="isDesired">Is Desired</mat-checkbox>
+  </section>
+
   <app-quill-text-editor formControlName="description" [editorPlaceholder]="'Description'"></app-quill-text-editor>
 
   <div class="actions">

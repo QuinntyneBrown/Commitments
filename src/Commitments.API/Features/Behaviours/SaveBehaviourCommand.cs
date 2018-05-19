@@ -41,7 +41,7 @@ namespace Commitments.API.Features.Behaviours
                 behaviour.Name = request.Behaviour.Name;
                 behaviour.Slug = request.Behaviour.Name.GenerateSlug();
                 behaviour.Description = request.Behaviour.Description;
-
+                behaviour.BehaviourTypeId = request.Behaviour.BehaviourTypeId;
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return new Response() { BehaviourId = behaviour.BehaviourId };
