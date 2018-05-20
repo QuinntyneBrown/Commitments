@@ -1,7 +1,9 @@
-﻿using Commitments.Core.Entities;
+﻿using Commitments.API.Features.DashboardCards;
+using Commitments.Core.Entities;
 using Commitments.Core.Identity;
 using Commitments.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Linq;
 
 namespace Commitments.API
@@ -12,9 +14,13 @@ namespace Commitments.API
         {
             BehaviourTypeConfiguration.Seed(context);
             CardConfiguration.Seed(context);
+
             FrequencyTypeConfiguration.Seed(context);
             UserConfiguration.Seed(context);
-            TagConfiguration.Seed(context);            
+            TagConfiguration.Seed(context);
+
+            DashboardConfiguration.Seed(context);
+            DashboardCardConfiguration.Seed(context);
         }
         
         internal class BehaviourTypeConfiguration
@@ -61,6 +67,50 @@ namespace Commitments.API
 
                 if (context.Cards.FirstOrDefault(x => x.Name == "Monthly Results") == null)
                     context.Cards.Add(new Card() { Name = "Monthly Results" });
+                
+                context.SaveChanges();
+            }
+        }
+
+        internal class DashboardConfiguration {
+
+            public static void Seed(AppDbContext context)
+            {
+                if(context.Dashboards.FirstOrDefault(x=> x.Name == "Default" && x.ProfileId == 1) == null)
+                {
+                    context.Dashboards.Add(new Dashboard()
+                    {
+                        Name = "Default",
+                        ProfileId = 1
+                    });
+                }
+
+                context.SaveChanges();
+            }
+        }
+
+        internal class DashboardCardConfiguration
+        {
+
+            public static void Seed(AppDbContext context)
+            {
+                var dashboard = context.Dashboards.Include(x => x.DashboardCards).First(x => x.ProfileId == 1);
+
+                if (dashboard.DashboardCards.SingleOrDefault(x => x.CardId == 1) == null)
+                {
+                    dashboard.DashboardCards.Add(new DashboardCard()
+                    {
+                        CardId = 1,
+                        Options = JsonConvert.SerializeObject(new DashboardCardApiModel.OptionsApiModel()
+                        {
+                            Top = 1,
+                            Left = 1,
+                            Width = 1,
+                            Height = 1
+
+                        })
+                    });
+                }
                 
                 context.SaveChanges();
             }

@@ -1,4 +1,6 @@
 using Commitments.Core.Entities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Commitments.API.Features.Commitments
 {
@@ -8,12 +10,17 @@ namespace Commitments.API.Features.Commitments
         public int BehaviourId { get; set; }
         public int ProfileId { get; set; }
 
+        public ICollection<CommitmentFrequencyApiModel> CommitmentFrequencies { get; set; }
+        = new HashSet<CommitmentFrequencyApiModel>();
+
         public static CommitmentApiModel FromCommitment(Commitment commitment)
         {
             var model = new CommitmentApiModel();
             model.CommitmentId = commitment.CommitmentId;
             model.BehaviourId = commitment.BehaviourId;
             model.ProfileId = commitment.ProfileId;
+            model.CommitmentFrequencies = commitment.CommitmentFrequencies
+                .Select(x => CommitmentFrequencyApiModel.FromCommitmentFrequency(x)).ToList();
             return model;
         }
     }

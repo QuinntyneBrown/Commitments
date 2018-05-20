@@ -12,9 +12,10 @@
   </mat-form-field>
 
   <section>
-    <mat-checkbox>Is Desired</mat-checkbox>
+    <mat-checkbox formControlName="isDesired">Is Desired</mat-checkbox>
   </section>
+
   <div class="actions">
-    <button mat-button (click)="handleSaveClick()">{{ "Add" | translate }}</button>
+    <button mat-button (click)="handleSaveClick()">{{ "Save" | translate }}</button>
   </div>
 </form>

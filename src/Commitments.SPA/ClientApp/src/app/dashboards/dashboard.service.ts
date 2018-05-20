@@ -12,10 +12,10 @@ export class DashboardService {
     private _client: HttpClient
   ) { }
 
-  public get(): Observable<Array<Dashboard>> {
-    return this._client.get<{ dashboards: Array<Dashboard> }>(`${this._baseUrl}api/dashboards`)
+  public getByCurrentProfile(): Observable<Dashboard> {
+    return this._client.get<{ dashboard: Dashboard }>(`${this._baseUrl}api/dashboards/currentProfile`)
       .pipe(
-        map(x => x.dashboards)
+        map(x => x.dashboard)
       );
   }
 

@@ -10,5 +10,7 @@ export class OverlayRefWrapper {
   }
   
   public results = new Subject<any>();
+
+  public data: any;
   
 }

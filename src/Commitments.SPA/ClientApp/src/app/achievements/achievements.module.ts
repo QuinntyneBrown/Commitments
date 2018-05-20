@@ -7,12 +7,19 @@ import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { CommitmentsModule } from '../commitments/commitments.module';
 import { ActivitiesModule } from '../activities/activities.module';
+import { DashboardCardsModule } from '../dashboard-cards/dashboard-cards.module';
+import { DailyResultsDashboardCardComponent } from './daily-results-dashboard-card.component';
 
 const declarations = [
+  DailyResultsDashboardCardComponent
 ];
 
 const providers = [
   AchievementService
+];
+
+const entryComponents = [
+  DailyResultsDashboardCardComponent
 ];
 
 @NgModule({
@@ -26,8 +33,11 @@ const providers = [
     ActivitiesModule,
     CoreModule,
     CommitmentsModule,
+    DashboardCardsModule,
     SharedModule,
   ],
-  providers
+  entryComponents,
+  providers,
+  exports:declarations
 })
 export class AchievementsModule { }

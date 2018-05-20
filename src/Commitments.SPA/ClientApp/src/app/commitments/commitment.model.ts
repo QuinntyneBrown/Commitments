@@ -1,8 +1,8 @@
-import { Frequency } from "../frequencies/frequency.model";
+import { CommitmentFrequency } from "./commitment-frequency.model";
 
 export class Commitment {
   public commitmentId: number;
   public behaviourId: number;
   public profileId: number;
-  public frequencies: Array<Frequency> = [];
+  public commitmentFrequencies: Array<CommitmentFrequency> = [];
 }

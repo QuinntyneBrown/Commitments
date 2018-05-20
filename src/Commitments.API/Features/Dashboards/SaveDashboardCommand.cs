@@ -39,6 +39,8 @@ namespace Commitments.API.Features.Dashboards
 
                 dashboard.Name = request.Dashboard.Name;
 
+                dashboard.ProfileId = request.Dashboard.ProfileId;
+
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return new Response() { DashboardId = dashboard.DashboardId };

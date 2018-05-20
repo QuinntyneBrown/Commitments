@@ -9,16 +9,24 @@ import { FrequencyTypeService } from './frequency-type.service';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { FrequencyPageComponent } from './frequency-page.component';
+import { EditFrequencyPageComponent } from './edit-frequency-page.component';
+import { EditFrequencyOverlayComponent } from './edit-frequency-overlay.component';
 
 const declarations = [
   FrequenciesEditorComponent,
   FrequencyEditorComponent,
-  FrequencyPageComponent
+  FrequencyPageComponent,
+  EditFrequencyPageComponent,
+  EditFrequencyOverlayComponent
 ];
 
 const providers = [
   FrequencyService,
   FrequencyTypeService
+];
+
+const entryComponents = [
+  EditFrequencyOverlayComponent
 ];
 
 @NgModule({
@@ -33,6 +41,7 @@ const providers = [
     SharedModule
   ],
   providers,
-  exports: declarations
+  exports: declarations,
+  entryComponents
 })
 export class FrequenciesModule { }

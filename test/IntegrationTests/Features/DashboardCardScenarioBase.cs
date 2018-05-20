@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+
 namespace IntegrationTests.Features
 {
     public class DashboardCardScenarioBase: ScenarioBase
@@ -10,11 +13,17 @@ namespace IntegrationTests.Features
             {
                 return $"api/dashboardCards/{id}";
             }
+
+            public static string DashboardCardByIds(List<int> ids)
+            {
+                return $"api/dashboardCards/range?{string.Join("&", ids.Select(x => $"dashboardCardIds={x}"))}";
+            }
         }
 
         public static class Post
         {
             public static string DashboardCards = "api/dashboardCards";
+            public static string DashboardCardsRange = "api/dashboardCards/range";
         }
 
         public static class Delete

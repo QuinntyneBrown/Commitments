@@ -8,13 +8,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Commitments.API.Features.Dashboards
 {
-    public class GetDashboardsQuery
+    public class GetDashboardByProfileIdQuery
     {
-        public class Request : IRequest<Response> { }
+        public class Request : IRequest<Response> {
+            public int ProfileId { get; set; }
+        }
 
         public class Response
         {
-            public IEnumerable<DashboardApiModel> Dashboards { get; set; }
+            public DashboardApiModel Dashboard { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -26,7 +28,9 @@ namespace Commitments.API.Features.Dashboards
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    Dashboards = await _context.Dashboards.Select(x => DashboardApiModel.FromDashboard(x)).ToListAsync()
+                    Dashboard = DashboardApiModel.FromDashboard(await _context.Dashboards
+                        .Include(x => x.DashboardCards)
+                        .SingleAsync(x => x.ProfileId == request.ProfileId))
                 };
         }
     }

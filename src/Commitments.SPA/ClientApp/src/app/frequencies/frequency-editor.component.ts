@@ -26,14 +26,17 @@ export class FrequencyEditorComponent {
     let frequency = new Frequency();
     frequency.frequency = this.form.value.frequency;
     frequency.frequencyTypeId = this.form.value.frequencyTypeId;
+    frequency.isDesired = this.form.value.isDesired;
     this.save.emit({ frequency });
   }
+
 
   @Output() 
   public save: EventEmitter<any> = new EventEmitter();
 
   public form: FormGroup = new FormGroup({
     frequency: new FormControl(null, [Validators.required]),
-    frequencyTypeId: new FormControl(null, [Validators.required])
+    frequencyTypeId: new FormControl(null, [Validators.required]),
+    isDesired: new FormControl(true, [Validators.required])
   });
 }

@@ -28,7 +28,7 @@ namespace Commitments.API.Features.DashboardCards
                 => new Response()
                 {
                     DashboardCards = await _context.DashboardCards
-                    .Where(x => request.DashboardCardIds.Contains(x.DashboardId))
+                    .Where(x => request.DashboardCardIds.Contains(x.DashboardCardId))
                     .Select(x => DashboardCardApiModel.FromDashboardCard(x)).ToListAsync()
                 };
         }

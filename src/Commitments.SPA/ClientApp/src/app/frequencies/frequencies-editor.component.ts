@@ -23,6 +23,9 @@ export class FrequenciesEditorComponent {
   @Input()
   public frequencies$: BehaviorSubject<Array<Frequency>> = new BehaviorSubject([]);
 
+  @Input()
+  public frequencies: any[] = [];
+
   public handleFrequencySave($event) {
     this.frequencies$.next([...this.frequencies$.value,$event.frequency]);
   }

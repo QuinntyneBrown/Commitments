@@ -7,13 +7,15 @@ import { ActivitiesModule } from '../activities/activities.module';
 import { CommitmentsModule } from '../commitments/commitments.module';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
+import { AchievementsModule } from '../achievements/achievements.module';
+import { DashboardService } from './dashboard.service';
 
 const declarations = [
   DashboardPageComponent
 ];
 
 const providers = [
-
+  DashboardService
 ];
 
 @NgModule({
@@ -24,6 +26,7 @@ const providers = [
     ReactiveFormsModule,
     RouterModule,
 
+    AchievementsModule,
     ActivitiesModule,
     CommitmentsModule,
     CoreModule,

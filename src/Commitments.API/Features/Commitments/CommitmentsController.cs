@@ -23,8 +23,10 @@ namespace Commitments.API.Features.Commitments
         }
 
         [HttpPost]
-        public async Task<ActionResult<SaveCommitmentCommand.Response>> Save(SaveCommitmentCommand.Request request)
-            => await _mediator.Send(request);
+        public async Task<ActionResult<SaveCommitmentCommand.Response>> Save(SaveCommitmentCommand.Request request) {
+            request.Commitment.ProfileId = GetProfileId();
+            return await _mediator.Send(request);
+        }
         
         [HttpDelete("{commitmentId}")]
         public async Task Remove(RemoveCommitmentCommand.Request request)
@@ -40,9 +42,12 @@ namespace Commitments.API.Features.Commitments
 
         [HttpGet("daily")]
         public async Task<ActionResult<GetDailyCommitmentsQuery.Response>> GetDaily() {
+            return await _mediator.Send(new GetDailyCommitmentsQuery.Request() { ProfileId = GetProfileId() });
+        }
+
+        public int GetProfileId() {
             var profileClaim = _httpContextAccessor.HttpContext.User.Claims.Single(x => x.Type == "ProfileId");
-            var profileId = Convert.ToInt16(profileClaim.Value);
-            return await _mediator.Send(new GetDailyCommitmentsQuery.Request() { ProfileId = profileId });
+            return Convert.ToInt16(profileClaim.Value);
         }
     }
 }

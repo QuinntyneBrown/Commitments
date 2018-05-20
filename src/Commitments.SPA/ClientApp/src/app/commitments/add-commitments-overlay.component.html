@@ -14,8 +14,13 @@
   </mat-tab>
 
   <mat-tab label="Select Frequencies">
-    <app-frequencies-editor [frequencyTypes]="(frequencyTypes$ | async)">
-    </app-frequencies-editor>
+    <section>
+      <mat-selection-list #frequencies>
+        <mat-list-option *ngFor="let frequency of (frequencies$ |async)" [value]="frequency" (change)="onNgModelChange($event)">
+          {{ frequency.frequency }} {{ frequency.frequencyType.name }}
+        </mat-list-option>
+      </mat-selection-list>
+    </section>
   </mat-tab>
 </mat-tab-group>
 

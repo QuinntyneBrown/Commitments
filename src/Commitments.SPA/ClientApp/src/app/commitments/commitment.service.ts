@@ -12,8 +12,8 @@ export class CommitmentService {
     private _client: HttpClient
   ) { }
 
-  public getByCurrentProfile(): Observable<Array<Commitment>> {
-    return this._client.get<{ commitments: Array<Commitment> }>(`${this._baseUrl}api/commitments/currentProfile`)
+  public getDailyByCurrentProfile(): Observable<Array<Commitment>> {
+    return this._client.get<{ commitments: Array<Commitment> }>(`${this._baseUrl}api/commitments/daily`)
       .pipe(
         map(x => x.commitments)
       );

@@ -26,7 +26,10 @@ namespace Commitments.API.Features.Frequencies
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    Frequencies = await _context.Frequencies.Select(x => FrequencyApiModel.FromFrequency(x)).ToListAsync()
+                    Frequencies = await _context.Frequencies
+                    .Include(x =>x.FrequencyType)
+                    .Select(x => FrequencyApiModel.FromFrequency(x))
+                    .ToListAsync()
                 };
         }
     }

@@ -34,8 +34,6 @@
     <Folder Include="Features\BehaviourTypes\" />
     <Folder Include="Features\Frequencies\" />
     <Folder Include="Features\Activities\" />
-    <Folder Include="Features\Dashboards\" />
-    <Folder Include="Features\DashboardCards\" />
     <Folder Include="Features\Cards\" />
     <Folder Include="Properties\" />
   </ItemGroup>

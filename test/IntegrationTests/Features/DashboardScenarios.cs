@@ -24,6 +24,7 @@ namespace IntegrationTests.Features
                         Dashboard = new DashboardApiModel()
                         {
                             Name = "Name",
+                            ProfileId = 1
                         }
                     });
      
@@ -39,7 +40,7 @@ namespace IntegrationTests.Features
             using (var server = CreateServer())
             {
                 var response = await server.CreateClient()
-                    .GetAsync<GetDashboardsQuery.Response>(Get.Dashboards);
+                    .GetAsync<GetDashboardByProfileIdQuery.Response>(Get.Dashboards);
 
                 Assert.True(response.Dashboards.Count() > 0);
             }
