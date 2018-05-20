@@ -24,6 +24,7 @@ import { FrequenciesModule } from './frequencies/frequencies.module';
 import { ActivitiesModule } from './activities/activities.module';
 import { DashboardsModule } from './dashboards/dashboards.module';
 import { CardsModule } from './cards/cards.module';
+import { AchievementsModule } from './achievements/achievements.module';
 
 @NgModule({
   declarations: [AppComponent, AnonymousMasterPageComponent, MasterPageComponent],
@@ -35,6 +36,7 @@ import { CardsModule } from './cards/cards.module';
 
     AppRoutingModule,
 
+    AchievementsModule,
     ActivitiesModule,
     CardsModule,
     CommitmentsModule,

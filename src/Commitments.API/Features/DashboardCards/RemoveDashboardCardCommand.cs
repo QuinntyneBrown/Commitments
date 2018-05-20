@@ -2,7 +2,6 @@ using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 
 namespace Commitments.API.Features.DashboardCards
@@ -13,13 +12,13 @@ namespace Commitments.API.Features.DashboardCards
         {
             public Validator()
             {
-                RuleFor(request => request.DashboardCard.DashboardCardId).NotEqual(0);
+                RuleFor(request => request.DashboardCardId).NotEqual(0);
             }
         }
 
         public class Request : IRequest
         {
-            public DashboardCard DashboardCard { get; set; }
+            public int DashboardCardId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request>
@@ -30,7 +29,7 @@ namespace Commitments.API.Features.DashboardCards
 
             public async Task Handle(Request request, CancellationToken cancellationToken)
             {
-                _context.DashboardCards.Remove(await _context.DashboardCards.FindAsync(request.DashboardCard.DashboardCardId));
+                _context.DashboardCards.Remove(await _context.DashboardCards.FindAsync(request.DashboardCardId));
                 await _context.SaveChangesAsync(cancellationToken);
             }
 

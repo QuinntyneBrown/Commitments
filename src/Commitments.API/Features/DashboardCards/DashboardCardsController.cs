@@ -14,18 +14,26 @@ namespace Commitments.API.Features.DashboardCards
 
         public DashboardCardsController(IMediator mediator) => _mediator = mediator;
 
+        [HttpPost("range")]
+        public async Task<ActionResult<SaveDashboardCardCommand.Response>> Save(SaveDashboardCardCommand.Request request)
+            => await _mediator.Send(request);
+
         [HttpPost]
         public async Task<ActionResult<SaveDashboardCardCommand.Response>> Save(SaveDashboardCardCommand.Request request)
             => await _mediator.Send(request);
-        
-        [HttpDelete("{DashboardCard.DashboardCardId}")]
+
+        [HttpDelete("{dashboardCardId}")]
         public async Task Remove([FromRoute]RemoveDashboardCardCommand.Request request)
             => await _mediator.Send(request);            
 
-        [HttpGet("{DashboardCardId}")]
+        [HttpGet("{dashboardCardId}")]
         public async Task<ActionResult<GetDashboardCardByIdQuery.Response>> GetById([FromRoute]GetDashboardCardByIdQuery.Request request)
             => await _mediator.Send(request);
 
+        [HttpGet("{dashboardCardIds}")]
+        public async Task<ActionResult<GetDashboardCardByIdsQuery.Response>> GetByIds([FromQuery]GetDashboardCardByIdsQuery.Request request)
+            => await _mediator.Send(request);
+        
         [HttpGet]
         public async Task<ActionResult<GetDashboardCardsQuery.Response>> Get()
             => await _mediator.Send(new GetDashboardCardsQuery.Request());

@@ -47,7 +47,7 @@ export class MyCommimentsPageComponent {
     
     overlayRef.attach(overlayPortal);
 
-    overlayRefWrapper.afterClosed
+    overlayRefWrapper.results
       .pipe(map(this.handleSelectedBehaviours),takeUntil(this.onDestroy))
       .subscribe()    
   }

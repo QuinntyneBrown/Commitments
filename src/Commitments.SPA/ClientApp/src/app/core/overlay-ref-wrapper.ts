@@ -4,12 +4,11 @@ import { Subject, Observable } from 'rxjs';
 export class OverlayRefWrapper {
   constructor(private overlayRef: OverlayRef) {}
 
-  close(data: any = null): void {    
+  public close(data: any = null): void {    
     this.overlayRef.dispose();
-    this.afterClosed.next(data);
+    this.results.next(data);
   }
   
-  public afterClosed = new Subject<any>();
-  
+  public results = new Subject<any>();
   
 }
