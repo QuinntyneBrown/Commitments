@@ -22,7 +22,8 @@ import { CommitmentsModule } from './commitments/commitments.module';
 import { ProfilesModule } from './profiles/profiles.module';
 import { FrequenciesModule } from './frequencies/frequencies.module';
 import { ActivitiesModule } from './activities/activities.module';
-import { DashboardModule } from './dashboard/dashboard.module';
+import { DashboardsModule } from './dashboards/dashboards.module';
+import { CardsModule } from './cards/cards.module';
 
 @NgModule({
   declarations: [AppComponent, AnonymousMasterPageComponent, MasterPageComponent],
@@ -35,9 +36,10 @@ import { DashboardModule } from './dashboard/dashboard.module';
     AppRoutingModule,
 
     ActivitiesModule,
+    CardsModule,
     CommitmentsModule,
     CoreModule,
-    DashboardModule,
+    DashboardsModule,
     FrequenciesModule,
     NotesModule,
     ProfilesModule,

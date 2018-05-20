@@ -24,7 +24,10 @@ namespace Commitments.Infrastructure.Data
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Behaviour> Behaviours { get; set; }
         public DbSet<BehaviourType> BehaviourTypes { get; set; }
+        public DbSet<Card> Cards { get; set; }
         public DbSet<Commitment> Commitments { get; set; }
+        public DbSet<Dashboard> Dashboards { get; set; }
+        public DbSet<DashboardCard> DashboardCards { get; set; }
         public DbSet<DigitalAsset> DigitalAssets { get; set; }
         public DbSet<Frequency> Frequencies { get; set; }
         public DbSet<FrequencyType> FrequencyTypes { get; set; }
@@ -67,7 +70,16 @@ namespace Commitments.Infrastructure.Data
             modelBuilder.Entity<BehaviourType>()
                 .HasQueryFilter(e => !e.IsDeleted);
 
+            modelBuilder.Entity<Card>()
+                .HasQueryFilter(e => !e.IsDeleted);
+
             modelBuilder.Entity<Commitment>()
+                .HasQueryFilter(e => !e.IsDeleted);
+
+            modelBuilder.Entity<Dashboard>()
+                .HasQueryFilter(e => !e.IsDeleted);
+            
+            modelBuilder.Entity<DashboardCard>()
                 .HasQueryFilter(e => !e.IsDeleted);
 
             modelBuilder.Entity<Frequency>()
