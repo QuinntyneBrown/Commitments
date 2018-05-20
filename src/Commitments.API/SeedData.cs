@@ -11,14 +11,12 @@ namespace Commitments.API
         public static void Seed(AppDbContext context)
         {
             BehaviourTypeConfiguration.Seed(context);
+            CardConfiguration.Seed(context);
             FrequencyTypeConfiguration.Seed(context);
             UserConfiguration.Seed(context);
-            TagConfiguration.Seed(context);
-
-            context.SaveChanges();
+            TagConfiguration.Seed(context);            
         }
-
-
+        
         internal class BehaviourTypeConfiguration
         {
             public static void Seed(AppDbContext context)
@@ -47,6 +45,23 @@ namespace Commitments.API
                 if (context.BehaviourTypes.FirstOrDefault(x => x.Name == "Health") == null)
                     context.BehaviourTypes.Add(new BehaviourType() { Name = "Health" });
 
+                context.SaveChanges();
+            }
+        }
+
+        internal class CardConfiguration
+        {
+            public static void Seed(AppDbContext context)
+            {
+                if (context.Cards.FirstOrDefault(x => x.Name == "Daily Results") == null)
+                    context.Cards.Add(new Card() { Name = "Daily Results" });
+
+                if (context.Cards.FirstOrDefault(x => x.Name == "Weekly Results") == null)
+                    context.Cards.Add(new Card() { Name = "Weekly Results" });
+
+                if (context.Cards.FirstOrDefault(x => x.Name == "Monthly Results") == null)
+                    context.Cards.Add(new Card() { Name = "Monthly Results" });
+                
                 context.SaveChanges();
             }
         }

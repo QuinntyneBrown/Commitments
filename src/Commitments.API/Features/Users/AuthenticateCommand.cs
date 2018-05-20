@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Threading;
 using FluentValidation;
 using Commitments.Core.Exceptions;
+using System.Security.Claims;
+using System.Collections.Generic;
 
 namespace Commitments.API.Features.Users
 {
@@ -57,9 +59,11 @@ namespace Commitments.API.Features.Users
                 if (!ValidateUser(user, _passwordHasher.HashPassword(user.Salt, request.Password)))
                     throw new DomainException();
 
+                var profile = await _context.Profiles.Include(x => x.User).SingleAsync(x => x.User.Username == request.Username);
+
                 return new Response()
                 {
-                    AccessToken = _tokenProvider.Get(request.Username),
+                    AccessToken = _tokenProvider.Get(request.Username, new List<Claim>() { new Claim("ProfileId", $"{profile.ProfileId}") }),
                     UserId = user.UserId
                 };
             }

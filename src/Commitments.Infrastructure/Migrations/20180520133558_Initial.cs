@@ -26,6 +26,39 @@ namespace Commitments.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Cards",
+                columns: table => new
+                {
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    LastModifiedOn = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CardId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cards", x => x.CardId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Dashboards",
+                columns: table => new
+                {
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    LastModifiedOn = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DashboardId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    ProfileId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dashboards", x => x.DashboardId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DigitalAssets",
                 columns: table => new
                 {
@@ -105,6 +138,60 @@ namespace Commitments.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.UserId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DashboardCards",
+                columns: table => new
+                {
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    LastModifiedOn = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DashboardCardId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DashboardId = table.Column<int>(nullable: false),
+                    CardId = table.Column<int>(nullable: false),
+                    Options = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DashboardCards", x => x.DashboardCardId);
+                    table.ForeignKey(
+                        name: "FK_DashboardCards_Cards_CardId",
+                        column: x => x.CardId,
+                        principalTable: "Cards",
+                        principalColumn: "CardId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DashboardCards_Dashboards_DashboardId",
+                        column: x => x.DashboardId,
+                        principalTable: "Dashboards",
+                        principalColumn: "DashboardId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Frequencies",
+                columns: table => new
+                {
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    LastModifiedOn = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    Frequency = table.Column<int>(nullable: false),
+                    FrequencyId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    FrequencyTypeId = table.Column<int>(nullable: false),
+                    IsDesirable = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Frequencies", x => x.FrequencyId);
+                    table.ForeignKey(
+                        name: "FK_Frequencies_FrequencyTypes_FrequencyTypeId",
+                        column: x => x.FrequencyTypeId,
+                        principalTable: "FrequencyTypes",
+                        principalColumn: "FrequencyTypeId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -252,6 +339,32 @@ namespace Commitments.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CommitmentFrequency",
+                columns: table => new
+                {
+                    CommitmentFrequencyId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CommitmentId = table.Column<int>(nullable: false),
+                    FrequencyId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CommitmentFrequency", x => x.CommitmentFrequencyId);
+                    table.ForeignKey(
+                        name: "FK_CommitmentFrequency_Commitment_CommitmentId",
+                        column: x => x.CommitmentId,
+                        principalTable: "Commitment",
+                        principalColumn: "CommitmentId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CommitmentFrequency_Frequencies_FrequencyId",
+                        column: x => x.FrequencyId,
+                        principalTable: "Frequencies",
+                        principalColumn: "FrequencyId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CommitmentPreCondition",
                 columns: table => new
                 {
@@ -268,37 +381,6 @@ namespace Commitments.Infrastructure.Migrations
                         column: x => x.CommitmentId,
                         principalTable: "Commitment",
                         principalColumn: "CommitmentId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Frequencies",
-                columns: table => new
-                {
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    LastModifiedOn = table.Column<DateTime>(nullable: false),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    Frequency = table.Column<int>(nullable: false),
-                    FrequencyId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    FrequencyTypeId = table.Column<int>(nullable: false),
-                    IsDesirable = table.Column<bool>(nullable: false),
-                    CommitmentId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Frequencies", x => x.FrequencyId);
-                    table.ForeignKey(
-                        name: "FK_Frequencies_Commitment_CommitmentId",
-                        column: x => x.CommitmentId,
-                        principalTable: "Commitment",
-                        principalColumn: "CommitmentId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Frequencies_FrequencyTypes_FrequencyTypeId",
-                        column: x => x.FrequencyTypeId,
-                        principalTable: "FrequencyTypes",
-                        principalColumn: "FrequencyTypeId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -333,14 +415,29 @@ namespace Commitments.Infrastructure.Migrations
                 column: "ProfileId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CommitmentFrequency_CommitmentId",
+                table: "CommitmentFrequency",
+                column: "CommitmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CommitmentFrequency_FrequencyId",
+                table: "CommitmentFrequency",
+                column: "FrequencyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CommitmentPreCondition_CommitmentId",
                 table: "CommitmentPreCondition",
                 column: "CommitmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Frequencies_CommitmentId",
-                table: "Frequencies",
-                column: "CommitmentId");
+                name: "IX_DashboardCards_CardId",
+                table: "DashboardCards",
+                column: "CardId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DashboardCards_DashboardId",
+                table: "DashboardCards",
+                column: "DashboardId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Frequencies_FrequencyTypeId",
@@ -369,28 +466,40 @@ namespace Commitments.Infrastructure.Migrations
                 name: "Activities");
 
             migrationBuilder.DropTable(
+                name: "CommitmentFrequency");
+
+            migrationBuilder.DropTable(
                 name: "CommitmentPreCondition");
+
+            migrationBuilder.DropTable(
+                name: "DashboardCards");
 
             migrationBuilder.DropTable(
                 name: "DigitalAssets");
 
             migrationBuilder.DropTable(
-                name: "Frequencies");
+                name: "NoteTag");
 
             migrationBuilder.DropTable(
-                name: "NoteTag");
+                name: "Frequencies");
 
             migrationBuilder.DropTable(
                 name: "Commitment");
 
             migrationBuilder.DropTable(
-                name: "FrequencyTypes");
+                name: "Cards");
+
+            migrationBuilder.DropTable(
+                name: "Dashboards");
 
             migrationBuilder.DropTable(
                 name: "Notes");
 
             migrationBuilder.DropTable(
                 name: "Tags");
+
+            migrationBuilder.DropTable(
+                name: "FrequencyTypes");
 
             migrationBuilder.DropTable(
                 name: "Behaviours");

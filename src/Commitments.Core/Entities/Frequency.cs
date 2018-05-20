@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Commitments.Core.Entities
 {
     public class BaseFrequency: BaseEntity {
@@ -10,5 +12,7 @@ namespace Commitments.Core.Entities
         public int FrequencyTypeId { get; set; }
         public bool IsDesirable { get; set; }
         public FrequencyType FrequencyType { get; set; }
+        public ICollection<CommitmentFrequency> CommitmentFrequencies { get; set; }
+        = new HashSet<CommitmentFrequency>();
     }
 }

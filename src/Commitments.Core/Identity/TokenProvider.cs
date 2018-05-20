@@ -10,7 +10,7 @@ namespace Commitments.Core.Identity
 {
     public interface ITokenProvider
     {
-        string Get(string username);
+        string Get(string username, List<Claim> customClaims = null);
     }
 
     public class TokenProvider : ITokenProvider
@@ -19,7 +19,7 @@ namespace Commitments.Core.Identity
         public TokenProvider(IConfiguration configuration)
             => _configuration = configuration;
         
-        public string Get(string uniqueName)
+        public string Get(string uniqueName, List<Claim> customClaims = null)
         {
             var now = DateTime.UtcNow;
             var nowDateTimeOffset = new DateTimeOffset(now);
@@ -31,6 +31,9 @@ namespace Commitments.Core.Identity
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Iat, nowDateTimeOffset.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64),
                 };
+
+            if (customClaims != null)
+                claims.AddRange(customClaims);
 
             var jwt = new JwtSecurityToken(
                 issuer: _configuration["Authentication:JwtIssuer"],

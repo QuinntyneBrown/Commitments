@@ -10,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Commitments.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180520133558_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,9 +143,9 @@ namespace Commitments.Infrastructure.Migrations
                     b.Property<int>("CommitmentFrequencyId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CommitmentId");
+                    b.Property<int>("CommitmentId");
 
-                    b.Property<int?>("FrequencyId");
+                    b.Property<int>("FrequencyId");
 
                     b.HasKey("CommitmentFrequencyId");
 
@@ -409,7 +410,7 @@ namespace Commitments.Infrastructure.Migrations
             modelBuilder.Entity("Commitments.Core.Entities.Commitment", b =>
                 {
                     b.HasOne("Commitments.Core.Entities.Behaviour", "Behaviour")
-                        .WithMany("Commitments")
+                        .WithMany()
                         .HasForeignKey("BehaviourId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -423,11 +424,13 @@ namespace Commitments.Infrastructure.Migrations
                 {
                     b.HasOne("Commitments.Core.Entities.Commitment", "Commitment")
                         .WithMany("CommitmentFrequencies")
-                        .HasForeignKey("CommitmentId");
+                        .HasForeignKey("CommitmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Commitments.Core.Entities.Frequency", "Frequency")
                         .WithMany("CommitmentFrequencies")
-                        .HasForeignKey("FrequencyId");
+                        .HasForeignKey("FrequencyId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Commitments.Core.Entities.CommitmentPreCondition", b =>

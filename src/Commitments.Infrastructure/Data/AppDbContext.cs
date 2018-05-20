@@ -110,6 +110,16 @@ namespace Commitments.Infrastructure.Data
                 .WithMany(t => t.NoteTags)
                 .HasForeignKey(nt => nt.TagId);
 
+            modelBuilder.Entity<CommitmentFrequency>()
+                .HasOne(nt => nt.Commitment)
+                .WithMany(n => n.CommitmentFrequencies)
+                .HasForeignKey(nt => nt.CommitmentId);
+
+            modelBuilder.Entity<CommitmentFrequency>()
+                .HasOne(nt => nt.Frequency)
+                .WithMany(t => t.CommitmentFrequencies)
+                .HasForeignKey(nt => nt.FrequencyId);
+
             base.OnModelCreating(modelBuilder);
         }       
     }

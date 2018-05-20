@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Commitments.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20180520095008_Initial")]
-    partial class Initial
+    [Migration("20180520134659_Initial2")]
+    partial class Initial2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -96,6 +96,24 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("BehaviourTypes");
                 });
 
+            modelBuilder.Entity("Commitments.Core.Entities.Card", b =>
+                {
+                    b.Property<int>("CardId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime>("LastModifiedOn");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("CardId");
+
+                    b.ToTable("Cards");
+                });
+
             modelBuilder.Entity("Commitments.Core.Entities.Commitment", b =>
                 {
                     b.Property<int>("CommitmentId")
@@ -120,6 +138,24 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("Commitment");
                 });
 
+            modelBuilder.Entity("Commitments.Core.Entities.CommitmentFrequency", b =>
+                {
+                    b.Property<int>("CommitmentFrequencyId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("CommitmentId");
+
+                    b.Property<int?>("FrequencyId");
+
+                    b.HasKey("CommitmentFrequencyId");
+
+                    b.HasIndex("CommitmentId");
+
+                    b.HasIndex("FrequencyId");
+
+                    b.ToTable("CommitmentFrequency");
+                });
+
             modelBuilder.Entity("Commitments.Core.Entities.CommitmentPreCondition", b =>
                 {
                     b.Property<int>("CommitmentPreConditionId")
@@ -134,6 +170,52 @@ namespace Commitments.Infrastructure.Migrations
                     b.HasIndex("CommitmentId");
 
                     b.ToTable("CommitmentPreCondition");
+                });
+
+            modelBuilder.Entity("Commitments.Core.Entities.Dashboard", b =>
+                {
+                    b.Property<int>("DashboardId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime>("LastModifiedOn");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("ProfileId");
+
+                    b.HasKey("DashboardId");
+
+                    b.ToTable("Dashboards");
+                });
+
+            modelBuilder.Entity("Commitments.Core.Entities.DashboardCard", b =>
+                {
+                    b.Property<int>("DashboardCardId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CardId");
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<int>("DashboardId");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime>("LastModifiedOn");
+
+                    b.Property<string>("Options");
+
+                    b.HasKey("DashboardCardId");
+
+                    b.HasIndex("CardId");
+
+                    b.HasIndex("DashboardId");
+
+                    b.ToTable("DashboardCards");
                 });
 
             modelBuilder.Entity("Commitments.Core.Entities.DigitalAsset", b =>
@@ -153,8 +235,6 @@ namespace Commitments.Infrastructure.Migrations
                     b.Property<int>("FrequencyId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CommitmentId");
-
                     b.Property<DateTime>("CreatedOn");
 
                     b.Property<int>("Frequency");
@@ -168,8 +248,6 @@ namespace Commitments.Infrastructure.Migrations
                     b.Property<DateTime>("LastModifiedOn");
 
                     b.HasKey("FrequencyId");
-
-                    b.HasIndex("CommitmentId");
 
                     b.HasIndex("FrequencyTypeId");
 
@@ -332,7 +410,7 @@ namespace Commitments.Infrastructure.Migrations
             modelBuilder.Entity("Commitments.Core.Entities.Commitment", b =>
                 {
                     b.HasOne("Commitments.Core.Entities.Behaviour", "Behaviour")
-                        .WithMany()
+                        .WithMany("Commitments")
                         .HasForeignKey("BehaviourId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -340,6 +418,17 @@ namespace Commitments.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("ProfileId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Commitments.Core.Entities.CommitmentFrequency", b =>
+                {
+                    b.HasOne("Commitments.Core.Entities.Commitment", "Commitment")
+                        .WithMany("CommitmentFrequencies")
+                        .HasForeignKey("CommitmentId");
+
+                    b.HasOne("Commitments.Core.Entities.Frequency", "Frequency")
+                        .WithMany("CommitmentFrequencies")
+                        .HasForeignKey("FrequencyId");
                 });
 
             modelBuilder.Entity("Commitments.Core.Entities.CommitmentPreCondition", b =>
@@ -350,12 +439,21 @@ namespace Commitments.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Commitments.Core.Entities.DashboardCard", b =>
+                {
+                    b.HasOne("Commitments.Core.Entities.Card", "Card")
+                        .WithMany()
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Commitments.Core.Entities.Dashboard", "Dashboard")
+                        .WithMany("DashboardCards")
+                        .HasForeignKey("DashboardId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Commitments.Core.Entities.Frequency", b =>
                 {
-                    b.HasOne("Commitments.Core.Entities.Commitment")
-                        .WithMany("Frequencies")
-                        .HasForeignKey("CommitmentId");
-
                     b.HasOne("Commitments.Core.Entities.FrequencyType", "FrequencyType")
                         .WithMany()
                         .HasForeignKey("FrequencyTypeId")

@@ -26,7 +26,7 @@ namespace UnitTests.API
             _passwordHasherMock.Setup(x => x.HashPassword(It.IsAny<byte[]>(),"changePassword"))
                 .Returns("passwordChanged");
 
-            _tokenProvider.Setup(x => x.Get("quinntynebrown@gmail.com")).Returns("token");
+            _tokenProvider.Setup(x => x.Get("quinntynebrown@gmail.com",null)).Returns("token");
         }
 
         [Fact]

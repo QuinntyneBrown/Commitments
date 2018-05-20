@@ -10,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Commitments.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180520134306_Initial1")]
+    partial class Initial1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -409,7 +410,7 @@ namespace Commitments.Infrastructure.Migrations
             modelBuilder.Entity("Commitments.Core.Entities.Commitment", b =>
                 {
                     b.HasOne("Commitments.Core.Entities.Behaviour", "Behaviour")
-                        .WithMany("Commitments")
+                        .WithMany()
                         .HasForeignKey("BehaviourId")
                         .OnDelete(DeleteBehavior.Cascade);
 

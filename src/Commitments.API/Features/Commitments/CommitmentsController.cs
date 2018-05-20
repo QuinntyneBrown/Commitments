@@ -1,6 +1,9 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Commitments.API.Features.Commitments
@@ -11,14 +14,19 @@ namespace Commitments.API.Features.Commitments
     public class CommitmentsController
     {
         private readonly IMediator _mediator;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CommitmentsController(IMediator mediator) => _mediator = mediator;
+        public CommitmentsController(IHttpContextAccessor httpContextAccessor, IMediator mediator)
+        {
+            _mediator = mediator;
+            _httpContextAccessor = httpContextAccessor;
+        }
 
         [HttpPost]
         public async Task<ActionResult<SaveCommitmentCommand.Response>> Save(SaveCommitmentCommand.Request request)
             => await _mediator.Send(request);
         
-        [HttpDelete("{Commitment.CommitmentId}")]
+        [HttpDelete("{commitmentId}")]
         public async Task Remove(RemoveCommitmentCommand.Request request)
             => await _mediator.Send(request);            
 
@@ -29,5 +37,12 @@ namespace Commitments.API.Features.Commitments
         [HttpGet]
         public async Task<ActionResult<GetCommitmentsQuery.Response>> Get()
             => await _mediator.Send(new GetCommitmentsQuery.Request());
+
+        [HttpGet("daily")]
+        public async Task<ActionResult<GetDailyCommitmentsQuery.Response>> GetDaily() {
+            var profileClaim = _httpContextAccessor.HttpContext.User.Claims.Single(x => x.Type == "ProfileId");
+            var profileId = Convert.ToInt16(profileClaim.Value);
+            return await _mediator.Send(new GetDailyCommitmentsQuery.Request() { ProfileId = profileId });
+        }
     }
 }

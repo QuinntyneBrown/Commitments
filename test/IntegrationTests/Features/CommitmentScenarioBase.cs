@@ -5,6 +5,7 @@ namespace IntegrationTests.Features
         public static class Get
         {
             public static string Commitments = "api/commitments";
+            public static string DailyCommitments = "api/commitments/daily";
 
             public static string CommitmentById(int id)
             {

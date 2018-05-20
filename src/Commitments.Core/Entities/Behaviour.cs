@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Commitments.Core.Entities
 {
     public class Behaviour: BaseEntity
@@ -8,5 +10,7 @@ namespace Commitments.Core.Entities
         public string Description { get; set; }
         public int BehaviourTypeId { get; set; }
         public BehaviourType BehaviourType { get; set; }
+        public ICollection<Commitment> Commitments { get; set; }
+        = new HashSet<Commitment>();
     }
 }
