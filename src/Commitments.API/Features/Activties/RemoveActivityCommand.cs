@@ -5,21 +5,21 @@ using System.Threading;
 using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.API.Features.CommitmentFrequencies
+namespace Commitments.API.Features.Activities
 {
-    public class RemoveCommitmentFrequencyCommand
+    public class RemoveActivityCommand
     {
         public class Validator : AbstractValidator<Request>
         {
             public Validator()
             {
-                RuleFor(request => request.CommitmentFrequency.CommitmentFrequencyId).NotEqual(0);
+                RuleFor(request => request.Activity.ActivityId).NotEqual(0);
             }
         }
 
         public class Request : IRequest
         {
-            public CommitmentFrequency CommitmentFrequency { get; set; }
+            public Activity Activity { get; set; }
         }
 
         public class Handler : IRequestHandler<Request>
@@ -30,7 +30,7 @@ namespace Commitments.API.Features.CommitmentFrequencies
 
             public async Task Handle(Request request, CancellationToken cancellationToken)
             {
-                _context.CommitmentFrequencies.Remove(await _context.CommitmentFrequencies.FindAsync(request.CommitmentFrequency.CommitmentFrequencyId));
+                _context.Activities.Remove(await _context.Activities.FindAsync(request.Activity.ActivityId));
                 await _context.SaveChangesAsync(cancellationToken);
             }
 

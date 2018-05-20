@@ -2,7 +2,7 @@
 
 namespace Commitments.Core.Entities
 {
-    public class BehaviourType
+    public class BehaviourType: BaseEntity
     {
         public int BehaviourTypeId { get; set; }
         public string Name { get; set; }

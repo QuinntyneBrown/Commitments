@@ -20,6 +20,7 @@ import { MyCommimentsPageComponent } from './commitments/my-commiments-page.comp
 import { EditCommitmentPageComponent } from './commitments/edit-commitment-page.component';
 import { EditBehaviourPageComponent } from './behaviours/edit-behaviour-page.component';
 import { FrequencyPageComponent } from './frequencies/frequency-page.component';
+import { DashboardPageComponent } from './dashboard/dashboard-page.component';
 
 export const routes: Routes = [
   {
@@ -39,7 +40,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: FrequencyPageComponent,
+        component: DashboardPageComponent,
         canActivate: [LanguageGuard]
       },
       {

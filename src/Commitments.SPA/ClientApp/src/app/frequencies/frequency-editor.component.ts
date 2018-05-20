@@ -1,8 +1,8 @@
 import { Component, Input, EventEmitter, Output } from "@angular/core";
 import { Subject } from "rxjs";
-import { FrequencyType } from "../commitments/frequency-type.model";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Frequency } from "./frequency.model";
+import { FrequencyType } from "./frequency-type.model";
 
 @Component({
   templateUrl: "./frequency-editor.component.html",

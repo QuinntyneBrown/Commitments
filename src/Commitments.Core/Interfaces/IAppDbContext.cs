@@ -8,10 +8,10 @@ namespace Commitments.Core.Interfaces
 {
     public interface IAppDbContext: IDisposable
     {
+        DbSet<Activity> Activities { get; set; }
         DbSet<Behaviour> Behaviours { get; set; }
         DbSet<BehaviourType> BehaviourTypes { get; set; }
         DbSet<Commitment> Commitments { get; set; }
-        DbSet<CommitmentFrequency> CommitmentFrequencies { get; set; }
         DbSet<DigitalAsset> DigitalAssets { get; set; }
         DbSet<Frequency> Frequencies { get; set; }
         DbSet<FrequencyType> FrequencyTypes { get; set; }

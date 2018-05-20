@@ -21,10 +21,10 @@ namespace Commitments.Infrastructure.Data
                     => category == DbLoggerCategory.Database.Command.Name 
                 && level == LogLevel.Information, true) });
 
+        public DbSet<Activity> Activities { get; set; }
         public DbSet<Behaviour> Behaviours { get; set; }
         public DbSet<BehaviourType> BehaviourTypes { get; set; }
         public DbSet<Commitment> Commitments { get; set; }
-        public DbSet<CommitmentFrequency> CommitmentFrequencies { get; set; }
         public DbSet<DigitalAsset> DigitalAssets { get; set; }
         public DbSet<Frequency> Frequencies { get; set; }
         public DbSet<FrequencyType> FrequencyTypes { get; set; }
@@ -58,17 +58,24 @@ namespace Commitments.Infrastructure.Data
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Activity>()
+                .HasQueryFilter(e => !e.IsDeleted);
 
             modelBuilder.Entity<Behaviour>()
+                .HasQueryFilter(e => !e.IsDeleted);
+
+            modelBuilder.Entity<BehaviourType>()
                 .HasQueryFilter(e => !e.IsDeleted);
 
             modelBuilder.Entity<Commitment>()
                 .HasQueryFilter(e => !e.IsDeleted);
 
-            modelBuilder.Entity<FrequencyType>()
+            modelBuilder.Entity<Frequency>()
                 .HasQueryFilter(e => !e.IsDeleted);
 
-
+            modelBuilder.Entity<FrequencyType>()
+                .HasQueryFilter(e => !e.IsDeleted);
+            
             modelBuilder.Entity<Note>()
                 .HasQueryFilter(e => !e.IsDeleted);
 

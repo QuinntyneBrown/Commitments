@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
@@ -12,6 +13,9 @@ namespace Commitments.Infrastructure.Migrations
                 name: "BehaviourTypes",
                 columns: table => new
                 {
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    LastModifiedOn = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
                     BehaviourTypeId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true)
@@ -104,26 +108,6 @@ namespace Commitments.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Frequencies",
-                columns: table => new
-                {
-                    Frequency = table.Column<int>(nullable: false),
-                    FrequencyId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    FrequencyTypeId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Frequencies", x => x.FrequencyId);
-                    table.ForeignKey(
-                        name: "FK_Frequencies_FrequencyTypes_FrequencyTypeId",
-                        column: x => x.FrequencyTypeId,
-                        principalTable: "FrequencyTypes",
-                        principalColumn: "FrequencyTypeId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "NoteTag",
                 columns: table => new
                 {
@@ -208,6 +192,37 @@ namespace Commitments.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Activities",
+                columns: table => new
+                {
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    LastModifiedOn = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    ActivityId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ProfileId = table.Column<int>(nullable: false),
+                    BehaviourId = table.Column<int>(nullable: false),
+                    PerformedOn = table.Column<DateTime>(nullable: false),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Activities", x => x.ActivityId);
+                    table.ForeignKey(
+                        name: "FK_Activities_Behaviours_BehaviourId",
+                        column: x => x.BehaviourId,
+                        principalTable: "Behaviours",
+                        principalColumn: "BehaviourId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Activities_Profiles_ProfileId",
+                        column: x => x.ProfileId,
+                        principalTable: "Profiles",
+                        principalColumn: "ProfileId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Commitment",
                 columns: table => new
                 {
@@ -237,34 +252,6 @@ namespace Commitments.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CommitmentFrequencies",
-                columns: table => new
-                {
-                    CommitmentFrequencyId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Frequency = table.Column<int>(nullable: false),
-                    IsDesirable = table.Column<bool>(nullable: false),
-                    FrequencyTypeId = table.Column<int>(nullable: false),
-                    CommitmentId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CommitmentFrequencies", x => x.CommitmentFrequencyId);
-                    table.ForeignKey(
-                        name: "FK_CommitmentFrequencies_Commitment_CommitmentId",
-                        column: x => x.CommitmentId,
-                        principalTable: "Commitment",
-                        principalColumn: "CommitmentId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CommitmentFrequencies_FrequencyTypes_FrequencyTypeId",
-                        column: x => x.FrequencyTypeId,
-                        principalTable: "FrequencyTypes",
-                        principalColumn: "FrequencyTypeId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CommitmentPreCondition",
                 columns: table => new
                 {
@@ -283,6 +270,47 @@ namespace Commitments.Infrastructure.Migrations
                         principalColumn: "CommitmentId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Frequencies",
+                columns: table => new
+                {
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    LastModifiedOn = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    Frequency = table.Column<int>(nullable: false),
+                    FrequencyId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    FrequencyTypeId = table.Column<int>(nullable: false),
+                    IsDesirable = table.Column<bool>(nullable: false),
+                    CommitmentId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Frequencies", x => x.FrequencyId);
+                    table.ForeignKey(
+                        name: "FK_Frequencies_Commitment_CommitmentId",
+                        column: x => x.CommitmentId,
+                        principalTable: "Commitment",
+                        principalColumn: "CommitmentId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Frequencies_FrequencyTypes_FrequencyTypeId",
+                        column: x => x.FrequencyTypeId,
+                        principalTable: "FrequencyTypes",
+                        principalColumn: "FrequencyTypeId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Activities_BehaviourId",
+                table: "Activities",
+                column: "BehaviourId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Activities_ProfileId",
+                table: "Activities",
+                column: "ProfileId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Behaviours_BehaviourTypeId",
@@ -305,18 +333,13 @@ namespace Commitments.Infrastructure.Migrations
                 column: "ProfileId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CommitmentFrequencies_CommitmentId",
-                table: "CommitmentFrequencies",
+                name: "IX_CommitmentPreCondition_CommitmentId",
+                table: "CommitmentPreCondition",
                 column: "CommitmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CommitmentFrequencies_FrequencyTypeId",
-                table: "CommitmentFrequencies",
-                column: "FrequencyTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CommitmentPreCondition_CommitmentId",
-                table: "CommitmentPreCondition",
+                name: "IX_Frequencies_CommitmentId",
+                table: "Frequencies",
                 column: "CommitmentId");
 
             migrationBuilder.CreateIndex(
@@ -343,7 +366,7 @@ namespace Commitments.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CommitmentFrequencies");
+                name: "Activities");
 
             migrationBuilder.DropTable(
                 name: "CommitmentPreCondition");

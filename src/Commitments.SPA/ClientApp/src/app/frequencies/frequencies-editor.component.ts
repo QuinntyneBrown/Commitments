@@ -32,12 +32,12 @@ export class FrequenciesEditorComponent {
   }
 
   public handleSaveClick() {
-    console.log(this.frequencies$.value);
+    
   }
 
-  public remove(frequency) {
-    var frequencies: any[] = [...this.frequencies$.value];
-    var index = frequencies.findIndex(x => x.frequency == frequency.data.frequency && x.frequencyTypeId == frequency.data.frequencyTypeId);    
+  public remove($event) {
+    const frequencies: any[] = [...this.frequencies$.value];
+    const index = frequencies.findIndex(x => x.frequency == $event.data.frequency && x.frequencyTypeId == $event.data.frequencyTypeId);    
     frequencies.splice(index, 1);
     this.frequencies$.next(frequencies);
   }

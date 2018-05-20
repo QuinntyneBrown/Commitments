@@ -2,15 +2,26 @@
   Select Commitments
 </mat-card-title>
 
-<section>
-  <mat-selection-list #behaviours>
-    <mat-list-option *ngFor="let behaviour of (behaviours$ |async)" [value]="behaviour">
-      {{ behaviour.name }}
-    </mat-list-option>
-  </mat-selection-list>
+<mat-tab-group>
+  <mat-tab label="Select Behaviour">
+    <section>
+      <mat-selection-list #behaviours>
+        <mat-list-option *ngFor="let behaviour of (behaviours$ |async)" [value]="behaviour">
+          {{ behaviour.name }}
+        </mat-list-option>
+      </mat-selection-list>
+    </section>
+  </mat-tab>
 
-  <div class="actions">
-    <button mat-button (click)="handleSaveClick(behaviours)">Save</button>
-    <button mat-button (click)="handleCancelClick()">Cancel</button>
-  </div>
-</section>
+  <mat-tab label="Select Frequencies">
+    <app-frequencies-editor [frequencyTypes]="(frequencyTypes$ | async)">
+    </app-frequencies-editor>
+  </mat-tab>
+</mat-tab-group>
+
+<div class="actions">
+  <button mat-button (click)="handleSaveClick(behaviours)">Save</button>
+  <button mat-button (click)="handleCancelClick()">Cancel</button>
+</div>
+
+

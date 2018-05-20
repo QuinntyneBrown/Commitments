@@ -38,6 +38,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\app\commitments\" />
+    <Folder Include="ClientApp\src\app\activities\" />
     <Folder Include="ClientApp\src\app\profiles\" />
   </ItemGroup>
 

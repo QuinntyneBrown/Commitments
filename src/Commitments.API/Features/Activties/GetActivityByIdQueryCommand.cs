@@ -4,25 +4,25 @@ using System.Threading;
 using Commitments.Core.Interfaces;
 using FluentValidation;
 
-namespace Commitments.API.Features.CommitmentFrequencies
+namespace Commitments.API.Features.Activities
 {
-    public class GetCommitmentFrequencyByIdQuery
+    public class GetActivityByIdQuery
     {
         public class Validator : AbstractValidator<Request>
         {
             public Validator()
             {
-                RuleFor(request => request.CommitmentFrequencyId).NotEqual(0);
+                RuleFor(request => request.ActivityId).NotEqual(0);
             }
         }
 
         public class Request : IRequest<Response> {
-            public int CommitmentFrequencyId { get; set; }
+            public int ActivityId { get; set; }
         }
 
         public class Response
         {
-            public CommitmentFrequencyApiModel CommitmentFrequency { get; set; }
+            public ActivityApiModel Activity { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -34,7 +34,7 @@ namespace Commitments.API.Features.CommitmentFrequencies
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    CommitmentFrequency = CommitmentFrequencyApiModel.FromCommitmentFrequency(await _context.CommitmentFrequencies.FindAsync(request.CommitmentFrequencyId))
+                    Activity = ActivityApiModel.FromActivity(await _context.Activities.FindAsync(request.ActivityId))
                 };
         }
     }

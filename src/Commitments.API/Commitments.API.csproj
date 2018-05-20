@@ -31,9 +31,9 @@
     <Folder Include="Features\Behaviours\" />
     <Folder Include="Features\Commitments\" />
     <Folder Include="Features\FrequencyTypes\" />
-    <Folder Include="Features\CommitmentFrequencies\" />
     <Folder Include="Features\BehaviourTypes\" />
     <Folder Include="Features\Frequencies\" />
+    <Folder Include="Features\Activties\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Commitments.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20180519202925_initial")]
+    [Migration("20180520095008_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,6 +19,34 @@ namespace Commitments.Infrastructure.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.0-preview2-30571")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Commitments.Core.Entities.Activity", b =>
+                {
+                    b.Property<int>("ActivityId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("BehaviourId");
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime>("LastModifiedOn");
+
+                    b.Property<DateTime>("PerformedOn");
+
+                    b.Property<int>("ProfileId");
+
+                    b.HasKey("ActivityId");
+
+                    b.HasIndex("BehaviourId");
+
+                    b.HasIndex("ProfileId");
+
+                    b.ToTable("Activities");
+                });
 
             modelBuilder.Entity("Commitments.Core.Entities.Behaviour", b =>
                 {
@@ -55,6 +83,12 @@ namespace Commitments.Infrastructure.Migrations
                     b.Property<int>("BehaviourTypeId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime>("LastModifiedOn");
+
                     b.Property<string>("Name");
 
                     b.HasKey("BehaviourTypeId");
@@ -84,28 +118,6 @@ namespace Commitments.Infrastructure.Migrations
                     b.HasIndex("ProfileId");
 
                     b.ToTable("Commitment");
-                });
-
-            modelBuilder.Entity("Commitments.Core.Entities.CommitmentFrequency", b =>
-                {
-                    b.Property<int>("CommitmentFrequencyId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("CommitmentId");
-
-                    b.Property<int>("Frequency");
-
-                    b.Property<int>("FrequencyTypeId");
-
-                    b.Property<bool>("IsDesirable");
-
-                    b.HasKey("CommitmentFrequencyId");
-
-                    b.HasIndex("CommitmentId");
-
-                    b.HasIndex("FrequencyTypeId");
-
-                    b.ToTable("CommitmentFrequencies");
                 });
 
             modelBuilder.Entity("Commitments.Core.Entities.CommitmentPreCondition", b =>
@@ -141,11 +153,23 @@ namespace Commitments.Infrastructure.Migrations
                     b.Property<int>("FrequencyId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("CommitmentId");
+
+                    b.Property<DateTime>("CreatedOn");
+
                     b.Property<int>("Frequency");
 
                     b.Property<int>("FrequencyTypeId");
 
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<bool>("IsDesirable");
+
+                    b.Property<DateTime>("LastModifiedOn");
+
                     b.HasKey("FrequencyId");
+
+                    b.HasIndex("CommitmentId");
 
                     b.HasIndex("FrequencyTypeId");
 
@@ -280,6 +304,19 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Commitments.Core.Entities.Activity", b =>
+                {
+                    b.HasOne("Commitments.Core.Entities.Behaviour", "Behaviour")
+                        .WithMany()
+                        .HasForeignKey("BehaviourId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Commitments.Core.Entities.Profile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Commitments.Core.Entities.Behaviour", b =>
                 {
                     b.HasOne("Commitments.Core.Entities.BehaviourType", "BehaviourType")
@@ -305,19 +342,6 @@ namespace Commitments.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Commitments.Core.Entities.CommitmentFrequency", b =>
-                {
-                    b.HasOne("Commitments.Core.Entities.Commitment", "Commitment")
-                        .WithMany("CommitmentFrequencies")
-                        .HasForeignKey("CommitmentId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Commitments.Core.Entities.FrequencyType", "FrequencyType")
-                        .WithMany()
-                        .HasForeignKey("FrequencyTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Commitments.Core.Entities.CommitmentPreCondition", b =>
                 {
                     b.HasOne("Commitments.Core.Entities.Commitment", "Commitment")
@@ -328,6 +352,10 @@ namespace Commitments.Infrastructure.Migrations
 
             modelBuilder.Entity("Commitments.Core.Entities.Frequency", b =>
                 {
+                    b.HasOne("Commitments.Core.Entities.Commitment")
+                        .WithMany("Frequencies")
+                        .HasForeignKey("CommitmentId");
+
                     b.HasOne("Commitments.Core.Entities.FrequencyType", "FrequencyType")
                         .WithMany()
                         .HasForeignKey("FrequencyTypeId")

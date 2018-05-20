@@ -33,5 +33,6 @@ const providers = [
     SharedModule
   ],
   providers,
+  exports: declarations
 })
 export class FrequenciesModule { }

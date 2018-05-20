@@ -6,9 +6,9 @@ import { Commitment } from "./commitment.model";
 import { ColDef } from "ag-grid";
 import { BehaviourService } from "../behaviours/behaviour.service";
 import { Behaviour } from "../behaviours/behaviour.model";
-import { FrequencyTypeService } from "./frequency-type.service";
-import { FrequencyType } from "./frequency-type.model";
 import { FormGroup, FormControl } from "@angular/forms";
+import { FrequencyTypeService } from "../frequencies/frequency-type.service";
+import { FrequencyType } from "../frequencies/frequency-type.model";
 
 @Component({
   templateUrl: "./add-commitments-overlay.component.html",
@@ -21,9 +21,7 @@ export class AddCommitmentsOverlayComponent {
     private _behaviourService: BehaviourService,
     private _commitmentService: CommitmentService,
     private _frequencyTypeService: FrequencyTypeService
-  ) {
-    
-  }
+  ) { }
 
   ngOnInit() {
     this.behaviours$ = this._behaviourService.get();
@@ -52,6 +50,6 @@ export class AddCommitmentsOverlayComponent {
   public commitments$: Observable<Array<Commitment>>;
 
   public form: FormGroup = new FormGroup({
-    frequency: new FormControl(null,[])
+    behaviourId: new FormControl(null, []),    
   });
 }

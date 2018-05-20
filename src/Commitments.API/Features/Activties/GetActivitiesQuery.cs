@@ -6,15 +6,15 @@ using Commitments.Core.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.API.Features.CommitmentFrequencies
+namespace Commitments.API.Features.Activities
 {
-    public class GetCommitmentFrequenciesQuery
+    public class GetActivitiesQuery
     {
         public class Request : IRequest<Response> { }
 
         public class Response
         {
-            public IEnumerable<CommitmentFrequencyApiModel> CommitmentFrequencies { get; set; }
+            public IEnumerable<ActivityApiModel> Activities { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -26,7 +26,7 @@ namespace Commitments.API.Features.CommitmentFrequencies
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    CommitmentFrequencies = await _context.CommitmentFrequencies.Select(x => CommitmentFrequencyApiModel.FromCommitmentFrequency(x)).ToListAsync()
+                    Activities = await _context.Activities.Select(x => ActivityApiModel.FromActivity(x)).ToListAsync()
                 };
         }
     }
