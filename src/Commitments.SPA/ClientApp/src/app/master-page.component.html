@@ -8,7 +8,8 @@
 <mat-sidenav-container class="app-content-container" autosize>
   <mat-sidenav #drawer class="sidenav" mode="side" (click)="drawer.close()">
     <button mat-button routerLink="/">{{ "Dashboard" | translate }}</button>
-    <button mat-button routerLink="/my-commitments">{{ "My Commitments" | translate }}</button>
+    <button mat-button routerLink="/commitments">{{ "Commitments" | translate }}</button>
+    <button mat-button routerLink="/activities">{{ "Activities" | translate }}</button>
     <button mat-button routerLink="/behaviours/create">{{ "Create Behaviour" | translate }}</button>
     <button mat-button routerLink="/commitments/create">{{ "Create Commitment" | translate }}</button>
     <button mat-button routerLink="/frequencies/create">{{ "Create Frequency" | translate }}</button>

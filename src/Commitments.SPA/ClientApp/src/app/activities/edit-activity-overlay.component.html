@@ -1,0 +1,29 @@
+<mat-card-title>
+  Create Activity
+</mat-card-title>
+
+<form novalidate autocomplete="off" spellcheck="false" [formGroup]="form">
+
+  <mat-form-field>
+    <mat-select placeholder="Behaviour" formControlName="behaviourId" name="behaviourId">
+      <mat-option *ngFor="let behaviour of (behaviours$ | async)" [value]="behaviour.behaviourId">
+        {{ behaviour.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" formControlName="performedOn" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <app-quill-text-editor formControlName="description" [editorPlaceholder]="'Description'"></app-quill-text-editor>
+
+</form>
+
+<div class="actions">
+  <button mat-button (click)="handleSaveClick()">Save</button>
+  <button mat-button (click)="handleCancelClick()">Cancel</button>
+</div>
+

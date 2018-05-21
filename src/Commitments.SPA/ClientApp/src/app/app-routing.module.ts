@@ -22,6 +22,7 @@ import { EditBehaviourPageComponent } from './behaviours/edit-behaviour-page.com
 import { FrequencyPageComponent } from './frequencies/frequency-page.component';
 import { DashboardPageComponent } from './dashboards/dashboard-page.component';
 import { EditFrequencyPageComponent } from './frequencies/edit-frequency-page.component';
+import { ActivitiesPageComponent } from './activities/activities-page.component';
 
 export const routes: Routes = [
   {
@@ -69,7 +70,12 @@ export const routes: Routes = [
         }
       },
       {
-        path: 'my-commitments',
+        path: 'activities',
+        component: ActivitiesPageComponent,
+        canActivate: [LanguageGuard]
+      },
+      {
+        path: 'commitments',
         component: MyCommimentsPageComponent,
         canActivate: [LanguageGuard]
       },

@@ -1,4 +1,7 @@
 export class Activity {
   public activityId: number;
-  public name: string;
+  public description: string;
+  public behaviourId: number;
+  public profileId: number;
+  public performedOn: any;
 }
