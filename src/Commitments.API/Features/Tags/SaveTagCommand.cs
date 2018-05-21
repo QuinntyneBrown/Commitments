@@ -22,7 +22,7 @@ namespace Commitments.API.Features.Tags
         }
 
         public class Response
-        {			
+        {        	
             public int TagId { get; set; }
         }
 

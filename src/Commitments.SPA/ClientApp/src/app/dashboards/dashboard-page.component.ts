@@ -6,6 +6,10 @@ import { takeUntil, map } from "rxjs/operators";
 import { DashboardCard } from "../dashboard-cards/dashboard-card.model";
 import { DashboardCardComponent } from "../dashboard-cards/dashboard-card.component";
 import { DailyResultsDashboardCardComponent } from "../achievements/daily-results-dashboard-card.component";
+import { Overlay } from "@angular/cdk/overlay";
+import { OverlayRefWrapper } from "../core/overlay-ref-wrapper";
+import { PortalInjector, ComponentPortal } from "@angular/cdk/portal";
+import { AddDashboardCardsOverlayComponent } from "../dashboard-cards/add-dashboard-cards-overlay.component";
 
 @Component({
   templateUrl: "./dashboard-page.component.html",
@@ -16,7 +20,8 @@ export class DashboardPageComponent {
   constructor(
     private _componentFactoryResolver: ComponentFactoryResolver,
     private _dashboardService: DashboardService,
-    private _injector: Injector
+    private _injector: Injector,
+    private _overlay: Overlay
   ) {
 
   }
@@ -42,7 +47,29 @@ export class DashboardPageComponent {
   }
 
   public handleFabButtonClick() {
+    const positionStrategy = this._overlay
+      .position()
+      .global()
+      .centerHorizontally()
+      .centerVertically();
 
+    const overlayRef = this._overlay.create({
+      hasBackdrop: true,
+      positionStrategy
+    });
+
+    const overlayRefWrapper = new OverlayRefWrapper(overlayRef);
+
+    const injectionTokens = new WeakMap();
+    injectionTokens.set(OverlayRefWrapper, overlayRefWrapper);
+    const injector = new PortalInjector(this._injector, injectionTokens);
+    const overlayPortal = new ComponentPortal(AddDashboardCardsOverlayComponent, null, injector);
+
+    overlayRef.attach(overlayPortal);
+
+    overlayRefWrapper.results
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe()   
   }
 
   public addDashboardCardComponentRef(dashboardCard: DashboardCard) {

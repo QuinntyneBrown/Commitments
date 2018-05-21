@@ -23,7 +23,7 @@ namespace Commitments.API.Features.Notes
         }
 
         public class Response
-        {			
+        {        	
             public int NoteId { get; set; }
         }
 

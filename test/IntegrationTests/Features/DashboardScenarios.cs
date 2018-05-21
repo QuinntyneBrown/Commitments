@@ -42,7 +42,7 @@ namespace IntegrationTests.Features
                 var response = await server.CreateClient()
                     .GetAsync<GetDashboardByProfileIdQuery.Response>(Get.Dashboards);
 
-                Assert.True(response.Dashboards.Count() > 0);
+                Assert.True(response.Dashboard != default(DashboardApiModel));
             }
         }
 

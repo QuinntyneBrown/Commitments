@@ -21,7 +21,7 @@ const entryComponents = [
 ];
 
 @NgModule({
-  declarations: declarations,
+  declarations,
   imports: [
     CommonModule,
     FormsModule,
@@ -33,5 +33,6 @@ const entryComponents = [
     SharedModule
   ],
   providers,
+  entryComponents
 })
 export class DashboardCardsModule { }
