@@ -38,7 +38,7 @@ namespace IntegrationTests.Features
                         }
                     });
      
-	            var entity = context.Activities.First();
+                var entity = context.Activities.First();
 
                 Assert.Equal(1, entity.ProfileId);
                 Assert.Equal(1, entity.BehaviourId);

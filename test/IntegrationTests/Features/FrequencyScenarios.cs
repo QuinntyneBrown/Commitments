@@ -28,7 +28,7 @@ namespace IntegrationTests.Features
                         }
                     });
      
-	            var entity = context.Frequencies.First();
+                var entity = context.Frequencies.First();
 
                 Assert.Equal(0, entity.Frequency);
             }

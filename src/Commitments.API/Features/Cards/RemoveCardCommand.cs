@@ -26,7 +26,7 @@ namespace Commitments.API.Features.Cards
         {
             public IAppDbContext _context { get; set; }
             
-        	public Handler(IAppDbContext context) => _context = context;
+            public Handler(IAppDbContext context) => _context = context;
 
             public async Task Handle(Request request, CancellationToken cancellationToken)
             {

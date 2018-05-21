@@ -22,7 +22,7 @@ namespace Commitments.API.Features.Behaviours
         }
 
         public class Response
-        {        	
+        {            
             public int BehaviourId { get; set; }
         }
 
@@ -30,7 +30,7 @@ namespace Commitments.API.Features.Behaviours
         {
             public IAppDbContext _context { get; set; }
             
-        	public Handler(IAppDbContext context) => _context = context;
+            public Handler(IAppDbContext context) => _context = context;
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {

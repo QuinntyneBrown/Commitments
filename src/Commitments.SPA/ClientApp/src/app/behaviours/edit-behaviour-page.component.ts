@@ -45,7 +45,7 @@ export class EditBehaviourPageComponent {
   }
 
   ngOnDestroy() {
-    this.onDestroy.next();	
+    this.onDestroy.next();    
   }
 
   public form = new FormGroup({

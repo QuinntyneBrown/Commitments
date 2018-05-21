@@ -47,7 +47,7 @@ export class EditActivityOverlayComponent {
   public onDestroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy() {
-    this.onDestroy.next();	
+    this.onDestroy.next();    
   }
 
   public form: FormGroup = new FormGroup({

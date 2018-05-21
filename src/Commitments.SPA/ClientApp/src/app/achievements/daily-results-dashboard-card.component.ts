@@ -40,6 +40,6 @@ export class DailyResultsDashboardCardComponent extends DashboardCardComponent {
   public commitments$: Observable<number>;
 
   ngOnDestroy() {
-    this.onDestroy.next();	
+    this.onDestroy.next();    
   }
 }

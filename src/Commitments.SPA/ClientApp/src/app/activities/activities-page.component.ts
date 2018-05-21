@@ -50,6 +50,6 @@ export class ActivitiesPageComponent {
   }
 
   ngOnDestroy() {
-    this.onDestroy.next();	
+    this.onDestroy.next();    
   }
 }

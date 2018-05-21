@@ -19,7 +19,7 @@ export class FrequencyEditorComponent {
   public frequencyTypes: Array<FrequencyType> = [];
 
   ngOnDestroy() {
-    this.onDestroy.next();	
+    this.onDestroy.next();    
   }
 
   public handleSaveClick() {

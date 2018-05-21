@@ -27,7 +27,7 @@ namespace IntegrationTests.Features
                         }
                     });
      
-	            var entity = context.BehaviourTypes.First();
+                var entity = context.BehaviourTypes.First();
 
                 Assert.Equal("Name", entity.Name);
             }
