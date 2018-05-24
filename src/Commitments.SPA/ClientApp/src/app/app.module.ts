@@ -25,6 +25,7 @@ import { ActivitiesModule } from './activities/activities.module';
 import { DashboardsModule } from './dashboards/dashboards.module';
 import { CardsModule } from './cards/cards.module';
 import { AchievementsModule } from './achievements/achievements.module';
+import { ToDosModule } from './to-dos/to-dos.module';
 
 @NgModule({
   declarations: [AppComponent, AnonymousMasterPageComponent, MasterPageComponent],
@@ -48,6 +49,7 @@ import { AchievementsModule } from './achievements/achievements.module';
     SettingsModule,
     SharedModule,
     TagsModule,
+    ToDosModule,
     UsersModule
   ],
   providers: [{ provide: baseUrl, useValue: 'http://localhost:9613/' }],

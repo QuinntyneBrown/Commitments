@@ -35,6 +35,7 @@ namespace Commitments.Infrastructure.Data
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Commitment> ProfileCommitments { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<ToDo> ToDos { get; set; }
         public DbSet<User> Users { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken)
@@ -95,6 +96,9 @@ namespace Commitments.Infrastructure.Data
                 .HasQueryFilter(e => !e.IsDeleted);
 
             modelBuilder.Entity<Tag>()
+                .HasQueryFilter(e => !e.IsDeleted);
+
+            modelBuilder.Entity<ToDo>()
                 .HasQueryFilter(e => !e.IsDeleted);
 
             modelBuilder.Entity<User>()

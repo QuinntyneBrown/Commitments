@@ -35,6 +35,7 @@
     <Folder Include="Features\Frequencies\" />
     <Folder Include="Features\Activities\" />
     <Folder Include="Features\Cards\" />
+    <Folder Include="Features\ToDos\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 

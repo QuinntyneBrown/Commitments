@@ -22,6 +22,7 @@ namespace Commitments.Core.Interfaces
         DbSet<Profile> Profiles { get; set; }
         DbSet<Commitment> ProfileCommitments { get; set; }
         DbSet<Tag> Tags { get; set; }
+        DbSet<ToDo> ToDos { get; set; }
         DbSet<User> Users { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

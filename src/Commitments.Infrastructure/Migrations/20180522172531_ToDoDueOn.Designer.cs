@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Commitments.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20180520134659_Initial2")]
-    partial class Initial2
+    [Migration("20180522172531_ToDoDueOn")]
+    partial class ToDoDueOn
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -360,6 +360,32 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("Tags");
                 });
 
+            modelBuilder.Entity("Commitments.Core.Entities.ToDo", b =>
+                {
+                    b.Property<int>("ToDoId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<string>("Description");
+
+                    b.Property<DateTime>("DueOn");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime>("LastModifiedOn");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("ProfileId");
+
+                    b.HasKey("ToDoId");
+
+                    b.HasIndex("ProfileId");
+
+                    b.ToTable("ToDos");
+                });
+
             modelBuilder.Entity("Commitments.Core.Entities.User", b =>
                 {
                     b.Property<int>("UserId")
@@ -478,6 +504,14 @@ namespace Commitments.Infrastructure.Migrations
                     b.HasOne("Commitments.Core.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Commitments.Core.Entities.ToDo", b =>
+                {
+                    b.HasOne("Commitments.Core.Entities.Profile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("ProfileId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

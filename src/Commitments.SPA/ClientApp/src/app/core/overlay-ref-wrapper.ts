@@ -6,10 +6,14 @@ export class OverlayRefWrapper {
 
   public close(data: any = null): void {    
     this.overlayRef.dispose();
-    this.results.next(data);
+    this._afterClosed.next(data);
   }
-  
-  public results = new Subject<any>();
+
+  public afterClosed(): Observable<any> {
+    return this._afterClosed;
+  }
+
+  private _afterClosed = new Subject<any>();
 
   public data: any;
   

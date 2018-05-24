@@ -23,6 +23,7 @@ import { FrequencyPageComponent } from './frequencies/frequency-page.component';
 import { DashboardPageComponent } from './dashboards/dashboard-page.component';
 import { EditFrequencyPageComponent } from './frequencies/edit-frequency-page.component';
 import { ActivitiesPageComponent } from './activities/activities-page.component';
+import { ToDosPageComponent } from './to-dos/to-dos-page.component';
 
 export const routes: Routes = [
   {
@@ -110,7 +111,12 @@ export const routes: Routes = [
         resolve: {
           tags: TagsResolver
         }
-      }
+      },
+      {
+        path: 'to-dos',
+        component: ToDosPageComponent,
+        canActivate: [LanguageGuard]
+      },
     ]
   }
 ];

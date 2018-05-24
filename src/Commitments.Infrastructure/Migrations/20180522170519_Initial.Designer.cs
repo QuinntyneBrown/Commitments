@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Commitments.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20180520134306_Initial1")]
-    partial class Initial1
+    [Migration("20180522170519_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -410,7 +410,7 @@ namespace Commitments.Infrastructure.Migrations
             modelBuilder.Entity("Commitments.Core.Entities.Commitment", b =>
                 {
                     b.HasOne("Commitments.Core.Entities.Behaviour", "Behaviour")
-                        .WithMany()
+                        .WithMany("Commitments")
                         .HasForeignKey("BehaviourId")
                         .OnDelete(DeleteBehavior.Cascade);
 

@@ -67,7 +67,7 @@ export class DashboardPageComponent {
 
     overlayRef.attach(overlayPortal);
 
-    overlayRefWrapper.results
+    overlayRefWrapper.afterClosed
       .pipe(takeUntil(this.onDestroy))
       .subscribe()   
   }

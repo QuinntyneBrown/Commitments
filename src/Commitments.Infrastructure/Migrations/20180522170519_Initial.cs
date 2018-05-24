@@ -344,8 +344,8 @@ namespace Commitments.Infrastructure.Migrations
                 {
                     CommitmentFrequencyId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CommitmentId = table.Column<int>(nullable: false),
-                    FrequencyId = table.Column<int>(nullable: false)
+                    CommitmentId = table.Column<int>(nullable: true),
+                    FrequencyId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -355,13 +355,13 @@ namespace Commitments.Infrastructure.Migrations
                         column: x => x.CommitmentId,
                         principalTable: "Commitment",
                         principalColumn: "CommitmentId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CommitmentFrequency_Frequencies_FrequencyId",
                         column: x => x.FrequencyId,
                         principalTable: "Frequencies",
                         principalColumn: "FrequencyId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

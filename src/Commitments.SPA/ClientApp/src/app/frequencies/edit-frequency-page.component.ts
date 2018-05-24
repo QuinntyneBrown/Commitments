@@ -54,7 +54,7 @@ export class EditFrequencyPageComponent {
 
     overlayRef.attach(overlayPortal);
 
-    overlayRefWrapper.results
+    overlayRefWrapper.afterClosed
       .pipe(takeUntil(this.onDestroy), map(x => console.log(x)))
       .subscribe();
   }

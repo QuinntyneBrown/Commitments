@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Commitments.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20180520133558_Initial")]
-    partial class Initial
+    [Migration("20180522171650_ToDo")]
+    partial class ToDo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -143,9 +143,9 @@ namespace Commitments.Infrastructure.Migrations
                     b.Property<int>("CommitmentFrequencyId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CommitmentId");
+                    b.Property<int?>("CommitmentId");
 
-                    b.Property<int>("FrequencyId");
+                    b.Property<int?>("FrequencyId");
 
                     b.HasKey("CommitmentFrequencyId");
 
@@ -360,6 +360,32 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("Tags");
                 });
 
+            modelBuilder.Entity("Commitments.Core.Entities.ToDo", b =>
+                {
+                    b.Property<int>("ToDoId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<string>("Description");
+
+                    b.Property<DateTime>("DueDate");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime>("LastModifiedOn");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("ProfileId");
+
+                    b.HasKey("ToDoId");
+
+                    b.HasIndex("ProfileId");
+
+                    b.ToTable("ToDos");
+                });
+
             modelBuilder.Entity("Commitments.Core.Entities.User", b =>
                 {
                     b.Property<int>("UserId")
@@ -410,7 +436,7 @@ namespace Commitments.Infrastructure.Migrations
             modelBuilder.Entity("Commitments.Core.Entities.Commitment", b =>
                 {
                     b.HasOne("Commitments.Core.Entities.Behaviour", "Behaviour")
-                        .WithMany()
+                        .WithMany("Commitments")
                         .HasForeignKey("BehaviourId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -424,13 +450,11 @@ namespace Commitments.Infrastructure.Migrations
                 {
                     b.HasOne("Commitments.Core.Entities.Commitment", "Commitment")
                         .WithMany("CommitmentFrequencies")
-                        .HasForeignKey("CommitmentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CommitmentId");
 
                     b.HasOne("Commitments.Core.Entities.Frequency", "Frequency")
                         .WithMany("CommitmentFrequencies")
-                        .HasForeignKey("FrequencyId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("FrequencyId");
                 });
 
             modelBuilder.Entity("Commitments.Core.Entities.CommitmentPreCondition", b =>
@@ -480,6 +504,14 @@ namespace Commitments.Infrastructure.Migrations
                     b.HasOne("Commitments.Core.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Commitments.Core.Entities.ToDo", b =>
+                {
+                    b.HasOne("Commitments.Core.Entities.Profile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("ProfileId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
