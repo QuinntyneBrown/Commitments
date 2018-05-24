@@ -11,6 +11,7 @@ namespace Commitments.Core.Entities
         [ForeignKey("Profile")]
         public int ProfileId { get; set; }
         public DateTime DueOn { get; set; }
+        public DateTime? CompletedOn { get; set; }
         public Profile Profile { get; set; }
     }
 }

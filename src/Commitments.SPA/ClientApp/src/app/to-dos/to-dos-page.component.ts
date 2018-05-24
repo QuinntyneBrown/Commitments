@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { Subject, BehaviorSubject } from "rxjs";
+import { Subject, BehaviorSubject, combineLatest } from "rxjs";
 import { ColDef, GridApi } from "ag-grid";
 import { ToDoService } from "./to-do.service";
 import { Observable } from "rxjs";
@@ -22,6 +22,12 @@ export class ToDosPageComponent {
     this.handleRemoveToDoCellClick = this.handleRemoveToDoCellClick.bind(this);
   }
 
+  public ngOnInit() {
+    this._toDoService.get()
+      .pipe(map(x => this.toDos$.next(x)))
+      .subscribe();
+  }
+
   public onDestroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy() {
@@ -30,7 +36,8 @@ export class ToDosPageComponent {
 
   public columnDefs: Array<ColDef> = [
     { headerName: "Name", field: "name" },
-    { cellRenderer: "deleteRenderer", onCellClicked: $event => this.handleRemoveToDoCellClick($event) }
+    { headerName: "Due On", field: "dueOn" },
+    { cellRenderer: "deleteRenderer", onCellClicked: $event => this.handleRemoveToDoCellClick($event), width:40 }
   ];
 
   public frameworkComponents: any = {
@@ -41,29 +48,41 @@ export class ToDosPageComponent {
 
   public onGridReady(params) {
     this._gridApi = params.api;
+    this._gridApi.sizeColumnsToFit();
   }
 
-  public toDos$: BehaviorSubject<Array<ToDo>>;
+  public toDos$: BehaviorSubject<Array<ToDo>> = new BehaviorSubject([]);
+
+  public toDosBehaviourSubject$: BehaviorSubject<Array<ToDo>> = new BehaviorSubject([]);
 
   public handleFabButtonClick() {
     const overlayRefWrapper = this._editToDoOverlay.create();
-    
+
     overlayRefWrapper.afterClosed()
       .pipe(map(toDo => this.addOrUpdate(toDo)), takeUntil(this.onDestroy))
       .subscribe();
   }
 
   public handleRemoveToDoCellClick($event) {
+    const toDo = $event.data;
 
+    const toDos: Array<ToDo> = [...this.toDos$.value];
+    const index = toDos.findIndex(x => x.toDoId == $event.data.toDoId);
+    toDos.splice(index, 1);
+    this.toDos$.next(toDos);
+
+    this._toDoService.remove({ toDo })
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe();
   }
 
-  public addOrUpdate(toDo:ToDo) {
+  public addOrUpdate(toDo: ToDo) {    
     if (!toDo) return;
 
     let toDos = [...this.toDos$.value];
     const i = toDos.findIndex((t) => t.toDoId == toDo.toDoId);
-
-    if (i == null) {
+    
+    if (i < 0) {
       toDos.push(toDo);
     } else {
       toDos[i] = toDo;

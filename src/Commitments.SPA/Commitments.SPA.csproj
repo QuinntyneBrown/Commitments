@@ -23,19 +23,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\core\can-deactivate.guard.ts" />
     <None Remove="ClientApp\src\app\core\error.service.ts" />
+    <None Remove="ClientApp\src\app\core\i-can-deactivate.ts" />
     <None Remove="ClientApp\src\app\core\overlay-ref-provider.ts" />
     <None Remove="ClientApp\src\app\notes\note-resolver.service.ts" />
     <None Remove="ClientApp\src\app\shared\shared.module.ts" />
     <None Remove="ClientApp\src\app\tags\tags-resolver.service.ts" />
+    <None Remove="ClientApp\src\app\to-dos\edit-to-do-overlay.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\core\can-deactivate.guard.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\core\error.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\core\i-can-deactivate.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\core\overlay-ref-provider.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\notes\note-resolver.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\shared.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\tags\tags-resolver.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\to-dos\edit-to-do-overlay.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,7 +50,6 @@
     <Folder Include="ClientApp\src\app\cards\" />
     <Folder Include="ClientApp\src\app\achievements\" />
     <Folder Include="ClientApp\src\app\dashboard-cards\" />
-    <Folder Include="ClientApp\src\app\to-dos\" />
     <Folder Include="ClientApp\src\app\profiles\" />
   </ItemGroup>
 

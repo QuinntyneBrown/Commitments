@@ -38,6 +38,7 @@ namespace Commitments.API.Features.ToDos
                 if (toDo == null) _context.ToDos.Add(toDo = new ToDo());
 
                 toDo.Name = request.ToDo.Name;
+                toDo.CompletedOn = request.ToDo.CompletedOn;
                 toDo.DueOn = request.ToDo.DueOn;
                 toDo.Description = request.ToDo.Description;
                 toDo.ProfileId = request.ToDo.ProfileId;
