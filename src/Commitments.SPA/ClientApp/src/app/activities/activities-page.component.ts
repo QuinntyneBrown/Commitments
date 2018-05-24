@@ -44,7 +44,7 @@ export class ActivitiesPageComponent {
 
     overlayRef.attach(overlayPortal);
 
-    overlayRefWrapper.afterClosed
+    overlayRefWrapper.afterClosed()
       .pipe(takeUntil(this.onDestroy), tap(() => this._router.navigateByUrl("/")))
       .subscribe();
   }

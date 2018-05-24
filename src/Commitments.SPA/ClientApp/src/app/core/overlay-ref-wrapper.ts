@@ -15,6 +15,6 @@ export class OverlayRefWrapper {
 
   private _afterClosed = new Subject<any>();
 
-  public data: any;
+  public data: any = {};
   
 }

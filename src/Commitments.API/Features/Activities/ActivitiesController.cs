@@ -1,3 +1,4 @@
+using Commitments.Core.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -22,7 +23,7 @@ namespace Commitments.API.Features.Activities
 
         [HttpPost]
         public async Task<ActionResult<SaveActivityCommand.Response>> Save(SaveActivityCommand.Request request) {
-            request.Activity.ProfileId = GetProfileId();
+            request.Activity.ProfileId = _httpContextAccessor.GetProfileIdFromClaims();
             return await _mediator.Send(request);
         }
         
@@ -37,10 +38,6 @@ namespace Commitments.API.Features.Activities
         [HttpGet]
         public async Task<ActionResult<GetActivitiesQuery.Response>> Get()
             => await _mediator.Send(new GetActivitiesQuery.Request());
-        public int GetProfileId()
-        {
-            var profileClaim = _httpContextAccessor.HttpContext.User.Claims.Single(x => x.Type == "ProfileId");
-            return Convert.ToInt16(profileClaim.Value);
-        }
+
     }
 }

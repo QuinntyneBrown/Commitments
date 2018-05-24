@@ -1,9 +1,8 @@
+using Commitments.Core.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Commitments.API.Features.Achievements
@@ -23,10 +22,8 @@ namespace Commitments.API.Features.Achievements
 
         [HttpGet]
         public async Task<ActionResult<GetAchievementsQuery.Response>> Get() {
-            var profileClaim = _httpContextAccessor.HttpContext.User.Claims.Single(x => x.Type =="ProfileId");
-            var profileId = Convert.ToInt16(profileClaim.Value);
             return await _mediator.Send(new GetAchievementsQuery.Request() {
-                ProfileId = profileId
+                ProfileId = _httpContextAccessor.GetProfileIdFromClaims()
             });
         }
     }

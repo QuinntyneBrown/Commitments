@@ -7,6 +7,7 @@ import { ToDosPageComponent } from './to-dos-page.component';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { EditToDoOverlayComponent } from './edit-to-do-overlay.component';
+import { EditToDoOverlay } from './edit-to-do-overlay';
 
 const declarations = [
   EditToDoOverlayComponent,
@@ -18,7 +19,8 @@ const entryComponents = [
 ];
 
 const providers = [
-  ToDoService
+  ToDoService,
+  EditToDoOverlay
 ];
 
 @NgModule({

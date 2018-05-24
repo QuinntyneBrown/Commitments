@@ -1,6 +1,10 @@
+using Commitments.Core.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Commitments.API.Features.ToDos
@@ -11,12 +15,18 @@ namespace Commitments.API.Features.ToDos
     public class ToDosController
     {
         private readonly IMediator _mediator;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ToDosController(IMediator mediator) => _mediator = mediator;
+        public ToDosController(IHttpContextAccessor httpContextAccessor, IMediator mediator) {
+            _mediator = mediator;
+            _httpContextAccessor = httpContextAccessor;
+        }
 
         [HttpPost]
-        public async Task<ActionResult<SaveToDoCommand.Response>> Save(SaveToDoCommand.Request request)
-            => await _mediator.Send(request);
+        public async Task<ActionResult<SaveToDoCommand.Response>> Save(SaveToDoCommand.Request request) {
+            request.ToDo.ProfileId = _httpContextAccessor.GetProfileIdFromClaims();
+            return await _mediator.Send(request);
+        }
         
         [HttpDelete("{toDoId}")]
         public async Task Remove([FromRoute]RemoveToDoCommand.Request request)
@@ -29,5 +39,6 @@ namespace Commitments.API.Features.ToDos
         [HttpGet]
         public async Task<ActionResult<GetToDosQuery.Response>> Get()
             => await _mediator.Send(new GetToDosQuery.Request());
+        
     }
 }
