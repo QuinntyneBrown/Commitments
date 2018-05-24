@@ -41,11 +41,13 @@ import { AgGridModule } from 'ag-grid-angular';
 import { DeleteCellComponent } from './delete-cell.component';
 import { AutoCompleteChipListComponent } from './auto-complete-chip-list.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { EditCellComponent } from './edit-cell.component';
 
 @NgModule({
   declarations: [
     AutoCompleteChipListComponent,
     DeleteCellComponent,
+    EditCellComponent,
     PrimaryHeaderComponent,
     QuillTextEditorComponent
   ],
@@ -88,7 +90,7 @@ import { TranslateModule } from '@ngx-translate/core';
     ReactiveFormsModule,
     TranslateModule,
 
-    AgGridModule.withComponents([DeleteCellComponent])
+    AgGridModule.withComponents([DeleteCellComponent, EditCellComponent])
   ],
   exports: [
     MatAutocompleteModule,

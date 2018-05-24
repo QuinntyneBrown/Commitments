@@ -23,7 +23,8 @@ export class EditToDoOverlayComponent {
         .pipe(map(toDo => this.form.patchValue({
           name: toDo.name,
           description: toDo.description,
-          dueOn: toDo.dueOn
+          dueOn: toDo.dueOn,
+          completedOn: toDo.completedOn
         })), takeUntil(this.onDestroy))
         .subscribe();
   }
@@ -33,6 +34,7 @@ export class EditToDoOverlayComponent {
     toDo.toDoId = this.toDoId;
     toDo.description = this.form.value.description;
     toDo.dueOn = this.form.value.dueOn;
+    toDo.completedOn = this.form.value.completedOn
     toDo.name = this.form.value.name;
     this._toDoService.save({ toDo })
       .pipe(
@@ -58,6 +60,7 @@ export class EditToDoOverlayComponent {
   public form: FormGroup = new FormGroup({
     name: new FormControl(null, [Validators.required]),
     description: new FormControl(null, [Validators.required]),
-    dueOn: new FormControl(null, [Validators.required])
+    dueOn: new FormControl(null, [Validators.required]),
+    completedOn: new FormControl(null,[Validators.required])
   });
 }

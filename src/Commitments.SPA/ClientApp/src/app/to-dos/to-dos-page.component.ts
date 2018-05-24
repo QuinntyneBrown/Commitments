@@ -8,6 +8,7 @@ import { EditToDoOverlayComponent } from "./edit-to-do-overlay.component";
 import { map, takeUntil } from "rxjs/operators";
 import { DeleteCellComponent } from "../shared/delete-cell.component";
 import { EditToDoOverlay } from "./edit-to-do-overlay";
+import { EditCellComponent } from "../shared/edit-cell.component";
 
 @Component({
   templateUrl: "./to-dos-page.component.html",
@@ -37,11 +38,13 @@ export class ToDosPageComponent {
   public columnDefs: Array<ColDef> = [
     { headerName: "Name", field: "name" },
     { headerName: "Due On", field: "dueOn" },
-    { cellRenderer: "deleteRenderer", onCellClicked: $event => this.handleRemoveToDoCellClick($event), width:40 }
+    { cellRenderer: "editRenderer", onCellClicked: $event => this.handleEditToDoCellClick($event), width: 30 },
+    { cellRenderer: "deleteRenderer", onCellClicked: $event => this.handleRemoveToDoCellClick($event), width: 30 }
   ];
 
   public frameworkComponents: any = {
-    deleteRenderer: DeleteCellComponent
+    deleteRenderer: DeleteCellComponent,
+    editRenderer: EditCellComponent
   };
 
   private _gridApi: GridApi;
@@ -58,6 +61,16 @@ export class ToDosPageComponent {
   public handleFabButtonClick() {
     const overlayRefWrapper = this._editToDoOverlay.create();
 
+    overlayRefWrapper.afterClosed()
+      .pipe(map(toDo => this.addOrUpdate(toDo)), takeUntil(this.onDestroy))
+      .subscribe();
+  }
+
+  public handleEditToDoCellClick($event) {
+    const overlayRefWrapper = this._editToDoOverlay.create();
+
+    overlayRefWrapper.data.toDoId = $event.data.toDoId;
+    
     overlayRefWrapper.afterClosed()
       .pipe(map(toDo => this.addOrUpdate(toDo)), takeUntil(this.onDestroy))
       .subscribe();

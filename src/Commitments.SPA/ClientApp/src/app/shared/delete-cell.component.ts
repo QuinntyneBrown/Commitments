@@ -5,6 +5,7 @@ import { IAfterGuiAttachedParams, ICellRendererParams } from 'ag-grid';
 
 @Component({
   templateUrl: './delete-cell.component.html',
+  styles: [':host { margin: 0 auto; }'],
   selector: 'app-delete-cell'
 })
 export class DeleteCellComponent implements ICellRendererAngularComp {

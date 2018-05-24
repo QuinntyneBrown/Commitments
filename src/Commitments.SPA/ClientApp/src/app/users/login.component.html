@@ -21,6 +21,9 @@
              required>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" (click)="tryToLogin({ value: this.form.value })">{{ "Submit" | translate }}</button>
+    <button mat-raised-button color="primary"
+            (click)="tryToLogin({ value: this.form.value })"
+            [disabled]="!form.valid"
+            >{{ "Submit" | translate }}</button>
   </form>
 </mat-card>
