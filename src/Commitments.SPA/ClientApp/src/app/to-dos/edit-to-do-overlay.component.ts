@@ -36,6 +36,7 @@ export class EditToDoOverlayComponent {
     toDo.dueOn = this.form.value.dueOn;
     toDo.completedOn = this.form.value.completedOn
     toDo.name = this.form.value.name;
+    toDo.isCompleted = !this.form.value.completedOn;
     this._toDoService.save({ toDo })
       .pipe(
         map(x => toDo.toDoId = x.toDoId),

@@ -4,5 +4,6 @@ export class ToDo {
   public description: string;
   public dueOn: any;
   public completedOn?: any;
+  public isCompleted: boolean;
   public profileId: number;
 }

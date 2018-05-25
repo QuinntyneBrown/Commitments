@@ -9,6 +9,7 @@ import { map, takeUntil } from "rxjs/operators";
 import { DeleteCellComponent } from "../shared/delete-cell.component";
 import { EditToDoOverlay } from "./edit-to-do-overlay";
 import { EditCellComponent } from "../shared/edit-cell.component";
+import { CheckboxCellComponent } from "../shared/checkbox-cell.component";
 
 @Component({
   templateUrl: "./to-dos-page.component.html",
@@ -38,11 +39,13 @@ export class ToDosPageComponent {
   public columnDefs: Array<ColDef> = [
     { headerName: "Name", field: "name" },
     { headerName: "Due On", field: "dueOn" },
+    { headerName: "Completed On", field:"completedOn" },
     { cellRenderer: "editRenderer", onCellClicked: $event => this.handleEditToDoCellClick($event), width: 30 },
     { cellRenderer: "deleteRenderer", onCellClicked: $event => this.handleRemoveToDoCellClick($event), width: 30 }
   ];
 
   public frameworkComponents: any = {
+    checkboxRenderer: CheckboxCellComponent,
     deleteRenderer: DeleteCellComponent,
     editRenderer: EditCellComponent
   };

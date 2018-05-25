@@ -20,7 +20,7 @@ mat-card {
   height: 200px;
 }
 
-mat-card.selected {
-  height: 200px;
-  background-color: var(--default-color,rgb(245,245,245));
-}
+  mat-card.selected {
+    height: 200px;
+    background-color: var(--default-color,rgb(245,245,245));
+  }

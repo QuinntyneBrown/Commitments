@@ -13,14 +13,14 @@ import { DashboardCard } from "./dashboard-card.model";
   styleUrls: ["./add-dashboard-cards-overlay.component.css"],
   selector: "app-add-dashboard-cards-overlay"
 })
-export class AddDashboardCardsOverlayComponent { 
+export class AddDashboardCardsOverlayComponent {
   constructor(
     private _overlay: OverlayRefWrapper,
     private _cardService: CardService,
-    private _dashboardCardService: DashboardCardService 
+    private _dashboardCardService: DashboardCardService
   ) { }
 
-  public dashboard: Dashboard;
+  public dashboardId: number;
 
   private cards$: Observable<Card[]>;
 
@@ -46,13 +46,18 @@ export class AddDashboardCardsOverlayComponent {
     for (let i = 0; i < this.selectedCards.length; i++) {
       let dashboardCard = new DashboardCard();
       dashboardCard.cardId = this.selectedCards[i].cardId;
-      dashboardCard.dashboardId = this.dashboard.dashboardId;
+      dashboardCard.dashboardId = this.dashboardId;
       dashboardCards.push(dashboardCard);
     }
 
     this._dashboardCardService.saveRange({ dashboardCards })
-      .pipe(switchMap(x => this._dashboardCardService.getByIds({ dashboardCardIds: x.dashboardCardIds })))
-      .subscribe(dashboardCards => this._overlay.close(dashboardCards));    
+      .pipe(
+        switchMap(x => this._dashboardCardService.getByIds({ dashboardCardIds: x.dashboardCardIds })),
+        map(dashboardCards => {
+        this._overlay.close(dashboardCards);
+      })
+      )
+      .subscribe();
   }
 
   public handleCancelClick() {
@@ -62,6 +67,6 @@ export class AddDashboardCardsOverlayComponent {
   public onDestroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy() {
-    this.onDestroy.next();    
+    this.onDestroy.next();
   }
 }

@@ -42,10 +42,12 @@ import { DeleteCellComponent } from './delete-cell.component';
 import { AutoCompleteChipListComponent } from './auto-complete-chip-list.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { EditCellComponent } from './edit-cell.component';
+import { CheckboxCellComponent } from './checkbox-cell.component';
 
 @NgModule({
   declarations: [
     AutoCompleteChipListComponent,
+    CheckboxCellComponent,
     DeleteCellComponent,
     EditCellComponent,
     PrimaryHeaderComponent,
@@ -90,7 +92,10 @@ import { EditCellComponent } from './edit-cell.component';
     ReactiveFormsModule,
     TranslateModule,
 
-    AgGridModule.withComponents([DeleteCellComponent, EditCellComponent])
+    AgGridModule.withComponents([
+      CheckboxCellComponent,
+      DeleteCellComponent,
+      EditCellComponent])
   ],
   exports: [
     MatAutocompleteModule,
@@ -131,6 +136,7 @@ import { EditCellComponent } from './edit-cell.component';
     ReactiveFormsModule,
 
     AutoCompleteChipListComponent,
+    CheckboxCellComponent,
     DeleteCellComponent,
     PrimaryHeaderComponent,
     QuillTextEditorComponent,

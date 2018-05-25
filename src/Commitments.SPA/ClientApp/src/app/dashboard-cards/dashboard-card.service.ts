@@ -27,7 +27,9 @@ export class DashboardCardService {
   }
 
   public getByIds(options: { dashboardCardIds: number[] }): Observable<DashboardCard[]> {
-    return this._client.get<{ dashboardCards: DashboardCard[] }>(`${this._baseUrl}api/dashboardCards/${options.dashboardCardIds}`)
+    return this._client.get<{ dashboardCards: DashboardCard[] }>(`${this._baseUrl}api/dashboardCards/range?${options.dashboardCardIds
+      .map(x => `dashboardCardIds=${x}`)
+      .join('&')}`)
       .pipe(
         map(x => x.dashboardCards)
       );
@@ -42,6 +44,6 @@ export class DashboardCardService {
   }
 
   public saveRange(options: { dashboardCards: DashboardCard[] }): Observable<{ dashboardCardIds: number[] }> {
-    return this._client.post<{ dashboardCardIds: number[] }>(`${this._baseUrl}api/dashboardCards`, { dashboardCards: options.dashboardCards });
+    return this._client.post<{ dashboardCardIds: number[] }>(`${this._baseUrl}api/dashboardCards/range`, { dashboardCards: options.dashboardCards });
   }
 }
