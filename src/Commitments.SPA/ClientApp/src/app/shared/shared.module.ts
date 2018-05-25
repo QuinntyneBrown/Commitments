@@ -43,6 +43,7 @@ import { AutoCompleteChipListComponent } from './auto-complete-chip-list.compone
 import { TranslateModule } from '@ngx-translate/core';
 import { EditCellComponent } from './edit-cell.component';
 import { CheckboxCellComponent } from './checkbox-cell.component';
+import { StarCellComponent } from './star-cell.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { CheckboxCellComponent } from './checkbox-cell.component';
     DeleteCellComponent,
     EditCellComponent,
     PrimaryHeaderComponent,
-    QuillTextEditorComponent
+    QuillTextEditorComponent,
+    StarCellComponent
   ],
   imports: [
     MatAutocompleteModule,
@@ -95,7 +97,9 @@ import { CheckboxCellComponent } from './checkbox-cell.component';
     AgGridModule.withComponents([
       CheckboxCellComponent,
       DeleteCellComponent,
-      EditCellComponent])
+      EditCellComponent,
+      StarCellComponent
+    ])
   ],
   exports: [
     MatAutocompleteModule,
