@@ -32,9 +32,7 @@ export class DailyResultsDashboardCardComponent extends DashboardCardComponent {
   }
 
   public onDestroy: Subject<void> = new Subject<void>();
-
-  public static cardId = 1;
-
+  
   public achievements$: Observable<number>;
 
   public commitments$: Observable<number>;

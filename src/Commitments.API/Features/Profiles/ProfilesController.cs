@@ -18,7 +18,11 @@ namespace Commitments.API.Features.Profiles
             _httpContextAccessor = httpContextAccessor;
             _mediator = mediator;
         }
-        
+
+        [HttpPost("create")]
+        public async Task<ActionResult<CreateProfileCommand.Response>> Create(CreateProfileCommand.Request request)
+            => await _mediator.Send(request);
+
         [HttpGet("current")]
         public async Task<ActionResult<GetProfileByUsernameQuery.Response>> GetCurrent()
             => await _mediator.Send(new GetProfileByUsernameQuery.Request() { Username = _httpContextAccessor.HttpContext.User.Identity.Name });

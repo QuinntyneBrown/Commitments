@@ -18,4 +18,26 @@ export class ProfileService {
         map(x => x.profile)
       );
   }
+
+  public get(): Observable<Array<Profile>> {
+    return this._client.get<{ profiles: Array<Profile> }>(`${this._baseUrl}api/profiles`)
+      .pipe(
+        map(x => x.profiles)
+      );
+  }
+
+  public getById(options: { profileId: number }): Observable<Profile> {
+    return this._client.get<{ profile: Profile }>(`${this._baseUrl}api/profiles/${options.profileId}`)
+      .pipe(
+        map(x => x.profile)
+      );
+  }
+
+  public remove(options: { profile: Profile }): Observable<void> {
+    return this._client.delete<void>(`${this._baseUrl}api/profiles/${options.profile.profileId}`);
+  }
+
+  public save(options: { profile: Profile }): Observable<{ profileId: number }> {
+    return this._client.post<{ profileId: number }>(`${this._baseUrl}api/profiles`, { profile: options.profile });
+  }
 }
