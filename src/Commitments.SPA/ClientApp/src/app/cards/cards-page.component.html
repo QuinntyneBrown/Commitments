@@ -1,0 +1,20 @@
+<app-primary-header>
+  {{ "Cards" | translate }}
+</app-primary-header>
+
+<section class="page-content-container">
+  <ag-grid-angular class="ag-theme-material"
+                   [columnDefs]="columnDefs"
+                   [rowData]="cards$ | async"
+                   [pagination]="true"
+                   [paginationPageSize]="5"
+                   [localeText]="localeText"
+                   [frameworkComponents]="frameworkComponents"
+                   (gridReady)="onGridReady($event)">
+  </ag-grid-angular>
+
+  <button mat-fab (click)="handleFABButtonClick()">
+    <mat-icon>add</mat-icon>
+  </button>
+</section>
+

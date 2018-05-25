@@ -5,16 +5,26 @@ import { RouterModule } from '@angular/router';
 import { CardService } from './card.service';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
+import { CardsPageComponent } from './cards-page.component';
+import { EditCardOverlayComponent } from './edit-card-overlay.component';
+import { EditCardOverlay } from './edit-card-overlay';
 
 const declarations = [
+  CardsPageComponent,
+  EditCardOverlayComponent
 ];
 
 const providers = [
-  CardService
+  CardService,
+  EditCardOverlay
+];
+
+const entryComponents = [
+  EditCardOverlayComponent
 ];
 
 @NgModule({
-  declarations: declarations,
+  declarations,
   imports: [
     CommonModule,
     FormsModule,
@@ -25,5 +35,6 @@ const providers = [
     SharedModule
   ],
   providers,
+  entryComponents
 })
 export class CardsModule { }

@@ -1,0 +1,17 @@
+<mat-card-title>
+  Edit Card
+</mat-card-title>
+
+<form novalidate autocomplete="off" spellcheck="false" [formGroup]="form">
+
+  <mat-form-field>
+    <input matInput placeholder="{{ 'Name' | translate }}" id="name" formControlName="name">
+  </mat-form-field>
+
+  <app-quill-text-editor formControlName="description" [editorPlaceholder]="'Description'"></app-quill-text-editor>
+
+  <div class="actions">
+    <button mat-button (click)="handleSaveClick()">{{ "Save" | translate }}</button>
+    <button mat-button (click)="handleCancelClick()">{{ "Cancel" | translate }}</button>
+  </div>
+</form>

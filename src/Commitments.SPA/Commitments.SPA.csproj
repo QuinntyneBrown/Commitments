@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\core\can-deactivate.guard.ts" />
+    <None Remove="ClientApp\src\app\core\deep-copy.ts" />
     <None Remove="ClientApp\src\app\core\error.service.ts" />
     <None Remove="ClientApp\src\app\core\i-can-deactivate.ts" />
     <None Remove="ClientApp\src\app\core\overlay-ref-provider.ts" />
@@ -35,6 +36,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\core\can-deactivate.guard.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\core\deep-copy.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\core\error.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\core\i-can-deactivate.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\core\overlay-ref-provider.ts" />
@@ -49,7 +51,6 @@
     <Folder Include="ClientApp\src\app\activities\" />
     <Folder Include="ClientApp\src\app\cards\" />
     <Folder Include="ClientApp\src\app\achievements\" />
-    <Folder Include="ClientApp\src\app\dashboard-cards\" />
     <Folder Include="ClientApp\src\app\profiles\" />
   </ItemGroup>
 

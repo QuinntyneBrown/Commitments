@@ -24,6 +24,7 @@ import { DashboardPageComponent } from './dashboards/dashboard-page.component';
 import { EditFrequencyPageComponent } from './frequencies/edit-frequency-page.component';
 import { ActivitiesPageComponent } from './activities/activities-page.component';
 import { ToDosPageComponent } from './to-dos/to-dos-page.component';
+import { CardsPageComponent } from './cards/cards-page.component';
 
 export const routes: Routes = [
   {
@@ -44,6 +45,11 @@ export const routes: Routes = [
       {
         path: '',
         component: DashboardPageComponent,
+        canActivate: [LanguageGuard]
+      },
+      {
+        path: 'cards',
+        component: CardsPageComponent,
         canActivate: [LanguageGuard]
       },
       {
