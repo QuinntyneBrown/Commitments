@@ -21,10 +21,10 @@ namespace Commitments.API.Features.DashboardCards
         }
 
         public class OptionsApiModel {
-            public int Top { get; set; }
-            public int Left { get; set; }
-            public int Height { get; set; }
-            public int Width { get; set; }
+            public int Top { get; set; } = 1;
+            public int Left { get; set; } = 1;
+            public int Height { get; set; } = 1;
+            public int Width { get; set; } = 1;
         }
     }
 }

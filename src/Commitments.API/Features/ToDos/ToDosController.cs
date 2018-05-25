@@ -34,9 +34,13 @@ namespace Commitments.API.Features.ToDos
         public async Task<ActionResult<GetToDoByIdQuery.Response>> GetById([FromRoute]GetToDoByIdQuery.Request request)
             => await _mediator.Send(request);
 
+        [HttpGet("outstanding")]
+        public async Task<ActionResult<GetOutstandingToDosQuery.Response>> GetOutstanding()
+            => await _mediator.Send(new GetOutstandingToDosQuery.Request() { ProfileId = _httpContextAccessor.GetProfileIdFromClaims() });
+
         [HttpGet]
         public async Task<ActionResult<GetToDosQuery.Response>> Get()
-            => await _mediator.Send(new GetToDosQuery.Request());
+            => await _mediator.Send(new GetToDosQuery.Request() { ProfileId = _httpContextAccessor.GetProfileIdFromClaims() });
         
     }
 }

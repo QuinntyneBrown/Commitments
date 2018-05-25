@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Commitments.API.Features.ToDos
 {
-    public class GetToDosQuery
+    public class GetOutstandingToDosQuery
     {
         public class Request : IRequest<Response> {
             public int ProfileId { get; set; }
@@ -22,15 +22,15 @@ namespace Commitments.API.Features.ToDos
         public class Handler : IRequestHandler<Request, Response>
         {
             public IAppDbContext _context { get; set; }
-            
-			public Handler(IAppDbContext context) => _context = context;
+            public Handler(IAppDbContext context) => _context = context;
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
                     ToDos = await _context.ToDos
-                    .Where(x =>x.ProfileId == request.ProfileId)
-                    .Select(x => ToDoApiModel.FromToDo(x)).ToListAsync()
+                    .Where(x => x.CompletedOn == null && x.ProfileId == request.ProfileId)
+                    .Select(x => ToDoApiModel.FromToDo(x))
+                    .ToListAsync()
                 };
         }
     }
