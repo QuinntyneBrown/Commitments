@@ -64,7 +64,7 @@ export const routes: Routes = [
         canActivate: [LanguageGuard]
       },
       {
-        path: 'frequencies/create',
+        path: 'frequencies',
         component: EditFrequencyPageComponent,
         canActivate: [LanguageGuard]
       },

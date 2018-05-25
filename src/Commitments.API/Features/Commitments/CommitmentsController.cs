@@ -1,9 +1,8 @@
+using Commitments.Core.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Commitments.API.Features.Commitments
@@ -24,7 +23,7 @@ namespace Commitments.API.Features.Commitments
 
         [HttpPost]
         public async Task<ActionResult<SaveCommitmentCommand.Response>> Save(SaveCommitmentCommand.Request request) {
-            request.Commitment.ProfileId = GetProfileId();
+            request.Commitment.ProfileId = _httpContextAccessor.GetProfileIdFromClaims();
             return await _mediator.Send(request);
         }
         
@@ -42,12 +41,7 @@ namespace Commitments.API.Features.Commitments
 
         [HttpGet("daily")]
         public async Task<ActionResult<GetDailyCommitmentsQuery.Response>> GetDaily() {
-            return await _mediator.Send(new GetDailyCommitmentsQuery.Request() { ProfileId = GetProfileId() });
-        }
-
-        public int GetProfileId() {
-            var profileClaim = _httpContextAccessor.HttpContext.User.Claims.Single(x => x.Type == "ProfileId");
-            return Convert.ToInt16(profileClaim.Value);
+            return await _mediator.Send(new GetDailyCommitmentsQuery.Request() { ProfileId = _httpContextAccessor.GetProfileIdFromClaims() });
         }
     }
 }

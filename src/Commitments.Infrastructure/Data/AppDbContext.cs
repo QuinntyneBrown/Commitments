@@ -95,6 +95,9 @@ namespace Commitments.Infrastructure.Data
             modelBuilder.Entity<NoteTag>()
                 .HasQueryFilter(e => !e.IsDeleted);
 
+            modelBuilder.Entity<Profile>()
+                .HasQueryFilter(e => !e.IsDeleted);
+
             modelBuilder.Entity<Tag>()
                 .HasQueryFilter(e => !e.IsDeleted);
 

@@ -7,49 +7,38 @@ import { Profile } from "./profile.model";
 import { map, switchMap, tap, takeUntil } from "rxjs/operators";
 
 @Component({
-  templateUrl: "./edit-profile-overlay.component.html",
-  styleUrls: ["./edit-profile-overlay.component.css"],
-  selector: "app-edit-profile-overlay"
+  templateUrl: "./create-profile-overlay.component.html",
+  styleUrls: ["./create-profile-overlay.component.css"],
+  selector: "app-create-profile-overlay"
 })
-export class EditProfileOverlayComponent { 
+export class CreateProfileOverlayComponent { 
   constructor(
     private _profileService: ProfileService,
     private _overlay: OverlayRefWrapper) { }
-
-  ngOnInit() {
-    if (this.profileId)
-      this._profileService.getById({ profileId: this.profileId })
-        .pipe(
-          map(x => this.profile$.next(x)),
-          switchMap(x => this.profile$),
-          map(x => this.form.patchValue({
-            name: x.name
-          }))
-        )
-        .subscribe();
-  }
 
   public onDestroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy() {
     this.onDestroy.next();	
   }
-
-  public profile$: BehaviorSubject<Profile> = new BehaviorSubject(<Profile>{});
   
-  public profileId: number;
-
   public handleCancelClick() {
     this._overlay.close();
   }
 
   public handleSaveClick() {
+    const options = {
+      username: this.form.value.username,
+      password: this.form.value.password,
+      confirmPassword: this.form.value.confirmPassword
+    };
+
     const profile = new Profile();
-    profile.profileId = this.profileId;
-    profile.name = this.form.value.name;
-    this._profileService.save({ profile })
+
+    profile.name = options.username;
+    this._profileService.create(options)
       .pipe(
-        map(x => profile.vId = x.profileId),
+        map(x => profile.profileId = x.profileId),
         tap(x => this._overlay.close(profile)),
         takeUntil(this.onDestroy)
       )
@@ -57,6 +46,8 @@ export class EditProfileOverlayComponent {
   }
 
   public form: FormGroup = new FormGroup({
-    name: new FormControl(null, [])
+    username: new FormControl(null, []),
+    password: new FormControl(null, []),
+    confirmPassword: new FormControl(null, [])
   });
 } 

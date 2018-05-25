@@ -37,7 +37,7 @@ export class ProfileService {
     return this._client.delete<void>(`${this._baseUrl}api/profiles/${options.profile.profileId}`);
   }
 
-  public save(options: { profile: Profile }): Observable<{ profileId: number }> {
-    return this._client.post<{ profileId: number }>(`${this._baseUrl}api/profiles`, { profile: options.profile });
+  public create(options: { username: string, password: string, confirmPassword: string }): Observable<{ profileId: number }> {
+    return this._client.post<{ profileId: number }>(`${this._baseUrl}api/profiles/create`, options);
   }
 }

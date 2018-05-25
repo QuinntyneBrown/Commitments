@@ -31,7 +31,7 @@ namespace Commitments.API.Features.Commitments
                     .Include(x => x.CommitmentFrequencies)
                     .Include("CommitmentFrequencies.Frequency")
                     .Include("CommitmentFrequencies.Frequency.FrequencyType")
-                    .Where(x => x.CommitmentFrequencies.Any(f => f.Frequency.FrequencyType.Name == "per day" ))
+                    .Where(x => x.ProfileId == request.ProfileId && x.CommitmentFrequencies.Any(f => f.Frequency.FrequencyType.Name == "per day" ))
                     .Select(x => CommitmentApiModel.FromCommitment(x)).ToListAsync()
                 };
         }

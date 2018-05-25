@@ -30,7 +30,7 @@ namespace Commitments.API.Features.Dashboards
                 {
                     Dashboard = DashboardApiModel.FromDashboard(await _context.Dashboards
                         .Include(x => x.DashboardCards)
-                        .SingleAsync(x => x.ProfileId == request.ProfileId))
+                        .SingleOrDefaultAsync(x => x.ProfileId == request.ProfileId))
                 };
         }
     }

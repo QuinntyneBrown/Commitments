@@ -13,25 +13,31 @@ namespace Commitments.API.Features.Profiles
         {
             public Validator()
             {
-                RuleFor(request => request.Profile.ProfileId).NotEqual(0);
+                RuleFor(request => request.ProfileId).NotEqual(0);
             }
         }
 
-        public class Request : IRequest
+        public class Request : IRequest<Response>
         {
-            public Profile Profile { get; set; }
+            public int ProfileId { get; set; }
         }
 
-        public class Handler : IRequestHandler<Request>
+        public class Response { }
+
+        public class Handler : IRequestHandler<Request, Response>
         {
             public IAppDbContext _context { get; set; }
             
             public Handler(IAppDbContext context) => _context = context;
 
-            public async Task Handle(Request request, CancellationToken cancellationToken)
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                _context.Profiles.Remove(await _context.Profiles.FindAsync(request.Profile.ProfileId));
+                _context.Profiles.Remove(await _context.Profiles.FindAsync(request.ProfileId));
                 await _context.SaveChangesAsync(cancellationToken);
+                return new Response()
+                {
+
+                };
             }
 
         }

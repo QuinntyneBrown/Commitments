@@ -5,22 +5,22 @@ import { RouterModule } from '@angular/router';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { ProfileService } from './profile.service';
-import { EditProfileOverlayComponent } from './edit-profile-overlay.component';
 import { ProfilesPageComponent } from './profiles-page.component';
-import { EditProfileOverlay } from './edit-profile-overlay';
+import { CreateProfileOverlayComponent } from './create-profile-overlay.component';
+import { CreateProfileOverlay } from './create-profile-overlay';
 
 const declarations = [
-  EditProfileOverlayComponent,
+  CreateProfileOverlayComponent,
   ProfilesPageComponent
 ];
 
 const providers = [
   ProfileService,
-  EditProfileOverlay
+  CreateProfileOverlay
 ];
 
 const entryComponents = [
-  EditProfileOverlayComponent
+  CreateProfileOverlayComponent
 ];
 
 @NgModule({

@@ -14,13 +14,12 @@ namespace Commitments.API.Features.Dashboards
         = new HashSet<DashboardCardApiModel>();
 
         public static DashboardApiModel FromDashboard(Dashboard dashboard)
-        {
-            var model = new DashboardApiModel();
-            model.DashboardId = dashboard.DashboardId;
-            model.Name = dashboard.Name;
-            model.ProfileId = dashboard.ProfileId;
-            model.DashboardCards = dashboard.DashboardCards.Select(x => DashboardCardApiModel.FromDashboardCard(x)).ToList();
-            return model;
-        }
+            => new DashboardApiModel
+            {
+                DashboardId = dashboard.DashboardId,
+                Name = dashboard.Name,
+                ProfileId = dashboard.ProfileId,
+                DashboardCards = dashboard.DashboardCards.Select(x => DashboardCardApiModel.FromDashboardCard(x)).ToList()
+            };
     }
 }
