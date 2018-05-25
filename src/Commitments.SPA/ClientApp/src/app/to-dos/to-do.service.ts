@@ -19,6 +19,13 @@ export class ToDoService {
       );
   }
 
+  public getOutstandingToDos(): Observable<Array<ToDo>> {
+    return this._client.get<{ toDos: Array<ToDo> }>(`${this._baseUrl}api/toDos/outstanding`)
+      .pipe(
+        map(x => x.toDos)
+      );
+  }
+
   public getById(options: { toDoId: number }): Observable<ToDo> {
     return this._client.get<{ toDo: ToDo }>(`${this._baseUrl}api/toDos/${options.toDoId}`)
       .pipe(

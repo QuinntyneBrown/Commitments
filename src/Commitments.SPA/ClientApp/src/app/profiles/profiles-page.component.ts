@@ -2,11 +2,11 @@ import { Component } from "@angular/core";
 import { Subject } from "rxjs";
 
 @Component({
-  templateUrl: "./to-do-dashboard-card.component.html",
-  styleUrls: ["./to-do-dashboard-card.component.css"],
-  selector: "app-to-do-dashboard-card"
+  templateUrl: "./profiles-page.component.html",
+  styleUrls: ["./profiles-page.component.css"],
+  selector: "app-profiles-page"
 })
-export class ToDoDashboardCardComponent { 
+export class ProfilesPageComponent { 
 
   public onDestroy: Subject<void> = new Subject<void>();
 

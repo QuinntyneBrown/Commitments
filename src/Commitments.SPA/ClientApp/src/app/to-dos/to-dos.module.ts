@@ -8,14 +8,18 @@ import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { EditToDoOverlayComponent } from './edit-to-do-overlay.component';
 import { EditToDoOverlay } from './edit-to-do-overlay';
+import { DashboardCardsModule } from '../dashboard-cards/dashboard-cards.module';
+import { ToDoDashboardCardComponent } from './to-do-dashboard-card.component';
 
 const declarations = [
   EditToDoOverlayComponent,
-  ToDosPageComponent
+  ToDosPageComponent,
+  ToDoDashboardCardComponent
 ];
 
 const entryComponents = [
-  EditToDoOverlayComponent
+  EditToDoOverlayComponent,
+  ToDoDashboardCardComponent
 ];
 
 const providers = [
@@ -32,6 +36,7 @@ const providers = [
     RouterModule,
 
     CoreModule,
+    DashboardCardsModule,
     SharedModule
   ],
   providers,

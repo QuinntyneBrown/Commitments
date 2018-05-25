@@ -18,11 +18,11 @@ namespace Commitments.API.Features.Cards
         public async Task<ActionResult<SaveCardCommand.Response>> Save(SaveCardCommand.Request request)
             => await _mediator.Send(request);
         
-        [HttpDelete("{Card.CardId}")]
+        [HttpDelete("{cardId}")]
         public async Task Remove([FromRoute]RemoveCardCommand.Request request)
             => await _mediator.Send(request);            
 
-        [HttpGet("{CardId}")]
+        [HttpGet("{cardId}")]
         public async Task<ActionResult<GetCardByIdQuery.Response>> GetById([FromRoute]GetCardByIdQuery.Request request)
             => await _mediator.Send(request);
 

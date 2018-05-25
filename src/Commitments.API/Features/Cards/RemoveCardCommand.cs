@@ -2,7 +2,6 @@ using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 
 namespace Commitments.API.Features.Cards
@@ -13,13 +12,13 @@ namespace Commitments.API.Features.Cards
         {
             public Validator()
             {
-                RuleFor(request => request.Card.CardId).NotEqual(0);
+                RuleFor(request => request.CardId).NotEqual(0);
             }
         }
 
         public class Request : IRequest
         {
-            public Card Card { get; set; }
+            public int CardId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request>
@@ -30,7 +29,7 @@ namespace Commitments.API.Features.Cards
 
             public async Task Handle(Request request, CancellationToken cancellationToken)
             {
-                _context.Cards.Remove(await _context.Cards.FindAsync(request.Card.CardId));
+                _context.Cards.Remove(await _context.Cards.FindAsync(request.CardId));
                 await _context.SaveChangesAsync(cancellationToken);
             }
 

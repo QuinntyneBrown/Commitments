@@ -25,6 +25,7 @@ import { EditFrequencyPageComponent } from './frequencies/edit-frequency-page.co
 import { ActivitiesPageComponent } from './activities/activities-page.component';
 import { ToDosPageComponent } from './to-dos/to-dos-page.component';
 import { CardsPageComponent } from './cards/cards-page.component';
+import { ProfilesPageComponent } from './profiles/profiles-page.component';
 
 export const routes: Routes = [
   {
@@ -104,6 +105,11 @@ export const routes: Routes = [
           tags: TagsResolver,
           note: NoteResolver
         }
+      },
+      {
+        path: 'profiles',
+        component: ProfilesPageComponent,
+        canActivate: [LanguageGuard]
       },
       {
         path: 'settings',

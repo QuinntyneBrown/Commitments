@@ -38,6 +38,7 @@ namespace Commitments.API.Features.Cards
                 if (card == null) _context.Cards.Add(card = new Card());
 
                 card.Name = request.Card.Name;
+                card.Description = request.Card.Description;
 
                 await _context.SaveChangesAsync(cancellationToken);
 

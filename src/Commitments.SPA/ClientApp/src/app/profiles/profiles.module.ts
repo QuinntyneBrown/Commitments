@@ -5,16 +5,26 @@ import { RouterModule } from '@angular/router';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { ProfileService } from './profile.service';
+import { EditProfileOverlayComponent } from './edit-profile-overlay.component';
+import { ProfilesPageComponent } from './profiles-page.component';
+import { EditProfileOverlay } from './edit-profile-overlay';
 
 const declarations = [
+  EditProfileOverlayComponent,
+  ProfilesPageComponent
 ];
 
 const providers = [
-  ProfileService
+  ProfileService,
+  EditProfileOverlay
+];
+
+const entryComponents = [
+  EditProfileOverlayComponent
 ];
 
 @NgModule({
-  declarations: declarations,
+  declarations,
   imports: [
     CommonModule,
     FormsModule,
@@ -25,5 +35,6 @@ const providers = [
     SharedModule
   ],
   providers,
+  entryComponents
 })
 export class ProfilesModule { }

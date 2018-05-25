@@ -14,9 +14,9 @@ import { DashboardCardConfigurationOverlay } from "../dashboard-cards/dashboard-
 import { DashboardCardService } from "../dashboard-cards/dashboard-card.service";
 import { deepCopy } from "../core/deep-copy";
 import { AddDashboardCardsOverlay } from "../dashboard-cards/add-dashboard-cards-overlay";
-import { ToDoDashboardCardComponent } from "../dashboard-cards/to-do-dashboard-card.component";
 import { MonthlyResultsDashboardCardComponent } from "../achievements/monthly-results-dashboard-card.component";
 import { WeeklyResultsDashboardCardComponent } from "../achievements/weekly-results-dashboard-card.component";
+import { ToDoDashboardCardComponent } from "../to-dos/to-do-dashboard-card.component";
 
 @Component({
   templateUrl: "./dashboard-page.component.html",
