@@ -8,6 +8,7 @@ namespace Commitments.API.Features.DashboardCards
         public int DashboardCardId { get; set; }
         public int DashboardId { get; set; }
         public int? CardId { get; set; }
+        public int? CardLayoutId { get; set; }
         public OptionsApiModel Options { get; set; }
 
         public static DashboardCardApiModel FromDashboardCard(DashboardCard dashboardCard)
@@ -16,6 +17,7 @@ namespace Commitments.API.Features.DashboardCards
                 DashboardCardId = dashboardCard.DashboardCardId,
                 DashboardId = dashboardCard.DashboardId,
                 CardId = dashboardCard.CardId,
+                CardLayoutId = dashboardCard.CardLayoutId,
                 Options = JsonConvert.DeserializeObject<OptionsApiModel>(dashboardCard.Options)
             };
 

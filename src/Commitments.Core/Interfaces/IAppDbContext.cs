@@ -11,7 +11,8 @@ namespace Commitments.Core.Interfaces
         DbSet<Activity> Activities { get; set; }
         DbSet<Behaviour> Behaviours { get; set; }
         DbSet<BehaviourType> BehaviourTypes { get; set; }
-        DbSet<Card> Cards { get; set; }        
+        DbSet<Card> Cards { get; set; }
+        DbSet<CardLayout> CardLayouts { get; set; }
         DbSet<Commitment> Commitments { get; set; }
         DbSet<Dashboard> Dashboards { get; set; }
         DbSet<DashboardCard> DashboardCards { get; set; }

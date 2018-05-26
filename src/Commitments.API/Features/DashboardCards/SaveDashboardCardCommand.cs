@@ -59,6 +59,7 @@ namespace Commitments.API.Features.DashboardCards
                 dashboardCard.DashboardCardId = request.DashboardCard.DashboardCardId;
                 dashboardCard.DashboardId = request.DashboardCard.DashboardId;
                 dashboardCard.CardId = request.DashboardCard.CardId;
+                dashboardCard.CardLayoutId = request.DashboardCard.CardLayoutId;
                 dashboardCard.Options = JsonConvert.SerializeObject(request.DashboardCard.Options);
 
                 await _context.SaveChangesAsync(cancellationToken);

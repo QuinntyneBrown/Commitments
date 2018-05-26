@@ -25,6 +25,7 @@ namespace Commitments.Infrastructure.Data
         public DbSet<Behaviour> Behaviours { get; set; }
         public DbSet<BehaviourType> BehaviourTypes { get; set; }
         public DbSet<Card> Cards { get; set; }
+        public DbSet<CardLayout> CardLayouts { get; set; }
         public DbSet<Commitment> Commitments { get; set; }
         public DbSet<Dashboard> Dashboards { get; set; }
         public DbSet<DashboardCard> DashboardCards { get; set; }
@@ -72,6 +73,9 @@ namespace Commitments.Infrastructure.Data
                 .HasQueryFilter(e => !e.IsDeleted);
 
             modelBuilder.Entity<Card>()
+                .HasQueryFilter(e => !e.IsDeleted);
+
+            modelBuilder.Entity<CardLayout>()
                 .HasQueryFilter(e => !e.IsDeleted);
 
             modelBuilder.Entity<Commitment>()

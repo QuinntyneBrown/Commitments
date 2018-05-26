@@ -10,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Commitments.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180526144544_CardLayout")]
+    partial class CardLayout
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

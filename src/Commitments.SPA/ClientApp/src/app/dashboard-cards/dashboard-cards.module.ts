@@ -10,10 +10,15 @@ import { DashboardCardConfigurationOverlay } from './dashboard-card-configuratio
 import { AddDashboardCardsOverlay } from './add-dashboard-cards-overlay';
 import { AddDashboardCardsOverlayComponent } from './add-dashboard-cards-overlay.component';
 import { DashboardCardConfigurationOverlayComponent } from './dashboard-card-configuration-overlay.component';
+import { DashboardCardComponent } from './dashboard-card.component';
+import { PosterDashboardCardComponent } from './poster-dashboard-card.component';
+import { DashboardCard } from './dashboard-card.model';
 
 const declarations = [
   AddDashboardCardsOverlayComponent,
-  DashboardCardConfigurationOverlayComponent
+  DashboardCardConfigurationOverlayComponent,
+  DashboardCardComponent,
+  PosterDashboardCardComponent
 ];
 
 const providers = [
@@ -24,7 +29,9 @@ const providers = [
 
 const entryComponents = [
   AddDashboardCardsOverlayComponent,
-  DashboardCardConfigurationOverlayComponent
+  DashboardCardConfigurationOverlayComponent,
+  DashboardCardComponent,
+  PosterDashboardCardComponent
 ];
 
 @NgModule({
