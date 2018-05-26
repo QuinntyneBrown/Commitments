@@ -7,7 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ActivityService } from './activity.service';
 import { ActivitiesPageComponent } from './activities-page.component';
 import { EditActivityOverlayComponent } from './edit-activity-overlay.component';
-import { DEC } from '@angular/material';
+import { EditActivityOverlay } from './edit-activity-overlay';
 
 const declarations = [
   ActivitiesPageComponent,
@@ -15,7 +15,8 @@ const declarations = [
 ];
 
 const providers = [
-  ActivityService
+  ActivityService,
+  EditActivityOverlay
 ];
 
 const entryComponents = [

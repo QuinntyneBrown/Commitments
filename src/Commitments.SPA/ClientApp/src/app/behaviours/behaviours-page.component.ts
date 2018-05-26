@@ -53,14 +53,12 @@ export class BehavioursPageComponent {
   }
 
   public handleRemoveClick($event) {
-    const behaviour = $event.data;
-
     const behaviours: Array<Behaviour> = [...this.behaviours$.value];
     const index = behaviours.findIndex(x => x.behaviourId == $event.data.behaviourId);
     behaviours.splice(index, 1);
     this.behaviours$.next(behaviours);
 
-    this._behaviourService.remove({ behaviour })
+    this._behaviourService.remove({ behaviour: $event.data })
       .pipe(takeUntil(this.onDestroy))
       .subscribe();
   }
@@ -76,13 +74,7 @@ export class BehavioursPageComponent {
 
     let behaviours = [...this.behaviours$.value];
     const i = behaviours.findIndex((t) => t.behaviourId == behaviour.behaviourId);
-
-    if (i < 0) {
-      behaviours.push(behaviour);
-    } else {
-      behaviours[i] = behaviour;
-    }
-
+    const _ = i < 0 ? behaviours.push(behaviour) : behaviours[i] = behaviour;    
     this.behaviours$.next(behaviours);
   }
 

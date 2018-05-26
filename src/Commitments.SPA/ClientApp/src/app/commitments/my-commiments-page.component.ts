@@ -1,11 +1,13 @@
-import { Component, Injector } from "@angular/core";
-import { Subject } from "rxjs";
+import { Component } from "@angular/core";
+import { Subject, Observable, BehaviorSubject } from "rxjs";
 import { CommitmentService } from "./commitment.service";
-import { Overlay } from "@angular/cdk/overlay";
-import { OverlayRefWrapper } from "../core/overlay-ref-wrapper";
-import { PortalInjector, ComponentPortal } from "@angular/cdk/portal";
-import { AddCommitmentsOverlayComponent } from "./add-commitments-overlay.component";
 import { map, takeUntil } from "rxjs/operators";
+import { EditCommitmentOverlay } from "./edit-commitment-overlay";
+import { Commitment } from "./commitment.model";
+import { ColDef, GridApi } from "ag-grid";
+import { CheckboxCellComponent } from "../shared/checkbox-cell.component";
+import { DeleteCellComponent } from "../shared/delete-cell.component";
+import { EditCellComponent } from "../shared/edit-cell.component";
 
 @Component({
   templateUrl: "./my-commiments-page.component.html",
@@ -15,10 +17,17 @@ import { map, takeUntil } from "rxjs/operators";
 export class MyCommimentsPageComponent { 
   constructor(
     private _commitmentService: CommitmentService,
-    private _injector: Injector,
-    private _overlay: Overlay
+    private _editCommitmentOverlay: EditCommitmentOverlay
     
   ) { }
+
+  ngOnInit() {
+    this._commitmentService.get()
+      .pipe(takeUntil(this.onDestroy),map(x => this.commitments$.next(x)))
+      .subscribe();
+  }
+
+  public commitments$: BehaviorSubject<Commitment[]> = new BehaviorSubject([]);
 
   public onDestroy: Subject<void> = new Subject<void>();
 
@@ -26,33 +35,64 @@ export class MyCommimentsPageComponent {
     this.onDestroy.next();    
   }
 
-  public handleFabButtonClick() {
-    const positionStrategy = this._overlay
-      .position()
-      .global()
-      .centerHorizontally()
-      .centerVertically();
+  public columnDefs: Array<ColDef> = [
+    { headerName: "Type", field: "behaviour.behaviourType.name" },
+    { headerName: "Name", field: "behaviour.name" },
+    { cellRenderer: "editRenderer", onCellClicked: $event => this.handleEditClick($event), width:50 },
+    { cellRenderer: "deleteRenderer", onCellClicked: $event => this.handleRemoveClick($event), width: 50 }
+  ];
 
-    const overlayRef = this._overlay.create({
-      hasBackdrop: true,
-      positionStrategy
-    });
+  public frameworkComponents: any = {
+    checkboxRenderer: CheckboxCellComponent,
+    deleteRenderer: DeleteCellComponent,
+    editRenderer: EditCellComponent
+  };
 
-    const overlayRefWrapper = new OverlayRefWrapper(overlayRef);
+  private _gridApi: GridApi;
 
-    const injectionTokens = new WeakMap();
-    injectionTokens.set(OverlayRefWrapper, overlayRefWrapper);
-    const injector = new PortalInjector(this._injector, injectionTokens);
-    const overlayPortal = new ComponentPortal(AddCommitmentsOverlayComponent, null, injector);
-    
-    overlayRef.attach(overlayPortal);
+  public onGridReady(params) {
+    this._gridApi = params.api;
+    this._gridApi.sizeColumnsToFit();
+  }
 
-    overlayRefWrapper.afterClosed()
-      .pipe(map(this.handleSelectedBehaviours),takeUntil(this.onDestroy))
+  public handleFABButtonClick() {
+    this._editCommitmentOverlay.create()
+      .pipe(takeUntil(this.onDestroy))
       .subscribe()    
   }
 
-  public handleSelectedBehaviours($data) {
-    console.log($data);
+
+  public handleEditClick($event) {
+    this._editCommitmentOverlay.create({ commitmentId: $event.data.commitmentId })
+      .pipe(map(commitment => this.addOrUpdate(commitment)), takeUntil(this.onDestroy))
+      .subscribe();
+  }
+
+  public handleRemoveClick($event) {
+    const commitment = $event.data;
+
+    const commitments: Array<Commitment> = [...this.commitments$.value];
+    const index = commitments.findIndex(x => x.commitmentId == $event.data.commitmentId);
+    commitments.splice(index, 1);
+    this.commitments$.next(commitments);
+
+    this._commitmentService.remove({ commitment })
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe();
+  }
+
+  public addOrUpdate(commitment: Commitment) {
+    if (!commitment) return;
+
+    let commitments = [...this.commitments$.value];
+    const i = commitments.findIndex((t) => t.commitmentId == commitment.commitmentId);
+
+    if (i < 0) {
+      commitments.push(commitment);
+    } else {
+      commitments[i] = commitment;
+    }
+
+    this.commitments$.next(commitments);
   }
 }

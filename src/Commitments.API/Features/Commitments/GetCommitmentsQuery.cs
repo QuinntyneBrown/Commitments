@@ -26,7 +26,13 @@ namespace Commitments.API.Features.Commitments
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    Commitments = await _context.Commitments.Select(x => CommitmentApiModel.FromCommitment(x)).ToListAsync()
+                    Commitments = await _context.Commitments
+                    .Include(x => x.Behaviour)
+                    .Include("Behaviour.BehaviourType")
+                    .Include(x => x.CommitmentFrequencies)
+                    .Include("CommitmentFrequencies.Frequency")
+                    .Include("CommitmentFrequencies.Frequency.FrequencyType")
+                    .Select(x => CommitmentApiModel.FromCommitment(x)).ToListAsync()
                 };
         }
     }

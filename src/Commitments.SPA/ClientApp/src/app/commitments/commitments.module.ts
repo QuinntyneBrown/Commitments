@@ -6,23 +6,23 @@ import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { CommitmentService } from './commitment.service';
 import { MyCommimentsPageComponent } from './my-commiments-page.component';
-import { EditCommitmentPageComponent } from './edit-commitment-page.component';
-import { AddCommitmentsOverlayComponent } from './add-commitments-overlay.component';
 import { BehavioursModule } from '../behaviours/behaviours.module';
 import { FrequenciesModule } from '../frequencies/frequencies.module';
+import { EditCommitmentOverlayComponent } from './edit-commitment-overlay.component';
+import { EditCommitmentOverlay } from './edit-commitment-overlay';
 
 const declarations = [
   MyCommimentsPageComponent,
-  EditCommitmentPageComponent,
-  AddCommitmentsOverlayComponent
+  EditCommitmentOverlayComponent
 ];
 
 const providers = [
-  CommitmentService
+  CommitmentService,
+  EditCommitmentOverlay
 ];
 
 const entryComponents = [
-  AddCommitmentsOverlayComponent
+  EditCommitmentOverlayComponent
 ];
 
 @NgModule({

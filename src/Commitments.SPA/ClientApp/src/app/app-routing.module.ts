@@ -17,7 +17,6 @@ import { TagsResolver } from './tags/tags-resolver.service';
 import { NoteResolver } from './notes/note-resolver.service';
 import { NotesByTagPageComponent } from './notes/notes-by-tag-page.component';
 import { MyCommimentsPageComponent } from './commitments/my-commiments-page.component';
-import { EditCommitmentPageComponent } from './commitments/edit-commitment-page.component';
 import { BehavioursPageComponent } from './behaviours/behaviours-page.component';
 import { FrequencyPageComponent } from './frequencies/frequency-page.component';
 import { DashboardPageComponent } from './dashboards/dashboard-page.component';
@@ -50,18 +49,23 @@ export const routes: Routes = [
         canActivate: [LanguageGuard]
       },
       {
-        path: 'cards',
-        component: CardsPageComponent,
-        canActivate: [LanguageGuard]
-      },
-      {
-        path: 'commitments/create',
-        component: EditCommitmentPageComponent,
+        path: 'activities',
+        component: ActivitiesPageComponent,
         canActivate: [LanguageGuard]
       },
       {
         path: 'behaviours',
         component: BehavioursPageComponent,
+        canActivate: [LanguageGuard]
+      },
+      {
+        path: 'cards',
+        component: CardsPageComponent,
+        canActivate: [LanguageGuard]
+      },
+      {
+        path: 'commitments',
+        component: MyCommimentsPageComponent,
         canActivate: [LanguageGuard]
       },
       {
@@ -77,16 +81,6 @@ export const routes: Routes = [
           tags: TagsResolver,
           note: NoteResolver
         }
-      },
-      {
-        path: 'activities',
-        component: ActivitiesPageComponent,
-        canActivate: [LanguageGuard]
-      },
-      {
-        path: 'commitments',
-        component: MyCommimentsPageComponent,
-        canActivate: [LanguageGuard]
       },
       {
         path: 'notes',

@@ -13,12 +13,14 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
   styleUrls: ["./edit-activity-overlay.component.css"],
   selector: "app-edit-activity-overlay"
 })
-export class EditActivityOverlayComponent { 
+export class EditActivityOverlayComponent {
   constructor(
     private _activityService: ActivityService,
     private _behaviourService: BehaviourService,
     private _overlay: OverlayRefWrapper
   ) { }
+
+  public activityId: number;
 
   public handleSaveClick() {
     let activity = new Activity();
@@ -34,7 +36,7 @@ export class EditActivityOverlayComponent {
       }), takeUntil(this.onDestroy))
       .subscribe();
   }
-  
+
   public handleCancelClick() {
     this._overlay.close();
   }
@@ -47,12 +49,12 @@ export class EditActivityOverlayComponent {
   public onDestroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy() {
-    this.onDestroy.next();    
+    this.onDestroy.next();
   }
 
   public form: FormGroup = new FormGroup({
     performedOn: new FormControl(null, [Validators.required]),
     behaviourId: new FormControl(null, [Validators.required]),
-    description: new FormControl(null,[])
+    description: new FormControl(null, [])
   });
 }

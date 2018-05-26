@@ -15,11 +15,11 @@ import { FrequencyService } from "../frequencies/frequency.service";
 import { map, takeUntil } from "rxjs/operators";
 
 @Component({
-  templateUrl: "./add-commitments-overlay.component.html",
-  styleUrls: ["./add-commitments-overlay.component.css"],
-  selector: "app-add-commitments-overlay"
+  templateUrl: "./edit-commitment-overlay.component.html",
+  styleUrls: ["./edit-commitment-overlay.component.css"],
+  selector: "app-edit-commitment-overlay"
 })
-export class AddCommitmentsOverlayComponent { 
+export class EditCommitmentOverlayComponent {
   constructor(
     private _overlay: OverlayRefWrapper,
     private _behaviourService: BehaviourService,
@@ -29,15 +29,17 @@ export class AddCommitmentsOverlayComponent {
 
   ngOnInit() {
     this.behaviours$ = this._behaviourService.get();
-    this.frequencies$ = this._frequencyService.get();    
+    this.frequencies$ = this._frequencyService.get();
   }
+
+  public commitmentId: number;
 
   private _commitment = new Commitment();
 
   public onDestroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy() {
-    this.onDestroy.next();    
+    this.onDestroy.next();
   }
 
   public handleCancelClick() {
@@ -51,7 +53,7 @@ export class AddCommitmentsOverlayComponent {
   public handleSaveClick(behaviours) {
     this._commitment.commitmentFrequencies = this.frequencies.selectedOptions.selected.map(x => new CommitmentFrequency(x.value.frequencyId, 0));
     this._commitment.behaviourId = this.behaviours.selectedOptions.selected.map(x => x.value.behaviourId)[0];
-    
+
     this._commitmentService.save({ commitment: this._commitment })
       .pipe(map(x => {
         this._commitment.commitmentId = x.commitmentId;
@@ -63,19 +65,19 @@ export class AddCommitmentsOverlayComponent {
   public handleFrequenciesEditorChange(frequencies: Array<Frequency>) {
     //this._commitment.frequencies = frequencies.map(x => new CommitmentFrequency());
   }
-  
-  
+
+
   @ViewChild("behaviours")
   public behaviours: any;
 
   @ViewChild("frequencies")
-  public frequencies:any;
+  public frequencies: any;
 
   public behaviours$: Observable<Array<Behaviour>>;
   public frequencies$: Observable<Array<Frequency>>;
   public commitments$: Observable<Array<Commitment>>;
 
   public form: FormGroup = new FormGroup({
-    behaviourId: new FormControl(null, []),    
+    behaviourId: new FormControl(null, []),
   });
 }

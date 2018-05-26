@@ -9,9 +9,11 @@ import { DashboardCardService } from './dashboard-card.service';
 import { DashboardCardConfigurationOverlay } from './dashboard-card-configuration-overlay';
 import { AddDashboardCardsOverlay } from './add-dashboard-cards-overlay';
 import { AddDashboardCardsOverlayComponent } from './add-dashboard-cards-overlay.component';
+import { DashboardCardConfigurationOverlayComponent } from './dashboard-card-configuration-overlay.component';
 
 const declarations = [
-  AddDashboardCardsOverlayComponent
+  AddDashboardCardsOverlayComponent,
+  DashboardCardConfigurationOverlayComponent
 ];
 
 const providers = [
@@ -21,7 +23,8 @@ const providers = [
 ];
 
 const entryComponents = [
-  AddDashboardCardsOverlayComponent
+  AddDashboardCardsOverlayComponent,
+  DashboardCardConfigurationOverlayComponent
 ];
 
 @NgModule({

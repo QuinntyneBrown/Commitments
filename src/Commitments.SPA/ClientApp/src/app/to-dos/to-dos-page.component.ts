@@ -40,8 +40,8 @@ export class ToDosPageComponent {
     { headerName: "Name", field: "name" },
     { headerName: "Due On", field: "dueOn" },
     { headerName: "Completed On", field:"completedOn" },
-    { cellRenderer: "editRenderer", onCellClicked: $event => this.handleEditToDoCellClick($event), width: 30 },
-    { cellRenderer: "deleteRenderer", onCellClicked: $event => this.handleRemoveToDoCellClick($event), width: 30 }
+    { cellRenderer: "editRenderer", onCellClicked: $event => this.handleEditToDoCellClick($event), width: 50 },
+    { cellRenderer: "deleteRenderer", onCellClicked: $event => this.handleRemoveToDoCellClick($event), width: 50 }
   ];
 
   public frameworkComponents: any = {

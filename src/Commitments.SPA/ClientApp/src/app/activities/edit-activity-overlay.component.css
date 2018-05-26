@@ -27,6 +27,5 @@ ag-grid-angular {
 app-quill-text-editor,
 div.ql-editor.ql-blank {
   min-height: 200px;
-  height:200px;
+  height: 200px;
 }
-
