@@ -30,6 +30,8 @@ namespace Commitments.API.Features.Achievements
             {
                 var achievements = new List<AchievementApiModel>();
                 var dailyCommitments = await _context.Commitments
+                    .Include(x => x.Behaviour)
+                    .Include("Behaviour.BehaviourType")
                     .Include(x => x.CommitmentFrequencies)
                     .Include("CommitmentFrequencies.Frequency")
                     .Include("CommitmentFrequencies.Frequency.FrequencyType")

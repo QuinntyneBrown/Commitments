@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Commitments.API.Features.Commitments
 {
-    public class GetDailyCommitmentsQuery
+    public class GetPersonalCommitmentsQuery
     {
         public class Request : IRequest<Response> {
             public int ProfileId { get; set; }
@@ -33,7 +33,7 @@ namespace Commitments.API.Features.Commitments
                     .Include(x => x.CommitmentFrequencies)
                     .Include("CommitmentFrequencies.Frequency")
                     .Include("CommitmentFrequencies.Frequency.FrequencyType")
-                    .Where(x => x.ProfileId == request.ProfileId && x.CommitmentFrequencies.Any(f => f.Frequency.FrequencyType.Name == "per day" ))
+                    .Where(x => x.ProfileId == request.ProfileId)
                     .Select(x => CommitmentApiModel.FromCommitment(x)).ToListAsync()
                 };
         }

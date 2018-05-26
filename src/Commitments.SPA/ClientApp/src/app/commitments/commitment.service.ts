@@ -26,6 +26,13 @@ export class CommitmentService {
       );
   }
 
+  public getPersonal(): Observable<Array<Commitment>> {
+    return this._client.get<{ commitments: Array<Commitment> }>(`${this._baseUrl}api/commitments/personal`)
+      .pipe(
+        map(x => x.commitments)
+      );
+  }
+
   public getById(options: { commitmentId: number }): Observable<Commitment> {
     return this._client.get<{ commitment: Commitment }>(`${this._baseUrl}api/commitments/${options.commitmentId}`)
       .pipe(

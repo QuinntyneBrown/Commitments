@@ -22,7 +22,7 @@ export class MyCommimentsPageComponent {
   ) { }
 
   ngOnInit() {
-    this._commitmentService.get()
+    this._commitmentService.getPersonal()
       .pipe(takeUntil(this.onDestroy),map(x => this.commitments$.next(x)))
       .subscribe();
   }
