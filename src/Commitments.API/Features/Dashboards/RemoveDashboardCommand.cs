@@ -13,13 +13,13 @@ namespace Commitments.API.Features.Dashboards
         {
             public Validator()
             {
-                RuleFor(request => request.Dashboard.DashboardId).NotEqual(0);
+                RuleFor(request => request.DashboardId).NotEqual(0);
             }
         }
 
         public class Request : IRequest
         {
-            public Dashboard Dashboard { get; set; }
+            public int DashboardId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request>
@@ -30,7 +30,7 @@ namespace Commitments.API.Features.Dashboards
 
             public async Task Handle(Request request, CancellationToken cancellationToken)
             {
-                _context.Dashboards.Remove(await _context.Dashboards.FindAsync(request.Dashboard.DashboardId));
+                _context.Dashboards.Remove(await _context.Dashboards.FindAsync(request.DashboardId));
                 await _context.SaveChangesAsync(cancellationToken);
             }
 

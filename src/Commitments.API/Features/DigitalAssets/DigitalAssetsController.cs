@@ -18,11 +18,11 @@ namespace Commitments.API.Features.DigitalAssets
         public async Task<ActionResult<SaveDigitalAssetCommand.Response>> Save(SaveDigitalAssetCommand.Request request)
             => await _mediator.Send(request);
         
-        [HttpDelete("{DigitalAsset.DigitalAssetId}")]
+        [HttpDelete("{digitalAssetId}")]
         public async Task Remove(RemoveDigitalAssetCommand.Request request)
             => await _mediator.Send(request);            
 
-        [HttpGet("{DigitalAssetId}")]
+        [HttpGet("{digitalAssetId}")]
         public async Task<ActionResult<GetDigitalAssetByIdQuery.Response>> GetById([FromRoute]GetDigitalAssetByIdQuery.Request request)
             => await _mediator.Send(request);
 

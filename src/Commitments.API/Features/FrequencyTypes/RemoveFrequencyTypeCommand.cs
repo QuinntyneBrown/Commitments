@@ -13,13 +13,13 @@ namespace Commitments.API.Features.FrequencyTypes
         {
             public Validator()
             {
-                RuleFor(request => request.FrequencyType.FrequencyTypeId).NotEqual(0);
+                RuleFor(request => request.FrequencyTypeId).NotEqual(0);
             }
         }
 
         public class Request : IRequest
         {
-            public FrequencyType FrequencyType { get; set; }
+            public int FrequencyTypeId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request>
@@ -30,7 +30,7 @@ namespace Commitments.API.Features.FrequencyTypes
 
             public async Task Handle(Request request, CancellationToken cancellationToken)
             {
-                _context.FrequencyTypes.Remove(await _context.FrequencyTypes.FindAsync(request.FrequencyType.FrequencyTypeId));
+                _context.FrequencyTypes.Remove(await _context.FrequencyTypes.FindAsync(request.FrequencyTypeId));
                 await _context.SaveChangesAsync(cancellationToken);
             }
 

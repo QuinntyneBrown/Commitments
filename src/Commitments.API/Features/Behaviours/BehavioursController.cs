@@ -18,11 +18,11 @@ namespace Commitments.API.Features.Behaviours
         public async Task<ActionResult<SaveBehaviourCommand.Response>> Save(SaveBehaviourCommand.Request request)
             => await _mediator.Send(request);
         
-        [HttpDelete("{BehaviourId}")]
+        [HttpDelete("{behaviourId}")]
         public async Task Remove([FromRoute]RemoveBehaviourCommand.Request request)
             => await _mediator.Send(request);            
 
-        [HttpGet("{BehaviourId}")]
+        [HttpGet("{behaviourId}")]
         public async Task<ActionResult<GetBehaviourByIdQuery.Response>> GetById([FromRoute]GetBehaviourByIdQuery.Request request)
             => await _mediator.Send(request);
 

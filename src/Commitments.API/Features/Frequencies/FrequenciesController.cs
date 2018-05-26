@@ -18,11 +18,11 @@ namespace Commitments.API.Features.Frequencies
         public async Task<ActionResult<SaveFrequencyCommand.Response>> Save(SaveFrequencyCommand.Request request)
             => await _mediator.Send(request);
         
-        [HttpDelete("{Frequency.FrequencyId}")]
+        [HttpDelete("{frequencyId}")]
         public async Task Remove([FromRoute]RemoveFrequencyCommand.Request request)
             => await _mediator.Send(request);            
 
-        [HttpGet("{FrequencyId}")]
+        [HttpGet("{frequencyId}")]
         public async Task<ActionResult<GetFrequencyByIdQuery.Response>> GetById([FromRoute]GetFrequencyByIdQuery.Request request)
             => await _mediator.Send(request);
 

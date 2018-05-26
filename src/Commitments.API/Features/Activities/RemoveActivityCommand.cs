@@ -13,13 +13,13 @@ namespace Commitments.API.Features.Activities
         {
             public Validator()
             {
-                RuleFor(request => request.Activity.ActivityId).NotEqual(0);
+                RuleFor(request => request.ActivityId).NotEqual(0);
             }
         }
 
         public class Request : IRequest
         {
-            public Activity Activity { get; set; }
+            public int ActivityId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request>
@@ -30,7 +30,7 @@ namespace Commitments.API.Features.Activities
 
             public async Task Handle(Request request, CancellationToken cancellationToken)
             {
-                _context.Activities.Remove(await _context.Activities.FindAsync(request.Activity.ActivityId));
+                _context.Activities.Remove(await _context.Activities.FindAsync(request.ActivityId));
                 await _context.SaveChangesAsync(cancellationToken);
             }
 

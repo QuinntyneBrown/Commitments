@@ -13,13 +13,13 @@ namespace Commitments.API.Features.DigitalAssets
         {
             public Validator()
             {
-                RuleFor(request => request.DigitalAsset.DigitalAssetId).NotEqual(0);
+                RuleFor(request => request.DigitalAssetId).NotEqual(0);
             }
         }
 
         public class Request : IRequest
         {
-            public DigitalAsset DigitalAsset { get; set; }
+            public int DigitalAssetId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request>
@@ -30,7 +30,7 @@ namespace Commitments.API.Features.DigitalAssets
 
             public async Task Handle(Request request, CancellationToken cancellationToken)
             {
-                _context.DigitalAssets.Remove(await _context.DigitalAssets.FindAsync(request.DigitalAsset.DigitalAssetId));
+                _context.DigitalAssets.Remove(await _context.DigitalAssets.FindAsync(request.DigitalAssetId));
                 await _context.SaveChangesAsync(cancellationToken);
             }
 

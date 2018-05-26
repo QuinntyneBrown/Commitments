@@ -13,13 +13,13 @@ namespace Commitments.API.Features.Frequencies
         {
             public Validator()
             {
-                RuleFor(request => request.Frequency.FrequencyId).NotEqual(0);
+                RuleFor(request => request.FrequencyId).NotEqual(0);
             }
         }
 
         public class Request : IRequest
         {
-            public Frequency Frequency { get; set; }
+            public int FrequencyId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request>
@@ -30,7 +30,7 @@ namespace Commitments.API.Features.Frequencies
 
             public async Task Handle(Request request, CancellationToken cancellationToken)
             {
-                _context.Frequencies.Remove(await _context.Frequencies.FindAsync(request.Frequency.FrequencyId));
+                _context.Frequencies.Remove(await _context.Frequencies.FindAsync(request.FrequencyId));
                 await _context.SaveChangesAsync(cancellationToken);
             }
 

@@ -1,7 +1,19 @@
 <app-primary-header>
-  {{ "Activites" | translate }}
+  {{ "Activities" | translate }}
 </app-primary-header>
 
-<button mat-fab (click)="handleFabButtonClick()">
-  <mat-icon>add</mat-icon>
+<section class="page-content-container">
+  <ag-grid-angular class="ag-theme-material"
+                   [columnDefs]="columnDefs"
+                   [rowData]="activities$ | async"
+                   [pagination]="true"
+                   [paginationPageSize]="5"
+                   [localeText]="localeText"
+                   [frameworkComponents]="frameworkComponents"
+                   (gridReady)="onGridReady($event)">
+  </ag-grid-angular>
+</section>
+
+<button mat-fab (click)="handleFABButtonClick()">
+<mat-icon>add</mat-icon>
 </button>

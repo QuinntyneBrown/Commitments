@@ -27,7 +27,7 @@ namespace Commitments.API.Features.Activities
             return await _mediator.Send(request);
         }
         
-        [HttpDelete("{Activity.ActivityId}")]
+        [HttpDelete("{activityId}")]
         public async Task Remove([FromRoute]RemoveActivityCommand.Request request)
             => await _mediator.Send(request);            
 

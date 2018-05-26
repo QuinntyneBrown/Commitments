@@ -12,7 +12,7 @@ section {
 
 #grid {
   display: grid;
-  grid-auto-rows: 360px;
+  grid-auto-rows: 300px;
   grid-auto-columns: 240px;
   grid-gap: 20px;
   margin-bottom: 20px;

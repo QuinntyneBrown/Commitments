@@ -1,3 +1,4 @@
+using Commitments.API.Features.Behaviours;
 using Commitments.Core.Entities;
 using System;
 
@@ -10,7 +11,7 @@ namespace Commitments.API.Features.Activities
         public int BehaviourId { get; set; }
         public DateTime PerformedOn { get; set; }
         public string Description { get; set; }
-
+        public BehaviourApiModel Behaviour { get; set; }
         public static ActivityApiModel FromActivity(Activity activity)
             => new ActivityApiModel
             {
@@ -18,7 +19,8 @@ namespace Commitments.API.Features.Activities
                 ProfileId = activity.ProfileId,
                 BehaviourId = activity.BehaviourId,
                 PerformedOn = activity.PerformedOn,
-                Description = activity.Description
+                Description = activity.Description,
+                Behaviour = BehaviourApiModel.FromBehaviour(activity.Behaviour)
             };
     }
 }
