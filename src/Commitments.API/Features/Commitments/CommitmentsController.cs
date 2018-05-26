@@ -44,8 +44,7 @@ namespace Commitments.API.Features.Commitments
             => await _mediator.Send(new GetPersonalCommitmentsQuery.Request() { ProfileId = _httpContextAccessor.GetProfileIdFromClaims() });
 
         [HttpGet("daily")]
-        public async Task<ActionResult<GetDailyCommitmentsQuery.Response>> GetDaily() {
-            return await _mediator.Send(new GetDailyCommitmentsQuery.Request() { ProfileId = _httpContextAccessor.GetProfileIdFromClaims() });
-        }
+        public async Task<ActionResult<GetDailyCommitmentsQuery.Response>> GetDaily() 
+            => await _mediator.Send(new GetDailyCommitmentsQuery.Request() { ProfileId = _httpContextAccessor.GetProfileIdFromClaims() });
     }
 }

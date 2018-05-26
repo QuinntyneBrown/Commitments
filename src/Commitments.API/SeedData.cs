@@ -14,6 +14,7 @@ namespace Commitments.API
         {
             BehaviourTypeConfiguration.Seed(context);
             CardConfiguration.Seed(context);
+            CardLayoutConfiguration.Seed(context);
 
             FrequencyTypeConfiguration.Seed(context);
             UserConfiguration.Seed(context);
@@ -50,6 +51,17 @@ namespace Commitments.API
 
                 if (context.BehaviourTypes.FirstOrDefault(x => x.Name == "Health") == null)
                     context.BehaviourTypes.Add(new BehaviourType() { Name = "Health" });
+
+                context.SaveChanges();
+            }
+        }
+
+        internal class CardLayoutConfiguration
+        {
+            public static void Seed(AppDbContext context)
+            {
+                if (context.CardLayouts.FirstOrDefault(x => x.Name == "Poster") == null)
+                    context.Cards.Add(new Card() { Name = "Poster" });
 
                 context.SaveChanges();
             }

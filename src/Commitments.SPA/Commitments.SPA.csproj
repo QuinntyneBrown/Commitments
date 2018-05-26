@@ -49,6 +49,7 @@
   <ItemGroup>
     <Folder Include="ClientApp\src\app\cards\" />
     <Folder Include="ClientApp\src\app\achievements\" />
+    <Folder Include="ClientApp\src\app\card-layouts\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

@@ -26,6 +26,8 @@ import { DashboardsModule } from './dashboards/dashboards.module';
 import { CardsModule } from './cards/cards.module';
 import { AchievementsModule } from './achievements/achievements.module';
 import { ToDosModule } from './to-dos/to-dos.module';
+import { CardLayoutsModule } from './card-layouts/card-layouts.module';
+import { BehaviourTypesModule } from './behaviour-types/behaviour-types.module';
 
 @NgModule({
   declarations: [AppComponent, AnonymousMasterPageComponent, MasterPageComponent],
@@ -39,7 +41,9 @@ import { ToDosModule } from './to-dos/to-dos.module';
 
     AchievementsModule,
     ActivitiesModule,
+    BehaviourTypesModule,
     CardsModule,
+    CardLayoutsModule,
     CommitmentsModule,
     CoreModule,
     DashboardsModule,
