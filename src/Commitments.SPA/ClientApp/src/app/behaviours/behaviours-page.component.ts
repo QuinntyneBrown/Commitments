@@ -5,8 +5,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
 import { BehaviourService } from "./behaviour.service";
 import { Behaviour } from "./behaviour.model";
-import { BehaviourTypeService } from "./behaviour-type.service";
-
 import { BehaviourType } from "./behaviour-type.model";
 import { EditBehaviourOverlay } from "./edit-behaviour-overlay";
 import { deepCopy } from "../core/deep-copy";
@@ -14,6 +12,7 @@ import { GridApi, ColDef } from "ag-grid";
 import { CheckboxCellComponent } from "../shared/checkbox-cell.component";
 import { DeleteCellComponent } from "../shared/delete-cell.component";
 import { EditCellComponent } from "../shared/edit-cell.component";
+import { BehaviourTypeService } from "../behaviour-types/behaviour-type.service";
 
 @Component({
   templateUrl: "./behaviours-page.component.html",

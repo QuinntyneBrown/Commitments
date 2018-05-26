@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { BehaviourTypesPageComponent } from './behaviour-types-page.component';
 import { EditBehaviourTypeOverlayComponent } from './edit-behaviour-type-overlay.component';
 import { EditBehaviourTypeOverlay } from './edit-behaviour-type-overlay';
+import { BehaviourTypeService } from './behaviour-type.service';
 
 const declarations = [
   BehaviourTypesPageComponent,
@@ -14,7 +15,8 @@ const declarations = [
 ];
 
 const providers = [
-  EditBehaviourTypeOverlay
+  EditBehaviourTypeOverlay,
+  BehaviourTypeService
 ];
 
 const entryComponents = [

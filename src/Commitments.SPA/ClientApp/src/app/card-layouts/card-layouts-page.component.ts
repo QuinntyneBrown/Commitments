@@ -3,46 +3,48 @@ import { Subject, Observable, BehaviorSubject } from "rxjs";
 import { takeUntil, tap, map } from "rxjs/operators";
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
-import { CardService } from "./card.service";
-import { Card } from "./card.model";
+import { CardLayoutService } from "./card-layout.service";
+import { CardLayout } from "./card-layout.model";
 import { deepCopy } from "../core/deep-copy";
 import { GridApi, ColDef } from "ag-grid";
 import { CheckboxCellComponent } from "../shared/checkbox-cell.component";
 import { DeleteCellComponent } from "../shared/delete-cell.component";
 import { EditCellComponent } from "../shared/edit-cell.component";
+import { EditCardLayoutOverlay } from "./edit-card-layout-overlay";
 
 @Component({
-  templateUrl: "./cards-page.component.html",
-  styleUrls: ["./cards-page.component.css"],
-  selector: "app-cards-page"
+  templateUrl: "./card-layouts-page.component.html",
+  styleUrls: ["./card-layouts-page.component.css"],
+  selector: "app-card-layouts-page"
 })
-export class CardsPageComponent { 
+export class CardLayoutsPageComponent { 
   constructor(
-    private _cardService: CardService,
+    private _cardLayoutService: CardLayoutService,
+    private _editCardLayoutOverlay: EditCardLayoutOverlay,
     private _router: Router
   ) { }
 
   ngOnInit() {
-    this._cardService.get()
-      .pipe(map(x => this.cards$.next(x)))
+    this._cardLayoutService.get()
+      .pipe(map(x => this.cardLayouts$.next(x)))
       .subscribe();
   }
 
   public onDestroy: Subject<void> = new Subject<void>();
 
-  public cards$: BehaviorSubject<Array<Card>> = new BehaviorSubject([]);
+  public cardLayouts$: BehaviorSubject<Array<CardLayout>> = new BehaviorSubject([]);
 
   ngOnDestroy() {
     this.onDestroy.next();    
   }
 
   public handleRemoveClick($event) {
-    const cards: Array<Card> = [...this.cards$.value];
-    const index = cards.findIndex(x => x.cardId == $event.data.cardId);
-    cards.splice(index, 1);
-    this.cards$.next(cards);
+    const cardLayouts: Array<CardLayout> = [...this.cardLayouts$.value];
+    const index = cardLayouts.findIndex(x => x.cardLayoutId == $event.data.cardLayoutId);
+    cardLayouts.splice(index, 1);
+    this.cardLayouts$.next(cardLayouts);
 
-    this._cardService.remove({ card: $event.data })
+    this._cardLayoutService.remove({ cardLayout: $event.data })
       .pipe(takeUntil(this.onDestroy))
       .subscribe();
   }
@@ -51,13 +53,13 @@ export class CardsPageComponent {
 
   }
 
-  public addOrUpdate(card: Card) {
-    if (!card) return;
+  public addOrUpdate(cardLayout: CardLayout) {
+    if (!cardLayout) return;
 
-    let cards = [...this.cards$.value];
-    const i = cards.findIndex((t) => t.cardId == card.cardId);
-    const _ = i < 0 ? cards.push(card) : cards[i] = card;    
-    this.cards$.next(cards);
+    let cardLayouts = [...this.cardLayouts$.value];
+    const i = cardLayouts.findIndex((t) => t.cardLayoutId == cardLayout.cardLayoutId);
+    const _ = i < 0 ? cardLayouts.push(cardLayout) : cardLayouts[i] = cardLayout;    
+    this.cardLayouts$.next(cardLayouts);
   }
 
   public columnDefs: Array<ColDef> = [
@@ -77,5 +79,12 @@ export class CardsPageComponent {
   public onGridReady(params) {
     this._gridApi = params.api;
     this._gridApi.sizeColumnsToFit();
+  }
+
+  public handleFABButtonClick() {
+    this._editCardLayoutOverlay.create()
+      .pipe(takeUntil(this.onDestroy), map(x => this.addOrUpdate(x)))
+      .subscribe();
+
   }
 }

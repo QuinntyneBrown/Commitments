@@ -25,6 +25,8 @@ import { ActivitiesPageComponent } from './activities/activities-page.component'
 import { ToDosPageComponent } from './to-dos/to-dos-page.component';
 import { CardsPageComponent } from './cards/cards-page.component';
 import { ProfilesPageComponent } from './profiles/profiles-page.component';
+import { BehaviourTypesPageComponent } from './behaviour-types/behaviour-types-page.component';
+import { CardLayoutsPageComponent } from './card-layouts/card-layouts-page.component';
 
 
 export const routes: Routes = [
@@ -59,8 +61,18 @@ export const routes: Routes = [
         canActivate: [LanguageGuard]
       },
       {
+        path: 'behaviour-types',
+        component: BehaviourTypesPageComponent,
+        canActivate: [LanguageGuard]
+      },
+      {
         path: 'cards',
         component: CardsPageComponent,
+        canActivate: [LanguageGuard]
+      },
+      {
+        path: 'card-layouts',
+        component: CardLayoutsPageComponent,
         canActivate: [LanguageGuard]
       },
       {

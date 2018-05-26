@@ -5,10 +5,10 @@ import { RouterModule } from '@angular/router';
 import { BehaviourService } from './behaviour.service';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
-import { BehaviourTypeService } from './behaviour-type.service';
 import { BehavioursPageComponent } from './behaviours-page.component';
 import { EditBehaviourOverlay } from './edit-behaviour-overlay';
 import { EditBehaviourOverlayComponent } from './edit-behaviour-overlay.component';
+import { BehaviourTypesModule } from '../behaviour-types/behaviour-types.module';
 
 const declarations = [
   BehavioursPageComponent,
@@ -17,7 +17,6 @@ const declarations = [
 
 const providers = [
   BehaviourService,
-  BehaviourTypeService,
   EditBehaviourOverlay
 ];
 
@@ -33,6 +32,7 @@ const entryComponents = [
     ReactiveFormsModule,
     RouterModule,
 
+    BehaviourTypesModule,
     CoreModule,
     SharedModule
   ],

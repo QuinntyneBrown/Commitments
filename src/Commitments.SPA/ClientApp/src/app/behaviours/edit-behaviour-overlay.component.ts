@@ -6,7 +6,8 @@ import { BehaviourService } from "./behaviour.service";
 import { Behaviour } from "./behaviour.model";
 import { map, switchMap, tap, takeUntil } from "rxjs/operators";
 import { BehaviourType } from "./behaviour-type.model";
-import { BehaviourTypeService } from "./behaviour-type.service";
+import { BehaviourTypeService } from "../behaviour-types/behaviour-type.service";
+
 
 @Component({
   templateUrl: "./edit-behaviour-overlay.component.html",

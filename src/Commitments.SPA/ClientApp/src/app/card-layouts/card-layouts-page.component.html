@@ -1,11 +1,11 @@
 <app-primary-header>
-  {{ "Behaviours" | translate }}
+  {{ "Card Layouts" | translate }}
 </app-primary-header>
 
 <section class="page-content-container">
   <ag-grid-angular class="ag-theme-material"
                    [columnDefs]="columnDefs"
-                   [rowData]="behaviourTypes$ | async"
+                   [rowData]="cardLayouts$ | async"
                    [pagination]="true"
                    [paginationPageSize]="5"
                    [localeText]="localeText"

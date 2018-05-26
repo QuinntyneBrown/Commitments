@@ -3,24 +3,25 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CardsPageComponent } from '../cards/cards-page.component';
-import { EditCardOverlayComponent } from '../cards/edit-card-overlay.component';
-import { CardService } from './card.service';
-import { EditCardOverlay } from '../cards/edit-card-overlay';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
+import { CardLayoutsPageComponent } from './card-layouts-page.component';
+import { CardLayoutService } from './card-layout.service';
+import { EditCardLayoutOverlay } from './edit-card-layout-overlay';
+import { EditCardLayoutOverlayComponent } from './edit-card-layout-overlay.component';
 
 const declarations = [
-  CardsPageComponent,
-  EditCardOverlayComponent
+  CardLayoutsPageComponent,
+  EditCardLayoutOverlayComponent
 ];
 
 const providers = [
-  CardService,
-  EditCardOverlay
+  CardLayoutService,
+  EditCardLayoutOverlay
 ];
 
 const entryComponents = [
-  EditCardOverlayComponent
+  EditCardLayoutOverlayComponent
 ];
 
 @NgModule({
@@ -35,5 +36,6 @@ const entryComponents = [
     SharedModule
   ],
   providers,
+  entryComponents
 })
 export class CardLayoutsModule { }
