@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Commitments.Core.Interfaces;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 
 namespace Commitments.API.Features.Behaviours
 {
@@ -34,7 +35,9 @@ namespace Commitments.API.Features.Behaviours
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response()
                 {
-                    Behaviour = BehaviourApiModel.FromBehaviour(await _context.Behaviours.FindAsync(request.BehaviourId))
+                    Behaviour = BehaviourApiModel.FromBehaviour(await _context.Behaviours
+                        .Include(x => x.BehaviourType)
+                        .SingleAsync(x => x.BehaviourId == request.BehaviourId))
                 };
         }
     }

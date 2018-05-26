@@ -1,6 +1,6 @@
-<app-primary-header>
-  {{ "Create Behaviour" | translate }}
-</app-primary-header>
+<mat-card-title>
+  Create Behaviour
+</mat-card-title>
 
 <form class="page-content-container" novalidate autocomplete="off" spellcheck="false" [formGroup]="form">
   <mat-form-field>
@@ -14,10 +14,6 @@
   <mat-form-field>
     <input matInput placeholder="{{ 'Name' | translate }}" id="name" formControlName="name">
   </mat-form-field>
-
-  <section>
-    <mat-checkbox id="isDesired" formControlName="isDesired">Is Desired</mat-checkbox>
-  </section>
 
   <app-quill-text-editor formControlName="description" [editorPlaceholder]="'Description'"></app-quill-text-editor>
 

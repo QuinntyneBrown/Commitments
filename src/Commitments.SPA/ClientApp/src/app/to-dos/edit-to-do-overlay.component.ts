@@ -56,7 +56,7 @@ export class EditToDoOverlayComponent {
     this.onDestroy.next();	
   }
   
-  public get toDoId(): number { return this._overlay.data.toDoId; }
+  public toDoId: number;
 
   public form: FormGroup = new FormGroup({
     name: new FormControl(null, [Validators.required]),

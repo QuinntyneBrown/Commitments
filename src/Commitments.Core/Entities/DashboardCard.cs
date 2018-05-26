@@ -8,7 +8,7 @@ namespace Commitments.Core.Entities
         [ForeignKey("Dashboard")]
         public int DashboardId { get; set; }
         [ForeignKey("Card")]
-        public int CardId { get; set; }
+        public int? CardId { get; set; }
         public string Options { get; set; }
         public Dashboard Dashboard { get; set; }
         public Card Card { get; set; }

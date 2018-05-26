@@ -1,22 +1,22 @@
 import { Injectable, ComponentRef, Injector } from "@angular/core";
 import { OverlayRefWrapper } from "../core/overlay-ref-wrapper";
 import { PortalInjector, ComponentPortal } from "@angular/cdk/portal";
-import { EditToDoOverlayComponent } from "./edit-to-do-overlay.component";
+import { EditBehaviourOverlayComponent } from "./edit-behaviour-overlay.component";
 import { OverlayRefProvider } from "../core/overlay-ref-provider";
 import { Observable } from "rxjs";
 
 @Injectable()
-export class EditToDoOverlay {
+export class EditBehaviourOverlay {
   constructor(
     public _injector: Injector,
     public _overlayRefProvider: OverlayRefProvider
   ) { }
 
-  public create(options: { toDoId?:number } = {}): Observable<any> {
+  public create(options: { behaviourId?: number } = {}): Observable<any> {
     const overlayRef = this._overlayRefProvider.create();
     const overlayRefWrapper = new OverlayRefWrapper(overlayRef);
     const overlayComponent = this.attachOverlayContainer(overlayRef, overlayRefWrapper);
-    overlayComponent.toDoId = options.toDoId;
+    overlayComponent.behaviourId = options.behaviourId;
     return overlayRefWrapper.afterClosed();
   }
 
@@ -24,8 +24,8 @@ export class EditToDoOverlay {
     const injectionTokens = new WeakMap();
     injectionTokens.set(OverlayRefWrapper, overlayRefWrapper);
     const injector = new PortalInjector(this._injector, injectionTokens);
-    const overlayPortal = new ComponentPortal(EditToDoOverlayComponent, null, injector);
-    const overlayPortalRef: ComponentRef<EditToDoOverlayComponent> = overlayRef.attach(overlayPortal);
+    const overlayPortal = new ComponentPortal(EditBehaviourOverlayComponent, null, injector);
+    const overlayPortalRef: ComponentRef<EditBehaviourOverlayComponent> = overlayRef.attach(overlayPortal);
     return overlayPortalRef.instance;
   }
 }

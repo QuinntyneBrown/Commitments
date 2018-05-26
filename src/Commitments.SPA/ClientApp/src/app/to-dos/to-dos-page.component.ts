@@ -62,19 +62,13 @@ export class ToDosPageComponent {
   public toDosBehaviourSubject$: BehaviorSubject<Array<ToDo>> = new BehaviorSubject([]);
 
   public handleFabButtonClick() {
-    const overlayRefWrapper = this._editToDoOverlay.create();
-
-    overlayRefWrapper.afterClosed()
+    const overlayRefWrapper = this._editToDoOverlay.create()
       .pipe(map(toDo => this.addOrUpdate(toDo)), takeUntil(this.onDestroy))
       .subscribe();
   }
 
   public handleEditToDoCellClick($event) {
-    const overlayRefWrapper = this._editToDoOverlay.create();
-
-    overlayRefWrapper.data.toDoId = $event.data.toDoId;
-    
-    overlayRefWrapper.afterClosed()
+    this._editToDoOverlay.create({ toDoId: $event.data.toDoId })    
       .pipe(map(toDo => this.addOrUpdate(toDo)), takeUntil(this.onDestroy))
       .subscribe();
   }

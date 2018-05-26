@@ -53,20 +53,14 @@ export class AddDashboardCardsOverlayComponent {
     this._dashboardCardService.saveRange({ dashboardCards })
       .pipe(
         switchMap(x => this._dashboardCardService.getByIds({ dashboardCardIds: x.dashboardCardIds })),
-        map(dashboardCards => {
-        this._overlay.close(dashboardCards);
-      })
+        map(dashboardCards => this._overlay.close(dashboardCards))
       )
       .subscribe();
   }
 
-  public handleCancelClick() {
-    this._overlay.close();
-  }
+  public handleCancelClick() { this._overlay.close(); }
 
   public onDestroy: Subject<void> = new Subject<void>();
 
-  ngOnDestroy() {
-    this.onDestroy.next();
-  }
+  ngOnDestroy() { this.onDestroy.next(); }
 }

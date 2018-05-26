@@ -18,7 +18,7 @@ import { NoteResolver } from './notes/note-resolver.service';
 import { NotesByTagPageComponent } from './notes/notes-by-tag-page.component';
 import { MyCommimentsPageComponent } from './commitments/my-commiments-page.component';
 import { EditCommitmentPageComponent } from './commitments/edit-commitment-page.component';
-import { EditBehaviourPageComponent } from './behaviours/edit-behaviour-page.component';
+import { BehavioursPageComponent } from './behaviours/behaviours-page.component';
 import { FrequencyPageComponent } from './frequencies/frequency-page.component';
 import { DashboardPageComponent } from './dashboards/dashboard-page.component';
 import { EditFrequencyPageComponent } from './frequencies/edit-frequency-page.component';
@@ -26,6 +26,7 @@ import { ActivitiesPageComponent } from './activities/activities-page.component'
 import { ToDosPageComponent } from './to-dos/to-dos-page.component';
 import { CardsPageComponent } from './cards/cards-page.component';
 import { ProfilesPageComponent } from './profiles/profiles-page.component';
+
 
 export const routes: Routes = [
   {
@@ -59,8 +60,8 @@ export const routes: Routes = [
         canActivate: [LanguageGuard]
       },
       {
-        path: 'behaviours/create',
-        component: EditBehaviourPageComponent,
+        path: 'behaviours',
+        component: BehavioursPageComponent,
         canActivate: [LanguageGuard]
       },
       {
