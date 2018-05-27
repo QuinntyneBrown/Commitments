@@ -22,7 +22,7 @@ namespace Commitments.API.Features.DigitalAssets
 
         public class Response
         {
-            public List<int> DigitalAssetIds { get;set; }
+            public List<Guid> DigitalAssetIds { get;set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -67,7 +67,9 @@ namespace Commitments.API.Features.DigitalAssets
                             using (var targetStream = new MemoryStream())
                             {
                                 await section.Body.CopyToAsync(targetStream);
+                                digitalAsset.Name = $"{contentDisposition.FileName}".Trim(new char[] { '"' }).Replace("&", "and");
                                 digitalAsset.Bytes = StreamHelper.ReadToEnd(targetStream);
+                                digitalAsset.ContentType = section.ContentType;
                             }
                         }
                     }
@@ -78,6 +80,8 @@ namespace Commitments.API.Features.DigitalAssets
                     
                     section = await reader.ReadNextSectionAsync();
                 }
+
+                await _context.SaveChangesAsync(cancellationToken);
 
                 return new Response()
                 {

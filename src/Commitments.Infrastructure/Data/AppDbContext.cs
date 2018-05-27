@@ -63,6 +63,11 @@ namespace Commitments.Infrastructure.Data
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<DigitalAsset>(b => {
+                b.Property(t => t.DigitalAssetId)
+                .HasDefaultValueSql("newsequentialid()");
+            });
+
             modelBuilder.Entity<Activity>()
                 .HasQueryFilter(e => !e.IsDeleted);
 

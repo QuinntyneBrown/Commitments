@@ -4,22 +4,21 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Commitments.Infrastructure.Migrations
 {
-    public partial class ToDoDueOn : Migration
+    public partial class DigtialAssetContentType : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "DueDate",
-                table: "ToDos",
-                newName: "DueOn");
+            migrationBuilder.AddColumn<string>(
+                name: "ContentType",
+                table: "DigitalAssets",
+                nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "DueOn",
-                table: "ToDos",
-                newName: "DueDate");
+            migrationBuilder.DropColumn(
+                name: "ContentType",
+                table: "DigitalAssets");
         }
     }
 }

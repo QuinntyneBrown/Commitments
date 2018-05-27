@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
+using System;
 
 namespace Commitments.API.Features.DigitalAssets
 {
@@ -22,7 +23,7 @@ namespace Commitments.API.Features.DigitalAssets
 
         public class Response
         {            
-            public int DigitalAssetId { get; set; }
+            public Guid DigitalAssetId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>

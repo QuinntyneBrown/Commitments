@@ -1,18 +1,22 @@
 using Commitments.Core.Entities;
+using System;
 
 namespace Commitments.API.Features.DigitalAssets
 {
     public class DigitalAssetApiModel
     {        
-        public int DigitalAssetId { get; set; }
+        public Guid DigitalAssetId { get; set; }
         public string Name { get; set; }
-        public string RelativePath { get; set; }
+        public string RelativePath { get { return $"api/digitalassets/serve/{DigitalAssetId}"; } }
+        public byte[] Bytes { get; set; }
+        public string ContentType { get; set; }
         public static DigitalAssetApiModel FromDigitalAsset(DigitalAsset digitalAsset)
             => new DigitalAssetApiModel
             {
                 DigitalAssetId = digitalAsset.DigitalAssetId,
                 Name = digitalAsset.Name,
-                RelativePath = digitalAsset.RelativePath
+                Bytes = digitalAsset.Bytes,
+                ContentType = digitalAsset.ContentType
             };
     }
 }

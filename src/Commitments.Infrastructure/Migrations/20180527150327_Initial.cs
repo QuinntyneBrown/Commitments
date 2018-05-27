@@ -26,6 +26,23 @@ namespace Commitments.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CardLayouts",
+                columns: table => new
+                {
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    LastModifiedOn = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CardLayoutId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CardLayouts", x => x.CardLayoutId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Cards",
                 columns: table => new
                 {
@@ -34,7 +51,8 @@ namespace Commitments.Infrastructure.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     CardId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -62,9 +80,9 @@ namespace Commitments.Infrastructure.Migrations
                 name: "DigitalAssets",
                 columns: table => new
                 {
-                    DigitalAssetId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    DigitalAssetId = table.Column<Guid>(nullable: false, defaultValueSql: "newsequentialid()"),
+                    Name = table.Column<string>(nullable: true),
+                    Bytes = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -150,7 +168,8 @@ namespace Commitments.Infrastructure.Migrations
                     DashboardCardId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DashboardId = table.Column<int>(nullable: false),
-                    CardId = table.Column<int>(nullable: false),
+                    CardId = table.Column<int>(nullable: true),
+                    CardLayoutId = table.Column<int>(nullable: true),
                     Options = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -161,7 +180,13 @@ namespace Commitments.Infrastructure.Migrations
                         column: x => x.CardId,
                         principalTable: "Cards",
                         principalColumn: "CardId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DashboardCards_CardLayouts_CardLayoutId",
+                        column: x => x.CardLayoutId,
+                        principalTable: "CardLayouts",
+                        principalColumn: "CardLayoutId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_DashboardCards_Dashboards_DashboardId",
                         column: x => x.DashboardId,
@@ -233,6 +258,7 @@ namespace Commitments.Infrastructure.Migrations
                     ProfileId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
+                    AvatarUrl = table.Column<string>(nullable: true),
                     UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -276,6 +302,32 @@ namespace Commitments.Infrastructure.Migrations
                         principalTable: "Profiles",
                         principalColumn: "ProfileId",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ToDos",
+                columns: table => new
+                {
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    LastModifiedOn = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    ToDoId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    ProfileId = table.Column<int>(nullable: false),
+                    DueOn = table.Column<DateTime>(nullable: false),
+                    CompletedOn = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ToDos", x => x.ToDoId);
+                    table.ForeignKey(
+                        name: "FK_ToDos_Profiles_ProfileId",
+                        column: x => x.ProfileId,
+                        principalTable: "Profiles",
+                        principalColumn: "ProfileId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -435,6 +487,11 @@ namespace Commitments.Infrastructure.Migrations
                 column: "CardId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DashboardCards_CardLayoutId",
+                table: "DashboardCards",
+                column: "CardLayoutId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DashboardCards_DashboardId",
                 table: "DashboardCards",
                 column: "DashboardId");
@@ -458,6 +515,11 @@ namespace Commitments.Infrastructure.Migrations
                 name: "IX_Profiles_UserId",
                 table: "Profiles",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ToDos_ProfileId",
+                table: "ToDos",
+                column: "ProfileId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -481,6 +543,9 @@ namespace Commitments.Infrastructure.Migrations
                 name: "NoteTag");
 
             migrationBuilder.DropTable(
+                name: "ToDos");
+
+            migrationBuilder.DropTable(
                 name: "Frequencies");
 
             migrationBuilder.DropTable(
@@ -488,6 +553,9 @@ namespace Commitments.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Cards");
+
+            migrationBuilder.DropTable(
+                name: "CardLayouts");
 
             migrationBuilder.DropTable(
                 name: "Dashboards");

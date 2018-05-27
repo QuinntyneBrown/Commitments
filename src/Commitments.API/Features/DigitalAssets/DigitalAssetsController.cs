@@ -1,7 +1,7 @@
 using MediatR;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace Commitments.API.Features.DigitalAssets
 {
@@ -17,7 +17,11 @@ namespace Commitments.API.Features.DigitalAssets
         [HttpPost]
         public async Task<ActionResult<SaveDigitalAssetCommand.Response>> Save(SaveDigitalAssetCommand.Request request)
             => await _mediator.Send(request);
-        
+
+        [HttpGet("range")]
+        public async Task<ActionResult<GetDigitalAssetsByIdsQuery.Response>> GetByIds([FromQuery]GetDigitalAssetsByIdsQuery.Request request)
+            => await _mediator.Send(request);
+
         [HttpDelete("{digitalAssetId}")]
         public async Task Remove(RemoveDigitalAssetCommand.Request request)
             => await _mediator.Send(request);            
@@ -29,6 +33,14 @@ namespace Commitments.API.Features.DigitalAssets
         [HttpPost("upload"), DisableRequestSizeLimit]
         public async Task<ActionResult<UploadDigitalAssetCommand.Response>> Save()
             => await _mediator.Send(new UploadDigitalAssetCommand.Request());
+
+        [AllowAnonymous]
+        [HttpGet("serve/{digitalAssetId}")]
+        public async Task<IActionResult> Serve([FromRoute]GetDigitalAssetByIdQuery.Request request)
+        {
+            var response = await _mediator.Send(request);
+            return new FileContentResult(response.DigitalAsset.Bytes, response.DigitalAsset.ContentType);            
+        }
 
         [HttpGet]
         public async Task<ActionResult<GetDigitalAssetsQuery.Response>> Get()

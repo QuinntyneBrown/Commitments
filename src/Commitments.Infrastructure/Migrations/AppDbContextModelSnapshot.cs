@@ -245,10 +245,13 @@ namespace Commitments.Infrastructure.Migrations
 
             modelBuilder.Entity("Commitments.Core.Entities.DigitalAsset", b =>
                 {
-                    b.Property<int>("DigitalAssetId")
-                        .ValueGeneratedOnAdd();
+                    b.Property<Guid>("DigitalAssetId")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("newsequentialid()");
 
                     b.Property<byte[]>("Bytes");
+
+                    b.Property<string>("ContentType");
 
                     b.Property<string>("Name");
 

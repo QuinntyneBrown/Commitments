@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Commitments.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20180526144544_CardLayout")]
-    partial class CardLayout
+    [Migration("20180527150327_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -246,8 +246,11 @@ namespace Commitments.Infrastructure.Migrations
 
             modelBuilder.Entity("Commitments.Core.Entities.DigitalAsset", b =>
                 {
-                    b.Property<int>("DigitalAssetId")
-                        .ValueGeneratedOnAdd();
+                    b.Property<Guid>("DigitalAssetId")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("newsequentialid()");
+
+                    b.Property<byte[]>("Bytes");
 
                     b.Property<string>("Name");
 
@@ -348,6 +351,8 @@ namespace Commitments.Infrastructure.Migrations
                 {
                     b.Property<int>("ProfileId")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AvatarUrl");
 
                     b.Property<DateTime>("CreatedOn");
 

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Commitments.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20180524171749_ToDoCompletedOn")]
-    partial class ToDoCompletedOn
+    [Migration("20180527151113_DigtialAssetContentType")]
+    partial class DigtialAssetContentType
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -103,6 +103,8 @@ namespace Commitments.Infrastructure.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
+                    b.Property<string>("Description");
+
                     b.Property<bool>("IsDeleted");
 
                     b.Property<DateTime>("LastModifiedOn");
@@ -112,6 +114,26 @@ namespace Commitments.Infrastructure.Migrations
                     b.HasKey("CardId");
 
                     b.ToTable("Cards");
+                });
+
+            modelBuilder.Entity("Commitments.Core.Entities.CardLayout", b =>
+                {
+                    b.Property<int>("CardLayoutId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime>("LastModifiedOn");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("CardLayoutId");
+
+                    b.ToTable("CardLayouts");
                 });
 
             modelBuilder.Entity("Commitments.Core.Entities.Commitment", b =>
@@ -197,7 +219,9 @@ namespace Commitments.Infrastructure.Migrations
                     b.Property<int>("DashboardCardId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CardId");
+                    b.Property<int?>("CardId");
+
+                    b.Property<int?>("CardLayoutId");
 
                     b.Property<DateTime>("CreatedOn");
 
@@ -213,6 +237,8 @@ namespace Commitments.Infrastructure.Migrations
 
                     b.HasIndex("CardId");
 
+                    b.HasIndex("CardLayoutId");
+
                     b.HasIndex("DashboardId");
 
                     b.ToTable("DashboardCards");
@@ -220,8 +246,13 @@ namespace Commitments.Infrastructure.Migrations
 
             modelBuilder.Entity("Commitments.Core.Entities.DigitalAsset", b =>
                 {
-                    b.Property<int>("DigitalAssetId")
-                        .ValueGeneratedOnAdd();
+                    b.Property<Guid>("DigitalAssetId")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("newsequentialid()");
+
+                    b.Property<byte[]>("Bytes");
+
+                    b.Property<string>("ContentType");
 
                     b.Property<string>("Name");
 
@@ -322,6 +353,8 @@ namespace Commitments.Infrastructure.Migrations
                 {
                     b.Property<int>("ProfileId")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AvatarUrl");
 
                     b.Property<DateTime>("CreatedOn");
 
@@ -471,8 +504,11 @@ namespace Commitments.Infrastructure.Migrations
                 {
                     b.HasOne("Commitments.Core.Entities.Card", "Card")
                         .WithMany()
-                        .HasForeignKey("CardId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CardId");
+
+                    b.HasOne("Commitments.Core.Entities.CardLayout", "CardLayout")
+                        .WithMany()
+                        .HasForeignKey("CardLayoutId");
 
                     b.HasOne("Commitments.Core.Entities.Dashboard", "Dashboard")
                         .WithMany("DashboardCards")
