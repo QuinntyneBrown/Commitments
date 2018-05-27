@@ -27,6 +27,7 @@ import { CardsPageComponent } from './cards/cards-page.component';
 import { ProfilesPageComponent } from './profiles/profiles-page.component';
 import { BehaviourTypesPageComponent } from './behaviour-types/behaviour-types-page.component';
 import { CardLayoutsPageComponent } from './card-layouts/card-layouts-page.component';
+import { MyProfilePageComponent } from './profiles/my-profile-page.component';
 
 
 export const routes: Routes = [
@@ -83,6 +84,11 @@ export const routes: Routes = [
       {
         path: 'frequencies',
         component: EditFrequencyPageComponent,
+        canActivate: [LanguageGuard]
+      },
+      {
+        path: 'my-profile',
+        component: MyProfilePageComponent,
         canActivate: [LanguageGuard]
       },
       {

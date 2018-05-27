@@ -40,4 +40,8 @@ export class ProfileService {
   public create(options: { username: string, password: string, confirmPassword: string }): Observable<{ profileId: number }> {
     return this._client.post<{ profileId: number }>(`${this._baseUrl}api/profiles/create`, options);
   }
+
+  public saveAvatarUrl(options: { profileId: number, avatarUrl: string }): Observable<{ profileId: number }> {
+    return this._client.post<{ profileId: number }>(`${this._baseUrl}api/profiles/avatar`, options);
+  }
 }

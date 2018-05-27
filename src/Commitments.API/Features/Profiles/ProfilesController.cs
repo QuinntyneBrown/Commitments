@@ -19,6 +19,10 @@ namespace Commitments.API.Features.Profiles
             _mediator = mediator;
         }
 
+        [HttpPost("avatar")]
+        public async Task<ActionResult<SaveAvatarCommand.Response>> SaveAvatar(SaveAvatarCommand.Request request)
+            => await _mediator.Send(request);
+
         [HttpPost("create")]
         public async Task<ActionResult<CreateProfileCommand.Response>> Create(CreateProfileCommand.Request request) {
 

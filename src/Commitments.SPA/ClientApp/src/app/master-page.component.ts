@@ -3,6 +3,8 @@ import { ProfileService } from './profiles/profile.service';
 import { AppStore } from './app-store';
 import { map, switchMap } from 'rxjs/operators';
 import { baseUrl } from './core/constants';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './master-page.component.html',
@@ -14,7 +16,8 @@ export class MasterPageComponent {
     @Inject(baseUrl)private _baseUrl:string,
     private _elementRef: ElementRef,
     private _profileService: ProfileService,
-    private _appStore: AppStore
+    private _appStore: AppStore,
+    private _router: Router
   ) {
 
   }
@@ -35,4 +38,11 @@ export class MasterPageComponent {
     this._elementRef.nativeElement.style.setProperty(key, value)
   }
 
+  public get profileName$(): Observable<string> {
+    return this._appStore.currentProfile$.pipe(map(x => x.name));
+  }
+
+  public onProfileNameClick() {
+    this._router.navigateByUrl("/my-profile");
+  }
 }

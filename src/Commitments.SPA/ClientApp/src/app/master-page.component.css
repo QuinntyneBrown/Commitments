@@ -3,7 +3,6 @@
   position: relative;
 }
 
-
 .header-image {
   background-image: var(--background-image-url,'');
   background-size: cover;
@@ -13,6 +12,10 @@
   flex-shrink: 0;
 }
 
+.profile-name {
+  padding: 0 20px;
+  cursor:pointer;
+}
 
 mat-icon,
 h1 {
@@ -21,7 +24,7 @@ h1 {
 
 mat-toolbar {
   display: grid;
-  grid-template-columns: 40px 1fr 40px;
+  grid-template-columns: 40px 1fr min-content 40px;
   z-index: 2;
   position: relative;
 }
