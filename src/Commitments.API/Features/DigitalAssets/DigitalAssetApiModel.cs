@@ -6,13 +6,13 @@ namespace Commitments.API.Features.DigitalAssets
     {        
         public int DigitalAssetId { get; set; }
         public string Name { get; set; }
-
+        public string RelativePath { get; set; }
         public static DigitalAssetApiModel FromDigitalAsset(DigitalAsset digitalAsset)
-        {
-            var model = new DigitalAssetApiModel();
-            model.DigitalAssetId = digitalAsset.DigitalAssetId;
-            model.Name = digitalAsset.Name;
-            return model;
-        }
+            => new DigitalAssetApiModel
+            {
+                DigitalAssetId = digitalAsset.DigitalAssetId,
+                Name = digitalAsset.Name,
+                RelativePath = digitalAsset.RelativePath
+            };
     }
 }

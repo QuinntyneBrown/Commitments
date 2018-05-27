@@ -1,6 +1,7 @@
 import {Component, ElementRef, AfterViewInit, Input, forwardRef} from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { DigitalAssetService } from "./digital-asset.service";
+import { switchMap } from "rxjs/operators";
 
 @Component({
   templateUrl: "./digital-asset-url-input.component.html",
@@ -66,8 +67,12 @@ export class DigitalAssetInputUrlComponent implements ControlValueAccessor {
 
       const data = packageFiles(e.dataTransfer.files);
 
-      this._digitalAssetsService.upload({ data }).subscribe(x => {
-        this.inputElement.value = x.digitalAssets[0].relativePath;
+      this._digitalAssetsService.upload({ data })
+        .pipe(
+          switchMap((x) => this._digitalAssetsService.getByIds({ digitalAssetIds: x.digitalAssetIds }))
+        )
+        .subscribe(x => {
+        this.inputElement.value = x[0].relativePath;
         this.onChangeCallback(this.inputElement.value);
       });
     }

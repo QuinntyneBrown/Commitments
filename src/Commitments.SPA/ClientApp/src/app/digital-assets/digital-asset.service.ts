@@ -1,5 +1,5 @@
 import { Injectable, Inject } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { baseUrl } from "../core/constants";
@@ -26,6 +26,13 @@ export class DigitalAssetService {
       );
   }
 
+  public getByIds(options: { digitalAssetIds: number[] }): Observable<DigitalAsset[]> {
+    return this._client.get<{ digitalAssets: DigitalAsset[] }>(`${this._baseUrl}api/digitalAssets/range/${options.digitalAssetIds}`)
+      .pipe(
+        map(x => x.digitalAssets)
+      );
+  }
+
   public remove(options: { digitalAsset: DigitalAsset }): Observable<void> {
     return this._client.delete<void>(`${this._baseUrl}api/digitalAssets/${options.digitalAsset.digitalAssetId}`);
   }
@@ -34,7 +41,9 @@ export class DigitalAssetService {
     return this._client.post<{ digitalAssetId: number }>(`${this._baseUrl}api/digitalAssets`, { digitalAsset: options.digitalAsset });
   }
 
-  public upload(options: { data: FormData }) {    
-    return this._client.post<{ digitalAssets: Array<any> }>(`${this._baseUrl}api/digitalAssets/upload`, options.data, { headers: { 'Content-Type': 'multipart/form-data' } });
+  public upload(options: { data: FormData }): Observable<{ digitalAssetIds: number[] }> {    
+    return this._client.post<{ digitalAssetIds: number[] }>(`${this._baseUrl}api/digitalAssets/upload`,
+      options.data,
+      { headers: { 'Content-Type' : 'multipart/form-data' } });
   }
 }
