@@ -15,6 +15,8 @@ namespace Commitments.API.Features.Profiles
         public class Request : IRequest<Response> {
 
             public string Username { get; set; }
+            public string Name { get; set; }
+            public string AvatarUrl { get; set; }
             public string Password { get; set; }
             public string ConfirmPassword { get; set; }
         }
@@ -35,7 +37,7 @@ namespace Commitments.API.Features.Profiles
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
 
-                var profile = new Profile() { Name = request.Username };
+                var profile = new Profile() { Name = request.Name, AvatarUrl = request.AvatarUrl };
                 profile.User = new User() { Username = request.Username };
                 profile.User.Password = _passwordHasher.HashPassword(profile.User.Salt, request.Password);                                
                 _context.Profiles.Add(profile);

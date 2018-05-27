@@ -4,4 +4,5 @@ export class Profile {
   public profileId: number;
   public name: string;
   public user: User = new User();
+  public avatarUrl: string;
 }

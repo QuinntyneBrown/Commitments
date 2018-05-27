@@ -28,6 +28,7 @@ import { AchievementsModule } from './achievements/achievements.module';
 import { ToDosModule } from './to-dos/to-dos.module';
 import { CardLayoutsModule } from './card-layouts/card-layouts.module';
 import { BehaviourTypesModule } from './behaviour-types/behaviour-types.module';
+import { AppStore } from './app-store';
 
 @NgModule({
   declarations: [AppComponent, AnonymousMasterPageComponent, MasterPageComponent],
@@ -56,7 +57,7 @@ import { BehaviourTypesModule } from './behaviour-types/behaviour-types.module';
     ToDosModule,
     UsersModule
   ],
-  providers: [{ provide: baseUrl, useValue: 'http://localhost:9611/' }],
+  providers: [{ provide: baseUrl, useValue: 'http://localhost:9611/' }, AppStore],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

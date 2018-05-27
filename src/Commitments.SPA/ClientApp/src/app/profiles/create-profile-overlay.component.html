@@ -11,7 +11,7 @@
     <input matInput placeholder="{{ 'Name' | translate }}" id="name" formControlName="name">
   </mat-form-field>
 
-  <app-digital-asset-input-url [placeholder]="'Avatar Image Url'"></app-digital-asset-input-url>
+  <app-digital-asset-input-url [placeholder]="'Avatar Image Url'" formControlName="avatarUrl"></app-digital-asset-input-url>
   
   <mat-form-field>
     <input matInput placeholder="{{ 'Password' | translate }}" id="password" formControlName="password" type="password" required>

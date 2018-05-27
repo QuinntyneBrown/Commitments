@@ -3,6 +3,17 @@
   position: relative;
 }
 
+
+.header-image {
+  background-image: var(--background-image-url,'');
+  background-size: cover;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+
 mat-icon,
 h1 {
   cursor: pointer;
@@ -10,7 +21,7 @@ h1 {
 
 mat-toolbar {
   display: grid;
-  grid-template-columns: 40px 1fr;
+  grid-template-columns: 40px 1fr 40px;
   z-index: 2;
   position: relative;
 }

@@ -30,13 +30,14 @@ export class CreateProfileOverlayComponent {
     const options = {
       username: this.form.value.username,
       name: this.form.value.name,
+      avatarUrl: this.form.value.avatarUrl,
       password: this.form.value.password,
       confirmPassword: this.form.value.confirmPassword
     };
 
     const profile = new Profile();
 
-    profile.name = options.username;
+    profile.name = options.name;
     this._profileService.create(options)
       .pipe(
         map(x => profile.profileId = x.profileId),
@@ -47,6 +48,7 @@ export class CreateProfileOverlayComponent {
   }
 
   public form: FormGroup = new FormGroup({
+    avatarUrl: new FormControl(null,[]),
     username: new FormControl(null, []),
     name: new FormControl(null,[]),
     password: new FormControl(null, []),

@@ -33,7 +33,7 @@ namespace Commitments.API.Features.DigitalAssets
         [HttpPost("upload"), DisableRequestSizeLimit]
         public async Task<ActionResult<UploadDigitalAssetCommand.Response>> Save()
             => await _mediator.Send(new UploadDigitalAssetCommand.Request());
-
+        
         [AllowAnonymous]
         [HttpGet("serve/{digitalAssetId}")]
         public async Task<IActionResult> Serve([FromRoute]GetDigitalAssetByIdQuery.Request request)
