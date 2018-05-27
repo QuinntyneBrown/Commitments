@@ -38,7 +38,7 @@ namespace Commitments.API.Behaviors
             await _hubContext.Clients.All.SendAsync("message", new
             {
                 Type = "[Profile] Changed",
-                Payload = new { note = ProfileApiModel.FromProfile(profile) }
+                Payload = new { profile = ProfileApiModel.FromProfile(profile) }
             });
 
             return response;

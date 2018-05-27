@@ -5,6 +5,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { baseUrl } from './core/constants';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { HubClient } from './core/hub-client';
 
 @Component({
   templateUrl: './master-page.component.html',
@@ -15,6 +16,7 @@ export class MasterPageComponent {
   constructor(
     @Inject(baseUrl)private _baseUrl:string,
     private _elementRef: ElementRef,
+    private _hubClient: HubClient,
     private _profileService: ProfileService,
     private _appStore: AppStore,
     private _router: Router
@@ -28,9 +30,18 @@ export class MasterPageComponent {
         map(x => this._appStore.currentProfile$.next(x)),
         switchMap(x => this._appStore.currentProfile$),
         map(x => {
-          this._setCustomProperty("--background-image-url", `url(${this._baseUrl}${x.avatarUrl})`);          
-      })
-    )
+          this._setCustomProperty("--background-image-url", `url(${this._baseUrl}${x.avatarUrl})`);
+        })
+      )
+      .subscribe();
+
+    this._hubClient.messages$
+      .pipe(
+        map(x => {
+          this._appStore.currentProfile$.next(x.profile);
+          this._setCustomProperty("--background-image-url", `url(${this._baseUrl}${x.profile.avatarUrl})`);
+        })        
+      )
       .subscribe();
   }
 

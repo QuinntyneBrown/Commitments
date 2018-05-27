@@ -1,6 +1,7 @@
 img {
   border-radius: 50%;
   margin-bottom:40px;
+  max-height:200px;
 }
 
 .page-content-container {
@@ -9,4 +10,8 @@ img {
   max-width: 1080px;
   height: 100%;
   max-height: calc(100% - 120px);
+}
+
+mat-form-field {
+  width: 100%; 
 }

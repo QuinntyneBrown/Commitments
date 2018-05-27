@@ -11,7 +11,7 @@ import { takeUntil, map } from "rxjs/operators";
   styleUrls: ["./edit-frequency-overlay.component.css"],
   selector: "app-edit-frequency-overlay"
 })
-export class EditFrequencyOverlayComponent { 
+export class EditFrequencyOverlayComponent {
   constructor(public _overlay: OverlayRefWrapper,
     public frequencyTypeService: FrequencyTypeService,
     public frequencyService: FrequencyService
@@ -21,9 +21,11 @@ export class EditFrequencyOverlayComponent {
     this.frequencyTypes$ = this.frequencyTypeService.get();
   }
 
+  public frequencyId: number;
+
   public frequencyTypes$: Observable<Array<FrequencyType>>;
 
-  public handleSave($event) {    
+  public handleSave($event) {
     this.frequencyService.save({ frequency: $event.frequency })
       .pipe(map(x => {
         $event.frequency.frequencyId = x.frequencyId;
@@ -35,6 +37,6 @@ export class EditFrequencyOverlayComponent {
   public onDestroy: Subject<void> = new Subject<void>();
 
   ngOnDestroy() {
-    this.onDestroy.next();    
+    this.onDestroy.next();
   }
 }

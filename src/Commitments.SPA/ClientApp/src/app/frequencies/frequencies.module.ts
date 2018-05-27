@@ -8,21 +8,23 @@ import { FrequencyService } from './frequency.service';
 import { FrequencyTypeService } from './frequency-type.service';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
-import { FrequencyPageComponent } from './frequency-page.component';
 import { EditFrequencyPageComponent } from './edit-frequency-page.component';
 import { EditFrequencyOverlayComponent } from './edit-frequency-overlay.component';
+import { FrequenciesPageComponent } from './frequencies-page.component';
+import { EditFrequencyOverlay } from './edit-frequency-overlay';
 
 const declarations = [
   FrequenciesEditorComponent,
   FrequencyEditorComponent,
-  FrequencyPageComponent,
   EditFrequencyPageComponent,
-  EditFrequencyOverlayComponent
+  EditFrequencyOverlayComponent,
+  FrequenciesPageComponent
 ];
 
 const providers = [
   FrequencyService,
-  FrequencyTypeService
+  FrequencyTypeService,
+  EditFrequencyOverlay
 ];
 
 const entryComponents = [

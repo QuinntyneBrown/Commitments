@@ -6,8 +6,13 @@
   <form novalidate autocomplete="off" spellcheck="false" [formGroup]="form">
     <img src="{{ baseUrl }}{{ (profile$ | async)?.avatarUrl }}" />
 
-    <app-digital-asset-input-url [placeholder]="'Avatar Image Url'" formControlName="avatarUrl" ></app-digital-asset-input-url>
+    <app-digital-asset-input-url [placeholder]="'Avatar Image Url'" formControlName="avatarUrl"></app-digital-asset-input-url>
 
-    <button mat-button (click)="handleSaveClick()">Save</button>
+    <mat-form-field>
+      <input matInput placeholder="{{ 'Name' | translate }}" id="name" formControlName="name">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="handleSaveClick()">Save</button>
+
   </form>
 </section>

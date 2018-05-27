@@ -18,7 +18,6 @@ import { NoteResolver } from './notes/note-resolver.service';
 import { NotesByTagPageComponent } from './notes/notes-by-tag-page.component';
 import { MyCommimentsPageComponent } from './commitments/my-commiments-page.component';
 import { BehavioursPageComponent } from './behaviours/behaviours-page.component';
-import { FrequencyPageComponent } from './frequencies/frequency-page.component';
 import { DashboardPageComponent } from './dashboards/dashboard-page.component';
 import { EditFrequencyPageComponent } from './frequencies/edit-frequency-page.component';
 import { ActivitiesPageComponent } from './activities/activities-page.component';
@@ -28,6 +27,7 @@ import { ProfilesPageComponent } from './profiles/profiles-page.component';
 import { BehaviourTypesPageComponent } from './behaviour-types/behaviour-types-page.component';
 import { CardLayoutsPageComponent } from './card-layouts/card-layouts-page.component';
 import { MyProfilePageComponent } from './profiles/my-profile-page.component';
+import { FrequenciesPageComponent } from './frequencies/frequencies-page.component';
 
 
 export const routes: Routes = [
@@ -83,7 +83,7 @@ export const routes: Routes = [
       },
       {
         path: 'frequencies',
-        component: EditFrequencyPageComponent,
+        component: FrequenciesPageComponent,
         canActivate: [LanguageGuard]
       },
       {

@@ -23,13 +23,13 @@ export class MyProfilePageComponent {
     this.profile$ = this._profileService.current()
       .pipe(
         tap(x => this.form.patchValue({
+          name: x.name,
           avatarUrl: x.avatarUrl
         }))
       );
   }
 
   public handleSaveClick() {
-    alert("?");
     this._profileService.saveAvatarUrl(
       {
         avatarUrl: this.form.value.avatarUrl,
@@ -52,6 +52,7 @@ export class MyProfilePageComponent {
   }
 
   public form: FormGroup = new FormGroup({
+    name: new FormControl(null,[]),
     avatarUrl: new FormControl(null,[])
   });
 }
