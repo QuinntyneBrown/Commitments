@@ -28,9 +28,10 @@ namespace Commitments.API
             services.AddCustomSwagger();            
             services.AddDataStore(Configuration["Data:DefaultConnection:ConnectionString"]);
             services.AddMediatR(typeof(Startup));                        
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(EntityChangedNotificationBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(EntityChangedBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));            
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ProfileChangedBehavior<,>));
         }
         
         public void Configure(IApplicationBuilder app)

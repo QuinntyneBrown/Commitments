@@ -3,6 +3,11 @@
 </app-primary-header>
 
 <section class="page-content-container">
+  <form novalidate autocomplete="off" spellcheck="false" [formGroup]="form">
+    <img src="{{ baseUrl }}{{ (profile$ | async)?.avatarUrl }}" />
 
+    <app-digital-asset-input-url [placeholder]="'Avatar Image Url'" formControlName="avatarUrl" ></app-digital-asset-input-url>
 
+    <button mat-button (click)="handleSaveClick()">Save</button>
+  </form>
 </section>

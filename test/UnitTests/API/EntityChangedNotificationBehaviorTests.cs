@@ -38,7 +38,7 @@ namespace UnitTests.API
                 mockContext.Setup(x => x.Clients).Returns(mockClients.Object);
                 
                 var subject =
-                new EntityChangedNotificationBehavior<SaveNoteCommand.Request, SaveNoteCommand.Response>
+                new EntityChangedBehavior<SaveNoteCommand.Request, SaveNoteCommand.Response>
                 (mockContext.Object, context);
                 
                 var response = await subject.Handle(new SaveNoteCommand.Request()
@@ -93,7 +93,7 @@ namespace UnitTests.API
                 mockContext.Setup(x => x.Clients).Returns(mockClients.Object);
                 
                 var subject =
-                new EntityChangedNotificationBehavior<RemoveNoteCommand.Request, RemoveNoteCommand.Response>
+                new EntityChangedBehavior<RemoveNoteCommand.Request, RemoveNoteCommand.Response>
                 (mockContext.Object, context);
 
                 context.Notes.Add(new Note()
@@ -149,7 +149,7 @@ namespace UnitTests.API
                 
 
                 var subject =
-                new EntityChangedNotificationBehavior<SaveTagCommand.Request, SaveTagCommand.Response>
+                new EntityChangedBehavior<SaveTagCommand.Request, SaveTagCommand.Response>
                 (mockContext.Object, context);
 
                 var response = await subject.Handle(new SaveTagCommand.Request()
@@ -204,7 +204,7 @@ namespace UnitTests.API
                 mockContext.Setup(x => x.Clients).Returns(mockClients.Object);
                 
                 var subject =
-                new EntityChangedNotificationBehavior<RemoveTagCommand.Request, RemoveTagCommand.Response>
+                new EntityChangedBehavior<RemoveTagCommand.Request, RemoveTagCommand.Response>
                 (mockContext.Object, context);
 
                 context.Tags.Add(new Tag()

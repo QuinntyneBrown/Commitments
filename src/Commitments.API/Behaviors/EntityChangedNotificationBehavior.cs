@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace Commitments.API.Behaviors
 {
-    public class EntityChangedNotificationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    public class EntityChangedBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
         
     {
         private readonly IHubContext<AppHub> _hubContext;
         private readonly IAppDbContext _context;
 
-        public EntityChangedNotificationBehavior(IHubContext<AppHub> hubContext, IAppDbContext context)
+        public EntityChangedBehavior(IHubContext<AppHub> hubContext, IAppDbContext context)
         {
             _hubContext = hubContext;
             _context = context;
