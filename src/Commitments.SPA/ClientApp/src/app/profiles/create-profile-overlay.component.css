@@ -5,7 +5,7 @@
   padding: 20px;
 }
 
-mat-form-field {
+mat-form-field, app-digital-asset-input-url {
   width: 100%;
 }
 

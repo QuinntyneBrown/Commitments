@@ -8,10 +8,13 @@ import { ProfileService } from './profile.service';
 import { ProfilesPageComponent } from './profiles-page.component';
 import { CreateProfileOverlayComponent } from './create-profile-overlay.component';
 import { CreateProfileOverlay } from './create-profile-overlay';
+import { MyProfilePageComponent } from './my-profile-page.component';
+import { DigitalAssetsModule } from '../digital-assets/digital-assets.module';
 
 const declarations = [
   CreateProfileOverlayComponent,
-  ProfilesPageComponent
+  ProfilesPageComponent,
+  MyProfilePageComponent
 ];
 
 const providers = [
@@ -32,6 +35,7 @@ const entryComponents = [
     RouterModule,
 
     CoreModule,
+    DigitalAssetsModule,
     SharedModule
   ],
   providers,

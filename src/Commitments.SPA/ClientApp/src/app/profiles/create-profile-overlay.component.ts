@@ -29,6 +29,7 @@ export class CreateProfileOverlayComponent {
   public handleSaveClick() {
     const options = {
       username: this.form.value.username,
+      name: this.form.value.name,
       password: this.form.value.password,
       confirmPassword: this.form.value.confirmPassword
     };
@@ -47,6 +48,7 @@ export class CreateProfileOverlayComponent {
 
   public form: FormGroup = new FormGroup({
     username: new FormControl(null, []),
+    name: new FormControl(null,[]),
     password: new FormControl(null, []),
     confirmPassword: new FormControl(null, [])
   });

@@ -39,6 +39,7 @@ namespace Commitments.API.Features.Profiles
 
                 profile.Name = request.Profile.Name;
 
+
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return new Response() { ProfileId = profile.ProfileId };
