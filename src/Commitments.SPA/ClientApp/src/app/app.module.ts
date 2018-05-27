@@ -56,7 +56,7 @@ import { BehaviourTypesModule } from './behaviour-types/behaviour-types.module';
     ToDosModule,
     UsersModule
   ],
-  providers: [{ provide: baseUrl, useValue: 'http://localhost:9613/' }],
+  providers: [{ provide: baseUrl, useValue: 'http://localhost:9611/' }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

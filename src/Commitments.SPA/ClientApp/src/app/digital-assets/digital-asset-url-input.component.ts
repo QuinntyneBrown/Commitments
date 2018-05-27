@@ -36,47 +36,45 @@ export class DigitalAssetInputUrlComponent implements ControlValueAccessor {
   
   public onChangeCallback: (_: any) => void = () => { };
   
-  public ngAfterViewInit() {        
-      this._elementRef.nativeElement.addEventListener("dragover", this.onDragOver);
-      this._elementRef.nativeElement.addEventListener("drop", this.onDrop, false);
+  public ngAfterViewInit() {
+    this._elementRef.nativeElement.addEventListener("dragover", this.onDragOver);
+    this._elementRef.nativeElement.addEventListener("drop", this.onDrop, false);
   }
   
   public ngOnDestroy() {
-      this._elementRef.nativeElement.removeEventListener("dragover", this.onDragOver);
-      this._elementRef.nativeElement.removeEventListener("drop", this.onDrop, false);
+    this._elementRef.nativeElement.removeEventListener("dragover", this.onDragOver);
+    this._elementRef.nativeElement.removeEventListener("drop", this.onDrop, false);
   }
   
   public onDragOver(e: DragEvent) {
-      e.stopPropagation();
-      e.preventDefault();
+    e.stopPropagation();
+    e.preventDefault();
   }
   
   public async onDrop(e: DragEvent) {
-      e.stopPropagation();
-      e.preventDefault();
-  
-      if (e.dataTransfer && e.dataTransfer.files) {
-          const packageFiles = function (fileList: FileList) {
-              let formData = new FormData();
-              for (var i = 0; i < fileList.length; i++) {
-                  formData.append(fileList[i].name, fileList[i]);
-              }
-              return formData;
-          }
-  
-          const data = packageFiles(e.dataTransfer.files);
-  
-          this._digitalAssetsService.upload({ data: data }).subscribe(x => {                
-              this.inputElement.value = x.digitalAssets[0].relativePath;                
-              this.onChangeCallback(this.inputElement.value);
-          });
-          
+    e.stopPropagation();
+    e.preventDefault();
+
+    if (e.dataTransfer && e.dataTransfer.files) {
+      const packageFiles = function (fileList: FileList) {
+        let formData = new FormData();
+        for (var i = 0; i < fileList.length; i++) {
+          formData.append(fileList[i].name, fileList[i]);
+        }
+        return formData;
       }
+
+      const data = packageFiles(e.dataTransfer.files);
+
+      this._digitalAssetsService.upload({ data }).subscribe(x => {
+        this.inputElement.value = x.digitalAssets[0].relativePath;
+        this.onChangeCallback(this.inputElement.value);
+      });
+    }
   }
 
   @Input()
   public placeholder: string;  
-
   
   public get inputElement(): HTMLInputElement { return this._elementRef.nativeElement.querySelector("input"); }
 }

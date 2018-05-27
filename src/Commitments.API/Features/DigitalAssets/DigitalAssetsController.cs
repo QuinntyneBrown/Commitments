@@ -26,6 +26,10 @@ namespace Commitments.API.Features.DigitalAssets
         public async Task<ActionResult<GetDigitalAssetByIdQuery.Response>> GetById([FromRoute]GetDigitalAssetByIdQuery.Request request)
             => await _mediator.Send(request);
 
+        [HttpPost("upload"), DisableRequestSizeLimit]
+        public async Task<ActionResult<UploadDigitalAssetCommand.Response>> Save()
+            => await _mediator.Send(new UploadDigitalAssetCommand.Request());
+
         [HttpGet]
         public async Task<ActionResult<GetDigitalAssetsQuery.Response>> Get()
             => await _mediator.Send(new GetDigitalAssetsQuery.Request());

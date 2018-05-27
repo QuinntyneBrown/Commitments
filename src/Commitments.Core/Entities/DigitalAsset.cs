@@ -4,5 +4,6 @@ namespace Commitments.Core.Entities
     {
         public int DigitalAssetId { get; set; }           
         public string Name { get; set; }        
+        public byte[] Bytes { get; set; }
     }
 }

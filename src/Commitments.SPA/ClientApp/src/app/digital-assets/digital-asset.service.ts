@@ -1,5 +1,5 @@
 import { Injectable, Inject } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { baseUrl } from "../core/constants";
@@ -34,7 +34,7 @@ export class DigitalAssetService {
     return this._client.post<{ digitalAssetId: number }>(`${this._baseUrl}api/digitalAssets`, { digitalAsset: options.digitalAsset });
   }
 
-  public upload(options: { data: FormData }) {
-    return this._client.post<{ digitalAssets: Array<any> }>("/api/digitalasset/upload", options.data);
+  public upload(options: { data: FormData }) {    
+    return this._client.post<{ digitalAssets: Array<any> }>(`${this._baseUrl}api/digitalAssets/upload`, options.data, { headers: { 'Content-Type': 'multipart/form-data' } });
   }
 }
