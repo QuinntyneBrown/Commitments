@@ -19,12 +19,13 @@ export class EditActivityOverlayComponent {
     private _behaviourService: BehaviourService,
     private _overlay: OverlayRefWrapper
   ) { }
-
+  
   public activityId: number;
 
   public handleSaveClick() {
     let activity = new Activity();
 
+    activity.activityId = this.activityId;
     activity.behaviourId = this.form.value.behaviourId;
     activity.performedOn = this.form.value.performedOn;
     activity.description = this.form.value.description;
@@ -42,6 +43,14 @@ export class EditActivityOverlayComponent {
   }
   ngOnInit() {
     this.behaviours$ = this._behaviourService.get();
+
+    this._activityService.getById({ activityId: this.activityId })
+      .pipe(map(x => this.form.patchValue({
+        performedOn: x.performedOn,
+        behaviourId: x.behaviourId,
+        description: x.description
+      })))
+      .subscribe();
   }
 
   public behaviours$: Observable<Array<Behaviour>>;

@@ -61,7 +61,7 @@ namespace Commitments.API
             public static void Seed(AppDbContext context)
             {
                 if (context.CardLayouts.FirstOrDefault(x => x.Name == "Poster") == null)
-                    context.Cards.Add(new Card() { Name = "Poster" });
+                    context.CardLayouts.Add(new CardLayout() { Name = "Poster" });
 
                 context.SaveChanges();
             }
@@ -79,7 +79,10 @@ namespace Commitments.API
 
                 if (context.Cards.FirstOrDefault(x => x.Name == "Monthly Results") == null)
                     context.Cards.Add(new Card() { Name = "Monthly Results" });
-                
+
+                if (context.Cards.FirstOrDefault(x => x.Name == "Outstanding To Do's") == null)
+                    context.Cards.Add(new Card() { Name = "Outstanding To Do's" });
+
                 context.SaveChanges();
             }
         }

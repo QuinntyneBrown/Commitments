@@ -23,5 +23,21 @@ namespace IntegrationTests.Features
                 Assert.True(response.AccessToken != default(string));
             }
         }
+
+        [Fact]
+        public async Task ShouldChangePassword()
+        {
+            using (var server = CreateServer())
+            {
+                var response = await server.CreateClient()
+                    .PostAsAsync<ChangePasswordCommand.Request, ChangePasswordCommand.Response>(Post.ChangePassword, new ChangePasswordCommand.Request()
+                    {
+                        OldPassword = "P@ssw0rd",
+                        NewPassword = "Duppy"
+                    });
+
+                Assert.True(response != default(ChangePasswordCommand.Response));
+            }
+        }
     }
 }

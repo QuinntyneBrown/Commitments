@@ -50,7 +50,9 @@ export class ActivitiesPageComponent {
   }
 
   public handleEditClick($event) {    
-
+    this._editActityOverlay.create({ activityId: $event.data.activityId })
+      .pipe(takeUntil(this.onDestroy), map((x) => this.addOrUpdate(x)))
+      .subscribe();
   }
 
   public handleFABButtonClick() {
