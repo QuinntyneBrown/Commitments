@@ -1,22 +1,20 @@
-import { Component, ComponentFactoryResolver, ViewContainerRef, ViewChild, ComponentRef, Injector } from "@angular/core";
-import { Subject, Observable, BehaviorSubject } from "rxjs";
-import { Dashboard } from "./dashboard.model";
-import { DashboardService } from "./dashboard.service";
-import { takeUntil, map, tap, switchMap, filter } from "rxjs/operators";
-import { DashboardCard } from "../dashboard-cards/dashboard-card.model";
-import { DashboardCardComponent } from "../dashboard-cards/dashboard-card.component";
-import { DailyResultsDashboardCardComponent } from "../achievements/daily-results-dashboard-card.component";
 import { Overlay } from "@angular/cdk/overlay";
-import { OverlayRefWrapper } from "../core/overlay-ref-wrapper";
-import { PortalInjector, ComponentPortal } from "@angular/cdk/portal";
-import { AddDashboardCardsOverlayComponent } from "../dashboard-cards/add-dashboard-cards-overlay.component";
-import { DashboardCardConfigurationOverlay } from "../dashboard-cards/dashboard-card-configuration-overlay";
-import { DashboardCardService } from "../dashboard-cards/dashboard-card.service";
-import { deepCopy } from "../core/deep-copy";
-import { AddDashboardCardsOverlay } from "../dashboard-cards/add-dashboard-cards-overlay";
+import { Component, ComponentFactoryResolver, ComponentRef, Injector, ViewChild, ViewContainerRef } from "@angular/core";
+import { BehaviorSubject, Subject } from "rxjs";
+import { filter, map, switchMap, takeUntil, tap } from "rxjs/operators";
+import { DailyResultsDashboardCardComponent } from "../achievements/daily-results-dashboard-card.component";
 import { MonthlyResultsDashboardCardComponent } from "../achievements/monthly-results-dashboard-card.component";
 import { WeeklyResultsDashboardCardComponent } from "../achievements/weekly-results-dashboard-card.component";
+import { deepCopy } from "../core/deep-copy";
+import { AddDashboardCardsOverlay } from "../dashboard-cards/add-dashboard-cards-overlay";
+import { DashboardCardConfigurationOverlay } from "../dashboard-cards/dashboard-card-configuration-overlay";
+import { DashboardCardComponent } from "../dashboard-cards/dashboard-card.component";
+import { DashboardCard } from "../dashboard-cards/dashboard-card.model";
+import { DashboardCardService } from "../dashboard-cards/dashboard-card.service";
 import { ToDoDashboardCardComponent } from "../to-dos/to-do-dashboard-card.component";
+import { Dashboard } from "./dashboard.model";
+import { DashboardService } from "./dashboard.service";
+import { RelationsResultsDashboardCardComponent } from "../achievements/relations-results-dashboard-card.component";
 
 @Component({
   templateUrl: "./dashboard-page.component.html",
@@ -106,6 +104,9 @@ export class DashboardPageComponent {
         break;
       case 4:
         componentFactory = (<any>this._componentFactoryResolver.resolveComponentFactory(ToDoDashboardCardComponent))
+        break;
+      case 6:
+        componentFactory = (<any>this._componentFactoryResolver.resolveComponentFactory(RelationsResultsDashboardCardComponent))
         break;
       default:
         componentFactory = (<any>this._componentFactoryResolver.resolveComponentFactory(DashboardCardComponent));

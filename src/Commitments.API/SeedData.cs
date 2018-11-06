@@ -4,6 +4,7 @@ using Commitments.Core.Identity;
 using Commitments.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System;
 using System.Linq;
 
 namespace Commitments.API
@@ -12,16 +13,17 @@ namespace Commitments.API
     {
         public static void Seed(AppDbContext context)
         {
-            BehaviourTypeConfiguration.Seed(context);
+            //Console.WriteLine("WTF");
+            //BehaviourTypeConfiguration.Seed(context);
             CardConfiguration.Seed(context);
-            CardLayoutConfiguration.Seed(context);
+            //CardLayoutConfiguration.Seed(context);
 
             FrequencyTypeConfiguration.Seed(context);
-            UserConfiguration.Seed(context);
-            TagConfiguration.Seed(context);
+            //UserConfiguration.Seed(context);
+            //TagConfiguration.Seed(context);
 
-            DashboardConfiguration.Seed(context);
-            DashboardCardConfiguration.Seed(context);
+            //DashboardConfiguration.Seed(context);
+            //DashboardCardConfiguration.Seed(context);
         }
         
         internal class BehaviourTypeConfiguration
@@ -79,6 +81,9 @@ namespace Commitments.API
 
                 if (context.Cards.FirstOrDefault(x => x.Name == "Monthly Results") == null)
                     context.Cards.Add(new Card() { Name = "Monthly Results" });
+
+                if (context.Cards.FirstOrDefault(x => x.Name == "Relations") == null)
+                    context.Cards.Add(new Card() { Name = "Relations" });
 
                 if (context.Cards.FirstOrDefault(x => x.Name == "Outstanding To Do's") == null)
                     context.Cards.Add(new Card() { Name = "Outstanding To Do's" });
@@ -143,6 +148,9 @@ namespace Commitments.API
 
                 if (context.FrequencyTypes.FirstOrDefault(x => x.Name == "per month") == null)
                     context.FrequencyTypes.Add(new FrequencyType() { Name = "per month" });
+
+                if (context.FrequencyTypes.FirstOrDefault(x => x.Name == "per 48 hours / per 72 after 3 occurrences") == null)
+                    context.FrequencyTypes.Add(new FrequencyType() { Name = "per 48 hours / per 72 after 3 occurrences" });
 
                 context.SaveChanges();
             }

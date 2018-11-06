@@ -11,11 +11,13 @@ import { DashboardCardsModule } from '../dashboard-cards/dashboard-cards.module'
 import { DailyResultsDashboardCardComponent } from './daily-results-dashboard-card.component';
 import { WeeklyResultsDashboardCardComponent } from './weekly-results-dashboard-card.component';
 import { MonthlyResultsDashboardCardComponent } from './monthly-results-dashboard-card.component';
+import { RelationsResultsDashboardCardComponent } from './relations-results-dashboard-card.component';
 
 const declarations = [
   DailyResultsDashboardCardComponent,
   WeeklyResultsDashboardCardComponent,
-  MonthlyResultsDashboardCardComponent
+  MonthlyResultsDashboardCardComponent,
+  RelationsResultsDashboardCardComponent
 ];
 
 const providers = [
@@ -25,7 +27,8 @@ const providers = [
 const entryComponents = [
   DailyResultsDashboardCardComponent,
   WeeklyResultsDashboardCardComponent,
-  MonthlyResultsDashboardCardComponent
+  MonthlyResultsDashboardCardComponent,
+  RelationsResultsDashboardCardComponent
 ];
 
 @NgModule({

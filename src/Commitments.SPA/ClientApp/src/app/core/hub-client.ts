@@ -1,7 +1,7 @@
 import { Injectable, NgZone, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
-import { HubConnection } from '@aspnet/signalr';
+import { HubConnection, HubConnectionBuilder, IHttpConnectionOptions } from "@aspnet/signalr";
 import { LocalStorageService } from './local-storage.service';
 import { accessTokenKey, baseUrl } from './constants';
 
@@ -22,11 +22,12 @@ export class HubClient {
     if (this._connect) return this._connect;
 
     this._connect = new Promise(resolve => {
-      this._connection =
-        this._connection ||
-        new HubConnection(
-          `${this._baseUrl}hub?token=${this._storage.get({ name: accessTokenKey })}`
-        );
+
+      const options: IHttpConnectionOptions = { };
+
+      this._connection = this._connection || new HubConnectionBuilder()
+        .withUrl(`${this._baseUrl}hub?token=${this._storage.get({ name: accessTokenKey })}`, options)
+        .build();
 
       this._connection.on('message', value => {
         this._ngZone.run(() => this.messages$.next(value));
