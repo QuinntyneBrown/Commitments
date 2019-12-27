@@ -4,7 +4,7 @@ using System.Threading;
 using Commitments.Core.Interfaces;
 using FluentValidation;
 
-namespace Commitments.API.Features.Frequencies
+namespace Commitments.Api.Features.Frequencies
 {
     public class GetFrequencyByIdQuery
     {

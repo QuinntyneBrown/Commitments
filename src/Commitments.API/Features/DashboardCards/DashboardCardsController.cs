@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace Commitments.API.Features.DashboardCards
+namespace Commitments.Api.Features.DashboardCards
 {
     [Authorize]
     [ApiController]

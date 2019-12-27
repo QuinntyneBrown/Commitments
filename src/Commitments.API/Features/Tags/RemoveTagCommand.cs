@@ -4,7 +4,7 @@ using System.Threading;
 using Commitments.Core.Interfaces;
 using FluentValidation;
 
-namespace Commitments.API.Features.Tags
+namespace Commitments.Api.Features.Tags
 {
     public class RemoveTagCommand
     {

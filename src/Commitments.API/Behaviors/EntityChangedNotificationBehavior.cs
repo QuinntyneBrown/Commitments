@@ -1,6 +1,6 @@
-﻿using Commitments.API.Features.Notes;
-using Commitments.API.Features.Tags;
-using Commitments.API.Hubs;
+﻿using Commitments.Api.Features.Notes;
+using Commitments.Api.Features.Tags;
+using Commitments.Api.Hubs;
 using Commitments.Core.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace Commitments.API.Behaviors
+namespace Commitments.Api.Behaviors
 {
     public class EntityChangedBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>

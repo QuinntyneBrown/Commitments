@@ -6,7 +6,7 @@ using Commitments.Core.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.API.Features.Notes
+namespace Commitments.Api.Features.Notes
 {
     public class GetNotesQuery
     {

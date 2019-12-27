@@ -4,7 +4,7 @@ using System.Threading;
 using Commitments.Core.Interfaces;
 using FluentValidation;
 
-namespace Commitments.API.Features.Dashboards
+namespace Commitments.Api.Features.Dashboards
 {
     public class GetDashboardByIdQuery
     {

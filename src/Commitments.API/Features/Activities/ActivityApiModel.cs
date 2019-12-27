@@ -1,8 +1,8 @@
-using Commitments.API.Features.Behaviours;
+using Commitments.Api.Features.Behaviours;
 using Commitments.Core.Entities;
 using System;
 
-namespace Commitments.API.Features.Activities
+namespace Commitments.Api.Features.Activities
 {
     public class ActivityApiModel
     {        

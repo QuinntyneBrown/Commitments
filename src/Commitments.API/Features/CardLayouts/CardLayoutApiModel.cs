@@ -1,6 +1,6 @@
 using Commitments.Core.Entities;
 
-namespace Commitments.API.Features.CardLayouts
+namespace Commitments.Api.Features.CardLayouts
 {
     public class CardLayoutApiModel
     {        

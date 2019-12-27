@@ -57,7 +57,7 @@ import { AppStore } from './app-store';
     ToDosModule,
     UsersModule
   ],
-  providers: [{ provide: baseUrl, useValue: 'http://localhost:9611/' }, AppStore],
+  providers: [{ provide: baseUrl, useValue: 'http://localhost:52748/' }, AppStore],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

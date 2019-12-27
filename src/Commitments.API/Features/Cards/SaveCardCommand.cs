@@ -5,7 +5,7 @@ using System.Threading;
 using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.API.Features.Cards
+namespace Commitments.Api.Features.Cards
 {
     public class SaveCardCommand
     {

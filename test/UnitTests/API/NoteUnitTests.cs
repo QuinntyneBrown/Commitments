@@ -1,5 +1,5 @@
-using Commitments.API.Features.Notes;
-using Commitments.API.Features.Tags;
+using Commitments.Api.Features.Notes;
+using Commitments.Api.Features.Tags;
 using Commitments.Core.Entities;
 using Commitments.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;

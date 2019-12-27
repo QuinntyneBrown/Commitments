@@ -5,7 +5,7 @@ using Commitments.Core.Interfaces;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.API.Features.Activities
+namespace Commitments.Api.Features.Activities
 {
     public class GetActivityByIdQuery
     {

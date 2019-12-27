@@ -5,7 +5,7 @@ using Commitments.Core.Interfaces;
 using FluentValidation;
 using System;
 
-namespace Commitments.API.Features.DigitalAssets
+namespace Commitments.Api.Features.DigitalAssets
 {
     public class GetDigitalAssetByIdQuery
     {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace Commitments.API.Features.CardLayouts
+namespace Commitments.Api.Features.CardLayouts
 {
     [Authorize]
     [ApiController]

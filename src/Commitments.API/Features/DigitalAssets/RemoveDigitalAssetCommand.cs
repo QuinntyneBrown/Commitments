@@ -5,7 +5,7 @@ using System.Threading;
 using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.API.Features.DigitalAssets
+namespace Commitments.Api.Features.DigitalAssets
 {
     public class RemoveDigitalAssetCommand
     {

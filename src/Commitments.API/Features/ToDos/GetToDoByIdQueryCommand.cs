@@ -4,7 +4,7 @@ using System.Threading;
 using Commitments.Core.Interfaces;
 using FluentValidation;
 
-namespace Commitments.API.Features.ToDos
+namespace Commitments.Api.Features.ToDos
 {
     public class GetToDoByIdQuery
     {

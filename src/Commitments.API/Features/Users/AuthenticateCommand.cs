@@ -10,7 +10,7 @@ using Commitments.Core.Exceptions;
 using System.Security.Claims;
 using System.Collections.Generic;
 
-namespace Commitments.API.Features.Users
+namespace Commitments.Api.Features.Users
 {
     public class AuthenticateCommand
     {

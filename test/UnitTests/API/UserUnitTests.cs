@@ -1,4 +1,4 @@
-﻿using Commitments.API.Features.Users;
+﻿using Commitments.Api.Features.Users;
 using Commitments.Core.Entities;
 using Commitments.Infrastructure.Data;
 using Commitments.Core.Identity;

@@ -6,7 +6,7 @@ using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.API.Features.Frequencies
+namespace Commitments.Api.Features.Frequencies
 {
     public class SaveFrequencyCommand
     {

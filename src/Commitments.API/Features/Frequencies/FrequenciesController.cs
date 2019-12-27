@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace Commitments.API.Features.Frequencies
+namespace Commitments.Api.Features.Frequencies
 {
     [Authorize]
     [ApiController]

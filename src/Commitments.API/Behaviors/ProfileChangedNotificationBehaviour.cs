@@ -1,12 +1,12 @@
-﻿using Commitments.API.Features.Profiles;
-using Commitments.API.Hubs;
+﻿using Commitments.Api.Features.Profiles;
+using Commitments.Api.Hubs;
 using Commitments.Core.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Commitments.API.Behaviors
+namespace Commitments.Api.Behaviors
 {
     public class ProfileChangedBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>

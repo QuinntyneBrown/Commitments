@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Commitments.Core.Identity;
 using System;
 
-namespace Commitments.API.Features.Users
+namespace Commitments.Api.Features.Users
 {
     public class ChangePasswordCommand
     {

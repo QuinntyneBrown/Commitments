@@ -6,7 +6,7 @@ using Commitments.Core.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.API.Features.DigitalAssets
+namespace Commitments.Api.Features.DigitalAssets
 {
     public class GetDigitalAssetsQuery
     {

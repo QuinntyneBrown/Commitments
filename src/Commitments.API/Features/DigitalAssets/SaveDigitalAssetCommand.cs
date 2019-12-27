@@ -6,7 +6,7 @@ using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 using System;
 
-namespace Commitments.API.Features.DigitalAssets
+namespace Commitments.Api.Features.DigitalAssets
 {
     public class SaveDigitalAssetCommand
     {

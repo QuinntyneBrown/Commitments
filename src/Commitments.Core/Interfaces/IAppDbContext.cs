@@ -20,6 +20,7 @@ namespace Commitments.Core.Interfaces
         DbSet<Frequency> Frequencies { get; set; }
         DbSet<FrequencyType> FrequencyTypes { get; set; }
         DbSet<Note> Notes { get; set; }
+        DbSet<PodCast> PodCasts { get; set; }
         DbSet<Profile> Profiles { get; set; }
         DbSet<Commitment> ProfileCommitments { get; set; }
         DbSet<Tag> Tags { get; set; }

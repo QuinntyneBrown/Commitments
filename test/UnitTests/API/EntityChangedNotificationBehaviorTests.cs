@@ -1,7 +1,7 @@
-﻿using Commitments.API.Behaviors;
-using Commitments.API.Features.Notes;
-using Commitments.API.Features.Tags;
-using Commitments.API.Hubs;
+﻿using Commitments.Api.Behaviors;
+using Commitments.Api.Features.Notes;
+using Commitments.Api.Features.Tags;
+using Commitments.Api.Hubs;
 using Commitments.Core.Entities;
 using Commitments.Infrastructure.Data;
 using Microsoft.AspNetCore.SignalR;

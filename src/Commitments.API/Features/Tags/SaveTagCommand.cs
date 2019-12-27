@@ -6,7 +6,7 @@ using Commitments.Core.Interfaces;
 using Commitments.Core.Entities;
 using Commitments.Core.Extensions;
 
-namespace Commitments.API.Features.Tags
+namespace Commitments.Api.Features.Tags
 {
     public class SaveTagCommand
     {

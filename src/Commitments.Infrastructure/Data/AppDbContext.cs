@@ -34,6 +34,7 @@ namespace Commitments.Infrastructure.Data
         public DbSet<FrequencyType> FrequencyTypes { get; set; }
         public DbSet<Note> Notes { get; set; }
         public DbSet<Profile> Profiles { get; set; }
+        public DbSet<PodCast> PodCasts { get; set; }
         public DbSet<Commitment> ProfileCommitments { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<ToDo> ToDos { get; set; }

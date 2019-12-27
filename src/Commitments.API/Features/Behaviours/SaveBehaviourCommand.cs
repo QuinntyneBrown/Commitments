@@ -6,7 +6,7 @@ using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 using Commitments.Core.Extensions;
 
-namespace Commitments.API.Features.Behaviours
+namespace Commitments.Api.Features.Behaviours
 {
     public class SaveBehaviourCommand
     {

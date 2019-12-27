@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Commitments.API.Features
+namespace Commitments.Api.Features
 {
     [Route("")]
     [ApiExplorerSettings(IgnoreApi = true)]

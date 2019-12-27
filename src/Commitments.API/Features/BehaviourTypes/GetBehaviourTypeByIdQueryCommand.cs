@@ -4,7 +4,7 @@ using System.Threading;
 using Commitments.Core.Interfaces;
 using FluentValidation;
 
-namespace Commitments.API.Features.BehaviourTypes
+namespace Commitments.Api.Features.BehaviourTypes
 {
     public class GetBehaviourTypeByIdQuery
     {

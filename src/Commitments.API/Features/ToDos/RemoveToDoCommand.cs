@@ -5,7 +5,7 @@ using System.Threading;
 using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.API.Features.ToDos
+namespace Commitments.Api.Features.ToDos
 {
     public class RemoveToDoCommand
     {

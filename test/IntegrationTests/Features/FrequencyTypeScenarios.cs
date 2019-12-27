@@ -1,4 +1,4 @@
-using Commitments.API.Features.FrequencyTypes;
+using Commitments.Api.Features.FrequencyTypes;
 using Commitments.Core.Entities;
 using Commitments.Core.Extensions;
 using Commitments.Core.Interfaces;

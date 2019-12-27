@@ -1,7 +1,7 @@
 using Commitments.Core.Entities;
 using System;
 
-namespace Commitments.API.Features.DigitalAssets
+namespace Commitments.Api.Features.DigitalAssets
 {
     public class DigitalAssetApiModel
     {        

@@ -1,7 +1,7 @@
 using Commitments.Core.Entities;
 using Newtonsoft.Json;
 
-namespace Commitments.API.Features.DashboardCards
+namespace Commitments.Api.Features.DashboardCards
 {
     public class DashboardCardApiModel
     {        

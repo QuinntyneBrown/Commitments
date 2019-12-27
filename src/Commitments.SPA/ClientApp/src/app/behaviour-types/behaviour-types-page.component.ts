@@ -10,6 +10,7 @@ import { GridApi, ColDef } from "ag-grid";
 import { CheckboxCellComponent } from "../shared/checkbox-cell.component";
 import { DeleteCellComponent } from "../shared/delete-cell.component";
 import { EditCellComponent } from "../shared/edit-cell.component";
+import { EditBehaviourTypeOverlay } from "./edit-behaviour-type-overlay";
 
 @Component({
   templateUrl: "./behaviour-types-page.component.html",
@@ -19,6 +20,7 @@ import { EditCellComponent } from "../shared/edit-cell.component";
 export class BehaviourTypesPageComponent { 
   constructor(
     private _behaviourTypeService: BehaviourTypeService,
+    private _editBehaviourTypeOverlay: EditBehaviourTypeOverlay,
     private _router: Router
   ) { }
 
@@ -49,6 +51,12 @@ export class BehaviourTypesPageComponent {
 
   public handleEditClick($event) {    
 
+  }
+
+  public handleFABButtonClick() {
+    this._editBehaviourTypeOverlay.create()
+      .pipe(takeUntil(this.onDestroy), map((x) => this.addOrUpdate(x)))
+      .subscribe();
   }
 
   public addOrUpdate(behaviourType: BehaviourType) {

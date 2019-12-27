@@ -6,7 +6,7 @@ using Commitments.Core.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.API.Features.Cards
+namespace Commitments.Api.Features.Cards
 {
     public class GetCardsQuery
     {

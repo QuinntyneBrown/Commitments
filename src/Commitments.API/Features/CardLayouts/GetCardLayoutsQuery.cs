@@ -6,7 +6,7 @@ using Commitments.Core.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.API.Features.CardLayouts
+namespace Commitments.Api.Features.CardLayouts
 {
     public class GetCardLayoutsQuery
     {

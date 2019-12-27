@@ -4,7 +4,7 @@ using System.Threading;
 using Commitments.Core.Interfaces;
 using FluentValidation;
 
-namespace Commitments.API.Features.DashboardCards
+namespace Commitments.Api.Features.DashboardCards
 {
     public class GetDashboardCardByIdQuery
     {

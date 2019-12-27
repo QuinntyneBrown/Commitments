@@ -1,9 +1,9 @@
-using Commitments.API.Features.DashboardCards;
+using Commitments.Api.Features.DashboardCards;
 using Commitments.Core.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Commitments.API.Features.Dashboards
+namespace Commitments.Api.Features.Dashboards
 {
     public class DashboardApiModel
     {        

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.API.Features.Notes
+namespace Commitments.Api.Features.Notes
 {
     public class SaveNoteCommand
     {

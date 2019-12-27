@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using Commitments.Core.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Commitments.API.Features.Commitments;
+using Commitments.Api.Features.Commitments;
 using System;
 
-namespace Commitments.API.Features.Achievements
+namespace Commitments.Api.Features.Achievements
 {
     public class GetAchievementsQuery
     {

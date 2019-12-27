@@ -1,7 +1,7 @@
 using Commitments.Core.Entities;
 using System;
 
-namespace Commitments.API.Features.ToDos
+namespace Commitments.Api.Features.ToDos
 {
     public class ToDoApiModel
     {        

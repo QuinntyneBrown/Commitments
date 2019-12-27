@@ -1,6 +1,6 @@
 using Commitments.Core.Entities;
 
-namespace Commitments.API.Features.BehaviourTypes
+namespace Commitments.Api.Features.BehaviourTypes
 {
     public class BehaviourTypeApiModel
     {        

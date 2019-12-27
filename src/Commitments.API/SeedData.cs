@@ -1,4 +1,4 @@
-﻿using Commitments.API.Features.DashboardCards;
+﻿using Commitments.Api.Features.DashboardCards;
 using Commitments.Core.Entities;
 using Commitments.Core.Identity;
 using Commitments.Infrastructure.Data;
@@ -7,23 +7,22 @@ using Newtonsoft.Json;
 using System;
 using System.Linq;
 
-namespace Commitments.API
+namespace Commitments.Api
 {
     public class SeedData
     {
         public static void Seed(AppDbContext context)
         {
-            //Console.WriteLine("WTF");
-            //BehaviourTypeConfiguration.Seed(context);
+            BehaviourTypeConfiguration.Seed(context);
             CardConfiguration.Seed(context);
-            //CardLayoutConfiguration.Seed(context);
+            CardLayoutConfiguration.Seed(context);
 
             FrequencyTypeConfiguration.Seed(context);
-            //UserConfiguration.Seed(context);
-            //TagConfiguration.Seed(context);
+            UserConfiguration.Seed(context);
+            TagConfiguration.Seed(context);
 
-            //DashboardConfiguration.Seed(context);
-            //DashboardCardConfiguration.Seed(context);
+            DashboardConfiguration.Seed(context);
+            DashboardCardConfiguration.Seed(context);
         }
         
         internal class BehaviourTypeConfiguration

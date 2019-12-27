@@ -7,7 +7,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Commitments.API.Features.Activities
+namespace Commitments.Api.Features.Activities
 {
     [Authorize]
     [ApiController]

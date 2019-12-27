@@ -1,4 +1,4 @@
-using Commitments.API.Features.ToDos;
+using Commitments.Api.Features.ToDos;
 using Commitments.Core.Entities;
 using Commitments.Core.Extensions;
 using Commitments.Core.Interfaces;

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Commitments.Core.Extensions;
 
-namespace Commitments.API.Features.Users
+namespace Commitments.Api.Features.Users
 {
     [Authorize]
     [ApiController]

@@ -1,11 +1,11 @@
-using FluentValidation;
-using MediatR;
-using System.Threading.Tasks;
-using System.Threading;
 using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
+using FluentValidation;
+using MediatR;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace Commitments.API.Features.BehaviourTypes
+namespace Commitments.Api.Features.BehaviourTypes
 {
     public class SaveBehaviourTypeCommand
     {

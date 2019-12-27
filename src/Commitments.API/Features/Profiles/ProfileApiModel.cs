@@ -1,6 +1,6 @@
 using Commitments.Core.Entities;
 
-namespace Commitments.API.Features.Profiles
+namespace Commitments.Api.Features.Profiles
 {
     public class ProfileApiModel
     {        

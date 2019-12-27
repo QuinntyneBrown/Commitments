@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.API.Features.Cards
+namespace Commitments.Api.Features.Cards
 {
     public class RemoveCardCommand
     {

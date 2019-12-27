@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace Commitments.API.Features.DashboardCards
+namespace Commitments.Api.Features.DashboardCards
 {
     public class SaveDashboardCardCommand
     {

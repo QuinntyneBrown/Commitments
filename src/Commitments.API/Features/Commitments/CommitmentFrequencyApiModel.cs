@@ -1,7 +1,7 @@
-using Commitments.API.Features.Frequencies;
+using Commitments.Api.Features.Frequencies;
 using Commitments.Core.Entities;
 
-namespace Commitments.API.Features.Commitments
+namespace Commitments.Api.Features.Commitments
 {
     public class CommitmentFrequencyApiModel
     {        

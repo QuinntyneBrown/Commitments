@@ -6,7 +6,7 @@ using Commitments.Core.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.API.Features.BehaviourTypes
+namespace Commitments.Api.Features.BehaviourTypes
 {
     public class GetBehaviourTypesQuery
     {

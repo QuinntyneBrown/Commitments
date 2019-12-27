@@ -4,7 +4,7 @@ using System.Threading;
 using Commitments.Core.Interfaces;
 using FluentValidation;
 
-namespace Commitments.API.Features.Notes
+namespace Commitments.Api.Features.Notes
 {
     public class RemoveNoteCommand
     {

@@ -14,7 +14,7 @@ using Commitments.Core.Helpers;
 using Commitments.Core.Entities;
 using System.Linq;
 
-namespace Commitments.API.Features.DigitalAssets
+namespace Commitments.Api.Features.DigitalAssets
 {
     public class UploadDigitalAssetCommand
     {

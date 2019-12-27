@@ -1,6 +1,6 @@
 using Commitments.Core.Entities;
 
-namespace Commitments.API.Features.Users
+namespace Commitments.Api.Features.Users
 {
     public class UserApiModel
     {

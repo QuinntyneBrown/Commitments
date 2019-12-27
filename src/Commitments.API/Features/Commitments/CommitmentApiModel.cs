@@ -1,9 +1,9 @@
-using Commitments.API.Features.Behaviours;
+using Commitments.Api.Features.Behaviours;
 using Commitments.Core.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Commitments.API.Features.Commitments
+namespace Commitments.Api.Features.Commitments
 {
     public class CommitmentApiModel
     {        

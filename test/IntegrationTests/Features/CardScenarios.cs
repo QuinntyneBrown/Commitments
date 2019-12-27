@@ -1,4 +1,4 @@
-using Commitments.API.Features.Cards;
+using Commitments.Api.Features.Cards;
 using Commitments.Core.Entities;
 using Commitments.Core.Extensions;
 using Commitments.Core.Interfaces;

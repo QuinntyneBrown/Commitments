@@ -4,7 +4,7 @@ using System.Threading;
 using System.Collections.Generic;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.API.Features.DashboardCards
+namespace Commitments.Api.Features.DashboardCards
 {
     public class SaveDashboardCardRangeCommand
     {

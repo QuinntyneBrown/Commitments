@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Commitments.Core.Entities;
 using Commitments.Core.Identity;
 
-namespace Commitments.API.Features.Profiles
+namespace Commitments.Api.Features.Profiles
 {
     public class CreateProfileCommand
     {

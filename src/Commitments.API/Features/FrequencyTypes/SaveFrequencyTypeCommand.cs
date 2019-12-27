@@ -5,7 +5,7 @@ using System.Threading;
 using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.API.Features.FrequencyTypes
+namespace Commitments.Api.Features.FrequencyTypes
 {
     public class SaveFrequencyTypeCommand
     {

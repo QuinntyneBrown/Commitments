@@ -1,4 +1,4 @@
-using Commitments.API.Features.CardLayouts;
+using Commitments.Api.Features.CardLayouts;
 using Commitments.Core.Entities;
 using Commitments.Core.Extensions;
 using Commitments.Core.Interfaces;

@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 
-namespace Commitments.API
+namespace Commitments.Api
 {
     public class Program
     {

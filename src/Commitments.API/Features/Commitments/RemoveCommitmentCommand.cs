@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.API.Features.Commitments
+namespace Commitments.Api.Features.Commitments
 {
     public class RemoveCommitmentCommand
     {

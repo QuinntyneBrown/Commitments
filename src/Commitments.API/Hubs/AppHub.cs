@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
 
-namespace Commitments.API.Hubs
+namespace Commitments.Api.Hubs
 {
     [Authorize(AuthenticationSchemes = "Bearer")]
     public class AppHub: Hub

@@ -1,4 +1,4 @@
-﻿using Commitments.API;
+﻿using Commitments.Api;
 using Commitments.Infrastructure.Data;
 using Commitments.Core.Identity;
 using Microsoft.AspNetCore.Hosting;
@@ -58,7 +58,7 @@ namespace IntegrationTests
                             .Build();
 
         protected IConfiguration GetConfiguration() => new ConfigurationBuilder()
-                .SetBasePath(Path.GetFullPath(@"../../../../../src/Commitments.API/"))
+                .SetBasePath(Path.GetFullPath(@"../../../../../src/Commitments.Api/"))
                 .AddJsonFile("appsettings.json", optional: false)
                 .Build();
 

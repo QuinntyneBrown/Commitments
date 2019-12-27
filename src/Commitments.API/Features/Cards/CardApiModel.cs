@@ -1,6 +1,6 @@
 using Commitments.Core.Entities;
 
-namespace Commitments.API.Features.Cards
+namespace Commitments.Api.Features.Cards
 {
     public class CardApiModel
     {        
@@ -10,10 +10,12 @@ namespace Commitments.API.Features.Cards
 
         public static CardApiModel FromCard(Card card)
         {
-            var model = new CardApiModel();
-            model.CardId = card.CardId;
-            model.Name = card.Name;
-            model.Description = card.Description;
+            var model = new CardApiModel
+            {
+                CardId = card.CardId,
+                Name = card.Name,
+                Description = card.Description
+            };
             return model;
         }
     }

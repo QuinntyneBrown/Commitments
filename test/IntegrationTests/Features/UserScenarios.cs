@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using Xunit;
-using Commitments.API.Features.Users;
+using Commitments.Api.Features.Users;
 using Commitments.Core.Extensions;
 
 namespace IntegrationTests.Features

@@ -5,7 +5,7 @@ using System.Threading;
 using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.API.Features.Dashboards
+namespace Commitments.Api.Features.Dashboards
 {
     public class RemoveDashboardCommand
     {

@@ -1,9 +1,9 @@
-using Commitments.API.Features.Tags;
+using Commitments.Api.Features.Tags;
 using Commitments.Core.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Commitments.API.Features.Notes
+namespace Commitments.Api.Features.Notes
 {
     public class NoteApiModel
     {        

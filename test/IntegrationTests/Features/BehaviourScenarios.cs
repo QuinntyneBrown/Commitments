@@ -1,4 +1,4 @@
-using Commitments.API.Features.Behaviours;
+using Commitments.Api.Features.Behaviours;
 using Commitments.Core.Entities;
 using Commitments.Core.Extensions;
 using Commitments.Core.Interfaces;

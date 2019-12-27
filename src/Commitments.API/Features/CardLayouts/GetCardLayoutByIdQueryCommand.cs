@@ -4,7 +4,7 @@ using System.Threading;
 using Commitments.Core.Interfaces;
 using FluentValidation;
 
-namespace Commitments.API.Features.CardLayouts
+namespace Commitments.Api.Features.CardLayouts
 {
     public class GetCardLayoutByIdQuery
     {

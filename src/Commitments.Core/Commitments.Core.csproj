@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="codeGeneratorSettings.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="codeGeneratorSettings.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

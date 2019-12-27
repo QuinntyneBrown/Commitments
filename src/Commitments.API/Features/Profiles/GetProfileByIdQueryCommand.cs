@@ -4,7 +4,7 @@ using System.Threading;
 using Commitments.Core.Interfaces;
 using FluentValidation;
 
-namespace Commitments.API.Features.Profiles
+namespace Commitments.Api.Features.Profiles
 {
     public class GetProfileByIdQuery
     {

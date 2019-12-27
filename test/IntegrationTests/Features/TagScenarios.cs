@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
-using Commitments.API.Features.Tags;
+using Commitments.Api.Features.Tags;
 using Commitments.Core.Extensions;
 
 namespace IntegrationTests.Features

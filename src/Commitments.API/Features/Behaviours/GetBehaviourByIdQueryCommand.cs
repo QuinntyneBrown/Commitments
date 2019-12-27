@@ -5,7 +5,7 @@ using Commitments.Core.Interfaces;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.API.Features.Behaviours
+namespace Commitments.Api.Features.Behaviours
 {
     public class GetBehaviourByIdQuery
     {
