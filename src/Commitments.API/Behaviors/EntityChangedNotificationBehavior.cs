@@ -1,4 +1,4 @@
-﻿using Commitments.Api.Features.Notes;
+using Commitments.Api.Features.Notes;
 using Commitments.Api.Features.Tags;
 using Commitments.Api.Hubs;
 using Commitments.Core.Interfaces;
@@ -8,86 +8,91 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace Commitments.Api.Behaviors
+
+namespace Commitments.Api.Behaviors;
+
+public class EntityChangedBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    where TRequest : IRequest<TResponse>
+
 {
-    public class EntityChangedBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : IRequest<TResponse>
-        
+    private readonly IHubContext<AppHub> _hubContext;
+    private readonly IAppDbContext _context;
+
+    public EntityChangedBehavior(IHubContext<AppHub> hubContext, IAppDbContext context)
     {
-        private readonly IHubContext<AppHub> _hubContext;
-        private readonly IAppDbContext _context;
+        _hubContext = hubContext;
+        _context = context;
+    }
 
-        public EntityChangedBehavior(IHubContext<AppHub> hubContext, IAppDbContext context)
+    public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+    {
+        var response = await next();
+
+        if (typeof(TRequest) == typeof(SaveNoteCommandRequest))
+            return await (HandleSaveNoteCommand(request as SaveNoteCommandRequest, cancellationToken, response as SaveNoteCommandResponse) as Task<TResponse>);
+
+        if (typeof(TRequest) == typeof(RemoveNoteCommandRequest))
+            return await (HandleRemoveNoteCommand(request as RemoveNoteCommandRequest, cancellationToken, response as RemoveNoteCommandResponse) as Task<TResponse>);
+
+        if (typeof(TRequest) == typeof(SaveTagCommandRequest))
+            return await (HandleSaveTagCommand(request as SaveTagCommandRequest, cancellationToken, response as SaveTagCommandResponse) as Task<TResponse>);
+
+        if (typeof(TRequest) == typeof(RemoveTagCommandRequest))
+            return await (HandleRemoveTagCommand(request as RemoveTagCommandRequest, cancellationToken, response as RemoveTagCommandResponse) as Task<TResponse>);
+
+        return response;
+    }
+
+    public async Task<SaveNoteCommandResponse> HandleSaveNoteCommand(SaveNoteCommandRequest request, CancellationToken cancellationToken, SaveNoteCommandResponse response)
+    {
+        var note = await _context.Notes.FindAsync(response.NoteId);
+
+        await _hubContext.Clients.All.SendAsync("message", new
         {
-            _hubContext = hubContext;
-            _context = context;
-        }
+            Type = "[Note] Saved",
+            Payload = new { note = NoteApiModel.FromNote(note) }
+        });
 
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+        return response;
+    }
+
+    public async Task<RemoveNoteCommandResponse> HandleRemoveNoteCommand(RemoveNoteCommandRequest request, CancellationToken cancellationToken, RemoveNoteCommandResponse response)
+    {
+        await _hubContext.Clients.All.SendAsync("message", new
         {
-            var response = await next();
+            Type = "[Note] Removed",
+            Payload = new { noteId = request.NoteId }
+        });
 
-            if (typeof(TRequest) == typeof(SaveNoteCommand.Request))
-                return await (HandleSaveNoteCommand(request as SaveNoteCommand.Request, cancellationToken, response as SaveNoteCommand.Response) as Task<TResponse>);
+        return response;
+    }
 
-            if (typeof(TRequest) == typeof(RemoveNoteCommand.Request))
-                return await (HandleRemoveNoteCommand(request as RemoveNoteCommand.Request, cancellationToken, response as RemoveNoteCommand.Response) as Task<TResponse>);
+    public async Task<SaveTagCommandResponse> HandleSaveTagCommand(SaveTagCommandRequest request, CancellationToken cancellationToken, SaveTagCommandResponse response)
+    {
+        var tag = await _context.Tags.FindAsync(response.TagId);
 
-            if (typeof(TRequest) == typeof(SaveTagCommand.Request))
-                return await (HandleSaveTagCommand(request as SaveTagCommand.Request, cancellationToken, response as SaveTagCommand.Response) as Task<TResponse>);
-
-            if (typeof(TRequest) == typeof(RemoveTagCommand.Request))
-                return await (HandleRemoveTagCommand(request as RemoveTagCommand.Request, cancellationToken, response as RemoveTagCommand.Response) as Task<TResponse>);
-
-            return response;
-        }
-
-        public async Task<SaveNoteCommand.Response> HandleSaveNoteCommand(SaveNoteCommand.Request request, CancellationToken cancellationToken, SaveNoteCommand.Response response)
+        await _hubContext.Clients.All.SendAsync("message", new
         {
-            var note = await _context.Notes.FindAsync(response.NoteId);
+            Type = "[Tag] Saved",
+            Payload = new { tag = TagApiModel.FromTag(tag) }
+        });
 
-            await _hubContext.Clients.All.SendAsync("message", new
-            {
-                Type = "[Note] Saved",
-                Payload = new { note = NoteApiModel.FromNote(note) }
-            });
+        return response;
+    }
 
-            return response;
-        }
-
-        public async Task<RemoveNoteCommand.Response> HandleRemoveNoteCommand(RemoveNoteCommand.Request request, CancellationToken cancellationToken, RemoveNoteCommand.Response response)
+    public async Task<RemoveTagCommandResponse> HandleRemoveTagCommand(RemoveTagCommandRequest request, CancellationToken cancellationToken, RemoveTagCommandResponse response)
+    {
+        await _hubContext.Clients.All.SendAsync("message", new
         {
-            await _hubContext.Clients.All.SendAsync("message", new
-            {
-                Type = "[Note] Removed",
-                Payload = new { noteId = request.NoteId }
-            });
+            Type = "[Tag] Removed",
+            Payload = new { tagId = request.TagId }
+        });
 
-            return response;
-        }
+        return response;
+    }
 
-        public async Task<SaveTagCommand.Response> HandleSaveTagCommand(SaveTagCommand.Request request, CancellationToken cancellationToken, SaveTagCommand.Response response)
-        {
-            var tag = await _context.Tags.FindAsync(response.TagId);
-
-            await _hubContext.Clients.All.SendAsync("message", new
-            {
-                Type = "[Tag] Saved",
-                Payload = new { tag = TagApiModel.FromTag(tag) }
-            });
-
-            return response;
-        }
-
-        public async Task<RemoveTagCommand.Response> HandleRemoveTagCommand(RemoveTagCommand.Request request, CancellationToken cancellationToken, RemoveTagCommand.Response response)
-        {
-            await _hubContext.Clients.All.SendAsync("message", new
-            {
-                Type = "[Tag] Removed",
-                Payload = new { tagId = request.TagId }
-            });
-
-            return response;
-        }
-    } 
-}
+    public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+    {
+        throw new System.NotImplementedException();
+    }
+} 

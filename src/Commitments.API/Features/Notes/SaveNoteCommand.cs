@@ -7,61 +7,58 @@ using System.Threading.Tasks;
 using System.Threading;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.Api.Features.Notes
-{
-    public class SaveNoteCommand
-    {
-        public class Validator: AbstractValidator<Request> {
-            public Validator()
-            {
-                RuleFor(request => request.Note.NoteId).NotNull();
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public NoteApiModel Note { get; set; }
-        }
+namespace Commitments.Api.Features.Notes;
 
-        public class Response
-        {            
-            public int NoteId { get; set; }
-        }
+ public class SaveNoteCommandValidator: AbstractValidator<SaveNoteCommandRequest> {
+     public SaveNoteCommandValidator()
+     {
+         RuleFor(request => request.Note.NoteId).NotNull();
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IAppDbContext _context;
+ public class SaveNoteCommandRequest : IRequest<SaveNoteCommandResponse> {
+     public NoteApiModel Note { get; set; }
+ }
 
-            public Handler(IAppDbContext context) => _context = context;
+ public class SaveNoteCommandResponse
+ {            
+     public int NoteId { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var note = await _context.Notes
-                    .Include(x => x.NoteTags)
-                    .Include("NoteTags.Tag")
-                    .SingleOrDefaultAsync(x => request.Note.NoteId == x.NoteId);
+ public class SaveNoteCommandHandler : IRequestHandler<SaveNoteCommandRequest, SaveNoteCommandResponse>
+ {
+     private readonly IAppDbContext _context;
 
-                if (note == null) _context.Notes.Add(note = new Note());
+     public SaveNoteCommandHandler(IAppDbContext context) => _context = context;
 
-                note.Body = request.Note.Body;
+     public async Task<SaveNoteCommandResponse> Handle(SaveNoteCommandRequest request, CancellationToken cancellationToken)
+     {
+         var note = await _context.Notes
+             .Include(x => x.NoteTags)
+             .Include("NoteTags.Tag")
+             .SingleOrDefaultAsync(x => request.Note.NoteId == x.NoteId);
 
-                note.Title = request.Note.Title;
+         if (note == null) _context.Notes.Add(note = new Note());
 
-                note.Slug = request.Note.Title.GenerateSlug();
+         note.Body = request.Note.Body;
 
-                note.NoteTags.Clear();
+         note.Title = request.Note.Title;
 
-                foreach(var tag in request.Note.Tags)
-                {
-                    note.NoteTags.Add(new NoteTag()
-                    {
-                        Tag = (await _context.Tags.FindAsync(tag.TagId))
-                    });
-                }
+         note.Slug = request.Note.Title.GenerateSlug();
 
-                await _context.SaveChangesAsync(cancellationToken);
+         note.NoteTags.Clear();
 
-                return new Response() { NoteId = note.NoteId };
-            }
-        }
-    }
-}
+         foreach(var tag in request.Note.Tags)
+         {
+             note.NoteTags.Add(new NoteTag()
+             {
+                 Tag = (await _context.Tags.FindAsync(tag.TagId))
+             });
+         }
+
+         await _context.SaveChangesAsync(cancellationToken);
+
+         return new SaveNoteCommandResponse() { NoteId = note.NoteId };
+     }
+ }

@@ -4,35 +4,32 @@ using System.Threading.Tasks;
 using System.Threading;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.Api.Features.Cards
-{
-    public class RemoveCardCommand
-    {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.CardId).NotEqual(0);
-            }
-        }
 
-        public class Request : IRequest
-        {
-            public int CardId { get; set; }
-        }
+namespace Commitments.Api.Features.Cards;
 
-        public class Handler : IRequestHandler<Request>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class RemoveCardCommandValidator : AbstractValidator<RemoveCardCommandRequest>
+ {
+     public RemoveCardCommandValidator()
+     {
+         RuleFor(request => request.CardId).NotEqual(0);
+     }
+ }
 
-            public async Task Handle(Request request, CancellationToken cancellationToken)
-            {
-                _context.Cards.Remove(await _context.Cards.FindAsync(request.CardId));
-                await _context.SaveChangesAsync(cancellationToken);
-            }
+ public class RemoveCardCommandRequest : IRequest
+ {
+     public int CardId { get; set; }
+ }
 
-        }
-    }
-}
+ public class RemoveCardCommandHandler : IRequestHandler<RemoveCardCommandRequest>
+ {
+     public IAppDbContext _context { get; set; }
+
+     public RemoveCardCommandHandler(IAppDbContext context) => _context = context;
+
+     public async Task Handle(RemoveCardCommandRequest request, CancellationToken cancellationToken)
+     {
+         _context.Cards.Remove(await _context.Cards.FindAsync(request.CardId));
+         await _context.SaveChangesAsync(cancellationToken);
+     }
+
+ }

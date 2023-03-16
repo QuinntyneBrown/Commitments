@@ -1,20 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Commitments.Api.Features
+
+namespace Commitments.Api.Features;
+
+[Route("")]
+[ApiExplorerSettings(IgnoreApi = true)]
+[ApiController]
+public class HomeController
 {
-    [Route("")]
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ApiController]
-    public class HomeController
-    {
-        [HttpGet("health")]
-        public IActionResult Health() 
-            => new OkObjectResult(new {
-                Status = "Healthy"
-            });
-        
-        [HttpGet]
-        public IActionResult Index()
-            => new RedirectResult("~/swagger");
-    }
+    [HttpGet("health")]
+    public IActionResult Health() 
+        => new OkObjectResult(new {
+            Status = "Healthy"
+        });
+
+    [HttpGet]
+    public IActionResult Index()
+        => new RedirectResult("~/swagger");
 }

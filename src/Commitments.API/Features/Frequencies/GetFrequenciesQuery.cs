@@ -6,31 +6,28 @@ using Commitments.Core.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.Api.Features.Frequencies
-{
-    public class GetFrequenciesQuery
-    {
-        public class Request : IRequest<Response> { }
 
-        public class Response
-        {
-            public IEnumerable<FrequencyApiModel> Frequencies { get; set; }
-        }
+namespace Commitments.Api.Features.Frequencies;
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class GetFrequenciesQueryRequest : IRequest<GetFrequenciesQueryResponse> { }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    Frequencies = await _context.Frequencies
-                    .Include(x =>x.FrequencyType)
-                    .Select(x => FrequencyApiModel.FromFrequency(x))
-                    .ToListAsync()
-                };
-        }
-    }
-}
+ public class GetFrequenciesQueryResponse
+ {
+     public IEnumerable<FrequencyApiModel> Frequencies { get; set; }
+ }
+
+ public class GetFrequenciesQueryHandler : IRequestHandler<GetFrequenciesQueryRequest, GetFrequenciesQueryResponse>
+ {
+     public IAppDbContext _context { get; set; }
+
+     public GetFrequenciesQueryHandler(IAppDbContext context) => _context = context;
+
+     public async Task<GetFrequenciesQueryResponse> Handle(GetFrequenciesQueryRequest request, CancellationToken cancellationToken)
+         => new GetFrequenciesQueryResponse()
+         {
+             Frequencies = await _context.Frequencies
+             .Include(x =>x.FrequencyType)
+             .Select(x => FrequencyApiModel.FromFrequency(x))
+             .ToListAsync()
+         };
+ }

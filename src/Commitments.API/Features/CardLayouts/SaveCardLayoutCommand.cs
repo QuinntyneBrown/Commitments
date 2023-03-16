@@ -5,44 +5,40 @@ using System.Threading;
 using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.Api.Features.CardLayouts
-{
-    public class SaveCardLayoutCommand
-    {
-        public class Validator: AbstractValidator<Request> {
-            public Validator()
-            {
-                RuleFor(request => request.CardLayout.CardLayoutId).NotNull();
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public CardLayoutApiModel CardLayout { get; set; }
-        }
+namespace Commitments.Api.Features.CardLayouts;
 
-        public class Response
-        {			
-            public int CardLayoutId { get; set; }
-        }
+ public class SaveCardLayoutCommandValidator: AbstractValidator<SaveCardLayoutCommandRequest> {
+     public SaveCardLayoutCommandValidator()
+     {
+         RuleFor(request => request.CardLayout.CardLayoutId).NotNull();
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-			public Handler(IAppDbContext context) => _context = context;
+ public class SaveCardLayoutCommandRequest : IRequest<SaveCardLayoutCommandResponse> {
+     public CardLayoutApiModel CardLayout { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var cardLayout = await _context.CardLayouts.FindAsync(request.CardLayout.CardLayoutId);
+ public class SaveCardLayoutCommandResponse
+ {			
+     public int CardLayoutId { get; set; }
+ }
 
-                if (cardLayout == null) _context.CardLayouts.Add(cardLayout = new CardLayout());
+ public class SaveCardLayoutCommandHandler : IRequestHandler<SaveCardLayoutCommandRequest, SaveCardLayoutCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
 
-                cardLayout.Name = request.CardLayout.Name;
 
-                await _context.SaveChangesAsync(cancellationToken);
+     public async Task<SaveCardLayoutCommandResponse> Handle(SaveCardLayoutCommandRequest request, CancellationToken cancellationToken)
+     {
+         var cardLayout = await _context.CardLayouts.FindAsync(request.CardLayout.CardLayoutId);
 
-                return new Response() { CardLayoutId = cardLayout.CardLayoutId };
-            }
-        }
-    }
-}
+         if (cardLayout == null) _context.CardLayouts.Add(cardLayout = new CardLayout());
+
+         cardLayout.Name = request.CardLayout.Name;
+
+         await _context.SaveChangesAsync(cancellationToken);
+
+         return new SaveCardLayoutCommandResponse() { CardLayoutId = cardLayout.CardLayoutId };
+     }
+ }

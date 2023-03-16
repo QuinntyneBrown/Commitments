@@ -4,38 +4,35 @@ using System.Threading;
 using Commitments.Core.Interfaces;
 using FluentValidation;
 
-namespace Commitments.Api.Features.BehaviourTypes
-{
-    public class GetBehaviourTypeByIdQuery
-    {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.BehaviourTypeId).NotEqual(0);
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public int BehaviourTypeId { get; set; }
-        }
+namespace Commitments.Api.Features.BehaviourTypes;
 
-        public class Response
-        {
-            public BehaviourTypeApiModel BehaviourType { get; set; }
-        }
+ public class GetBehaviourTypeByIdQueryCommandValidator : AbstractValidator<GetBehaviourTypeByIdQueryCommandRequest>
+ {
+     public GetBehaviourTypeByIdQueryCommandValidator()
+     {
+         RuleFor(request => request.BehaviourTypeId).NotEqual(0);
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class GetBehaviourTypeByIdQueryCommandRequest : IRequest<GetBehaviourTypeByIdQueryCommandResponse> {
+     public int BehaviourTypeId { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    BehaviourType = BehaviourTypeApiModel.FromBehaviourType(await _context.BehaviourTypes.FindAsync(request.BehaviourTypeId))
-                };
-        }
-    }
-}
+ public class GetBehaviourTypeByIdQueryCommandResponse
+ {
+     public BehaviourTypeApiModel BehaviourType { get; set; }
+ }
+
+ public class GetBehaviourTypeByIdQueryCommandHandler : IRequestHandler<GetBehaviourTypeByIdQueryCommandRequest, GetBehaviourTypeByIdQueryCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
+
+     public GetBehaviourTypeByIdQueryCommandHandler(IAppDbContext context) => _context = context;
+
+     public async Task<GetBehaviourTypeByIdQueryCommandResponse> Handle(GetBehaviourTypeByIdQueryCommandRequest request, CancellationToken cancellationToken)
+         => new GetBehaviourTypeByIdQueryCommandResponse()
+         {
+             BehaviourType = BehaviourTypeApiModel.FromBehaviourType(await _context.BehaviourTypes.FindAsync(request.BehaviourTypeId))
+         };
+ }

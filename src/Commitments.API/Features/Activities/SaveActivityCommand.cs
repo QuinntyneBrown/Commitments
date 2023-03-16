@@ -5,47 +5,44 @@ using System.Threading;
 using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.Api.Features.Activities
-{
-    public class SaveActivityCommand
-    {
-        public class Validator: AbstractValidator<Request> {
-            public Validator()
-            {
-                RuleFor(request => request.Activity.ActivityId).NotNull();
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public ActivityApiModel Activity { get; set; }
-        }
+namespace Commitments.Api.Features.Activities;
 
-        public class Response
-        {            
-            public int ActivityId { get; set; }
-        }
+ public class SaveActivityCommandValidator: AbstractValidator<SaveActivityCommandRequest> {
+     public SaveActivityCommandValidator()
+     {
+         RuleFor(request => request.Activity.ActivityId).NotNull();
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class SaveActivityCommandRequest : IRequest<SaveActivityCommandResponse> {
+     public ActivityApiModel Activity { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var activity = await _context.Activities.FindAsync(request.Activity.ActivityId);
+ public class SaveActivityCommandResponse
+ {            
+     public int ActivityId { get; set; }
+ }
 
-                if (activity == null) _context.Activities.Add(activity = new Activity());
+ public class SaveActivityCommandHandler : IRequestHandler<SaveActivityCommandRequest, SaveActivityCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
 
-                activity.BehaviourId = request.Activity.BehaviourId;
-                activity.ProfileId = request.Activity.ProfileId;
-                activity.PerformedOn = request.Activity.PerformedOn;
-                activity.Description = request.Activity.Description;
+     public SaveActivityCommandHandler(IAppDbContext context) => _context = context;
 
-                await _context.SaveChangesAsync(cancellationToken);
+     public async Task<SaveActivityCommandResponse> Handle(SaveActivityCommandRequest request, CancellationToken cancellationToken)
+     {
+         var activity = await _context.Activities.FindAsync(request.Activity.ActivityId);
 
-                return new Response() { ActivityId = activity.ActivityId };
-            }
-        }
-    }
-}
+         if (activity == null) _context.Activities.Add(activity = new Activity());
+
+         activity.BehaviourId = request.Activity.BehaviourId;
+         activity.ProfileId = request.Activity.ProfileId;
+         activity.PerformedOn = request.Activity.PerformedOn;
+         activity.Description = request.Activity.Description;
+
+         await _context.SaveChangesAsync(cancellationToken);
+
+         return new SaveActivityCommandResponse() { ActivityId = activity.ActivityId };
+     }
+ }

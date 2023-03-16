@@ -6,48 +6,45 @@ using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.Api.Features.Frequencies
-{
-    public class SaveFrequencyCommand
-    {
-        public class Validator: AbstractValidator<Request> {
-            public Validator()
-            {
-                RuleFor(request => request.Frequency.FrequencyId).NotNull();
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public FrequencyApiModel Frequency { get; set; }
-        }
+namespace Commitments.Api.Features.Frequencies;
 
-        public class Response
-        {            
-            public int FrequencyId { get; set; }
-        }
+ public class SaveFrequencyCommandValidator: AbstractValidator<SaveFrequencyCommandRequest> {
+     public SaveFrequencyCommandValidator()
+     {
+         RuleFor(request => request.Frequency.FrequencyId).NotNull();
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class SaveFrequencyCommandRequest : IRequest<SaveFrequencyCommandResponse> {
+     public FrequencyApiModel Frequency { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var frequency = await _context.Frequencies
-                    .Include(x => x.FrequencyType)
-                    .SingleOrDefaultAsync(x => x.FrequencyId == request.Frequency.FrequencyId);
+ public class SaveFrequencyCommandResponse
+ {            
+     public int FrequencyId { get; set; }
+ }
 
-                if (frequency == null) _context.Frequencies.Add(frequency = new Frequency());
+ public class SaveFrequencyCommandHandler : IRequestHandler<SaveFrequencyCommandRequest, SaveFrequencyCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
 
-                frequency.Frequency = request.Frequency.Frequency;
+     public SaveFrequencyCommandHandler(IAppDbContext context) => _context = context;
 
-                frequency.FrequencyTypeId = request.Frequency.FrequencyTypeId;
+     public async Task<SaveFrequencyCommandResponse> Handle(SaveFrequencyCommandRequest request, CancellationToken cancellationToken)
+     {
+         var frequency = await _context.Frequencies
+             .Include(x => x.FrequencyType)
+             .SingleOrDefaultAsync(x => x.FrequencyId == request.Frequency.FrequencyId);
 
-                await _context.SaveChangesAsync(cancellationToken);
+         if (frequency == null) _context.Frequencies.Add(frequency = new Frequency());
 
-                return new Response() { FrequencyId = frequency.FrequencyId };
-            }
-        }
-    }
-}
+         frequency.Frequency = request.Frequency.Frequency;
+
+         frequency.FrequencyTypeId = request.Frequency.FrequencyTypeId;
+
+         await _context.SaveChangesAsync(cancellationToken);
+
+         return new SaveFrequencyCommandResponse() { FrequencyId = frequency.FrequencyId };
+     }
+ }

@@ -6,28 +6,24 @@ using Commitments.Core.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.Api.Features.CardLayouts
-{
-    public class GetCardLayoutsQuery
-    {
-        public class Request : IRequest<Response> { }
 
-        public class Response
-        {
-            public IEnumerable<CardLayoutApiModel> CardLayouts { get; set; }
-        }
+namespace Commitments.Api.Features.CardLayouts;
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-			public Handler(IAppDbContext context) => _context = context;
+ public class GetCardLayoutsQueryRequest : IRequest<GetCardLayoutsQueryResponse> { }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    CardLayouts = await _context.CardLayouts.Select(x => CardLayoutApiModel.FromCardLayout(x)).ToListAsync()
-                };
-        }
-    }
-}
+ public class GetCardLayoutsQueryResponse
+ {
+     public IEnumerable<CardLayoutApiModel> CardLayouts { get; set; }
+ }
+
+ public class GetCardLayoutsQueryHandler : IRequestHandler<GetCardLayoutsQueryRequest, GetCardLayoutsQueryResponse>
+ {
+     public IAppDbContext _context { get; set; }
+
+
+     public async Task<GetCardLayoutsQueryResponse> Handle(GetCardLayoutsQueryRequest request, CancellationToken cancellationToken)
+         => new GetCardLayoutsQueryResponse()
+         {
+             CardLayouts = await _context.CardLayouts.Select(x => CardLayoutApiModel.FromCardLayout(x)).ToListAsync()
+         };
+ }

@@ -5,38 +5,35 @@ using Commitments.Core.Interfaces;
 using FluentValidation;
 using System;
 
-namespace Commitments.Api.Features.DigitalAssets
-{
-    public class GetDigitalAssetByIdQuery
-    {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.DigitalAssetId).NotEqual(default(Guid));
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public Guid DigitalAssetId { get; set; }
-        }
+namespace Commitments.Api.Features.DigitalAssets;
 
-        public class Response
-        {
-            public DigitalAssetApiModel DigitalAsset { get; set; }
-        }
+ public class GetDigitalAssetByIdQueryCommandValidator : AbstractValidator<GetDigitalAssetByIdQueryCommandRequest>
+ {
+     public GetDigitalAssetByIdQueryCommandValidator()
+     {
+         RuleFor(request => request.DigitalAssetId).NotEqual(default(Guid));
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class GetDigitalAssetByIdQueryCommandRequest : IRequest<GetDigitalAssetByIdQueryCommandResponse> {
+     public Guid DigitalAssetId { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    DigitalAsset = DigitalAssetApiModel.FromDigitalAsset(await _context.DigitalAssets.FindAsync(request.DigitalAssetId))
-                };
-        }
-    }
-}
+ public class GetDigitalAssetByIdQueryCommandResponse
+ {
+     public DigitalAssetApiModel DigitalAsset { get; set; }
+ }
+
+ public class GetDigitalAssetByIdQueryCommandHandler : IRequestHandler<GetDigitalAssetByIdQueryCommandRequest, GetDigitalAssetByIdQueryCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
+
+     public GetDigitalAssetByIdQueryCommandHandler(IAppDbContext context) => _context = context;
+
+     public async Task<GetDigitalAssetByIdQueryCommandResponse> Handle(GetDigitalAssetByIdQueryCommandRequest request, CancellationToken cancellationToken)
+         => new GetDigitalAssetByIdQueryCommandResponse()
+         {
+             DigitalAsset = DigitalAssetApiModel.FromDigitalAsset(await _context.DigitalAssets.FindAsync(request.DigitalAssetId))
+         };
+ }

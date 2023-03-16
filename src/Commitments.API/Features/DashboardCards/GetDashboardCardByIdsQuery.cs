@@ -6,31 +6,28 @@ using Commitments.Core.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.Api.Features.DashboardCards
-{
-    public class GetDashboardCardByIdsQuery
-    {
-        public class Request : IRequest<Response> {
-            public int[] DashboardCardIds { get; set; }
-        }
 
-        public class Response
-        {
-            public IEnumerable<DashboardCardApiModel> DashboardCards { get; set; }
-        }
+namespace Commitments.Api.Features.DashboardCards;
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            public Handler(IAppDbContext context) => _context = context;
+ public class GetDashboardCardByIdsQueryRequest : IRequest<GetDashboardCardByIdsQueryResponse> {
+     public int[] DashboardCardIds { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    DashboardCards = await _context.DashboardCards
-                    .Where(x => request.DashboardCardIds.Contains(x.DashboardCardId))
-                    .Select(x => DashboardCardApiModel.FromDashboardCard(x)).ToListAsync()
-                };
-        }
-    }
-}
+ public class GetDashboardCardByIdsQueryResponse
+ {
+     public IEnumerable<DashboardCardApiModel> DashboardCards { get; set; }
+ }
+
+ public class GetDashboardCardByIdsQueryHandler : IRequestHandler<GetDashboardCardByIdsQueryRequest, GetDashboardCardByIdsQueryResponse>
+ {
+     public IAppDbContext _context { get; set; }
+     public GetDashboardCardByIdsQueryHandler(IAppDbContext context) => _context = context;
+
+     public async Task<GetDashboardCardByIdsQueryResponse> Handle(GetDashboardCardByIdsQueryRequest request, CancellationToken cancellationToken)
+         => new GetDashboardCardByIdsQueryResponse()
+         {
+             DashboardCards = await _context.DashboardCards
+             .Where(x => request.DashboardCardIds.Contains(x.DashboardCardId))
+             .Select(x => DashboardCardApiModel.FromDashboardCard(x)).ToListAsync()
+         };
+ }

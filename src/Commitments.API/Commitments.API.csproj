@@ -1,44 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <UserSecretsId>8652bd53-e14a-419e-b4e8-a0327e5656fa</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\**" />
-    <Content Remove="wwwroot\**" />
-    <EmbeddedResource Remove="wwwroot\**" />
-    <None Remove="wwwroot\**" />
+    <PackageReference Include="MediatR" Version="12.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+    <PackageReference Include="Serilog" Version="2.12.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
+    <PackageReference Include="SerilogTimings" Version="3.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="7.5.0" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.0" />
-    <PackageReference Include="MediatR" Version="4.0.1" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="4.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="2.1.0" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Commitments.Core\Commitments.Core.csproj" />
     <ProjectReference Include="..\Commitments.Infrastructure\Commitments.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Features\DigitalAssets\" />
-    <Folder Include="Features\Behaviours\" />
-    <Folder Include="Features\Commitments\" />
-    <Folder Include="Features\FrequencyTypes\" />
-    <Folder Include="Features\BehaviourTypes\" />
-    <Folder Include="Features\Frequencies\" />
-    <Folder Include="Features\Activities\" />
-    <Folder Include="Features\Cards\" />
-    <Folder Include="Features\CardLayouts\" />
-    <Folder Include="Features\ToDos\" />
-    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

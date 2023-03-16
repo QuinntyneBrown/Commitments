@@ -5,41 +5,38 @@ using System.Threading;
 using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.Api.Features.Profiles
-{
-    public class RemoveProfileCommand
-    {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.ProfileId).NotEqual(0);
-            }
-        }
 
-        public class Request : IRequest<Response>
-        {
-            public int ProfileId { get; set; }
-        }
+namespace Commitments.Api.Features.Profiles;
 
-        public class Response { }
+ public class RemoveProfileCommandValidator : AbstractValidator<RemoveProfileCommandRequest>
+ {
+     public RemoveProfileCommandValidator()
+     {
+         RuleFor(request => request.ProfileId).NotEqual(0);
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class RemoveProfileCommandRequest : IRequest<RemoveProfileCommandResponse>
+ {
+     public int ProfileId { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                _context.Profiles.Remove(await _context.Profiles.FindAsync(request.ProfileId));
-                await _context.SaveChangesAsync(cancellationToken);
-                return new Response()
-                {
+ public class RemoveProfileCommandResponse { }
 
-                };
-            }
+ public class RemoveProfileCommandHandler : IRequestHandler<RemoveProfileCommandRequest, RemoveProfileCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
 
-        }
-    }
-}
+     public RemoveProfileCommandHandler(IAppDbContext context) => _context = context;
+
+     public async Task<RemoveProfileCommandResponse> Handle(RemoveProfileCommandRequest request, CancellationToken cancellationToken)
+     {
+         _context.Profiles.Remove(await _context.Profiles.FindAsync(request.ProfileId));
+         await _context.SaveChangesAsync(cancellationToken);
+         return new RemoveProfileCommandResponse()
+         {
+
+         };
+     }
+
+ }

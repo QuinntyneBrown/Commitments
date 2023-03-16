@@ -6,28 +6,25 @@ using Commitments.Core.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.Api.Features.DigitalAssets
-{
-    public class GetDigitalAssetsQuery
-    {
-        public class Request : IRequest<Response> { }
 
-        public class Response
-        {
-            public IEnumerable<DigitalAssetApiModel> DigitalAssets { get; set; }
-        }
+namespace Commitments.Api.Features.DigitalAssets;
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class GetDigitalAssetsQueryRequest : IRequest<GetDigitalAssetsQueryResponse> { }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    DigitalAssets = await _context.DigitalAssets.Select(x => DigitalAssetApiModel.FromDigitalAsset(x)).ToListAsync()
-                };
-        }
-    }
-}
+ public class GetDigitalAssetsQueryResponse
+ {
+     public IEnumerable<DigitalAssetApiModel> DigitalAssets { get; set; }
+ }
+
+ public class GetDigitalAssetsQueryHandler : IRequestHandler<GetDigitalAssetsQueryRequest, GetDigitalAssetsQueryResponse>
+ {
+     public IAppDbContext _context { get; set; }
+
+     public GetDigitalAssetsQueryHandler(IAppDbContext context) => _context = context;
+
+     public async Task<GetDigitalAssetsQueryResponse> Handle(GetDigitalAssetsQueryRequest request, CancellationToken cancellationToken)
+         => new GetDigitalAssetsQueryResponse()
+         {
+             DigitalAssets = await _context.DigitalAssets.Select(x => DigitalAssetApiModel.FromDigitalAsset(x)).ToListAsync()
+         };
+ }

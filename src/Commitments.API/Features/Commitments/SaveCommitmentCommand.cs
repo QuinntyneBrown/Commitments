@@ -6,56 +6,53 @@ using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.Api.Features.Commitments
-{
-    public class SaveCommitmentCommand
-    {
-        public class Validator: AbstractValidator<Request> {
-            public Validator()
-            {
-                RuleFor(request => request.Commitment.CommitmentId).NotNull();
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public CommitmentApiModel Commitment { get; set; }
-        }
+namespace Commitments.Api.Features.Commitments;
 
-        public class Response
-        {            
-            public int CommitmentId { get; set; }
-        }
+ public class SaveCommitmentCommandValidator: AbstractValidator<SaveCommitmentCommandRequest> {
+     public SaveCommitmentCommandValidator()
+     {
+         RuleFor(request => request.Commitment.CommitmentId).NotNull();
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class SaveCommitmentCommandRequest : IRequest<SaveCommitmentCommandResponse> {
+     public CommitmentApiModel Commitment { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var commitment = await _context.Commitments
-                    .Include(x => x.CommitmentFrequencies)
-                    .Include("CommitmentFrequencies.Frequency")
-                    .SingleOrDefaultAsync(x => x.CommitmentId == request.Commitment.CommitmentId);
+ public class SaveCommitmentCommandResponse
+ {            
+     public int CommitmentId { get; set; }
+ }
 
-                if (commitment == null) _context.Commitments.Add(commitment = new Commitment());
+ public class SaveCommitmentCommandHandler : IRequestHandler<SaveCommitmentCommandRequest, SaveCommitmentCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
 
-                commitment.BehaviourId = request.Commitment.BehaviourId;
-                commitment.ProfileId = request.Commitment.ProfileId;
+     public SaveCommitmentCommandHandler(IAppDbContext context) => _context = context;
 
-                commitment.CommitmentFrequencies.Clear();
+     public async Task<SaveCommitmentCommandResponse> Handle(SaveCommitmentCommandRequest request, CancellationToken cancellationToken)
+     {
+         var commitment = await _context.Commitments
+             .Include(x => x.CommitmentFrequencies)
+             .Include("CommitmentFrequencies.Frequency")
+             .SingleOrDefaultAsync(x => x.CommitmentId == request.Commitment.CommitmentId);
 
-                foreach (var cf in request.Commitment.CommitmentFrequencies) {                    
-                    commitment.CommitmentFrequencies.Add(new CommitmentFrequency()
-                    {
-                        FrequencyId = cf.FrequencyId
-                    });
-                }
-                await _context.SaveChangesAsync(cancellationToken);
+         if (commitment == null) _context.Commitments.Add(commitment = new Commitment());
 
-                return new Response() { CommitmentId = commitment.CommitmentId };
-            }
-        }
-    }
-}
+         commitment.BehaviourId = request.Commitment.BehaviourId;
+         commitment.ProfileId = request.Commitment.ProfileId;
+
+         commitment.CommitmentFrequencies.Clear();
+
+         foreach (var cf in request.Commitment.CommitmentFrequencies) {                    
+             commitment.CommitmentFrequencies.Add(new CommitmentFrequency()
+             {
+                 FrequencyId = cf.FrequencyId
+             });
+         }
+         await _context.SaveChangesAsync(cancellationToken);
+
+         return new SaveCommitmentCommandResponse() { CommitmentId = commitment.CommitmentId };
+     }
+ }

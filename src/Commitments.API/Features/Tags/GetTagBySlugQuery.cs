@@ -5,34 +5,31 @@ using Commitments.Core.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.Api.Features.Tags
-{
-    public class GetTagBySlugQuery
-    {
-        public class Request : IRequest<Response> {
-            public string Slug { get; set; }
-        }
 
-        public class Response
-        {
-            public TagApiModel Tag { get; set; }
-        }
+namespace Commitments.Api.Features.Tags;
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IAppDbContext _context;
+ public class GetTagBySlugQueryRequest : IRequest<GetTagBySlugQueryResponse> {
+     public string Slug { get; set; }
+ }
 
-            public Handler(IAppDbContext context) => _context = context;
+ public class GetTagBySlugQueryResponse
+ {
+     public TagApiModel Tag { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    Tag = TagApiModel.FromTag(await _context.Tags
-                        .Include(x =>x.NoteTags)
-                        .Include("NoteTags.Note")
-                        .Where(x => x.Slug == request.Slug)
-                        .SingleAsync())
-                };
-        }
-    }
-}
+ public class GetTagBySlugQueryHandler : IRequestHandler<GetTagBySlugQueryRequest, GetTagBySlugQueryResponse>
+ {
+     private readonly IAppDbContext _context;
+
+     public GetTagBySlugQueryHandler(IAppDbContext context) => _context = context;
+
+     public async Task<GetTagBySlugQueryResponse> Handle(GetTagBySlugQueryRequest request, CancellationToken cancellationToken)
+         => new GetTagBySlugQueryResponse()
+         {
+             Tag = TagApiModel.FromTag(await _context.Tags
+                 .Include(x =>x.NoteTags)
+                 .Include("NoteTags.Note")
+                 .Where(x => x.Slug == request.Slug)
+                 .SingleAsync())
+         };
+ }

@@ -6,34 +6,31 @@ using Commitments.Core.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.Api.Features.Profiles
-{
-    public class SaveAvatarCommand
-    {
-        public class Request : IRequest<Response> {
 
-            public int ProfileId { get; set; }
-            public string AvatarUrl { get; set; }
-        }
+namespace Commitments.Api.Features.Profiles;
 
-        public class Response
-        {
-            public int ProfileId { get;set; }
-        }
+ public class SaveAvatarCommandRequest : IRequest<SaveAvatarCommandResponse> {
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            public Handler(IAppDbContext context) => _context = context;
+     public int ProfileId { get; set; }
+     public string AvatarUrl { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
-                var profile = _context.Profiles.Find(request.ProfileId);
-                profile.AvatarUrl = request.AvatarUrl;
-                await _context.SaveChangesAsync(cancellationToken);
-                return new Response() {
-                    ProfileId = profile.ProfileId
-                };
-            }
-        }
-    }
-}
+ public class SaveAvatarCommandResponse
+ {
+     public int ProfileId { get;set; }
+ }
+
+ public class SaveAvatarCommandHandler : IRequestHandler<SaveAvatarCommandRequest, SaveAvatarCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
+     public SaveAvatarCommandHandler(IAppDbContext context) => _context = context;
+
+     public async Task<SaveAvatarCommandResponse> Handle(SaveAvatarCommandRequest request, CancellationToken cancellationToken) {
+         var profile = _context.Profiles.Find(request.ProfileId);
+         profile.AvatarUrl = request.AvatarUrl;
+         await _context.SaveChangesAsync(cancellationToken);
+         return new SaveAvatarCommandResponse() {
+             ProfileId = profile.ProfileId
+         };
+     }
+ }

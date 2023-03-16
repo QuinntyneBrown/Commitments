@@ -6,31 +6,28 @@ using Commitments.Core.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.Api.Features.Activities
-{
-    public class GetActivitiesQuery
-    {
-        public class Request : IRequest<Response> { }
 
-        public class Response
-        {
-            public IEnumerable<ActivityApiModel> Activities { get; set; }
-        }
+namespace Commitments.Api.Features.Activities;
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class GetActivitiesQueryRequest : IRequest<GetActivitiesQueryResponse> { }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    Activities = await _context.Activities
-                    .Include(x => x.Behaviour)
-                    .Include("Behaviour.BehaviourType")
-                    .Select(x => ActivityApiModel.FromActivity(x)).ToListAsync()
-                };
-        }
-    }
-}
+ public class GetActivitiesQueryResponse
+ {
+     public IEnumerable<ActivityApiModel> Activities { get; set; }
+ }
+
+ public class GetActivitiesQueryHandler : IRequestHandler<GetActivitiesQueryRequest, GetActivitiesQueryResponse>
+ {
+     public IAppDbContext _context { get; set; }
+
+     public GetActivitiesQueryHandler(IAppDbContext context) => _context = context;
+
+     public async Task<GetActivitiesQueryResponse> Handle(GetActivitiesQueryRequest request, CancellationToken cancellationToken)
+         => new GetActivitiesQueryResponse()
+         {
+             Activities = await _context.Activities
+             .Include(x => x.Behaviour)
+             .Include("Behaviour.BehaviourType")
+             .Select(x => ActivityApiModel.FromActivity(x)).ToListAsync()
+         };
+ }

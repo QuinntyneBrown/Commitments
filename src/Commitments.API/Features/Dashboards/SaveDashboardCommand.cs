@@ -5,46 +5,43 @@ using System.Threading;
 using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.Api.Features.Dashboards
-{
-    public class SaveDashboardCommand
-    {
-        public class Validator: AbstractValidator<Request> {
-            public Validator()
-            {
-                RuleFor(request => request.Dashboard.DashboardId).NotNull();
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public DashboardApiModel Dashboard { get; set; }
-        }
+namespace Commitments.Api.Features.Dashboards;
 
-        public class Response
-        {            
-            public int DashboardId { get; set; }
-        }
+ public class SaveDashboardCommandValidator: AbstractValidator<SaveDashboardCommandRequest> {
+     public SaveDashboardCommandValidator()
+     {
+         RuleFor(request => request.Dashboard.DashboardId).NotNull();
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class SaveDashboardCommandRequest : IRequest<SaveDashboardCommandResponse> {
+     public DashboardApiModel Dashboard { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var dashboard = await _context.Dashboards.FindAsync(request.Dashboard.DashboardId);
+ public class SaveDashboardCommandResponse
+ {            
+     public int DashboardId { get; set; }
+ }
 
-                if (dashboard == null) _context.Dashboards.Add(dashboard = new Dashboard());
+ public class SaveDashboardCommandHandler : IRequestHandler<SaveDashboardCommandRequest, SaveDashboardCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
 
-                dashboard.Name = request.Dashboard.Name;
+     public SaveDashboardCommandHandler(IAppDbContext context) => _context = context;
 
-                dashboard.ProfileId = request.Dashboard.ProfileId;
+     public async Task<SaveDashboardCommandResponse> Handle(SaveDashboardCommandRequest request, CancellationToken cancellationToken)
+     {
+         var dashboard = await _context.Dashboards.FindAsync(request.Dashboard.DashboardId);
 
-                await _context.SaveChangesAsync(cancellationToken);
+         if (dashboard == null) _context.Dashboards.Add(dashboard = new Dashboard());
 
-                return new Response() { DashboardId = dashboard.DashboardId };
-            }
-        }
-    }
-}
+         dashboard.Name = request.Dashboard.Name;
+
+         dashboard.ProfileId = request.Dashboard.ProfileId;
+
+         await _context.SaveChangesAsync(cancellationToken);
+
+         return new SaveDashboardCommandResponse() { DashboardId = dashboard.DashboardId };
+     }
+ }

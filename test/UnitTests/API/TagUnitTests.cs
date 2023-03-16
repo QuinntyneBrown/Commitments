@@ -1,4 +1,4 @@
-﻿using Commitments.Api.Features.Tags;
+using Commitments.Api.Features.Tags;
 using Commitments.Core.Entities;
 using Commitments.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -8,192 +8,192 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace UnitTests.API
-{
-    public class TagUnitTests
-    {     
- 
-        [Fact]
-        public async Task ShouldHandleSaveTagCommandRequest()
+
+namespace UnitTests.API;
+
+public class TagUnitTests
+{     
+
+    [Fact]
+    public async Task ShouldHandleSaveTagCommandRequest()
+    {
+
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(databaseName: "ShouldHandleSaveTagCommandRequest")
+            .Options;
+
+        using (var context = new AppDbContext(options))
         {
+            var handler = new SaveTagCommand.Handler(context);
 
-            var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "ShouldHandleSaveTagCommandRequest")
-                .Options;
-
-            using (var context = new AppDbContext(options))
+            var response = await handler.Handle(new SaveTagCommand.Request()
             {
-                var handler = new SaveTagCommand.Handler(context);
-
-                var response = await handler.Handle(new SaveTagCommand.Request()
+                Tag = new TagApiModel()
                 {
-                    Tag = new TagApiModel()
-                    {
-                        Name = "Quinntyne"
-                    }
-                }, default(CancellationToken));
+                    Name = "Quinntyne"
+                }
+            }, default(CancellationToken));
 
-                Assert.Equal(1, response.TagId);
-            }
+            Assert.Equal(1, response.TagId);
         }
+    }
 
-        [Fact]
-        public async Task ShouldHandleGetTagByIdQueryRequest()
+    [Fact]
+    public async Task ShouldHandleGetTagByIdQueryRequest()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(databaseName: "ShouldHandleGetTagByIdQueryRequest")
+            .Options;
+
+        using (var context = new AppDbContext(options))
         {
-            var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "ShouldHandleGetTagByIdQueryRequest")
-                .Options;
-
-            using (var context = new AppDbContext(options))
+            context.Tags.Add(new Tag()
             {
-                context.Tags.Add(new Tag()
+                TagId = 1,
+                Name = "Quinntyne",
+
+            });
+
+            context.SaveChanges();
+
+            var handler = new GetTagByIdQuery.Handler(context);
+
+            var response = await handler.Handle(new GetTagByIdQuery.Request()
+            {
+                TagId = 1
+            }, default(CancellationToken));
+
+            Assert.Equal("Quinntyne", response.Tag.Name);
+        }
+    }
+
+    [Fact]
+    public async Task ShouldHandleGetTagBySlugQueryRequest()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(databaseName: "ShouldHandleGetTagBySlugQueryRequest")
+            .Options;
+
+        using (var context = new AppDbContext(options))
+        {
+            context.Notes.Add(new Note()
+            {
+                NoteId = 1,
+                Title = "Angular",
+                Slug = "angular"
+            });
+
+            context.Tags.Add(new Tag()
+            {
+                TagId = 1,
+                Name = "Routing",
+                Slug = "routing",
+                NoteTags = new List<NoteTag>()
+                {
+                    new NoteTag() { NoteId = 1 }
+                }
+            });
+
+            context.SaveChanges();
+
+            var handler = new GetTagBySlugQuery.Handler(context);
+
+            var response = await handler.Handle(new GetTagBySlugQuery.Request()
+            {
+                Slug = "routing"
+            }, default(CancellationToken));
+
+            Assert.Equal("angular", response.Tag.Notes.First().Slug);
+            Assert.Single(response.Tag.Notes);
+        }
+    }
+
+    [Fact]
+    public async Task ShouldHandleGetTagsQueryRequest()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(databaseName: "ShouldHandleGetTagsQueryRequest")
+            .Options;
+
+        using (var context = new AppDbContext(options))
+        {                
+            context.Tags.Add(new Commitments.Core.Entities.Tag()
+            {
+                TagId = 1,
+                Name = "Quinntyne",
+
+            });
+
+            context.SaveChanges();
+
+            var handler = new GetTagsQuery.Handler(context);
+
+            var response = await handler.Handle(new GetTagsQuery.Request(), default(CancellationToken));
+
+            Assert.Single(response.Tags);
+        }
+    }
+
+    [Fact]
+    public async Task ShouldHandleRemoveTagCommandRequest()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(databaseName: "ShouldHandleRemoveTagCommandRequest")
+            .Options;
+
+        using (var context = new AppDbContext(options))
+        {
+            context.Tags.Add(new Tag()
+            {
+                TagId = 1,
+                Name = "Quinntyne",
+
+            });
+
+            context.SaveChanges();
+
+            var handler = new RemoveTagCommand.Handler(context);
+
+            await handler.Handle(new RemoveTagCommand.Request()
+            {
+                TagId =  1 
+            }, default(CancellationToken));
+
+            Assert.Equal(0, context.Tags.Count());
+        }
+    }
+
+    [Fact]
+    public async Task ShouldHandleUpdateTagCommandRequest()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(databaseName: "ShouldHandleUpdateTagCommandRequest")
+            .Options;
+
+        using (var context = new AppDbContext(options))
+        {
+            context.Tags.Add(new Tag()
+            {
+                TagId = 1,
+                Name = "Quinntyne",
+
+            });
+
+            context.SaveChanges();
+
+            var handler = new SaveTagCommand.Handler(context);
+
+            var response = await handler.Handle(new SaveTagCommand.Request()
+            {
+                Tag = new TagApiModel()
                 {
                     TagId = 1,
-                    Name = "Quinntyne",
-                    
-                });
+                    Name = "Quinntyne"
+                }
+            }, default(CancellationToken));
 
-                context.SaveChanges();
-
-                var handler = new GetTagByIdQuery.Handler(context);
-
-                var response = await handler.Handle(new GetTagByIdQuery.Request()
-                {
-                    TagId = 1
-                }, default(CancellationToken));
-
-                Assert.Equal("Quinntyne", response.Tag.Name);
-            }
-        }
-
-        [Fact]
-        public async Task ShouldHandleGetTagBySlugQueryRequest()
-        {
-            var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "ShouldHandleGetTagBySlugQueryRequest")
-                .Options;
-
-            using (var context = new AppDbContext(options))
-            {
-                context.Notes.Add(new Note()
-                {
-                    NoteId = 1,
-                    Title = "Angular",
-                    Slug = "angular"
-                });
-
-                context.Tags.Add(new Tag()
-                {
-                    TagId = 1,
-                    Name = "Routing",
-                    Slug = "routing",
-                    NoteTags = new List<NoteTag>()
-                    {
-                        new NoteTag() { NoteId = 1 }
-                    }
-                });
-                
-                context.SaveChanges();
-
-                var handler = new GetTagBySlugQuery.Handler(context);
-
-                var response = await handler.Handle(new GetTagBySlugQuery.Request()
-                {
-                    Slug = "routing"
-                }, default(CancellationToken));
-
-                Assert.Equal("angular", response.Tag.Notes.First().Slug);
-                Assert.Single(response.Tag.Notes);
-            }
-        }
-
-        [Fact]
-        public async Task ShouldHandleGetTagsQueryRequest()
-        {
-            var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "ShouldHandleGetTagsQueryRequest")
-                .Options;
-
-            using (var context = new AppDbContext(options))
-            {                
-                context.Tags.Add(new Commitments.Core.Entities.Tag()
-                {
-                    TagId = 1,
-                    Name = "Quinntyne",
-                    
-                });
-
-                context.SaveChanges();
-
-                var handler = new GetTagsQuery.Handler(context);
-
-                var response = await handler.Handle(new GetTagsQuery.Request(), default(CancellationToken));
-
-                Assert.Single(response.Tags);
-            }
-        }
-
-        [Fact]
-        public async Task ShouldHandleRemoveTagCommandRequest()
-        {
-            var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "ShouldHandleRemoveTagCommandRequest")
-                .Options;
-
-            using (var context = new AppDbContext(options))
-            {
-                context.Tags.Add(new Tag()
-                {
-                    TagId = 1,
-                    Name = "Quinntyne",
-                    
-                });
-
-                context.SaveChanges();
-
-                var handler = new RemoveTagCommand.Handler(context);
-
-                await handler.Handle(new RemoveTagCommand.Request()
-                {
-                    TagId =  1 
-                }, default(CancellationToken));
-
-                Assert.Equal(0, context.Tags.Count());
-            }
-        }
-
-        [Fact]
-        public async Task ShouldHandleUpdateTagCommandRequest()
-        {
-            var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "ShouldHandleUpdateTagCommandRequest")
-                .Options;
-
-            using (var context = new AppDbContext(options))
-            {
-                context.Tags.Add(new Tag()
-                {
-                    TagId = 1,
-                    Name = "Quinntyne",
-                    
-                });
-
-                context.SaveChanges();
-
-                var handler = new SaveTagCommand.Handler(context);
-
-                var response = await handler.Handle(new SaveTagCommand.Request()
-                {
-                    Tag = new TagApiModel()
-                    {
-                        TagId = 1,
-                        Name = "Quinntyne"
-                    }
-                }, default(CancellationToken));
-
-                Assert.Equal(1, response.TagId);
-                Assert.Equal("Quinntyne", context.Tags.Single(x => x.TagId == 1).Name);
-            }
+            Assert.Equal(1, response.TagId);
+            Assert.Equal("Quinntyne", context.Tags.Single(x => x.TagId == 1).Name);
         }
     }
 }

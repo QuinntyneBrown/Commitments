@@ -9,197 +9,197 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace UnitTests.API
-{
-    public class NoteUnitTests
-    {     
-        [Fact]
-        public async Task ShouldHandleSaveNoteCommandRequest()
+
+namespace UnitTests.API;
+
+public class NoteUnitTests
+{     
+    [Fact]
+    public async Task ShouldHandleSaveNoteCommandRequest()
+    {
+
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(databaseName: "ShouldHandleSaveNoteCommandRequest")
+            .Options;
+
+        using (var context = new AppDbContext(options))
         {
+            var handler = new SaveNoteCommand.Handler(context);
 
-            var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "ShouldHandleSaveNoteCommandRequest")
-                .Options;
-
-            using (var context = new AppDbContext(options))
+            context.Tags.Add(new Tag()
             {
-                var handler = new SaveNoteCommand.Handler(context);
+                TagId = 1,
+                Name = "Angular"
+            });
 
-                context.Tags.Add(new Tag()
-                {
-                    TagId = 1,
-                    Name = "Angular"
-                });
+            context.SaveChanges();
 
-                context.SaveChanges();
-
-                var response = await handler.Handle(new SaveNoteCommand.Request()
-                {
-                    Note = new NoteApiModel()
-                    {
-                        Title = "Quinntyne",
-                        Tags = new List<TagApiModel>() { new TagApiModel() { TagId = 1 } }
-                    }
-                }, default(CancellationToken));
-
-                Assert.Equal(1, response.NoteId);
-            }
-        }
-
-        [Fact]
-        public async Task ShouldHandleGetNoteByIdQueryRequest()
-        {
-            var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "ShouldHandleGetNoteByIdQueryRequest")
-                .Options;
-
-            using (var context = new AppDbContext(options))
+            var response = await handler.Handle(new SaveNoteCommand.Request()
             {
-                context.Notes.Add(new Note()
+                Note = new NoteApiModel()
                 {
-                    NoteId = 1,
                     Title = "Quinntyne",
+                    Tags = new List<TagApiModel>() { new TagApiModel() { TagId = 1 } }
+                }
+            }, default(CancellationToken));
 
-                });
-
-                context.SaveChanges();
-
-                var handler = new GetNoteByIdQuery.Handler(context);
-
-                var response = await handler.Handle(new GetNoteByIdQuery.Request()
-                {
-                    NoteId = 1
-                }, default(CancellationToken));
-
-                Assert.Equal("Quinntyne", response.Note.Title);
-            }
+            Assert.Equal(1, response.NoteId);
         }
+    }
 
-        [Fact]
-        public async Task ShouldHandleGetNoteBySlugQueryRequest()
+    [Fact]
+    public async Task ShouldHandleGetNoteByIdQueryRequest()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(databaseName: "ShouldHandleGetNoteByIdQueryRequest")
+            .Options;
+
+        using (var context = new AppDbContext(options))
         {
-            var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "ShouldHandleGetNoteBySlugQueryRequest")
-                .Options;
-
-            using (var context = new AppDbContext(options))
+            context.Notes.Add(new Note()
             {
-                context.Tags.Add(new Tag()
-                {
-                    TagId = 1,
-                    Name = "Angular",
-                    Slug = "angular"
-                });
+                NoteId = 1,
+                Title = "Quinntyne",
 
-                context.Notes.Add(new Note()
-                {
-                    NoteId = 1,
-                    Title = "Quinntyne",
-                    Slug = "quinntyne",
-                    NoteTags = new List<NoteTag>() {
-                        new NoteTag() { TagId = 1 }
-                    }
-                });
+            });
 
-                context.SaveChanges();
+            context.SaveChanges();
 
-                var handler = new GetNoteBySlugQuery.Handler(context);
+            var handler = new GetNoteByIdQuery.Handler(context);
 
-                var response = await handler.Handle(new GetNoteBySlugQuery.Request()
-                {
-                    Slug = "quinntyne"
-                }, default(CancellationToken));
+            var response = await handler.Handle(new GetNoteByIdQuery.Request()
+            {
+                NoteId = 1
+            }, default(CancellationToken));
 
-                Assert.Equal("Quinntyne", response.Note.Title);
-                Assert.Single(response.Note.Tags);
-            }
+            Assert.Equal("Quinntyne", response.Note.Title);
         }
+    }
 
-        [Fact]
-        public async Task ShouldHandleGetNotesQueryRequest()
+    [Fact]
+    public async Task ShouldHandleGetNoteBySlugQueryRequest()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(databaseName: "ShouldHandleGetNoteBySlugQueryRequest")
+            .Options;
+
+        using (var context = new AppDbContext(options))
         {
-            var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "ShouldHandleGetNotesQueryRequest")
-                .Options;
-
-            using (var context = new AppDbContext(options))
+            context.Tags.Add(new Tag()
             {
-                context.Notes.Add(new Commitments.Core.Entities.Note()
-                {
-                    NoteId = 1,
-                    Title = "Quinntyne",
-                    
-                });
+                TagId = 1,
+                Name = "Angular",
+                Slug = "angular"
+            });
 
-                context.SaveChanges();
+            context.Notes.Add(new Note()
+            {
+                NoteId = 1,
+                Title = "Quinntyne",
+                Slug = "quinntyne",
+                NoteTags = new List<NoteTag>() {
+                    new NoteTag() { TagId = 1 }
+                }
+            });
 
-                var handler = new GetNotesQuery.Handler(context);
+            context.SaveChanges();
 
-                var response = await handler.Handle(new GetNotesQuery.Request(), default(CancellationToken));
+            var handler = new GetNoteBySlugQuery.Handler(context);
 
-                Assert.Single(response.Notes);
-            }
+            var response = await handler.Handle(new GetNoteBySlugQuery.Request()
+            {
+                Slug = "quinntyne"
+            }, default(CancellationToken));
+
+            Assert.Equal("Quinntyne", response.Note.Title);
+            Assert.Single(response.Note.Tags);
         }
+    }
 
-        [Fact]
-        public async Task ShouldHandleRemoveNoteCommandRequest()
+    [Fact]
+    public async Task ShouldHandleGetNotesQueryRequest()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(databaseName: "ShouldHandleGetNotesQueryRequest")
+            .Options;
+
+        using (var context = new AppDbContext(options))
         {
-            var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "ShouldHandleRemoveNoteCommandRequest")
-                .Options;
-
-            using (var context = new AppDbContext(options))
+            context.Notes.Add(new Commitments.Core.Entities.Note()
             {
-                context.Notes.Add(new Note()
-                {
-                    NoteId = 1,
-                    Title = "Quinntyne",
-                });
+                NoteId = 1,
+                Title = "Quinntyne",
 
-                context.SaveChanges();
+            });
 
-                var handler = new RemoveNoteCommand.Handler(context);
+            context.SaveChanges();
 
-                await handler.Handle(new RemoveNoteCommand.Request()
-                {
-                    NoteId =  1 
-                }, default(CancellationToken));
+            var handler = new GetNotesQuery.Handler(context);
 
-                Assert.Equal(0, context.Notes.Count());
-            }
+            var response = await handler.Handle(new GetNotesQuery.Request(), default(CancellationToken));
+
+            Assert.Single(response.Notes);
         }
+    }
 
-        [Fact]
-        public async Task ShouldHandleUpdateNoteCommandRequest()
+    [Fact]
+    public async Task ShouldHandleRemoveNoteCommandRequest()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(databaseName: "ShouldHandleRemoveNoteCommandRequest")
+            .Options;
+
+        using (var context = new AppDbContext(options))
         {
-            var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "ShouldHandleUpdateNoteCommandRequest")
-                .Options;
-
-            using (var context = new AppDbContext(options))
+            context.Notes.Add(new Note()
             {
-                context.Notes.Add(new Note()
+                NoteId = 1,
+                Title = "Quinntyne",
+            });
+
+            context.SaveChanges();
+
+            var handler = new RemoveNoteCommand.Handler(context);
+
+            await handler.Handle(new RemoveNoteCommand.Request()
+            {
+                NoteId =  1 
+            }, default(CancellationToken));
+
+            Assert.Equal(0, context.Notes.Count());
+        }
+    }
+
+    [Fact]
+    public async Task ShouldHandleUpdateNoteCommandRequest()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(databaseName: "ShouldHandleUpdateNoteCommandRequest")
+            .Options;
+
+        using (var context = new AppDbContext(options))
+        {
+            context.Notes.Add(new Note()
+            {
+                NoteId = 1,
+                Title = "Quinntyne"
+            });
+
+            context.SaveChanges();
+
+            var handler = new SaveNoteCommand.Handler(context);
+
+            var response = await handler.Handle(new SaveNoteCommand.Request()
+            {
+                Note = new NoteApiModel()
                 {
                     NoteId = 1,
                     Title = "Quinntyne"
-                });
+                }
+            }, default(CancellationToken));
 
-                context.SaveChanges();
-
-                var handler = new SaveNoteCommand.Handler(context);
-
-                var response = await handler.Handle(new SaveNoteCommand.Request()
-                {
-                    Note = new NoteApiModel()
-                    {
-                        NoteId = 1,
-                        Title = "Quinntyne"
-                    }
-                }, default(CancellationToken));
-
-                Assert.Equal(1, response.NoteId);
-                Assert.Equal("Quinntyne", context.Notes.Single(x => x.NoteId == 1).Title);
-            }
+            Assert.Equal(1, response.NoteId);
+            Assert.Equal("Quinntyne", context.Notes.Single(x => x.NoteId == 1).Title);
         }
     }
 }

@@ -5,35 +5,32 @@ using System.Threading;
 using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.Api.Features.Frequencies
-{
-    public class RemoveFrequencyCommand
-    {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.FrequencyId).NotEqual(0);
-            }
-        }
 
-        public class Request : IRequest
-        {
-            public int FrequencyId { get; set; }
-        }
+namespace Commitments.Api.Features.Frequencies;
 
-        public class Handler : IRequestHandler<Request>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class RemoveFrequencyCommandValidator : AbstractValidator<RemoveFrequencyCommandRequest>
+ {
+     public RemoveFrequencyCommandValidator()
+     {
+         RuleFor(request => request.FrequencyId).NotEqual(0);
+     }
+ }
 
-            public async Task Handle(Request request, CancellationToken cancellationToken)
-            {
-                _context.Frequencies.Remove(await _context.Frequencies.FindAsync(request.FrequencyId));
-                await _context.SaveChangesAsync(cancellationToken);
-            }
+ public class RemoveFrequencyCommandRequest : IRequest
+ {
+     public int FrequencyId { get; set; }
+ }
 
-        }
-    }
-}
+ public class RemoveFrequencyCommandHandler : IRequestHandler<RemoveFrequencyCommandRequest>
+ {
+     public IAppDbContext _context { get; set; }
+
+     public RemoveFrequencyCommandHandler(IAppDbContext context) => _context = context;
+
+     public async Task Handle(RemoveFrequencyCommandRequest request, CancellationToken cancellationToken)
+     {
+         _context.Frequencies.Remove(await _context.Frequencies.FindAsync(request.FrequencyId));
+         await _context.SaveChangesAsync(cancellationToken);
+     }
+
+ }

@@ -4,38 +4,35 @@ using System.Threading;
 using Commitments.Core.Interfaces;
 using FluentValidation;
 
-namespace Commitments.Api.Features.Notes
-{
-    public class GetNoteByIdQuery
-    {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.NoteId).NotEqual(0);
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public int NoteId { get; set; }
-        }
+namespace Commitments.Api.Features.Notes;
 
-        public class Response
-        {
-            public NoteApiModel Note { get; set; }
-        }
+ public class GetNoteByIdQueryValidator : AbstractValidator<GetNoteByIdQueryRequest>
+ {
+     public GetNoteByIdQueryValidator()
+     {
+         RuleFor(request => request.NoteId).NotEqual(0);
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IAppDbContext _context;
+ public class GetNoteByIdQueryRequest : IRequest<GetNoteByIdQueryResponse> {
+     public int NoteId { get; set; }
+ }
 
-            public Handler(IAppDbContext context) => _context = context;
+ public class GetNoteByIdQueryResponse
+ {
+     public NoteApiModel Note { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    Note = NoteApiModel.FromNote(await _context.Notes.FindAsync(request.NoteId))
-                };            
-        }
-    }
-}
+ public class GetNoteByIdQueryHandler : IRequestHandler<GetNoteByIdQueryRequest, GetNoteByIdQueryResponse>
+ {
+     private readonly IAppDbContext _context;
+
+     public GetNoteByIdQueryHandler(IAppDbContext context) => _context = context;
+
+     public async Task<GetNoteByIdQueryResponse> Handle(GetNoteByIdQueryRequest request, CancellationToken cancellationToken)
+         => new GetNoteByIdQueryResponse()
+         {
+             Note = NoteApiModel.FromNote(await _context.Notes.FindAsync(request.NoteId))
+         };            
+ }

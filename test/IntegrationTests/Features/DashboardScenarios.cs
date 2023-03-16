@@ -7,88 +7,88 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace IntegrationTests.Features
+
+namespace IntegrationTests.Features;
+
+public class DashboardScenarios: DashboardScenarioBase
 {
-    public class DashboardScenarios: DashboardScenarioBase
+
+    [Fact]
+    public async Task ShouldSave()
     {
-
-        [Fact]
-        public async Task ShouldSave()
+        using (var server = CreateServer())
         {
-            using (var server = CreateServer())
-            {
-                IAppDbContext context = server.Host.Services.GetService(typeof(IAppDbContext)) as IAppDbContext;
+            IAppDbContext context = server.Host.Services.GetService(typeof(IAppDbContext)) as IAppDbContext;
 
-                var response = await server.CreateClient()
-                    .PostAsAsync<SaveDashboardCommand.Request, SaveDashboardCommand.Response>(Post.Dashboards, new SaveDashboardCommand.Request() {
-                        Dashboard = new DashboardApiModel()
-                        {
-                            Name = "Name",
-                            ProfileId = 1
-                        }
-                    });
-     
-                var entity = context.Dashboards.First();
-
-                Assert.Equal("Name", entity.Name);
-            }
-        }
-
-        [Fact]
-        public async Task ShouldGetAll()
-        {
-            using (var server = CreateServer())
-            {
-                var response = await server.CreateClient()
-                    .GetAsync<GetDashboardByProfileIdQuery.Response>(Get.Dashboards);
-
-                Assert.True(response.Dashboard != default(DashboardApiModel));
-            }
-        }
-
-
-        [Fact]
-        public async Task ShouldGetById()
-        {
-            using (var server = CreateServer())
-            {
-                var response = await server.CreateClient()
-                    .GetAsync<GetDashboardByIdQuery.Response>(Get.DashboardById(1));
-
-                Assert.True(response.Dashboard.DashboardId != default(int));
-            }
-        }
-        
-        [Fact]
-        public async Task ShouldUpdate()
-        {
-            using (var server = CreateServer())
-            {
-                var getByIdResponse = await server.CreateClient()
-                    .GetAsync<GetDashboardByIdQuery.Response>(Get.DashboardById(1));
-
-                Assert.True(getByIdResponse.Dashboard.DashboardId != default(int));
-
-                var saveResponse = await server.CreateClient()
-                    .PostAsAsync<SaveDashboardCommand.Request, SaveDashboardCommand.Response>(Post.Dashboards, new SaveDashboardCommand.Request()
+            var response = await server.CreateClient()
+                .PostAsAsync<SaveDashboardCommand.Request, SaveDashboardCommand.Response>(Post.Dashboards, new SaveDashboardCommand.Request() {
+                    Dashboard = new DashboardApiModel()
                     {
-                        Dashboard = getByIdResponse.Dashboard
-                    });
+                        Name = "Name",
+                        ProfileId = 1
+                    }
+                });
 
-                Assert.True(saveResponse.DashboardId != default(int));
-            }
+            var entity = context.Dashboards.First();
+
+            Assert.Equal("Name", entity.Name);
         }
-        
-        [Fact]
-        public async Task ShouldDelete()
-        {
-            using (var server = CreateServer())
-            {
-                var response = await server.CreateClient()
-                    .DeleteAsync(Delete.Dashboard(1));
+    }
 
-                response.EnsureSuccessStatusCode();
-            }
+    [Fact]
+    public async Task ShouldGetAll()
+    {
+        using (var server = CreateServer())
+        {
+            var response = await server.CreateClient()
+                .GetAsync<GetDashboardByProfileIdQuery.Response>(Get.Dashboards);
+
+            Assert.True(response.Dashboard != default(DashboardApiModel));
+        }
+    }
+
+
+    [Fact]
+    public async Task ShouldGetById()
+    {
+        using (var server = CreateServer())
+        {
+            var response = await server.CreateClient()
+                .GetAsync<GetDashboardByIdQuery.Response>(Get.DashboardById(1));
+
+            Assert.True(response.Dashboard.DashboardId != default(int));
+        }
+    }
+
+    [Fact]
+    public async Task ShouldUpdate()
+    {
+        using (var server = CreateServer())
+        {
+            var getByIdResponse = await server.CreateClient()
+                .GetAsync<GetDashboardByIdQuery.Response>(Get.DashboardById(1));
+
+            Assert.True(getByIdResponse.Dashboard.DashboardId != default(int));
+
+            var saveResponse = await server.CreateClient()
+                .PostAsAsync<SaveDashboardCommand.Request, SaveDashboardCommand.Response>(Post.Dashboards, new SaveDashboardCommand.Request()
+                {
+                    Dashboard = getByIdResponse.Dashboard
+                });
+
+            Assert.True(saveResponse.DashboardId != default(int));
+        }
+    }
+
+    [Fact]
+    public async Task ShouldDelete()
+    {
+        using (var server = CreateServer())
+        {
+            var response = await server.CreateClient()
+                .DeleteAsync(Delete.Dashboard(1));
+
+            response.EnsureSuccessStatusCode();
         }
     }
 }

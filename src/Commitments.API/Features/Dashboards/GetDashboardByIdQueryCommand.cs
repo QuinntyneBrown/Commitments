@@ -4,38 +4,35 @@ using System.Threading;
 using Commitments.Core.Interfaces;
 using FluentValidation;
 
-namespace Commitments.Api.Features.Dashboards
-{
-    public class GetDashboardByIdQuery
-    {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.DashboardId).NotEqual(0);
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public int DashboardId { get; set; }
-        }
+namespace Commitments.Api.Features.Dashboards;
 
-        public class Response
-        {
-            public DashboardApiModel Dashboard { get; set; }
-        }
+ public class GetDashboardByIdQueryCommandValidator : AbstractValidator<GetDashboardByIdQueryCommandRequest>
+ {
+     public GetDashboardByIdQueryCommandValidator()
+     {
+         RuleFor(request => request.DashboardId).NotEqual(0);
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class GetDashboardByIdQueryCommandRequest : IRequest<GetDashboardByIdQueryCommandResponse> {
+     public int DashboardId { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    Dashboard = DashboardApiModel.FromDashboard(await _context.Dashboards.FindAsync(request.DashboardId))
-                };
-        }
-    }
-}
+ public class GetDashboardByIdQueryCommandResponse
+ {
+     public DashboardApiModel Dashboard { get; set; }
+ }
+
+ public class GetDashboardByIdQueryCommandHandler : IRequestHandler<GetDashboardByIdQueryCommandRequest, GetDashboardByIdQueryCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
+
+     public GetDashboardByIdQueryCommandHandler(IAppDbContext context) => _context = context;
+
+     public async Task<GetDashboardByIdQueryCommandResponse> Handle(GetDashboardByIdQueryCommandRequest request, CancellationToken cancellationToken)
+         => new GetDashboardByIdQueryCommandResponse()
+         {
+             Dashboard = DashboardApiModel.FromDashboard(await _context.Dashboards.FindAsync(request.DashboardId))
+         };
+ }

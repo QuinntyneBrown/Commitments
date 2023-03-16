@@ -4,38 +4,34 @@ using System.Threading;
 using Commitments.Core.Interfaces;
 using FluentValidation;
 
-namespace Commitments.Api.Features.ToDos
-{
-    public class GetToDoByIdQuery
-    {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.ToDoId).NotEqual(0);
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public int ToDoId { get; set; }
-        }
+namespace Commitments.Api.Features.ToDos;
 
-        public class Response
-        {
-            public ToDoApiModel ToDo { get; set; }
-        }
+ public class GetToDoByIdQueryCommandValidator : AbstractValidator<GetToDoByIdQueryCommandRequest>
+ {
+     public GetToDoByIdQueryCommandValidator()
+     {
+         RuleFor(request => request.ToDoId).NotEqual(0);
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-			public Handler(IAppDbContext context) => _context = context;
+ public class GetToDoByIdQueryCommandRequest : IRequest<GetToDoByIdQueryCommandResponse> {
+     public int ToDoId { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    ToDo = ToDoApiModel.FromToDo(await _context.ToDos.FindAsync(request.ToDoId))
-                };
-        }
-    }
-}
+ public class GetToDoByIdQueryCommandResponse
+ {
+     public ToDoApiModel ToDo { get; set; }
+ }
+
+ public class GetToDoByIdQueryCommandHandler : IRequestHandler<GetToDoByIdQueryCommandRequest, GetToDoByIdQueryCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
+
+
+     public async Task<GetToDoByIdQueryCommandResponse> Handle(GetToDoByIdQueryCommandRequest request, CancellationToken cancellationToken)
+         => new GetToDoByIdQueryCommandResponse()
+         {
+             ToDo = ToDoApiModel.FromToDo(await _context.ToDos.FindAsync(request.ToDoId))
+         };
+ }

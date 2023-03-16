@@ -20,7 +20,6 @@
     <ProjectReference Include="..\..\src\Commitments.API\Commitments.API.csproj" />
     <ProjectReference Include="..\..\src\Commitments.Core\Commitments.Core.csproj" />
     <ProjectReference Include="..\..\src\Commitments.Infrastructure\Commitments.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\src\Commitments.SPA\Commitments.SPA.csproj" />
   </ItemGroup>
 
   <ItemGroup>

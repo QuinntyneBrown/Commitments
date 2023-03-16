@@ -10,71 +10,68 @@ using Commitments.Core.Exceptions;
 using System.Security.Claims;
 using System.Collections.Generic;
 
-namespace Commitments.Api.Features.Users
-{
-    public class AuthenticateCommand
-    {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.Username).NotEqual(default(string));
-                RuleFor(request => request.Password).NotEqual(default(string));
-            }            
-        }
 
-        public class Request : IRequest<Response>
-        {
-            public string Username { get; set; }
-            public string Password { get; set; }
-        }
+namespace Commitments.Api.Features.Users;
 
-        public class Response
-        {
-            public string AccessToken { get; set; }
-            public int UserId { get; set; }
-        }
+ public class AuthenticateCommandValidator : AbstractValidator<AuthenticateCommandRequest>
+ {
+     public AuthenticateCommandValidator()
+     {
+         RuleFor(request => request.Username).NotEqual(default(string));
+         RuleFor(request => request.Password).NotEqual(default(string));
+     }            
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IAppDbContext _context;
-            private readonly IPasswordHasher _passwordHasher;
-            private readonly ITokenProvider _tokenProvider;
+ public class AuthenticateCommandRequest : IRequest<AuthenticateCommandResponse>
+ {
+     public string Username { get; set; }
+     public string Password { get; set; }
+ }
 
-            public Handler(IAppDbContext context, ITokenProvider tokenProvider, IPasswordHasher passwordHasher)
-            {
-                _context = context;
-                _tokenProvider = tokenProvider;
-                _passwordHasher = passwordHasher;
-            }
+ public class AuthenticateCommandResponse
+ {
+     public string AccessToken { get; set; }
+     public int UserId { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var user = await _context.Users
-                    .SingleOrDefaultAsync(x => x.Username.ToLower() == request.Username.ToLower());
+ public class AuthenticateCommandHandler : IRequestHandler<AuthenticateCommandRequest, AuthenticateCommandResponse>
+ {
+     private readonly IAppDbContext _context;
+     private readonly IPasswordHasher _passwordHasher;
+     private readonly ITokenProvider _tokenProvider;
 
-                if (user == null)
-                    throw new DomainException();
+     public AuthenticateCommandHandler(IAppDbContext context, ITokenProvider tokenProvider, IPasswordHasher passwordHasher)
+     {
+         _context = context;
+         _tokenProvider = tokenProvider;
+         _passwordHasher = passwordHasher;
+     }
 
-                if (!ValidateUser(user, _passwordHasher.HashPassword(user.Salt, request.Password)))
-                    throw new DomainException();
+     public async Task<AuthenticateCommandResponse> Handle(AuthenticateCommandRequest request, CancellationToken cancellationToken)
+     {
+         var user = await _context.Users
+             .SingleOrDefaultAsync(x => x.Username.ToLower() == request.Username.ToLower());
 
-                var profile = await _context.Profiles.Include(x => x.User).SingleAsync(x => x.User.Username == request.Username);
+         if (user == null)
+             throw new DomainException();
 
-                return new Response()
-                {
-                    AccessToken = _tokenProvider.Get(request.Username, new List<Claim>() { new Claim("ProfileId", $"{profile.ProfileId}") }),
-                    UserId = user.UserId
-                };
-            }
+         if (!ValidateUser(user, _passwordHasher.HashPassword(user.Salt, request.Password)))
+             throw new DomainException();
 
-            public bool ValidateUser(User user, string transformedPassword)
-            {
-                if (user == null || transformedPassword == null)
-                    return false;
+         var profile = await _context.Profiles.Include(x => x.User).SingleAsync(x => x.User.Username == request.Username);
 
-                return user.Password == transformedPassword;
-            }
-        }
-    }
-}
+         return new AuthenticateCommandResponse()
+         {
+             AccessToken = _tokenProvider.Get(request.Username, new List<Claim>() { new Claim("ProfileId", $"{profile.ProfileId}") }),
+             UserId = user.UserId
+         };
+     }
+
+     public bool ValidateUser(User user, string transformedPassword)
+     {
+         if (user == null || transformedPassword == null)
+             return false;
+
+         return user.Password == transformedPassword;
+     }
+ }

@@ -5,35 +5,31 @@ using System.Threading;
 using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.Api.Features.ToDos
-{
-    public class RemoveToDoCommand
-    {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.ToDoId).NotEqual(0);
-            }
-        }
 
-        public class Request : IRequest
-        {
-            public int ToDoId { get; set; }
-        }
+namespace Commitments.Api.Features.ToDos;
 
-        public class Handler : IRequestHandler<Request>
-        {
-            public IAppDbContext _context { get; set; }
-            
-			public Handler(IAppDbContext context) => _context = context;
+ public class RemoveToDoCommandValidator : AbstractValidator<RemoveToDoCommandRequest>
+ {
+     public RemoveToDoCommandValidator()
+     {
+         RuleFor(request => request.ToDoId).NotEqual(0);
+     }
+ }
 
-            public async Task Handle(Request request, CancellationToken cancellationToken)
-            {
-                _context.ToDos.Remove(await _context.ToDos.FindAsync(request.ToDoId));
-                await _context.SaveChangesAsync(cancellationToken);
-            }
+ public class RemoveToDoCommandRequest : IRequest
+ {
+     public int ToDoId { get; set; }
+ }
 
-        }
-    }
-}
+ public class RemoveToDoCommandHandler : IRequestHandler<RemoveToDoCommandRequest>
+ {
+     public IAppDbContext _context { get; set; }
+
+
+     public async Task Handle(RemoveToDoCommandRequest request, CancellationToken cancellationToken)
+     {
+         _context.ToDos.Remove(await _context.ToDos.FindAsync(request.ToDoId));
+         await _context.SaveChangesAsync(cancellationToken);
+     }
+
+ }

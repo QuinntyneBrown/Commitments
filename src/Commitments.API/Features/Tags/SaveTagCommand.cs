@@ -6,46 +6,43 @@ using Commitments.Core.Interfaces;
 using Commitments.Core.Entities;
 using Commitments.Core.Extensions;
 
-namespace Commitments.Api.Features.Tags
-{
-    public class SaveTagCommand
-    {
-        public class Validator: AbstractValidator<Request> {
-            public Validator()
-            {
-                RuleFor(request => request.Tag.TagId).NotNull();
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public TagApiModel Tag { get; set; }
-        }
+namespace Commitments.Api.Features.Tags;
 
-        public class Response
-        {            
-            public int TagId { get; set; }
-        }
+ public class SaveTagCommandValidator: AbstractValidator<SaveTagCommandRequest> {
+     public SaveTagCommandValidator()
+     {
+         RuleFor(request => request.Tag.TagId).NotNull();
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IAppDbContext _context;
+ public class SaveTagCommandRequest : IRequest<SaveTagCommandResponse> {
+     public TagApiModel Tag { get; set; }
+ }
 
-            public Handler(IAppDbContext context) => _context = context;
+ public class SaveTagCommandResponse
+ {            
+     public int TagId { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var tag = await _context.Tags.FindAsync(request.Tag.TagId);
+ public class SaveTagCommandHandler : IRequestHandler<SaveTagCommandRequest, SaveTagCommandResponse>
+ {
+     private readonly IAppDbContext _context;
 
-                if (tag == null) _context.Tags.Add(tag = new Tag());
+     public SaveTagCommandHandler(IAppDbContext context) => _context = context;
 
-                tag.Name = request.Tag.Name;
+     public async Task<SaveTagCommandResponse> Handle(SaveTagCommandRequest request, CancellationToken cancellationToken)
+     {
+         var tag = await _context.Tags.FindAsync(request.Tag.TagId);
 
-                tag.Slug = request.Tag.Name.GenerateSlug();
+         if (tag == null) _context.Tags.Add(tag = new Tag());
 
-                await _context.SaveChangesAsync(cancellationToken);
+         tag.Name = request.Tag.Name;
 
-                return new Response() { TagId = tag.TagId };
-            }
-        }
-    }
-}
+         tag.Slug = request.Tag.Name.GenerateSlug();
+
+         await _context.SaveChangesAsync(cancellationToken);
+
+         return new SaveTagCommandResponse() { TagId = tag.TagId };
+     }
+ }

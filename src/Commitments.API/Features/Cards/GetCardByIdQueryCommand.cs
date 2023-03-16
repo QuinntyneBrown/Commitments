@@ -4,38 +4,35 @@ using System.Threading;
 using Commitments.Core.Interfaces;
 using FluentValidation;
 
-namespace Commitments.Api.Features.Cards
-{
-    public class GetCardByIdQuery
-    {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.CardId).NotEqual(0);
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public int CardId { get; set; }
-        }
+namespace Commitments.Api.Features.Cards;
 
-        public class Response
-        {
-            public CardApiModel Card { get; set; }
-        }
+ public class GetCardByIdQueryCommandValidator : AbstractValidator<GetCardByIdQueryCommandRequest>
+ {
+     public GetCardByIdQueryCommandValidator()
+     {
+         RuleFor(request => request.CardId).NotEqual(0);
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class GetCardByIdQueryCommandRequest : IRequest<GetCardByIdQueryCommandResponse> {
+     public int CardId { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    Card = CardApiModel.FromCard(await _context.Cards.FindAsync(request.CardId))
-                };
-        }
-    }
-}
+ public class GetCardByIdQueryCommandResponse
+ {
+     public CardApiModel Card { get; set; }
+ }
+
+ public class GetCardByIdQueryCommandHandler : IRequestHandler<GetCardByIdQueryCommandRequest, GetCardByIdQueryCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
+
+     public GetCardByIdQueryCommandHandler(IAppDbContext context) => _context = context;
+
+     public async Task<GetCardByIdQueryCommandResponse> Handle(GetCardByIdQueryCommandRequest request, CancellationToken cancellationToken)
+         => new GetCardByIdQueryCommandResponse()
+         {
+             Card = CardApiModel.FromCard(await _context.Cards.FindAsync(request.CardId))
+         };
+ }

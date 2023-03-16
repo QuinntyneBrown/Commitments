@@ -4,38 +4,35 @@ using System.Threading;
 using Commitments.Core.Interfaces;
 using FluentValidation;
 
-namespace Commitments.Api.Features.Tags
-{
-    public class GetTagByIdQuery
-    {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.TagId).NotEqual(default(int));
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public int TagId { get; set; }
-        }
+namespace Commitments.Api.Features.Tags;
 
-        public class Response
-        {
-            public TagApiModel Tag { get; set; }
-        }
+ public class GetTagByIdQueryCommandValidator : AbstractValidator<GetTagByIdQueryCommandRequest>
+ {
+     public GetTagByIdQueryCommandValidator()
+     {
+         RuleFor(request => request.TagId).NotEqual(default(int));
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IAppDbContext _context;
+ public class GetTagByIdQueryCommandRequest : IRequest<GetTagByIdQueryCommandResponse> {
+     public int TagId { get; set; }
+ }
 
-            public Handler(IAppDbContext context) => _context = context;
+ public class GetTagByIdQueryCommandResponse
+ {
+     public TagApiModel Tag { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    Tag = TagApiModel.FromTag(await _context.Tags.FindAsync(request.TagId))
-                };
-        }
-    }
-}
+ public class GetTagByIdQueryCommandHandler : IRequestHandler<GetTagByIdQueryCommandRequest, GetTagByIdQueryCommandResponse>
+ {
+     private readonly IAppDbContext _context;
+
+     public GetTagByIdQueryCommandHandler(IAppDbContext context) => _context = context;
+
+     public async Task<GetTagByIdQueryCommandResponse> Handle(GetTagByIdQueryCommandRequest request, CancellationToken cancellationToken)
+         => new GetTagByIdQueryCommandResponse()
+         {
+             Tag = TagApiModel.FromTag(await _context.Tags.FindAsync(request.TagId))
+         };
+ }

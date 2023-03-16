@@ -1,15 +1,15 @@
-﻿using Commitments.Core.Entities;
+using Commitments.Core.Entities;
 using System;
 using Xunit;
 
-namespace UnitTests.Core
+
+namespace UnitTests.Core;
+
+public class UserTests
 {
-    public class UserTests
-    {
-        [Fact]
-        public void ShouldHaveSaltByDefault() {
-            var user = new User();
-            Assert.NotEqual(default(Byte[]),user.Salt);
-        }
+    [Fact]
+    public void ShouldHaveSaltByDefault() {
+        var user = new User();
+        Assert.NotEqual(default(Byte[]),user.Salt);
     }
 }

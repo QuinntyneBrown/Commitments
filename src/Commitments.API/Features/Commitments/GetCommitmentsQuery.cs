@@ -6,34 +6,31 @@ using Commitments.Core.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.Api.Features.Commitments
-{
-    public class GetCommitmentsQuery
-    {
-        public class Request : IRequest<Response> { }
 
-        public class Response
-        {
-            public IEnumerable<CommitmentApiModel> Commitments { get; set; }
-        }
+namespace Commitments.Api.Features.Commitments;
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class GetCommitmentsQueryRequest : IRequest<GetCommitmentsQueryResponse> { }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    Commitments = await _context.Commitments
-                    .Include(x => x.Behaviour)
-                    .Include("Behaviour.BehaviourType")
-                    .Include(x => x.CommitmentFrequencies)
-                    .Include("CommitmentFrequencies.Frequency")
-                    .Include("CommitmentFrequencies.Frequency.FrequencyType")
-                    .Select(x => CommitmentApiModel.FromCommitment(x)).ToListAsync()
-                };
-        }
-    }
-}
+ public class GetCommitmentsQueryResponse
+ {
+     public IEnumerable<CommitmentApiModel> Commitments { get; set; }
+ }
+
+ public class GetCommitmentsQueryHandler : IRequestHandler<GetCommitmentsQueryRequest, GetCommitmentsQueryResponse>
+ {
+     public IAppDbContext _context { get; set; }
+
+     public GetCommitmentsQueryHandler(IAppDbContext context) => _context = context;
+
+     public async Task<GetCommitmentsQueryResponse> Handle(GetCommitmentsQueryRequest request, CancellationToken cancellationToken)
+         => new GetCommitmentsQueryResponse()
+         {
+             Commitments = await _context.Commitments
+             .Include(x => x.Behaviour)
+             .Include("Behaviour.BehaviourType")
+             .Include(x => x.CommitmentFrequencies)
+             .Include("CommitmentFrequencies.Frequency")
+             .Include("CommitmentFrequencies.Frequency.FrequencyType")
+             .Select(x => CommitmentApiModel.FromCommitment(x)).ToListAsync()
+         };
+ }

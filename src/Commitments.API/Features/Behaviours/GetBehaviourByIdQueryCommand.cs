@@ -5,40 +5,37 @@ using Commitments.Core.Interfaces;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.Api.Features.Behaviours
-{
-    public class GetBehaviourByIdQuery
-    {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.BehaviourId).NotEqual(0);
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public int BehaviourId { get; set; }
-        }
+namespace Commitments.Api.Features.Behaviours;
 
-        public class Response
-        {
-            public BehaviourApiModel Behaviour { get; set; }
-        }
+ public class GetBehaviourByIdQueryCommandValidator : AbstractValidator<GetBehaviourByIdQueryCommandRequest>
+ {
+     public GetBehaviourByIdQueryCommandValidator()
+     {
+         RuleFor(request => request.BehaviourId).NotEqual(0);
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class GetBehaviourByIdQueryCommandRequest : IRequest<GetBehaviourByIdQueryCommandResponse> {
+     public int BehaviourId { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    Behaviour = BehaviourApiModel.FromBehaviour(await _context.Behaviours
-                        .Include(x => x.BehaviourType)
-                        .SingleAsync(x => x.BehaviourId == request.BehaviourId))
-                };
-        }
-    }
-}
+ public class GetBehaviourByIdQueryCommandResponse
+ {
+     public BehaviourApiModel Behaviour { get; set; }
+ }
+
+ public class GetBehaviourByIdQueryCommandHandler : IRequestHandler<GetBehaviourByIdQueryCommandRequest, GetBehaviourByIdQueryCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
+
+     public GetBehaviourByIdQueryCommandHandler(IAppDbContext context) => _context = context;
+
+     public async Task<GetBehaviourByIdQueryCommandResponse> Handle(GetBehaviourByIdQueryCommandRequest request, CancellationToken cancellationToken)
+         => new GetBehaviourByIdQueryCommandResponse()
+         {
+             Behaviour = BehaviourApiModel.FromBehaviour(await _context.Behaviours
+                 .Include(x => x.BehaviourType)
+                 .SingleAsync(x => x.BehaviourId == request.BehaviourId))
+         };
+ }

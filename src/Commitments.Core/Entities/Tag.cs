@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 
-namespace Commitments.Core.Entities
+
+namespace Commitments.Core.Entities;
+
+public class Tag: BaseEntity
 {
-    public class Tag: BaseEntity
-    {
-        public int TagId { get; set; }
-        public string Name { get; set; }
-        public string Slug { get; set; }
-        public ICollection<NoteTag> NoteTags { get; set; } = new HashSet<NoteTag>();
-    }
+    public int TagId { get; set; }
+    public string Name { get; set; }
+    public string Slug { get; set; }
+    public ICollection<NoteTag> NoteTags { get; set; } = new HashSet<NoteTag>();
 }

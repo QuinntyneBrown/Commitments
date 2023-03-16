@@ -7,31 +7,28 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace Commitments.Api.Features.DigitalAssets
-{
-    public class GetDigitalAssetsByIdsQuery
-    {
-        public class Request : IRequest<Response> {
-            public Guid[] DigitalAssetIds { get; set; }
-        }
 
-        public class Response
-        {
-            public IEnumerable<DigitalAssetApiModel> DigitalAssets { get; set; }
-        }
+namespace Commitments.Api.Features.DigitalAssets;
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            public Handler(IAppDbContext context) => _context = context;
+ public class GetDigitalAssetsByIdsQueryRequest : IRequest<GetDigitalAssetsByIdsQueryResponse> {
+     public Guid[] DigitalAssetIds { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    DigitalAssets = await _context.DigitalAssets
-                    .Where(x => request.DigitalAssetIds.Contains(x.DigitalAssetId))
-                    .Select(x => DigitalAssetApiModel.FromDigitalAsset(x)).ToListAsync()
-                };
-        }
-    }
-}
+ public class GetDigitalAssetsByIdsQueryResponse
+ {
+     public IEnumerable<DigitalAssetApiModel> DigitalAssets { get; set; }
+ }
+
+ public class GetDigitalAssetsByIdsQueryHandler : IRequestHandler<GetDigitalAssetsByIdsQueryRequest, GetDigitalAssetsByIdsQueryResponse>
+ {
+     public IAppDbContext _context { get; set; }
+     public GetDigitalAssetsByIdsQueryHandler(IAppDbContext context) => _context = context;
+
+     public async Task<GetDigitalAssetsByIdsQueryResponse> Handle(GetDigitalAssetsByIdsQueryRequest request, CancellationToken cancellationToken)
+         => new GetDigitalAssetsByIdsQueryResponse()
+         {
+             DigitalAssets = await _context.DigitalAssets
+             .Where(x => request.DigitalAssetIds.Contains(x.DigitalAssetId))
+             .Select(x => DigitalAssetApiModel.FromDigitalAsset(x)).ToListAsync()
+         };
+ }

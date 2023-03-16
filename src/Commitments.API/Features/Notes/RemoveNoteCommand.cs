@@ -4,36 +4,33 @@ using System.Threading;
 using Commitments.Core.Interfaces;
 using FluentValidation;
 
-namespace Commitments.Api.Features.Notes
-{
-    public class RemoveNoteCommand
-    {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.NoteId).NotEqual(0);
-            }
-        }
-        public class Request : IRequest<Response>
-        {
-            public int NoteId { get; set; }
-        }
 
-        public class Response { }
+namespace Commitments.Api.Features.Notes;
 
-        public class Handler : IRequestHandler<Request,Response>
-        {
-            private readonly IAppDbContext _context;
+ public class RemoveNoteCommandValidator : AbstractValidator<RemoveNoteCommandRequest>
+ {
+     public RemoveNoteCommandValidator()
+     {
+         RuleFor(request => request.NoteId).NotEqual(0);
+     }
+ }
+ public class RemoveNoteCommandRequest : IRequest<RemoveNoteCommandResponse>
+ {
+     public int NoteId { get; set; }
+ }
 
-            public Handler(IAppDbContext context) => _context = context;
+ public class RemoveNoteCommandResponse { }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                _context.Notes.Remove(await _context.Notes.FindAsync(request.NoteId));
-                await _context.SaveChangesAsync(cancellationToken);
-                return new Response() { };
-            }
-        }
-    }
-}
+ public class RemoveNoteCommandHandler : IRequestHandler<Request,Response>
+ {
+     private readonly IAppDbContext _context;
+
+     public RemoveNoteCommandHandler(IAppDbContext context) => _context = context;
+
+     public async Task<RemoveNoteCommandResponse> Handle(RemoveNoteCommandRequest request, CancellationToken cancellationToken)
+     {
+         _context.Notes.Remove(await _context.Notes.FindAsync(request.NoteId));
+         await _context.SaveChangesAsync(cancellationToken);
+         return new RemoveNoteCommandResponse() { };
+     }
+ }

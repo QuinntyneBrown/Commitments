@@ -4,38 +4,34 @@ using System.Threading;
 using Commitments.Core.Interfaces;
 using FluentValidation;
 
-namespace Commitments.Api.Features.CardLayouts
-{
-    public class GetCardLayoutByIdQuery
-    {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.CardLayoutId).NotEqual(0);
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public int CardLayoutId { get; set; }
-        }
+namespace Commitments.Api.Features.CardLayouts;
 
-        public class Response
-        {
-            public CardLayoutApiModel CardLayout { get; set; }
-        }
+ public class GetCardLayoutByIdQueryCommandValidator : AbstractValidator<GetCardLayoutByIdQueryCommandRequest>
+ {
+     public GetCardLayoutByIdQueryCommandValidator()
+     {
+         RuleFor(request => request.CardLayoutId).NotEqual(0);
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-			public Handler(IAppDbContext context) => _context = context;
+ public class GetCardLayoutByIdQueryCommandRequest : IRequest<GetCardLayoutByIdQueryCommandResponse> {
+     public int CardLayoutId { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    CardLayout = CardLayoutApiModel.FromCardLayout(await _context.CardLayouts.FindAsync(request.CardLayoutId))
-                };
-        }
-    }
-}
+ public class GetCardLayoutByIdQueryCommandResponse
+ {
+     public CardLayoutApiModel CardLayout { get; set; }
+ }
+
+ public class GetCardLayoutByIdQueryCommandHandler : IRequestHandler<GetCardLayoutByIdQueryCommandRequest, GetCardLayoutByIdQueryCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
+
+
+     public async Task<GetCardLayoutByIdQueryCommandResponse> Handle(GetCardLayoutByIdQueryCommandRequest request, CancellationToken cancellationToken)
+         => new GetCardLayoutByIdQueryCommandResponse()
+         {
+             CardLayout = CardLayoutApiModel.FromCardLayout(await _context.CardLayouts.FindAsync(request.CardLayoutId))
+         };
+ }

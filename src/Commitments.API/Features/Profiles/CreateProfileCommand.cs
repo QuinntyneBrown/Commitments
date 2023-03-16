@@ -8,44 +8,41 @@ using Microsoft.EntityFrameworkCore;
 using Commitments.Core.Entities;
 using Commitments.Core.Identity;
 
-namespace Commitments.Api.Features.Profiles
-{
-    public class CreateProfileCommand
-    {
-        public class Request : IRequest<Response> {
 
-            public string Username { get; set; }
-            public string Name { get; set; }
-            public string AvatarUrl { get; set; }
-            public string Password { get; set; }
-            public string ConfirmPassword { get; set; }
-        }
+namespace Commitments.Api.Features.Profiles;
 
-        public class Response
-        {
-            public int ProfileId { get; set; }
-        }
+ public class CreateProfileCommandRequest : IRequest<CreateProfileCommandResponse> {
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            public IPasswordHasher _passwordHasher { get; set; }
-            public Handler(IAppDbContext context, IPasswordHasher passwordHasher) {
-                _context = context;
-                _passwordHasher = passwordHasher;
-            }
+     public string Username { get; set; }
+     public string Name { get; set; }
+     public string AvatarUrl { get; set; }
+     public string Password { get; set; }
+     public string ConfirmPassword { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
+ public class CreateProfileCommandResponse
+ {
+     public int ProfileId { get; set; }
+ }
 
-                var profile = new Profile() { Name = request.Name, AvatarUrl = request.AvatarUrl };
-                profile.User = new User() { Username = request.Username };
-                profile.User.Password = _passwordHasher.HashPassword(profile.User.Salt, request.Password);                                
-                _context.Profiles.Add(profile);
+ public class CreateProfileCommandHandler : IRequestHandler<CreateProfileCommandRequest, CreateProfileCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
+     public IPasswordHasher _passwordHasher { get; set; }
+     public CreateProfileCommandHandler(IAppDbContext context, IPasswordHasher passwordHasher) {
+         _context = context;
+         _passwordHasher = passwordHasher;
+     }
 
-                await _context.SaveChangesAsync(cancellationToken);
+     public async Task<CreateProfileCommandResponse> Handle(CreateProfileCommandRequest request, CancellationToken cancellationToken) {
 
-                return new Response() { ProfileId = profile.ProfileId };
-            }
-        }
-    }
-}
+         var profile = new Profile() { Name = request.Name, AvatarUrl = request.AvatarUrl };
+         profile.User = new User() { Username = request.Username };
+         profile.User.Password = _passwordHasher.HashPassword(profile.User.Salt, request.Password);                                
+         _context.Profiles.Add(profile);
+
+         await _context.SaveChangesAsync(cancellationToken);
+
+         return new CreateProfileCommandResponse() { ProfileId = profile.ProfileId };
+     }
+ }

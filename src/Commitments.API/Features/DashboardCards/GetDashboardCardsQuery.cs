@@ -6,28 +6,25 @@ using Commitments.Core.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.Api.Features.DashboardCards
-{
-    public class GetDashboardCardsQuery
-    {
-        public class Request : IRequest<Response> { }
 
-        public class Response
-        {
-            public IEnumerable<DashboardCardApiModel> DashboardCards { get; set; }
-        }
+namespace Commitments.Api.Features.DashboardCards;
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class GetDashboardCardsQueryRequest : IRequest<GetDashboardCardsQueryResponse> { }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    DashboardCards = await _context.DashboardCards.Select(x => DashboardCardApiModel.FromDashboardCard(x)).ToListAsync()
-                };
-        }
-    }
-}
+ public class GetDashboardCardsQueryResponse
+ {
+     public IEnumerable<DashboardCardApiModel> DashboardCards { get; set; }
+ }
+
+ public class GetDashboardCardsQueryHandler : IRequestHandler<GetDashboardCardsQueryRequest, GetDashboardCardsQueryResponse>
+ {
+     public IAppDbContext _context { get; set; }
+
+     public GetDashboardCardsQueryHandler(IAppDbContext context) => _context = context;
+
+     public async Task<GetDashboardCardsQueryResponse> Handle(GetDashboardCardsQueryRequest request, CancellationToken cancellationToken)
+         => new GetDashboardCardsQueryResponse()
+         {
+             DashboardCards = await _context.DashboardCards.Select(x => DashboardCardApiModel.FromDashboardCard(x)).ToListAsync()
+         };
+ }

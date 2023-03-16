@@ -5,45 +5,42 @@ using System.Threading;
 using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.Api.Features.Profiles
-{
-    public class SaveProfileCommand
-    {
-        public class Validator: AbstractValidator<Request> {
-            public Validator()
-            {
-                RuleFor(request => request.Profile.ProfileId).NotNull();
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public ProfileApiModel Profile { get; set; }
-        }
+namespace Commitments.Api.Features.Profiles;
 
-        public class Response
-        {            
-            public int ProfileId { get; set; }
-        }
+ public class SaveProfileCommandValidator: AbstractValidator<SaveProfileCommandRequest> {
+     public SaveProfileCommandValidator()
+     {
+         RuleFor(request => request.Profile.ProfileId).NotNull();
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class SaveProfileCommandRequest : IRequest<SaveProfileCommandResponse> {
+     public ProfileApiModel Profile { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var profile = await _context.Profiles.FindAsync(request.Profile.ProfileId);
+ public class SaveProfileCommandResponse
+ {            
+     public int ProfileId { get; set; }
+ }
 
-                if (profile == null) _context.Profiles.Add(profile = new Profile());
+ public class SaveProfileCommandHandler : IRequestHandler<SaveProfileCommandRequest, SaveProfileCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
 
-                profile.Name = request.Profile.Name;
+     public SaveProfileCommandHandler(IAppDbContext context) => _context = context;
+
+     public async Task<SaveProfileCommandResponse> Handle(SaveProfileCommandRequest request, CancellationToken cancellationToken)
+     {
+         var profile = await _context.Profiles.FindAsync(request.Profile.ProfileId);
+
+         if (profile == null) _context.Profiles.Add(profile = new Profile());
+
+         profile.Name = request.Profile.Name;
 
 
-                await _context.SaveChangesAsync(cancellationToken);
+         await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response() { ProfileId = profile.ProfileId };
-            }
-        }
-    }
-}
+         return new SaveProfileCommandResponse() { ProfileId = profile.ProfileId };
+     }
+ }

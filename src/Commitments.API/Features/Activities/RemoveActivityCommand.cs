@@ -5,35 +5,31 @@ using System.Threading;
 using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.Api.Features.Activities
-{
-    public class RemoveActivityCommand
-    {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.ActivityId).NotEqual(0);
-            }
-        }
 
-        public class Request : IRequest
-        {
-            public int ActivityId { get; set; }
-        }
+namespace Commitments.Api.Features.Activities;
 
-        public class Handler : IRequestHandler<Request>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class RemoveActivityCommandValidator : AbstractValidator<RemoveActivityCommandRequest>
+ {
+     public RemoveActivityCommandValidator()
+     {
+         RuleFor(request => request.ActivityId).NotEqual(0);
+     }
+ }
 
-            public async Task Handle(Request request, CancellationToken cancellationToken)
-            {
-                _context.Activities.Remove(await _context.Activities.FindAsync(request.ActivityId));
-                await _context.SaveChangesAsync(cancellationToken);
-            }
+ public class RemoveActivityCommandRequest : IRequest
+ {
+     public int ActivityId { get; set; }
+ }
 
-        }
-    }
-}
+ public class RemoveActivityCommandHandler : IRequestHandler<RemoveActivityCommandRequest>
+ {
+     public IAppDbContext _context { get; set; }
+
+     public RemoveActivityCommandHandler(IAppDbContext context) => _context = context;
+
+     public async Task Handle(RemoveActivityCommandRequest request, CancellationToken cancellationToken)
+     {
+         _context.Activities.Remove(await _context.Activities.FindAsync(request.ActivityId));
+         await _context.SaveChangesAsync(cancellationToken);
+     }
+ }

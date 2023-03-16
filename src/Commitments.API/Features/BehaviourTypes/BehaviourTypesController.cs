@@ -3,31 +3,31 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace Commitments.Api.Features.BehaviourTypes
+
+namespace Commitments.Api.Features.BehaviourTypes;
+
+[Authorize]
+[ApiController]
+[Route("api/behaviourTypes")]
+public class BehaviourTypesController
 {
-    [Authorize]
-    [ApiController]
-    [Route("api/behaviourTypes")]
-    public class BehaviourTypesController
-    {
-        private readonly IMediator _mediator;
+    private readonly IMediator _mediator;
 
-        public BehaviourTypesController(IMediator mediator) => _mediator = mediator;
+    public BehaviourTypesController(IMediator mediator) => _mediator = mediator;
 
-        [HttpPost]
-        public async Task<ActionResult<SaveBehaviourTypeCommand.Response>> Save(SaveBehaviourTypeCommand.Request request)
-            => await _mediator.Send(request);
-        
-        [HttpDelete("{BehaviourTypeId}")]
-        public async Task Remove([FromRoute]RemoveBehaviourTypeCommand.Request request)
-            => await _mediator.Send(request);            
+    [HttpPost]
+    public async Task<ActionResult<SaveBehaviourTypeCommandResponse>> Save(SaveBehaviourTypeCommandRequest request)
+        => await _mediator.Send(request);
 
-        [HttpGet("{BehaviourTypeId}")]
-        public async Task<ActionResult<GetBehaviourTypeByIdQuery.Response>> GetById([FromRoute]GetBehaviourTypeByIdQuery.Request request)
-            => await _mediator.Send(request);
+    [HttpDelete("{BehaviourTypeId}")]
+    public async Task Remove([FromRoute]RemoveBehaviourTypeCommandRequest request)
+        => await _mediator.Send(request);            
 
-        [HttpGet]
-        public async Task<ActionResult<GetBehaviourTypesQuery.Response>> Get()
-            => await _mediator.Send(new GetBehaviourTypesQuery.Request());
-    }
+    [HttpGet("{BehaviourTypeId}")]
+    public async Task<ActionResult<GetBehaviourTypeByIdQueryResponse>> GetById([FromRoute]GetBehaviourTypeByIdQueryRequest request)
+        => await _mediator.Send(request);
+
+    [HttpGet]
+    public async Task<ActionResult<GetBehaviourTypesQueryResponse>> Get()
+        => await _mediator.Send(new GetBehaviourTypesQueryRequest());
 }

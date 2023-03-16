@@ -4,38 +4,35 @@ using System.Threading;
 using Commitments.Core.Interfaces;
 using FluentValidation;
 
-namespace Commitments.Api.Features.Commitments
-{
-    public class GetCommitmentByIdQuery
-    {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.CommitmentId).NotEqual(0);
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public int CommitmentId { get; set; }
-        }
+namespace Commitments.Api.Features.Commitments;
 
-        public class Response
-        {
-            public CommitmentApiModel Commitment { get; set; }
-        }
+ public class GetCommitmentByIdQueryCommandValidator : AbstractValidator<GetCommitmentByIdQueryCommandRequest>
+ {
+     public GetCommitmentByIdQueryCommandValidator()
+     {
+         RuleFor(request => request.CommitmentId).NotEqual(0);
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class GetCommitmentByIdQueryCommandRequest : IRequest<GetCommitmentByIdQueryCommandResponse> {
+     public int CommitmentId { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    Commitment = CommitmentApiModel.FromCommitment(await _context.Commitments.FindAsync(request.CommitmentId))
-                };
-        }
-    }
-}
+ public class GetCommitmentByIdQueryCommandResponse
+ {
+     public CommitmentApiModel Commitment { get; set; }
+ }
+
+ public class GetCommitmentByIdQueryCommandHandler : IRequestHandler<GetCommitmentByIdQueryCommandRequest, GetCommitmentByIdQueryCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
+
+     public GetCommitmentByIdQueryCommandHandler(IAppDbContext context) => _context = context;
+
+     public async Task<GetCommitmentByIdQueryCommandResponse> Handle(GetCommitmentByIdQueryCommandRequest request, CancellationToken cancellationToken)
+         => new GetCommitmentByIdQueryCommandResponse()
+         {
+             Commitment = CommitmentApiModel.FromCommitment(await _context.Commitments.FindAsync(request.CommitmentId))
+         };
+ }

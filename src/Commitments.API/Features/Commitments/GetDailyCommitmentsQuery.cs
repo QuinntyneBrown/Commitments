@@ -6,36 +6,33 @@ using Commitments.Core.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.Api.Features.Commitments
-{
-    public class GetDailyCommitmentsQuery
-    {
-        public class Request : IRequest<Response> {
-            public int ProfileId { get; set; }
-        }
 
-        public class Response
-        {
-            public IEnumerable<CommitmentApiModel> Commitments { get; set; }
-        }
+namespace Commitments.Api.Features.Commitments;
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            public Handler(IAppDbContext context) => _context = context;
+ public class GetDailyCommitmentsQueryRequest : IRequest<GetDailyCommitmentsQueryResponse> {
+     public int ProfileId { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    Commitments = await _context.Commitments
-                    .Include(x => x.Behaviour)
-                    .Include("Behaviour.BehaviourType")
-                    .Include(x => x.CommitmentFrequencies)
-                    .Include("CommitmentFrequencies.Frequency")
-                    .Include("CommitmentFrequencies.Frequency.FrequencyType")
-                    .Where(x => x.ProfileId == request.ProfileId && x.CommitmentFrequencies.Any(f => f.Frequency.FrequencyType.Name == "per day" ))
-                    .Select(x => CommitmentApiModel.FromCommitment(x)).ToListAsync()
-                };
-        }
-    }
-}
+ public class GetDailyCommitmentsQueryResponse
+ {
+     public IEnumerable<CommitmentApiModel> Commitments { get; set; }
+ }
+
+ public class GetDailyCommitmentsQueryHandler : IRequestHandler<GetDailyCommitmentsQueryRequest, GetDailyCommitmentsQueryResponse>
+ {
+     public IAppDbContext _context { get; set; }
+     public GetDailyCommitmentsQueryHandler(IAppDbContext context) => _context = context;
+
+     public async Task<GetDailyCommitmentsQueryResponse> Handle(GetDailyCommitmentsQueryRequest request, CancellationToken cancellationToken)
+         => new GetDailyCommitmentsQueryResponse()
+         {
+             Commitments = await _context.Commitments
+             .Include(x => x.Behaviour)
+             .Include("Behaviour.BehaviourType")
+             .Include(x => x.CommitmentFrequencies)
+             .Include("CommitmentFrequencies.Frequency")
+             .Include("CommitmentFrequencies.Frequency.FrequencyType")
+             .Where(x => x.ProfileId == request.ProfileId && x.CommitmentFrequencies.Any(f => f.Frequency.FrequencyType.Name == "per day" ))
+             .Select(x => CommitmentApiModel.FromCommitment(x)).ToListAsync()
+         };
+ }

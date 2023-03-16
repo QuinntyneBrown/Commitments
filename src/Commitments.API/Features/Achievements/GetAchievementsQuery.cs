@@ -8,54 +8,51 @@ using Microsoft.EntityFrameworkCore;
 using Commitments.Api.Features.Commitments;
 using System;
 
-namespace Commitments.Api.Features.Achievements
-{
-    public class GetAchievementsQuery
-    {
-        public class Request : IRequest<Response> {
-            public int ProfileId { get; set; }
-        }
 
-        public class Response
-        {
-            public IEnumerable<AchievementApiModel> Achievements { get; set; }
-        }
+namespace Commitments.Api.Features.Achievements;
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            public Handler(IAppDbContext context) => _context = context;
+ public class GetAchievementsQueryRequest : IRequest<GetAchievementsQueryResponse> {
+     public int ProfileId { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var achievements = new List<AchievementApiModel>();
-                var dailyCommitments = await _context.Commitments
-                    .Include(x => x.Behaviour)
-                    .Include("Behaviour.BehaviourType")
-                    .Include(x => x.CommitmentFrequencies)
-                    .Include("CommitmentFrequencies.Frequency")
-                    .Include("CommitmentFrequencies.Frequency.FrequencyType")
-                    .Where(x => x.ProfileId == request.ProfileId && x.CommitmentFrequencies.Any(f => f.Frequency.FrequencyType.Name == "per day"))
-                    .ToListAsync();
-                
-                foreach(var dailyCommitment in dailyCommitments)
-                {
-                    var activity = _context.Activities.FirstOrDefault(x => x.ProfileId == request.ProfileId 
-                    && x.BehaviourId == dailyCommitment.BehaviourId
-                    && x.PerformedOn.Date == DateTime.Now.Date);
+ public class GetAchievementsQueryResponse
+ {
+     public IEnumerable<AchievementApiModel> Achievements { get; set; }
+ }
 
-                    if(activity != null)
-                        achievements.Add(new AchievementApiModel()
-                        {
-                            Commitment = CommitmentApiModel.FromCommitment(dailyCommitment)
-                        });
-                }
+ public class GetAchievementsQueryHandler : IRequestHandler<GetAchievementsQueryRequest, GetAchievementsQueryResponse>
+ {
+     public IAppDbContext _context { get; set; }
+     public GetAchievementsQueryHandler(IAppDbContext context) => _context = context;
 
-                return new Response()
-                {
-                    Achievements = achievements
-                };
-            }
-        }
-    }
-}
+     public async Task<GetAchievementsQueryResponse> Handle(GetAchievementsQueryRequest request, CancellationToken cancellationToken)
+     {
+         var achievements = new List<AchievementApiModel>();
+         var dailyCommitments = await _context.Commitments
+             .Include(x => x.Behaviour)
+             .Include("Behaviour.BehaviourType")
+             .Include(x => x.CommitmentFrequencies)
+             .Include("CommitmentFrequencies.Frequency")
+             .Include("CommitmentFrequencies.Frequency.FrequencyType")
+             .Where(x => x.ProfileId == request.ProfileId && x.CommitmentFrequencies.Any(f => f.Frequency.FrequencyType.Name == "per day"))
+             .ToListAsync();
+
+         foreach(var dailyCommitment in dailyCommitments)
+         {
+             var activity = _context.Activities.FirstOrDefault(x => x.ProfileId == request.ProfileId 
+             && x.BehaviourId == dailyCommitment.BehaviourId
+             && x.PerformedOn.Date == DateTime.Now.Date);
+
+             if(activity != null)
+                 achievements.Add(new AchievementApiModel()
+                 {
+                     Commitment = CommitmentApiModel.FromCommitment(dailyCommitment)
+                 });
+         }
+
+         return new GetAchievementsQueryResponse()
+         {
+             Achievements = achievements
+         };
+     }
+ }

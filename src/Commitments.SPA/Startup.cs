@@ -3,31 +3,31 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Commitments.SPA
+
+namespace Commitments.SPA;
+
+public class Startup
 {
-    public class Startup
+    public Startup(IConfiguration configuration)
+        => Configuration = configuration;
+
+    public IConfiguration Configuration { get; }
+
+    public void ConfigureServices(IServiceCollection services)
+    {   
+        services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/dist/ClientApp");
+    }
+
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     {
-        public Startup(IConfiguration configuration)
-            => Configuration = configuration;
-
-        public IConfiguration Configuration { get; }
-        
-        public void ConfigureServices(IServiceCollection services)
-        {   
-            services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/dist/ClientApp");
-        }
-
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        app.UseStaticFiles();
+        app.UseSpaStaticFiles();            
+        app.UseSpa(spa =>
         {
-            app.UseStaticFiles();
-            app.UseSpaStaticFiles();            
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ClientApp";
+            spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
-            });
-        }
+            if (env.IsDevelopment())
+                spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+        });
     }
 }

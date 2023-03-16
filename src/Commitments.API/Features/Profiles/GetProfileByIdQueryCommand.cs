@@ -4,38 +4,35 @@ using System.Threading;
 using Commitments.Core.Interfaces;
 using FluentValidation;
 
-namespace Commitments.Api.Features.Profiles
-{
-    public class GetProfileByIdQuery
-    {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.ProfileId).NotEqual(0);
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public int ProfileId { get; set; }
-        }
+namespace Commitments.Api.Features.Profiles;
 
-        public class Response
-        {
-            public ProfileApiModel Profile { get; set; }
-        }
+ public class GetProfileByIdQueryCommandValidator : AbstractValidator<GetProfileByIdQueryCommandRequest>
+ {
+     public GetProfileByIdQueryCommandValidator()
+     {
+         RuleFor(request => request.ProfileId).NotEqual(0);
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class GetProfileByIdQueryCommandRequest : IRequest<GetProfileByIdQueryCommandResponse> {
+     public int ProfileId { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    Profile = ProfileApiModel.FromProfile(await _context.Profiles.FindAsync(request.ProfileId))
-                };
-        }
-    }
-}
+ public class GetProfileByIdQueryCommandResponse
+ {
+     public ProfileApiModel Profile { get; set; }
+ }
+
+ public class GetProfileByIdQueryCommandHandler : IRequestHandler<GetProfileByIdQueryCommandRequest, GetProfileByIdQueryCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
+
+     public GetProfileByIdQueryCommandHandler(IAppDbContext context) => _context = context;
+
+     public async Task<GetProfileByIdQueryCommandResponse> Handle(GetProfileByIdQueryCommandRequest request, CancellationToken cancellationToken)
+         => new GetProfileByIdQueryCommandResponse()
+         {
+             Profile = ProfileApiModel.FromProfile(await _context.Profiles.FindAsync(request.ProfileId))
+         };
+ }

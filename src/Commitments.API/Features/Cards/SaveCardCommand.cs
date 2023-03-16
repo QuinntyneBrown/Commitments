@@ -5,45 +5,42 @@ using System.Threading;
 using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.Api.Features.Cards
-{
-    public class SaveCardCommand
-    {
-        public class Validator: AbstractValidator<Request> {
-            public Validator()
-            {
-                RuleFor(request => request.Card.CardId).NotNull();
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public CardApiModel Card { get; set; }
-        }
+namespace Commitments.Api.Features.Cards;
 
-        public class Response
-        {            
-            public int CardId { get; set; }
-        }
+ public class SaveCardCommandValidator: AbstractValidator<SaveCardCommandRequest> {
+     public SaveCardCommandValidator()
+     {
+         RuleFor(request => request.Card.CardId).NotNull();
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class SaveCardCommandRequest : IRequest<SaveCardCommandResponse> {
+     public CardApiModel Card { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var card = await _context.Cards.FindAsync(request.Card.CardId);
+ public class SaveCardCommandResponse
+ {            
+     public int CardId { get; set; }
+ }
 
-                if (card == null) _context.Cards.Add(card = new Card());
+ public class SaveCardCommandHandler : IRequestHandler<SaveCardCommandRequest, SaveCardCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
 
-                card.Name = request.Card.Name;
-                card.Description = request.Card.Description;
+     public SaveCardCommandHandler(IAppDbContext context) => _context = context;
 
-                await _context.SaveChangesAsync(cancellationToken);
+     public async Task<SaveCardCommandResponse> Handle(SaveCardCommandRequest request, CancellationToken cancellationToken)
+     {
+         var card = await _context.Cards.FindAsync(request.Card.CardId);
 
-                return new Response() { CardId = card.CardId };
-            }
-        }
-    }
-}
+         if (card == null) _context.Cards.Add(card = new Card());
+
+         card.Name = request.Card.Name;
+         card.Description = request.Card.Description;
+
+         await _context.SaveChangesAsync(cancellationToken);
+
+         return new SaveCardCommandResponse() { CardId = card.CardId };
+     }
+ }

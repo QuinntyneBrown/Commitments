@@ -5,35 +5,32 @@ using System.Threading;
 using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.Api.Features.Dashboards
-{
-    public class RemoveDashboardCommand
-    {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.DashboardId).NotEqual(0);
-            }
-        }
 
-        public class Request : IRequest
-        {
-            public int DashboardId { get; set; }
-        }
+namespace Commitments.Api.Features.Dashboards;
 
-        public class Handler : IRequestHandler<Request>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class RemoveDashboardCommandValidator : AbstractValidator<RemoveDashboardCommandRequest>
+ {
+     public RemoveDashboardCommandValidator()
+     {
+         RuleFor(request => request.DashboardId).NotEqual(0);
+     }
+ }
 
-            public async Task Handle(Request request, CancellationToken cancellationToken)
-            {
-                _context.Dashboards.Remove(await _context.Dashboards.FindAsync(request.DashboardId));
-                await _context.SaveChangesAsync(cancellationToken);
-            }
+ public class RemoveDashboardCommandRequest : IRequest
+ {
+     public int DashboardId { get; set; }
+ }
 
-        }
-    }
-}
+ public class RemoveDashboardCommandHandler : IRequestHandler<RemoveDashboardCommandRequest>
+ {
+     public IAppDbContext _context { get; set; }
+
+     public RemoveDashboardCommandHandler(IAppDbContext context) => _context = context;
+
+     public async Task Handle(RemoveDashboardCommandRequest request, CancellationToken cancellationToken)
+     {
+         _context.Dashboards.Remove(await _context.Dashboards.FindAsync(request.DashboardId));
+         await _context.SaveChangesAsync(cancellationToken);
+     }
+
+ }

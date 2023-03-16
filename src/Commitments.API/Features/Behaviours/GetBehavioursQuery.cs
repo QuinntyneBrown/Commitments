@@ -6,28 +6,25 @@ using Commitments.Core.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.Api.Features.Behaviours
-{
-    public class GetBehavioursQuery
-    {
-        public class Request : IRequest<Response> { }
 
-        public class Response
-        {
-            public IEnumerable<BehaviourApiModel> Behaviours { get; set; }
-        }
+namespace Commitments.Api.Features.Behaviours;
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class GetBehavioursQueryRequest : IRequest<GetBehavioursQueryResponse> { }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    Behaviours = await _context.Behaviours.Include(x => x.BehaviourType).Select(x => BehaviourApiModel.FromBehaviour(x)).ToListAsync()
-                };
-        }
-    }
-}
+ public class GetBehavioursQueryResponse
+ {
+     public IEnumerable<BehaviourApiModel> Behaviours { get; set; }
+ }
+
+ public class GetBehavioursQueryHandler : IRequestHandler<GetBehavioursQueryRequest, GetBehavioursQueryResponse>
+ {
+     public IAppDbContext _context { get; set; }
+
+     public GetBehavioursQueryHandler(IAppDbContext context) => _context = context;
+
+     public async Task<GetBehavioursQueryResponse> Handle(GetBehavioursQueryRequest request, CancellationToken cancellationToken)
+         => new GetBehavioursQueryResponse()
+         {
+             Behaviours = await _context.Behaviours.Include(x => x.BehaviourType).Select(x => BehaviourApiModel.FromBehaviour(x)).ToListAsync()
+         };
+ }

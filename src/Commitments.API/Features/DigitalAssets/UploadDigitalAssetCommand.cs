@@ -14,80 +14,77 @@ using Commitments.Core.Helpers;
 using Commitments.Core.Entities;
 using System.Linq;
 
-namespace Commitments.Api.Features.DigitalAssets
-{
-    public class UploadDigitalAssetCommand
-    {
-        public class Request : IRequest<Response> { }
 
-        public class Response
-        {
-            public List<Guid> DigitalAssetIds { get;set; }
-        }
+namespace Commitments.Api.Features.DigitalAssets;
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            public IHttpContextAccessor _httpContextAccessor { get; set; }
-            public Handler(IAppDbContext context, IHttpContextAccessor httpContextAccessor) {
-                _context = context;
-                _httpContextAccessor = httpContextAccessor;
-            }
+ public class UploadDigitalAssetCommandRequest : IRequest<UploadDigitalAssetCommandResponse> { }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
+ public class UploadDigitalAssetCommandResponse
+ {
+     public List<Guid> DigitalAssetIds { get;set; }
+ }
 
-                var httpContext = _httpContextAccessor.HttpContext;
-                var defaultFormOptions = new FormOptions();
-                var digitalAssets = new List<DigitalAsset>();
+ public class UploadDigitalAssetCommandHandler : IRequestHandler<UploadDigitalAssetCommandRequest, UploadDigitalAssetCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
+     public IHttpContextAccessor _httpContextAccessor { get; set; }
+     public UploadDigitalAssetCommandHandler(IAppDbContext context, IHttpContextAccessor httpContextAccessor) {
+         _context = context;
+         _httpContextAccessor = httpContextAccessor;
+     }
 
-                if (!MultipartRequestHelper.IsMultipartContentType(httpContext.Request.ContentType))
-                    throw new Exception($"Expected a multipart request, but got {httpContext.Request.ContentType}");
+     public async Task<UploadDigitalAssetCommandResponse> Handle(UploadDigitalAssetCommandRequest request, CancellationToken cancellationToken) {
 
-                var mediaTypeHeaderValue = MediaTypeHeaderValue.Parse(httpContext.Request.ContentType);
+         var httpContext = _httpContextAccessor.HttpContext;
+         var defaultFormOptions = new FormOptions();
+         var digitalAssets = new List<DigitalAsset>();
 
-                var boundary = MultipartRequestHelper.GetBoundary(
-                    mediaTypeHeaderValue,
-                    defaultFormOptions.MultipartBoundaryLengthLimit);
+         if (!MultipartRequestHelper.IsMultipartContentType(httpContextRequest.ContentType))
+             throw new Exception($"Expected a multipart request, but got {httpContextRequest.ContentType}");
 
-                var reader = new MultipartReader(boundary, httpContext.Request.Body);
+         var mediaTypeHeaderValue = MediaTypeHeaderValue.Parse(httpContextRequest.ContentType);
 
-                var section = await reader.ReadNextSectionAsync();
+         var boundary = MultipartRequestHelper.GetBoundary(
+             mediaTypeHeaderValue,
+             defaultFormOptions.MultipartBoundaryLengthLimit);
 
-                while (section != null)
-                {
+         var reader = new MultipartReader(boundary, httpContextRequest.Body);
 
-                    var digitalAsset = new DigitalAsset();
+         var section = await reader.ReadNextSectionAsync();
 
-                    var hasContentDispositionHeader = ContentDispositionHeaderValue.TryParse(section.ContentDisposition, out ContentDispositionHeaderValue contentDisposition);
+         while (section != null)
+         {
 
-                    if (hasContentDispositionHeader)
-                    {
-                        if (MultipartRequestHelper.HasFileContentDisposition(contentDisposition))
-                        {
-                            using (var targetStream = new MemoryStream())
-                            {
-                                await section.Body.CopyToAsync(targetStream);
-                                digitalAsset.Name = $"{contentDisposition.FileName}".Trim(new char[] { '"' }).Replace("&", "and");
-                                digitalAsset.Bytes = StreamHelper.ReadToEnd(targetStream);
-                                digitalAsset.ContentType = section.ContentType;
-                            }
-                        }
-                    }
+             var digitalAsset = new DigitalAsset();
 
-                    _context.DigitalAssets.Add(digitalAsset);
+             var hasContentDispositionHeader = ContentDispositionHeaderValue.TryParse(section.ContentDisposition, out ContentDispositionHeaderValue contentDisposition);
 
-                    digitalAssets.Add(digitalAsset);
-                    
-                    section = await reader.ReadNextSectionAsync();
-                }
+             if (hasContentDispositionHeader)
+             {
+                 if (MultipartRequestHelper.HasFileContentDisposition(contentDisposition))
+                 {
+                     using (var targetStream = new MemoryStream())
+                     {
+                         await section.Body.CopyToAsync(targetStream);
+                         digitalAsset.Name = $"{contentDisposition.FileName}".Trim(new char[] { '"' }).Replace("&", "and");
+                         digitalAsset.Bytes = StreamHelper.ReadToEnd(targetStream);
+                         digitalAsset.ContentType = section.ContentType;
+                     }
+                 }
+             }
 
-                await _context.SaveChangesAsync(cancellationToken);
+             _context.DigitalAssets.Add(digitalAsset);
 
-                return new Response()
-                {
-                    DigitalAssetIds = digitalAssets.Select(x => x.DigitalAssetId).ToList()
-                };
-            }
-        }
-    }
-}
+             digitalAssets.Add(digitalAsset);
+
+             section = await reader.ReadNextSectionAsync();
+         }
+
+         await _context.SaveChangesAsync(cancellationToken);
+
+         return new UploadDigitalAssetCommandResponse()
+         {
+             DigitalAssetIds = digitalAssets.Select(x => x.DigitalAssetId).ToList()
+         };
+     }
+ }

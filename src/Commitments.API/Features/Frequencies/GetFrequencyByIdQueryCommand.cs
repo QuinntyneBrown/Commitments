@@ -4,38 +4,35 @@ using System.Threading;
 using Commitments.Core.Interfaces;
 using FluentValidation;
 
-namespace Commitments.Api.Features.Frequencies
-{
-    public class GetFrequencyByIdQuery
-    {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.FrequencyId).NotEqual(0);
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public int FrequencyId { get; set; }
-        }
+namespace Commitments.Api.Features.Frequencies;
 
-        public class Response
-        {
-            public FrequencyApiModel Frequency { get; set; }
-        }
+ public class GetFrequencyByIdQueryCommandValidator : AbstractValidator<GetFrequencyByIdQueryCommandRequest>
+ {
+     public GetFrequencyByIdQueryCommandValidator()
+     {
+         RuleFor(request => request.FrequencyId).NotEqual(0);
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class GetFrequencyByIdQueryCommandRequest : IRequest<GetFrequencyByIdQueryCommandResponse> {
+     public int FrequencyId { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    Frequency = FrequencyApiModel.FromFrequency(await _context.Frequencies.FindAsync(request.FrequencyId))
-                };
-        }
-    }
-}
+ public class GetFrequencyByIdQueryCommandResponse
+ {
+     public FrequencyApiModel Frequency { get; set; }
+ }
+
+ public class GetFrequencyByIdQueryCommandHandler : IRequestHandler<GetFrequencyByIdQueryCommandRequest, GetFrequencyByIdQueryCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
+
+     public GetFrequencyByIdQueryCommandHandler(IAppDbContext context) => _context = context;
+
+     public async Task<GetFrequencyByIdQueryCommandResponse> Handle(GetFrequencyByIdQueryCommandRequest request, CancellationToken cancellationToken)
+         => new GetFrequencyByIdQueryCommandResponse()
+         {
+             Frequency = FrequencyApiModel.FromFrequency(await _context.Frequencies.FindAsync(request.FrequencyId))
+         };
+ }

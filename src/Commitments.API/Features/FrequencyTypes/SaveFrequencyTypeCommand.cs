@@ -5,44 +5,41 @@ using System.Threading;
 using Commitments.Core.Entities;
 using Commitments.Core.Interfaces;
 
-namespace Commitments.Api.Features.FrequencyTypes
-{
-    public class SaveFrequencyTypeCommand
-    {
-        public class Validator: AbstractValidator<Request> {
-            public Validator()
-            {
-                RuleFor(request => request.FrequencyType.FrequencyTypeId).NotNull();
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public FrequencyTypeApiModel FrequencyType { get; set; }
-        }
+namespace Commitments.Api.Features.FrequencyTypes;
 
-        public class Response
-        {            
-            public int FrequencyTypeId { get; set; }
-        }
+ public class SaveFrequencyTypeCommandValidator: AbstractValidator<SaveFrequencyTypeCommandRequest> {
+     public SaveFrequencyTypeCommandValidator()
+     {
+         RuleFor(request => request.FrequencyType.FrequencyTypeId).NotNull();
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class SaveFrequencyTypeCommandRequest : IRequest<SaveFrequencyTypeCommandResponse> {
+     public FrequencyTypeApiModel FrequencyType { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var frequencyType = await _context.FrequencyTypes.FindAsync(request.FrequencyType.FrequencyTypeId);
+ public class SaveFrequencyTypeCommandResponse
+ {            
+     public int FrequencyTypeId { get; set; }
+ }
 
-                if (frequencyType == null) _context.FrequencyTypes.Add(frequencyType = new FrequencyType());
+ public class SaveFrequencyTypeCommandHandler : IRequestHandler<SaveFrequencyTypeCommandRequest, SaveFrequencyTypeCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
 
-                frequencyType.Name = request.FrequencyType.Name;
+     public SaveFrequencyTypeCommandHandler(IAppDbContext context) => _context = context;
 
-                await _context.SaveChangesAsync(cancellationToken);
+     public async Task<SaveFrequencyTypeCommandResponse> Handle(SaveFrequencyTypeCommandRequest request, CancellationToken cancellationToken)
+     {
+         var frequencyType = await _context.FrequencyTypes.FindAsync(request.FrequencyType.FrequencyTypeId);
 
-                return new Response() { FrequencyTypeId = frequencyType.FrequencyTypeId };
-            }
-        }
-    }
-}
+         if (frequencyType == null) _context.FrequencyTypes.Add(frequencyType = new FrequencyType());
+
+         frequencyType.Name = request.FrequencyType.Name;
+
+         await _context.SaveChangesAsync(cancellationToken);
+
+         return new SaveFrequencyTypeCommandResponse() { FrequencyTypeId = frequencyType.FrequencyTypeId };
+     }
+ }

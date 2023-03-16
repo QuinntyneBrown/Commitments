@@ -1,29 +1,29 @@
-namespace IntegrationTests.Features
+
+namespace IntegrationTests.Features;
+
+public class CommitmentScenarioBase: ScenarioBase
 {
-    public class CommitmentScenarioBase: ScenarioBase
+    public static class Get
     {
-        public static class Get
-        {
-            public static string Commitments = "api/commitments";
-            public static string DailyCommitments = "api/commitments/daily";
+        public static string Commitments = "api/commitments";
+        public static string DailyCommitments = "api/commitments/daily";
 
-            public static string CommitmentById(int id)
-            {
-                return $"api/commitments/{id}";
-            }
+        public static string CommitmentById(int id)
+        {
+            return $"api/commitments/{id}";
         }
+    }
 
-        public static class Post
-        {
-            public static string Commitments = "api/commitments";
-        }
+    public static class Post
+    {
+        public static string Commitments = "api/commitments";
+    }
 
-        public static class Delete
+    public static class Delete
+    {
+        public static string Commitment(int id)
         {
-            public static string Commitment(int id)
-            {
-                return $"api/commitments/{id}";
-            }
+            return $"api/commitments/{id}";
         }
     }
 }

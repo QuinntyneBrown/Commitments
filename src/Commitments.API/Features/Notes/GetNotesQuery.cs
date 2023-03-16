@@ -6,28 +6,25 @@ using Commitments.Core.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.Api.Features.Notes
-{
-    public class GetNotesQuery
-    {
-        public class Request : IRequest<Response> { }
 
-        public class Response
-        {
-            public IEnumerable<NoteApiModel> Notes { get; set; }
-        }
+namespace Commitments.Api.Features.Notes;
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IAppDbContext _context;
+ public class GetNotesQueryRequest : IRequest<GetNotesQueryResponse> { }
 
-            public Handler(IAppDbContext context) => _context = context;
+ public class GetNotesQueryResponse
+ {
+     public IEnumerable<NoteApiModel> Notes { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    Notes = await _context.Notes.Select(x => NoteApiModel.FromNote(x, true)).ToListAsync()
-                };
-        }
-    }
-}
+ public class GetNotesQueryHandler : IRequestHandler<GetNotesQueryRequest, GetNotesQueryResponse>
+ {
+     private readonly IAppDbContext _context;
+
+     public GetNotesQueryHandler(IAppDbContext context) => _context = context;
+
+     public async Task<GetNotesQueryResponse> Handle(GetNotesQueryRequest request, CancellationToken cancellationToken)
+         => new GetNotesQueryResponse()
+         {
+             Notes = await _context.Notes.Select(x => NoteApiModel.FromNote(x, true)).ToListAsync()
+         };
+ }

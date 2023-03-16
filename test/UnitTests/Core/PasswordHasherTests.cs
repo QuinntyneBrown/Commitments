@@ -1,27 +1,27 @@
-﻿using Commitments.Core.Identity;
+using Commitments.Core.Identity;
 using Xunit;
 
-namespace UnitTests.Core
+
+namespace UnitTests.Core;
+
+public class PasswordHasherTests
 {
-    public class PasswordHasherTests
-    {
-        private readonly PasswordHasher _passwordHasher;
+    private readonly PasswordHasher _passwordHasher;
 
-        public PasswordHasherTests()
-            => _passwordHasher = new PasswordHasher();
+    public PasswordHasherTests()
+        => _passwordHasher = new PasswordHasher();
 
-        [Fact]
-        public void ShouldHashPasswordShouldBeAPureFunction() {
+    [Fact]
+    public void ShouldHashPasswordShouldBeAPureFunction() {
 
-            var plainTextPassword = "P@ssw0rd";
+        var plainTextPassword = "P@ssw0rd";
 
-            var hashedPassword1 = _passwordHasher.HashPassword(new byte[0] { }, plainTextPassword);
+        var hashedPassword1 = _passwordHasher.HashPassword(new byte[0] { }, plainTextPassword);
 
-            var hashedPassword2 = _passwordHasher.HashPassword(new byte[0] { }, plainTextPassword);
-            
-            Assert.NotEqual(plainTextPassword, hashedPassword1);
+        var hashedPassword2 = _passwordHasher.HashPassword(new byte[0] { }, plainTextPassword);
 
-            Assert.Equal(hashedPassword1, hashedPassword2);
-        }
+        Assert.NotEqual(plainTextPassword, hashedPassword1);
+
+        Assert.Equal(hashedPassword1, hashedPassword2);
     }
 }

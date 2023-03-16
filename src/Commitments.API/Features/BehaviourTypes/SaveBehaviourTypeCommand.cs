@@ -5,44 +5,41 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Commitments.Api.Features.BehaviourTypes
-{
-    public class SaveBehaviourTypeCommand
-    {
-        public class Validator: AbstractValidator<Request> {
-            public Validator()
-            {
-                RuleFor(request => request.BehaviourType.BehaviourTypeId).NotNull();
-            }
-        }
 
-        public class Request : IRequest<Response> {
-            public BehaviourTypeApiModel BehaviourType { get; set; }
-        }
+namespace Commitments.Api.Features.BehaviourTypes;
 
-        public class Response
-        {            
-            public int BehaviourTypeId { get; set; }
-        }
+ public class SaveBehaviourTypeCommandValidator: AbstractValidator<SaveBehaviourTypeCommandRequest> {
+     public SaveBehaviourTypeCommandValidator()
+     {
+         RuleFor(request => request.BehaviourType.BehaviourTypeId).NotNull();
+     }
+ }
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            public IAppDbContext _context { get; set; }
-            
-            public Handler(IAppDbContext context) => _context = context;
+ public class SaveBehaviourTypeCommandRequest : IRequest<SaveBehaviourTypeCommandResponse> {
+     public BehaviourTypeApiModel BehaviourType { get; set; }
+ }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var behaviourType = await _context.BehaviourTypes.FindAsync(request.BehaviourType.BehaviourTypeId);
+ public class SaveBehaviourTypeCommandResponse
+ {            
+     public int BehaviourTypeId { get; set; }
+ }
 
-                if (behaviourType == null) _context.BehaviourTypes.Add(behaviourType = new BehaviourType());
+ public class SaveBehaviourTypeCommandHandler : IRequestHandler<SaveBehaviourTypeCommandRequest, SaveBehaviourTypeCommandResponse>
+ {
+     public IAppDbContext _context { get; set; }
 
-                behaviourType.Name = request.BehaviourType.Name;
+     public SaveBehaviourTypeCommandHandler(IAppDbContext context) => _context = context;
 
-                await _context.SaveChangesAsync(cancellationToken);
+     public async Task<SaveBehaviourTypeCommandResponse> Handle(SaveBehaviourTypeCommandRequest request, CancellationToken cancellationToken)
+     {
+         var behaviourType = await _context.BehaviourTypes.FindAsync(request.BehaviourType.BehaviourTypeId);
 
-                return new Response() { BehaviourTypeId = behaviourType.BehaviourTypeId };
-            }
-        }
-    }
-}
+         if (behaviourType == null) _context.BehaviourTypes.Add(behaviourType = new BehaviourType());
+
+         behaviourType.Name = request.BehaviourType.Name;
+
+         await _context.SaveChangesAsync(cancellationToken);
+
+         return new SaveBehaviourTypeCommandResponse() { BehaviourTypeId = behaviourType.BehaviourTypeId };
+     }
+ }

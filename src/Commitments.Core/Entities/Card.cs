@@ -1,9 +1,9 @@
-namespace Commitments.Core.Entities
+
+namespace Commitments.Core.Entities;
+
+public class Card: BaseEntity
 {
-    public class Card: BaseEntity
-    {
-        public int CardId { get; set; }           
-        public string Name { get; set; }
-        public string Description { get; set; }
-    }
+    public int CardId { get; set; }           
+    public string Name { get; set; }
+    public string Description { get; set; }
 }
