@@ -26,9 +26,9 @@ namespace Commitments.Api.Features.Notes;
 
  public class GetNoteByIdQueryHandler : IRequestHandler<GetNoteByIdQueryRequest, GetNoteByIdQueryResponse>
  {
-     private readonly IAppDbContext _context;
+     private readonly ICommimentsDbContext _context;
 
-     public GetNoteByIdQueryHandler(IAppDbContext context) => _context = context;
+     public GetNoteByIdQueryHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetNoteByIdQueryResponse> Handle(GetNoteByIdQueryRequest request, CancellationToken cancellationToken)
          => new GetNoteByIdQueryResponse()

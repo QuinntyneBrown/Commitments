@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using FluentValidation;
 using Commitments.Core.Interfaces;
-using Commitments.Core.Entities;
+using Commitments.Core.AggregateModel;
 using Commitments.Core.Extensions;
 
 
@@ -27,9 +27,9 @@ namespace Commitments.Api.Features.Tags;
 
  public class SaveTagCommandHandler : IRequestHandler<SaveTagCommandRequest, SaveTagCommandResponse>
  {
-     private readonly IAppDbContext _context;
+     private readonly ICommimentsDbContext _context;
 
-     public SaveTagCommandHandler(IAppDbContext context) => _context = context;
+     public SaveTagCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<SaveTagCommandResponse> Handle(SaveTagCommandRequest request, CancellationToken cancellationToken)
      {

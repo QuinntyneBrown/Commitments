@@ -24,9 +24,9 @@ namespace Commitments.Api.Features.Notes;
 
  public class RemoveNoteCommandHandler : IRequestHandler<RemoveNoteCommandRequest, RemoveNoteCommandResponse>
  {
-     private readonly IAppDbContext _context;
+     private readonly ICommimentsDbContext _context;
 
-     public RemoveNoteCommandHandler(IAppDbContext context) => _context = context;
+     public RemoveNoteCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<RemoveNoteCommandResponse> Handle(RemoveNoteCommandRequest request, CancellationToken cancellationToken)
      {

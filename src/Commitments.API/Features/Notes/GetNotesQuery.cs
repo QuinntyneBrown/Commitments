@@ -18,9 +18,9 @@ namespace Commitments.Api.Features.Notes;
 
  public class GetNotesQueryHandler : IRequestHandler<GetNotesQueryRequest, GetNotesQueryResponse>
  {
-     private readonly IAppDbContext _context;
+     private readonly ICommimentsDbContext _context;
 
-     public GetNotesQueryHandler(IAppDbContext context) => _context = context;
+     public GetNotesQueryHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetNotesQueryResponse> Handle(GetNotesQueryRequest request, CancellationToken cancellationToken)
          => new GetNotesQueryResponse()

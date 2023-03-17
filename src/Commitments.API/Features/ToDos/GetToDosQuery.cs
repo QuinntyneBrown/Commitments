@@ -20,7 +20,7 @@ namespace Commitments.Api.Features.ToDos;
 
  public class GetToDosQueryHandler : IRequestHandler<GetToDosQueryRequest, GetToDosQueryResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
 
      public async Task<GetToDosQueryResponse> Handle(GetToDosQueryRequest request, CancellationToken cancellationToken)

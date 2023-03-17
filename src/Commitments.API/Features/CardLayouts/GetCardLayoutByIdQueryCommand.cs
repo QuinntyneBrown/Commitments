@@ -26,7 +26,7 @@ namespace Commitments.Api.Features.CardLayouts;
 
  public class GetCardLayoutByIdQueryCommandHandler : IRequestHandler<GetCardLayoutByIdQueryRequest, GetCardLayoutByIdQueryResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
 
      public async Task<GetCardLayoutByIdQueryResponse> Handle(GetCardLayoutByIdQueryRequest request, CancellationToken cancellationToken)

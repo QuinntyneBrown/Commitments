@@ -26,9 +26,9 @@ namespace Commitments.Api.Features.Dashboards;
 
  public class GetDashboardByIdQueryCommandHandler : IRequestHandler<GetDashboardByIdQueryRequest, GetDashboardByIdQueryResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public GetDashboardByIdQueryCommandHandler(IAppDbContext context) => _context = context;
+     public GetDashboardByIdQueryCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetDashboardByIdQueryResponse> Handle(GetDashboardByIdQueryRequest request, CancellationToken cancellationToken)
          => new GetDashboardByIdQueryResponse()

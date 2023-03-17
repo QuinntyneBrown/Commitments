@@ -18,9 +18,9 @@ namespace Commitments.Api.Features.DashboardCards;
 
  public class SaveDashboardCardRangeCommandHandler : IRequestHandler<SaveDashboardCardRangeCommandRequest, SaveDashboardCardRangeCommandResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
      public IMediator _mediator { get; set; }
-     public SaveDashboardCardRangeCommandHandler(IAppDbContext context, IMediator mediator) {
+     public SaveDashboardCardRangeCommandHandler(ICommimentsDbContext context, IMediator mediator) {
          _context = context;
          _mediator = mediator;
      }

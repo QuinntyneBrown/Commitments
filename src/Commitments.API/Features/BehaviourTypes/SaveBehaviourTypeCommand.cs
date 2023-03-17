@@ -1,4 +1,4 @@
-using Commitments.Core.Entities;
+using Commitments.Core.AggregateModel;
 using Commitments.Core.Interfaces;
 using FluentValidation;
 using MediatR;
@@ -26,9 +26,9 @@ namespace Commitments.Api.Features.BehaviourTypes;
 
  public class SaveBehaviourTypeCommandHandler : IRequestHandler<SaveBehaviourTypeCommandRequest, SaveBehaviourTypeCommandResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public SaveBehaviourTypeCommandHandler(IAppDbContext context) => _context = context;
+     public SaveBehaviourTypeCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<SaveBehaviourTypeCommandResponse> Handle(SaveBehaviourTypeCommandRequest request, CancellationToken cancellationToken)
      {

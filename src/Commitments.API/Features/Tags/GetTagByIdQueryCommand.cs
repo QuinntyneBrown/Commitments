@@ -26,9 +26,9 @@ namespace Commitments.Api.Features.Tags;
 
  public class GetTagByIdQueryCommandHandler : IRequestHandler<GetTagByIdQueryRequest, GetTagByIdQueryResponse>
  {
-     private readonly IAppDbContext _context;
+     private readonly ICommimentsDbContext _context;
 
-     public GetTagByIdQueryCommandHandler(IAppDbContext context) => _context = context;
+     public GetTagByIdQueryCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetTagByIdQueryResponse> Handle(GetTagByIdQueryRequest request, CancellationToken cancellationToken)
          => new GetTagByIdQueryResponse()

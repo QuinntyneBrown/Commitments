@@ -26,9 +26,9 @@ namespace Commitments.Api.Features.Frequencies;
 
  public class GetFrequencyByIdQueryCommandHandler : IRequestHandler<GetFrequencyByIdQueryRequest, GetFrequencyByIdQueryResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public GetFrequencyByIdQueryCommandHandler(IAppDbContext context) => _context = context;
+     public GetFrequencyByIdQueryCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetFrequencyByIdQueryResponse> Handle(GetFrequencyByIdQueryRequest request, CancellationToken cancellationToken)
          => new GetFrequencyByIdQueryResponse()

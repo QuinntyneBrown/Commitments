@@ -18,7 +18,7 @@ namespace Commitments.Api.Features.CardLayouts;
 
  public class GetCardLayoutsQueryHandler : IRequestHandler<GetCardLayoutsQueryRequest, GetCardLayoutsQueryResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
 
      public async Task<GetCardLayoutsQueryResponse> Handle(GetCardLayoutsQueryRequest request, CancellationToken cancellationToken)

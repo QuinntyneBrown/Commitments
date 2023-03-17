@@ -20,8 +20,8 @@ namespace Commitments.Api.Features.Commitments;
 
  public class GetDailyCommitmentsQueryHandler : IRequestHandler<GetDailyCommitmentsQueryRequest, GetDailyCommitmentsQueryResponse>
  {
-     public IAppDbContext _context { get; set; }
-     public GetDailyCommitmentsQueryHandler(IAppDbContext context) => _context = context;
+     public ICommimentsDbContext _context { get; set; }
+     public GetDailyCommitmentsQueryHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetDailyCommitmentsQueryResponse> Handle(GetDailyCommitmentsQueryRequest request, CancellationToken cancellationToken)
          => new GetDailyCommitmentsQueryResponse()

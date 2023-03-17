@@ -18,9 +18,9 @@ namespace Commitments.Api.Features.Cards;
 
  public class GetCardsQueryHandler : IRequestHandler<GetCardsQueryRequest, GetCardsQueryResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public GetCardsQueryHandler(IAppDbContext context) => _context = context;
+     public GetCardsQueryHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetCardsQueryResponse> Handle(GetCardsQueryRequest request, CancellationToken cancellationToken)
          => new GetCardsQueryResponse()

@@ -20,8 +20,8 @@ namespace Commitments.Api.Features.DashboardCards;
 
  public class GetDashboardCardByIdsQueryHandler : IRequestHandler<GetDashboardCardByIdsQueryRequest, GetDashboardCardByIdsQueryResponse>
  {
-     public IAppDbContext _context { get; set; }
-     public GetDashboardCardByIdsQueryHandler(IAppDbContext context) => _context = context;
+     public ICommimentsDbContext _context { get; set; }
+     public GetDashboardCardByIdsQueryHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetDashboardCardByIdsQueryResponse> Handle(GetDashboardCardByIdsQueryRequest request, CancellationToken cancellationToken)
          => new GetDashboardCardByIdsQueryResponse()

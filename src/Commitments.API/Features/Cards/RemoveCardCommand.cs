@@ -22,9 +22,9 @@ namespace Commitments.Api.Features.Cards;
 
  public class RemoveCardCommandHandler : IRequestHandler<RemoveCardCommandRequest>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public RemoveCardCommandHandler(IAppDbContext context) => _context = context;
+     public RemoveCardCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task Handle(RemoveCardCommandRequest request, CancellationToken cancellationToken)
      {

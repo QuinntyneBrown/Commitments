@@ -23,9 +23,9 @@ namespace Commitments.Api.Features.Tags;
 
  public class RemoveTagCommandHandler : IRequestHandler<RemoveTagCommandRequest, RemoveTagCommandResponse>
  {
-     private readonly IAppDbContext _context;
+     private readonly ICommimentsDbContext _context;
 
-     public RemoveTagCommandHandler(IAppDbContext context) => _context = context;
+     public RemoveTagCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<RemoveTagCommandResponse> Handle(RemoveTagCommandRequest request, CancellationToken cancellationToken)
      {

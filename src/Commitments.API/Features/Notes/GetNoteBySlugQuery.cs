@@ -19,9 +19,9 @@ namespace Commitments.Api.Features.Notes;
 
  public class GetNoteBySlugQueryHandler : IRequestHandler<GetNoteBySlugQueryRequest, GetNoteBySlugQueryResponse>
  {
-     private readonly IAppDbContext _context;
+     private readonly ICommimentsDbContext _context;
 
-     public GetNoteBySlugQueryHandler(IAppDbContext context) => _context = context;
+     public GetNoteBySlugQueryHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetNoteBySlugQueryResponse> Handle(GetNoteBySlugQueryRequest request, CancellationToken cancellationToken)
      {

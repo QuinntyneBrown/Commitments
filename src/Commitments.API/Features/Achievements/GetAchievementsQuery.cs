@@ -22,8 +22,8 @@ namespace Commitments.Api.Features.Achievements;
 
  public class GetAchievementsQueryHandler : IRequestHandler<GetAchievementsQueryRequest, GetAchievementsQueryResponse>
  {
-     public IAppDbContext _context { get; set; }
-     public GetAchievementsQueryHandler(IAppDbContext context) => _context = context;
+     public ICommimentsDbContext _context { get; set; }
+     public GetAchievementsQueryHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetAchievementsQueryResponse> Handle(GetAchievementsQueryRequest request, CancellationToken cancellationToken)
      {

@@ -30,7 +30,7 @@ public class Program
 
         using (var scope = services.CreateScope())
         {
-            var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            var context = scope.ServiceProvider.GetRequiredService<CommitmentsDbContext>();
 
             if (args.Contains("ci"))
                 args = new string[4] { "dropdb", "migratedb", "seeddb", "stop" };

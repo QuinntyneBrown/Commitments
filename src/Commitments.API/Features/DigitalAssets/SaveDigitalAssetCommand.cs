@@ -2,7 +2,7 @@ using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core.Entities;
+using Commitments.Core.AggregateModel;
 using Commitments.Core.Interfaces;
 using System;
 
@@ -27,9 +27,9 @@ namespace Commitments.Api.Features.DigitalAssets;
 
  public class SaveDigitalAssetCommandHandler : IRequestHandler<SaveDigitalAssetCommandRequest, SaveDigitalAssetCommandResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public SaveDigitalAssetCommandHandler(IAppDbContext context) => _context = context;
+     public SaveDigitalAssetCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<SaveDigitalAssetCommandResponse> Handle(SaveDigitalAssetCommandRequest request, CancellationToken cancellationToken)
      {

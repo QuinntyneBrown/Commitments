@@ -19,9 +19,9 @@ namespace Commitments.Api.Features.Tags;
 
  public class GetTagBySlugQueryHandler : IRequestHandler<GetTagBySlugQueryRequest, GetTagBySlugQueryResponse>
  {
-     private readonly IAppDbContext _context;
+     private readonly ICommimentsDbContext _context;
 
-     public GetTagBySlugQueryHandler(IAppDbContext context) => _context = context;
+     public GetTagBySlugQueryHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetTagBySlugQueryResponse> Handle(GetTagBySlugQueryRequest request, CancellationToken cancellationToken)
          => new GetTagBySlugQueryResponse()

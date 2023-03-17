@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Commitments.Core.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Commitments.Core.Entities;
+using Commitments.Core.AggregateModel;
 using Commitments.Core.Identity;
 
 
@@ -27,9 +27,9 @@ namespace Commitments.Api.Features.Profiles;
 
  public class CreateProfileCommandHandler : IRequestHandler<CreateProfileCommandRequest, CreateProfileCommandResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
      public IPasswordHasher _passwordHasher { get; set; }
-     public CreateProfileCommandHandler(IAppDbContext context, IPasswordHasher passwordHasher) {
+     public CreateProfileCommandHandler(ICommimentsDbContext context, IPasswordHasher passwordHasher) {
          _context = context;
          _passwordHasher = passwordHasher;
      }

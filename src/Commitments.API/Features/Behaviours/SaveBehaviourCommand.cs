@@ -2,7 +2,7 @@ using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core.Entities;
+using Commitments.Core.AggregateModel;
 using Commitments.Core.Interfaces;
 using Commitments.Core.Extensions;
 
@@ -27,9 +27,9 @@ namespace Commitments.Api.Features.Behaviours;
 
  public class SaveBehaviourCommandHandler : IRequestHandler<SaveBehaviourCommandRequest, SaveBehaviourCommandResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public SaveBehaviourCommandHandler(IAppDbContext context) => _context = context;
+     public SaveBehaviourCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<SaveBehaviourCommandResponse> Handle(SaveBehaviourCommandRequest request, CancellationToken cancellationToken)
      {

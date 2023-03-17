@@ -26,7 +26,7 @@ namespace Commitments.Api.Features.ToDos;
 
  public class GetToDoByIdQueryCommandHandler : IRequestHandler<GetToDoByIdQueryRequest, GetToDoByIdQueryResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
 
      public async Task<GetToDoByIdQueryResponse> Handle(GetToDoByIdQueryRequest request, CancellationToken cancellationToken)

@@ -27,9 +27,9 @@ namespace Commitments.Api.Features.DigitalAssets;
 
  public class GetDigitalAssetByIdQueryCommandHandler : IRequestHandler<GetDigitalAssetByIdQueryRequest, GetDigitalAssetByIdQueryResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public GetDigitalAssetByIdQueryCommandHandler(IAppDbContext context) => _context = context;
+     public GetDigitalAssetByIdQueryCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetDigitalAssetByIdQueryResponse> Handle(GetDigitalAssetByIdQueryRequest request, CancellationToken cancellationToken)
          => new GetDigitalAssetByIdQueryResponse()

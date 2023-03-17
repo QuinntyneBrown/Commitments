@@ -20,8 +20,8 @@ namespace Commitments.Api.Features.Commitments;
 
  public class GetPersonalCommitmentsQueryHandler : IRequestHandler<GetPersonalCommitmentsQueryRequest, GetPersonalCommitmentsQueryResponse>
  {
-     public IAppDbContext _context { get; set; }
-     public GetPersonalCommitmentsQueryHandler(IAppDbContext context) => _context = context;
+     public ICommimentsDbContext _context { get; set; }
+     public GetPersonalCommitmentsQueryHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetPersonalCommitmentsQueryResponse> Handle(GetPersonalCommitmentsQueryRequest request, CancellationToken cancellationToken)
          => new GetPersonalCommitmentsQueryResponse()

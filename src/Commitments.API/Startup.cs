@@ -1,8 +1,8 @@
 using Commitments.Api.Behaviors;
+using Commitments.Core;
 using Commitments.Core.Behaviours;
 using Commitments.Core.Extensions;
 using Commitments.Core.Identity;
-using Commitments.Infrastructure.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -26,7 +26,7 @@ public class Startup
         services.AddCustomSecurity(Configuration);
         services.AddCustomSignalR();                        
         services.AddCustomSwagger();            
-        services.AddDataStore(Configuration["Data:DefaultConnection:ConnectionString"]);
+        services.AddInfrastructureServices(Configuration["Data:DefaultConnection:ConnectionString"]);
         services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblyContaining<Startup>());                        
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(EntityChangedBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));

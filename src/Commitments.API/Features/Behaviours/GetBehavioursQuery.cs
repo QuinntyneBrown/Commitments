@@ -18,9 +18,9 @@ namespace Commitments.Api.Features.Behaviours;
 
  public class GetBehavioursQueryHandler : IRequestHandler<GetBehavioursQueryRequest, GetBehavioursQueryResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public GetBehavioursQueryHandler(IAppDbContext context) => _context = context;
+     public GetBehavioursQueryHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetBehavioursQueryResponse> Handle(GetBehavioursQueryRequest request, CancellationToken cancellationToken)
          => new GetBehavioursQueryResponse()

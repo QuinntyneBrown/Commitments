@@ -22,8 +22,8 @@ namespace Commitments.Api.Features.Profiles;
 
  public class SaveAvatarCommandHandler : IRequestHandler<SaveAvatarCommandRequest, SaveAvatarCommandResponse>
  {
-     public IAppDbContext _context { get; set; }
-     public SaveAvatarCommandHandler(IAppDbContext context) => _context = context;
+     public ICommimentsDbContext _context { get; set; }
+     public SaveAvatarCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<SaveAvatarCommandResponse> Handle(SaveAvatarCommandRequest request, CancellationToken cancellationToken) {
          var profile = _context.Profiles.Find(request.ProfileId);

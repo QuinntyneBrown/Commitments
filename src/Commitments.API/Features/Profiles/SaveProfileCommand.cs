@@ -2,7 +2,7 @@ using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core.Entities;
+using Commitments.Core.AggregateModel;
 using Commitments.Core.Interfaces;
 
 
@@ -26,9 +26,9 @@ namespace Commitments.Api.Features.Profiles;
 
  public class SaveProfileCommandHandler : IRequestHandler<SaveProfileCommandRequest, SaveProfileCommandResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public SaveProfileCommandHandler(IAppDbContext context) => _context = context;
+     public SaveProfileCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<SaveProfileCommandResponse> Handle(SaveProfileCommandRequest request, CancellationToken cancellationToken)
      {

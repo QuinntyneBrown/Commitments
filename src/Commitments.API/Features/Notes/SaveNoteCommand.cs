@@ -1,5 +1,5 @@
 using FluentValidation;
-using Commitments.Core.Entities;
+using Commitments.Core.AggregateModel;
 using Commitments.Core.Interfaces;
 using Commitments.Core.Extensions;
 using MediatR;
@@ -28,9 +28,9 @@ namespace Commitments.Api.Features.Notes;
 
  public class SaveNoteCommandHandler : IRequestHandler<SaveNoteCommandRequest, SaveNoteCommandResponse>
  {
-     private readonly IAppDbContext _context;
+     private readonly ICommimentsDbContext _context;
 
-     public SaveNoteCommandHandler(IAppDbContext context) => _context = context;
+     public SaveNoteCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<SaveNoteCommandResponse> Handle(SaveNoteCommandRequest request, CancellationToken cancellationToken)
      {

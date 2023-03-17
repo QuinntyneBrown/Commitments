@@ -26,9 +26,9 @@ namespace Commitments.Api.Features.Profiles;
 
  public class GetProfileByIdQueryCommandHandler : IRequestHandler<GetProfileByIdQueryRequest, GetProfileByIdQueryResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public GetProfileByIdQueryCommandHandler(IAppDbContext context) => _context = context;
+     public GetProfileByIdQueryCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetProfileByIdQueryResponse> Handle(GetProfileByIdQueryRequest request, CancellationToken cancellationToken)
          => new GetProfileByIdQueryResponse()

@@ -2,7 +2,7 @@ using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core.Entities;
+using Commitments.Core.AggregateModel;
 using Commitments.Core.Interfaces;
 
 
@@ -26,7 +26,7 @@ namespace Commitments.Api.Features.ToDos;
 
  public class SaveToDoCommandHandler : IRequestHandler<SaveToDoCommandRequest, SaveToDoCommandResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
 
      public async Task<SaveToDoCommandResponse> Handle(SaveToDoCommandRequest request, CancellationToken cancellationToken)

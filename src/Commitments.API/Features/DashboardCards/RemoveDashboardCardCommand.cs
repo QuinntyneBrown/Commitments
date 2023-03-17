@@ -22,9 +22,9 @@ namespace Commitments.Api.Features.DashboardCards;
 
  public class RemoveDashboardCardCommandHandler : IRequestHandler<RemoveDashboardCardCommandRequest>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public RemoveDashboardCardCommandHandler(IAppDbContext context) => _context = context;
+     public RemoveDashboardCardCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task Handle(RemoveDashboardCardCommandRequest request, CancellationToken cancellationToken)
      {

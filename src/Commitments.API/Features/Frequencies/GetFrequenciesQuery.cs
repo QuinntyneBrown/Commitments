@@ -18,9 +18,9 @@ namespace Commitments.Api.Features.Frequencies;
 
  public class GetFrequenciesQueryHandler : IRequestHandler<GetFrequenciesQueryRequest, GetFrequenciesQueryResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public GetFrequenciesQueryHandler(IAppDbContext context) => _context = context;
+     public GetFrequenciesQueryHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetFrequenciesQueryResponse> Handle(GetFrequenciesQueryRequest request, CancellationToken cancellationToken)
          => new GetFrequenciesQueryResponse()

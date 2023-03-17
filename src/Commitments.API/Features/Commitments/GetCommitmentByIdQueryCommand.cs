@@ -26,9 +26,9 @@ namespace Commitments.Api.Features.Commitments;
 
  public class GetCommitmentByIdQueryCommandHandler : IRequestHandler<GetCommitmentByIdQueryRequest, GetCommitmentByIdQueryResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public GetCommitmentByIdQueryCommandHandler(IAppDbContext context) => _context = context;
+     public GetCommitmentByIdQueryCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetCommitmentByIdQueryResponse> Handle(GetCommitmentByIdQueryRequest request, CancellationToken cancellationToken)
          => new GetCommitmentByIdQueryResponse()

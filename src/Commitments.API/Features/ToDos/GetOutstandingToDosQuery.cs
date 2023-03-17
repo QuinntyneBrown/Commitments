@@ -20,8 +20,8 @@ namespace Commitments.Api.Features.ToDos;
 
  public class GetOutstandingToDosQueryHandler : IRequestHandler<GetOutstandingToDosQueryRequest, GetOutstandingToDosQueryResponse>
  {
-     public IAppDbContext _context { get; set; }
-     public GetOutstandingToDosQueryHandler(IAppDbContext context) => _context = context;
+     public ICommimentsDbContext _context { get; set; }
+     public GetOutstandingToDosQueryHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetOutstandingToDosQueryResponse> Handle(GetOutstandingToDosQueryRequest request, CancellationToken cancellationToken)
          => new GetOutstandingToDosQueryResponse()

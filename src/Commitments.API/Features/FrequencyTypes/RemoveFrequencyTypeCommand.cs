@@ -2,7 +2,7 @@ using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core.Entities;
+using Commitments.Core.AggregateModel;
 using Commitments.Core.Interfaces;
 
 
@@ -23,9 +23,9 @@ namespace Commitments.Api.Features.FrequencyTypes;
 
  public class RemoveFrequencyTypeCommandHandler : IRequestHandler<RemoveFrequencyTypeCommandRequest>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public RemoveFrequencyTypeCommandHandler(IAppDbContext context) => _context = context;
+     public RemoveFrequencyTypeCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task Handle(RemoveFrequencyTypeCommandRequest request, CancellationToken cancellationToken)
      {

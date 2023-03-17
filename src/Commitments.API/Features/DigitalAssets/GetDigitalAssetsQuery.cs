@@ -18,9 +18,9 @@ namespace Commitments.Api.Features.DigitalAssets;
 
  public class GetDigitalAssetsQueryHandler : IRequestHandler<GetDigitalAssetsQueryRequest, GetDigitalAssetsQueryResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public GetDigitalAssetsQueryHandler(IAppDbContext context) => _context = context;
+     public GetDigitalAssetsQueryHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetDigitalAssetsQueryResponse> Handle(GetDigitalAssetsQueryRequest request, CancellationToken cancellationToken)
          => new GetDigitalAssetsQueryResponse()

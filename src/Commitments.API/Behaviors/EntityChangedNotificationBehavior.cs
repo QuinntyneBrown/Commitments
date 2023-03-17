@@ -15,10 +15,10 @@ public class EntityChangedBehavior<TRequest, TResponse> : IPipelineBehavior<TReq
     where TRequest : IRequest<TResponse>
 
 {
-    private readonly IHubContext<AppHub> _hubContext;
-    private readonly IAppDbContext _context;
+    private readonly IHubContext<CommitmentsHub> _hubContext;
+    private readonly ICommimentsDbContext _context;
 
-    public EntityChangedBehavior(IHubContext<AppHub> hubContext, IAppDbContext context)
+    public EntityChangedBehavior(IHubContext<CommitmentsHub> hubContext, ICommimentsDbContext context)
     {
         _hubContext = hubContext;
         _context = context;

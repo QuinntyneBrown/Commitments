@@ -2,7 +2,7 @@ using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core.Entities;
+using Commitments.Core.AggregateModel;
 using Commitments.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,9 +27,9 @@ namespace Commitments.Api.Features.Frequencies;
 
  public class SaveFrequencyCommandHandler : IRequestHandler<SaveFrequencyCommandRequest, SaveFrequencyCommandResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public SaveFrequencyCommandHandler(IAppDbContext context) => _context = context;
+     public SaveFrequencyCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<SaveFrequencyCommandResponse> Handle(SaveFrequencyCommandRequest request, CancellationToken cancellationToken)
      {

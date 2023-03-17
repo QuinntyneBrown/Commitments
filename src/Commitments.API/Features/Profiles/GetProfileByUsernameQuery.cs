@@ -18,8 +18,8 @@ namespace Commitments.Api.Features.Profiles;
 
  public class GetProfileByUsernameQueryHandler : IRequestHandler<GetProfileByUsernameQueryRequest, GetProfileByUsernameQueryResponse>
  {
-     public IAppDbContext _context { get; set; }
-     public GetProfileByUsernameQueryHandler(IAppDbContext context) => _context = context;
+     public ICommimentsDbContext _context { get; set; }
+     public GetProfileByUsernameQueryHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetProfileByUsernameQueryResponse> Handle(GetProfileByUsernameQueryRequest request, CancellationToken cancellationToken) 
          => new GetProfileByUsernameQueryResponse()

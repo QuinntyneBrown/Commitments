@@ -20,9 +20,9 @@ namespace Commitments.Api.Features.Dashboards;
 
  public class GetDashboardByProfileIdQueryHandler : IRequestHandler<GetDashboardByProfileIdQueryRequest, GetDashboardByProfileIdQueryResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public GetDashboardByProfileIdQueryHandler(IAppDbContext context) => _context = context;
+     public GetDashboardByProfileIdQueryHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetDashboardByProfileIdQueryResponse> Handle(GetDashboardByProfileIdQueryRequest request, CancellationToken cancellationToken)
          => new GetDashboardByProfileIdQueryResponse()

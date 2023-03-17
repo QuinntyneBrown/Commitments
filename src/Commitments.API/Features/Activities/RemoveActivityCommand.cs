@@ -2,7 +2,7 @@ using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core.Entities;
+using Commitments.Core.AggregateModel;
 using Commitments.Core.Interfaces;
 
 
@@ -23,9 +23,9 @@ namespace Commitments.Api.Features.Activities;
 
  public class RemoveActivityCommandHandler : IRequestHandler<RemoveActivityCommandRequest>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public RemoveActivityCommandHandler(IAppDbContext context) => _context = context;
+     public RemoveActivityCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task Handle(RemoveActivityCommandRequest request, CancellationToken cancellationToken)
      {

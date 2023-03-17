@@ -18,9 +18,9 @@ namespace Commitments.Api.Features.Activities;
 
  public class GetActivitiesQueryHandler : IRequestHandler<GetActivitiesQueryRequest, GetActivitiesQueryResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public GetActivitiesQueryHandler(IAppDbContext context) => _context = context;
+     public GetActivitiesQueryHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetActivitiesQueryResponse> Handle(GetActivitiesQueryRequest request, CancellationToken cancellationToken)
          => new GetActivitiesQueryResponse()

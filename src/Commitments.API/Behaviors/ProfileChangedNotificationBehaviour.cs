@@ -13,10 +13,10 @@ public class ProfileChangedBehavior<TRequest, TResponse> : IPipelineBehavior<TRe
     where TRequest : IRequest<TResponse>
 
 {
-    private readonly IHubContext<AppHub> _hubContext;
-    private readonly IAppDbContext _context;
+    private readonly IHubContext<CommitmentsHub> _hubContext;
+    private readonly ICommimentsDbContext _context;
 
-    public ProfileChangedBehavior(IHubContext<AppHub> hubContext, IAppDbContext context)
+    public ProfileChangedBehavior(IHubContext<CommitmentsHub> hubContext, ICommimentsDbContext context)
     {
         _hubContext = hubContext;
         _context = context;

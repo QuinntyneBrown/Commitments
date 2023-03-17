@@ -22,9 +22,9 @@ namespace Commitments.Api.Features.Commitments;
 
  public class RemoveCommitmentCommandHandler : IRequestHandler<RemoveCommitmentCommandRequest>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public RemoveCommitmentCommandHandler(IAppDbContext context) => _context = context;
+     public RemoveCommitmentCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task Handle(RemoveCommitmentCommandRequest request, CancellationToken cancellationToken)
      {

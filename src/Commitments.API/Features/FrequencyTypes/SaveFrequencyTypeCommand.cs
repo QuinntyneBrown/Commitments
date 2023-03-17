@@ -2,7 +2,7 @@ using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core.Entities;
+using Commitments.Core.AggregateModel;
 using Commitments.Core.Interfaces;
 
 
@@ -26,9 +26,9 @@ namespace Commitments.Api.Features.FrequencyTypes;
 
  public class SaveFrequencyTypeCommandHandler : IRequestHandler<SaveFrequencyTypeCommandRequest, SaveFrequencyTypeCommandResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public SaveFrequencyTypeCommandHandler(IAppDbContext context) => _context = context;
+     public SaveFrequencyTypeCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<SaveFrequencyTypeCommandResponse> Handle(SaveFrequencyTypeCommandRequest request, CancellationToken cancellationToken)
      {

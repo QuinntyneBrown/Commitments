@@ -1,4 +1,4 @@
-using Commitments.Core.Entities;
+using Commitments.Core.AggregateModel;
 using Commitments.Core.Interfaces;
 using Commitments.Core.Identity;
 using MediatR;
@@ -36,11 +36,11 @@ namespace Commitments.Api.Features.Users;
 
  public class AuthenticateCommandHandler : IRequestHandler<AuthenticateCommandRequest, AuthenticateCommandResponse>
  {
-     private readonly IAppDbContext _context;
+     private readonly ICommimentsDbContext _context;
      private readonly IPasswordHasher _passwordHasher;
      private readonly ITokenProvider _tokenProvider;
 
-     public AuthenticateCommandHandler(IAppDbContext context, ITokenProvider tokenProvider, IPasswordHasher passwordHasher)
+     public AuthenticateCommandHandler(ICommimentsDbContext context, ITokenProvider tokenProvider, IPasswordHasher passwordHasher)
      {
          _context = context;
          _tokenProvider = tokenProvider;

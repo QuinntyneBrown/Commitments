@@ -2,7 +2,7 @@ using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core.Entities;
+using Commitments.Core.AggregateModel;
 using Commitments.Core.Interfaces;
 
 
@@ -26,9 +26,9 @@ namespace Commitments.Api.Features.Dashboards;
 
  public class SaveDashboardCommandHandler : IRequestHandler<SaveDashboardCommandRequest, SaveDashboardCommandResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public SaveDashboardCommandHandler(IAppDbContext context) => _context = context;
+     public SaveDashboardCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<SaveDashboardCommandResponse> Handle(SaveDashboardCommandRequest request, CancellationToken cancellationToken)
      {

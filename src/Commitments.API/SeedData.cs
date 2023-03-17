@@ -1,5 +1,5 @@
 using Commitments.Api.Features.DashboardCards;
-using Commitments.Core.Entities;
+using Commitments.Core.AggregateModel;
 using Commitments.Core.Identity;
 using Commitments.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +11,7 @@ namespace Commitments.Api;
 
 public class SeedData
 {
-    public static void Seed(AppDbContext context)
+    public static void Seed(CommitmentsDbContext context)
     {
         BehaviourTypeConfiguration.Seed(context);
         CardConfiguration.Seed(context);
@@ -27,7 +27,7 @@ public class SeedData
 
     internal class BehaviourTypeConfiguration
     {
-        public static void Seed(AppDbContext context)
+        public static void Seed(CommitmentsDbContext context)
         {
             if (context.BehaviourTypes.FirstOrDefault(x => x.Name == "Acts Of Service") == null)
                 context.BehaviourTypes.Add(new BehaviourType() { Name = "Acts Of Service" });
@@ -59,7 +59,7 @@ public class SeedData
 
     internal class CardLayoutConfiguration
     {
-        public static void Seed(AppDbContext context)
+        public static void Seed(CommitmentsDbContext context)
         {
             if (context.CardLayouts.FirstOrDefault(x => x.Name == "Poster") == null)
                 context.CardLayouts.Add(new CardLayout() { Name = "Poster" });
@@ -70,7 +70,7 @@ public class SeedData
 
     internal class CardConfiguration
     {
-        public static void Seed(AppDbContext context)
+        public static void Seed(CommitmentsDbContext context)
         {
             if (context.Cards.FirstOrDefault(x => x.Name == "Daily Results") == null)
                 context.Cards.Add(new Card() { Name = "Daily Results" });
@@ -93,7 +93,7 @@ public class SeedData
 
     internal class DashboardConfiguration {
 
-        public static void Seed(AppDbContext context)
+        public static void Seed(CommitmentsDbContext context)
         {
             if(context.Dashboards.FirstOrDefault(x=> x.Name == "Default" && x.ProfileId == 1) == null)
             {
@@ -111,7 +111,7 @@ public class SeedData
     internal class DashboardCardConfiguration
     {
 
-        public static void Seed(AppDbContext context)
+        public static void Seed(CommitmentsDbContext context)
         {
             var dashboard = context.Dashboards.Include(x => x.DashboardCards).First(x => x.ProfileId == 1);
 
@@ -137,7 +137,7 @@ public class SeedData
 
     internal class FrequencyTypeConfiguration
     {
-        public static void Seed(AppDbContext context)
+        public static void Seed(CommitmentsDbContext context)
         {
             if (context.FrequencyTypes.FirstOrDefault(x => x.Name == "per day") == null)
                 context.FrequencyTypes.Add(new FrequencyType() { Name = "per day" });
@@ -157,7 +157,7 @@ public class SeedData
 
     internal class UserConfiguration
     {
-        public static void Seed(AppDbContext context)
+        public static void Seed(CommitmentsDbContext context)
         {
             User user = default(User);
 
@@ -186,7 +186,7 @@ public class SeedData
 
     internal class TagConfiguration
     {
-        public static void Seed(AppDbContext context)
+        public static void Seed(CommitmentsDbContext context)
         {
             context.SaveChanges();
         }

@@ -6,21 +6,21 @@ using System.IO;
 
 namespace Commitments.Infrastructure.Data;
 
-public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
+public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<CommitmentsDbContext>
 {
-    public AppDbContext CreateDbContext(string[] args)
+    public CommitmentsDbContext CreateDbContext(string[] args)
     {
         IConfigurationRoot configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json")
             .Build();
 
-        var builder = new DbContextOptionsBuilder<AppDbContext>();
+        var builder = new DbContextOptionsBuilder<CommitmentsDbContext>();
 
         var connectionString = configuration["Data:DefaultConnection:ConnectionString"];
 
         builder.UseSqlServer(connectionString);
 
-        return new AppDbContext(builder.Options);
+        return new CommitmentsDbContext(builder.Options);
     }
 }

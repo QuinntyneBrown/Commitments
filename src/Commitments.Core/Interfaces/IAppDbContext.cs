@@ -1,4 +1,4 @@
-using Commitments.Core.Entities;
+using Commitments.Core.AggregateModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading;
@@ -7,25 +7,25 @@ using System.Threading.Tasks;
 
 namespace Commitments.Core.Interfaces;
 
-public interface IAppDbContext: IDisposable
+public interface ICommimentsDbContext: IDisposable
 {
-    DbSet<Activity> Activities { get; set; }
-    DbSet<Behaviour> Behaviours { get; set; }
-    DbSet<BehaviourType> BehaviourTypes { get; set; }
-    DbSet<Card> Cards { get; set; }
-    DbSet<CardLayout> CardLayouts { get; set; }
-    DbSet<Commitment> Commitments { get; set; }
-    DbSet<Dashboard> Dashboards { get; set; }
-    DbSet<DashboardCard> DashboardCards { get; set; }
-    DbSet<DigitalAsset> DigitalAssets { get; set; }
-    DbSet<Frequency> Frequencies { get; set; }
-    DbSet<FrequencyType> FrequencyTypes { get; set; }
-    DbSet<Note> Notes { get; set; }
-    DbSet<PodCast> PodCasts { get; set; }
-    DbSet<Profile> Profiles { get; set; }
-    DbSet<Commitment> ProfileCommitments { get; set; }
-    DbSet<Tag> Tags { get; set; }
-    DbSet<ToDo> ToDos { get; set; }
-    DbSet<User> Users { get; set; }
+    DbSet<Activity> Activities { get; }
+    DbSet<Behaviour> Behaviours { get; }
+    DbSet<BehaviourType> BehaviourTypes { get; }
+    DbSet<Card> Cards { get; }
+    DbSet<CardLayout> CardLayouts { get; }
+    DbSet<Commitment> Commitments { get; }
+    DbSet<Dashboard> Dashboards { get; }
+    DbSet<DashboardCard> DashboardCards { get; }
+    DbSet<DigitalAsset> DigitalAssets { get; }
+    DbSet<Frequency> Frequencies { get; }
+    DbSet<FrequencyType> FrequencyTypes { get; }
+    DbSet<Note> Notes { get; }
+    DbSet<PodCast> PodCasts { get; }
+    DbSet<Profile> Profiles { get; }
+    DbSet<Commitment> ProfileCommitments { get; }
+    DbSet<Tag> Tags { get; }
+    DbSet<ToDo> ToDos { get; }
+    DbSet<User> Users { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

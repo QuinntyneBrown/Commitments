@@ -2,7 +2,7 @@ using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core.Entities;
+using Commitments.Core.AggregateModel;
 using Commitments.Core.Interfaces;
 
 
@@ -23,9 +23,9 @@ namespace Commitments.Api.Features.DigitalAssets;
 
  public class RemoveDigitalAssetCommandHandler : IRequestHandler<RemoveDigitalAssetCommandRequest>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public RemoveDigitalAssetCommandHandler(IAppDbContext context) => _context = context;
+     public RemoveDigitalAssetCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task Handle(RemoveDigitalAssetCommandRequest request, CancellationToken cancellationToken)
      {

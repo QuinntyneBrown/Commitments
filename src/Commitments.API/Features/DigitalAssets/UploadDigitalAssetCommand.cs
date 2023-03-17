@@ -11,7 +11,7 @@ using System.Threading;
 
 using Commitments.Core.Interfaces;
 using Commitments.Core.Helpers;
-using Commitments.Core.Entities;
+using Commitments.Core.AggregateModel;
 using System.Linq;
 
 
@@ -26,9 +26,9 @@ namespace Commitments.Api.Features.DigitalAssets;
 
  public class UploadDigitalAssetCommandHandler : IRequestHandler<UploadDigitalAssetCommandRequest, UploadDigitalAssetCommandResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
      public IHttpContextAccessor _httpContextAccessor { get; set; }
-     public UploadDigitalAssetCommandHandler(IAppDbContext context, IHttpContextAccessor httpContextAccessor) {
+     public UploadDigitalAssetCommandHandler(ICommimentsDbContext context, IHttpContextAccessor httpContextAccessor) {
          _context = context;
          _httpContextAccessor = httpContextAccessor;
      }

@@ -2,7 +2,7 @@ using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core.Entities;
+using Commitments.Core.AggregateModel;
 using Commitments.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,9 +27,9 @@ namespace Commitments.Api.Features.Commitments;
 
  public class SaveCommitmentCommandHandler : IRequestHandler<SaveCommitmentCommandRequest, SaveCommitmentCommandResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public SaveCommitmentCommandHandler(IAppDbContext context) => _context = context;
+     public SaveCommitmentCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<SaveCommitmentCommandResponse> Handle(SaveCommitmentCommandRequest request, CancellationToken cancellationToken)
      {

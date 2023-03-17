@@ -27,9 +27,9 @@ namespace Commitments.Api.Features.Activities;
 
  public class GetActivityByIdQueryCommandHandler : IRequestHandler<GetActivityByIdQueryRequest, GetActivityByIdQueryResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
 
-     public GetActivityByIdQueryCommandHandler(IAppDbContext context) => _context = context;
+     public GetActivityByIdQueryCommandHandler(ICommimentsDbContext context) => _context = context;
 
      public async Task<GetActivityByIdQueryResponse> Handle(GetActivityByIdQueryRequest request, CancellationToken cancellationToken)
          => new GetActivityByIdQueryResponse()

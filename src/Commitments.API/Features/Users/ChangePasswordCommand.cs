@@ -22,9 +22,9 @@ namespace Commitments.Api.Features.Users;
 
  public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordCommandRequest, ChangePasswordCommandResponse>
  {
-     public IAppDbContext _context { get; set; }
+     public ICommimentsDbContext _context { get; set; }
      public IPasswordHasher _passwordHasher { get; set; }
-     public ChangePasswordCommandHandler(IAppDbContext context, IPasswordHasher passwordHasher)
+     public ChangePasswordCommandHandler(ICommimentsDbContext context, IPasswordHasher passwordHasher)
      {
          _context = context;
          _passwordHasher = passwordHasher;
