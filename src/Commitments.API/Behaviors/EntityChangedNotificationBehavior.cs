@@ -28,22 +28,22 @@ public class EntityChangedBehavior<TRequest, TResponse> : IPipelineBehavior<TReq
     {
         var response = await next();
 
-        if (typeof(TRequest) == typeof(SaveNoteCommandRequest))
-            return await (HandleSaveNoteCommand(request as SaveNoteCommandRequest, cancellationToken, response as SaveNoteCommandResponse) as Task<TResponse>);
+        if (typeof(TRequest) == typeof(SaveNoteRequest))
+            return await (HandleSaveNoteCommand(request as SaveNoteRequest, cancellationToken, response as SaveNoteResponse) as Task<TResponse>);
 
-        if (typeof(TRequest) == typeof(RemoveNoteCommandRequest))
-            return await (HandleRemoveNoteCommand(request as RemoveNoteCommandRequest, cancellationToken, response as RemoveNoteCommandResponse) as Task<TResponse>);
+        if (typeof(TRequest) == typeof(RemoveNoteRequest))
+            return await (HandleRemoveNoteCommand(request as RemoveNoteRequest, cancellationToken, response as RemoveNoteResponse) as Task<TResponse>);
 
-        if (typeof(TRequest) == typeof(SaveTagCommandRequest))
-            return await (HandleSaveTagCommand(request as SaveTagCommandRequest, cancellationToken, response as SaveTagCommandResponse) as Task<TResponse>);
+        if (typeof(TRequest) == typeof(SaveTagRequest))
+            return await (HandleSaveTagCommand(request as SaveTagRequest, cancellationToken, response as SaveTagResponse) as Task<TResponse>);
 
-        if (typeof(TRequest) == typeof(RemoveTagCommandRequest))
-            return await (HandleRemoveTagCommand(request as RemoveTagCommandRequest, cancellationToken, response as RemoveTagCommandResponse) as Task<TResponse>);
+        if (typeof(TRequest) == typeof(RemoveTagRequest))
+            return await (HandleRemoveTagCommand(request as RemoveTagRequest, cancellationToken, response as RemoveTagResponse) as Task<TResponse>);
 
         return response;
     }
 
-    public async Task<SaveNoteCommandResponse> HandleSaveNoteCommand(SaveNoteCommandRequest request, CancellationToken cancellationToken, SaveNoteCommandResponse response)
+    public async Task<SaveNoteResponse> HandleSaveNoteCommand(SaveNoteRequest request, CancellationToken cancellationToken, SaveNoteResponse response)
     {
         var note = await _context.Notes.FindAsync(response.NoteId);
 
@@ -56,7 +56,7 @@ public class EntityChangedBehavior<TRequest, TResponse> : IPipelineBehavior<TReq
         return response;
     }
 
-    public async Task<RemoveNoteCommandResponse> HandleRemoveNoteCommand(RemoveNoteCommandRequest request, CancellationToken cancellationToken, RemoveNoteCommandResponse response)
+    public async Task<RemoveNoteResponse> HandleRemoveNoteCommand(RemoveNoteRequest request, CancellationToken cancellationToken, RemoveNoteResponse response)
     {
         await _hubContext.Clients.All.SendAsync("message", new
         {
@@ -67,7 +67,7 @@ public class EntityChangedBehavior<TRequest, TResponse> : IPipelineBehavior<TReq
         return response;
     }
 
-    public async Task<SaveTagCommandResponse> HandleSaveTagCommand(SaveTagCommandRequest request, CancellationToken cancellationToken, SaveTagCommandResponse response)
+    public async Task<SaveTagResponse> HandleSaveTagCommand(SaveTagRequest request, CancellationToken cancellationToken, SaveTagResponse response)
     {
         var tag = await _context.Tags.FindAsync(response.TagId);
 
@@ -80,7 +80,7 @@ public class EntityChangedBehavior<TRequest, TResponse> : IPipelineBehavior<TReq
         return response;
     }
 
-    public async Task<RemoveTagCommandResponse> HandleRemoveTagCommand(RemoveTagCommandRequest request, CancellationToken cancellationToken, RemoveTagCommandResponse response)
+    public async Task<RemoveTagResponse> HandleRemoveTagCommand(RemoveTagRequest request, CancellationToken cancellationToken, RemoveTagResponse response)
     {
         await _hubContext.Clients.All.SendAsync("message", new
         {

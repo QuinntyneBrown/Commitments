@@ -1,0 +1,36 @@
+using FluentValidation;
+using MediatR;
+using System.Threading.Tasks;
+using System.Threading;
+using Commitments.Core.AggregateModel;
+using Commitments.Core.Interfaces;
+
+
+namespace Commitments.Api.Features.Dashboards;
+
+ public class RemoveDashboardCommandValidator : AbstractValidator<RemoveDashboardRequest>
+ {
+     public RemoveDashboardCommandValidator()
+     {
+         RuleFor(request => request.DashboardId).NotEqual(0);
+     }
+ }
+
+ public class RemoveDashboardRequest : IRequest
+ {
+     public int DashboardId { get; set; }
+ }
+
+ public class RemoveDashboardCommandHandler : IRequestHandler<RemoveDashboardRequest>
+ {
+     public ICommimentsDbContext _context { get; set; }
+
+     public RemoveDashboardCommandHandler(ICommimentsDbContext context) => _context = context;
+
+     public async Task Handle(RemoveDashboardRequest request, CancellationToken cancellationToken)
+     {
+         _context.Dashboards.Remove(await _context.Dashboards.FindAsync(request.DashboardId));
+         await _context.SaveChangesAsync(cancellationToken);
+     }
+
+ }

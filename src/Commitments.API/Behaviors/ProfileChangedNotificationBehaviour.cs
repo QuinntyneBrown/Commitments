@@ -26,8 +26,8 @@ public class ProfileChangedBehavior<TRequest, TResponse> : IPipelineBehavior<TRe
     {
         var response = await next();
 
-        if (typeof(TRequest) == typeof(SaveAvatarCommandRequest))
-            return await (HandleSaveAvatarCommand(request as SaveAvatarCommandRequest, cancellationToken, response as SaveAvatarCommandResponse) as Task<TResponse>);
+        if (typeof(TRequest) == typeof(SaveAvatarRequest))
+            return await (HandleSaveAvatarCommand(request as SaveAvatarRequest, cancellationToken, response as SaveAvatarResponse) as Task<TResponse>);
 
         return response;
     }
@@ -37,7 +37,7 @@ public class ProfileChangedBehavior<TRequest, TResponse> : IPipelineBehavior<TRe
         throw new System.NotImplementedException();
     }
 
-    public async Task<SaveAvatarCommandResponse> HandleSaveAvatarCommand(SaveAvatarCommandRequest request, CancellationToken cancellationToken, SaveAvatarCommandResponse response)
+    public async Task<SaveAvatarResponse> HandleSaveAvatarCommand(SaveAvatarRequest request, CancellationToken cancellationToken, SaveAvatarResponse response)
     {
         var profile = await _context.Profiles.FindAsync(response.ProfileId);
 
