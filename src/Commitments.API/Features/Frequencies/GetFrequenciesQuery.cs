@@ -13,7 +13,7 @@ namespace Commitments.Api.Features.Frequencies;
 
  public class GetFrequenciesQueryResponse
  {
-     public IEnumerable<FrequencyApiModel> Frequencies { get; set; }
+     public IEnumerable<FrequencyDto> Frequencies { get; set; }
  }
 
  public class GetFrequenciesQueryHandler : IRequestHandler<GetFrequenciesQueryRequest, GetFrequenciesQueryResponse>
@@ -27,7 +27,7 @@ namespace Commitments.Api.Features.Frequencies;
          {
              Frequencies = await _context.Frequencies
              .Include(x =>x.FrequencyType)
-             .Select(x => FrequencyApiModel.FromFrequency(x))
+             .Select(x => FrequencyDto.FromFrequency(x))
              .ToListAsync()
          };
  }

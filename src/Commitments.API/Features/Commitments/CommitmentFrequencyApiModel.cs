@@ -4,18 +4,18 @@ using Commitments.Core.Entities;
 
 namespace Commitments.Api.Features.Commitments;
 
-public class CommitmentFrequencyApiModel
+public class CommitmentFrequencyDto
 {        
     public int CommitmentFrequencyId { get; set; }
     public string Name { get; set; }
     public int? FrequencyId { get; set; }
-    public FrequencyApiModel Frequency { get; set; }
-    public static CommitmentFrequencyApiModel FromCommitmentFrequency(CommitmentFrequency commitmentFrequency)
+    public FrequencyDto Frequency { get; set; }
+    public static CommitmentFrequencyDto FromCommitmentFrequency(CommitmentFrequency commitmentFrequency)
     {
-        var model = new CommitmentFrequencyApiModel();
+        var model = new CommitmentFrequencyDto();
         model.CommitmentFrequencyId = commitmentFrequency.CommitmentFrequencyId;
         model.FrequencyId = commitmentFrequency.FrequencyId;
-        model.Frequency = FrequencyApiModel.FromFrequency(commitmentFrequency.Frequency);
+        model.Frequency = FrequencyDto.FromFrequency(commitmentFrequency.Frequency);
         return model;
     }
 }

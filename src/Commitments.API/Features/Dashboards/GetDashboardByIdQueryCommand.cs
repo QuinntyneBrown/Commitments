@@ -7,7 +7,7 @@ using FluentValidation;
 
 namespace Commitments.Api.Features.Dashboards;
 
- public class GetDashboardByIdQueryCommandValidator : AbstractValidator<GetDashboardByIdQueryCommandRequest>
+ public class GetDashboardByIdQueryCommandValidator : AbstractValidator<GetDashboardByIdQueryRequest>
  {
      public GetDashboardByIdQueryCommandValidator()
      {
@@ -15,24 +15,24 @@ namespace Commitments.Api.Features.Dashboards;
      }
  }
 
- public class GetDashboardByIdQueryCommandRequest : IRequest<GetDashboardByIdQueryCommandResponse> {
+ public class GetDashboardByIdQueryRequest : IRequest<GetDashboardByIdQueryResponse> {
      public int DashboardId { get; set; }
  }
 
- public class GetDashboardByIdQueryCommandResponse
+ public class GetDashboardByIdQueryResponse
  {
-     public DashboardApiModel Dashboard { get; set; }
+     public DashboardDto Dashboard { get; set; }
  }
 
- public class GetDashboardByIdQueryCommandHandler : IRequestHandler<GetDashboardByIdQueryCommandRequest, GetDashboardByIdQueryCommandResponse>
+ public class GetDashboardByIdQueryCommandHandler : IRequestHandler<GetDashboardByIdQueryRequest, GetDashboardByIdQueryResponse>
  {
      public IAppDbContext _context { get; set; }
 
      public GetDashboardByIdQueryCommandHandler(IAppDbContext context) => _context = context;
 
-     public async Task<GetDashboardByIdQueryCommandResponse> Handle(GetDashboardByIdQueryCommandRequest request, CancellationToken cancellationToken)
-         => new GetDashboardByIdQueryCommandResponse()
+     public async Task<GetDashboardByIdQueryResponse> Handle(GetDashboardByIdQueryRequest request, CancellationToken cancellationToken)
+         => new GetDashboardByIdQueryResponse()
          {
-             Dashboard = DashboardApiModel.FromDashboard(await _context.Dashboards.FindAsync(request.DashboardId))
+             Dashboard = DashboardDto.FromDashboard(await _context.Dashboards.FindAsync(request.DashboardId))
          };
  }

@@ -4,15 +4,15 @@ using System;
 
 namespace Commitments.Api.Features.DigitalAssets;
 
-public class DigitalAssetApiModel
+public class DigitalAssetDto
 {        
     public Guid DigitalAssetId { get; set; }
     public string Name { get; set; }
     public string RelativePath { get { return $"api/digitalassets/serve/{DigitalAssetId}"; } }
     public byte[] Bytes { get; set; }
     public string ContentType { get; set; }
-    public static DigitalAssetApiModel FromDigitalAsset(DigitalAsset digitalAsset)
-        => new DigitalAssetApiModel
+    public static DigitalAssetDto FromDigitalAsset(DigitalAsset digitalAsset)
+        => new DigitalAssetDto
         {
             DigitalAssetId = digitalAsset.DigitalAssetId,
             Name = digitalAsset.Name,

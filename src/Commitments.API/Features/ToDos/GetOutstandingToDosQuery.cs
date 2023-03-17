@@ -15,7 +15,7 @@ namespace Commitments.Api.Features.ToDos;
 
  public class GetOutstandingToDosQueryResponse
  {
-     public IEnumerable<ToDoApiModel> ToDos { get; set; }
+     public IEnumerable<ToDoDto> ToDos { get; set; }
  }
 
  public class GetOutstandingToDosQueryHandler : IRequestHandler<GetOutstandingToDosQueryRequest, GetOutstandingToDosQueryResponse>
@@ -28,7 +28,7 @@ namespace Commitments.Api.Features.ToDos;
          {
              ToDos = await _context.ToDos
              .Where(x => x.CompletedOn == null && x.ProfileId == request.ProfileId)
-             .Select(x => ToDoApiModel.FromToDo(x))
+             .Select(x => ToDoDto.FromToDo(x))
              .ToListAsync()
          };
  }

@@ -13,7 +13,7 @@ namespace Commitments.Api.Features.BehaviourTypes;
 
  public class GetBehaviourTypesQueryResponse
  {
-     public IEnumerable<BehaviourTypeApiModel> BehaviourTypes { get; set; }
+     public IEnumerable<BehaviourTypeDto> BehaviourTypes { get; set; }
  }
 
  public class GetBehaviourTypesQueryHandler : IRequestHandler<GetBehaviourTypesQueryRequest, GetBehaviourTypesQueryResponse>
@@ -25,6 +25,6 @@ namespace Commitments.Api.Features.BehaviourTypes;
      public async Task<GetBehaviourTypesQueryResponse> Handle(GetBehaviourTypesQueryRequest request, CancellationToken cancellationToken)
          => new GetBehaviourTypesQueryResponse()
          {
-             BehaviourTypes = await _context.BehaviourTypes.Select(x => BehaviourTypeApiModel.FromBehaviourType(x)).ToListAsync()
+             BehaviourTypes = await _context.BehaviourTypes.Select(x => BehaviourTypeDto.FromBehaviourType(x)).ToListAsync()
          };
  }

@@ -7,7 +7,7 @@ using FluentValidation;
 
 namespace Commitments.Api.Features.Frequencies;
 
- public class GetFrequencyByIdQueryCommandValidator : AbstractValidator<GetFrequencyByIdQueryCommandRequest>
+ public class GetFrequencyByIdQueryCommandValidator : AbstractValidator<GetFrequencyByIdQueryRequest>
  {
      public GetFrequencyByIdQueryCommandValidator()
      {
@@ -15,24 +15,24 @@ namespace Commitments.Api.Features.Frequencies;
      }
  }
 
- public class GetFrequencyByIdQueryCommandRequest : IRequest<GetFrequencyByIdQueryCommandResponse> {
+ public class GetFrequencyByIdQueryRequest : IRequest<GetFrequencyByIdQueryResponse> {
      public int FrequencyId { get; set; }
  }
 
- public class GetFrequencyByIdQueryCommandResponse
+ public class GetFrequencyByIdQueryResponse
  {
-     public FrequencyApiModel Frequency { get; set; }
+     public FrequencyDto Frequency { get; set; }
  }
 
- public class GetFrequencyByIdQueryCommandHandler : IRequestHandler<GetFrequencyByIdQueryCommandRequest, GetFrequencyByIdQueryCommandResponse>
+ public class GetFrequencyByIdQueryCommandHandler : IRequestHandler<GetFrequencyByIdQueryRequest, GetFrequencyByIdQueryResponse>
  {
      public IAppDbContext _context { get; set; }
 
      public GetFrequencyByIdQueryCommandHandler(IAppDbContext context) => _context = context;
 
-     public async Task<GetFrequencyByIdQueryCommandResponse> Handle(GetFrequencyByIdQueryCommandRequest request, CancellationToken cancellationToken)
-         => new GetFrequencyByIdQueryCommandResponse()
+     public async Task<GetFrequencyByIdQueryResponse> Handle(GetFrequencyByIdQueryRequest request, CancellationToken cancellationToken)
+         => new GetFrequencyByIdQueryResponse()
          {
-             Frequency = FrequencyApiModel.FromFrequency(await _context.Frequencies.FindAsync(request.FrequencyId))
+             Frequency = FrequencyDto.FromFrequency(await _context.Frequencies.FindAsync(request.FrequencyId))
          };
  }

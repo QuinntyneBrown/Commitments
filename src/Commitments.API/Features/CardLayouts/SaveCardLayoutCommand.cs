@@ -16,7 +16,7 @@ namespace Commitments.Api.Features.CardLayouts;
  }
 
  public class SaveCardLayoutCommandRequest : IRequest<SaveCardLayoutCommandResponse> {
-     public CardLayoutApiModel CardLayout { get; set; }
+     public CardLayoutDto CardLayout { get; set; }
  }
 
  public class SaveCardLayoutCommandResponse

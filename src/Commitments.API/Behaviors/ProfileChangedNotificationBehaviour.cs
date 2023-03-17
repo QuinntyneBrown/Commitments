@@ -44,7 +44,7 @@ public class ProfileChangedBehavior<TRequest, TResponse> : IPipelineBehavior<TRe
         await _hubContext.Clients.All.SendAsync("message", new
         {
             Type = "[Profile] Changed",
-            Payload = new { profile = ProfileApiModel.FromProfile(profile) }
+            Payload = new { profile = ProfileDto.FromProfile(profile) }
         });
 
         return response;

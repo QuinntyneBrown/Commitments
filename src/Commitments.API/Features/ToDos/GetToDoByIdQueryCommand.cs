@@ -7,7 +7,7 @@ using FluentValidation;
 
 namespace Commitments.Api.Features.ToDos;
 
- public class GetToDoByIdQueryCommandValidator : AbstractValidator<GetToDoByIdQueryCommandRequest>
+ public class GetToDoByIdQueryCommandValidator : AbstractValidator<GetToDoByIdQueryRequest>
  {
      public GetToDoByIdQueryCommandValidator()
      {
@@ -15,23 +15,23 @@ namespace Commitments.Api.Features.ToDos;
      }
  }
 
- public class GetToDoByIdQueryCommandRequest : IRequest<GetToDoByIdQueryCommandResponse> {
+ public class GetToDoByIdQueryRequest : IRequest<GetToDoByIdQueryResponse> {
      public int ToDoId { get; set; }
  }
 
- public class GetToDoByIdQueryCommandResponse
+ public class GetToDoByIdQueryResponse
  {
-     public ToDoApiModel ToDo { get; set; }
+     public ToDoDto ToDo { get; set; }
  }
 
- public class GetToDoByIdQueryCommandHandler : IRequestHandler<GetToDoByIdQueryCommandRequest, GetToDoByIdQueryCommandResponse>
+ public class GetToDoByIdQueryCommandHandler : IRequestHandler<GetToDoByIdQueryRequest, GetToDoByIdQueryResponse>
  {
      public IAppDbContext _context { get; set; }
 
 
-     public async Task<GetToDoByIdQueryCommandResponse> Handle(GetToDoByIdQueryCommandRequest request, CancellationToken cancellationToken)
-         => new GetToDoByIdQueryCommandResponse()
+     public async Task<GetToDoByIdQueryResponse> Handle(GetToDoByIdQueryRequest request, CancellationToken cancellationToken)
+         => new GetToDoByIdQueryResponse()
          {
-             ToDo = ToDoApiModel.FromToDo(await _context.ToDos.FindAsync(request.ToDoId))
+             ToDo = ToDoDto.FromToDo(await _context.ToDos.FindAsync(request.ToDoId))
          };
  }

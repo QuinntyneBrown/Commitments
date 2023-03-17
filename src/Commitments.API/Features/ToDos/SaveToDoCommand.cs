@@ -16,7 +16,7 @@ namespace Commitments.Api.Features.ToDos;
  }
 
  public class SaveToDoCommandRequest : IRequest<SaveToDoCommandResponse> {
-     public ToDoApiModel ToDo { get; set; }
+     public ToDoDto ToDo { get; set; }
  }
 
  public class SaveToDoCommandResponse

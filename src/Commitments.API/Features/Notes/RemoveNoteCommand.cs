@@ -14,6 +14,7 @@ namespace Commitments.Api.Features.Notes;
          RuleFor(request => request.NoteId).NotEqual(0);
      }
  }
+
  public class RemoveNoteCommandRequest : IRequest<RemoveNoteCommandResponse>
  {
      public int NoteId { get; set; }
@@ -21,7 +22,7 @@ namespace Commitments.Api.Features.Notes;
 
  public class RemoveNoteCommandResponse { }
 
- public class RemoveNoteCommandHandler : IRequestHandler<Request,Response>
+ public class RemoveNoteCommandHandler : IRequestHandler<RemoveNoteCommandRequest, RemoveNoteCommandResponse>
  {
      private readonly IAppDbContext _context;
 

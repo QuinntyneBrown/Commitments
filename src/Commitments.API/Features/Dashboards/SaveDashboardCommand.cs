@@ -16,7 +16,7 @@ namespace Commitments.Api.Features.Dashboards;
  }
 
  public class SaveDashboardCommandRequest : IRequest<SaveDashboardCommandResponse> {
-     public DashboardApiModel Dashboard { get; set; }
+     public DashboardDto Dashboard { get; set; }
  }
 
  public class SaveDashboardCommandResponse

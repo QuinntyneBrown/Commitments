@@ -7,7 +7,7 @@ using FluentValidation;
 
 namespace Commitments.Api.Features.Tags;
 
- public class GetTagByIdQueryCommandValidator : AbstractValidator<GetTagByIdQueryCommandRequest>
+ public class GetTagByIdQueryCommandValidator : AbstractValidator<GetTagByIdQueryRequest>
  {
      public GetTagByIdQueryCommandValidator()
      {
@@ -15,24 +15,24 @@ namespace Commitments.Api.Features.Tags;
      }
  }
 
- public class GetTagByIdQueryCommandRequest : IRequest<GetTagByIdQueryCommandResponse> {
+ public class GetTagByIdQueryRequest : IRequest<GetTagByIdQueryResponse> {
      public int TagId { get; set; }
  }
 
- public class GetTagByIdQueryCommandResponse
+ public class GetTagByIdQueryResponse
  {
-     public TagApiModel Tag { get; set; }
+     public TagDto Tag { get; set; }
  }
 
- public class GetTagByIdQueryCommandHandler : IRequestHandler<GetTagByIdQueryCommandRequest, GetTagByIdQueryCommandResponse>
+ public class GetTagByIdQueryCommandHandler : IRequestHandler<GetTagByIdQueryRequest, GetTagByIdQueryResponse>
  {
      private readonly IAppDbContext _context;
 
      public GetTagByIdQueryCommandHandler(IAppDbContext context) => _context = context;
 
-     public async Task<GetTagByIdQueryCommandResponse> Handle(GetTagByIdQueryCommandRequest request, CancellationToken cancellationToken)
-         => new GetTagByIdQueryCommandResponse()
+     public async Task<GetTagByIdQueryResponse> Handle(GetTagByIdQueryRequest request, CancellationToken cancellationToken)
+         => new GetTagByIdQueryResponse()
          {
-             Tag = TagApiModel.FromTag(await _context.Tags.FindAsync(request.TagId))
+             Tag = TagDto.FromTag(await _context.Tags.FindAsync(request.TagId))
          };
  }

@@ -6,24 +6,24 @@ using System.Linq;
 
 namespace Commitments.Api.Features.Commitments;
 
-public class CommitmentApiModel
+public class CommitmentDto
 {        
     public int CommitmentId { get; set; }
     public int BehaviourId { get; set; }
     public int ProfileId { get; set; }
-    public BehaviourApiModel Behaviour { get; set; }
-    public ICollection<CommitmentFrequencyApiModel> CommitmentFrequencies { get; set; }
-    = new HashSet<CommitmentFrequencyApiModel>();
+    public BehaviourDto Behaviour { get; set; }
+    public ICollection<CommitmentFrequencyDto> CommitmentFrequencies { get; set; }
+    = new HashSet<CommitmentFrequencyDto>();
 
-    public static CommitmentApiModel FromCommitment(Commitment commitment)
+    public static CommitmentDto FromCommitment(Commitment commitment)
     {
-        var model = new CommitmentApiModel();
+        var model = new CommitmentDto();
         model.CommitmentId = commitment.CommitmentId;
         model.BehaviourId = commitment.BehaviourId;
         model.ProfileId = commitment.ProfileId;
-        model.Behaviour = BehaviourApiModel.FromBehaviour(commitment.Behaviour);
+        model.Behaviour = BehaviourDto.FromBehaviour(commitment.Behaviour);
         model.CommitmentFrequencies = commitment.CommitmentFrequencies
-            .Select(x => CommitmentFrequencyApiModel.FromCommitmentFrequency(x)).ToList();
+            .Select(x => CommitmentFrequencyDto.FromCommitmentFrequency(x)).ToList();
         return model;
     }
 }

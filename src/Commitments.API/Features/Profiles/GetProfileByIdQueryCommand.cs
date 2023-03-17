@@ -7,7 +7,7 @@ using FluentValidation;
 
 namespace Commitments.Api.Features.Profiles;
 
- public class GetProfileByIdQueryCommandValidator : AbstractValidator<GetProfileByIdQueryCommandRequest>
+ public class GetProfileByIdQueryCommandValidator : AbstractValidator<GetProfileByIdQueryRequest>
  {
      public GetProfileByIdQueryCommandValidator()
      {
@@ -15,24 +15,24 @@ namespace Commitments.Api.Features.Profiles;
      }
  }
 
- public class GetProfileByIdQueryCommandRequest : IRequest<GetProfileByIdQueryCommandResponse> {
+ public class GetProfileByIdQueryRequest : IRequest<GetProfileByIdQueryResponse> {
      public int ProfileId { get; set; }
  }
 
- public class GetProfileByIdQueryCommandResponse
+ public class GetProfileByIdQueryResponse
  {
-     public ProfileApiModel Profile { get; set; }
+     public ProfileDto Profile { get; set; }
  }
 
- public class GetProfileByIdQueryCommandHandler : IRequestHandler<GetProfileByIdQueryCommandRequest, GetProfileByIdQueryCommandResponse>
+ public class GetProfileByIdQueryCommandHandler : IRequestHandler<GetProfileByIdQueryRequest, GetProfileByIdQueryResponse>
  {
      public IAppDbContext _context { get; set; }
 
      public GetProfileByIdQueryCommandHandler(IAppDbContext context) => _context = context;
 
-     public async Task<GetProfileByIdQueryCommandResponse> Handle(GetProfileByIdQueryCommandRequest request, CancellationToken cancellationToken)
-         => new GetProfileByIdQueryCommandResponse()
+     public async Task<GetProfileByIdQueryResponse> Handle(GetProfileByIdQueryRequest request, CancellationToken cancellationToken)
+         => new GetProfileByIdQueryResponse()
          {
-             Profile = ProfileApiModel.FromProfile(await _context.Profiles.FindAsync(request.ProfileId))
+             Profile = ProfileDto.FromProfile(await _context.Profiles.FindAsync(request.ProfileId))
          };
  }

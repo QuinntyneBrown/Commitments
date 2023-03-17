@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33402.96
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{CDC868AF-A53E-4820-8B1E-5223D61532BF}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Commitments.Core", "src\Commitments.Core\Commitments.Core.csproj", "{3FB088C1-C91D-4B47-9B71-D80A354242D9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Commitments.Api", "src\Commitments.API\Commitments.Api.csproj", "{D8862126-318B-4BD6-8382-DF3E236F6CBB}"

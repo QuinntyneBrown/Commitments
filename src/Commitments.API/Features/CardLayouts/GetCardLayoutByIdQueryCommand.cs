@@ -7,7 +7,7 @@ using FluentValidation;
 
 namespace Commitments.Api.Features.CardLayouts;
 
- public class GetCardLayoutByIdQueryCommandValidator : AbstractValidator<GetCardLayoutByIdQueryCommandRequest>
+ public class GetCardLayoutByIdQueryCommandValidator : AbstractValidator<GetCardLayoutByIdQueryRequest>
  {
      public GetCardLayoutByIdQueryCommandValidator()
      {
@@ -15,23 +15,23 @@ namespace Commitments.Api.Features.CardLayouts;
      }
  }
 
- public class GetCardLayoutByIdQueryCommandRequest : IRequest<GetCardLayoutByIdQueryCommandResponse> {
+ public class GetCardLayoutByIdQueryRequest : IRequest<GetCardLayoutByIdQueryResponse> {
      public int CardLayoutId { get; set; }
  }
 
- public class GetCardLayoutByIdQueryCommandResponse
+ public class GetCardLayoutByIdQueryResponse
  {
-     public CardLayoutApiModel CardLayout { get; set; }
+     public CardLayoutDto CardLayout { get; set; }
  }
 
- public class GetCardLayoutByIdQueryCommandHandler : IRequestHandler<GetCardLayoutByIdQueryCommandRequest, GetCardLayoutByIdQueryCommandResponse>
+ public class GetCardLayoutByIdQueryCommandHandler : IRequestHandler<GetCardLayoutByIdQueryRequest, GetCardLayoutByIdQueryResponse>
  {
      public IAppDbContext _context { get; set; }
 
 
-     public async Task<GetCardLayoutByIdQueryCommandResponse> Handle(GetCardLayoutByIdQueryCommandRequest request, CancellationToken cancellationToken)
-         => new GetCardLayoutByIdQueryCommandResponse()
+     public async Task<GetCardLayoutByIdQueryResponse> Handle(GetCardLayoutByIdQueryRequest request, CancellationToken cancellationToken)
+         => new GetCardLayoutByIdQueryResponse()
          {
-             CardLayout = CardLayoutApiModel.FromCardLayout(await _context.CardLayouts.FindAsync(request.CardLayoutId))
+             CardLayout = CardLayoutDto.FromCardLayout(await _context.CardLayouts.FindAsync(request.CardLayoutId))
          };
  }

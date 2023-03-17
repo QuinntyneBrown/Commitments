@@ -17,7 +17,7 @@ namespace Commitments.Api.Features.Tags;
  }
 
  public class SaveTagCommandRequest : IRequest<SaveTagCommandResponse> {
-     public TagApiModel Tag { get; set; }
+     public TagDto Tag { get; set; }
  }
 
  public class SaveTagCommandResponse

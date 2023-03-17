@@ -4,20 +4,20 @@ using Commitments.Core.Entities;
 
 namespace Commitments.Api.Features.Frequencies;
 
-public class FrequencyApiModel
+public class FrequencyDto
 {        
     public int FrequencyId { get; set; }
     public int Frequency { get; set; }
     public int FrequencyTypeId { get; set; }
-    public FrequencyTypeApiModel FrequencyType { get; set; }
+    public FrequencyTypeDto FrequencyType { get; set; }
 
-    public static FrequencyApiModel FromFrequency(Frequency frequency)
+    public static FrequencyDto FromFrequency(Frequency frequency)
     {
-        var model = new FrequencyApiModel();
+        var model = new FrequencyDto();
         model.FrequencyId = frequency.FrequencyId;
         model.Frequency = frequency.Frequency;
         model.FrequencyTypeId = frequency.FrequencyTypeId;
-        model.FrequencyType = FrequencyTypeApiModel.FromFrequencyType(frequency.FrequencyType);
+        model.FrequencyType = FrequencyTypeDto.FromFrequencyType(frequency.FrequencyType);
         return model;
     }
 }

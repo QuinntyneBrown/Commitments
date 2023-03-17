@@ -13,7 +13,7 @@ namespace Commitments.Api.Features.Cards;
 
  public class GetCardsQueryResponse
  {
-     public IEnumerable<CardApiModel> Cards { get; set; }
+     public IEnumerable<CardDto> Cards { get; set; }
  }
 
  public class GetCardsQueryHandler : IRequestHandler<GetCardsQueryRequest, GetCardsQueryResponse>
@@ -25,6 +25,6 @@ namespace Commitments.Api.Features.Cards;
      public async Task<GetCardsQueryResponse> Handle(GetCardsQueryRequest request, CancellationToken cancellationToken)
          => new GetCardsQueryResponse()
          {
-             Cards = await _context.Cards.Select(x => CardApiModel.FromCard(x)).ToListAsync()
+             Cards = await _context.Cards.Select(x => CardDto.FromCard(x)).ToListAsync()
          };
  }

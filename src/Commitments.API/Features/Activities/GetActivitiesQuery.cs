@@ -13,7 +13,7 @@ namespace Commitments.Api.Features.Activities;
 
  public class GetActivitiesQueryResponse
  {
-     public IEnumerable<ActivityApiModel> Activities { get; set; }
+     public IEnumerable<ActivityDto> Activities { get; set; }
  }
 
  public class GetActivitiesQueryHandler : IRequestHandler<GetActivitiesQueryRequest, GetActivitiesQueryResponse>
@@ -28,6 +28,6 @@ namespace Commitments.Api.Features.Activities;
              Activities = await _context.Activities
              .Include(x => x.Behaviour)
              .Include("Behaviour.BehaviourType")
-             .Select(x => ActivityApiModel.FromActivity(x)).ToListAsync()
+             .Select(x => ActivityDto.FromActivity(x)).ToListAsync()
          };
  }

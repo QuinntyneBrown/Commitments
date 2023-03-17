@@ -30,7 +30,7 @@ public class ProfilesController
         var response = await _mediator.Send(request);
         var dashboard = await _mediator.Send(new Dashboards.SaveDashboardCommandRequest()
         {
-            Dashboard = new Dashboards.DashboardApiModel()
+            Dashboard = new Dashboards.DashboardDto()
             {
                 ProfileId = response.ProfileId,
                 Name = "Default"

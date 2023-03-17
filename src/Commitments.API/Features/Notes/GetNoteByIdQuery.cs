@@ -21,7 +21,7 @@ namespace Commitments.Api.Features.Notes;
 
  public class GetNoteByIdQueryResponse
  {
-     public NoteApiModel Note { get; set; }
+     public NoteDto Note { get; set; }
  }
 
  public class GetNoteByIdQueryHandler : IRequestHandler<GetNoteByIdQueryRequest, GetNoteByIdQueryResponse>
@@ -33,6 +33,6 @@ namespace Commitments.Api.Features.Notes;
      public async Task<GetNoteByIdQueryResponse> Handle(GetNoteByIdQueryRequest request, CancellationToken cancellationToken)
          => new GetNoteByIdQueryResponse()
          {
-             Note = NoteApiModel.FromNote(await _context.Notes.FindAsync(request.NoteId))
+             Note = NoteDto.FromNote(await _context.Notes.FindAsync(request.NoteId))
          };            
  }

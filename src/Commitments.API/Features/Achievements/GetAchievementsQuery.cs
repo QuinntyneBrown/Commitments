@@ -17,7 +17,7 @@ namespace Commitments.Api.Features.Achievements;
 
  public class GetAchievementsQueryResponse
  {
-     public IEnumerable<AchievementApiModel> Achievements { get; set; }
+     public IEnumerable<AchievementDto> Achievements { get; set; }
  }
 
  public class GetAchievementsQueryHandler : IRequestHandler<GetAchievementsQueryRequest, GetAchievementsQueryResponse>
@@ -27,7 +27,7 @@ namespace Commitments.Api.Features.Achievements;
 
      public async Task<GetAchievementsQueryResponse> Handle(GetAchievementsQueryRequest request, CancellationToken cancellationToken)
      {
-         var achievements = new List<AchievementApiModel>();
+         var achievements = new List<AchievementDto>();
          var dailyCommitments = await _context.Commitments
              .Include(x => x.Behaviour)
              .Include("Behaviour.BehaviourType")
@@ -44,9 +44,9 @@ namespace Commitments.Api.Features.Achievements;
              && x.PerformedOn.Date == DateTime.Now.Date);
 
              if(activity != null)
-                 achievements.Add(new AchievementApiModel()
+                 achievements.Add(new AchievementDto()
                  {
-                     Commitment = CommitmentApiModel.FromCommitment(dailyCommitment)
+                     Commitment = CommitmentDto.FromCommitment(dailyCommitment)
                  });
          }
 

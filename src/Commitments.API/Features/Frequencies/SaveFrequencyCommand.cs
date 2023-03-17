@@ -17,7 +17,7 @@ namespace Commitments.Api.Features.Frequencies;
  }
 
  public class SaveFrequencyCommandRequest : IRequest<SaveFrequencyCommandResponse> {
-     public FrequencyApiModel Frequency { get; set; }
+     public FrequencyDto Frequency { get; set; }
  }
 
  public class SaveFrequencyCommandResponse

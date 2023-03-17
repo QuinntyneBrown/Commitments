@@ -13,7 +13,7 @@ namespace Commitments.Api.Features.CardLayouts;
 
  public class GetCardLayoutsQueryResponse
  {
-     public IEnumerable<CardLayoutApiModel> CardLayouts { get; set; }
+     public IEnumerable<CardLayoutDto> CardLayouts { get; set; }
  }
 
  public class GetCardLayoutsQueryHandler : IRequestHandler<GetCardLayoutsQueryRequest, GetCardLayoutsQueryResponse>
@@ -24,6 +24,6 @@ namespace Commitments.Api.Features.CardLayouts;
      public async Task<GetCardLayoutsQueryResponse> Handle(GetCardLayoutsQueryRequest request, CancellationToken cancellationToken)
          => new GetCardLayoutsQueryResponse()
          {
-             CardLayouts = await _context.CardLayouts.Select(x => CardLayoutApiModel.FromCardLayout(x)).ToListAsync()
+             CardLayouts = await _context.CardLayouts.Select(x => CardLayoutDto.FromCardLayout(x)).ToListAsync()
          };
  }

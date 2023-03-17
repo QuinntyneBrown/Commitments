@@ -6,20 +6,20 @@ using System.Linq;
 
 namespace Commitments.Api.Features.Dashboards;
 
-public class DashboardApiModel
+public class DashboardDto
 {        
     public int DashboardId { get; set; }
     public string Name { get; set; }
     public int ProfileId { get; set; }
-    public ICollection<DashboardCardApiModel> DashboardCards { get; set; }
-    = new HashSet<DashboardCardApiModel>();
+    public ICollection<DashboardCardDto> DashboardCards { get; set; }
+    = new HashSet<DashboardCardDto>();
 
-    public static DashboardApiModel FromDashboard(Dashboard dashboard)
-        => new DashboardApiModel
+    public static DashboardDto FromDashboard(Dashboard dashboard)
+        => new DashboardDto
         {
             DashboardId = dashboard.DashboardId,
             Name = dashboard.Name,
             ProfileId = dashboard.ProfileId,
-            DashboardCards = dashboard.DashboardCards.Select(x => DashboardCardApiModel.FromDashboardCard(x)).ToList()
+            DashboardCards = dashboard.DashboardCards.Select(x => DashboardCardDto.FromDashboardCard(x)).ToList()
         };
 }

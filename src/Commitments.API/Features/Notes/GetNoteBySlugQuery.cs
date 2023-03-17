@@ -14,7 +14,7 @@ namespace Commitments.Api.Features.Notes;
 
  public class GetNoteBySlugQueryResponse
  {
-     public NoteApiModel Note { get; set; }
+     public NoteDto Note { get; set; }
  }
 
  public class GetNoteBySlugQueryHandler : IRequestHandler<GetNoteBySlugQueryRequest, GetNoteBySlugQueryResponse>
@@ -27,7 +27,7 @@ namespace Commitments.Api.Features.Notes;
      {
          return new GetNoteBySlugQueryResponse()
          {
-             Note = NoteApiModel.FromNote(await _context.Notes
+             Note = NoteDto.FromNote(await _context.Notes
                  .Include(x => x.NoteTags)
                  .Include("NoteTags.Tag")
                  .Where(x => x.Slug == request.Slug)

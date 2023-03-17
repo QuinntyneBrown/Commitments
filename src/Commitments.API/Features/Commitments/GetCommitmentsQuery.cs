@@ -13,7 +13,7 @@ namespace Commitments.Api.Features.Commitments;
 
  public class GetCommitmentsQueryResponse
  {
-     public IEnumerable<CommitmentApiModel> Commitments { get; set; }
+     public IEnumerable<CommitmentDto> Commitments { get; set; }
  }
 
  public class GetCommitmentsQueryHandler : IRequestHandler<GetCommitmentsQueryRequest, GetCommitmentsQueryResponse>
@@ -31,6 +31,6 @@ namespace Commitments.Api.Features.Commitments;
              .Include(x => x.CommitmentFrequencies)
              .Include("CommitmentFrequencies.Frequency")
              .Include("CommitmentFrequencies.Frequency.FrequencyType")
-             .Select(x => CommitmentApiModel.FromCommitment(x)).ToListAsync()
+             .Select(x => CommitmentDto.FromCommitment(x)).ToListAsync()
          };
  }

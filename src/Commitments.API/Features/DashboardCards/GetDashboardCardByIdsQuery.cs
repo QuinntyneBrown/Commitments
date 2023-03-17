@@ -15,7 +15,7 @@ namespace Commitments.Api.Features.DashboardCards;
 
  public class GetDashboardCardByIdsQueryResponse
  {
-     public IEnumerable<DashboardCardApiModel> DashboardCards { get; set; }
+     public IEnumerable<DashboardCardDto> DashboardCards { get; set; }
  }
 
  public class GetDashboardCardByIdsQueryHandler : IRequestHandler<GetDashboardCardByIdsQueryRequest, GetDashboardCardByIdsQueryResponse>
@@ -28,6 +28,6 @@ namespace Commitments.Api.Features.DashboardCards;
          {
              DashboardCards = await _context.DashboardCards
              .Where(x => request.DashboardCardIds.Contains(x.DashboardCardId))
-             .Select(x => DashboardCardApiModel.FromDashboardCard(x)).ToListAsync()
+             .Select(x => DashboardCardDto.FromDashboardCard(x)).ToListAsync()
          };
  }

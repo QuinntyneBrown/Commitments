@@ -16,7 +16,7 @@ namespace Commitments.Api.Features.Profiles;
  }
 
  public class SaveProfileCommandRequest : IRequest<SaveProfileCommandResponse> {
-     public ProfileApiModel Profile { get; set; }
+     public ProfileDto Profile { get; set; }
  }
 
  public class SaveProfileCommandResponse

@@ -3,8 +3,6 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 
@@ -12,11 +10,12 @@ namespace Commitments.Api.Features.Activities;
 
 [Authorize]
 [ApiController]
-[Route("api/activities")]
+[Route("api/[controller]")]
 public class ActivitiesController
 {
     private readonly IMediator _mediator;
     private readonly IHttpContextAccessor _httpContextAccessor;
+
     public ActivitiesController(IHttpContextAccessor httpContextAccessor, IMediator mediator) {
         _mediator = mediator;
         _httpContextAccessor = httpContextAccessor;

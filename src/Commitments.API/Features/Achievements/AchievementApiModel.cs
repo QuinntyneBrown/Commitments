@@ -3,8 +3,8 @@ using Commitments.Api.Features.Commitments;
 
 namespace Commitments.Api.Features.Achievements;
 
-public class AchievementApiModel
+public class AchievementDto
 {        
     public int AchievementId { get; set; }
-    public CommitmentApiModel Commitment { get; set; }
+    public CommitmentDto Commitment { get; set; }
 }

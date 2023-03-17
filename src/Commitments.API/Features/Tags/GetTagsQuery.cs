@@ -13,7 +13,7 @@ namespace Commitments.Api.Features.Tags;
 
  public class GetTagsQueryResponse
  {
-     public IEnumerable<TagApiModel> Tags { get; set; }
+     public IEnumerable<TagDto> Tags { get; set; }
  }
 
  public class GetTagsQueryHandler : IRequestHandler<GetTagsQueryRequest, GetTagsQueryResponse>
@@ -25,6 +25,6 @@ namespace Commitments.Api.Features.Tags;
      public async Task<GetTagsQueryResponse> Handle(GetTagsQueryRequest request, CancellationToken cancellationToken)
          => new GetTagsQueryResponse()
          {
-             Tags = await _context.Tags.Select(x => TagApiModel.FromTag(x)).ToListAsync()
+             Tags = await _context.Tags.Select(x => TagDto.FromTag(x)).ToListAsync()
          };
  }

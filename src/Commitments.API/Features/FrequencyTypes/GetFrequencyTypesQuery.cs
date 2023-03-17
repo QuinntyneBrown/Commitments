@@ -13,7 +13,7 @@ namespace Commitments.Api.Features.FrequencyTypes;
 
  public class GetFrequencyTypesQueryResponse
  {
-     public IEnumerable<FrequencyTypeApiModel> FrequencyTypes { get; set; }
+     public IEnumerable<FrequencyTypeDto> FrequencyTypes { get; set; }
  }
 
  public class GetFrequencyTypesQueryHandler : IRequestHandler<GetFrequencyTypesQueryRequest, GetFrequencyTypesQueryResponse>
@@ -25,6 +25,6 @@ namespace Commitments.Api.Features.FrequencyTypes;
      public async Task<GetFrequencyTypesQueryResponse> Handle(GetFrequencyTypesQueryRequest request, CancellationToken cancellationToken)
          => new GetFrequencyTypesQueryResponse()
          {
-             FrequencyTypes = await _context.FrequencyTypes.Select(x => FrequencyTypeApiModel.FromFrequencyType(x)).ToListAsync()
+             FrequencyTypes = await _context.FrequencyTypes.Select(x => FrequencyTypeDto.FromFrequencyType(x)).ToListAsync()
          };
  }

@@ -17,7 +17,7 @@ namespace Commitments.Api.Features.DigitalAssets;
  }
 
  public class SaveDigitalAssetCommandRequest : IRequest<SaveDigitalAssetCommandResponse> {
-     public DigitalAssetApiModel DigitalAsset { get; set; }
+     public DigitalAssetDto DigitalAsset { get; set; }
  }
 
  public class SaveDigitalAssetCommandResponse

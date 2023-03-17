@@ -16,7 +16,7 @@ namespace Commitments.Api.Features.BehaviourTypes;
  }
 
  public class SaveBehaviourTypeCommandRequest : IRequest<SaveBehaviourTypeCommandResponse> {
-     public BehaviourTypeApiModel BehaviourType { get; set; }
+     public BehaviourTypeDto BehaviourType { get; set; }
  }
 
  public class SaveBehaviourTypeCommandResponse

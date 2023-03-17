@@ -13,7 +13,7 @@ namespace Commitments.Api.Features.Profiles;
 
  public class GetProfilesQueryResponse
  {
-     public IEnumerable<ProfileApiModel> Profiles { get; set; }
+     public IEnumerable<ProfileDto> Profiles { get; set; }
  }
 
  public class GetProfilesQueryHandler : IRequestHandler<GetProfilesQueryRequest, GetProfilesQueryResponse>
@@ -25,6 +25,6 @@ namespace Commitments.Api.Features.Profiles;
      public async Task<GetProfilesQueryResponse> Handle(GetProfilesQueryRequest request, CancellationToken cancellationToken)
          => new GetProfilesQueryResponse()
          {
-             Profiles = await _context.Profiles.Select(x => ProfileApiModel.FromProfile(x)).ToListAsync()
+             Profiles = await _context.Profiles.Select(x => ProfileDto.FromProfile(x)).ToListAsync()
          };
  }

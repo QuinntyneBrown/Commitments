@@ -7,7 +7,7 @@ using FluentValidation;
 
 namespace Commitments.Api.Features.Cards;
 
- public class GetCardByIdQueryCommandValidator : AbstractValidator<GetCardByIdQueryCommandRequest>
+ public class GetCardByIdQueryCommandValidator : AbstractValidator<GetCardByIdQueryRequest>
  {
      public GetCardByIdQueryCommandValidator()
      {
@@ -15,24 +15,24 @@ namespace Commitments.Api.Features.Cards;
      }
  }
 
- public class GetCardByIdQueryCommandRequest : IRequest<GetCardByIdQueryCommandResponse> {
+ public class GetCardByIdQueryRequest : IRequest<GetCardByIdQueryResponse> {
      public int CardId { get; set; }
  }
 
- public class GetCardByIdQueryCommandResponse
+ public class GetCardByIdQueryResponse
  {
-     public CardApiModel Card { get; set; }
+     public CardDto Card { get; set; }
  }
 
- public class GetCardByIdQueryCommandHandler : IRequestHandler<GetCardByIdQueryCommandRequest, GetCardByIdQueryCommandResponse>
+ public class GetCardByIdQueryCommandHandler : IRequestHandler<GetCardByIdQueryRequest, GetCardByIdQueryResponse>
  {
      public IAppDbContext _context { get; set; }
 
      public GetCardByIdQueryCommandHandler(IAppDbContext context) => _context = context;
 
-     public async Task<GetCardByIdQueryCommandResponse> Handle(GetCardByIdQueryCommandRequest request, CancellationToken cancellationToken)
-         => new GetCardByIdQueryCommandResponse()
+     public async Task<GetCardByIdQueryResponse> Handle(GetCardByIdQueryRequest request, CancellationToken cancellationToken)
+         => new GetCardByIdQueryResponse()
          {
-             Card = CardApiModel.FromCard(await _context.Cards.FindAsync(request.CardId))
+             Card = CardDto.FromCard(await _context.Cards.FindAsync(request.CardId))
          };
  }

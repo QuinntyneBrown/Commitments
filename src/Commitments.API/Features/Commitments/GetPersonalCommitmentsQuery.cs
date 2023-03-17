@@ -15,7 +15,7 @@ namespace Commitments.Api.Features.Commitments;
 
  public class GetPersonalCommitmentsQueryResponse
  {
-     public IEnumerable<CommitmentApiModel> Commitments { get; set; }
+     public IEnumerable<CommitmentDto> Commitments { get; set; }
  }
 
  public class GetPersonalCommitmentsQueryHandler : IRequestHandler<GetPersonalCommitmentsQueryRequest, GetPersonalCommitmentsQueryResponse>
@@ -33,6 +33,6 @@ namespace Commitments.Api.Features.Commitments;
              .Include("CommitmentFrequencies.Frequency")
              .Include("CommitmentFrequencies.Frequency.FrequencyType")
              .Where(x => x.ProfileId == request.ProfileId)
-             .Select(x => CommitmentApiModel.FromCommitment(x)).ToListAsync()
+             .Select(x => CommitmentDto.FromCommitment(x)).ToListAsync()
          };
  }

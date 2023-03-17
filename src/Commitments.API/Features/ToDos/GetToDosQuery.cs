@@ -15,7 +15,7 @@ namespace Commitments.Api.Features.ToDos;
 
  public class GetToDosQueryResponse
  {
-     public IEnumerable<ToDoApiModel> ToDos { get; set; }
+     public IEnumerable<ToDoDto> ToDos { get; set; }
  }
 
  public class GetToDosQueryHandler : IRequestHandler<GetToDosQueryRequest, GetToDosQueryResponse>
@@ -28,6 +28,6 @@ namespace Commitments.Api.Features.ToDos;
          {
              ToDos = await _context.ToDos
              .Where(x =>x.ProfileId == request.ProfileId)
-             .Select(x => ToDoApiModel.FromToDo(x)).ToListAsync()
+             .Select(x => ToDoDto.FromToDo(x)).ToListAsync()
          };
  }

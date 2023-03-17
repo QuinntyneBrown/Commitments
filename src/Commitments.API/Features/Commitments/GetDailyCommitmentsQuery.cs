@@ -15,7 +15,7 @@ namespace Commitments.Api.Features.Commitments;
 
  public class GetDailyCommitmentsQueryResponse
  {
-     public IEnumerable<CommitmentApiModel> Commitments { get; set; }
+     public IEnumerable<CommitmentDto> Commitments { get; set; }
  }
 
  public class GetDailyCommitmentsQueryHandler : IRequestHandler<GetDailyCommitmentsQueryRequest, GetDailyCommitmentsQueryResponse>
@@ -33,6 +33,6 @@ namespace Commitments.Api.Features.Commitments;
              .Include("CommitmentFrequencies.Frequency")
              .Include("CommitmentFrequencies.Frequency.FrequencyType")
              .Where(x => x.ProfileId == request.ProfileId && x.CommitmentFrequencies.Any(f => f.Frequency.FrequencyType.Name == "per day" ))
-             .Select(x => CommitmentApiModel.FromCommitment(x)).ToListAsync()
+             .Select(x => CommitmentDto.FromCommitment(x)).ToListAsync()
          };
  }

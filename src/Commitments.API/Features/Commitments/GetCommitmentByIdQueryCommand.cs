@@ -7,7 +7,7 @@ using FluentValidation;
 
 namespace Commitments.Api.Features.Commitments;
 
- public class GetCommitmentByIdQueryCommandValidator : AbstractValidator<GetCommitmentByIdQueryCommandRequest>
+ public class GetCommitmentByIdQueryCommandValidator : AbstractValidator<GetCommitmentByIdQueryRequest>
  {
      public GetCommitmentByIdQueryCommandValidator()
      {
@@ -15,24 +15,24 @@ namespace Commitments.Api.Features.Commitments;
      }
  }
 
- public class GetCommitmentByIdQueryCommandRequest : IRequest<GetCommitmentByIdQueryCommandResponse> {
+ public class GetCommitmentByIdQueryRequest : IRequest<GetCommitmentByIdQueryResponse> {
      public int CommitmentId { get; set; }
  }
 
- public class GetCommitmentByIdQueryCommandResponse
+ public class GetCommitmentByIdQueryResponse
  {
-     public CommitmentApiModel Commitment { get; set; }
+     public CommitmentDto Commitment { get; set; }
  }
 
- public class GetCommitmentByIdQueryCommandHandler : IRequestHandler<GetCommitmentByIdQueryCommandRequest, GetCommitmentByIdQueryCommandResponse>
+ public class GetCommitmentByIdQueryCommandHandler : IRequestHandler<GetCommitmentByIdQueryRequest, GetCommitmentByIdQueryResponse>
  {
      public IAppDbContext _context { get; set; }
 
      public GetCommitmentByIdQueryCommandHandler(IAppDbContext context) => _context = context;
 
-     public async Task<GetCommitmentByIdQueryCommandResponse> Handle(GetCommitmentByIdQueryCommandRequest request, CancellationToken cancellationToken)
-         => new GetCommitmentByIdQueryCommandResponse()
+     public async Task<GetCommitmentByIdQueryResponse> Handle(GetCommitmentByIdQueryRequest request, CancellationToken cancellationToken)
+         => new GetCommitmentByIdQueryResponse()
          {
-             Commitment = CommitmentApiModel.FromCommitment(await _context.Commitments.FindAsync(request.CommitmentId))
+             Commitment = CommitmentDto.FromCommitment(await _context.Commitments.FindAsync(request.CommitmentId))
          };
  }

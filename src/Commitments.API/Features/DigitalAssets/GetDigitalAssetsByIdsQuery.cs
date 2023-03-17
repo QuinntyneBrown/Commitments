@@ -16,7 +16,7 @@ namespace Commitments.Api.Features.DigitalAssets;
 
  public class GetDigitalAssetsByIdsQueryResponse
  {
-     public IEnumerable<DigitalAssetApiModel> DigitalAssets { get; set; }
+     public IEnumerable<DigitalAssetDto> DigitalAssets { get; set; }
  }
 
  public class GetDigitalAssetsByIdsQueryHandler : IRequestHandler<GetDigitalAssetsByIdsQueryRequest, GetDigitalAssetsByIdsQueryResponse>
@@ -29,6 +29,6 @@ namespace Commitments.Api.Features.DigitalAssets;
          {
              DigitalAssets = await _context.DigitalAssets
              .Where(x => request.DigitalAssetIds.Contains(x.DigitalAssetId))
-             .Select(x => DigitalAssetApiModel.FromDigitalAsset(x)).ToListAsync()
+             .Select(x => DigitalAssetDto.FromDigitalAsset(x)).ToListAsync()
          };
  }

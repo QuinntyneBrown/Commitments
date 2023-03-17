@@ -3,14 +3,14 @@ using Commitments.Core.Entities;
 
 namespace Commitments.Api.Features.FrequencyTypes;
 
-public class FrequencyTypeApiModel
+public class FrequencyTypeDto
 {        
     public int FrequencyTypeId { get; set; }
     public string Name { get; set; }
 
-    public static FrequencyTypeApiModel FromFrequencyType(FrequencyType frequencyType)
+    public static FrequencyTypeDto FromFrequencyType(FrequencyType frequencyType)
     {
-        var model = new FrequencyTypeApiModel();
+        var model = new FrequencyTypeDto();
         model.FrequencyTypeId = frequencyType.FrequencyTypeId;
         model.Name = frequencyType.Name;
         return model;

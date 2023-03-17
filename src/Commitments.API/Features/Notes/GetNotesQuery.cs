@@ -13,7 +13,7 @@ namespace Commitments.Api.Features.Notes;
 
  public class GetNotesQueryResponse
  {
-     public IEnumerable<NoteApiModel> Notes { get; set; }
+     public IEnumerable<NoteDto> Notes { get; set; }
  }
 
  public class GetNotesQueryHandler : IRequestHandler<GetNotesQueryRequest, GetNotesQueryResponse>
@@ -25,6 +25,6 @@ namespace Commitments.Api.Features.Notes;
      public async Task<GetNotesQueryResponse> Handle(GetNotesQueryRequest request, CancellationToken cancellationToken)
          => new GetNotesQueryResponse()
          {
-             Notes = await _context.Notes.Select(x => NoteApiModel.FromNote(x, true)).ToListAsync()
+             Notes = await _context.Notes.Select(x => NoteDto.FromNote(x, true)).ToListAsync()
          };
  }

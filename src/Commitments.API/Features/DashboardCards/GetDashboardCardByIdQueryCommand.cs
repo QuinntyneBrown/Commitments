@@ -7,7 +7,7 @@ using FluentValidation;
 
 namespace Commitments.Api.Features.DashboardCards;
 
- public class GetDashboardCardByIdQueryCommandValidator : AbstractValidator<GetDashboardCardByIdQueryCommandRequest>
+ public class GetDashboardCardByIdQueryCommandValidator : AbstractValidator<GetDashboardCardByIdQueryRequest>
  {
      public GetDashboardCardByIdQueryCommandValidator()
      {
@@ -15,24 +15,24 @@ namespace Commitments.Api.Features.DashboardCards;
      }
  }
 
- public class GetDashboardCardByIdQueryCommandRequest : IRequest<GetDashboardCardByIdQueryCommandResponse> {
+ public class GetDashboardCardByIdQueryRequest : IRequest<GetDashboardCardByIdQueryResponse> {
      public int DashboardCardId { get; set; }
  }
 
- public class GetDashboardCardByIdQueryCommandResponse
+ public class GetDashboardCardByIdQueryResponse
  {
-     public DashboardCardApiModel DashboardCard { get; set; }
+     public DashboardCardDto DashboardCard { get; set; }
  }
 
- public class GetDashboardCardByIdQueryCommandHandler : IRequestHandler<GetDashboardCardByIdQueryCommandRequest, GetDashboardCardByIdQueryCommandResponse>
+ public class GetDashboardCardByIdQueryCommandHandler : IRequestHandler<GetDashboardCardByIdQueryRequest, GetDashboardCardByIdQueryResponse>
  {
      public IAppDbContext _context { get; set; }
 
      public GetDashboardCardByIdQueryCommandHandler(IAppDbContext context) => _context = context;
 
-     public async Task<GetDashboardCardByIdQueryCommandResponse> Handle(GetDashboardCardByIdQueryCommandRequest request, CancellationToken cancellationToken)
-         => new GetDashboardCardByIdQueryCommandResponse()
+     public async Task<GetDashboardCardByIdQueryResponse> Handle(GetDashboardCardByIdQueryRequest request, CancellationToken cancellationToken)
+         => new GetDashboardCardByIdQueryResponse()
          {
-             DashboardCard = DashboardCardApiModel.FromDashboardCard(await _context.DashboardCards.FindAsync(request.DashboardCardId))
+             DashboardCard = DashboardCardDto.FromDashboardCard(await _context.DashboardCards.FindAsync(request.DashboardCardId))
          };
  }

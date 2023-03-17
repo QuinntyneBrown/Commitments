@@ -18,7 +18,7 @@ namespace Commitments.Api.Features.Notes;
  }
 
  public class SaveNoteCommandRequest : IRequest<SaveNoteCommandResponse> {
-     public NoteApiModel Note { get; set; }
+     public NoteDto Note { get; set; }
  }
 
  public class SaveNoteCommandResponse

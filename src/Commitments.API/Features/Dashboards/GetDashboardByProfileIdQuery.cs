@@ -15,7 +15,7 @@ namespace Commitments.Api.Features.Dashboards;
 
  public class GetDashboardByProfileIdQueryResponse
  {
-     public DashboardApiModel Dashboard { get; set; }
+     public DashboardDto Dashboard { get; set; }
  }
 
  public class GetDashboardByProfileIdQueryHandler : IRequestHandler<GetDashboardByProfileIdQueryRequest, GetDashboardByProfileIdQueryResponse>
@@ -27,7 +27,7 @@ namespace Commitments.Api.Features.Dashboards;
      public async Task<GetDashboardByProfileIdQueryResponse> Handle(GetDashboardByProfileIdQueryRequest request, CancellationToken cancellationToken)
          => new GetDashboardByProfileIdQueryResponse()
          {
-             Dashboard = DashboardApiModel.FromDashboard(await _context.Dashboards
+             Dashboard = DashboardDto.FromDashboard(await _context.Dashboards
                  .Include(x => x.DashboardCards)
                  .SingleOrDefaultAsync(x => x.ProfileId == request.ProfileId))
          };

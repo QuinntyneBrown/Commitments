@@ -16,7 +16,7 @@ namespace Commitments.Api.Features.Activities;
  }
 
  public class SaveActivityCommandRequest : IRequest<SaveActivityCommandResponse> {
-     public ActivityApiModel Activity { get; set; }
+     public ActivityDto Activity { get; set; }
  }
 
  public class SaveActivityCommandResponse

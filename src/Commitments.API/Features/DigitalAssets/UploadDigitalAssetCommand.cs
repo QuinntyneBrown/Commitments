@@ -39,16 +39,16 @@ namespace Commitments.Api.Features.DigitalAssets;
          var defaultFormOptions = new FormOptions();
          var digitalAssets = new List<DigitalAsset>();
 
-         if (!MultipartRequestHelper.IsMultipartContentType(httpContextRequest.ContentType))
-             throw new Exception($"Expected a multipart request, but got {httpContextRequest.ContentType}");
+         if (!MultipartRequestHelper.IsMultipartContentType(httpContext.Request.ContentType))
+             throw new Exception($"Expected a multipart request, but got {httpContext.Request.ContentType}");
 
-         var mediaTypeHeaderValue = MediaTypeHeaderValue.Parse(httpContextRequest.ContentType);
+         var mediaTypeHeaderValue = MediaTypeHeaderValue.Parse(httpContext.Request.ContentType);
 
          var boundary = MultipartRequestHelper.GetBoundary(
              mediaTypeHeaderValue,
              defaultFormOptions.MultipartBoundaryLengthLimit);
 
-         var reader = new MultipartReader(boundary, httpContextRequest.Body);
+         var reader = new MultipartReader(boundary, httpContext.Request.Body);
 
          var section = await reader.ReadNextSectionAsync();
 

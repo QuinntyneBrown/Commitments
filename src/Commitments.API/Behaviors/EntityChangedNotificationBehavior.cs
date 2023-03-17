@@ -50,7 +50,7 @@ public class EntityChangedBehavior<TRequest, TResponse> : IPipelineBehavior<TReq
         await _hubContext.Clients.All.SendAsync("message", new
         {
             Type = "[Note] Saved",
-            Payload = new { note = NoteApiModel.FromNote(note) }
+            Payload = new { note = NoteDto.FromNote(note) }
         });
 
         return response;
@@ -74,7 +74,7 @@ public class EntityChangedBehavior<TRequest, TResponse> : IPipelineBehavior<TReq
         await _hubContext.Clients.All.SendAsync("message", new
         {
             Type = "[Tag] Saved",
-            Payload = new { tag = TagApiModel.FromTag(tag) }
+            Payload = new { tag = TagDto.FromTag(tag) }
         });
 
         return response;

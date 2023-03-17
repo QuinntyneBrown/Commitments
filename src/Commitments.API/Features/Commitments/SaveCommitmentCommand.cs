@@ -17,7 +17,7 @@ namespace Commitments.Api.Features.Commitments;
  }
 
  public class SaveCommitmentCommandRequest : IRequest<SaveCommitmentCommandResponse> {
-     public CommitmentApiModel Commitment { get; set; }
+     public CommitmentDto Commitment { get; set; }
  }
 
  public class SaveCommitmentCommandResponse

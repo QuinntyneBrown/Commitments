@@ -16,7 +16,7 @@ namespace Commitments.Api.Features.Cards;
  }
 
  public class SaveCardCommandRequest : IRequest<SaveCardCommandResponse> {
-     public CardApiModel Card { get; set; }
+     public CardDto Card { get; set; }
  }
 
  public class SaveCardCommandResponse

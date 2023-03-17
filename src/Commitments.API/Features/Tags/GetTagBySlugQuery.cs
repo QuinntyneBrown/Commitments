@@ -14,7 +14,7 @@ namespace Commitments.Api.Features.Tags;
 
  public class GetTagBySlugQueryResponse
  {
-     public TagApiModel Tag { get; set; }
+     public TagDto Tag { get; set; }
  }
 
  public class GetTagBySlugQueryHandler : IRequestHandler<GetTagBySlugQueryRequest, GetTagBySlugQueryResponse>
@@ -26,7 +26,7 @@ namespace Commitments.Api.Features.Tags;
      public async Task<GetTagBySlugQueryResponse> Handle(GetTagBySlugQueryRequest request, CancellationToken cancellationToken)
          => new GetTagBySlugQueryResponse()
          {
-             Tag = TagApiModel.FromTag(await _context.Tags
+             Tag = TagDto.FromTag(await _context.Tags
                  .Include(x =>x.NoteTags)
                  .Include("NoteTags.Note")
                  .Where(x => x.Slug == request.Slug)

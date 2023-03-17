@@ -13,7 +13,7 @@ namespace Commitments.Api.Features.Profiles;
 
  public class GetProfileByUsernameQueryResponse
  {
-     public ProfileApiModel Profile { get; set; }
+     public ProfileDto Profile { get; set; }
  }
 
  public class GetProfileByUsernameQueryHandler : IRequestHandler<GetProfileByUsernameQueryRequest, GetProfileByUsernameQueryResponse>
@@ -24,6 +24,6 @@ namespace Commitments.Api.Features.Profiles;
      public async Task<GetProfileByUsernameQueryResponse> Handle(GetProfileByUsernameQueryRequest request, CancellationToken cancellationToken) 
          => new GetProfileByUsernameQueryResponse()
          {
-             Profile = ProfileApiModel.FromProfile(await _context.Profiles.SingleAsync(x => x.User.Username == request.Username))
+             Profile = ProfileDto.FromProfile(await _context.Profiles.SingleAsync(x => x.User.Username == request.Username))
          };
  }

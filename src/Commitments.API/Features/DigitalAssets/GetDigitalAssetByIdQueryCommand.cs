@@ -8,7 +8,7 @@ using System;
 
 namespace Commitments.Api.Features.DigitalAssets;
 
- public class GetDigitalAssetByIdQueryCommandValidator : AbstractValidator<GetDigitalAssetByIdQueryCommandRequest>
+ public class GetDigitalAssetByIdQueryCommandValidator : AbstractValidator<GetDigitalAssetByIdQueryRequest>
  {
      public GetDigitalAssetByIdQueryCommandValidator()
      {
@@ -16,24 +16,24 @@ namespace Commitments.Api.Features.DigitalAssets;
      }
  }
 
- public class GetDigitalAssetByIdQueryCommandRequest : IRequest<GetDigitalAssetByIdQueryCommandResponse> {
+ public class GetDigitalAssetByIdQueryRequest : IRequest<GetDigitalAssetByIdQueryResponse> {
      public Guid DigitalAssetId { get; set; }
  }
 
- public class GetDigitalAssetByIdQueryCommandResponse
+ public class GetDigitalAssetByIdQueryResponse
  {
-     public DigitalAssetApiModel DigitalAsset { get; set; }
+     public DigitalAssetDto DigitalAsset { get; set; }
  }
 
- public class GetDigitalAssetByIdQueryCommandHandler : IRequestHandler<GetDigitalAssetByIdQueryCommandRequest, GetDigitalAssetByIdQueryCommandResponse>
+ public class GetDigitalAssetByIdQueryCommandHandler : IRequestHandler<GetDigitalAssetByIdQueryRequest, GetDigitalAssetByIdQueryResponse>
  {
      public IAppDbContext _context { get; set; }
 
      public GetDigitalAssetByIdQueryCommandHandler(IAppDbContext context) => _context = context;
 
-     public async Task<GetDigitalAssetByIdQueryCommandResponse> Handle(GetDigitalAssetByIdQueryCommandRequest request, CancellationToken cancellationToken)
-         => new GetDigitalAssetByIdQueryCommandResponse()
+     public async Task<GetDigitalAssetByIdQueryResponse> Handle(GetDigitalAssetByIdQueryRequest request, CancellationToken cancellationToken)
+         => new GetDigitalAssetByIdQueryResponse()
          {
-             DigitalAsset = DigitalAssetApiModel.FromDigitalAsset(await _context.DigitalAssets.FindAsync(request.DigitalAssetId))
+             DigitalAsset = DigitalAssetDto.FromDigitalAsset(await _context.DigitalAssets.FindAsync(request.DigitalAssetId))
          };
  }

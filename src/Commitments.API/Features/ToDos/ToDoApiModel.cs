@@ -4,7 +4,7 @@ using System;
 
 namespace Commitments.Api.Features.ToDos;
 
-public class ToDoApiModel
+public class ToDoDto
 {        
     public int ToDoId { get; set; }
     public string Name { get; set; }
@@ -13,8 +13,8 @@ public class ToDoApiModel
     public string Description { get; set; }
     public int ProfileId { get; set; }
     public bool IsCompleted { get { return CompletedOn != null; } }
-    public static ToDoApiModel FromToDo(ToDo toDo)
-        => new ToDoApiModel
+    public static ToDoDto FromToDo(ToDo toDo)
+        => new ToDoDto
         {
             ToDoId = toDo.ToDoId,
             Name = toDo.Name,

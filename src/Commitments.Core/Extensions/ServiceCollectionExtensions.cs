@@ -81,8 +81,8 @@ public static class ServiceCollectionExtensions
                 {
                     OnMessageReceived = context =>
                     {
-                        if ((contextRequest.Path.Value.StartsWith("/hub"))
-                            && contextRequest.Query.TryGetValue("token", out StringValues token)
+                        if ((context.Request.Path.Value.StartsWith("/hub"))
+                            && context.Request.Query.TryGetValue("token", out StringValues token)
                         )
                         {
                             context.Token = token;

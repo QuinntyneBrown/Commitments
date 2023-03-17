@@ -13,7 +13,7 @@ namespace Commitments.Api.Features.DigitalAssets;
 
  public class GetDigitalAssetsQueryResponse
  {
-     public IEnumerable<DigitalAssetApiModel> DigitalAssets { get; set; }
+     public IEnumerable<DigitalAssetDto> DigitalAssets { get; set; }
  }
 
  public class GetDigitalAssetsQueryHandler : IRequestHandler<GetDigitalAssetsQueryRequest, GetDigitalAssetsQueryResponse>
@@ -25,6 +25,6 @@ namespace Commitments.Api.Features.DigitalAssets;
      public async Task<GetDigitalAssetsQueryResponse> Handle(GetDigitalAssetsQueryRequest request, CancellationToken cancellationToken)
          => new GetDigitalAssetsQueryResponse()
          {
-             DigitalAssets = await _context.DigitalAssets.Select(x => DigitalAssetApiModel.FromDigitalAsset(x)).ToListAsync()
+             DigitalAssets = await _context.DigitalAssets.Select(x => DigitalAssetDto.FromDigitalAsset(x)).ToListAsync()
          };
  }

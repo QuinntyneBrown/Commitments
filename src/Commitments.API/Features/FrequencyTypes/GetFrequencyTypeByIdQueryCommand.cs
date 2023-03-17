@@ -7,7 +7,7 @@ using FluentValidation;
 
 namespace Commitments.Api.Features.FrequencyTypes;
 
- public class GetFrequencyTypeByIdQueryCommandValidator : AbstractValidator<GetFrequencyTypeByIdQueryCommandRequest>
+ public class GetFrequencyTypeByIdQueryCommandValidator : AbstractValidator<GetFrequencyTypeByIdQueryRequest>
  {
      public GetFrequencyTypeByIdQueryCommandValidator()
      {
@@ -15,24 +15,24 @@ namespace Commitments.Api.Features.FrequencyTypes;
      }
  }
 
- public class GetFrequencyTypeByIdQueryCommandRequest : IRequest<GetFrequencyTypeByIdQueryCommandResponse> {
+ public class GetFrequencyTypeByIdQueryRequest : IRequest<GetFrequencyTypeByIdQueryResponse> {
      public int FrequencyTypeId { get; set; }
  }
 
- public class GetFrequencyTypeByIdQueryCommandResponse
+ public class GetFrequencyTypeByIdQueryResponse
  {
-     public FrequencyTypeApiModel FrequencyType { get; set; }
+     public FrequencyTypeDto FrequencyType { get; set; }
  }
 
- public class GetFrequencyTypeByIdQueryCommandHandler : IRequestHandler<GetFrequencyTypeByIdQueryCommandRequest, GetFrequencyTypeByIdQueryCommandResponse>
+ public class GetFrequencyTypeByIdQueryCommandHandler : IRequestHandler<GetFrequencyTypeByIdQueryRequest, GetFrequencyTypeByIdQueryResponse>
  {
      public IAppDbContext _context { get; set; }
 
      public GetFrequencyTypeByIdQueryCommandHandler(IAppDbContext context) => _context = context;
 
-     public async Task<GetFrequencyTypeByIdQueryCommandResponse> Handle(GetFrequencyTypeByIdQueryCommandRequest request, CancellationToken cancellationToken)
-         => new GetFrequencyTypeByIdQueryCommandResponse()
+     public async Task<GetFrequencyTypeByIdQueryResponse> Handle(GetFrequencyTypeByIdQueryRequest request, CancellationToken cancellationToken)
+         => new GetFrequencyTypeByIdQueryResponse()
          {
-             FrequencyType = FrequencyTypeApiModel.FromFrequencyType(await _context.FrequencyTypes.FindAsync(request.FrequencyTypeId))
+             FrequencyType = FrequencyTypeDto.FromFrequencyType(await _context.FrequencyTypes.FindAsync(request.FrequencyTypeId))
          };
  }

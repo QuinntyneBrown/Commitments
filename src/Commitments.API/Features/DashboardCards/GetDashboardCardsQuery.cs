@@ -13,7 +13,7 @@ namespace Commitments.Api.Features.DashboardCards;
 
  public class GetDashboardCardsQueryResponse
  {
-     public IEnumerable<DashboardCardApiModel> DashboardCards { get; set; }
+     public IEnumerable<DashboardCardDto> DashboardCards { get; set; }
  }
 
  public class GetDashboardCardsQueryHandler : IRequestHandler<GetDashboardCardsQueryRequest, GetDashboardCardsQueryResponse>
@@ -25,6 +25,6 @@ namespace Commitments.Api.Features.DashboardCards;
      public async Task<GetDashboardCardsQueryResponse> Handle(GetDashboardCardsQueryRequest request, CancellationToken cancellationToken)
          => new GetDashboardCardsQueryResponse()
          {
-             DashboardCards = await _context.DashboardCards.Select(x => DashboardCardApiModel.FromDashboardCard(x)).ToListAsync()
+             DashboardCards = await _context.DashboardCards.Select(x => DashboardCardDto.FromDashboardCard(x)).ToListAsync()
          };
  }

@@ -4,7 +4,6 @@ using Commitments.Core.Identity;
 using Commitments.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using System;
 using System.Linq;
 
 
@@ -121,7 +120,7 @@ public class SeedData
                 dashboard.DashboardCards.Add(new DashboardCard()
                 {
                     CardId = 1,
-                    Options = JsonConvert.SerializeObject(new DashboardCardApiModel.OptionsApiModel()
+                    Options = JsonConvert.SerializeObject(new OptionsDto()
                     {
                         Top = 1,
                         Left = 1,
