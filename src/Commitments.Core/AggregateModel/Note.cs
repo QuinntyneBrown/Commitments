@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using System.Collections.Generic;
 
 
@@ -11,3 +14,4 @@ public class Note: BaseEntity
     public string Body { get; set; }
     public ICollection<NoteTag> NoteTags { get; set; } = new HashSet<NoteTag>();
 }
+

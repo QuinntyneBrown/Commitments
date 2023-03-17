@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, ElementRef } from "@angular/core";
 import { Subject, Observable } from "rxjs";
 import { ActivityService } from "../activities/activity.service";
@@ -41,3 +44,4 @@ export class DailyResultsDashboardCardComponent extends DashboardCardComponent {
     this.onDestroy.next();    
   }
 }
+

@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Commitments.Api.Features.DashboardCards;
 using Commitments.Core.AggregateModel;
 using Commitments.Core.Identity;
@@ -192,3 +195,4 @@ public class SeedData
         }
     }
 }
+

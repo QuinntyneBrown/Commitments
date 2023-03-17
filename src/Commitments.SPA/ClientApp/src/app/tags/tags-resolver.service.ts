@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Resolve } from '@angular/router';
 import { Tag } from './tag.model';
 import { Observable } from 'rxjs';
@@ -16,3 +19,4 @@ export class TagsResolver implements Resolve<Array<Tag>> {
     return this._tagsService.get().pipe(tap(x => this._store.tags$.next(x.tags)), map(x => x.tags));
   }
 }
+

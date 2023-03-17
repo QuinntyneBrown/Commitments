@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from './core/language.service';
@@ -17,3 +20,4 @@ export class AppComponent {
     _translateService.use(_languageService.current);
   }
 }
+

@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable, Inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
@@ -34,3 +37,4 @@ export class BehaviourTypeService {
     return this._client.post<{ behaviourTypeId: number }>(`${this._baseUrl}api/behaviourTypes`, { behaviourType: options.behaviourType });
   }
 }
+

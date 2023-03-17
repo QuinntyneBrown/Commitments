@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component } from "@angular/core";
 import { Subject, BehaviorSubject, Observable } from "rxjs";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
@@ -73,3 +76,4 @@ export class EditBehaviourOverlayComponent {
     behaviourTypeId: new FormControl(null, [Validators.required])
   });
 } 
+

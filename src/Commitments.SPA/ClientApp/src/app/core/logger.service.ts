@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable, Inject } from '@angular/core';
 import { minimumLogLevel } from './constants';
 
@@ -31,3 +34,4 @@ export class LoggerService implements ILogger {
     this.log(LogLevel.Error, message);
   }
 }
+

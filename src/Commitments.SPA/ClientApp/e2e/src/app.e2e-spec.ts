@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { AppPage } from './app.po';
 
 describe('workspace-project App', () => {
@@ -12,3 +15,4 @@ describe('workspace-project App', () => {
     expect(page.getParagraphText()).toEqual('Welcome to app!');
   });
 });
+

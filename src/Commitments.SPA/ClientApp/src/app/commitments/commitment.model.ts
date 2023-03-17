@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { CommitmentFrequency } from "./commitment-frequency.model";
 
 export class Commitment {
@@ -6,3 +9,4 @@ export class Commitment {
   public profileId: number;
   public commitmentFrequencies: Array<CommitmentFrequency> = [];
 }
+

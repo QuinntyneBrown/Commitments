@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Commitments.Api.Behaviors;
 using Commitments.Api.Features.Notes;
 using Commitments.Api.Features.Tags;
@@ -236,3 +239,4 @@ public class EntityChangedNotificationBehaviorTests
 
     }
 }
+

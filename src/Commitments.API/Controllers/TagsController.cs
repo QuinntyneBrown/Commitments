@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -35,3 +38,4 @@ public class TagsController
     public async Task<ActionResult<GetTagsResponse>> Get()
         => await _mediator.Send(new GetTagsRequest());
 }
+

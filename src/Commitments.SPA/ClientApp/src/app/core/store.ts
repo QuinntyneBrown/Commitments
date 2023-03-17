@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable } from '@angular/core';
 import { HubClient } from './hub-client';
 import { Tag } from '../tags/tag.model';
@@ -46,3 +49,4 @@ export class Store {
     return this._hubClient.messages$.pipe(filter(x => x.type == '[Tag] Removed'));
   }
 }
+

@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Linq;
@@ -13,3 +16,4 @@ public static class HttpContextAccessorExtensions
         return Convert.ToInt16(claims.Single(x => x.Type == "ProfileId").Value);
     }
 }
+

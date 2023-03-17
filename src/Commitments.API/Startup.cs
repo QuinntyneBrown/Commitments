@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Commitments.Api.Behaviors;
 using Commitments.Core;
 using Commitments.Core.Behaviours;
@@ -48,3 +51,4 @@ public class Startup
             => options.SwaggerEndpoint("/swagger/v1/swagger.json", "Commitments API"));
     }
 }
+

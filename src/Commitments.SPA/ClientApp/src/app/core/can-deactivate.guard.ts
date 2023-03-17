@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable } from "@angular/core";
 import { CanDeactivate } from "@angular/router";
 import { Observable } from "rxjs";
@@ -11,3 +14,4 @@ export class CanDeactivateGuard implements CanDeactivate<ICanDeactivate> {
     return component.canDeactivate ? component.canDeactivate() : true;
   }
 }
+

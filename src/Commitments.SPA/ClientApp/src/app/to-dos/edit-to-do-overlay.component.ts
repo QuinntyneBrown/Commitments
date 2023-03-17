@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component } from "@angular/core";
 import { Subject, Observable } from "rxjs";
 import { ToDoService } from "./to-do.service";
@@ -65,3 +68,4 @@ export class EditToDoOverlayComponent {
     completedOn: new FormControl(null,[Validators.required])
   });
 }
+

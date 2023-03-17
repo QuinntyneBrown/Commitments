@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, ElementRef } from "@angular/core";
 import { Subject } from "rxjs";
 import { DashboardCardComponent } from "../dashboard-cards/dashboard-card.component";
@@ -18,3 +21,4 @@ export class MonthlyResultsDashboardCardComponent extends DashboardCardComponent
     this.onDestroy.next();    
   }
 }
+

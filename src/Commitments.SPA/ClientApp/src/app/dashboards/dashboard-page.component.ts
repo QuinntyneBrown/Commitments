@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Overlay } from "@angular/cdk/overlay";
 import { Component, ComponentFactoryResolver, ComponentRef, Injector, ViewChild, ViewContainerRef } from "@angular/core";
 import { BehaviorSubject, Subject } from "rxjs";
@@ -142,3 +145,4 @@ export class DashboardPageComponent {
     this.onDestroy.next();    
   }
 }
+

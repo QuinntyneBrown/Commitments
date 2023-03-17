@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -40,3 +43,4 @@ public class DashboardCardsController
     public async Task<ActionResult<GetDashboardCardsResponse>> Get()
         => await _mediator.Send(new GetDashboardCardsRequest());
 }
+

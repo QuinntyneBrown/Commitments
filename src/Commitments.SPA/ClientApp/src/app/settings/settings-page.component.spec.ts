@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { SettingsPageComponent } from './settings-page.component';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
@@ -23,3 +26,4 @@ describe('SettingsPageComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

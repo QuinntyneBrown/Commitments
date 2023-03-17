@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, Injector, Input } from '@angular/core';
 import { Subject, pipe } from 'rxjs';
 import { TagsService } from './tags.service';
@@ -132,3 +135,4 @@ export class TagsPageComponent {
     overlayRef.backdropClick().subscribe(x => overlayRef.dispose());
   }
 }
+

@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Microsoft.Net.Http.Headers;
 using System;
 using System.IO;
@@ -46,3 +49,4 @@ public static class MultipartRequestHelper
                    || !string.IsNullOrEmpty(contentDisposition.FileNameStar.ToString()));
     }
 }
+

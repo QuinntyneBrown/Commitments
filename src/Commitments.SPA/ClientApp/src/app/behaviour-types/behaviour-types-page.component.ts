@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component } from "@angular/core";
 import { Subject, Observable, BehaviorSubject } from "rxjs";
 import { takeUntil, tap, map } from "rxjs/operators";
@@ -87,3 +90,4 @@ export class BehaviourTypesPageComponent {
     this._gridApi.sizeColumnsToFit();
   }
 }
+

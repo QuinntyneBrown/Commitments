@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, ElementRef, Inject } from '@angular/core';
 import { ProfileService } from './profiles/profile.service';
 import { AppStore } from './app-store';
@@ -57,3 +60,4 @@ export class MasterPageComponent {
     this._router.navigateByUrl("/my-profile");
   }
 }
+

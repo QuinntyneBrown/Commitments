@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using FluentValidation;
 using Commitments.Core.AggregateModel;
 using Commitments.Core.Interfaces;
@@ -62,3 +65,4 @@ namespace Commitments.Api.Features.Notes;
          return new SaveNoteResponse() { NoteId = note.NoteId };
      }
  }
+

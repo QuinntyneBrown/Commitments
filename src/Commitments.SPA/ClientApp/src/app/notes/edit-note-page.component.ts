@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, ElementRef } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router, Event } from '@angular/router';
@@ -105,3 +108,4 @@ export class EditNotePageComponent {
     this._router.navigate(['tags', tag.slug]);
   }
 }
+

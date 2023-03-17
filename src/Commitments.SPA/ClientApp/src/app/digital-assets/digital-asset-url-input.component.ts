@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import {Component, ElementRef, AfterViewInit, Input, forwardRef} from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { DigitalAssetService } from "./digital-asset.service";
@@ -83,3 +86,4 @@ export class DigitalAssetInputUrlComponent implements ControlValueAccessor {
   
   public get inputElement(): HTMLInputElement { return this._elementRef.nativeElement.querySelector("input"); }
 }
+

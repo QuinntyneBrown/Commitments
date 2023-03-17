@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Commitments.Api.Features.Profiles;
 using Commitments.Api.Hubs;
 using Commitments.Core.Interfaces;
@@ -51,3 +54,4 @@ public class ProfileChangedBehavior<TRequest, TResponse> : IPipelineBehavior<TRe
     }
 
 }
+

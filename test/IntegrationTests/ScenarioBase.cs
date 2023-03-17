@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Commitments.Api;
 using Commitments.Infrastructure.Data;
 using Commitments.Core.Identity;
@@ -68,3 +71,4 @@ public class ScenarioBase
         return tokenProvider.Get("integration@tests.com");
     }
 }
+

@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Commitments.Api.Features.Notes;
 using Commitments.Core.AggregateModel;
 using System.Collections.Generic;
@@ -21,3 +24,4 @@ public class TagDto
             Notes = tag.NoteTags.Select(x => NoteDto.FromNote(x.Note, false)).ToList()                
         };
 }
+

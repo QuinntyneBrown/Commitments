@@ -3,6 +3,10 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <UserSecretsId>8652bd53-e14a-419e-b4e8-a0327e5656fa</UserSecretsId>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,15 +22,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
   </ItemGroup>
 
-
   <ItemGroup>
-    <ProjectReference Include="..\Commitments.Core\Commitments.Core.csproj" />
     <ProjectReference Include="..\Commitments.Infrastructure\Commitments.Infrastructure.csproj" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

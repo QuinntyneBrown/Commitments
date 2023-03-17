@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, Inject } from "@angular/core";
 import { Subject, Observable } from "rxjs";
 import { ProfileService } from "./profile.service";
@@ -56,3 +59,4 @@ export class MyProfilePageComponent {
     avatarUrl: new FormControl(null,[])
   });
 }
+

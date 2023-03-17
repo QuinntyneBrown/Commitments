@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { User } from "../users/user.model";
 
 export class Profile {
@@ -6,3 +9,4 @@ export class Profile {
   public user: User = new User();
   public avatarUrl: string;
 }
+

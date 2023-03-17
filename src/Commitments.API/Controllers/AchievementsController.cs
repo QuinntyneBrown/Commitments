@@ -1,9 +1,10 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Commitments.Core.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 
 namespace Commitments.Api.Features.Achievements;
@@ -28,3 +29,4 @@ public class AchievementsController
         });
     }
 }
+

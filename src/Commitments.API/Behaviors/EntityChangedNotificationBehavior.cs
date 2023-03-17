@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Commitments.Api.Features.Notes;
 using Commitments.Api.Features.Tags;
 using Commitments.Api.Hubs;
@@ -96,3 +99,4 @@ public class EntityChangedBehavior<TRequest, TResponse> : IPipelineBehavior<TReq
         throw new System.NotImplementedException();
     }
 } 
+

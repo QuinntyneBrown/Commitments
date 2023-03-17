@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Commitments.Core.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -48,3 +51,4 @@ public class CommitmentsController
     public async Task<ActionResult<GetDailyCommitmentsResponse>> GetDaily() 
         => await _mediator.Send(new GetDailyCommitmentsRequest() { ProfileId = _httpContextAccessor.GetProfileIdFromClaims() });
 }
+

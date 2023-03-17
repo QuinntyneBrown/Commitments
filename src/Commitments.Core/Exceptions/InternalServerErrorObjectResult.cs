@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,3 +15,4 @@ public class InternalServerErrorObjectResult : ObjectResult
         StatusCode = StatusCodes.Status500InternalServerError;
     }
 }
+

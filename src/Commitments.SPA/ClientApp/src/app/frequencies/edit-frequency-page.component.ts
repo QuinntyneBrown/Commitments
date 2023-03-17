@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, Injector } from "@angular/core";
 import { Subject, Observable } from "rxjs";
 import { Overlay } from "@angular/cdk/overlay";
@@ -65,3 +68,4 @@ export class EditFrequencyPageComponent {
     this.onDestroy.next();    
   }
 }
+

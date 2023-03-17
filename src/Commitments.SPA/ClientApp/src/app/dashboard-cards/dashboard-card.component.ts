@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, ElementRef, Input, Output, EventEmitter } from "@angular/core";
 import { Subject } from "rxjs";
 import { DashboardCard } from "./dashboard-card.model";
@@ -51,3 +54,4 @@ export class DashboardCardComponent {
     this.onDestroy.next();    
   }
 }
+

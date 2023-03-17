@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Overlay, ScrollStrategyOptions, OverlayContainer, OverlayPositionBuilder, OverlayRef } from "@angular/cdk/overlay";
 import { ComponentFactoryResolver, Injector, NgZone, Injectable } from "@angular/core";
 
@@ -17,3 +20,4 @@ export class OverlayRefProvider {
     });
   }
 }
+

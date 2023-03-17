@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material';
@@ -27,3 +30,4 @@ export class ErrorService {
     );
   }
 }
+

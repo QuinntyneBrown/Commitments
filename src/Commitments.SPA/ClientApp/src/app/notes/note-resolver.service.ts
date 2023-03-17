@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { RouterStateSnapshot } from '@angular/router';
@@ -26,3 +29,4 @@ export class NoteResolver implements Resolve<Note> {
       .pipe(tap(x => this._store.note$.next(x.note)), map(x => x.note));
   }
 }
+

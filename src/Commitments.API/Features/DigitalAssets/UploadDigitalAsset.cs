@@ -1,3 +1,9 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
+using Commitments.Core.AggregateModel;
+using Commitments.Core.Helpers;
+using Commitments.Core.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
@@ -6,18 +12,14 @@ using Microsoft.Net.Http.Headers;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
-using System.Threading;
-
-using Commitments.Core.Interfaces;
-using Commitments.Core.Helpers;
-using Commitments.Core.AggregateModel;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 
 namespace Commitments.Api.Features.DigitalAssets;
 
- public class UploadDigitalAssetRequest : IRequest<UploadDigitalAssetResponse> { }
+public class UploadDigitalAssetRequest : IRequest<UploadDigitalAssetResponse> { }
 
  public class UploadDigitalAssetResponse
  {
@@ -88,3 +90,4 @@ namespace Commitments.Api.Features.DigitalAssets;
          };
      }
  }
+

@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { FrequencyType } from "./frequency-type.model";
 
 export class Frequency {  
@@ -7,3 +10,4 @@ export class Frequency {
   public isDesired: boolean;
   public frequencyType: FrequencyType;
 }
+

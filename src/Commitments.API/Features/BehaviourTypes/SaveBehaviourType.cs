@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Commitments.Core.AggregateModel;
 using Commitments.Core.Interfaces;
 using FluentValidation;
@@ -43,3 +46,4 @@ namespace Commitments.Api.Features.BehaviourTypes;
          return new SaveBehaviourTypeResponse() { BehaviourTypeId = behaviourType.BehaviourTypeId };
      }
  }
+

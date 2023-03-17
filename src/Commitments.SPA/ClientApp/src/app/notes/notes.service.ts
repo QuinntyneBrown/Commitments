@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Note } from './note.model';
@@ -55,3 +58,4 @@ export class NotesService {
     return this._httpClient.delete(`${this._baseUrl}api/notes/${options.note.noteId}`);
   }
 }
+

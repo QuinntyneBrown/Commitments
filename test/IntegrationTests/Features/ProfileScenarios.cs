@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Commitments.Api.Features.Profiles;
 using Commitments.Core.Entities;
 using Commitments.Core.Extensions;
@@ -37,3 +40,4 @@ public class ProfileScenarios: ProfileScenarioBase
     }
 
 }
+
