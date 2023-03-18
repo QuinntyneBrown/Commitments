@@ -2,11 +2,9 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments.Core.Hubs;
-using Commitments.Core.Misc;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
 
 namespace Commitments.Core;
 
@@ -16,16 +14,8 @@ public static class ConfigureServices
     {
         services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblyContaining<ICommitmentsClient>());
 
-        var settings = new JsonSerializerSettings
-        {
-            ContractResolver = new SignalRContractResolver()
-        };
+        services.AddKernelServices();
 
-        var serializer = JsonSerializer.Create(settings);
-
-        services.Add(new ServiceDescriptor(typeof(JsonSerializer),
-                                           provider => serializer,
-                                           ServiceLifetime.Transient));
         services.AddSignalR();
 
         services.AddSecurity(environment, configuration);
