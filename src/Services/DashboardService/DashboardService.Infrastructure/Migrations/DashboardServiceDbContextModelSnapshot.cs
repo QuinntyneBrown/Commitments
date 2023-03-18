@@ -71,6 +71,9 @@ namespace DashboardService.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("ProfileId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier");
 
@@ -111,7 +114,7 @@ namespace DashboardService.Infrastructure.Migrations
                     b.ToTable("DashboardCards", "Dashboard");
                 });
 
-            modelBuilder.Entity("DashboardService.Core.AggregateModel.UserAggregate.User", b =>
+            modelBuilder.Entity("DashboardService.Core.AggregateModel.User", b =>
                 {
                     b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
@@ -128,7 +131,7 @@ namespace DashboardService.Infrastructure.Migrations
 
             modelBuilder.Entity("DashboardService.Core.AggregateModel.DashboardAggregate.Dashboard", b =>
                 {
-                    b.HasOne("DashboardService.Core.AggregateModel.UserAggregate.User", null)
+                    b.HasOne("DashboardService.Core.AggregateModel.User", null)
                         .WithMany("Dashboards")
                         .HasForeignKey("UserId");
                 });
@@ -165,7 +168,7 @@ namespace DashboardService.Infrastructure.Migrations
                     b.Navigation("DashboardCards");
                 });
 
-            modelBuilder.Entity("DashboardService.Core.AggregateModel.UserAggregate.User", b =>
+            modelBuilder.Entity("DashboardService.Core.AggregateModel.User", b =>
                 {
                     b.Navigation("Dashboards");
                 });

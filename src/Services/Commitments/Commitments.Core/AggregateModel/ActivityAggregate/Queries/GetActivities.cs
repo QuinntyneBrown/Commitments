@@ -21,9 +21,9 @@ public class GetActivitiesResponse
 
 public class GetActivitiesQueryHandler : IRequestHandler<GetActivitiesRequest, GetActivitiesResponse>
 {
-    public ICommimentsDbContext _context { get; set; }
+    public ICommitmentsDbContext _context { get; set; }
 
-    public GetActivitiesQueryHandler(ICommimentsDbContext context) => _context = context;
+    public GetActivitiesQueryHandler(ICommitmentsDbContext context) => _context = context;
 
     public async Task<GetActivitiesResponse> Handle(GetActivitiesRequest request, CancellationToken cancellationToken)
         => new GetActivitiesResponse()

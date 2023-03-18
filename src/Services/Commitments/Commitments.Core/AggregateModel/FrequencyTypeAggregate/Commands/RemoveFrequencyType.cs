@@ -26,9 +26,9 @@ public class RemoveFrequencyTypeRequest : IRequest
 
 public class RemoveFrequencyTypeCommandHandler : IRequestHandler<RemoveFrequencyTypeRequest>
 {
-    public ICommimentsDbContext _context { get; set; }
+    public ICommitmentsDbContext _context { get; set; }
 
-    public RemoveFrequencyTypeCommandHandler(ICommimentsDbContext context) => _context = context;
+    public RemoveFrequencyTypeCommandHandler(ICommitmentsDbContext context) => _context = context;
 
     public async Task Handle(RemoveFrequencyTypeRequest request, CancellationToken cancellationToken)
     {

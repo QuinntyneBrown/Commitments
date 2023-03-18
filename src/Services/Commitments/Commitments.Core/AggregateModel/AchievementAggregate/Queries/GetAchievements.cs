@@ -25,8 +25,8 @@ public class GetAchievementsResponse
 
 public class GetAchievementsQueryHandler : IRequestHandler<GetAchievementsRequest, GetAchievementsResponse>
 {
-    public ICommimentsDbContext _context { get; set; }
-    public GetAchievementsQueryHandler(ICommimentsDbContext context) => _context = context;
+    public ICommitmentsDbContext _context { get; set; }
+    public GetAchievementsQueryHandler(ICommitmentsDbContext context) => _context = context;
 
     public async Task<GetAchievementsResponse> Handle(GetAchievementsRequest request, CancellationToken cancellationToken)
     {

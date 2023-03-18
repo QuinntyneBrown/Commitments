@@ -30,9 +30,9 @@ public class GetBehaviourTypeByIdResponse
 
 public class GetBehaviourTypeByIdHandler : IRequestHandler<GetBehaviourTypeByIdRequest, GetBehaviourTypeByIdResponse>
 {
-    public ICommimentsDbContext _context { get; set; }
+    public ICommitmentsDbContext _context { get; set; }
 
-    public GetBehaviourTypeByIdHandler(ICommimentsDbContext context) => _context = context;
+    public GetBehaviourTypeByIdHandler(ICommitmentsDbContext context) => _context = context;
 
     public async Task<GetBehaviourTypeByIdResponse> Handle(GetBehaviourTypeByIdRequest request, CancellationToken cancellationToken)
         => new GetBehaviourTypeByIdResponse()

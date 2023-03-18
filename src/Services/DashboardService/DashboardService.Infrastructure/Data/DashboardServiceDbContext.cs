@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using DashboardService.Core;
+using DashboardService.Core.AggregateModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace DashboardService.Infrastructure.Data;

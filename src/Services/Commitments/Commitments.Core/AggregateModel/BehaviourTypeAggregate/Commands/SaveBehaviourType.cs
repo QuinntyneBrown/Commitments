@@ -31,9 +31,9 @@ public class SaveBehaviourTypeResponse
 
 public class SaveBehaviourTypeCommandHandler : IRequestHandler<SaveBehaviourTypeRequest, SaveBehaviourTypeResponse>
 {
-    public ICommimentsDbContext _context { get; set; }
+    public ICommitmentsDbContext _context { get; set; }
 
-    public SaveBehaviourTypeCommandHandler(ICommimentsDbContext context) => _context = context;
+    public SaveBehaviourTypeCommandHandler(ICommitmentsDbContext context) => _context = context;
 
     public async Task<SaveBehaviourTypeResponse> Handle(SaveBehaviourTypeRequest request, CancellationToken cancellationToken)
     {

@@ -13,7 +13,8 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace DashboardService.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[ApiVersion("1.0")]
+[Route("api/{version:apiVersion}/[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
 [Consumes(MediaTypeNames.Application.Json)]
 public class DashboardCardController
@@ -22,8 +23,7 @@ public class DashboardCardController
 
     private readonly ILogger<DashboardCardController> _logger;
 
-    public DashboardCardController(IMediator mediator, ILogger<DashboardCardController> logger)
-    {
+    public DashboardCardController(IMediator mediator,ILogger<DashboardCardController> logger){
         _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
@@ -36,7 +36,7 @@ public class DashboardCardController
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(UpdateDashboardCardResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdateDashboardCardResponse>> Update([FromBody] UpdateDashboardCardRequest request, CancellationToken cancellationToken)
+    public async Task<ActionResult<UpdateDashboardCardResponse>> Update([FromBody]UpdateDashboardCardRequest  request,CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
     }
@@ -49,7 +49,7 @@ public class DashboardCardController
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(CreateDashboardCardResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CreateDashboardCardResponse>> Create([FromBody] CreateDashboardCardRequest request, CancellationToken cancellationToken)
+    public async Task<ActionResult<CreateDashboardCardResponse>> Create([FromBody]CreateDashboardCardRequest  request,CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
     }
@@ -68,17 +68,33 @@ public class DashboardCardController
     }
 
     [SwaggerOperation(
-        Summary = "Get DashboardCardId  by id",
-        Description = @"Get DashboardCardId by id"
+        Summary = "Get Range",
+        Description = @"Get Range"
     )]
-    [HttpGet("{dashboardCardId:guid}", Name = "getDashboardCardIdById")]
+    [HttpGet("range")]
+    public async Task<ActionResult<GetDashboardCardByIdsResponse>> GetByIds([FromQuery] GetDashboardCardByIdsRequest request)
+        => await _mediator.Send(request);
+
+    [SwaggerOperation(
+        Summary = "Create Range",
+        Description = @"Create Range"
+    )]
+    [HttpPost("range")]
+    public async Task<ActionResult<CreateDashboardCardRangeResponse>> SaveRange(CreateDashboardCardRangeRequest request)
+        => await _mediator.Send(request);
+
+    [SwaggerOperation(
+        Summary = "Get DashboardCard by id",
+        Description = @"Get DashboardCard by id"
+    )]
+    [HttpGet("{dashboardCardId:guid}", Name = "getDashboardCardById")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(GetDashboardCardByIdResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetDashboardCardByIdResponse>> GetById([FromRoute] Guid dashboardCardId, CancellationToken cancellationToken)
+    public async Task<ActionResult<GetDashboardCardByIdResponse>> GetById([FromRoute]Guid dashboardCardId,CancellationToken cancellationToken)
     {
-        var request = new GetDashboardCardByIdRequest() { DashboardCardId = dashboardCardId };
+        var request = new GetDashboardCardByIdRequest(){DashboardCardId = dashboardCardId};
 
         var response = await _mediator.Send(request, cancellationToken);
 
@@ -98,9 +114,9 @@ public class DashboardCardController
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(DeleteDashboardCardResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<DeleteDashboardCardResponse>> Delete([FromRoute] Guid dashboardCardId, CancellationToken cancellationToken)
+    public async Task<ActionResult<DeleteDashboardCardResponse>> Delete([FromRoute]Guid dashboardCardId,CancellationToken cancellationToken)
     {
-        var request = new DeleteDashboardCardRequest() { DashboardCardId = dashboardCardId };
+        var request = new DeleteDashboardCardRequest() {DashboardCardId = dashboardCardId };
 
         return await _mediator.Send(request, cancellationToken);
     }

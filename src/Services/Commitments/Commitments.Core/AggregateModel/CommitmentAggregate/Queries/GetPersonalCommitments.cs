@@ -24,8 +24,8 @@ public class GetPersonalCommitmentsResponse
 
 public class GetPersonalCommitmentsQueryHandler : IRequestHandler<GetPersonalCommitmentsRequest, GetPersonalCommitmentsResponse>
 {
-    public ICommimentsDbContext _context { get; set; }
-    public GetPersonalCommitmentsQueryHandler(ICommimentsDbContext context) => _context = context;
+    public ICommitmentsDbContext _context { get; set; }
+    public GetPersonalCommitmentsQueryHandler(ICommitmentsDbContext context) => _context = context;
 
     public async Task<GetPersonalCommitmentsResponse> Handle(GetPersonalCommitmentsRequest request, CancellationToken cancellationToken)
         => new GetPersonalCommitmentsResponse()

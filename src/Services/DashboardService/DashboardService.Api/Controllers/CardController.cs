@@ -3,16 +3,18 @@
 
 using DashboardService.Core.AggregateModel.CardAggregate.Commands;
 using DashboardService.Core.AggregateModel.CardAggregate.Queries;
+using System.Net;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
-using System.Net;
 using System.Net.Mime;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace DashboardService.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[ApiVersion("1.0")]
+[Route("api/{version:apiVersion}/[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
 [Consumes(MediaTypeNames.Application.Json)]
 public class CardController
@@ -21,8 +23,7 @@ public class CardController
 
     private readonly ILogger<CardController> _logger;
 
-    public CardController(IMediator mediator, ILogger<CardController> logger)
-    {
+    public CardController(IMediator mediator,ILogger<CardController> logger){
         _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
@@ -35,7 +36,7 @@ public class CardController
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(UpdateCardResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdateCardResponse>> Update([FromBody] UpdateCardRequest request, CancellationToken cancellationToken)
+    public async Task<ActionResult<UpdateCardResponse>> Update([FromBody]UpdateCardRequest  request,CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
     }
@@ -48,7 +49,7 @@ public class CardController
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(CreateCardResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CreateCardResponse>> Create([FromBody] CreateCardRequest request, CancellationToken cancellationToken)
+    public async Task<ActionResult<CreateCardResponse>> Create([FromBody]CreateCardRequest  request,CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
     }
@@ -67,17 +68,17 @@ public class CardController
     }
 
     [SwaggerOperation(
-        Summary = "Get CardId  by id",
-        Description = @"Get CardId by id"
+        Summary = "Get Card by id",
+        Description = @"Get Card by id"
     )]
-    [HttpGet("{toDoId:guid}", Name = "getCardIdById")]
+    [HttpGet("{cardId:guid}", Name = "getCardById")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(GetCardByIdResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetCardByIdResponse>> GetById([FromRoute] Guid cardId, CancellationToken cancellationToken)
+    public async Task<ActionResult<GetCardByIdResponse>> GetById([FromRoute]Guid cardId,CancellationToken cancellationToken)
     {
-        var request = new GetCardByIdRequest() { CardId = cardId };
+        var request = new GetCardByIdRequest(){CardId = cardId};
 
         var response = await _mediator.Send(request, cancellationToken);
 
@@ -93,13 +94,13 @@ public class CardController
         Summary = "Delete Card",
         Description = @"Delete Card"
     )]
-    [HttpDelete("{toDoId:guid}", Name = "deleteCard")]
+    [HttpDelete("{cardId:guid}", Name = "deleteCard")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(DeleteCardResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<DeleteCardResponse>> Delete([FromRoute] Guid cardId, CancellationToken cancellationToken)
+    public async Task<ActionResult<DeleteCardResponse>> Delete([FromRoute]Guid cardId,CancellationToken cancellationToken)
     {
-        var request = new DeleteCardRequest() { CardId = cardId };
+        var request = new DeleteCardRequest() {CardId = cardId };
 
         return await _mediator.Send(request, cancellationToken);
     }

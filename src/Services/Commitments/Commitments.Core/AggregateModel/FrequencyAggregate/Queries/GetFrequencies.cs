@@ -21,9 +21,9 @@ public class GetFrequenciesResponse
 
 public class GetFrequenciesQueryHandler : IRequestHandler<GetFrequenciesRequest, GetFrequenciesResponse>
 {
-    public ICommimentsDbContext _context { get; set; }
+    public ICommitmentsDbContext _context { get; set; }
 
-    public GetFrequenciesQueryHandler(ICommimentsDbContext context) => _context = context;
+    public GetFrequenciesQueryHandler(ICommitmentsDbContext context) => _context = context;
 
     public async Task<GetFrequenciesResponse> Handle(GetFrequenciesRequest request, CancellationToken cancellationToken)
         => new GetFrequenciesResponse()

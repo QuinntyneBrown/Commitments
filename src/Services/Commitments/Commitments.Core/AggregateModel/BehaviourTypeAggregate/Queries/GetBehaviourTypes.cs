@@ -21,9 +21,9 @@ public class GetBehaviourTypesResponse
 
 public class GetBehaviourTypesQueryHandler : IRequestHandler<GetBehaviourTypesRequest, GetBehaviourTypesResponse>
 {
-    public ICommimentsDbContext _context { get; set; }
+    public ICommitmentsDbContext _context { get; set; }
 
-    public GetBehaviourTypesQueryHandler(ICommimentsDbContext context) => _context = context;
+    public GetBehaviourTypesQueryHandler(ICommitmentsDbContext context) => _context = context;
 
     public async Task<GetBehaviourTypesResponse> Handle(GetBehaviourTypesRequest request, CancellationToken cancellationToken)
         => new GetBehaviourTypesResponse()

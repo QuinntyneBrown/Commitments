@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments.Core.AggregateModel.BehaviourAggregate;
-using Commitments.Core.AggregateModel.ProfileAggregate;
 
 namespace Commitments.Core.AggregateModel.ActivityAggregate;
 

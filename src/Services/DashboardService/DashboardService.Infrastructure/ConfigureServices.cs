@@ -11,7 +11,6 @@ public static class ConfigureServices
 {
     public static void AddInfrastructureServices(this IServiceCollection services, string connectionString)
     {
-
         services.AddScoped<IDashboardServiceDbContext, DashboardServiceDbContext>();
         services.AddDbContext<DashboardServiceDbContext>(options =>
         {

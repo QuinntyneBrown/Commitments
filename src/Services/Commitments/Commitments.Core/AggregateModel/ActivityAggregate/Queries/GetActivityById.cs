@@ -31,9 +31,9 @@ public class GetActivityByIdResponse
 
 public class GetActivityByIdHandler : IRequestHandler<GetActivityByIdRequest, GetActivityByIdResponse>
 {
-    public ICommimentsDbContext _context { get; set; }
+    public ICommitmentsDbContext _context { get; set; }
 
-    public GetActivityByIdHandler(ICommimentsDbContext context) => _context = context;
+    public GetActivityByIdHandler(ICommitmentsDbContext context) => _context = context;
 
     public async Task<GetActivityByIdResponse> Handle(GetActivityByIdRequest request, CancellationToken cancellationToken)
         => new GetActivityByIdResponse()

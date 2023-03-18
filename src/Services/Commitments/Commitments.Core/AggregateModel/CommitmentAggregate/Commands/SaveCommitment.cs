@@ -32,9 +32,9 @@ public class SaveCommitmentResponse
 
 public class SaveCommitmentCommandHandler : IRequestHandler<SaveCommitmentRequest, SaveCommitmentResponse>
 {
-    public ICommimentsDbContext _context { get; set; }
+    public ICommitmentsDbContext _context { get; set; }
 
-    public SaveCommitmentCommandHandler(ICommimentsDbContext context) => _context = context;
+    public SaveCommitmentCommandHandler(ICommitmentsDbContext context) => _context = context;
 
     public async Task<SaveCommitmentResponse> Handle(SaveCommitmentRequest request, CancellationToken cancellationToken)
     {

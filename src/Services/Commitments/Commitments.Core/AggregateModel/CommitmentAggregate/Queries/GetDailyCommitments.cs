@@ -24,8 +24,8 @@ public class GetDailyCommitmentsResponse
 
 public class GetDailyCommitmentsQueryHandler : IRequestHandler<GetDailyCommitmentsRequest, GetDailyCommitmentsResponse>
 {
-    public ICommimentsDbContext _context { get; set; }
-    public GetDailyCommitmentsQueryHandler(ICommimentsDbContext context) => _context = context;
+    public ICommitmentsDbContext _context { get; set; }
+    public GetDailyCommitmentsQueryHandler(ICommitmentsDbContext context) => _context = context;
 
     public async Task<GetDailyCommitmentsResponse> Handle(GetDailyCommitmentsRequest request, CancellationToken cancellationToken)
         => new GetDailyCommitmentsResponse()

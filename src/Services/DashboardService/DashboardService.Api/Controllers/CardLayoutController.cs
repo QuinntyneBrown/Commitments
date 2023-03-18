@@ -13,7 +13,8 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace DashboardService.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[ApiVersion("1.0")]
+[Route("api/{version:apiVersion}/[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
 [Consumes(MediaTypeNames.Application.Json)]
 public class CardLayoutController
@@ -22,8 +23,7 @@ public class CardLayoutController
 
     private readonly ILogger<CardLayoutController> _logger;
 
-    public CardLayoutController(IMediator mediator, ILogger<CardLayoutController> logger)
-    {
+    public CardLayoutController(IMediator mediator,ILogger<CardLayoutController> logger){
         _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
@@ -36,7 +36,7 @@ public class CardLayoutController
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(UpdateCardLayoutResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdateCardLayoutResponse>> Update([FromBody] UpdateCardLayoutRequest request, CancellationToken cancellationToken)
+    public async Task<ActionResult<UpdateCardLayoutResponse>> Update([FromBody]UpdateCardLayoutRequest  request,CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
     }
@@ -49,7 +49,7 @@ public class CardLayoutController
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(CreateCardLayoutResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CreateCardLayoutResponse>> Create([FromBody] CreateCardLayoutRequest request, CancellationToken cancellationToken)
+    public async Task<ActionResult<CreateCardLayoutResponse>> Create([FromBody]CreateCardLayoutRequest  request,CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
     }
@@ -68,17 +68,17 @@ public class CardLayoutController
     }
 
     [SwaggerOperation(
-        Summary = "Get CardLayoutId  by id",
-        Description = @"Get CardLayoutId by id"
+        Summary = "Get CardLayout by id",
+        Description = @"Get CardLayout by id"
     )]
-    [HttpGet("{toDoId:guid}", Name = "getCardLayoutIdById")]
+    [HttpGet("{cardLayoutId:guid}", Name = "getCardLayoutById")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(GetCardLayoutByIdResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetCardLayoutByIdResponse>> GetById([FromRoute] Guid cardLayoutId, CancellationToken cancellationToken)
+    public async Task<ActionResult<GetCardLayoutByIdResponse>> GetById([FromRoute]Guid cardLayoutId,CancellationToken cancellationToken)
     {
-        var request = new GetCardLayoutByIdRequest() { CardLayoutId = cardLayoutId };
+        var request = new GetCardLayoutByIdRequest(){CardLayoutId = cardLayoutId};
 
         var response = await _mediator.Send(request, cancellationToken);
 
@@ -94,13 +94,13 @@ public class CardLayoutController
         Summary = "Delete CardLayout",
         Description = @"Delete CardLayout"
     )]
-    [HttpDelete("{toDoId:guid}", Name = "deleteCardLayout")]
+    [HttpDelete("{cardLayoutId:guid}", Name = "deleteCardLayout")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(DeleteCardLayoutResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<DeleteCardLayoutResponse>> Delete([FromRoute] Guid cardLayoutId, CancellationToken cancellationToken)
+    public async Task<ActionResult<DeleteCardLayoutResponse>> Delete([FromRoute]Guid cardLayoutId,CancellationToken cancellationToken)
     {
-        var request = new DeleteCardLayoutRequest() { CardLayoutId = cardLayoutId };
+        var request = new DeleteCardLayoutRequest() {CardLayoutId = cardLayoutId };
 
         return await _mediator.Send(request, cancellationToken);
     }

@@ -30,9 +30,9 @@ public class GetCommitmentByIdResponse
 
 public class GetCommitmentByIdHandler : IRequestHandler<GetCommitmentByIdRequest, GetCommitmentByIdResponse>
 {
-    public ICommimentsDbContext _context { get; set; }
+    public ICommitmentsDbContext _context { get; set; }
 
-    public GetCommitmentByIdHandler(ICommimentsDbContext context) => _context = context;
+    public GetCommitmentByIdHandler(ICommitmentsDbContext context) => _context = context;
 
     public async Task<GetCommitmentByIdResponse> Handle(GetCommitmentByIdRequest request, CancellationToken cancellationToken)
         => new GetCommitmentByIdResponse()

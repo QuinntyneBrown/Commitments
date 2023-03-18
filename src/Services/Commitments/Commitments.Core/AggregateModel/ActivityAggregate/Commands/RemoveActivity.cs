@@ -26,9 +26,9 @@ public class RemoveActivityRequest : IRequest
 
 public class RemoveActivityCommandHandler : IRequestHandler<RemoveActivityRequest>
 {
-    public ICommimentsDbContext _context { get; set; }
+    public ICommitmentsDbContext _context { get; set; }
 
-    public RemoveActivityCommandHandler(ICommimentsDbContext context) => _context = context;
+    public RemoveActivityCommandHandler(ICommitmentsDbContext context) => _context = context;
 
     public async Task Handle(RemoveActivityRequest request, CancellationToken cancellationToken)
     {

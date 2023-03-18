@@ -25,9 +25,9 @@ public class RemoveBehaviourTypeRequest : IRequest
 
 public class RemoveBehaviourTypeCommandHandler : IRequestHandler<RemoveBehaviourTypeRequest>
 {
-    public ICommimentsDbContext _context { get; set; }
+    public ICommitmentsDbContext _context { get; set; }
 
-    public RemoveBehaviourTypeCommandHandler(ICommimentsDbContext context) => _context = context;
+    public RemoveBehaviourTypeCommandHandler(ICommitmentsDbContext context) => _context = context;
 
     public async Task Handle(RemoveBehaviourTypeRequest request, CancellationToken cancellationToken)
     {

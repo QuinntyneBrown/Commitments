@@ -31,9 +31,9 @@ public class SaveFrequencyTypeResponse
 
 public class SaveFrequencyTypeCommandHandler : IRequestHandler<SaveFrequencyTypeRequest, SaveFrequencyTypeResponse>
 {
-    public ICommimentsDbContext _context { get; set; }
+    public ICommitmentsDbContext _context { get; set; }
 
-    public SaveFrequencyTypeCommandHandler(ICommimentsDbContext context) => _context = context;
+    public SaveFrequencyTypeCommandHandler(ICommitmentsDbContext context) => _context = context;
 
     public async Task<SaveFrequencyTypeResponse> Handle(SaveFrequencyTypeRequest request, CancellationToken cancellationToken)
     {

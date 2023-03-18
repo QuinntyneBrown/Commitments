@@ -30,9 +30,9 @@ public class GetFrequencyByIdResponse
 
 public class GetFrequencyByIdHandler : IRequestHandler<GetFrequencyByIdRequest, GetFrequencyByIdResponse>
 {
-    public ICommimentsDbContext _context { get; set; }
+    public ICommitmentsDbContext _context { get; set; }
 
-    public GetFrequencyByIdHandler(ICommimentsDbContext context) => _context = context;
+    public GetFrequencyByIdHandler(ICommitmentsDbContext context) => _context = context;
 
     public async Task<GetFrequencyByIdResponse> Handle(GetFrequencyByIdRequest request, CancellationToken cancellationToken)
         => new GetFrequencyByIdResponse()

@@ -12,7 +12,7 @@ public static class ConfigureServices
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, string connectionString)
     {
-        services.AddScoped<ICommimentsDbContext, CommitmentsDbContext>();
+        services.AddScoped<ICommitmentsDbContext, CommitmentsDbContext>();
 
         services.AddDbContextPool<CommitmentsDbContext>(options =>
         {
