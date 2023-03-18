@@ -17,6 +17,7 @@ namespace Commitments.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("Commitments")
                 .HasAnnotation("ProductVersion", "7.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -55,7 +56,7 @@ namespace Commitments.Infrastructure.Migrations
 
                     b.HasIndex("ProfileId");
 
-                    b.ToTable("Activities");
+                    b.ToTable("Activities", "Commitments");
                 });
 
             modelBuilder.Entity("Commitments.Core.AggregateModel.BehaviourAggregate.Behaviour", b =>
@@ -82,9 +83,6 @@ namespace Commitments.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ProfileId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Slug")
                         .HasColumnType("nvarchar(max)");
 
@@ -92,9 +90,7 @@ namespace Commitments.Infrastructure.Migrations
 
                     b.HasIndex("BehaviourTypeId");
 
-                    b.HasIndex("ProfileId");
-
-                    b.ToTable("Behaviours");
+                    b.ToTable("Behaviours", "Commitments");
                 });
 
             modelBuilder.Entity("Commitments.Core.AggregateModel.BehaviourTypeAggregate.BehaviourType", b =>
@@ -117,7 +113,7 @@ namespace Commitments.Infrastructure.Migrations
 
                     b.HasKey("BehaviourTypeId");
 
-                    b.ToTable("BehaviourTypes");
+                    b.ToTable("BehaviourTypes", "Commitments");
                 });
 
             modelBuilder.Entity("Commitments.Core.AggregateModel.CardAggregate.Card", b =>
@@ -143,7 +139,7 @@ namespace Commitments.Infrastructure.Migrations
 
                     b.HasKey("CardId");
 
-                    b.ToTable("Cards");
+                    b.ToTable("Cards", "Commitments");
                 });
 
             modelBuilder.Entity("Commitments.Core.AggregateModel.CardLayoutAggregate.CardLayout", b =>
@@ -169,7 +165,7 @@ namespace Commitments.Infrastructure.Migrations
 
                     b.HasKey("CardLayoutId");
 
-                    b.ToTable("CardLayouts");
+                    b.ToTable("CardLayouts", "Commitments");
                 });
 
             modelBuilder.Entity("Commitments.Core.AggregateModel.CommitmentAggregate.Commitment", b =>
@@ -197,9 +193,7 @@ namespace Commitments.Infrastructure.Migrations
 
                     b.HasIndex("BehaviourId");
 
-                    b.HasIndex("ProfileId");
-
-                    b.ToTable("Commitment");
+                    b.ToTable("Commitment", "Commitments");
                 });
 
             modelBuilder.Entity("Commitments.Core.AggregateModel.CommitmentAggregate.CommitmentFrequency", b =>
@@ -220,7 +214,7 @@ namespace Commitments.Infrastructure.Migrations
 
                     b.HasIndex("FrequencyId");
 
-                    b.ToTable("CommitmentFrequency");
+                    b.ToTable("CommitmentFrequency", "Commitments");
                 });
 
             modelBuilder.Entity("Commitments.Core.AggregateModel.CommitmentAggregate.CommitmentPreCondition", b =>
@@ -239,7 +233,7 @@ namespace Commitments.Infrastructure.Migrations
 
                     b.HasIndex("CommitmentId");
 
-                    b.ToTable("CommitmentPreCondition");
+                    b.ToTable("CommitmentPreCondition", "Commitments");
                 });
 
             modelBuilder.Entity("Commitments.Core.AggregateModel.DashboardAggregate.Dashboard", b =>
@@ -265,7 +259,7 @@ namespace Commitments.Infrastructure.Migrations
 
                     b.HasKey("DashboardId");
 
-                    b.ToTable("Dashboards");
+                    b.ToTable("Dashboards", "Commitments");
                 });
 
             modelBuilder.Entity("Commitments.Core.AggregateModel.DashboardCardAggregate.DashboardCard", b =>
@@ -303,7 +297,7 @@ namespace Commitments.Infrastructure.Migrations
 
                     b.HasIndex("DashboardId");
 
-                    b.ToTable("DashboardCards");
+                    b.ToTable("DashboardCards", "Commitments");
                 });
 
             modelBuilder.Entity("Commitments.Core.AggregateModel.DigitalAssetAggregate.DigitalAsset", b =>
@@ -324,7 +318,7 @@ namespace Commitments.Infrastructure.Migrations
 
                     b.HasKey("DigitalAssetId");
 
-                    b.ToTable("DigitalAssets");
+                    b.ToTable("DigitalAssets", "Commitments");
                 });
 
             modelBuilder.Entity("Commitments.Core.AggregateModel.FrequencyAggregate.Frequency", b =>
@@ -355,7 +349,7 @@ namespace Commitments.Infrastructure.Migrations
 
                     b.HasIndex("FrequencyTypeId");
 
-                    b.ToTable("Frequencies");
+                    b.ToTable("Frequencies", "Commitments");
                 });
 
             modelBuilder.Entity("Commitments.Core.AggregateModel.FrequencyTypeAggregate.FrequencyType", b =>
@@ -378,7 +372,7 @@ namespace Commitments.Infrastructure.Migrations
 
                     b.HasKey("FrequencyTypeId");
 
-                    b.ToTable("FrequencyTypes");
+                    b.ToTable("FrequencyTypes", "Commitments");
                 });
 
             modelBuilder.Entity("Commitments.Core.AggregateModel.NoteAggregate.Note", b =>
@@ -407,7 +401,7 @@ namespace Commitments.Infrastructure.Migrations
 
                     b.HasKey("NoteId");
 
-                    b.ToTable("Notes");
+                    b.ToTable("Notes", "Commitments");
                 });
 
             modelBuilder.Entity("Commitments.Core.AggregateModel.NoteAggregate.NoteTag", b =>
@@ -437,7 +431,7 @@ namespace Commitments.Infrastructure.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("NoteTag");
+                    b.ToTable("NoteTag", "Commitments");
                 });
 
             modelBuilder.Entity("Commitments.Core.AggregateModel.ProfileAggregate.Profile", b =>
@@ -445,9 +439,6 @@ namespace Commitments.Infrastructure.Migrations
                     b.Property<Guid>("ProfileId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("AvatarUrl")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -458,17 +449,9 @@ namespace Commitments.Infrastructure.Migrations
                     b.Property<DateTime>("LastModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("ProfileId");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Profiles");
+                    b.ToTable("Profiles", "Commitments");
                 });
 
             modelBuilder.Entity("Commitments.Core.AggregateModel.TagAggregate.Tag", b =>
@@ -494,7 +477,7 @@ namespace Commitments.Infrastructure.Migrations
 
                     b.HasKey("TagId");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tags", "Commitments");
                 });
 
             modelBuilder.Entity("Commitments.Core.AggregateModel.ToDoAggregate.ToDo", b =>
@@ -531,36 +514,7 @@ namespace Commitments.Infrastructure.Migrations
 
                     b.HasIndex("ProfileId");
 
-                    b.ToTable("ToDos");
-                });
-
-            modelBuilder.Entity("Commitments.Core.AggregateModel.UserAggregate.User", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("Salt")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("Users");
+                    b.ToTable("ToDos", "Commitments");
                 });
 
             modelBuilder.Entity("Commitments.Core.AggregateModel.ActivityAggregate.Activity", b =>
@@ -590,10 +544,6 @@ namespace Commitments.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Commitments.Core.AggregateModel.ProfileAggregate.Profile", null)
-                        .WithMany("Commitments")
-                        .HasForeignKey("ProfileId");
-
                     b.Navigation("BehaviourType");
                 });
 
@@ -605,15 +555,7 @@ namespace Commitments.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Commitments.Core.AggregateModel.ProfileAggregate.Profile", "Profile")
-                        .WithMany()
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Behaviour");
-
-                    b.Navigation("Profile");
                 });
 
             modelBuilder.Entity("Commitments.Core.AggregateModel.CommitmentAggregate.CommitmentFrequency", b =>
@@ -695,17 +637,6 @@ namespace Commitments.Infrastructure.Migrations
                     b.Navigation("Tag");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.ProfileAggregate.Profile", b =>
-                {
-                    b.HasOne("Commitments.Core.AggregateModel.UserAggregate.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Commitments.Core.AggregateModel.ToDoAggregate.ToDo", b =>
                 {
                     b.HasOne("Commitments.Core.AggregateModel.ProfileAggregate.Profile", "Profile")
@@ -747,11 +678,6 @@ namespace Commitments.Infrastructure.Migrations
             modelBuilder.Entity("Commitments.Core.AggregateModel.NoteAggregate.Note", b =>
                 {
                     b.Navigation("NoteTags");
-                });
-
-            modelBuilder.Entity("Commitments.Core.AggregateModel.ProfileAggregate.Profile", b =>
-                {
-                    b.Navigation("Commitments");
                 });
 
             modelBuilder.Entity("Commitments.Core.AggregateModel.TagAggregate.Tag", b =>

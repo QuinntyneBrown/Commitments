@@ -72,6 +72,8 @@ public class CommitmentsDbContext : DbContext, ICommimentsDbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.HasDefaultSchema("Commitments");
+
         modelBuilder.Entity<DigitalAsset>(b =>
         {
             b.Property(t => t.DigitalAssetId)

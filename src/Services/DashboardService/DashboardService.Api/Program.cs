@@ -1,18 +1,14 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Core;
-using Commitments.Infrastructure.Data;
-using Commitments.Infrastructure;
+using DashboardService.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
-using Commitments.Core.Hubs;
 
 Log.Logger = new LoggerConfiguration()
 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
 .Enrich.FromLogContext()
-.WriteTo.Console()
 .CreateBootstrapLogger();
 
 try
@@ -23,7 +19,7 @@ try
 
     builder.Services.AddCoreServices(builder.Environment, builder.Configuration);
 
-    builder.Services.AddInfrastructureServices(builder.Configuration.GetConnectionString("DefaultConnection")!);
+    builder.Services.AddInfrastructureServices(builder.Configuration["ConnectionStrings:DefaultConnection"]!);
 
     builder.Services.AddApiServices();
 
@@ -33,7 +29,7 @@ try
 
     app.UseSwaggerUI(options =>
     {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Commitments");
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "DashboardService");
         options.RoutePrefix = string.Empty;
         options.DisplayOperationId();
     });
@@ -46,34 +42,40 @@ try
 
     app.MapControllers();
 
-    app.MapHub<CommitmentsHub>("/hub");
-
     var services = (IServiceScopeFactory)app.Services.GetRequiredService(typeof(IServiceScopeFactory));
 
     using (var scope = services.CreateScope())
     {
-        var context = scope.ServiceProvider.GetRequiredService<CommitmentsDbContext>();
+        var context = scope.ServiceProvider.GetRequiredService<DashboardServiceDbContext>();
 
         if (args.Contains("ci"))
-            args = new string[4] { "dropdb", "migratedb", "seeddb", "stop" };
-
-        if (args.Contains("dropdb"))
-        {
-            context.Database.ExecuteSql($"DROP TABLE Commitments.Commitments;");
-
-            context.Database.ExecuteSql($"DROP SCHEMA Commitments;");
-
-            context.Database.ExecuteSql($"DELETE from __EFMigrationsHistory where MigrationId like '%_Commitments_%';");
-        }
+            args = new string[3] { "migratedb", "seeddb", "stop" };
 
         if (args.Contains("migratedb"))
         {
             context.Database.Migrate();
         }
 
+        if (args.Contains("dropdb"))
+        {
+            context.Database.ExecuteSql($"DROP TABLE Dashboard.DashboardCards;");
+
+            context.Database.ExecuteSql($"DROP TABLE Dashboard.DashboardCardLayouts;");
+
+            context.Database.ExecuteSql($"DROP TABLE Dashboard.Dashboards;");
+
+            context.Database.ExecuteSql($"DROP TABLE Dashboard.Cards;");
+
+            context.Database.ExecuteSql($"DROP TABLE Dashboard.Users;");
+
+            context.Database.ExecuteSql($"DROP SCHEMA Dashboard;");
+
+            context.Database.ExecuteSql($"DELETE from __EFMigrationsHistory where MigrationId like '%_Dashboard_%';");
+        }
+
         if (args.Contains("seeddb"))
         {
-            SeedData.Seed(context);
+            context.Seed();
         }
 
         if (args.Contains("stop"))
@@ -91,5 +93,3 @@ finally
 {
     Log.CloseAndFlush();
 }
-
-public partial class Program { }

@@ -6,13 +6,17 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Commitments.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Commitments_Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "Commitments");
+
             migrationBuilder.CreateTable(
                 name: "BehaviourTypes",
+                schema: "Commitments",
                 columns: table => new
                 {
                     BehaviourTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -28,6 +32,7 @@ namespace Commitments.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "CardLayouts",
+                schema: "Commitments",
                 columns: table => new
                 {
                     CardLayoutId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -44,6 +49,7 @@ namespace Commitments.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Cards",
+                schema: "Commitments",
                 columns: table => new
                 {
                     CardId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -60,6 +66,7 @@ namespace Commitments.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Dashboards",
+                schema: "Commitments",
                 columns: table => new
                 {
                     DashboardId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -76,6 +83,7 @@ namespace Commitments.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "DigitalAssets",
+                schema: "Commitments",
                 columns: table => new
                 {
                     DigitalAssetId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "newsequentialid()"),
@@ -90,6 +98,7 @@ namespace Commitments.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "FrequencyTypes",
+                schema: "Commitments",
                 columns: table => new
                 {
                     FrequencyTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -105,6 +114,7 @@ namespace Commitments.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Notes",
+                schema: "Commitments",
                 columns: table => new
                 {
                     NoteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -121,7 +131,23 @@ namespace Commitments.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Profiles",
+                schema: "Commitments",
+                columns: table => new
+                {
+                    ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Profiles", x => x.ProfileId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tags",
+                schema: "Commitments",
                 columns: table => new
                 {
                     TagId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -137,24 +163,34 @@ namespace Commitments.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "Behaviours",
+                schema: "Commitments",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Salt = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    BehaviourId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Slug = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BehaviourTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.UserId);
+                    table.PrimaryKey("PK_Behaviours", x => x.BehaviourId);
+                    table.ForeignKey(
+                        name: "FK_Behaviours_BehaviourTypes_BehaviourTypeId",
+                        column: x => x.BehaviourTypeId,
+                        principalSchema: "Commitments",
+                        principalTable: "BehaviourTypes",
+                        principalColumn: "BehaviourTypeId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "DashboardCards",
+                schema: "Commitments",
                 columns: table => new
                 {
                     DashboardCardId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -172,16 +208,19 @@ namespace Commitments.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_DashboardCards_CardLayouts_CardLayoutId",
                         column: x => x.CardLayoutId,
+                        principalSchema: "Commitments",
                         principalTable: "CardLayouts",
                         principalColumn: "CardLayoutId");
                     table.ForeignKey(
                         name: "FK_DashboardCards_Cards_CardId",
                         column: x => x.CardId,
+                        principalSchema: "Commitments",
                         principalTable: "Cards",
                         principalColumn: "CardId");
                     table.ForeignKey(
                         name: "FK_DashboardCards_Dashboards_DashboardId",
                         column: x => x.DashboardId,
+                        principalSchema: "Commitments",
                         principalTable: "Dashboards",
                         principalColumn: "DashboardId",
                         onDelete: ReferentialAction.Cascade);
@@ -189,6 +228,7 @@ namespace Commitments.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Frequencies",
+                schema: "Commitments",
                 columns: table => new
                 {
                     FrequencyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -205,94 +245,15 @@ namespace Commitments.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_Frequencies_FrequencyTypes_FrequencyTypeId",
                         column: x => x.FrequencyTypeId,
+                        principalSchema: "Commitments",
                         principalTable: "FrequencyTypes",
                         principalColumn: "FrequencyTypeId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "NoteTag",
-                columns: table => new
-                {
-                    NoteTagId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    NoteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TagId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_NoteTag", x => x.NoteTagId);
-                    table.ForeignKey(
-                        name: "FK_NoteTag_Notes_NoteId",
-                        column: x => x.NoteId,
-                        principalTable: "Notes",
-                        principalColumn: "NoteId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_NoteTag_Tags_TagId",
-                        column: x => x.TagId,
-                        principalTable: "Tags",
-                        principalColumn: "TagId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Profiles",
-                columns: table => new
-                {
-                    ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AvatarUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Profiles", x => x.ProfileId);
-                    table.ForeignKey(
-                        name: "FK_Profiles_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Behaviours",
-                columns: table => new
-                {
-                    BehaviourId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Slug = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BehaviourTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Behaviours", x => x.BehaviourId);
-                    table.ForeignKey(
-                        name: "FK_Behaviours_BehaviourTypes_BehaviourTypeId",
-                        column: x => x.BehaviourTypeId,
-                        principalTable: "BehaviourTypes",
-                        principalColumn: "BehaviourTypeId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Behaviours_Profiles_ProfileId",
-                        column: x => x.ProfileId,
-                        principalTable: "Profiles",
-                        principalColumn: "ProfileId");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ToDos",
+                schema: "Commitments",
                 columns: table => new
                 {
                     ToDoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -311,13 +272,46 @@ namespace Commitments.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_ToDos_Profiles_ProfileId",
                         column: x => x.ProfileId,
+                        principalSchema: "Commitments",
                         principalTable: "Profiles",
                         principalColumn: "ProfileId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
+                name: "NoteTag",
+                schema: "Commitments",
+                columns: table => new
+                {
+                    NoteTagId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    NoteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TagId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NoteTag", x => x.NoteTagId);
+                    table.ForeignKey(
+                        name: "FK_NoteTag_Notes_NoteId",
+                        column: x => x.NoteId,
+                        principalSchema: "Commitments",
+                        principalTable: "Notes",
+                        principalColumn: "NoteId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_NoteTag_Tags_TagId",
+                        column: x => x.TagId,
+                        principalSchema: "Commitments",
+                        principalTable: "Tags",
+                        principalColumn: "TagId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Activities",
+                schema: "Commitments",
                 columns: table => new
                 {
                     ActivityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -335,12 +329,14 @@ namespace Commitments.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_Activities_Behaviours_BehaviourId",
                         column: x => x.BehaviourId,
+                        principalSchema: "Commitments",
                         principalTable: "Behaviours",
                         principalColumn: "BehaviourId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Activities_Profiles_ProfileId",
                         column: x => x.ProfileId,
+                        principalSchema: "Commitments",
                         principalTable: "Profiles",
                         principalColumn: "ProfileId",
                         onDelete: ReferentialAction.Cascade);
@@ -348,6 +344,7 @@ namespace Commitments.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Commitment",
+                schema: "Commitments",
                 columns: table => new
                 {
                     CommitmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -363,19 +360,15 @@ namespace Commitments.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_Commitment_Behaviours_BehaviourId",
                         column: x => x.BehaviourId,
+                        principalSchema: "Commitments",
                         principalTable: "Behaviours",
                         principalColumn: "BehaviourId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Commitment_Profiles_ProfileId",
-                        column: x => x.ProfileId,
-                        principalTable: "Profiles",
-                        principalColumn: "ProfileId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "CommitmentFrequency",
+                schema: "Commitments",
                 columns: table => new
                 {
                     CommitmentFrequencyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -388,17 +381,20 @@ namespace Commitments.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_CommitmentFrequency_Commitment_CommitmentId",
                         column: x => x.CommitmentId,
+                        principalSchema: "Commitments",
                         principalTable: "Commitment",
                         principalColumn: "CommitmentId");
                     table.ForeignKey(
                         name: "FK_CommitmentFrequency_Frequencies_FrequencyId",
                         column: x => x.FrequencyId,
+                        principalSchema: "Commitments",
                         principalTable: "Frequencies",
                         principalColumn: "FrequencyId");
                 });
 
             migrationBuilder.CreateTable(
                 name: "CommitmentPreCondition",
+                schema: "Commitments",
                 columns: table => new
                 {
                     CommitmentPreConditionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -411,6 +407,7 @@ namespace Commitments.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_CommitmentPreCondition_Commitment_CommitmentId",
                         column: x => x.CommitmentId,
+                        principalSchema: "Commitments",
                         principalTable: "Commitment",
                         principalColumn: "CommitmentId",
                         onDelete: ReferentialAction.Cascade);
@@ -418,86 +415,85 @@ namespace Commitments.Infrastructure.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Activities_BehaviourId",
+                schema: "Commitments",
                 table: "Activities",
                 column: "BehaviourId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Activities_ProfileId",
+                schema: "Commitments",
                 table: "Activities",
                 column: "ProfileId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Behaviours_BehaviourTypeId",
+                schema: "Commitments",
                 table: "Behaviours",
                 column: "BehaviourTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Behaviours_ProfileId",
-                table: "Behaviours",
-                column: "ProfileId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Commitment_BehaviourId",
+                schema: "Commitments",
                 table: "Commitment",
                 column: "BehaviourId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Commitment_ProfileId",
-                table: "Commitment",
-                column: "ProfileId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CommitmentFrequency_CommitmentId",
+                schema: "Commitments",
                 table: "CommitmentFrequency",
                 column: "CommitmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CommitmentFrequency_FrequencyId",
+                schema: "Commitments",
                 table: "CommitmentFrequency",
                 column: "FrequencyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CommitmentPreCondition_CommitmentId",
+                schema: "Commitments",
                 table: "CommitmentPreCondition",
                 column: "CommitmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DashboardCards_CardId",
+                schema: "Commitments",
                 table: "DashboardCards",
                 column: "CardId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DashboardCards_CardLayoutId",
+                schema: "Commitments",
                 table: "DashboardCards",
                 column: "CardLayoutId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DashboardCards_DashboardId",
+                schema: "Commitments",
                 table: "DashboardCards",
                 column: "DashboardId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Frequencies_FrequencyTypeId",
+                schema: "Commitments",
                 table: "Frequencies",
                 column: "FrequencyTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_NoteTag_NoteId",
+                schema: "Commitments",
                 table: "NoteTag",
                 column: "NoteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_NoteTag_TagId",
+                schema: "Commitments",
                 table: "NoteTag",
                 column: "TagId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Profiles_UserId",
-                table: "Profiles",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ToDos_ProfileId",
+                schema: "Commitments",
                 table: "ToDos",
                 column: "ProfileId");
         }
@@ -506,61 +502,76 @@ namespace Commitments.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Activities");
+                name: "Activities",
+                schema: "Commitments");
 
             migrationBuilder.DropTable(
-                name: "CommitmentFrequency");
+                name: "CommitmentFrequency",
+                schema: "Commitments");
 
             migrationBuilder.DropTable(
-                name: "CommitmentPreCondition");
+                name: "CommitmentPreCondition",
+                schema: "Commitments");
 
             migrationBuilder.DropTable(
-                name: "DashboardCards");
+                name: "DashboardCards",
+                schema: "Commitments");
 
             migrationBuilder.DropTable(
-                name: "DigitalAssets");
+                name: "DigitalAssets",
+                schema: "Commitments");
 
             migrationBuilder.DropTable(
-                name: "NoteTag");
+                name: "NoteTag",
+                schema: "Commitments");
 
             migrationBuilder.DropTable(
-                name: "ToDos");
+                name: "ToDos",
+                schema: "Commitments");
 
             migrationBuilder.DropTable(
-                name: "Frequencies");
+                name: "Frequencies",
+                schema: "Commitments");
 
             migrationBuilder.DropTable(
-                name: "Commitment");
+                name: "Commitment",
+                schema: "Commitments");
 
             migrationBuilder.DropTable(
-                name: "CardLayouts");
+                name: "CardLayouts",
+                schema: "Commitments");
 
             migrationBuilder.DropTable(
-                name: "Cards");
+                name: "Cards",
+                schema: "Commitments");
 
             migrationBuilder.DropTable(
-                name: "Dashboards");
+                name: "Dashboards",
+                schema: "Commitments");
 
             migrationBuilder.DropTable(
-                name: "Notes");
+                name: "Notes",
+                schema: "Commitments");
 
             migrationBuilder.DropTable(
-                name: "Tags");
+                name: "Tags",
+                schema: "Commitments");
 
             migrationBuilder.DropTable(
-                name: "FrequencyTypes");
+                name: "Profiles",
+                schema: "Commitments");
 
             migrationBuilder.DropTable(
-                name: "Behaviours");
+                name: "FrequencyTypes",
+                schema: "Commitments");
 
             migrationBuilder.DropTable(
-                name: "BehaviourTypes");
+                name: "Behaviours",
+                schema: "Commitments");
 
             migrationBuilder.DropTable(
-                name: "Profiles");
-
-            migrationBuilder.DropTable(
-                name: "Users");
+                name: "BehaviourTypes",
+                schema: "Commitments");
         }
     }
 }

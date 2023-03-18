@@ -1,30 +1,30 @@
 ﻿// Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using IdentityService.Infrastructure.Data;
+using DashboardService.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
-public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<IdentityServiceDbContext>
+public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<DashboardServiceDbContext>
 {
-    public IdentityServiceDbContext CreateDbContext(string[] args)
+    public DashboardServiceDbContext CreateDbContext(string[] args)
     {
-        var builder = new DbContextOptionsBuilder<IdentityServiceDbContext>();
+        var basePath = Path.GetFullPath("../DashboardService.Api");
 
-        var basePath = Path.GetFullPath("../IdentityService.Api");
-
-        var configuration = new ConfigurationBuilder()
+        IConfigurationRoot configuration = new ConfigurationBuilder()
             .SetBasePath(basePath)
-            .AddJsonFile("appsettings.json", false)
+            .AddJsonFile("appsettings.json")
             .Build();
+
+        var builder = new DbContextOptionsBuilder<DashboardServiceDbContext>();
 
         var connectionString = configuration.GetConnectionString("DefaultConnection");
 
         builder.UseSqlServer(connectionString);
 
-        return new IdentityServiceDbContext(builder.Options);
+        return new DashboardServiceDbContext(builder.Options);
     }
 }

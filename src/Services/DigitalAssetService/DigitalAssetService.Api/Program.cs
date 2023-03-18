@@ -1,13 +1,10 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Core;
-using Commitments.Infrastructure.Data;
-using Commitments.Infrastructure;
+using DigitalAssetService.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
-using Commitments.Core.Hubs;
 
 Log.Logger = new LoggerConfiguration()
 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
@@ -33,7 +30,7 @@ try
 
     app.UseSwaggerUI(options =>
     {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Commitments");
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "DigitalAssetService");
         options.RoutePrefix = string.Empty;
         options.DisplayOperationId();
     });
@@ -46,34 +43,27 @@ try
 
     app.MapControllers();
 
-    app.MapHub<CommitmentsHub>("/hub");
-
     var services = (IServiceScopeFactory)app.Services.GetRequiredService(typeof(IServiceScopeFactory));
 
     using (var scope = services.CreateScope())
     {
-        var context = scope.ServiceProvider.GetRequiredService<CommitmentsDbContext>();
+        var context = scope.ServiceProvider.GetRequiredService<DigitalAssetServiceDbContext>();
 
         if (args.Contains("ci"))
             args = new string[4] { "dropdb", "migratedb", "seeddb", "stop" };
 
-        if (args.Contains("dropdb"))
-        {
-            context.Database.ExecuteSql($"DROP TABLE Commitments.Commitments;");
-
-            context.Database.ExecuteSql($"DROP SCHEMA Commitments;");
-
-            context.Database.ExecuteSql($"DELETE from __EFMigrationsHistory where MigrationId like '%_Commitments_%';");
-        }
-
         if (args.Contains("migratedb"))
         {
-            context.Database.Migrate();
+            context.Database.ExecuteSql($"DROP TABLE DigitalAsset.DigitalAssets;");
+
+            context.Database.ExecuteSql($"DROP SCHEMA DigitalAsset;");
+
+            context.Database.ExecuteSql($"DELETE from __EFMigrationsHistory where MigrationId like '%_DigitalAsset_%';");
         }
 
         if (args.Contains("seeddb"))
         {
-            SeedData.Seed(context);
+            context.Seed();
         }
 
         if (args.Contains("stop"))
@@ -91,5 +81,3 @@ finally
 {
     Log.CloseAndFlush();
 }
-
-public partial class Program { }
