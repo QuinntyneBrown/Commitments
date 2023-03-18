@@ -76,15 +76,38 @@ public class NoteController
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(GetNoteByIdResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetNoteByIdResponse>> GetById([FromRoute]Guid noteId,CancellationToken cancellationToken)
+    public async Task<ActionResult<GetNoteByIdResponse>> GetById([FromRoute] Guid noteId, CancellationToken cancellationToken)
     {
-        var request = new GetNoteByIdRequest(){NoteId = noteId};
+        var request = new GetNoteByIdRequest() { NoteId = noteId };
 
         var response = await _mediator.Send(request, cancellationToken);
 
         if (response.Note == null)
         {
             return new NotFoundObjectResult(request.NoteId);
+        }
+
+        return response;
+    }
+
+    [SwaggerOperation(
+        Summary = "Get Note by slug",
+        Description = @"Get Note by slug"
+    )]
+    [HttpGet("slug/{slug}", Name = "getNoteBySlug")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetNoteByIdResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetNoteBySlugResponse>> GetBySlug([FromRoute] string slug, CancellationToken cancellationToken)
+    {
+        var request = new GetNoteBySlugRequest() { Slug = slug };
+
+        var response = await _mediator.Send(request, cancellationToken);
+
+        if (response.Note == null)
+        {
+            return new NotFoundObjectResult(request.Slug);
         }
 
         return response;

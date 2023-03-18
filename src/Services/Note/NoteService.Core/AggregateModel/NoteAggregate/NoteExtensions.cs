@@ -23,7 +23,6 @@ public static class NoteExtensions
     {
         return await notes.Select(x => x.ToDto()).ToListAsync(cancellationToken);
     }
-
 }
 
 

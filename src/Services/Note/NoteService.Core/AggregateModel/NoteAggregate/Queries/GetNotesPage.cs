@@ -34,7 +34,9 @@ public class CreateNoteRequestHandler: IRequestHandler<GetNotesPageRequest,GetNo
         var query = from note in _context.Notes
             select note;
 
-        var length = await _context.Notes.AsNoTracking().CountAsync();
+        var length = await _context.Notes
+            .Include(x => x.Tags)
+            .AsNoTracking().CountAsync();
 
         var notes = await query.Page(request.Index, request.PageSize).AsNoTracking()
             .Select(x => x.ToDto()).ToListAsync();

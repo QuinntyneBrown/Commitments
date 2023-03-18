@@ -25,7 +25,9 @@ public class GetNotesRequestHandler: IRequestHandler<GetNotesRequest,GetNotesRes
     public async Task<GetNotesResponse> Handle(GetNotesRequest request,CancellationToken cancellationToken)
     {
         return new () {
-            Notes = await _context.Notes.AsNoTracking().ToDtosAsync(cancellationToken)
+            Notes = await _context.Notes
+            .Include(x => x.Tags)
+            .AsNoTracking().ToDtosAsync(cancellationToken)
         };
 
     }

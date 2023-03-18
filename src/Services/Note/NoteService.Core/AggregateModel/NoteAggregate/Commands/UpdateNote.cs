@@ -48,7 +48,9 @@ public class UpdateNoteRequestHandler: IRequestHandler<UpdateNoteRequest,UpdateN
 
     public async Task<UpdateNoteResponse> Handle(UpdateNoteRequest request,CancellationToken cancellationToken)
     {
-        var note = await _context.Notes.SingleAsync(x => x.NoteId == request.NoteId);
+        var note = await _context.Notes
+            .Include(x => x.Tags)
+            .SingleAsync(x => x.NoteId == request.NoteId);
 
         note.NoteId = request.NoteId;
         note.Title = request.Title;

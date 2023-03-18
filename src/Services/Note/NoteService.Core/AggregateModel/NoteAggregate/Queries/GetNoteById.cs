@@ -29,7 +29,9 @@ public class GetNoteByIdRequestHandler: IRequestHandler<GetNoteByIdRequest,GetNo
     public async Task<GetNoteByIdResponse> Handle(GetNoteByIdRequest request,CancellationToken cancellationToken)
     {
         return new () {
-            Note = (await _context.Notes.AsNoTracking().SingleOrDefaultAsync(x => x.NoteId == request.NoteId)).ToDto()
+            Note = (await _context.Notes
+            .Include(x => x.Tags)
+            .AsNoTracking().SingleOrDefaultAsync(x => x.NoteId == request.NoteId)).ToDto()
         };
 
     }
