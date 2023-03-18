@@ -1,8 +1,0 @@
-﻿{
-  "Data": {
-    "DefaultConnection": {
-      "ConnectionString": "Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=CommitmentsIntegrationTests;Integrated Security=SSPI;"
-    }
-  },
-  "isTest": "true"
-}

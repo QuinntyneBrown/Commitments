@@ -1,0 +1,19 @@
+<ng-container *ngIf="vm$ | async as vm">
+    <section class="mat-typography">
+        <h1>Cards</h1>
+      </section>
+      
+      <a>Select a card to your dashboard</a>
+      <section class="card-container">
+        <mat-card *ngFor="let card of vm.cards"
+                  (click)="vm.cardSelect(card)"
+                  [ngClass]="{'selected' : vm.cardIsSelected(card) }">
+          {{ card.name }}
+        </mat-card>
+      </section>
+      
+      <section class="actions">
+        <button class="add" mat-raised-button color="primary" (click)="vm.save()">Add</button>
+        <button class="cancel" mat-button (click)="vm.cancel()">Cancel</button>
+      </section>
+</ng-container>
