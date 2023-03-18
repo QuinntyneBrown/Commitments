@@ -5,7 +5,6 @@ using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Collections.Generic;
-using Commitments.Core.Interfaces;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 

@@ -8,7 +8,7 @@ namespace NoteService.Core.AggregateModel.NoteAggregate;
 public class Note
 {
     public Guid NoteId { get; set; }
-    public Guid Title { get; set; }
+    public string Title { get; set; }
     public string Slug { get; set; }
     public string Body { get; set; }
     public List<Tag> Tags { get; set; }

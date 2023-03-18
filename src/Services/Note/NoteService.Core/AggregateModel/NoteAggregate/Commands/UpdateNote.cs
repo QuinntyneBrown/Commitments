@@ -10,8 +10,7 @@ public class UpdateNoteRequestValidator: AbstractValidator<UpdateNoteRequest>
     public UpdateNoteRequestValidator(){
 
         RuleFor(x => x.NoteId).NotEqual(default(Guid));
-        RuleFor(x => x.Title).NotEqual(default(Guid));
-        RuleFor(x => x.Slug).NotNull();
+        RuleFor(x => x.Title).NotNull().NotEmpty();
         RuleFor(x => x.Body).NotNull();
         RuleFor(x => x.Tags).NotNull();
 
@@ -23,7 +22,7 @@ public class UpdateNoteRequestValidator: AbstractValidator<UpdateNoteRequest>
 public class UpdateNoteRequest: IRequest<UpdateNoteResponse>
 {
     public Guid NoteId { get; set; }
-    public Guid Title { get; set; }
+    public string Title { get; set; }
     public string Slug { get; set; }
     public string Body { get; set; }
     public List<TagDto> Tags { get; set; }
@@ -53,7 +52,7 @@ public class UpdateNoteRequestHandler: IRequestHandler<UpdateNoteRequest,UpdateN
 
         note.NoteId = request.NoteId;
         note.Title = request.Title;
-        note.Slug = request.Slug;
+        note.Slug = request.Title.GenerateSlug();
         note.Body = request.Body;
 
         await _context.SaveChangesAsync(cancellationToken);

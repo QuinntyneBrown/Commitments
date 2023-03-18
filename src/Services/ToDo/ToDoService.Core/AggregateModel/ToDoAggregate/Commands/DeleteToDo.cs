@@ -6,13 +6,9 @@ namespace ToDoService.Core.AggregateModel.ToDoAggregate.Commands;
 public class DeleteToDoRequestValidator: AbstractValidator<DeleteToDoRequest>
 {
     public DeleteToDoRequestValidator(){
-
         RuleFor(x => x.ToDoId).NotEqual(default(Guid));
-
     }
-
 }
-
 
 public class DeleteToDoRequest: IRequest<DeleteToDoResponse>
 {
@@ -50,8 +46,4 @@ public class DeleteToDoRequestHandler: IRequestHandler<DeleteToDoRequest,DeleteT
             ToDo = toDo.ToDto()
         };
     }
-
 }
-
-
-

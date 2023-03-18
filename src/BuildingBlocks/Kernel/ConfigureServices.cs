@@ -13,7 +13,7 @@ public static class ConfigureServices
 
         var settings = new JsonSerializerSettings
         {
-            ContractResolver = new CamelCaseContractResolver()
+            ContractResolver = new HubCamelCasePropertyNamesContractResolver()
         };
 
         var serializer = JsonSerializer.Create(settings);
@@ -24,5 +24,3 @@ public static class ConfigureServices
     }
 
 }
-
-

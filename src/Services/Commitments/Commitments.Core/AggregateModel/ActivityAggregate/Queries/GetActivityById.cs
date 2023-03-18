@@ -4,7 +4,6 @@
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core.Interfaces;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 

@@ -6,7 +6,6 @@ using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
 using Commitments.Core.AggregateModel;
-using Commitments.Core.Interfaces;
 
 
 namespace Commitments.Core.AggregateModel.FrequencyAggregate.Commands;

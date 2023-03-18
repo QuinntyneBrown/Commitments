@@ -13,7 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace Commitments.Core.Interfaces;
+namespace Commitments.Core;
 
 public interface ICommitmentsDbContext : IDisposable
 {

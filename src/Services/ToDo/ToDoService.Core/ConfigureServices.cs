@@ -18,8 +18,4 @@ public static class ConfigureServices
         services.AddValidation(typeof(IToDoServiceDbContext));
         services.AddTelemetryServices();
     }
-
 }
-
-
-

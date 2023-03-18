@@ -9,17 +9,15 @@ public class CreateNoteRequestValidator: AbstractValidator<CreateNoteRequest>
 {
     public CreateNoteRequestValidator(){
 
-        RuleFor(x => x.Title).NotEqual(default(Guid));
-        RuleFor(x => x.Slug).NotNull();
+        RuleFor(x => x.Title).NotNull().NotEmpty();
         RuleFor(x => x.Body).NotNull();
     }
-
 }
 
 
 public class CreateNoteRequest: IRequest<CreateNoteResponse>
 {
-    public Guid Title { get; set; }
+    public string Title { get; set; }
     public string Slug { get; set; }
     public string Body { get; set; }
     public List<TagDto> Tags { get; set; }
@@ -50,7 +48,7 @@ public class CreateNoteRequestHandler: IRequestHandler<CreateNoteRequest,CreateN
         _context.Notes.Add(note);
 
         note.Title = request.Title;
-        note.Slug = request.Slug;
+        note.Slug = request.Title.GenerateSlug();
         note.Body = request.Body;
 
         await _context.SaveChangesAsync(cancellationToken);

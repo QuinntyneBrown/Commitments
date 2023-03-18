@@ -2,12 +2,10 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Newtonsoft.Json;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 
 
-namespace Commitments.Core.Extensions;
+namespace Kernel;
 
 public static class HttpClientExtensions
 {

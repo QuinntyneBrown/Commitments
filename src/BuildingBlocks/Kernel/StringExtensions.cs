@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 
-namespace Commitments.Core.Extensions;
+namespace Kernel;
 
 public static class StringExtensions
 {
@@ -36,6 +36,5 @@ public static class StringExtensions
 
         return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
     }
-
 }
 

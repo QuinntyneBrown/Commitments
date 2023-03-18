@@ -12,11 +12,8 @@ public class CreateToDoRequestValidator: AbstractValidator<CreateToDoRequest>
         RuleFor(x => x.ProfileId).NotEqual(default(Guid));
         RuleFor(x => x.Due).NotNull();
         RuleFor(x => x.CompletedOn).NotNull();
-
     }
-
 }
-
 
 public class CreateToDoRequest: IRequest<CreateToDoResponse>
 {
@@ -27,12 +24,10 @@ public class CreateToDoRequest: IRequest<CreateToDoResponse>
     public DateTime CompletedOn { get; set; }
 }
 
-
 public class CreateToDoResponse
 {
     public required ToDoDto ToDo { get; set; }
 }
-
 
 public class CreateToDoRequestHandler: IRequestHandler<CreateToDoRequest,CreateToDoResponse>
 {
@@ -63,10 +58,5 @@ public class CreateToDoRequestHandler: IRequestHandler<CreateToDoRequest,CreateT
         {
             ToDo = toDo.ToDto()
         };
-
     }
-
 }
-
-
-

@@ -8,13 +8,13 @@ using Newtonsoft.Json.Serialization;
 
 namespace Kernel;
 
-public class CamelCaseContractResolver : IContractResolver
+public class HubCamelCasePropertyNamesContractResolver : IContractResolver
 {
     private readonly Assembly _assembly;
     private readonly IContractResolver _camelCaseContractResolver;
     private readonly IContractResolver _defaultContractSerializer;
 
-    public CamelCaseContractResolver()
+    public HubCamelCasePropertyNamesContractResolver()
     {
         _defaultContractSerializer = new DefaultContractResolver();
         _camelCaseContractResolver = new CamelCasePropertyNamesContractResolver();

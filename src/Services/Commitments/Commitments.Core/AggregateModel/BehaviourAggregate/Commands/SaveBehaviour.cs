@@ -1,13 +1,11 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Commitments.Core.Extensions;
 using FluentValidation;
 using MediatR;
-using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core.AggregateModel;
-using Commitments.Core.Interfaces;
-using Commitments.Core.Extensions;
+using System.Threading.Tasks;
 
 
 namespace Commitments.Core.AggregateModel.BehaviourAggregate.Commands;
