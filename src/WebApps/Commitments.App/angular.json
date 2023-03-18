@@ -262,6 +262,111 @@
           "standalone": true
         }
       }
+    },
+    "@digital-asset/core": {
+      "projectType": "library",
+      "root": "projects/digital-asset/core",
+      "sourceRoot": "projects/digital-asset/core/src",
+      "prefix": "dig",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/digital-asset/core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/digital-asset/core/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/digital-asset/core/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run"
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "standalone": true,
+          "style": "scss"
+        },
+        "@schematics/angular:directive": {
+          "standalone": true
+        }
+      }
+    },
+    "@note/core": {
+      "projectType": "library",
+      "root": "projects/note/core",
+      "sourceRoot": "projects/note/core/src",
+      "prefix": "dig",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/note/core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/note/core/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/note/core/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run"
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "standalone": true,
+          "style": "scss"
+        },
+        "@schematics/angular:directive": {
+          "standalone": true
+        }
+      }
+    },
+    "@to-do/core": {
+      "projectType": "library",
+      "root": "projects/to-do/core",
+      "sourceRoot": "projects/to-do/core/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/to-do/core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/to-do/core/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/to-do/core/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run"
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "standalone": true,
+          "style": "scss"
+        },
+        "@schematics/angular:directive": {
+          "standalone": true
+        }
+      }
     }
   }
 }

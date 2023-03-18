@@ -9,11 +9,14 @@
     "test": "ng test",
     "watch:commitments-core": "ng build @commitments/core --watch",
     "watch:global-libs": "npm-run-all --parallel watch:global-core",
-    "watch:libs": "npm-run-all --parallel watch:commitments-core watch:dashboard-core watch:identity-core watch:global-core watch:profile-core",
+    "watch:libs": "npm-run-all --parallel watch:commitments-core watch:dashboard-core watch:identity-core watch:global-core watch:profile-core watch:digital-asset-core watch:note-core watch:to-do-core",
     "watch:dashboard-core": "ng build @dashboard/core --watch",
     "watch:identity-core": "ng build @identity/core --watch",
     "watch:global-core": "ng build @global/core --watch",
-    "watch:profile-core": "ng build @profile/core --watch"
+    "watch:profile-core": "ng build @profile/core --watch",
+    "watch:digital-asset-core": "ng build @digital-asset/core --watch",
+    "watch:note-core": "ng build @note/core --watch",
+    "watch:to-do-core": "ng build @to-do/core --watch"
   },
   "private": true,
   "dependencies": {

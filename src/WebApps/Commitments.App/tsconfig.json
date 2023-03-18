@@ -9,14 +9,23 @@
       "@dashboard/core": [
         "dist/dashboard/core"
       ],
+      "@digital-asset/core": [
+        "dist/digital-asset/core"
+      ],
       "@global/core": [
         "dist/global/core"
       ],
       "@identity/core": [
         "dist/identity/core"
       ],
+      "@note/core": [
+        "dist/note/core"
+      ],
       "@profile/core": [
         "dist/profile/core"
+      ],
+      "@to-do/core": [
+        "dist/to-do/core"
       ]
     },
     "baseUrl": "./",
