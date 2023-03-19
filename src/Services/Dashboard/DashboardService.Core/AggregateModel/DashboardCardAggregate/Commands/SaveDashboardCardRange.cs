@@ -29,7 +29,8 @@ public class CreateDashboardCardRangeCommandHandler : IRequestHandler<CreateDash
 
         foreach (var dashboardCard in request.DashboardCards)
         {
-            var response = await _mediator.Send(new CreateDashboardCardRequest() {
+            var response = await _mediator.Send(new CreateDashboardCardRequest()
+            {
                 DashboardId = dashboardCard.DashboardId,
                 CardId = dashboardCard.CardId,
                 CardLayoutId = dashboardCard.CardLayoutId,

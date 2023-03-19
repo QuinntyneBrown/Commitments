@@ -5,9 +5,10 @@ using NoteService.Core.AggregateModel.NoteAggregate;
 
 namespace NoteService.Core.AggregateModel.TagAggregate.Commands;
 
-public class CreateTagRequestValidator: AbstractValidator<CreateTagRequest>
+public class CreateTagRequestValidator : AbstractValidator<CreateTagRequest>
 {
-    public CreateTagRequestValidator(){
+    public CreateTagRequestValidator()
+    {
 
         RuleFor(x => x.Name).NotEqual(default(Guid));
         RuleFor(x => x.Slug).NotNull();
@@ -18,7 +19,7 @@ public class CreateTagRequestValidator: AbstractValidator<CreateTagRequest>
 }
 
 
-public class CreateTagRequest: IRequest<CreateTagResponse>
+public class CreateTagRequest : IRequest<CreateTagResponse>
 {
     public Guid Name { get; set; }
     public string Slug { get; set; }
@@ -32,18 +33,19 @@ public class CreateTagResponse
 }
 
 
-public class CreateTagRequestHandler: IRequestHandler<CreateTagRequest,CreateTagResponse>
+public class CreateTagRequestHandler : IRequestHandler<CreateTagRequest, CreateTagResponse>
 {
     private readonly INoteServiceDbContext _context;
 
     private readonly ILogger<CreateTagRequestHandler> _logger;
 
-    public CreateTagRequestHandler(ILogger<CreateTagRequestHandler> logger,INoteServiceDbContext context){
+    public CreateTagRequestHandler(ILogger<CreateTagRequestHandler> logger, INoteServiceDbContext context)
+    {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public async Task<CreateTagResponse> Handle(CreateTagRequest request,CancellationToken cancellationToken)
+    public async Task<CreateTagResponse> Handle(CreateTagRequest request, CancellationToken cancellationToken)
     {
         var tag = new Tag();
 
@@ -55,7 +57,7 @@ public class CreateTagRequestHandler: IRequestHandler<CreateTagRequest,CreateTag
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new ()
+        return new()
         {
             Tag = tag.ToDto()
         };

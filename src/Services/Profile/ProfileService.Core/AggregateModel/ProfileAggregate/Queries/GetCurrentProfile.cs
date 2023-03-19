@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace ProfileService.Core.AggregateModel.ProfileAggregate.Queries;
 
-public class GetCurremtProfileRequest: IRequest<GetCurremtProfileResponse> { }
+public class GetCurremtProfileRequest : IRequest<GetCurremtProfileResponse> { }
 
 public class GetCurremtProfileResponse
 {
@@ -13,7 +13,7 @@ public class GetCurremtProfileResponse
 }
 
 
-public class GetCurremtProfileRequestHandler: IRequestHandler<GetCurremtProfileRequest,GetCurremtProfileResponse>
+public class GetCurremtProfileRequestHandler : IRequestHandler<GetCurremtProfileRequest, GetCurremtProfileResponse>
 {
     private readonly IProfileServiceDbContext _context;
     private readonly IHttpContextAccessor _httpContextAccessor;
@@ -29,13 +29,14 @@ public class GetCurremtProfileRequestHandler: IRequestHandler<GetCurremtProfileR
         _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
     }
 
-    public async Task<GetCurremtProfileResponse> Handle(GetCurremtProfileRequest request,CancellationToken cancellationToken)
+    public async Task<GetCurremtProfileResponse> Handle(GetCurremtProfileRequest request, CancellationToken cancellationToken)
     {
         var username = _httpContextAccessor.HttpContext!.User.Identity!.Name;
 
         var profile = await _context.Profiles.SingleAsync(x => x.Username == username);
 
-        return new () {
+        return new()
+        {
             Profile = profile.ToDto()
         };
 

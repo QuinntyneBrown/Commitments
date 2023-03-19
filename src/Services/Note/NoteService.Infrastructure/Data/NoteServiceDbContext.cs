@@ -8,9 +8,9 @@ using NoteService.Core.AggregateModel.TagAggregate;
 
 namespace NoteService.Infrastructure.Data;
 
-public class NoteServiceDbContext: DbContext, INoteServiceDbContext
+public class NoteServiceDbContext : DbContext, INoteServiceDbContext
 {
-    public NoteServiceDbContext(DbContextOptions<NoteServiceDbContext> options)    : base(options)
+    public NoteServiceDbContext(DbContextOptions<NoteServiceDbContext> options) : base(options)
     {
     }
 

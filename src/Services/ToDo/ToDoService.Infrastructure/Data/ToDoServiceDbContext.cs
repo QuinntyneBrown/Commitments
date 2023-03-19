@@ -7,9 +7,9 @@ using ToDoService.Core.AggregateModel.ToDoAggregate;
 
 namespace ToDoService.Infrastructure.Data;
 
-public class ToDoServiceDbContext: DbContext,IToDoServiceDbContext
+public class ToDoServiceDbContext : DbContext, IToDoServiceDbContext
 {
-    public ToDoServiceDbContext(DbContextOptions<ToDoServiceDbContext> options)    : base(options)
+    public ToDoServiceDbContext(DbContextOptions<ToDoServiceDbContext> options) : base(options)
     {
     }
 

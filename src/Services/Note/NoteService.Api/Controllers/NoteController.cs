@@ -23,7 +23,8 @@ public class NoteController
 
     private readonly ILogger<NoteController> _logger;
 
-    public NoteController(IMediator mediator,ILogger<NoteController> logger){
+    public NoteController(IMediator mediator, ILogger<NoteController> logger)
+    {
         _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
@@ -36,7 +37,7 @@ public class NoteController
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(UpdateNoteResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdateNoteResponse>> Update([FromBody]UpdateNoteRequest  request,CancellationToken cancellationToken)
+    public async Task<ActionResult<UpdateNoteResponse>> Update([FromBody] UpdateNoteRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
     }
@@ -49,7 +50,7 @@ public class NoteController
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(CreateNoteResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CreateNoteResponse>> Create([FromBody]CreateNoteRequest  request,CancellationToken cancellationToken)
+    public async Task<ActionResult<CreateNoteResponse>> Create([FromBody] CreateNoteRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
     }
@@ -121,9 +122,9 @@ public class NoteController
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(DeleteNoteResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<DeleteNoteResponse>> Delete([FromRoute]Guid noteId,CancellationToken cancellationToken)
+    public async Task<ActionResult<DeleteNoteResponse>> Delete([FromRoute] Guid noteId, CancellationToken cancellationToken)
     {
-        var request = new DeleteNoteRequest() {NoteId = noteId };
+        var request = new DeleteNoteRequest() { NoteId = noteId };
 
         return await _mediator.Send(request, cancellationToken);
     }

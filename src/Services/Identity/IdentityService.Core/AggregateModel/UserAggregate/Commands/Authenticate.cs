@@ -63,7 +63,7 @@ public class AuthenticateRequestHandler : IRequestHandler<AuthenticateRequest, A
             if (!ValidateUser(user, _passwordHasher.HashPassword(user.Salt, request.Password)))
                 throw new Exception();
 
-            
+
             var token = _tokenProvider.Get(user.Username);
 
             return new AuthenticateResponse

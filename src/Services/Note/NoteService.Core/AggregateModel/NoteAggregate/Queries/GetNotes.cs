@@ -3,7 +3,7 @@
 
 namespace NoteService.Core.AggregateModel.NoteAggregate.Queries;
 
-public class GetNotesRequest: IRequest<GetNotesResponse> { }
+public class GetNotesRequest : IRequest<GetNotesResponse> { }
 
 public class GetNotesResponse
 {
@@ -11,20 +11,22 @@ public class GetNotesResponse
 }
 
 
-public class GetNotesRequestHandler: IRequestHandler<GetNotesRequest,GetNotesResponse>
+public class GetNotesRequestHandler : IRequestHandler<GetNotesRequest, GetNotesResponse>
 {
     private readonly INoteServiceDbContext _context;
 
     private readonly ILogger<GetNotesRequestHandler> _logger;
 
-    public GetNotesRequestHandler(ILogger<GetNotesRequestHandler> logger,INoteServiceDbContext context){
+    public GetNotesRequestHandler(ILogger<GetNotesRequestHandler> logger, INoteServiceDbContext context)
+    {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public async Task<GetNotesResponse> Handle(GetNotesRequest request,CancellationToken cancellationToken)
+    public async Task<GetNotesResponse> Handle(GetNotesRequest request, CancellationToken cancellationToken)
     {
-        return new () {
+        return new()
+        {
             Notes = await _context.Notes
             .Include(x => x.Tags)
             .AsNoTracking().ToDtosAsync(cancellationToken)

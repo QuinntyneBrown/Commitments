@@ -8,9 +8,9 @@ using System.Linq;
 
 namespace Commitments.Infrastructure.Data;
 
-public class SeedData
+public static class SeedData
 {
-    public static void Seed(CommitmentsDbContext context)
+    public static void Seed(this CommitmentsDbContext context)
     {
         BehaviourTypeConfiguration.Seed(context);
         FrequencyTypeConfiguration.Seed(context);

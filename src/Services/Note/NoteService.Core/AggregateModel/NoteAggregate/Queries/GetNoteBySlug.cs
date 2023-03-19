@@ -3,7 +3,7 @@
 
 namespace NoteService.Core.AggregateModel.NoteAggregate.Queries;
 
-public class GetNoteBySlugRequest: IRequest<GetNoteBySlugResponse>
+public class GetNoteBySlugRequest : IRequest<GetNoteBySlugResponse>
 {
     public string Slug { get; set; }
 }
@@ -15,7 +15,7 @@ public class GetNoteBySlugResponse
 }
 
 
-public class GetNoteBySlugRequestHandler: IRequestHandler<GetNoteBySlugRequest,GetNoteBySlugResponse>
+public class GetNoteBySlugRequestHandler : IRequestHandler<GetNoteBySlugRequest, GetNoteBySlugResponse>
 {
     private readonly INoteServiceDbContext _context;
 
@@ -23,14 +23,16 @@ public class GetNoteBySlugRequestHandler: IRequestHandler<GetNoteBySlugRequest,G
 
     public GetNoteBySlugRequestHandler(
         ILogger<GetNoteBySlugRequestHandler> logger,
-        INoteServiceDbContext context){
+        INoteServiceDbContext context)
+    {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public async Task<GetNoteBySlugResponse> Handle(GetNoteBySlugRequest request,CancellationToken cancellationToken)
+    public async Task<GetNoteBySlugResponse> Handle(GetNoteBySlugRequest request, CancellationToken cancellationToken)
     {
-        return new () {
+        return new()
+        {
             Note = (await _context.Notes.AsNoTracking().SingleOrDefaultAsync(x => x.Slug == request.Slug)).ToDto()
         };
 

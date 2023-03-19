@@ -5,9 +5,10 @@ using NoteService.Core.AggregateModel.NoteAggregate;
 
 namespace NoteService.Core.AggregateModel.TagAggregate.Commands;
 
-public class UpdateTagRequestValidator: AbstractValidator<UpdateTagRequest>
+public class UpdateTagRequestValidator : AbstractValidator<UpdateTagRequest>
 {
-    public UpdateTagRequestValidator(){
+    public UpdateTagRequestValidator()
+    {
 
         RuleFor(x => x.TagId).NotEqual(default(Guid));
         RuleFor(x => x.Name).NotEqual(default(Guid));
@@ -19,7 +20,7 @@ public class UpdateTagRequestValidator: AbstractValidator<UpdateTagRequest>
 }
 
 
-public class UpdateTagRequest: IRequest<UpdateTagResponse>
+public class UpdateTagRequest : IRequest<UpdateTagResponse>
 {
     public Guid TagId { get; set; }
     public Guid Name { get; set; }
@@ -34,18 +35,19 @@ public class UpdateTagResponse
 }
 
 
-public class UpdateTagRequestHandler: IRequestHandler<UpdateTagRequest,UpdateTagResponse>
+public class UpdateTagRequestHandler : IRequestHandler<UpdateTagRequest, UpdateTagResponse>
 {
     private readonly INoteServiceDbContext _context;
 
     private readonly ILogger<UpdateTagRequestHandler> _logger;
 
-    public UpdateTagRequestHandler(ILogger<UpdateTagRequestHandler> logger,INoteServiceDbContext context){
+    public UpdateTagRequestHandler(ILogger<UpdateTagRequestHandler> logger, INoteServiceDbContext context)
+    {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public async Task<UpdateTagResponse> Handle(UpdateTagRequest request,CancellationToken cancellationToken)
+    public async Task<UpdateTagResponse> Handle(UpdateTagRequest request, CancellationToken cancellationToken)
     {
         var tag = await _context.Tags.SingleAsync(x => x.TagId == request.TagId);
 
@@ -55,7 +57,7 @@ public class UpdateTagRequestHandler: IRequestHandler<UpdateTagRequest,UpdateTag
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new ()
+        return new()
         {
             Tag = tag.ToDto()
         };

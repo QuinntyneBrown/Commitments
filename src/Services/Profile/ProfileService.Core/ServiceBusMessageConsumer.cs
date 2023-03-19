@@ -10,21 +10,22 @@ using System.Text;
 
 namespace ProfileService.Core;
 
-public class ServiceBusMessageConsumer: BackgroundService
+public class ServiceBusMessageConsumer : BackgroundService
 {
     private readonly ILogger<ServiceBusMessageConsumer> _logger;
     private readonly IUdpClientFactory _udpClientFactory;
     private readonly IServiceScopeFactory _serviceScopeFactory;
 
-    private readonly string[] _supportedMessageTypes = new string[] { 
-        nameof(UserCreatedMessage) 
+    private readonly string[] _supportedMessageTypes = new string[] {
+        nameof(UserCreatedMessage)
     };
 
     public ServiceBusMessageConsumer(
         ILogger<ServiceBusMessageConsumer> logger,
         IUdpClientFactory udpClientFactory,
         IServiceScopeFactory serviceScopeFactory
-        ){
+        )
+    {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _udpClientFactory = udpClientFactory ?? throw new ArgumentNullException(nameof(udpClientFactory));
         _serviceScopeFactory = serviceScopeFactory ?? throw new ArgumentNullException(nameof(serviceScopeFactory));
@@ -34,7 +35,8 @@ public class ServiceBusMessageConsumer: BackgroundService
     {
         var client = _udpClientFactory.Create();
 
-        while(!stoppingToken.IsCancellationRequested) {
+        while (!stoppingToken.IsCancellationRequested)
+        {
 
             var result = await client.ReceiveAsync(stoppingToken);
 
@@ -44,7 +46,7 @@ public class ServiceBusMessageConsumer: BackgroundService
 
             var messageType = message.MessageAttributes["MessageType"];
 
-            if(_supportedMessageTypes.Contains(messageType))
+            if (_supportedMessageTypes.Contains(messageType))
             {
                 var type = Type.GetType($"ProfileService.Core.Messages.{messageType}");
 

@@ -59,7 +59,21 @@ try
 
         if (args.Contains("dropdb"))
         {
+            context.Database.ExecuteSql($"DROP TABLE Commitments.Achievements;");
+
+            context.Database.ExecuteSql($"DROP TABLE Commitments.Activities;");
+
+            context.Database.ExecuteSql($"DROP TABLE Commitments.Behaviours;");
+
             context.Database.ExecuteSql($"DROP TABLE Commitments.Commitments;");
+
+            context.Database.ExecuteSql($"DROP TABLE Commitments.Frequencies;");
+
+            context.Database.ExecuteSql($"DROP TABLE Commitments.BehaviourTypes;");
+
+            context.Database.ExecuteSql($"DROP TABLE Commitments.FrequencyTypes;");
+
+            context.Database.ExecuteSql($"DROP TABLE Commitments.Profiles;");
 
             context.Database.ExecuteSql($"DROP SCHEMA Commitments;");
 
@@ -73,7 +87,7 @@ try
 
         if (args.Contains("seeddb"))
         {
-            SeedData.Seed(context);
+            context.Seed();
         }
 
         if (args.Contains("stop"))

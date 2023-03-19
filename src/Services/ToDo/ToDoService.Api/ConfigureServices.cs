@@ -8,9 +8,11 @@ using Kernel;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
-public static class ConfigureServices { 
-    public static void AddApiServices(this IServiceCollection services) {
-        
+public static class ConfigureServices
+{
+    public static void AddApiServices(this IServiceCollection services)
+    {
+
         services.AddControllers(o => o.Filters.Add(typeof(HttpGlobalExceptionFilter)));
 
         services.AddApiVersioning(options =>

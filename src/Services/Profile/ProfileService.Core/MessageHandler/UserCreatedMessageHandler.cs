@@ -6,7 +6,7 @@ using ProfileService.Core.Messages;
 
 namespace ProfileService.Core.MessageHandler;
 
-public class UserCreatedMessageHandler: IRequestHandler<UserCreatedMessage>
+public class UserCreatedMessageHandler : IRequestHandler<UserCreatedMessage>
 {
     private readonly ILogger<UserCreatedMessageHandler> _logger;
     private readonly IProfileServiceDbContext _context;
@@ -18,7 +18,7 @@ public class UserCreatedMessageHandler: IRequestHandler<UserCreatedMessage>
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public async Task Handle(UserCreatedMessage message,CancellationToken cancellationToken)
+    public async Task Handle(UserCreatedMessage message, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Message Handled: {message}", message);
 

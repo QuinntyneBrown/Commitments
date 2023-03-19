@@ -3,7 +3,7 @@
 
 namespace ProfileService.Core.Messages;
 
-public class UserMetadataMessage: IRequest
+public class UserMetadataMessage : IRequest
 {
     public string Username { get; set; }
     public string MetadataPropertyName { get; set; }

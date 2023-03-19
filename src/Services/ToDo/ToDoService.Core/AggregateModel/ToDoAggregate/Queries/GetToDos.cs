@@ -3,7 +3,7 @@
 
 namespace ToDoService.Core.AggregateModel.ToDoAggregate.Queries;
 
-public class GetToDosRequest: IRequest<GetToDosResponse> { }
+public class GetToDosRequest : IRequest<GetToDosResponse> { }
 
 public class GetToDosResponse
 {
@@ -11,20 +11,22 @@ public class GetToDosResponse
 }
 
 
-public class GetToDosRequestHandler: IRequestHandler<GetToDosRequest,GetToDosResponse>
+public class GetToDosRequestHandler : IRequestHandler<GetToDosRequest, GetToDosResponse>
 {
     private readonly IToDoServiceDbContext _context;
 
     private readonly ILogger<GetToDosRequestHandler> _logger;
 
-    public GetToDosRequestHandler(ILogger<GetToDosRequestHandler> logger,IToDoServiceDbContext context){
+    public GetToDosRequestHandler(ILogger<GetToDosRequestHandler> logger, IToDoServiceDbContext context)
+    {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public async Task<GetToDosResponse> Handle(GetToDosRequest request,CancellationToken cancellationToken)
+    public async Task<GetToDosResponse> Handle(GetToDosRequest request, CancellationToken cancellationToken)
     {
-        return new () {
+        return new()
+        {
             ToDos = await _context.ToDos.AsNoTracking().ToDtosAsync(cancellationToken)
         };
 

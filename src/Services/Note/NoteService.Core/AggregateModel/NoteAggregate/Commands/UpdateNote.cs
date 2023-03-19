@@ -5,9 +5,10 @@ using NoteService.Core.AggregateModel.TagAggregate;
 
 namespace NoteService.Core.AggregateModel.NoteAggregate.Commands;
 
-public class UpdateNoteRequestValidator: AbstractValidator<UpdateNoteRequest>
+public class UpdateNoteRequestValidator : AbstractValidator<UpdateNoteRequest>
 {
-    public UpdateNoteRequestValidator(){
+    public UpdateNoteRequestValidator()
+    {
 
         RuleFor(x => x.NoteId).NotEqual(default(Guid));
         RuleFor(x => x.Title).NotNull().NotEmpty();
@@ -19,7 +20,7 @@ public class UpdateNoteRequestValidator: AbstractValidator<UpdateNoteRequest>
 }
 
 
-public class UpdateNoteRequest: IRequest<UpdateNoteResponse>
+public class UpdateNoteRequest : IRequest<UpdateNoteResponse>
 {
     public Guid NoteId { get; set; }
     public string Title { get; set; }
@@ -35,18 +36,19 @@ public class UpdateNoteResponse
 }
 
 
-public class UpdateNoteRequestHandler: IRequestHandler<UpdateNoteRequest,UpdateNoteResponse>
+public class UpdateNoteRequestHandler : IRequestHandler<UpdateNoteRequest, UpdateNoteResponse>
 {
     private readonly INoteServiceDbContext _context;
 
     private readonly ILogger<UpdateNoteRequestHandler> _logger;
 
-    public UpdateNoteRequestHandler(ILogger<UpdateNoteRequestHandler> logger,INoteServiceDbContext context){
+    public UpdateNoteRequestHandler(ILogger<UpdateNoteRequestHandler> logger, INoteServiceDbContext context)
+    {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public async Task<UpdateNoteResponse> Handle(UpdateNoteRequest request,CancellationToken cancellationToken)
+    public async Task<UpdateNoteResponse> Handle(UpdateNoteRequest request, CancellationToken cancellationToken)
     {
         var note = await _context.Notes
             .Include(x => x.Tags)
@@ -59,7 +61,7 @@ public class UpdateNoteRequestHandler: IRequestHandler<UpdateNoteRequest,UpdateN
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new ()
+        return new()
         {
             Note = note.ToDto()
         };

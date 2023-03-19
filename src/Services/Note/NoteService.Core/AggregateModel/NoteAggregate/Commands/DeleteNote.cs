@@ -3,9 +3,10 @@
 
 namespace NoteService.Core.AggregateModel.NoteAggregate.Commands;
 
-public class DeleteNoteRequestValidator: AbstractValidator<DeleteNoteRequest>
+public class DeleteNoteRequestValidator : AbstractValidator<DeleteNoteRequest>
 {
-    public DeleteNoteRequestValidator(){
+    public DeleteNoteRequestValidator()
+    {
 
         RuleFor(x => x.NoteId).NotEqual(default(Guid));
 
@@ -14,7 +15,7 @@ public class DeleteNoteRequestValidator: AbstractValidator<DeleteNoteRequest>
 }
 
 
-public class DeleteNoteRequest: IRequest<DeleteNoteResponse>
+public class DeleteNoteRequest : IRequest<DeleteNoteResponse>
 {
     public Guid NoteId { get; set; }
 }
@@ -26,18 +27,19 @@ public class DeleteNoteResponse
 }
 
 
-public class DeleteNoteRequestHandler: IRequestHandler<DeleteNoteRequest,DeleteNoteResponse>
+public class DeleteNoteRequestHandler : IRequestHandler<DeleteNoteRequest, DeleteNoteResponse>
 {
     private readonly INoteServiceDbContext _context;
 
     private readonly ILogger<DeleteNoteRequestHandler> _logger;
 
-    public DeleteNoteRequestHandler(ILogger<DeleteNoteRequestHandler> logger,INoteServiceDbContext context){
+    public DeleteNoteRequestHandler(ILogger<DeleteNoteRequestHandler> logger, INoteServiceDbContext context)
+    {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public async Task<DeleteNoteResponse> Handle(DeleteNoteRequest request,CancellationToken cancellationToken)
+    public async Task<DeleteNoteResponse> Handle(DeleteNoteRequest request, CancellationToken cancellationToken)
     {
         var note = await _context.Notes.FindAsync(request.NoteId);
 
@@ -45,7 +47,7 @@ public class DeleteNoteRequestHandler: IRequestHandler<DeleteNoteRequest,DeleteN
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new ()
+        return new()
         {
             Note = note.ToDto()
         };

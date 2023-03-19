@@ -9,9 +9,9 @@ public static class HttpContextAccessorExtensions
 {
     public static Guid GetProfileId(this IHttpContextAccessor httpContextAccessor)
     {
-        var profileIdHeader = httpContextAccessor.HttpContext.Request.Headers["ProfileId"];
+        var profileId = $"{httpContextAccessor.HttpContext.Request.Headers["ProfileId"]}";
 
-        return new Guid(profileIdHeader);
+        return new Guid(profileId);
     }
 }
 

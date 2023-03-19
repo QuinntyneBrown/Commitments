@@ -5,9 +5,10 @@ using NoteService.Core.AggregateModel.TagAggregate;
 
 namespace NoteService.Core.AggregateModel.NoteAggregate.Commands;
 
-public class CreateNoteRequestValidator: AbstractValidator<CreateNoteRequest>
+public class CreateNoteRequestValidator : AbstractValidator<CreateNoteRequest>
 {
-    public CreateNoteRequestValidator(){
+    public CreateNoteRequestValidator()
+    {
 
         RuleFor(x => x.Title).NotNull().NotEmpty();
         RuleFor(x => x.Body).NotNull();
@@ -15,7 +16,7 @@ public class CreateNoteRequestValidator: AbstractValidator<CreateNoteRequest>
 }
 
 
-public class CreateNoteRequest: IRequest<CreateNoteResponse>
+public class CreateNoteRequest : IRequest<CreateNoteResponse>
 {
     public string Title { get; set; }
     public string Slug { get; set; }
@@ -30,18 +31,19 @@ public class CreateNoteResponse
 }
 
 
-public class CreateNoteRequestHandler: IRequestHandler<CreateNoteRequest,CreateNoteResponse>
+public class CreateNoteRequestHandler : IRequestHandler<CreateNoteRequest, CreateNoteResponse>
 {
     private readonly INoteServiceDbContext _context;
 
     private readonly ILogger<CreateNoteRequestHandler> _logger;
 
-    public CreateNoteRequestHandler(ILogger<CreateNoteRequestHandler> logger,INoteServiceDbContext context){
+    public CreateNoteRequestHandler(ILogger<CreateNoteRequestHandler> logger, INoteServiceDbContext context)
+    {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public async Task<CreateNoteResponse> Handle(CreateNoteRequest request,CancellationToken cancellationToken)
+    public async Task<CreateNoteResponse> Handle(CreateNoteRequest request, CancellationToken cancellationToken)
     {
         var note = new Note();
 
@@ -53,7 +55,7 @@ public class CreateNoteRequestHandler: IRequestHandler<CreateNoteRequest,CreateN
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new ()
+        return new()
         {
             Note = note.ToDto()
         };

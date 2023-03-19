@@ -3,7 +3,7 @@
 
 namespace IdentityService.Core.Messages;
 
-public class UserValidatedMessage: IRequest
+public class UserValidatedMessage : IRequest
 {
     public string Username { get; set; }
 }

@@ -7,17 +7,18 @@ using ProfileService.Core.Messages;
 
 namespace ProfileService.Core.MessageHandler;
 
-public class UserValidatedMessageHandler: IRequestHandler<UserValidatedMessage>
+public class UserValidatedMessageHandler : IRequestHandler<UserValidatedMessage>
 {
     private readonly ILogger<UserValidatedMessage> _logger;
     private readonly IProfileServiceDbContext _context;
     private readonly IServiceBusMessageSender _serviceBusMessageSender;
 
-    public UserValidatedMessageHandler(ILogger<UserValidatedMessage> logger){
+    public UserValidatedMessageHandler(ILogger<UserValidatedMessage> logger)
+    {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    public async Task Handle(UserValidatedMessage message,CancellationToken cancellationToken)
+    public async Task Handle(UserValidatedMessage message, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Message Handled: {message}", message);
 

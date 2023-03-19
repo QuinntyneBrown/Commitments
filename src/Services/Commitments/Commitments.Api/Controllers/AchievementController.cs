@@ -6,6 +6,7 @@ using Commitments.Core.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Net.Mime;
 
 namespace Commitments.Api.Controllers;
@@ -16,18 +17,21 @@ namespace Commitments.Api.Controllers;
 [Route("api/{version:apiVersion}/[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
 [Consumes(MediaTypeNames.Application.Json)]
-public class AchievementsController
+public class AchievementController
 {
     private readonly IMediator _mediator;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public AchievementsController(IHttpContextAccessor httpContextAccessor, IMediator mediator)
+    public AchievementController(IHttpContextAccessor httpContextAccessor, IMediator mediator)
     {
         _mediator = mediator;
         _httpContextAccessor = httpContextAccessor;
     }
 
     [HttpGet]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetAchievementsResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetAchievementsResponse>> Get()
     {
         return await _mediator.Send(new GetAchievementsRequest()

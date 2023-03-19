@@ -7,14 +7,16 @@ using Security;
 
 namespace IdentityService.Core.AggregateModel.UserAggregate.Commands;
 
-public class CreateUserRequestValidator : AbstractValidator<CreateUserRequest> {
+public class CreateUserRequestValidator : AbstractValidator<CreateUserRequest>
+{
     public CreateUserRequestValidator()
     {
         RuleFor(x => x.Username).NotNull().NotEmpty();
     }
 }
 
-public class CreateUserRequest : IRequest<CreateUserResponse> {
+public class CreateUserRequest : IRequest<CreateUserResponse>
+{
 
     public string Username { get; set; }
 }
@@ -44,7 +46,7 @@ public class CreateUserRequestHandler : IRequestHandler<CreateUserRequest, Creat
     {
         try
         {
-            var user = new User(request.Username,"Default", _passwordHasher);
+            var user = new User(request.Username, "Default", _passwordHasher);
 
             _context.Users.Add(user);
 
@@ -65,7 +67,7 @@ public class CreateUserRequestHandler : IRequestHandler<CreateUserRequest, Creat
         catch (Exception ex)
         {
 
-            throw ex;
+            throw;
         }
 
     }

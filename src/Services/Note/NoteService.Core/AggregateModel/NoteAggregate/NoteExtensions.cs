@@ -8,7 +8,7 @@ namespace NoteService.Core.AggregateModel.NoteAggregate;
 public static class NoteExtensions
 {
     public static NoteDto ToDto(this Note note)
-    {        
+    {
         return new NoteDto
         {
             NoteId = note.NoteId,
@@ -19,7 +19,7 @@ public static class NoteExtensions
         };
     }
 
-    public async static Task<List<NoteDto>> ToDtosAsync(this IQueryable<Note> notes,CancellationToken cancellationToken)
+    public async static Task<List<NoteDto>> ToDtosAsync(this IQueryable<Note> notes, CancellationToken cancellationToken)
     {
         return await notes.Select(x => x.ToDto()).ToListAsync(cancellationToken);
     }

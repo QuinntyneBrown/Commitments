@@ -16,7 +16,7 @@ public static class TagExtensions
 
     }
 
-    public async static Task<List<TagDto>> ToDtosAsync(this IQueryable<Tag> tags,CancellationToken cancellationToken)
+    public async static Task<List<TagDto>> ToDtosAsync(this IQueryable<Tag> tags, CancellationToken cancellationToken)
     {
         return await tags.Select(x => x.ToDto()).ToListAsync(cancellationToken);
     }

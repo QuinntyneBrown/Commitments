@@ -23,7 +23,8 @@ public class ToDoController
 
     private readonly ILogger<ToDoController> _logger;
 
-    public ToDoController(IMediator mediator,ILogger<ToDoController> logger){
+    public ToDoController(IMediator mediator, ILogger<ToDoController> logger)
+    {
         _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
@@ -36,7 +37,7 @@ public class ToDoController
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(UpdateToDoResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdateToDoResponse>> Update([FromBody]UpdateToDoRequest  request,CancellationToken cancellationToken)
+    public async Task<ActionResult<UpdateToDoResponse>> Update([FromBody] UpdateToDoRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
     }
@@ -49,7 +50,7 @@ public class ToDoController
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(CreateToDoResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CreateToDoResponse>> Create([FromBody]CreateToDoRequest  request,CancellationToken cancellationToken)
+    public async Task<ActionResult<CreateToDoResponse>> Create([FromBody] CreateToDoRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
     }
@@ -76,9 +77,9 @@ public class ToDoController
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(GetToDoByIdResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetToDoByIdResponse>> GetById([FromRoute]Guid toDoId,CancellationToken cancellationToken)
+    public async Task<ActionResult<GetToDoByIdResponse>> GetById([FromRoute] Guid toDoId, CancellationToken cancellationToken)
     {
-        var request = new GetToDoByIdRequest(){ToDoId = toDoId};
+        var request = new GetToDoByIdRequest() { ToDoId = toDoId };
 
         var response = await _mediator.Send(request, cancellationToken);
 
@@ -98,9 +99,9 @@ public class ToDoController
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(DeleteToDoResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<DeleteToDoResponse>> Delete([FromRoute]Guid toDoId,CancellationToken cancellationToken)
+    public async Task<ActionResult<DeleteToDoResponse>> Delete([FromRoute] Guid toDoId, CancellationToken cancellationToken)
     {
-        var request = new DeleteToDoRequest() {ToDoId = toDoId };
+        var request = new DeleteToDoRequest() { ToDoId = toDoId };
 
         return await _mediator.Send(request, cancellationToken);
     }

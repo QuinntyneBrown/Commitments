@@ -19,7 +19,7 @@ public static class ToDoExtensions
 
     }
 
-    public async static Task<List<ToDoDto>> ToDtosAsync(this IQueryable<ToDo> toDos,CancellationToken cancellationToken)
+    public async static Task<List<ToDoDto>> ToDtosAsync(this IQueryable<ToDo> toDos, CancellationToken cancellationToken)
     {
         return await toDos.Select(x => x.ToDto()).ToListAsync(cancellationToken);
     }

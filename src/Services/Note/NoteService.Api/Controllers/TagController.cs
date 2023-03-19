@@ -23,7 +23,8 @@ public class TagController
 
     private readonly ILogger<TagController> _logger;
 
-    public TagController(IMediator mediator,ILogger<TagController> logger){
+    public TagController(IMediator mediator, ILogger<TagController> logger)
+    {
         _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
@@ -36,7 +37,7 @@ public class TagController
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(UpdateTagResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UpdateTagResponse>> Update([FromBody]UpdateTagRequest  request,CancellationToken cancellationToken)
+    public async Task<ActionResult<UpdateTagResponse>> Update([FromBody] UpdateTagRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
     }
@@ -49,7 +50,7 @@ public class TagController
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(CreateTagResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<CreateTagResponse>> Create([FromBody]CreateTagRequest  request,CancellationToken cancellationToken)
+    public async Task<ActionResult<CreateTagResponse>> Create([FromBody] CreateTagRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
     }
@@ -76,9 +77,9 @@ public class TagController
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(GetTagByIdResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetTagByIdResponse>> GetById([FromRoute]Guid tagId,CancellationToken cancellationToken)
+    public async Task<ActionResult<GetTagByIdResponse>> GetById([FromRoute] Guid tagId, CancellationToken cancellationToken)
     {
-        var request = new GetTagByIdRequest(){TagId = tagId};
+        var request = new GetTagByIdRequest() { TagId = tagId };
 
         var response = await _mediator.Send(request, cancellationToken);
 
@@ -98,9 +99,9 @@ public class TagController
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(DeleteTagResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<DeleteTagResponse>> Delete([FromRoute]Guid tagId,CancellationToken cancellationToken)
+    public async Task<ActionResult<DeleteTagResponse>> Delete([FromRoute] Guid tagId, CancellationToken cancellationToken)
     {
-        var request = new DeleteTagRequest() {TagId = tagId };
+        var request = new DeleteTagRequest() { TagId = tagId };
 
         return await _mediator.Send(request, cancellationToken);
     }

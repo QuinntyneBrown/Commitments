@@ -3,9 +3,10 @@
 
 namespace NoteService.Core.AggregateModel.TagAggregate.Commands;
 
-public class DeleteTagRequestValidator: AbstractValidator<DeleteTagRequest>
+public class DeleteTagRequestValidator : AbstractValidator<DeleteTagRequest>
 {
-    public DeleteTagRequestValidator(){
+    public DeleteTagRequestValidator()
+    {
 
         RuleFor(x => x.TagId).NotEqual(default(Guid));
 
@@ -14,7 +15,7 @@ public class DeleteTagRequestValidator: AbstractValidator<DeleteTagRequest>
 }
 
 
-public class DeleteTagRequest: IRequest<DeleteTagResponse>
+public class DeleteTagRequest : IRequest<DeleteTagResponse>
 {
     public Guid TagId { get; set; }
 }
@@ -26,18 +27,19 @@ public class DeleteTagResponse
 }
 
 
-public class DeleteTagRequestHandler: IRequestHandler<DeleteTagRequest,DeleteTagResponse>
+public class DeleteTagRequestHandler : IRequestHandler<DeleteTagRequest, DeleteTagResponse>
 {
     private readonly INoteServiceDbContext _context;
 
     private readonly ILogger<DeleteTagRequestHandler> _logger;
 
-    public DeleteTagRequestHandler(ILogger<DeleteTagRequestHandler> logger,INoteServiceDbContext context){
+    public DeleteTagRequestHandler(ILogger<DeleteTagRequestHandler> logger, INoteServiceDbContext context)
+    {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public async Task<DeleteTagResponse> Handle(DeleteTagRequest request,CancellationToken cancellationToken)
+    public async Task<DeleteTagResponse> Handle(DeleteTagRequest request, CancellationToken cancellationToken)
     {
         var tag = await _context.Tags.FindAsync(request.TagId);
 
@@ -45,7 +47,7 @@ public class DeleteTagRequestHandler: IRequestHandler<DeleteTagRequest,DeleteTag
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new ()
+        return new()
         {
             Tag = tag.ToDto()
         };

@@ -3,7 +3,7 @@
 
 namespace NoteService.Core.AggregateModel.NoteAggregate.Queries;
 
-public class GetNoteByIdRequest: IRequest<GetNoteByIdResponse>
+public class GetNoteByIdRequest : IRequest<GetNoteByIdResponse>
 {
     public Guid NoteId { get; set; }
 }
@@ -15,20 +15,22 @@ public class GetNoteByIdResponse
 }
 
 
-public class GetNoteByIdRequestHandler: IRequestHandler<GetNoteByIdRequest,GetNoteByIdResponse>
+public class GetNoteByIdRequestHandler : IRequestHandler<GetNoteByIdRequest, GetNoteByIdResponse>
 {
     private readonly INoteServiceDbContext _context;
 
     private readonly ILogger<GetNoteByIdRequestHandler> _logger;
 
-    public GetNoteByIdRequestHandler(ILogger<GetNoteByIdRequestHandler> logger,INoteServiceDbContext context){
+    public GetNoteByIdRequestHandler(ILogger<GetNoteByIdRequestHandler> logger, INoteServiceDbContext context)
+    {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public async Task<GetNoteByIdResponse> Handle(GetNoteByIdRequest request,CancellationToken cancellationToken)
+    public async Task<GetNoteByIdResponse> Handle(GetNoteByIdRequest request, CancellationToken cancellationToken)
     {
-        return new () {
+        return new()
+        {
             Note = (await _context.Notes
             .Include(x => x.Tags)
             .AsNoTracking().SingleOrDefaultAsync(x => x.NoteId == request.NoteId)).ToDto()

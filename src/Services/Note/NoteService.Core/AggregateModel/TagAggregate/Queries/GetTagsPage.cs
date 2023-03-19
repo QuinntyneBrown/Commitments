@@ -3,7 +3,7 @@
 
 namespace NoteService.Core.AggregateModel.TagAggregate.Queries;
 
-public class GetTagsPageRequest: IRequest<GetTagsPageResponse>
+public class GetTagsPageRequest : IRequest<GetTagsPageResponse>
 {
     public int PageSize { get; set; }
     public int Index { get; set; }
@@ -14,32 +14,33 @@ public class GetTagsPageRequest: IRequest<GetTagsPageResponse>
 public class GetTagsPageResponse
 {
     public required int Length { get; set; }
-    public required List<TagDto> Entities  { get; set; }
+    public required List<TagDto> Entities { get; set; }
 }
 
 
-public class CreateTagRequestHandler: IRequestHandler<GetTagsPageRequest,GetTagsPageResponse>
+public class CreateTagRequestHandler : IRequestHandler<GetTagsPageRequest, GetTagsPageResponse>
 {
     private readonly INoteServiceDbContext _context;
 
     private readonly ILogger<CreateTagRequestHandler> _logger;
 
-    public CreateTagRequestHandler(ILogger<CreateTagRequestHandler> logger,INoteServiceDbContext context){
+    public CreateTagRequestHandler(ILogger<CreateTagRequestHandler> logger, INoteServiceDbContext context)
+    {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public async Task<GetTagsPageResponse> Handle(GetTagsPageRequest request,CancellationToken cancellationToken)
+    public async Task<GetTagsPageResponse> Handle(GetTagsPageRequest request, CancellationToken cancellationToken)
     {
         var query = from tag in _context.Tags
-            select tag;
+                    select tag;
 
         var length = await _context.Tags.AsNoTracking().CountAsync();
 
         var tags = await query.Page(request.Index, request.PageSize).AsNoTracking()
             .Select(x => x.ToDto()).ToListAsync();
 
-        return new ()
+        return new()
         {
             Length = length,
             Entities = tags

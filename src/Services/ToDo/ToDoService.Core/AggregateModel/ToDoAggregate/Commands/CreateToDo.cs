@@ -3,9 +3,10 @@
 
 namespace ToDoService.Core.AggregateModel.ToDoAggregate.Commands;
 
-public class CreateToDoRequestValidator: AbstractValidator<CreateToDoRequest>
+public class CreateToDoRequestValidator : AbstractValidator<CreateToDoRequest>
 {
-    public CreateToDoRequestValidator(){
+    public CreateToDoRequestValidator()
+    {
 
         RuleFor(x => x.Name).NotNull();
         RuleFor(x => x.Description).NotNull();
@@ -15,7 +16,7 @@ public class CreateToDoRequestValidator: AbstractValidator<CreateToDoRequest>
     }
 }
 
-public class CreateToDoRequest: IRequest<CreateToDoResponse>
+public class CreateToDoRequest : IRequest<CreateToDoResponse>
 {
     public string Name { get; set; }
     public string Description { get; set; }
@@ -29,18 +30,19 @@ public class CreateToDoResponse
     public required ToDoDto ToDo { get; set; }
 }
 
-public class CreateToDoRequestHandler: IRequestHandler<CreateToDoRequest,CreateToDoResponse>
+public class CreateToDoRequestHandler : IRequestHandler<CreateToDoRequest, CreateToDoResponse>
 {
     private readonly IToDoServiceDbContext _context;
 
     private readonly ILogger<CreateToDoRequestHandler> _logger;
 
-    public CreateToDoRequestHandler(ILogger<CreateToDoRequestHandler> logger,IToDoServiceDbContext context){
+    public CreateToDoRequestHandler(ILogger<CreateToDoRequestHandler> logger, IToDoServiceDbContext context)
+    {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public async Task<CreateToDoResponse> Handle(CreateToDoRequest request,CancellationToken cancellationToken)
+    public async Task<CreateToDoResponse> Handle(CreateToDoRequest request, CancellationToken cancellationToken)
     {
         var toDo = new ToDo();
 
@@ -54,7 +56,7 @@ public class CreateToDoRequestHandler: IRequestHandler<CreateToDoRequest,CreateT
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new ()
+        return new()
         {
             ToDo = toDo.ToDto()
         };

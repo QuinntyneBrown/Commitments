@@ -13,8 +13,6 @@ using Commitments.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 
 namespace Commitments.Infrastructure.Data;
@@ -22,7 +20,9 @@ namespace Commitments.Infrastructure.Data;
 public class CommitmentsDbContext : DbContext, ICommitmentsDbContext
 {
     public CommitmentsDbContext(DbContextOptions options)
-        : base(options) { }
+        : base(options) {
+        SavingChanges += OnSavingChanges;
+    }
 
     public DbSet<Activity> Activities { get; private set; }
     public DbSet<Behaviour> Behaviours { get; private set; }
@@ -33,15 +33,13 @@ public class CommitmentsDbContext : DbContext, ICommitmentsDbContext
     public DbSet<Profile> Profiles { get; private set; }
     public DbSet<Commitment> ProfileCommitments { get; private set; }
 
-    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+    private void OnSavingChanges(object sender, SavingChangesEventArgs e)
     {
-        ChangeTracker.DetectChanges();
-
         foreach (var entity in ChangeTracker.Entries()
-            .Where(e => e.Entity is ILoggable && ((e.State == EntityState.Added || (e.State == EntityState.Modified))))
+            .Where(e => e.Entity is ILoggable && e.State == EntityState.Added || e.State == EntityState.Modified)
             .Select(x => x.Entity as ILoggable))
         {
-            var isNew = entity.CreatedOn == default(DateTime);
+            var isNew = entity.CreatedOn == default;
             entity.CreatedOn = isNew ? DateTime.UtcNow : entity.CreatedOn;
             entity.LastModifiedOn = DateTime.UtcNow;
         }
@@ -51,10 +49,8 @@ public class CommitmentsDbContext : DbContext, ICommitmentsDbContext
             item.State = EntityState.Modified;
             item.CurrentValues["IsDeleted"] = true;
         }
-
-        return base.SaveChangesAsync(cancellationToken);
     }
-
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("Commitments");
