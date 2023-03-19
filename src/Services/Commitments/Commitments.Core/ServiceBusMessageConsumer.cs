@@ -1,0 +1,67 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
+using Messaging;
+using Messaging.Udp;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System.Text;
+using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
+using System.Threading;
+using MediatR;
+using System.Linq;
+
+namespace Commitments.Core;
+
+public class ServiceBusMessageConsumer: BackgroundService
+{
+    private readonly ILogger<ServiceBusMessageConsumer> _logger;
+
+    private readonly IServiceScopeFactory _serviceScopeFactory;
+
+    private readonly IUdpClientFactory _udpClientFactory;
+
+    private readonly string[] _supportedMessageTypes = new string[] { };
+
+    public ServiceBusMessageConsumer(ILogger<ServiceBusMessageConsumer> logger,IServiceScopeFactory serviceScopeFactory,IUdpClientFactory udpClientFactory){
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _serviceScopeFactory = serviceScopeFactory ?? throw new ArgumentNullException(nameof(serviceScopeFactory));
+        _udpClientFactory = udpClientFactory ?? throw new ArgumentNullException(nameof(udpClientFactory));
+    }
+
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        var client = _udpClientFactory.Create();
+
+        while(!stoppingToken.IsCancellationRequested) {
+
+            var result = await client.ReceiveAsync(stoppingToken);
+
+            var json = Encoding.UTF8.GetString(result.Buffer);
+
+            var message = System.Text.Json.JsonSerializer.Deserialize<ServiceBusMessage>(json)!;
+
+            var messageType = message.MessageAttributes["MessageType"];
+
+            if(_supportedMessageTypes.Contains(messageType))
+            {
+                var type = Type.GetType($"Commitments.Core.Messages.{messageType}");
+
+                var request = System.Text.Json.JsonSerializer.Deserialize(message.Body, type!)!;
+
+                using (var scope = _serviceScopeFactory.CreateScope())
+                {
+                    var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+
+                    await mediator.Send(request, stoppingToken);
+                }
+            }
+
+            await Task.Delay(0);
+        }
+    }
+
+}
+
+

@@ -12,6 +12,8 @@ public static class ConfigureServices
 {
     public static void AddCoreServices(this IServiceCollection services, IWebHostEnvironment environment, IConfiguration configuration)
     {
+        services.AddHostedService<ServiceBusMessageConsumer>();
+
         services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblyContaining<ICommitmentsClient>());
 
         services.AddKernelServices();
@@ -28,4 +30,3 @@ public static class ConfigureServices
     }
 
 }
-

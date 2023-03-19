@@ -2,12 +2,10 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments.Core.AggregateModel.AchievementAggregate.Queries;
-using Commitments.Core.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using System.Net.Mime;
 
 namespace Commitments.Api.Controllers;
 

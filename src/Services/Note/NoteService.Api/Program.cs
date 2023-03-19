@@ -54,6 +54,8 @@ try
 
         if (args.Contains("dropdb"))
         {
+            context.Database.ExecuteSql($"DROP TABLE Note.NoteTags;");
+
             context.Database.ExecuteSql($"DROP TABLE Note.Notes;");
 
             context.Database.ExecuteSql($"DROP TABLE Note.Tags;");
