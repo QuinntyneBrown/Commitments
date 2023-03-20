@@ -3,50 +3,57 @@
 
 using Messaging;
 using Messaging.Udp;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Text;
 
 namespace DashboardService.Core;
 
-public class ServiceBusMessageConsumer : BackgroundService
+public class ServiceBusMessageConsumer: BackgroundService
 {
     private readonly ILogger<ServiceBusMessageConsumer> _logger;
-    private readonly IUdpClientFactory _udpClientFactory;
-    private readonly IMediator _mediator;
 
-    public ServiceBusMessageConsumer(
-        ILogger<ServiceBusMessageConsumer> logger,
-        IUdpClientFactory udpClientFactory,
-        IMediator mediator)
-    {
+    private readonly IServiceScopeFactory _serviceScopeFactory;
+
+    private readonly IUdpClientFactory _udpClientFactory;
+
+    private readonly string[] _supportedMessageTypes = new string[] { };
+
+    public ServiceBusMessageConsumer(ILogger<ServiceBusMessageConsumer> logger,IServiceScopeFactory serviceScopeFactory,IUdpClientFactory udpClientFactory){
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _serviceScopeFactory = serviceScopeFactory ?? throw new ArgumentNullException(nameof(serviceScopeFactory));
         _udpClientFactory = udpClientFactory ?? throw new ArgumentNullException(nameof(udpClientFactory));
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         var client = _udpClientFactory.Create();
 
-        while (!stoppingToken.IsCancellationRequested)
-        {
+        while(!stoppingToken.IsCancellationRequested) {
+
             var result = await client.ReceiveAsync(stoppingToken);
 
-            var json = System.Text.Encoding.UTF8.GetString(result.Buffer);
+            var json = Encoding.UTF8.GetString(result.Buffer);
 
-            var message = System.Text.Json.JsonSerializer.Deserialize<ServiceBusMessage>(json);
+            var message = System.Text.Json.JsonSerializer.Deserialize<ServiceBusMessage>(json)!;
 
-            var messageType = message!.MessageAttributes["MessageType"];
+            var messageType = message.MessageAttributes["MessageType"];
 
-            if (messageType == "")
+            if(_supportedMessageTypes.Contains(messageType))
             {
                 var type = Type.GetType($"DashboardService.Core.Messages.{messageType}");
 
-                var request = (IRequest)System.Text.Json.JsonSerializer.Deserialize(message.Body, type!)!;
+                var request = System.Text.Json.JsonSerializer.Deserialize(message.Body, type!)!;
 
-                await _mediator.Send(request, stoppingToken);
+                using (var scope = _serviceScopeFactory.CreateScope())
+                {
+                    var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+
+                    await mediator.Send(request, stoppingToken);
+                }
             }
 
-            await Task.Delay(300);
+            await Task.Delay(0);
         }
     }
 
