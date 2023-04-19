@@ -30,4 +30,3 @@ public class HubCamelCasePropertyNamesContractResolver : IContractResolver
     }
 
 }
-

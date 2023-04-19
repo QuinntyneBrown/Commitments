@@ -49,4 +49,3 @@ public class SaveBehaviourCommandHandler : IRequestHandler<SaveBehaviourRequest,
         return new SaveBehaviourResponse() { BehaviourId = behaviour.BehaviourId };
     }
 }
-

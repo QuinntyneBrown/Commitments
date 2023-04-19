@@ -8,4 +8,3 @@ public class FrequencyType : BaseEntity
     public Guid FrequencyTypeId { get; set; }
     public string Name { get; set; }
 }
-

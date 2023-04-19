@@ -32,9 +32,9 @@ public class UserController
         Description = @"Update User"
     )]
     [HttpPut(Name = "updateUser")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateUserResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(UpdateUserResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<UpdateUserResponse>> Update([FromBody] UpdateUserRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
@@ -45,9 +45,9 @@ public class UserController
         Description = @"Authenticate"
     )]
     [HttpPost("authenticate", Name = "authenticate")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(AuthenticateResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(AuthenticateResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<AuthenticateResponse>> Authenticate([FromBody] AuthenticateRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
@@ -58,9 +58,9 @@ public class UserController
         Description = @"Create User"
     )]
     [HttpPost(Name = "createUser")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateUserResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(CreateUserResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<CreateUserResponse>> Create([FromBody] CreateUserRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
@@ -71,9 +71,9 @@ public class UserController
         Description = @"Get Users"
     )]
     [HttpGet(Name = "getUsers")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetUsersResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetUsersResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<GetUsersResponse>> Get(CancellationToken cancellationToken)
     {
         return await _mediator.Send(new GetUsersRequest(), cancellationToken);
@@ -84,9 +84,9 @@ public class UserController
     Description = @"Get current user"
 )]
     [HttpGet("current", Name = "getCurrentUser")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetUsersResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetUsersResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<GetUsersResponse>> GetCurrentUser(CancellationToken cancellationToken)
     {
         return await _mediator.Send(new GetUsersRequest(), cancellationToken);
@@ -97,10 +97,10 @@ public class UserController
         Description = @"Get UserId by id"
     )]
     [HttpGet("{userId:guid}", Name = "getUserIdById")]
-    [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetUserByIdResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(string), (int) HttpStatusCode.NotFound)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetUserByIdResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<GetUserByIdResponse>> GetById([FromRoute] Guid userId, CancellationToken cancellationToken)
     {
         var request = new GetUserByIdRequest() { UserId = userId };
@@ -120,9 +120,9 @@ public class UserController
         Description = @"Delete User"
     )]
     [HttpDelete("{userId:guid}", Name = "deleteUser")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(DeleteUserResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(DeleteUserResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<DeleteUserResponse>> Delete([FromRoute] Guid userId, CancellationToken cancellationToken)
     {
         var request = new DeleteUserRequest() { UserId = userId };

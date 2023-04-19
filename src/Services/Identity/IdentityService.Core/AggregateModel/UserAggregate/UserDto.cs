@@ -11,4 +11,3 @@ public class UserDto
     public string Username { get; set; }
     public List<RoleDto> Roles { get; set; }
 }
-

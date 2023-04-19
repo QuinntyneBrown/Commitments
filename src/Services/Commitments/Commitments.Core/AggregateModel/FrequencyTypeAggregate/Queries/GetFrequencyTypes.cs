@@ -30,4 +30,3 @@ public class GetFrequencyTypesQueryHandler : IRequestHandler<GetFrequencyTypesRe
             FrequencyTypes = await _context.FrequencyTypes.Select(x => FrequencyTypeDto.FromFrequencyType(x)).ToListAsync()
         };
 }
-

@@ -30,4 +30,3 @@ public class GetBehavioursQueryHandler : IRequestHandler<GetBehavioursRequest, G
             Behaviours = await _context.Behaviours.Include(x => x.BehaviourType).Select(x => BehaviourDto.FromBehaviour(x)).ToListAsync()
         };
 }
-

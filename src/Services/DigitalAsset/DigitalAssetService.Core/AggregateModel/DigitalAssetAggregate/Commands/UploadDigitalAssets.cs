@@ -106,6 +106,3 @@ public class UploadDigitalAssetRequestHandler : IRequestHandler<UploadDigitalAss
     }
 
 }
-
-
-

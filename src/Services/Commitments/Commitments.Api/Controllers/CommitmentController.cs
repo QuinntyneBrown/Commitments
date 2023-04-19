@@ -28,9 +28,9 @@ public class CommitmentController
     }
 
     [HttpPost]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(SaveCommitmentResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(SaveCommitmentResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<SaveCommitmentResponse>> Save(SaveCommitmentRequest request)
     {
         request.Commitment.ProfileId = _httpContextAccessor.GetProfileId();
@@ -38,38 +38,37 @@ public class CommitmentController
     }
 
     [HttpDelete("{commitmentId}")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType((int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType((int) HttpStatusCode.OK)]
     public async Task Remove(RemoveCommitmentRequest request)
         => await _mediator.Send(request);
 
     [HttpGet("{CommitmentId}")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetCommitmentByIdResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetCommitmentByIdResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<GetCommitmentByIdResponse>> GetById([FromRoute] GetCommitmentByIdRequest request)
         => await _mediator.Send(request);
 
     [HttpGet]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetCommitmentsResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetCommitmentsResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<GetCommitmentsResponse>> Get()
         => await _mediator.Send(new GetCommitmentsRequest());
 
     [HttpGet("personal")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetPersonalCommitmentsResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetPersonalCommitmentsResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<GetPersonalCommitmentsResponse>> GetPersonal()
         => await _mediator.Send(new GetPersonalCommitmentsRequest() { ProfileId = _httpContextAccessor.GetProfileId() });
 
     [HttpGet("daily")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetDailyCommitmentsResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetDailyCommitmentsResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<GetDailyCommitmentsResponse>> GetDaily()
         => await _mediator.Send(new GetDailyCommitmentsRequest() { ProfileId = _httpContextAccessor.GetProfileId() });
 }
-

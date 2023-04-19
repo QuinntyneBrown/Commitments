@@ -26,4 +26,3 @@ public class BehaviourDto
             BehaviourType = BehaviourTypeDto.FromBehaviourType(behaviour.BehaviourType)
         };
 }
-

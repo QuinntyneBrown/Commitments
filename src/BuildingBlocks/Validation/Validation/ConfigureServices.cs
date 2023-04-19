@@ -16,4 +16,3 @@ public static class ConfigureServices
         services.AddValidatorsFromAssemblyContaining(type);
     }
 }
-

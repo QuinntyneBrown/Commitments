@@ -43,4 +43,3 @@ public class GetActivityByIdHandler : IRequestHandler<GetActivityByIdRequest, Ge
                 .SingleAsync(x => x.ActivityId == request.ActivityId))
         };
 }
-

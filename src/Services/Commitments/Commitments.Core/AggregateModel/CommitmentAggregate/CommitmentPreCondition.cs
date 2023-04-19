@@ -17,4 +17,3 @@ public class CommitmentPreCondition
 
     public Commitment Commitment { get; set; }
 }
-

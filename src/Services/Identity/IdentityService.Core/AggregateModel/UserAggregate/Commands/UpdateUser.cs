@@ -43,6 +43,3 @@ public class UpdateUserRequestHandler : IRequestHandler<UpdateUserRequest, Updat
     }
 
 }
-
-
-

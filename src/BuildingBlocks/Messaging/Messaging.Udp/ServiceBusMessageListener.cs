@@ -37,5 +37,3 @@ public class ServiceBusMessageListener : Observable<IServiceBusMessage>, IServic
         }
     }
 }
-
-

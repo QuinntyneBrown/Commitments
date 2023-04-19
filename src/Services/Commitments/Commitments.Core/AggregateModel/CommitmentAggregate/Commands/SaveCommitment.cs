@@ -61,4 +61,3 @@ public class SaveCommitmentCommandHandler : IRequestHandler<SaveCommitmentReques
         return new SaveCommitmentResponse() { CommitmentId = commitment.CommitmentId };
     }
 }
-

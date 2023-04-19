@@ -24,4 +24,3 @@ public class Commitment : BaseEntity
     public ICollection<CommitmentPreCondition> CommitmentPreConditions { get; set; }
         = new HashSet<CommitmentPreCondition>();
 }
-

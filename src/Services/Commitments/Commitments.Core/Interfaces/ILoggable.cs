@@ -9,4 +9,3 @@ public interface ILoggable
     DateTime LastModifiedOn { get; set; }
     bool IsDeleted { get; set; }
 }
-

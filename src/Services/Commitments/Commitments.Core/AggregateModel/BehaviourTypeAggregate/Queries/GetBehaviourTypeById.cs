@@ -39,4 +39,3 @@ public class GetBehaviourTypeByIdHandler : IRequestHandler<GetBehaviourTypeByIdR
             BehaviourType = BehaviourTypeDto.FromBehaviourType(await _context.BehaviourTypes.FindAsync(request.BehaviourTypeId))
         };
 }
-

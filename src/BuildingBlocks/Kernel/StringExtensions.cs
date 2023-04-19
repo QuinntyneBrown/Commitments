@@ -37,4 +37,3 @@ public static class StringExtensions
         return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
     }
 }
-

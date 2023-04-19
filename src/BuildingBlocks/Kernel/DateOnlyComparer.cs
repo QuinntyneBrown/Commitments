@@ -13,4 +13,3 @@ public class DateOnlyComparer : ValueComparer<DateOnly>
     {
     }
 }
-

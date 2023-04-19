@@ -12,5 +12,3 @@ public class Privilege
     public AccessRight AccessRight { get; set; }
     public string? Aggregate { get; set; }
 }
-
-

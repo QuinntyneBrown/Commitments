@@ -24,5 +24,3 @@ public static class DashboardCardExtensions
     }
 
 }
-
-

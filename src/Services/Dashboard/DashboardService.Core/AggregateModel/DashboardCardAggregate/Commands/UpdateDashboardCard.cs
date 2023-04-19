@@ -58,6 +58,3 @@ public class UpdateDashboardCardRequestHandler : IRequestHandler<UpdateDashboard
     }
 
 }
-
-
-

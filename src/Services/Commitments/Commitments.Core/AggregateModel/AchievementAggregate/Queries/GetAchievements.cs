@@ -58,4 +58,3 @@ public class GetAchievementsQueryHandler : IRequestHandler<GetAchievementsReques
         };
     }
 }
-

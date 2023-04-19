@@ -49,6 +49,3 @@ public class UpdateCardLayoutRequestHandler : IRequestHandler<UpdateCardLayoutRe
     }
 
 }
-
-
-

@@ -35,4 +35,3 @@ public class RemoveCommitmentCommandHandler : IRequestHandler<RemoveCommitmentRe
     }
 
 }
-

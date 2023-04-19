@@ -33,4 +33,3 @@ public class GetFrequenciesQueryHandler : IRequestHandler<GetFrequenciesRequest,
             .ToListAsync()
         };
 }
-

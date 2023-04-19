@@ -20,6 +20,3 @@ public static class ConfigureServices
     }
 
 }
-
-
-

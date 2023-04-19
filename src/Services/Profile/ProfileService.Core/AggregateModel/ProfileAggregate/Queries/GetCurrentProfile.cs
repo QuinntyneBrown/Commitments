@@ -43,6 +43,3 @@ public class GetCurremtProfileRequestHandler : IRequestHandler<GetCurremtProfile
     }
 
 }
-
-
-

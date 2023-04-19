@@ -43,7 +43,7 @@ try
 
     app.MapControllers();
 
-    var services = (IServiceScopeFactory)app.Services.GetRequiredService(typeof(IServiceScopeFactory));
+    var services = (IServiceScopeFactory) app.Services.GetRequiredService(typeof(IServiceScopeFactory));
 
     using (var scope = services.CreateScope())
     {

@@ -8,4 +8,3 @@ public interface IServiceBusMessage
     public IDictionary<string, string> MessageAttributes { get; init; }
     public string Body { get; init; }
 }
-

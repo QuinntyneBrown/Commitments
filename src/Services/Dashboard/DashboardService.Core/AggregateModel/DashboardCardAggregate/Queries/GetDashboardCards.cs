@@ -33,6 +33,3 @@ public class GetDashboardCardsRequestHandler : IRequestHandler<GetDashboardCards
     }
 
 }
-
-
-

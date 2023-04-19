@@ -39,4 +39,3 @@ public class GetDailyCommitmentsQueryHandler : IRequestHandler<GetDailyCommitmen
             .Select(x => CommitmentDto.FromCommitment(x)).ToListAsync()
         };
 }
-

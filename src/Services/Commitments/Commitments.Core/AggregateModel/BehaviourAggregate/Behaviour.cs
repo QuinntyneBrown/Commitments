@@ -18,4 +18,3 @@ public class Behaviour : BaseEntity
     public ICollection<Commitment> Commitments { get; set; }
     = new HashSet<Commitment>();
 }
-

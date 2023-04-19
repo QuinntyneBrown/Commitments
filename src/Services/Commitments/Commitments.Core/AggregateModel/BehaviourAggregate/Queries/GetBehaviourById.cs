@@ -42,4 +42,3 @@ public class GetBehaviourByIdHandler : IRequestHandler<GetBehaviourByIdRequest, 
                 .SingleAsync(x => x.BehaviourId == request.BehaviourId))
         };
 }
-

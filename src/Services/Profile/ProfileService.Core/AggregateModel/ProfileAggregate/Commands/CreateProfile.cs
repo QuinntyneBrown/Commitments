@@ -60,6 +60,3 @@ public class CreateProfileRequestHandler : IRequestHandler<CreateProfileRequest,
     }
 
 }
-
-
-

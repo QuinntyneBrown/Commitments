@@ -60,6 +60,3 @@ public class UpdateProfileRequestHandler : IRequestHandler<UpdateProfileRequest,
     }
 
 }
-
-
-

@@ -21,4 +21,3 @@ public class Frequency : BaseFrequency
     public ICollection<CommitmentFrequency> CommitmentFrequencies { get; set; }
     = new HashSet<CommitmentFrequency>();
 }
-

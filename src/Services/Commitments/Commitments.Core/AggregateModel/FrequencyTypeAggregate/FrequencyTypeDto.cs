@@ -18,4 +18,3 @@ public class FrequencyTypeDto
         return model;
     }
 }
-

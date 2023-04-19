@@ -33,6 +33,3 @@ public class GetProfilesRequestHandler : IRequestHandler<GetProfilesRequest, Get
     }
 
 }
-
-
-

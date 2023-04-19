@@ -23,4 +23,3 @@ public static class SecurityConstants
         public static List<AccessRight> FullAccess => new() { AccessRight.Read, AccessRight.Write, AccessRight.Create, AccessRight.Delete };
     }
 }
-

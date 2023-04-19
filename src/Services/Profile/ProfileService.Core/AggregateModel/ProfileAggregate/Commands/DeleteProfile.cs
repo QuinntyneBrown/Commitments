@@ -54,6 +54,3 @@ public class DeleteProfileRequestHandler : IRequestHandler<DeleteProfileRequest,
     }
 
 }
-
-
-

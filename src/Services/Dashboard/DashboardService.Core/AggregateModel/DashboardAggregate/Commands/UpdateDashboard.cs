@@ -52,6 +52,3 @@ public class UpdateDashboardRequestHandler : IRequestHandler<UpdateDashboardRequ
     }
 
 }
-
-
-

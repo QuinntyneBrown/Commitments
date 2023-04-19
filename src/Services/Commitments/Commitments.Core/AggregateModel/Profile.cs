@@ -7,5 +7,3 @@ public class Profile : BaseEntity
 {
     public Guid ProfileId { get; set; }
 }
-
-

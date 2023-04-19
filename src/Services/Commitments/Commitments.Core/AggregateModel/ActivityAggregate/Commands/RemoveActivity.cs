@@ -35,4 +35,3 @@ public class RemoveActivityCommandHandler : IRequestHandler<RemoveActivityReques
         await _context.SaveChangesAsync(cancellationToken);
     }
 }
-

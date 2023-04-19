@@ -53,9 +53,9 @@ public class DashboardController
         Description = @"Update Dashboard"
     )]
     [HttpPut(Name = "updateDashboard")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateDashboardResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(UpdateDashboardResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<UpdateDashboardResponse>> Update([FromBody] UpdateDashboardRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
@@ -66,9 +66,9 @@ public class DashboardController
         Description = @"Create Dashboard"
     )]
     [HttpPost(Name = "createDashboard")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateDashboardResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(CreateDashboardResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<CreateDashboardResponse>> Create([FromBody] CreateDashboardRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
@@ -79,9 +79,9 @@ public class DashboardController
         Description = @"Get Dashboards"
     )]
     [HttpGet(Name = "getDashboards")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetDashboardsResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetDashboardsResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<GetDashboardsResponse>> Get(CancellationToken cancellationToken)
     {
         return await _mediator.Send(new GetDashboardsRequest(), cancellationToken);
@@ -92,10 +92,10 @@ public class DashboardController
         Description = @"Get Dashboard by id"
     )]
     [HttpGet("{dashboardId:guid}", Name = "getDashboardById")]
-    [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetDashboardByIdResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(string), (int) HttpStatusCode.NotFound)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetDashboardByIdResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<GetDashboardByIdResponse>> GetById([FromRoute] Guid dashboardId, CancellationToken cancellationToken)
     {
         var request = new GetDashboardByIdRequest() { DashboardId = dashboardId };
@@ -115,9 +115,9 @@ public class DashboardController
         Description = @"Delete Dashboard"
     )]
     [HttpDelete("{dashboardId:guid}", Name = "deleteDashboard")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(DeleteDashboardResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(DeleteDashboardResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<DeleteDashboardResponse>> Delete([FromRoute] Guid dashboardId, CancellationToken cancellationToken)
     {
         var request = new DeleteDashboardRequest() { DashboardId = dashboardId };
@@ -126,5 +126,3 @@ public class DashboardController
     }
 
 }
-
-

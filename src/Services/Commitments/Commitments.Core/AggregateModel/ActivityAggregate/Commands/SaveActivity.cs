@@ -49,4 +49,3 @@ public class SaveActivityCommandHandler : IRequestHandler<SaveActivityRequest, S
         return new SaveActivityResponse() { ActivityId = activity.ActivityId };
     }
 }
-

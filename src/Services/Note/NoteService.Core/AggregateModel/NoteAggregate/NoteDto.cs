@@ -13,5 +13,3 @@ public class NoteDto
     public string Body { get; set; }
     public List<TagDto> Tags { get; set; }
 }
-
-

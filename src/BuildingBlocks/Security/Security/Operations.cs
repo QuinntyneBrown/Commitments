@@ -12,4 +12,3 @@ public static class Operations
     public static OperationAuthorizationRequirement Write = new OperationAuthorizationRequirement { Name = nameof(Write) };
     public static OperationAuthorizationRequirement Delete = new OperationAuthorizationRequirement { Name = nameof(Delete) };
 }
-

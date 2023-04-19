@@ -32,9 +32,9 @@ public class DigitalAssetController
         Description = @"Upload digital asset"
     )]
     [HttpPost("upload"), DisableRequestSizeLimit]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UploadDigitalAssetResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(UploadDigitalAssetResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<UploadDigitalAssetResponse>> Post(string command)
     {
 
@@ -46,9 +46,9 @@ public class DigitalAssetController
         Description = @"Update DigitalAsset"
     )]
     [HttpPut(Name = "updateDigitalAsset")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateDigitalAssetResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(UpdateDigitalAssetResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<UpdateDigitalAssetResponse>> Update([FromBody] UpdateDigitalAssetRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
@@ -59,9 +59,9 @@ public class DigitalAssetController
         Description = @"Create DigitalAsset"
     )]
     [HttpPost(Name = "createDigitalAsset")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateDigitalAssetResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(CreateDigitalAssetResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<CreateDigitalAssetResponse>> Create([FromBody] CreateDigitalAssetRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
@@ -72,9 +72,9 @@ public class DigitalAssetController
         Description = @"Get DigitalAssets"
     )]
     [HttpGet(Name = "getDigitalAssets")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetDigitalAssetsResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetDigitalAssetsResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<GetDigitalAssetsResponse>> Get(CancellationToken cancellationToken)
     {
         return await _mediator.Send(new GetDigitalAssetsRequest(), cancellationToken);
@@ -85,10 +85,10 @@ public class DigitalAssetController
         Description = @"Get DigitalAssetId by id"
     )]
     [HttpGet("{digitalAssetId:guid}", Name = "getDigitalAssetIdById")]
-    [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetDigitalAssetByIdResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(string), (int) HttpStatusCode.NotFound)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetDigitalAssetByIdResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<GetDigitalAssetByIdResponse>> GetById([FromRoute] Guid digitalAssetId, CancellationToken cancellationToken)
     {
         var request = new GetDigitalAssetByIdRequest() { DigitalAssetId = digitalAssetId };
@@ -108,9 +108,9 @@ public class DigitalAssetController
         Description = @"Delete DigitalAsset"
     )]
     [HttpDelete("{digitalAssetId:guid}", Name = "deleteDigitalAsset")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(DeleteDigitalAssetResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(DeleteDigitalAssetResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<DeleteDigitalAssetResponse>> Delete([FromRoute] Guid digitalAssetId, CancellationToken cancellationToken)
     {
         var request = new DeleteDigitalAssetRequest() { DigitalAssetId = digitalAssetId };
@@ -119,5 +119,3 @@ public class DigitalAssetController
     }
 
 }
-
-

@@ -37,6 +37,3 @@ public class GetCardByIdRequestHandler : IRequestHandler<GetCardByIdRequest, Get
     }
 
 }
-
-
-

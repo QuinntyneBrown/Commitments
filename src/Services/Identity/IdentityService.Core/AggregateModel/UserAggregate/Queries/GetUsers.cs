@@ -33,6 +33,3 @@ public class GetUsersRequestHandler : IRequestHandler<GetUsersRequest, GetUsersR
     }
 
 }
-
-
-

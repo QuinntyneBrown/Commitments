@@ -54,6 +54,3 @@ public class DeleteNoteRequestHandler : IRequestHandler<DeleteNoteRequest, Delet
     }
 
 }
-
-
-

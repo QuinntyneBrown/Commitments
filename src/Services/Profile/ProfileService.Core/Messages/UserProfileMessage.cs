@@ -11,4 +11,3 @@ public class UserMetadataMessage : IRequest
     public string MetadataPropertyValue { get; set; }
 
 }
-

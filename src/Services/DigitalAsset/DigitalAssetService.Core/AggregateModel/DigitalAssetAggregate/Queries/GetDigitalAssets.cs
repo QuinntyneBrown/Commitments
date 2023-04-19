@@ -33,6 +33,3 @@ public class GetDigitalAssetsRequestHandler : IRequestHandler<GetDigitalAssetsRe
     }
 
 }
-
-
-

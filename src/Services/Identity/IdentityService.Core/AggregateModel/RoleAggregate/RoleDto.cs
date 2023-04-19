@@ -13,5 +13,3 @@ public class RoleDto
     public List<UserDto> Users { get; set; }
     public List<PrivilegeDto> Privileges { get; set; }
 }
-
-

@@ -33,6 +33,3 @@ public class GetCardsRequestHandler : IRequestHandler<GetCardsRequest, GetCardsR
     }
 
 }
-
-
-

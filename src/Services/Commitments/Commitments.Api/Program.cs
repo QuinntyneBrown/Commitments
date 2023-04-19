@@ -48,7 +48,7 @@ try
 
     app.MapHub<CommitmentsHub>("/hub");
 
-    var services = (IServiceScopeFactory)app.Services.GetRequiredService(typeof(IServiceScopeFactory));
+    var services = (IServiceScopeFactory) app.Services.GetRequiredService(typeof(IServiceScopeFactory));
 
     using (var scope = services.CreateScope())
     {

@@ -12,4 +12,3 @@ public class DateOnlyConverter : ValueConverter<DateOnly, DateTime>
             dateTime => DateOnly.FromDateTime(dateTime))
     { }
 }
-

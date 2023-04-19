@@ -24,31 +24,30 @@ public class FrequencyTypeController
     public FrequencyTypeController(IMediator mediator) => _mediator = mediator;
 
     [HttpPost]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(SaveFrequencyTypeResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(SaveFrequencyTypeResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<SaveFrequencyTypeResponse>> Save(SaveFrequencyTypeRequest request)
         => await _mediator.Send(request);
 
     [HttpDelete("{frequencyTypeId}")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType((int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType((int) HttpStatusCode.OK)]
     public async Task Remove(RemoveFrequencyTypeRequest request)
         => await _mediator.Send(request);
 
     [HttpGet("{frequencyTypeId}")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetFrequencyTypeByIdResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetFrequencyTypeByIdResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<GetFrequencyTypeByIdResponse>> GetById([FromRoute] GetFrequencyTypeByIdRequest request)
         => await _mediator.Send(request);
 
     [HttpGet]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetFrequencyTypesResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetFrequencyTypesResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<GetFrequencyTypesResponse>> Get()
         => await _mediator.Send(new GetFrequencyTypesRequest());
 }
-

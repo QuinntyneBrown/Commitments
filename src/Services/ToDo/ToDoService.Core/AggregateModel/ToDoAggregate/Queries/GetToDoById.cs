@@ -37,6 +37,3 @@ public class GetToDoByIdRequestHandler : IRequestHandler<GetToDoByIdRequest, Get
     }
 
 }
-
-
-

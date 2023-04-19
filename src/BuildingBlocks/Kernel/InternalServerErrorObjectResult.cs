@@ -15,4 +15,3 @@ public class InternalServerErrorObjectResult : ObjectResult
         StatusCode = StatusCodes.Status500InternalServerError;
     }
 }
-

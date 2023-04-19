@@ -33,6 +33,3 @@ public class GetCardLayoutsRequestHandler : IRequestHandler<GetCardLayoutsReques
     }
 
 }
-
-
-

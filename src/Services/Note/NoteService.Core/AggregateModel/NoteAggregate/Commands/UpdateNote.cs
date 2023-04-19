@@ -69,6 +69,3 @@ public class UpdateNoteRequestHandler : IRequestHandler<UpdateNoteRequest, Updat
     }
 
 }
-
-
-

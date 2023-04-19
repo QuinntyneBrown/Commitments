@@ -13,5 +13,3 @@ public interface IProfileServiceDbContext
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
 }
-
-

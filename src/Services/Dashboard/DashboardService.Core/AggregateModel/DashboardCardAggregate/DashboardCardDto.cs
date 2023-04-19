@@ -19,5 +19,3 @@ public class DashboardCardDto
     public CardLayoutDto CardLayout { get; set; }
     public JObject Options { get; set; }
 }
-
-

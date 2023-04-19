@@ -12,4 +12,3 @@ public class BaseEntity : ILoggable
     public DateTime LastModifiedOn { get; set; }
     public bool IsDeleted { get; set; }
 }
-

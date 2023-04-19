@@ -39,4 +39,3 @@ public class GetCommitmentByIdHandler : IRequestHandler<GetCommitmentByIdRequest
             Commitment = CommitmentDto.FromCommitment(await _context.Commitments.FindAsync(request.CommitmentId))
         };
 }
-

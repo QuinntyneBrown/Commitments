@@ -9,5 +9,3 @@ public class CardLayoutDto
     public string Name { get; set; }
     public string Description { get; set; }
 }
-
-

@@ -58,6 +58,3 @@ public class CreateDashboardCardRequestHandler : IRequestHandler<CreateDashboard
     }
 
 }
-
-
-

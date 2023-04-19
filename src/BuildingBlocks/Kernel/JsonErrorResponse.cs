@@ -12,4 +12,3 @@ public partial class HttpGlobalExceptionFilter
         public object DeveloperMeesage { get; set; }
     }
 }
-

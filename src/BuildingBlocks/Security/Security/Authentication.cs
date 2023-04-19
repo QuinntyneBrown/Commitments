@@ -12,4 +12,3 @@ public class Authentication
     public string JwtAudience { get; set; } = null!;
     public string AuthType { get; set; } = null!;
 }
-

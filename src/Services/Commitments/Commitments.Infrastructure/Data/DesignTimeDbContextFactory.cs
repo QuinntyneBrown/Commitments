@@ -29,4 +29,3 @@ public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<Commitment
         return new CommitmentsDbContext(builder.Options);
     }
 }
-

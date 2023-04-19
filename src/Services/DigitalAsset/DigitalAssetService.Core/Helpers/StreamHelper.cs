@@ -33,7 +33,7 @@ public class StreamHelper
                     {
                         byte[] temp = new byte[readBuffer.Length * 2];
                         Buffer.BlockCopy(readBuffer, 0, temp, 0, readBuffer.Length);
-                        Buffer.SetByte(temp, totalBytesRead, (byte)nextByte);
+                        Buffer.SetByte(temp, totalBytesRead, (byte) nextByte);
                         readBuffer = temp;
                         totalBytesRead++;
                     }

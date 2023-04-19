@@ -20,4 +20,3 @@ public class CommitmentFrequencyDto
         return model;
     }
 }
-

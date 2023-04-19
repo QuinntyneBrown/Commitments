@@ -47,4 +47,3 @@ public class CreateDashboardCardRangeCommandHandler : IRequestHandler<CreateDash
     }
 
 }
-

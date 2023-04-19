@@ -10,7 +10,6 @@ public class DeleteRoleRequest : IRequest<DeleteRoleResponse>
     public Guid RoleId { get; set; }
 }
 
-
 public class DeleteRoleResponse : ResponseBase
 {
     public RoleDto Role { get; set; }
@@ -44,6 +43,3 @@ public class DeleteRoleRequestHandler : IRequestHandler<DeleteRoleRequest, Delet
     }
 
 }
-
-
-

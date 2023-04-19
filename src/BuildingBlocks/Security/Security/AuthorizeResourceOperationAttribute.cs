@@ -26,4 +26,3 @@ public class AuthorizeResourceOperationAttribute : System.Attribute
         _ => null,
     };
 }
-

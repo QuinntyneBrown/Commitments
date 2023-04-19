@@ -44,6 +44,3 @@ public class ChangePasswordRequestHandler : IRequestHandler<ChangePasswordReques
     }
 
 }
-
-
-

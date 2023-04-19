@@ -39,4 +39,3 @@ public class GetFrequencyByIdHandler : IRequestHandler<GetFrequencyByIdRequest, 
             Frequency = FrequencyDto.FromFrequency(await _context.Frequencies.FindAsync(request.FrequencyId))
         };
 }
-

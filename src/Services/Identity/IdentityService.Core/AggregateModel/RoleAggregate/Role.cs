@@ -13,5 +13,3 @@ public class Role
     public List<User> Users { get; set; }
     public List<Privilege> Privileges { get; set; }
 }
-
-

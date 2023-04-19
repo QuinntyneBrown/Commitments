@@ -51,6 +51,3 @@ public class CreateNoteRequestHandler : IRequestHandler<GetNotesPageRequest, Get
     }
 
 }
-
-
-

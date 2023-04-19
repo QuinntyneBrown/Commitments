@@ -40,6 +40,3 @@ public class GetCurrentUserRequestHandler : IRequestHandler<GetCurrentUserReques
     }
 
 }
-
-
-

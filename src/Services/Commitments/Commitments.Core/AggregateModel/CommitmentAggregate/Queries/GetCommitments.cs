@@ -36,4 +36,3 @@ public class GetCommitmentsQueryHandler : IRequestHandler<GetCommitmentsRequest,
             .Select(x => CommitmentDto.FromCommitment(x)).ToListAsync()
         };
 }
-

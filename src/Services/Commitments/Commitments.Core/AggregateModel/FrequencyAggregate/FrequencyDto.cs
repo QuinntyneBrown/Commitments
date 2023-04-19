@@ -22,4 +22,3 @@ public class FrequencyDto
         return model;
     }
 }
-

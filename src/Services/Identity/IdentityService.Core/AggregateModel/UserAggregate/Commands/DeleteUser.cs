@@ -44,6 +44,3 @@ public class DeleteUserRequestHandler : IRequestHandler<DeleteUserRequest, Delet
     }
 
 }
-
-
-

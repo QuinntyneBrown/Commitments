@@ -14,4 +14,3 @@ public class CommitmentFrequency
     public Commitment Commitment { get; set; }
     public Frequency Frequency { get; set; }
 }
-

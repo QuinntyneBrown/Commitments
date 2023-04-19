@@ -37,6 +37,3 @@ public class GetDashboardCardByIdRequestHandler : IRequestHandler<GetDashboardCa
     }
 
 }
-
-
-

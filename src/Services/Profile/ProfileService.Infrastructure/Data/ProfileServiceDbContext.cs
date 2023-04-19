@@ -22,5 +22,3 @@ public class ProfileServiceDbContext : DbContext, IProfileServiceDbContext
         base.OnModelCreating(modelBuilder);
     }
 }
-
-

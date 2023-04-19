@@ -35,6 +35,3 @@ public class GetNotesRequestHandler : IRequestHandler<GetNotesRequest, GetNotesR
     }
 
 }
-
-
-

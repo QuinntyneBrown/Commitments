@@ -10,4 +10,3 @@ public class DigitalAsset
     public byte[] Bytes { get; set; }
     public string ContentType { get; set; }
 }
-

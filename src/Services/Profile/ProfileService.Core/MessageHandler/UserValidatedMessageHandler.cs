@@ -33,5 +33,3 @@ public class UserValidatedMessageHandler : IRequestHandler<UserValidatedMessage>
     }
 
 }
-
-

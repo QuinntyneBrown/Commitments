@@ -39,4 +39,3 @@ public class ResourceOperationAuthorizationBehavior<TRequest, TResponse> : IPipe
         return await next();
     }
 }
-

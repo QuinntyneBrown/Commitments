@@ -33,9 +33,9 @@ public class PrivilegeController
         Description = @"Update PrivilegeId"
     )]
     [HttpPut(Name = "updatePrivilegeId")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdatePrivilegeResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(UpdatePrivilegeResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<UpdatePrivilegeResponse>> Update([FromBody] UpdatePrivilegeRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
@@ -46,9 +46,9 @@ public class PrivilegeController
         Description = @"Create Privilege"
     )]
     [HttpPost(Name = "createPrivilege")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreatePrivilegeResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(CreatePrivilegeResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<CreatePrivilegeResponse>> Create([FromBody] CreatePrivilegeRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
@@ -59,9 +59,9 @@ public class PrivilegeController
         Description = @"Get Privileges"
     )]
     [HttpGet(Name = "getPrivileges")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetPrivilegesResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetPrivilegesResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<GetPrivilegesResponse>> Get(CancellationToken cancellationToken)
     {
         return await _mediator.Send(new GetPrivilegesRequest(), cancellationToken);
@@ -72,10 +72,10 @@ public class PrivilegeController
         Description = @"Get PrivilegeId by id"
     )]
     [HttpGet("{toDoId:guid}", Name = "getPrivilegeIdById")]
-    [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetPrivilegeByIdResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(string), (int) HttpStatusCode.NotFound)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetPrivilegeByIdResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<GetPrivilegeByIdResponse>> GetById([FromRoute] Guid privilegeId, CancellationToken cancellationToken)
     {
         var request = new GetPrivilegeByIdRequest() { PrivilegeId = privilegeId };
@@ -95,9 +95,9 @@ public class PrivilegeController
         Description = @"Delete Privilege"
     )]
     [HttpDelete("{toDoId:guid}", Name = "deletePrivilege")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(DeletePrivilegeResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(DeletePrivilegeResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<DeletePrivilegeResponse>> Delete([FromRoute] Guid privilegeId, CancellationToken cancellationToken)
     {
         var request = new DeletePrivilegeRequest() { PrivilegeId = privilegeId };
@@ -106,5 +106,3 @@ public class PrivilegeController
     }
 
 }
-
-

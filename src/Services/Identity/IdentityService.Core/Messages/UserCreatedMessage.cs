@@ -9,5 +9,3 @@ public class UserCreatedMessage : IRequest
     public required string Name { get; set; }
     public required string Email { get; set; }
 }
-
-

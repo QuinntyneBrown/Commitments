@@ -31,9 +31,9 @@ public class RoleController
         Description = @"Update RoleId"
     )]
     [HttpPut(Name = "updateRoleId")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateRoleResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(UpdateRoleResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<UpdateRoleResponse>> Update([FromBody] UpdateRoleRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
@@ -44,9 +44,9 @@ public class RoleController
         Description = @"Create Role"
     )]
     [HttpPost(Name = "createRole")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateRoleResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(CreateRoleResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<CreateRoleResponse>> Create([FromBody] CreateRoleRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
@@ -57,9 +57,9 @@ public class RoleController
         Description = @"Get Roles"
     )]
     [HttpGet(Name = "getRoles")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetRolesResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetRolesResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<GetRolesResponse>> Get(CancellationToken cancellationToken)
     {
         return await _mediator.Send(new GetRolesRequest(), cancellationToken);
@@ -70,10 +70,10 @@ public class RoleController
         Description = @"Get Role by id"
     )]
     [HttpGet("{roleId:guid}", Name = "getRoleById")]
-    [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetRoleByIdResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(string), (int) HttpStatusCode.NotFound)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetRoleByIdResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<GetRoleByIdResponse>> GetById([FromRoute] Guid roleId, CancellationToken cancellationToken)
     {
         var request = new GetRoleByIdRequest() { RoleId = roleId };
@@ -93,9 +93,9 @@ public class RoleController
         Description = @"Delete Role"
     )]
     [HttpDelete("{roleId:guid}", Name = "deleteRole")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(DeleteRoleResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(DeleteRoleResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<DeleteRoleResponse>> Delete([FromRoute] Guid roleId, CancellationToken cancellationToken)
     {
         var request = new DeleteRoleRequest() { RoleId = roleId };
@@ -104,5 +104,3 @@ public class RoleController
     }
 
 }
-
-

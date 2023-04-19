@@ -14,4 +14,3 @@ public static class HttpContextAccessorExtensions
         return new Guid(profileId);
     }
 }
-

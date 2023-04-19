@@ -27,9 +27,9 @@ public class AchievementController
     }
 
     [HttpGet]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetAchievementsResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetAchievementsResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<GetAchievementsResponse>> Get()
     {
         return await _mediator.Send(new GetAchievementsRequest()
@@ -38,4 +38,3 @@ public class AchievementController
         });
     }
 }
-

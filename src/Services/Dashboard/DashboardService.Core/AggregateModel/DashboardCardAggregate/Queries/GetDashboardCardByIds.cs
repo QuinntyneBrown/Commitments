@@ -26,4 +26,3 @@ public class GetDashboardCardByIdsQueryHandler : IRequestHandler<GetDashboardCar
             .Select(x => x.ToDto()).ToListAsync()
         };
 }
-

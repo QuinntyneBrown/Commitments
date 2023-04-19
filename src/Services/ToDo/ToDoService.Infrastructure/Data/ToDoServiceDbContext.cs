@@ -22,5 +22,3 @@ public class ToDoServiceDbContext : DbContext, IToDoServiceDbContext
         base.OnModelCreating(modelBuilder);
     }
 }
-
-

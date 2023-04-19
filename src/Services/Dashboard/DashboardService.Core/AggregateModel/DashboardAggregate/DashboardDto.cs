@@ -12,5 +12,3 @@ public class DashboardDto
     public Guid? UserId { get; set; }
     public List<DashboardCardDto> DashboardCards { get; set; }
 }
-
-

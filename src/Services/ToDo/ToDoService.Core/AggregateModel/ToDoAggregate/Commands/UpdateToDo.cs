@@ -70,6 +70,3 @@ public class UpdateToDoRequestHandler : IRequestHandler<UpdateToDoRequest, Updat
     }
 
 }
-
-
-

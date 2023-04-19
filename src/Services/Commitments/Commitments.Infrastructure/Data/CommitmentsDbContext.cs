@@ -20,7 +20,8 @@ namespace Commitments.Infrastructure.Data;
 public class CommitmentsDbContext : DbContext, ICommitmentsDbContext
 {
     public CommitmentsDbContext(DbContextOptions options)
-        : base(options) {
+        : base(options)
+    {
         SavingChanges += OnSavingChanges;
     }
 
@@ -50,7 +51,7 @@ public class CommitmentsDbContext : DbContext, ICommitmentsDbContext
             item.CurrentValues["IsDeleted"] = true;
         }
     }
-    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("Commitments");
@@ -89,4 +90,3 @@ public class CommitmentsDbContext : DbContext, ICommitmentsDbContext
         base.OnModelCreating(modelBuilder);
     }
 }
-

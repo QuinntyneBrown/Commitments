@@ -39,6 +39,3 @@ public class GetNoteBySlugRequestHandler : IRequestHandler<GetNoteBySlugRequest,
     }
 
 }
-
-
-

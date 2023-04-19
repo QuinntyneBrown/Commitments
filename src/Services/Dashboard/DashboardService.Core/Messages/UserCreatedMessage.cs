@@ -7,5 +7,3 @@ public class UserCreatedMessage : IRequest
 {
     public string Username { get; set; } = null!;
 }
-
-

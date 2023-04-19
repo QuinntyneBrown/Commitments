@@ -33,6 +33,3 @@ public class GetRolesRequestHandler : IRequestHandler<GetRolesRequest, GetRolesR
     }
 
 }
-
-
-

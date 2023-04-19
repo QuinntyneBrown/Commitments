@@ -27,4 +27,3 @@ public interface ICommitmentsDbContext : IDisposable
     DbSet<Profile> Profiles { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
-

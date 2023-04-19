@@ -37,6 +37,3 @@ public class GetTagByIdRequestHandler : IRequestHandler<GetTagByIdRequest, GetTa
     }
 
 }
-
-
-

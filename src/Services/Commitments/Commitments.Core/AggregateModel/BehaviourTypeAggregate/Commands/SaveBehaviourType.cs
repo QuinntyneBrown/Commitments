@@ -47,4 +47,3 @@ public class SaveBehaviourTypeCommandHandler : IRequestHandler<SaveBehaviourType
         return new SaveBehaviourTypeResponse() { BehaviourTypeId = behaviourType.BehaviourTypeId };
     }
 }
-

@@ -11,4 +11,3 @@ public class AchievementDto
     public Guid AchievementId { get; set; }
     public CommitmentDto Commitment { get; set; }
 }
-

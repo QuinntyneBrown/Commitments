@@ -37,6 +37,3 @@ public class GetCardLayoutByIdRequestHandler : IRequestHandler<GetCardLayoutById
     }
 
 }
-
-
-

@@ -36,4 +36,3 @@ public class RemoveFrequencyCommandHandler : IRequestHandler<RemoveFrequencyRequ
     }
 
 }
-

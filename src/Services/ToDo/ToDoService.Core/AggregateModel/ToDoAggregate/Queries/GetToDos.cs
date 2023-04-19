@@ -33,6 +33,3 @@ public class GetToDosRequestHandler : IRequestHandler<GetToDosRequest, GetToDosR
     }
 
 }
-
-
-

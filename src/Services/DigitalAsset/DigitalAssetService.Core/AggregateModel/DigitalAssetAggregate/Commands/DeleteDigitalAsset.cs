@@ -44,6 +44,3 @@ public class DeleteDigitalAssetRequestHandler : IRequestHandler<DeleteDigitalAss
     }
 
 }
-
-
-

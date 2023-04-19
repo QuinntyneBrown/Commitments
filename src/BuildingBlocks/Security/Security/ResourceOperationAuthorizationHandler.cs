@@ -29,4 +29,3 @@ public class ResourceOperationAuthorizationHandler : AuthorizationHandler<Operat
         await Task.CompletedTask;
     }
 }
-

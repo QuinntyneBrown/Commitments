@@ -18,4 +18,3 @@ public class BehaviourTypeDto
         return model;
     }
 }
-

@@ -39,4 +39,3 @@ public class GetPersonalCommitmentsQueryHandler : IRequestHandler<GetPersonalCom
             .Select(x => CommitmentDto.FromCommitment(x)).ToListAsync()
         };
 }
-

@@ -10,4 +10,3 @@ public interface ICommitmentsClient
 
     Task Receive(dynamic message);
 }
-

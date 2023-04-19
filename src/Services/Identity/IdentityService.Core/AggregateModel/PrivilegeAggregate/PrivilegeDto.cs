@@ -12,5 +12,3 @@ public class PrivilegeDto
     public AccessRight AccessRight { get; init; }
     public string? Aggregate { get; init; }
 }
-
-

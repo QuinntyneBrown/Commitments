@@ -12,5 +12,3 @@ public class ToDo
     public DateTime Due { get; set; }
     public DateTime CompletedOn { get; set; }
 }
-
-

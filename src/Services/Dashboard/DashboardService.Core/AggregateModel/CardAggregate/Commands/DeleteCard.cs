@@ -44,6 +44,3 @@ public class DeleteCardRequestHandler : IRequestHandler<DeleteCardRequest, Delet
     }
 
 }
-
-
-

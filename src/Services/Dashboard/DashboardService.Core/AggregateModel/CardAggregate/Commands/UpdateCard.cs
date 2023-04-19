@@ -49,6 +49,3 @@ public class UpdateCardRequestHandler : IRequestHandler<UpdateCardRequest, Updat
     }
 
 }
-
-
-

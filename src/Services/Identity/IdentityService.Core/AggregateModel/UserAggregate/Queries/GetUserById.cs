@@ -37,6 +37,3 @@ public class GetUserByIdRequestHandler : IRequestHandler<GetUserByIdRequest, Get
     }
 
 }
-
-
-

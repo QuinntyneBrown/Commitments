@@ -33,6 +33,3 @@ public class GetPrivilegesRequestHandler : IRequestHandler<GetPrivilegesRequest,
     }
 
 }
-
-
-

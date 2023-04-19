@@ -28,4 +28,3 @@ public class GetDashboardByProfileIdQueryHandler : IRequestHandler<GetDashboardB
                 .SingleOrDefaultAsync(x => x.ProfileId == request.ProfileId))!.ToDto()
         };
 }
-

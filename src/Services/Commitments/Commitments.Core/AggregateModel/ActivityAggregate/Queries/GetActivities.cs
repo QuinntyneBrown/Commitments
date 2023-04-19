@@ -33,4 +33,3 @@ public class GetActivitiesQueryHandler : IRequestHandler<GetActivitiesRequest, G
             .Select(x => ActivityDto.FromActivity(x)).ToListAsync()
         };
 }
-

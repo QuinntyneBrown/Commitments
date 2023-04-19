@@ -22,5 +22,3 @@ public static class DashboardExtensions
     }
 
 }
-
-

@@ -44,6 +44,3 @@ public class DeleteDashboardCardRequestHandler : IRequestHandler<DeleteDashboard
     }
 
 }
-
-
-

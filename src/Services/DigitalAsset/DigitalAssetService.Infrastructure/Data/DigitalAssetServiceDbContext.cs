@@ -22,5 +22,3 @@ public class DigitalAssetServiceDbContext : DbContext, IDigitalAssetServiceDbCon
         base.OnModelCreating(modelBuilder);
     }
 }
-
-

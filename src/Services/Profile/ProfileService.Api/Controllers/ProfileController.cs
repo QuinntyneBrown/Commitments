@@ -34,9 +34,9 @@ public class ProfileController
         Description = @"Update Profile"
     )]
     [HttpPut(Name = "updateProfile")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateProfileResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(UpdateProfileResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<UpdateProfileResponse>> Update([FromBody] UpdateProfileRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
@@ -47,9 +47,9 @@ public class ProfileController
         Description = @"Create Profile"
     )]
     [HttpPost(Name = "createProfile")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateProfileResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(CreateProfileResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<CreateProfileResponse>> Create([FromBody] CreateProfileRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
@@ -60,9 +60,9 @@ public class ProfileController
         Description = @"Get Profiles"
     )]
     [HttpGet(Name = "getProfiles")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetProfilesResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetProfilesResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<GetProfilesResponse>> Get(CancellationToken cancellationToken)
     {
         throw new DomainException();
@@ -75,9 +75,9 @@ public class ProfileController
         Description = @"Get Current Profile"
     )]
     [HttpGet("current", Name = "getCurrentProfile")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetCurremtProfileResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetCurremtProfileResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<GetCurremtProfileResponse>> GetCurrent(CancellationToken cancellationToken)
     {
         return await _mediator.Send(new GetCurremtProfileRequest(), cancellationToken);
@@ -88,10 +88,10 @@ public class ProfileController
         Description = @"Get Profile by id"
     )]
     [HttpGet("{profileId:guid}", Name = "getProfileById")]
-    [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetProfileByIdResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(string), (int) HttpStatusCode.NotFound)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetProfileByIdResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<GetProfileByIdResponse>> GetById([FromRoute] Guid profileId, CancellationToken cancellationToken)
     {
         var request = new GetProfileByIdRequest() { ProfileId = profileId };
@@ -111,9 +111,9 @@ public class ProfileController
         Description = @"Delete Profile"
     )]
     [HttpDelete("{profileId:guid}", Name = "deleteProfile")]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(DeleteProfileResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(DeleteProfileResponse), (int) HttpStatusCode.OK)]
     public async Task<ActionResult<DeleteProfileResponse>> Delete([FromRoute] Guid profileId, CancellationToken cancellationToken)
     {
         var request = new DeleteProfileRequest() { ProfileId = profileId };
@@ -122,5 +122,3 @@ public class ProfileController
     }
 
 }
-
-

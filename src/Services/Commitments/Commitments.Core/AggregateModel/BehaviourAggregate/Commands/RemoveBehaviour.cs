@@ -36,4 +36,3 @@ public class RemoveBehaviourCommandHandler : IRequestHandler<RemoveBehaviourRequ
     }
 
 }
-

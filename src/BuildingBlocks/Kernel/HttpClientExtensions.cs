@@ -43,4 +43,3 @@ public static class HttpClientExtensions
         return JsonConvert.DeserializeObject<T>((await httpResponseMessage.Content.ReadAsStringAsync()));
     }
 }
-

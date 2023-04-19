@@ -49,6 +49,3 @@ public class CreateProfileRequestHandler : IRequestHandler<GetProfilesPageReques
     }
 
 }
-
-
-

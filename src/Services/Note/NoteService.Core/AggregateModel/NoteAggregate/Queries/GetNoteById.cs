@@ -39,6 +39,3 @@ public class GetNoteByIdRequestHandler : IRequestHandler<GetNoteByIdRequest, Get
     }
 
 }
-
-
-

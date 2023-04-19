@@ -26,4 +26,3 @@ public class ActivityDto
             Behaviour = BehaviourDto.FromBehaviour(activity.Behaviour)
         };
 }
-

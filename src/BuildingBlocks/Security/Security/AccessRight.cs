@@ -11,4 +11,3 @@ public enum AccessRight
     Create,
     Delete
 }
-

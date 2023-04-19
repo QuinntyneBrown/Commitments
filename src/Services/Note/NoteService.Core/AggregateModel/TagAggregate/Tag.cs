@@ -12,5 +12,3 @@ public class Tag
     public string Slug { get; set; }
     public List<Note> Notes { get; set; }
 }
-
-

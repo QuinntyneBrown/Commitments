@@ -7,5 +7,3 @@ public class UserValidatedMessage : IRequest
 {
     public string Username { get; set; }
 }
-
-

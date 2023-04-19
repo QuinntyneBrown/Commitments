@@ -15,4 +15,3 @@ public class Activity : BaseEntity
     public Profile Profile { get; set; }
     public Behaviour Behaviour { get; set; }
 }
-

@@ -33,6 +33,3 @@ public class GetTagsRequestHandler : IRequestHandler<GetTagsRequest, GetTagsResp
     }
 
 }
-
-
-

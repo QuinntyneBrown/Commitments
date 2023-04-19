@@ -52,4 +52,3 @@ public class SaveFrequencyCommandHandler : IRequestHandler<SaveFrequencyRequest,
         return new SaveFrequencyResponse() { FrequencyId = frequency.FrequencyId };
     }
 }
-

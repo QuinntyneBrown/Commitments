@@ -24,5 +24,3 @@ public class NoteServiceDbContext : DbContext, INoteServiceDbContext
         base.OnModelCreating(modelBuilder);
     }
 }
-
-

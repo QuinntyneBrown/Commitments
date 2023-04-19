@@ -37,6 +37,3 @@ public class GetDigitalAssetByIdRequestHandler : IRequestHandler<GetDigitalAsset
     }
 
 }
-
-
-

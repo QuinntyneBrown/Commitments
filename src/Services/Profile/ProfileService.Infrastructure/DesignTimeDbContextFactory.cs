@@ -30,4 +30,3 @@ public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ProfileSer
         return new ProfileServiceDbContext(builder.Options);
     }
 }
-

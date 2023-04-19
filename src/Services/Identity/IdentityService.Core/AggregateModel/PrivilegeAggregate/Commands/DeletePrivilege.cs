@@ -44,6 +44,3 @@ public class DeletePrivilegeRequestHandler : IRequestHandler<DeletePrivilegeRequ
     }
 
 }
-
-
-

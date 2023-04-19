@@ -27,6 +27,3 @@ public static class UserExtensions
         return users.Select(x => x.ToDto()).ToList();
     }
 }
-
-
-

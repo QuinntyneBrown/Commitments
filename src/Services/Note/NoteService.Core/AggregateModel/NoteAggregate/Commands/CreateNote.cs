@@ -63,6 +63,3 @@ public class CreateNoteRequestHandler : IRequestHandler<CreateNoteRequest, Creat
     }
 
 }
-
-
-

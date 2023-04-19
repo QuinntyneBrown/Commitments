@@ -13,4 +13,3 @@ public class BehaviourType : BaseEntity
     public ICollection<Behaviour> Behaviours { get; set; }
     = new HashSet<Behaviour>();
 }
-
