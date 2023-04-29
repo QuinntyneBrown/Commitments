@@ -34,9 +34,9 @@ public class ToDoController
         Description = @"Update ToDo"
     )]
     [HttpPut(Name = "updateToDo")]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateToDoResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(UpdateToDoResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<UpdateToDoResponse>> Update([FromBody] UpdateToDoRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
@@ -47,9 +47,9 @@ public class ToDoController
         Description = @"Create ToDo"
     )]
     [HttpPost(Name = "createToDo")]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateToDoResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(CreateToDoResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<CreateToDoResponse>> Create([FromBody] CreateToDoRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
@@ -60,9 +60,9 @@ public class ToDoController
         Description = @"Get ToDos"
     )]
     [HttpGet(Name = "getToDos")]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetToDosResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetToDosResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetToDosResponse>> Get(CancellationToken cancellationToken)
     {
         return await _mediator.Send(new GetToDosRequest(), cancellationToken);
@@ -73,10 +73,10 @@ public class ToDoController
         Description = @"Get ToDo by id"
     )]
     [HttpGet("{toDoId:guid}", Name = "getToDoById")]
-    [ProducesResponseType(typeof(string), (int) HttpStatusCode.NotFound)]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetToDoByIdResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetToDoByIdResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetToDoByIdResponse>> GetById([FromRoute] Guid toDoId, CancellationToken cancellationToken)
     {
         var request = new GetToDoByIdRequest() { ToDoId = toDoId };
@@ -96,9 +96,9 @@ public class ToDoController
         Description = @"Delete ToDo"
     )]
     [HttpDelete("{toDoId:guid}", Name = "deleteToDo")]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(DeleteToDoResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(DeleteToDoResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<DeleteToDoResponse>> Delete([FromRoute] Guid toDoId, CancellationToken cancellationToken)
     {
         var request = new DeleteToDoRequest() { ToDoId = toDoId };

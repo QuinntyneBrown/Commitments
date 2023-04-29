@@ -44,7 +44,7 @@ public class ServiceBusMessageConsumer : BackgroundService
             {
                 var type = Type.GetType($"ToDoService.Core.Messages.{messageType}");
 
-                var request = (IRequest) System.Text.Json.JsonSerializer.Deserialize(message.Body, type!)!;
+                var request = (IRequest)System.Text.Json.JsonSerializer.Deserialize(message.Body, type!)!;
 
                 await _mediator.Send(request, stoppingToken);
             }

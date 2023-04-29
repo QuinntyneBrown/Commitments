@@ -47,7 +47,7 @@ public class ServiceBusMessageConsumer : BackgroundService
             {
                 var type = Type.GetType($"DigitalAssetService.Core.Messages.{messageType}");
 
-                var request = (IRequest) System.Text.Json.JsonSerializer.Deserialize(message.Body, type!)!;
+                var request = (IRequest)System.Text.Json.JsonSerializer.Deserialize(message.Body, type!)!;
 
                 await _mediator.Send(request, stoppingToken);
             }

@@ -34,9 +34,9 @@ public class NoteController
         Description = @"Update Note"
     )]
     [HttpPut(Name = "updateNote")]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateNoteResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(UpdateNoteResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<UpdateNoteResponse>> Update([FromBody] UpdateNoteRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
@@ -47,9 +47,9 @@ public class NoteController
         Description = @"Create Note"
     )]
     [HttpPost(Name = "createNote")]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateNoteResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(CreateNoteResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<CreateNoteResponse>> Create([FromBody] CreateNoteRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
@@ -60,9 +60,9 @@ public class NoteController
         Description = @"Get Notes"
     )]
     [HttpGet(Name = "getNotes")]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetNotesResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetNotesResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetNotesResponse>> Get(CancellationToken cancellationToken)
     {
         return await _mediator.Send(new GetNotesRequest(), cancellationToken);
@@ -73,10 +73,10 @@ public class NoteController
         Description = @"Get Note by id"
     )]
     [HttpGet("{noteId:guid}", Name = "getNoteById")]
-    [ProducesResponseType(typeof(string), (int) HttpStatusCode.NotFound)]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetNoteByIdResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetNoteByIdResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetNoteByIdResponse>> GetById([FromRoute] Guid noteId, CancellationToken cancellationToken)
     {
         var request = new GetNoteByIdRequest() { NoteId = noteId };
@@ -96,10 +96,10 @@ public class NoteController
         Description = @"Get Note by slug"
     )]
     [HttpGet("slug/{slug}", Name = "getNoteBySlug")]
-    [ProducesResponseType(typeof(string), (int) HttpStatusCode.NotFound)]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetNoteByIdResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetNoteByIdResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetNoteBySlugResponse>> GetBySlug([FromRoute] string slug, CancellationToken cancellationToken)
     {
         var request = new GetNoteBySlugRequest() { Slug = slug };
@@ -119,9 +119,9 @@ public class NoteController
         Description = @"Delete Note"
     )]
     [HttpDelete("{noteId:guid}", Name = "deleteNote")]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(DeleteNoteResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(DeleteNoteResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<DeleteNoteResponse>> Delete([FromRoute] Guid noteId, CancellationToken cancellationToken)
     {
         var request = new DeleteNoteRequest() { NoteId = noteId };

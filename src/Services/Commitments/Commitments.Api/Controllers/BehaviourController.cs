@@ -25,30 +25,30 @@ public class BehaviourController
     public BehaviourController(IMediator mediator) => _mediator = mediator;
 
     [HttpPost]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(SaveBehaviourResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(SaveBehaviourResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<SaveBehaviourResponse>> Save(SaveBehaviourRequest request)
         => await _mediator.Send(request);
 
     [HttpDelete("{behaviourId}")]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType((int) HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
     public async Task Remove([FromRoute] RemoveBehaviourRequest request)
         => await _mediator.Send(request);
 
     [HttpGet("{behaviourId}")]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetBehaviourByIdResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetBehaviourByIdResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetBehaviourByIdResponse>> GetById([FromRoute] GetBehaviourByIdRequest request)
         => await _mediator.Send(request);
 
     [HttpGet]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetBehavioursResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetBehavioursResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetBehavioursResponse>> Get()
         => await _mediator.Send(new GetBehavioursRequest());
 }

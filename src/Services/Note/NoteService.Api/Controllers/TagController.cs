@@ -34,9 +34,9 @@ public class TagController
         Description = @"Update Tag"
     )]
     [HttpPut(Name = "updateTag")]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateTagResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(UpdateTagResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<UpdateTagResponse>> Update([FromBody] UpdateTagRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
@@ -47,9 +47,9 @@ public class TagController
         Description = @"Create Tag"
     )]
     [HttpPost(Name = "createTag")]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateTagResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(CreateTagResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<CreateTagResponse>> Create([FromBody] CreateTagRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
@@ -60,9 +60,9 @@ public class TagController
         Description = @"Get Tags"
     )]
     [HttpGet(Name = "getTags")]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetTagsResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetTagsResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetTagsResponse>> Get(CancellationToken cancellationToken)
     {
         return await _mediator.Send(new GetTagsRequest(), cancellationToken);
@@ -73,10 +73,10 @@ public class TagController
         Description = @"Get Tag by id"
     )]
     [HttpGet("{tagId:guid}", Name = "getTagById")]
-    [ProducesResponseType(typeof(string), (int) HttpStatusCode.NotFound)]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetTagByIdResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetTagByIdResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetTagByIdResponse>> GetById([FromRoute] Guid tagId, CancellationToken cancellationToken)
     {
         var request = new GetTagByIdRequest() { TagId = tagId };
@@ -96,9 +96,9 @@ public class TagController
         Description = @"Delete Tag"
     )]
     [HttpDelete("{tagId:guid}", Name = "deleteTag")]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(DeleteTagResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(DeleteTagResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<DeleteTagResponse>> Delete([FromRoute] Guid tagId, CancellationToken cancellationToken)
     {
         var request = new DeleteTagRequest() { TagId = tagId };

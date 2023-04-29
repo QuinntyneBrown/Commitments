@@ -34,9 +34,9 @@ public class CardController
         Description = @"Update Card"
     )]
     [HttpPut(Name = "updateCard")]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(UpdateCardResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(UpdateCardResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<UpdateCardResponse>> Update([FromBody] UpdateCardRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
@@ -47,9 +47,9 @@ public class CardController
         Description = @"Create Card"
     )]
     [HttpPost(Name = "createCard")]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateCardResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(CreateCardResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<CreateCardResponse>> Create([FromBody] CreateCardRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
@@ -60,9 +60,9 @@ public class CardController
         Description = @"Get Cards"
     )]
     [HttpGet(Name = "getCards")]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetCardsResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetCardsResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetCardsResponse>> Get(CancellationToken cancellationToken)
     {
         return await _mediator.Send(new GetCardsRequest(), cancellationToken);
@@ -73,10 +73,10 @@ public class CardController
         Description = @"Get Card by id"
     )]
     [HttpGet("{cardId:guid}", Name = "getCardById")]
-    [ProducesResponseType(typeof(string), (int) HttpStatusCode.NotFound)]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(GetCardByIdResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetCardByIdResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetCardByIdResponse>> GetById([FromRoute] Guid cardId, CancellationToken cancellationToken)
     {
         var request = new GetCardByIdRequest() { CardId = cardId };
@@ -96,9 +96,9 @@ public class CardController
         Description = @"Delete Card"
     )]
     [HttpDelete("{cardId:guid}", Name = "deleteCard")]
-    [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
-    [ProducesResponseType(typeof(ProblemDetails), (int) HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(DeleteCardResponse), (int) HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(DeleteCardResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<DeleteCardResponse>> Delete([FromRoute] Guid cardId, CancellationToken cancellationToken)
     {
         var request = new DeleteCardRequest() { CardId = cardId };

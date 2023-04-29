@@ -45,7 +45,7 @@ public class ServiceBusMessageConsumer : BackgroundService
             {
                 var type = Type.GetType($"IdentityService.Core.Messages.{messageType}");
 
-                var request = (IRequest) Deserialize(message.Body, type!)!;
+                var request = (IRequest)Deserialize(message.Body, type!)!;
 
                 await _mediator.Send(request, stoppingToken);
             }

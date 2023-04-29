@@ -35,7 +35,7 @@ public partial class HttpGlobalExceptionFilter : IExceptionFilter
             };
 
             context.Result = new BadRequestObjectResult(json);
-            context.HttpContext.Response.StatusCode = (int) HttpStatusCode.BadRequest;
+            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
         }
         else
         {
@@ -47,7 +47,7 @@ public partial class HttpGlobalExceptionFilter : IExceptionFilter
             if (_hostingEnvironment.IsDevelopment()) json.DeveloperMeesage = context.Exception;
 
             context.Result = new InternalServerErrorObjectResult(json);
-            context.HttpContext.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
+            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
         }
         context.ExceptionHandled = true;
     }
