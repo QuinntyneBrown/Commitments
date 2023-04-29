@@ -47,16 +47,7 @@ bootstrapApplication(AppComponent, {
           pathMatch: 'full',
           redirectTo: 'dashboard'
         },
-        {
-          path: '',
-          pathMatch: 'full',
-          redirectTo: 'dashboard'
-        },
-        {
-          path: '',
-          pathMatch: 'full',
-          redirectTo: 'dashboard'
-        } 
+        { path: 'dashboard', loadComponent: () => import('./app/dashboard-page/dashboard-page.component').then(m => m.DashboardPageComponent) }
       ]),     
     )
   ]

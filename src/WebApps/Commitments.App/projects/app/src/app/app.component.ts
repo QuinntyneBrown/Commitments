@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { createAppViewModel } from './create-app-view-model';
 import { DialogModule } from '@angular/cdk/dialog';
+import { PushModule } from '@ngrx/component';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ import { DialogModule } from '@angular/cdk/dialog';
   imports: [
     CommonModule,
     RouterModule,
-    DialogModule
+    DialogModule,
+    PushModule
   ]
 })
 export class AppComponent {

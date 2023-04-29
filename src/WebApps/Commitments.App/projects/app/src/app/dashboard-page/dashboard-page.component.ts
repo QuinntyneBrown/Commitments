@@ -26,8 +26,6 @@ export class DashboardPageComponent implements OnInit {
   public vm$ = createDashboardPageViewModel();
 
   ngOnInit() {
-    this._cardStore.load();
-    
-    this._dialog.open(SelectCardComponent);
+    this._cardStore.load();    
   }
 }
