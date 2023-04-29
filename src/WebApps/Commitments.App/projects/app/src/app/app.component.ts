@@ -1,12 +1,11 @@
-import { TranslateService } from '@ngx-translate/core';
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '@identity/core';
 import { createAppViewModel } from './create-app-view-model';
+import { DialogModule } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-root',
@@ -15,10 +14,10 @@ import { createAppViewModel } from './create-app-view-model';
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    DialogModule
   ]
 })
 export class AppComponent {
-
   public vm$ = createAppViewModel();
 }

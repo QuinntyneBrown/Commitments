@@ -6,11 +6,12 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { RouterModule } from '@angular/router';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { BASE_URL } from '@dashboard/core';
+import { BASE_URL as DASHBOARD_BASE_URL } from '@dashboard/core';
 import { AuthInterceptor, HeadersInterceptor } from '@identity/core';
 import { TranslateLoader } from '@ngx-translate/core';
 import { TranslateModule  } from '@ngx-translate/core';
 import { TranslateHttpLoader  } from '@ngx-translate/http-loader';
+import { BASE_URL as IDENTITY_BASE_URL } from '@identity/core';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -18,7 +19,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
 
 bootstrapApplication(AppComponent, {
   providers: [
-    { provide: BASE_URL, useValue: "https://localhost:55360/" },  
+    { provide: DASHBOARD_BASE_URL, useValue: "https://localhost:55360/" },  
+    { provide: IDENTITY_BASE_URL, useValue: "https://localhost:7006/" }, 
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeadersInterceptor,
