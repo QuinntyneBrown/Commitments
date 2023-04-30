@@ -2,7 +2,7 @@
 
 var client = new UdpClientFactory().Create();
 
-await Send(client, new UserCreateMessage("seed", "seed"));
+//await Send(client, new UserCreateMessage("seed", "seed"));
 
 async Task Send(UdpClient client, object message)
 {

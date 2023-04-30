@@ -14,7 +14,7 @@ using System.Linq;
 
 namespace Commitments.Core;
 
-public class ServiceBusMessageConsumer : BackgroundService
+public class ServiceBusMessageConsumer: BackgroundService
 {
     private readonly ILogger<ServiceBusMessageConsumer> _logger;
 
@@ -24,21 +24,19 @@ public class ServiceBusMessageConsumer : BackgroundService
 
     private readonly string[] _supportedMessageTypes = new string[] { };
 
-    public ServiceBusMessageConsumer(ILogger<ServiceBusMessageConsumer> logger, IServiceScopeFactory serviceScopeFactory, IUdpClientFactory udpClientFactory)
-    {
+    public ServiceBusMessageConsumer(ILogger<ServiceBusMessageConsumer> logger,IServiceScopeFactory serviceScopeFactory,IUdpClientFactory udpClientFactory){
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _serviceScopeFactory = serviceScopeFactory ?? throw new ArgumentNullException(nameof(serviceScopeFactory));
         _udpClientFactory = udpClientFactory ?? throw new ArgumentNullException(nameof(udpClientFactory));
     }
 
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         var client = _udpClientFactory.Create();
 
-        while (!stoppingToken.IsCancellationRequested)
-        {
+        while(!cancellationToken.IsCancellationRequested) {
 
-            var result = await client.ReceiveAsync(stoppingToken);
+            var result = await client.ReceiveAsync(cancellationToken);
 
             var json = Encoding.UTF8.GetString(result.Buffer);
 
@@ -46,7 +44,7 @@ public class ServiceBusMessageConsumer : BackgroundService
 
             var messageType = message.MessageAttributes["MessageType"];
 
-            if (_supportedMessageTypes.Contains(messageType))
+            if(_supportedMessageTypes.Contains(messageType))
             {
                 var type = Type.GetType($"Commitments.Core.Messages.{messageType}");
 
@@ -56,7 +54,7 @@ public class ServiceBusMessageConsumer : BackgroundService
                 {
                     var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
 
-                    await mediator.Send(request, stoppingToken);
+                    await mediator.Send(request, cancellationToken);
                 }
             }
 
@@ -65,3 +63,5 @@ public class ServiceBusMessageConsumer : BackgroundService
     }
 
 }
+
+

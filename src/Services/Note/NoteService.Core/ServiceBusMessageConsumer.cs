@@ -3,36 +3,40 @@
 
 using Messaging;
 using Messaging.Udp;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Text;
+using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
+using System.Threading;
+using MediatR;
+using System.Linq;
 
 namespace NoteService.Core;
 
-public class ServiceBusMessageConsumer : BackgroundService
+public class ServiceBusMessageConsumer: BackgroundService
 {
     private readonly ILogger<ServiceBusMessageConsumer> _logger;
 
-    private readonly IMediator _mediator;
+    private readonly IServiceScopeFactory _serviceScopeFactory;
 
     private readonly IUdpClientFactory _udpClientFactory;
 
     private readonly string[] _supportedMessageTypes = new string[] { };
 
-    public ServiceBusMessageConsumer(ILogger<ServiceBusMessageConsumer> logger, IMediator mediator, IUdpClientFactory udpClientFactory)
-    {
+    public ServiceBusMessageConsumer(ILogger<ServiceBusMessageConsumer> logger,IServiceScopeFactory serviceScopeFactory,IUdpClientFactory udpClientFactory){
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        _serviceScopeFactory = serviceScopeFactory ?? throw new ArgumentNullException(nameof(serviceScopeFactory));
         _udpClientFactory = udpClientFactory ?? throw new ArgumentNullException(nameof(udpClientFactory));
     }
 
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         var client = _udpClientFactory.Create();
 
-        while (!stoppingToken.IsCancellationRequested)
-        {
+        while(!cancellationToken.IsCancellationRequested) {
 
-            var result = await client.ReceiveAsync(stoppingToken);
+            var result = await client.ReceiveAsync(cancellationToken);
 
             var json = Encoding.UTF8.GetString(result.Buffer);
 
@@ -40,17 +44,24 @@ public class ServiceBusMessageConsumer : BackgroundService
 
             var messageType = message.MessageAttributes["MessageType"];
 
-            if (_supportedMessageTypes.Contains(messageType))
+            if(_supportedMessageTypes.Contains(messageType))
             {
                 var type = Type.GetType($"NoteService.Core.Messages.{messageType}");
 
-                var request = (IRequest)System.Text.Json.JsonSerializer.Deserialize(message.Body, type!)!;
+                var request = System.Text.Json.JsonSerializer.Deserialize(message.Body, type!)!;
 
-                await _mediator.Send(request, stoppingToken);
+                using (var scope = _serviceScopeFactory.CreateScope())
+                {
+                    var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+
+                    await mediator.Send(request, cancellationToken);
+                }
             }
 
-            await Task.Delay(300);
+            await Task.Delay(0);
         }
     }
 
 }
+
+

@@ -34,5 +34,3 @@ public class UserCreateMessageHandler: IRequestHandler<UserCreateMessage>
         await _identityServiceDbContext.SaveChangesAsync(cancellationToken);
     }
 }
-
-
