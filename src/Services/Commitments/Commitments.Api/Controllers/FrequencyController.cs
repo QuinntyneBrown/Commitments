@@ -3,7 +3,6 @@
 
 using Commitments.Core.AggregateModel.FrequencyAggregate.Commands;
 using Commitments.Core.AggregateModel.FrequencyAggregate.Queries;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;

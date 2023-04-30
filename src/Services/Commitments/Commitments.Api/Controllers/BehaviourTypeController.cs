@@ -3,7 +3,6 @@
 
 using Commitments.Core.AggregateModel.BehaviourTypeAggregate.Commands;
 using Commitments.Core.AggregateModel.BehaviourTypeAggregate.Queries;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
