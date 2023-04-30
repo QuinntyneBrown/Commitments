@@ -3,7 +3,7 @@
 
 namespace IdentityService.Core.Messages;
 
-public class UserCreateMessage: IRequest
+public class UserCreateMessage : IRequest
 {
     public UserCreateMessage(string username, string password)
     {

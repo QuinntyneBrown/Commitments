@@ -21,7 +21,9 @@ public class UdpClientFactory : IUdpClientFactory
 
     public UdpClient Create()
     {
-        UdpClient udpClient = default;
+        _logger.LogInformation("Create");
+
+        UdpClient udpClient = default!;
 
         int i = 1;
 
@@ -43,5 +45,4 @@ public class UdpClientFactory : IUdpClientFactory
 
         return udpClient;
     }
-
 }

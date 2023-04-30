@@ -8,7 +8,7 @@ using Security;
 
 namespace IdentityService.Core.MessageHandlers;
 
-public class UserCreateMessageHandler: IRequestHandler<UserCreateMessage>
+public class UserCreateMessageHandler : IRequestHandler<UserCreateMessage>
 {
     private readonly ILogger<UserCreateMessageHandler> _logger;
     private readonly IIdentityServiceDbContext _identityServiceDbContext;
@@ -16,18 +16,18 @@ public class UserCreateMessageHandler: IRequestHandler<UserCreateMessage>
     private readonly IServiceBusMessageSender _serviceBusMessageSender;
 
     public UserCreateMessageHandler(
-        ILogger<UserCreateMessageHandler> logger, 
+        ILogger<UserCreateMessageHandler> logger,
         IIdentityServiceDbContext identityServiceDbContext,
         IPasswordHasher passwordHasher,
         IServiceBusMessageSender serviceBusMessageSender)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _identityServiceDbContext = identityServiceDbContext ?? throw new ArgumentNullException(nameof(identityServiceDbContext));
-        _passwordHasher = passwordHasher ?? throw new ArgumentNullException(nameof(passwordHasher));   
+        _passwordHasher = passwordHasher ?? throw new ArgumentNullException(nameof(passwordHasher));
         _serviceBusMessageSender = serviceBusMessageSender ?? throw new ArgumentNullException(nameof(serviceBusMessageSender));
     }
 
-    public async Task Handle(UserCreateMessage message,CancellationToken cancellationToken)
+    public async Task Handle(UserCreateMessage message, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Message Handled: {message}", message);
 
