@@ -19,13 +19,13 @@ namespace ToDoService.Api.Controllers;
 [Consumes(MediaTypeNames.Application.Json)]
 public class ToDoController
 {
-    private readonly IMediator _mediator;
+    private readonly ISender _sender;
 
     private readonly ILogger<ToDoController> _logger;
 
-    public ToDoController(IMediator mediator, ILogger<ToDoController> logger)
+    public ToDoController(ISender sender, ILogger<ToDoController> logger)
     {
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        _sender = sender ?? throw new ArgumentNullException(nameof(sender));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
@@ -39,7 +39,7 @@ public class ToDoController
     [ProducesResponseType(typeof(UpdateToDoResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<UpdateToDoResponse>> Update([FromBody] UpdateToDoRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -52,7 +52,7 @@ public class ToDoController
     [ProducesResponseType(typeof(CreateToDoResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<CreateToDoResponse>> Create([FromBody] CreateToDoRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -65,7 +65,7 @@ public class ToDoController
     [ProducesResponseType(typeof(GetToDosResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetToDosResponse>> Get(CancellationToken cancellationToken)
     {
-        return await _mediator.Send(new GetToDosRequest(), cancellationToken);
+        return await _sender.Send(new GetToDosRequest(), cancellationToken);
     }
 
     [SwaggerOperation(
@@ -81,7 +81,7 @@ public class ToDoController
     {
         var request = new GetToDoByIdRequest() { ToDoId = toDoId };
 
-        var response = await _mediator.Send(request, cancellationToken);
+        var response = await _sender.Send(request, cancellationToken);
 
         if (response.ToDo == null)
         {
@@ -103,7 +103,7 @@ public class ToDoController
     {
         var request = new DeleteToDoRequest() { ToDoId = toDoId };
 
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
 }

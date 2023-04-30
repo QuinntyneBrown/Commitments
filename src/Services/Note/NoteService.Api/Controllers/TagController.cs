@@ -19,13 +19,13 @@ namespace NoteService.Api.Controllers;
 [Consumes(MediaTypeNames.Application.Json)]
 public class TagController
 {
-    private readonly IMediator _mediator;
+    private readonly ISender _sender;
 
     private readonly ILogger<TagController> _logger;
 
-    public TagController(IMediator mediator, ILogger<TagController> logger)
+    public TagController(ISender sender, ILogger<TagController> logger)
     {
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        _sender = sender ?? throw new ArgumentNullException(nameof(sender));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
@@ -39,7 +39,7 @@ public class TagController
     [ProducesResponseType(typeof(UpdateTagResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<UpdateTagResponse>> Update([FromBody] UpdateTagRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -52,7 +52,7 @@ public class TagController
     [ProducesResponseType(typeof(CreateTagResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<CreateTagResponse>> Create([FromBody] CreateTagRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -65,7 +65,7 @@ public class TagController
     [ProducesResponseType(typeof(GetTagsResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetTagsResponse>> Get(CancellationToken cancellationToken)
     {
-        return await _mediator.Send(new GetTagsRequest(), cancellationToken);
+        return await _sender.Send(new GetTagsRequest(), cancellationToken);
     }
 
     [SwaggerOperation(
@@ -81,7 +81,7 @@ public class TagController
     {
         var request = new GetTagByIdRequest() { TagId = tagId };
 
-        var response = await _mediator.Send(request, cancellationToken);
+        var response = await _sender.Send(request, cancellationToken);
 
         if (response.Tag == null)
         {
@@ -103,7 +103,7 @@ public class TagController
     {
         var request = new DeleteTagRequest() { TagId = tagId };
 
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
 }

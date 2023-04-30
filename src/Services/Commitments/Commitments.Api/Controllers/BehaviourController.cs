@@ -20,35 +20,35 @@ namespace Commitments.Api.Controllers;
 [Consumes(MediaTypeNames.Application.Json)]
 public class BehaviourController
 {
-    private readonly IMediator _mediator;
+    private readonly ISender _sender;
 
-    public BehaviourController(IMediator mediator) => _mediator = mediator;
+    public BehaviourController(ISender sender) => _sender = sender;
 
     [HttpPost]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(SaveBehaviourResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<SaveBehaviourResponse>> Save(SaveBehaviourRequest request)
-        => await _mediator.Send(request);
+        => await _sender.Send(request);
 
     [HttpDelete("{behaviourId}")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType((int)HttpStatusCode.OK)]
     public async Task Remove([FromRoute] RemoveBehaviourRequest request)
-        => await _mediator.Send(request);
+        => await _sender.Send(request);
 
     [HttpGet("{behaviourId}")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(GetBehaviourByIdResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetBehaviourByIdResponse>> GetById([FromRoute] GetBehaviourByIdRequest request)
-        => await _mediator.Send(request);
+        => await _sender.Send(request);
 
     [HttpGet]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(GetBehavioursResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetBehavioursResponse>> Get()
-        => await _mediator.Send(new GetBehavioursRequest());
+        => await _sender.Send(new GetBehavioursRequest());
 }

@@ -18,13 +18,13 @@ namespace IdentityService.Api.Controllers;
 [Consumes(MediaTypeNames.Application.Json)]
 public class PrivilegeController
 {
-    private readonly IMediator _mediator;
+    private readonly ISender _sender;
 
     private readonly ILogger<PrivilegeController> _logger;
 
-    public PrivilegeController(IMediator mediator, ILogger<PrivilegeController> logger)
+    public PrivilegeController(ISender sender, ILogger<PrivilegeController> logger)
     {
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        _sender = sender ?? throw new ArgumentNullException(nameof(sender));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
@@ -38,7 +38,7 @@ public class PrivilegeController
     [ProducesResponseType(typeof(UpdatePrivilegeResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<UpdatePrivilegeResponse>> Update([FromBody] UpdatePrivilegeRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -51,7 +51,7 @@ public class PrivilegeController
     [ProducesResponseType(typeof(CreatePrivilegeResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<CreatePrivilegeResponse>> Create([FromBody] CreatePrivilegeRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -64,7 +64,7 @@ public class PrivilegeController
     [ProducesResponseType(typeof(GetPrivilegesResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetPrivilegesResponse>> Get(CancellationToken cancellationToken)
     {
-        return await _mediator.Send(new GetPrivilegesRequest(), cancellationToken);
+        return await _sender.Send(new GetPrivilegesRequest(), cancellationToken);
     }
 
     [SwaggerOperation(
@@ -80,7 +80,7 @@ public class PrivilegeController
     {
         var request = new GetPrivilegeByIdRequest() { PrivilegeId = privilegeId };
 
-        var response = await _mediator.Send(request, cancellationToken);
+        var response = await _sender.Send(request, cancellationToken);
 
         if (response.Privilege == null)
         {
@@ -102,7 +102,7 @@ public class PrivilegeController
     {
         var request = new DeletePrivilegeRequest() { PrivilegeId = privilegeId };
 
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
 }

@@ -19,17 +19,17 @@ namespace DashboardService.Api.Controllers;
 [Consumes(MediaTypeNames.Application.Json)]
 public class DashboardController
 {
-    private readonly IMediator _mediator;
+    private readonly ISender _sender;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
     private readonly ILogger<DashboardController> _logger;
 
     public DashboardController(
-        IMediator mediator,
+        ISender sender,
         ILogger<DashboardController> logger,
         IHttpContextAccessor httpContextAccessor)
     {
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        _sender = sender ?? throw new ArgumentNullException(nameof(sender));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
     }
@@ -41,7 +41,7 @@ public class DashboardController
 
         var profileId = new Guid(profileIdHeaderValue);
 
-        return await _mediator.Send(new GetDashboardByProfileIdRequest()
+        return await _sender.Send(new GetDashboardByProfileIdRequest()
         {
             ProfileId = profileId
         });
@@ -58,7 +58,7 @@ public class DashboardController
     [ProducesResponseType(typeof(UpdateDashboardResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<UpdateDashboardResponse>> Update([FromBody] UpdateDashboardRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -71,7 +71,7 @@ public class DashboardController
     [ProducesResponseType(typeof(CreateDashboardResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<CreateDashboardResponse>> Create([FromBody] CreateDashboardRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -84,7 +84,7 @@ public class DashboardController
     [ProducesResponseType(typeof(GetDashboardsResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetDashboardsResponse>> Get(CancellationToken cancellationToken)
     {
-        return await _mediator.Send(new GetDashboardsRequest(), cancellationToken);
+        return await _sender.Send(new GetDashboardsRequest(), cancellationToken);
     }
 
     [SwaggerOperation(
@@ -100,7 +100,7 @@ public class DashboardController
     {
         var request = new GetDashboardByIdRequest() { DashboardId = dashboardId };
 
-        var response = await _mediator.Send(request, cancellationToken);
+        var response = await _sender.Send(request, cancellationToken);
 
         if (response.Dashboard == null)
         {
@@ -122,7 +122,7 @@ public class DashboardController
     {
         var request = new DeleteDashboardRequest() { DashboardId = dashboardId };
 
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
 }

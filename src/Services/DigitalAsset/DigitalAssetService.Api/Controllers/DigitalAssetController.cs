@@ -17,13 +17,13 @@ namespace DigitalAssetService.Api.Controllers;
 [Consumes(MediaTypeNames.Application.Json)]
 public class DigitalAssetController
 {
-    private readonly IMediator _mediator;
+    private readonly ISender _sender;
 
     private readonly ILogger<DigitalAssetController> _logger;
 
-    public DigitalAssetController(IMediator mediator, ILogger<DigitalAssetController> logger)
+    public DigitalAssetController(ISender sender, ILogger<DigitalAssetController> logger)
     {
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        _sender = sender ?? throw new ArgumentNullException(nameof(sender));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
@@ -38,7 +38,7 @@ public class DigitalAssetController
     public async Task<ActionResult<UploadDigitalAssetResponse>> Post(string command)
     {
 
-        return await _mediator.Send(new UploadDigitalAssetRequest());
+        return await _sender.Send(new UploadDigitalAssetRequest());
     }
 
     [SwaggerOperation(
@@ -51,7 +51,7 @@ public class DigitalAssetController
     [ProducesResponseType(typeof(UpdateDigitalAssetResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<UpdateDigitalAssetResponse>> Update([FromBody] UpdateDigitalAssetRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -64,7 +64,7 @@ public class DigitalAssetController
     [ProducesResponseType(typeof(CreateDigitalAssetResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<CreateDigitalAssetResponse>> Create([FromBody] CreateDigitalAssetRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -77,7 +77,7 @@ public class DigitalAssetController
     [ProducesResponseType(typeof(GetDigitalAssetsResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetDigitalAssetsResponse>> Get(CancellationToken cancellationToken)
     {
-        return await _mediator.Send(new GetDigitalAssetsRequest(), cancellationToken);
+        return await _sender.Send(new GetDigitalAssetsRequest(), cancellationToken);
     }
 
     [SwaggerOperation(
@@ -93,7 +93,7 @@ public class DigitalAssetController
     {
         var request = new GetDigitalAssetByIdRequest() { DigitalAssetId = digitalAssetId };
 
-        var response = await _mediator.Send(request, cancellationToken);
+        var response = await _sender.Send(request, cancellationToken);
 
         if (response.DigitalAsset == null)
         {
@@ -115,7 +115,7 @@ public class DigitalAssetController
     {
         var request = new DeleteDigitalAssetRequest() { DigitalAssetId = digitalAssetId };
 
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
 }

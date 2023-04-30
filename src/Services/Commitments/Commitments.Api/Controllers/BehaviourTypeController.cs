@@ -19,35 +19,35 @@ namespace Commitments.Api.Controllers;
 [Consumes(MediaTypeNames.Application.Json)]
 public class BehaviourTypeController
 {
-    private readonly IMediator _mediator;
+    private readonly ISender _sender;
 
-    public BehaviourTypeController(IMediator mediator) => _mediator = mediator;
+    public BehaviourTypeController(ISender sender) => _sender = sender;
 
     [HttpPost]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(SaveBehaviourTypeResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<SaveBehaviourTypeResponse>> Save(SaveBehaviourTypeRequest request)
-        => await _mediator.Send(request);
+        => await _sender.Send(request);
 
     [HttpDelete("{BehaviourTypeId}")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType((int)HttpStatusCode.OK)]
     public async Task Remove([FromRoute] RemoveBehaviourTypeRequest request)
-        => await _mediator.Send(request);
+        => await _sender.Send(request);
 
     [HttpGet("{BehaviourTypeId}")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(GetBehaviourTypeByIdResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetBehaviourTypeByIdResponse>> GetById([FromRoute] GetBehaviourTypeByIdRequest request)
-        => await _mediator.Send(request);
+        => await _sender.Send(request);
 
     [HttpGet]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(GetBehaviourTypesResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetBehaviourTypesResponse>> Get()
-        => await _mediator.Send(new GetBehaviourTypesRequest());
+        => await _sender.Send(new GetBehaviourTypesRequest());
 }

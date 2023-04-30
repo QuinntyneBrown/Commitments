@@ -19,35 +19,35 @@ namespace Commitments.Api.Controllers;
 [Consumes(MediaTypeNames.Application.Json)]
 public class FrequencyController
 {
-    private readonly IMediator _mediator;
+    private readonly ISender _sender;
 
-    public FrequencyController(IMediator mediator) => _mediator = mediator;
+    public FrequencyController(ISender sender) => _sender = sender;
 
     [HttpPost]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(SaveFrequencyResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<SaveFrequencyResponse>> Save(SaveFrequencyRequest request)
-        => await _mediator.Send(request);
+        => await _sender.Send(request);
 
     [HttpDelete("{frequencyId}")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType((int)HttpStatusCode.OK)]
     public async Task Remove([FromRoute] RemoveFrequencyRequest request)
-        => await _mediator.Send(request);
+        => await _sender.Send(request);
 
     [HttpGet("{frequencyId}")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(GetFrequencyByIdResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetFrequencyByIdResponse>> GetById([FromRoute] GetFrequencyByIdRequest request)
-        => await _mediator.Send(request);
+        => await _sender.Send(request);
 
     [HttpGet]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(GetFrequenciesResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetFrequenciesResponse>> Get()
-        => await _mediator.Send(new GetFrequenciesRequest());
+        => await _sender.Send(new GetFrequenciesRequest());
 }

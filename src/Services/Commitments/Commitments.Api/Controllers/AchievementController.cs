@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments.Core.AggregateModel.AchievementAggregate.Queries;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -17,12 +16,12 @@ namespace Commitments.Api.Controllers;
 [Consumes(MediaTypeNames.Application.Json)]
 public class AchievementController
 {
-    private readonly IMediator _mediator;
+    private readonly ISender _sender;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public AchievementController(IHttpContextAccessor httpContextAccessor, IMediator mediator)
+    public AchievementController(IHttpContextAccessor httpContextAccessor, ISender sender)
     {
-        _mediator = mediator;
+        _sender = sender;
         _httpContextAccessor = httpContextAccessor;
     }
 
@@ -32,7 +31,7 @@ public class AchievementController
     [ProducesResponseType(typeof(GetAchievementsResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetAchievementsResponse>> Get()
     {
-        return await _mediator.Send(new GetAchievementsRequest()
+        return await _sender.Send(new GetAchievementsRequest()
         {
             ProfileId = _httpContextAccessor.GetProfileId()
         });

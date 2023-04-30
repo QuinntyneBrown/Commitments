@@ -16,11 +16,11 @@ public class CreateDashboardCardRangeResponse
 public class CreateDashboardCardRangeCommandHandler : IRequestHandler<CreateDashboardCardRangeRequest, CreateDashboardCardRangeResponse>
 {
     public IDashboardServiceDbContext _context { get; set; }
-    public IMediator _mediator { get; set; }
-    public CreateDashboardCardRangeCommandHandler(IDashboardServiceDbContext context, IMediator mediator)
+    public ISender _sender { get; set; }
+    public CreateDashboardCardRangeCommandHandler(IDashboardServiceDbContext context, ISender sender)
     {
         _context = context;
-        _mediator = mediator;
+        _sender = sender;
     }
 
     public async Task<CreateDashboardCardRangeResponse> Handle(CreateDashboardCardRangeRequest request, CancellationToken cancellationToken)
@@ -29,7 +29,7 @@ public class CreateDashboardCardRangeCommandHandler : IRequestHandler<CreateDash
 
         foreach (var dashboardCard in request.DashboardCards)
         {
-            var response = await _mediator.Send(new CreateDashboardCardRequest()
+            var response = await _sender.Send(new CreateDashboardCardRequest()
             {
                 DashboardId = dashboardCard.DashboardId,
                 CardId = dashboardCard.CardId,

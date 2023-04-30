@@ -18,12 +18,12 @@ namespace IdentityService.Api.Controllers;
 [Consumes(MediaTypeNames.Application.Json)]
 public class RoleController
 {
-    private readonly IMediator _mediator;
+    private readonly ISender _sender;
     private readonly ILogger<RoleController> _logger;
 
-    public RoleController(IMediator mediator, ILogger<RoleController> logger)
+    public RoleController(ISender sender, ILogger<RoleController> logger)
     {
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        _sender = sender ?? throw new ArgumentNullException(nameof(sender));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
@@ -37,7 +37,7 @@ public class RoleController
     [ProducesResponseType(typeof(UpdateRoleResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<UpdateRoleResponse>> Update([FromBody] UpdateRoleRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -50,7 +50,7 @@ public class RoleController
     [ProducesResponseType(typeof(CreateRoleResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<CreateRoleResponse>> Create([FromBody] CreateRoleRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -63,7 +63,7 @@ public class RoleController
     [ProducesResponseType(typeof(GetRolesResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetRolesResponse>> Get(CancellationToken cancellationToken)
     {
-        return await _mediator.Send(new GetRolesRequest(), cancellationToken);
+        return await _sender.Send(new GetRolesRequest(), cancellationToken);
     }
 
     [SwaggerOperation(
@@ -79,7 +79,7 @@ public class RoleController
     {
         var request = new GetRoleByIdRequest() { RoleId = roleId };
 
-        var response = await _mediator.Send(request, cancellationToken);
+        var response = await _sender.Send(request, cancellationToken);
 
         if (response.Role == null)
         {
@@ -101,7 +101,7 @@ public class RoleController
     {
         var request = new DeleteRoleRequest() { RoleId = roleId };
 
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
 }

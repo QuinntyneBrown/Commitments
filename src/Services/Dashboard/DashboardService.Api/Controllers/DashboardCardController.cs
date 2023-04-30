@@ -19,13 +19,13 @@ namespace DashboardService.Api.Controllers;
 [Consumes(MediaTypeNames.Application.Json)]
 public class DashboardCardController
 {
-    private readonly IMediator _mediator;
+    private readonly ISender _sender;
 
     private readonly ILogger<DashboardCardController> _logger;
 
-    public DashboardCardController(IMediator mediator, ILogger<DashboardCardController> logger)
+    public DashboardCardController(ISender sender, ILogger<DashboardCardController> logger)
     {
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        _sender = sender ?? throw new ArgumentNullException(nameof(sender));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
@@ -39,7 +39,7 @@ public class DashboardCardController
     [ProducesResponseType(typeof(UpdateDashboardCardResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<UpdateDashboardCardResponse>> Update([FromBody] UpdateDashboardCardRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -52,7 +52,7 @@ public class DashboardCardController
     [ProducesResponseType(typeof(CreateDashboardCardResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<CreateDashboardCardResponse>> Create([FromBody] CreateDashboardCardRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -65,7 +65,7 @@ public class DashboardCardController
     [ProducesResponseType(typeof(GetDashboardCardsResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetDashboardCardsResponse>> Get(CancellationToken cancellationToken)
     {
-        return await _mediator.Send(new GetDashboardCardsRequest(), cancellationToken);
+        return await _sender.Send(new GetDashboardCardsRequest(), cancellationToken);
     }
 
     [SwaggerOperation(
@@ -74,7 +74,7 @@ public class DashboardCardController
     )]
     [HttpGet("range")]
     public async Task<ActionResult<GetDashboardCardByIdsResponse>> GetByIds([FromQuery] GetDashboardCardByIdsRequest request)
-        => await _mediator.Send(request);
+        => await _sender.Send(request);
 
     [SwaggerOperation(
         Summary = "Create Range",
@@ -82,7 +82,7 @@ public class DashboardCardController
     )]
     [HttpPost("range")]
     public async Task<ActionResult<CreateDashboardCardRangeResponse>> SaveRange(CreateDashboardCardRangeRequest request)
-        => await _mediator.Send(request);
+        => await _sender.Send(request);
 
     [SwaggerOperation(
         Summary = "Get DashboardCard by id",
@@ -97,7 +97,7 @@ public class DashboardCardController
     {
         var request = new GetDashboardCardByIdRequest() { DashboardCardId = dashboardCardId };
 
-        var response = await _mediator.Send(request, cancellationToken);
+        var response = await _sender.Send(request, cancellationToken);
 
         if (response.DashboardCard == null)
         {
@@ -119,7 +119,7 @@ public class DashboardCardController
     {
         var request = new DeleteDashboardCardRequest() { DashboardCardId = dashboardCardId };
 
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
 }

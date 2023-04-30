@@ -19,13 +19,13 @@ namespace IdentityService.Api.Controllers;
 [Consumes(MediaTypeNames.Application.Json)]
 public class UserController
 {
-    private readonly IMediator _mediator;
+    private readonly ISender _sender;
 
     private readonly ILogger<UserController> _logger;
 
-    public UserController(IMediator mediator, ILogger<UserController> logger)
+    public UserController(ISender sender, ILogger<UserController> logger)
     {
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        _sender = sender ?? throw new ArgumentNullException(nameof(sender));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
@@ -39,7 +39,7 @@ public class UserController
     [ProducesResponseType(typeof(UpdateUserResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<UpdateUserResponse>> Update([FromBody] UpdateUserRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [AllowAnonymous]
@@ -55,7 +55,7 @@ public class UserController
     {
         _logger.LogInformation("Authenticate:{username}", request.Username);
 
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -68,7 +68,7 @@ public class UserController
     [ProducesResponseType(typeof(CreateUserResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<CreateUserResponse>> Create([FromBody] CreateUserRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -81,7 +81,7 @@ public class UserController
     [ProducesResponseType(typeof(GetUsersResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetUsersResponse>> Get(CancellationToken cancellationToken)
     {
-        return await _mediator.Send(new GetUsersRequest(), cancellationToken);
+        return await _sender.Send(new GetUsersRequest(), cancellationToken);
     }
 
     [SwaggerOperation(
@@ -94,7 +94,7 @@ public class UserController
     [ProducesResponseType(typeof(GetUsersResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetUsersResponse>> GetCurrentUser(CancellationToken cancellationToken)
     {
-        return await _mediator.Send(new GetUsersRequest(), cancellationToken);
+        return await _sender.Send(new GetUsersRequest(), cancellationToken);
     }
 
     [SwaggerOperation(
@@ -110,7 +110,7 @@ public class UserController
     {
         var request = new GetUserByIdRequest() { UserId = userId };
 
-        var response = await _mediator.Send(request, cancellationToken);
+        var response = await _sender.Send(request, cancellationToken);
 
         if (response.User == null)
         {
@@ -132,6 +132,6 @@ public class UserController
     {
         var request = new DeleteUserRequest() { UserId = userId };
 
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 }

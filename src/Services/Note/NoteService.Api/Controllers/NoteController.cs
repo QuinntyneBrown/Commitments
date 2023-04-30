@@ -19,13 +19,13 @@ namespace NoteService.Api.Controllers;
 [Consumes(MediaTypeNames.Application.Json)]
 public class NoteController
 {
-    private readonly IMediator _mediator;
+    private readonly ISender _sender;
 
     private readonly ILogger<NoteController> _logger;
 
-    public NoteController(IMediator mediator, ILogger<NoteController> logger)
+    public NoteController(ISender sender, ILogger<NoteController> logger)
     {
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        _sender = sender ?? throw new ArgumentNullException(nameof(sender));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
@@ -39,7 +39,7 @@ public class NoteController
     [ProducesResponseType(typeof(UpdateNoteResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<UpdateNoteResponse>> Update([FromBody] UpdateNoteRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -52,7 +52,7 @@ public class NoteController
     [ProducesResponseType(typeof(CreateNoteResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<CreateNoteResponse>> Create([FromBody] CreateNoteRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -65,7 +65,7 @@ public class NoteController
     [ProducesResponseType(typeof(GetNotesResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetNotesResponse>> Get(CancellationToken cancellationToken)
     {
-        return await _mediator.Send(new GetNotesRequest(), cancellationToken);
+        return await _sender.Send(new GetNotesRequest(), cancellationToken);
     }
 
     [SwaggerOperation(
@@ -81,7 +81,7 @@ public class NoteController
     {
         var request = new GetNoteByIdRequest() { NoteId = noteId };
 
-        var response = await _mediator.Send(request, cancellationToken);
+        var response = await _sender.Send(request, cancellationToken);
 
         if (response.Note == null)
         {
@@ -104,7 +104,7 @@ public class NoteController
     {
         var request = new GetNoteBySlugRequest() { Slug = slug };
 
-        var response = await _mediator.Send(request, cancellationToken);
+        var response = await _sender.Send(request, cancellationToken);
 
         if (response.Note == null)
         {
@@ -126,7 +126,7 @@ public class NoteController
     {
         var request = new DeleteNoteRequest() { NoteId = noteId };
 
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
 }

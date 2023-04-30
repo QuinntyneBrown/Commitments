@@ -19,13 +19,13 @@ namespace ProfileService.Api.Controllers;
 [Consumes(MediaTypeNames.Application.Json)]
 public class ProfileController
 {
-    private readonly IMediator _mediator;
+    private readonly ISender _sender;
 
     private readonly ILogger<ProfileController> _logger;
 
-    public ProfileController(IMediator mediator, ILogger<ProfileController> logger)
+    public ProfileController(ISender sender, ILogger<ProfileController> logger)
     {
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        _sender = sender ?? throw new ArgumentNullException(nameof(sender));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
@@ -39,7 +39,7 @@ public class ProfileController
     [ProducesResponseType(typeof(UpdateProfileResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<UpdateProfileResponse>> Update([FromBody] UpdateProfileRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -52,7 +52,7 @@ public class ProfileController
     [ProducesResponseType(typeof(CreateProfileResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<CreateProfileResponse>> Create([FromBody] CreateProfileRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -67,7 +67,7 @@ public class ProfileController
     {
         throw new DomainException();
 
-        return await _mediator.Send(new GetProfilesRequest(), cancellationToken);
+        return await _sender.Send(new GetProfilesRequest(), cancellationToken);
     }
 
     [SwaggerOperation(
@@ -80,7 +80,7 @@ public class ProfileController
     [ProducesResponseType(typeof(GetCurremtProfileResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetCurremtProfileResponse>> GetCurrent(CancellationToken cancellationToken)
     {
-        return await _mediator.Send(new GetCurremtProfileRequest(), cancellationToken);
+        return await _sender.Send(new GetCurremtProfileRequest(), cancellationToken);
     }
 
     [SwaggerOperation(
@@ -96,7 +96,7 @@ public class ProfileController
     {
         var request = new GetProfileByIdRequest() { ProfileId = profileId };
 
-        var response = await _mediator.Send(request, cancellationToken);
+        var response = await _sender.Send(request, cancellationToken);
 
         if (response.Profile == null)
         {
@@ -118,7 +118,7 @@ public class ProfileController
     {
         var request = new DeleteProfileRequest() { ProfileId = profileId };
 
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
 }

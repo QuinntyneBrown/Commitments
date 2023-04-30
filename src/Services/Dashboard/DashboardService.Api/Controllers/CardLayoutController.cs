@@ -19,13 +19,13 @@ namespace DashboardService.Api.Controllers;
 [Consumes(MediaTypeNames.Application.Json)]
 public class CardLayoutController
 {
-    private readonly IMediator _mediator;
+    private readonly ISender _sender;
 
     private readonly ILogger<CardLayoutController> _logger;
 
-    public CardLayoutController(IMediator mediator, ILogger<CardLayoutController> logger)
+    public CardLayoutController(ISender sender, ILogger<CardLayoutController> logger)
     {
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        _sender = sender ?? throw new ArgumentNullException(nameof(sender));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
@@ -39,7 +39,7 @@ public class CardLayoutController
     [ProducesResponseType(typeof(UpdateCardLayoutResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<UpdateCardLayoutResponse>> Update([FromBody] UpdateCardLayoutRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -52,7 +52,7 @@ public class CardLayoutController
     [ProducesResponseType(typeof(CreateCardLayoutResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<CreateCardLayoutResponse>> Create([FromBody] CreateCardLayoutRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -65,7 +65,7 @@ public class CardLayoutController
     [ProducesResponseType(typeof(GetCardLayoutsResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetCardLayoutsResponse>> Get(CancellationToken cancellationToken)
     {
-        return await _mediator.Send(new GetCardLayoutsRequest(), cancellationToken);
+        return await _sender.Send(new GetCardLayoutsRequest(), cancellationToken);
     }
 
     [SwaggerOperation(
@@ -81,7 +81,7 @@ public class CardLayoutController
     {
         var request = new GetCardLayoutByIdRequest() { CardLayoutId = cardLayoutId };
 
-        var response = await _mediator.Send(request, cancellationToken);
+        var response = await _sender.Send(request, cancellationToken);
 
         if (response.CardLayout == null)
         {
@@ -103,7 +103,7 @@ public class CardLayoutController
     {
         var request = new DeleteCardLayoutRequest() { CardLayoutId = cardLayoutId };
 
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
 }

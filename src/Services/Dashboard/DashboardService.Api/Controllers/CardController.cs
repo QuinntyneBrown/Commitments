@@ -18,13 +18,13 @@ namespace DashboardService.Api.Controllers;
 [Consumes(MediaTypeNames.Application.Json)]
 public class CardController
 {
-    private readonly IMediator _mediator;
+    private readonly ISender _sender;
 
     private readonly ILogger<CardController> _logger;
 
-    public CardController(IMediator mediator, ILogger<CardController> logger)
+    public CardController(ISender sender, ILogger<CardController> logger)
     {
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        _sender = sender ?? throw new ArgumentNullException(nameof(sender));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
@@ -38,7 +38,7 @@ public class CardController
     [ProducesResponseType(typeof(UpdateCardResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<UpdateCardResponse>> Update([FromBody] UpdateCardRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -51,7 +51,7 @@ public class CardController
     [ProducesResponseType(typeof(CreateCardResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<CreateCardResponse>> Create([FromBody] CreateCardRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
@@ -64,7 +64,7 @@ public class CardController
     [ProducesResponseType(typeof(GetCardsResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetCardsResponse>> Get(CancellationToken cancellationToken)
     {
-        return await _mediator.Send(new GetCardsRequest(), cancellationToken);
+        return await _sender.Send(new GetCardsRequest(), cancellationToken);
     }
 
     [SwaggerOperation(
@@ -80,7 +80,7 @@ public class CardController
     {
         var request = new GetCardByIdRequest() { CardId = cardId };
 
-        var response = await _mediator.Send(request, cancellationToken);
+        var response = await _sender.Send(request, cancellationToken);
 
         if (response.Card == null)
         {
@@ -102,7 +102,7 @@ public class CardController
     {
         var request = new DeleteCardRequest() { CardId = cardId };
 
-        return await _mediator.Send(request, cancellationToken);
+        return await _sender.Send(request, cancellationToken);
     }
 
 }
