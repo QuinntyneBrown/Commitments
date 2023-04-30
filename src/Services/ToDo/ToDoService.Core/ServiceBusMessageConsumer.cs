@@ -6,11 +6,6 @@ using Messaging.Udp;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Text;
-using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
-using System.Threading;
-using MediatR;
-using System.Linq;
 
 namespace ToDoService.Core;
 

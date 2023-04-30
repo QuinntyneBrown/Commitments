@@ -46,6 +46,8 @@ public class ServiceBusMessageConsumer: BackgroundService
 
             if(_supportedMessageTypes.Contains(messageType))
             {
+                _logger.LogInformation("Handling {messageType}", messageType);
+
                 var type = Type.GetType($"Commitments.Core.Messages.{messageType}");
 
                 var request = System.Text.Json.JsonSerializer.Deserialize(message.Body, type!)!;
@@ -61,7 +63,4 @@ public class ServiceBusMessageConsumer: BackgroundService
             await Task.Delay(0);
         }
     }
-
 }
-
-

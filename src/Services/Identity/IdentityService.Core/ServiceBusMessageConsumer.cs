@@ -47,9 +47,9 @@ public class ServiceBusMessageConsumer: BackgroundService
 
                 using (var scope = _serviceScopeFactory.CreateScope())
                 {
-                    var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+                    var sender = scope.ServiceProvider.GetRequiredService<ISender>();
 
-                    await mediator.Send(request, cancellationToken);
+                    await sender.Send(request, cancellationToken);
                 }
             }
 
