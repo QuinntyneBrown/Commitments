@@ -15,6 +15,10 @@
     <ProjectReference Include="..\..\..\BuildingBlocks\Validation\Validation\Validation.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="MessageHandlers\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>

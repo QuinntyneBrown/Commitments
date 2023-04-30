@@ -2,8 +2,8 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 import { inject } from "@angular/core";
-import { FormControl, FormGroup, UntypedFormGroup } from "@angular/forms";
-import { combineLatest, EMPTY, map,merge,of, startWith, Subject } from "rxjs";
+import { FormControl, UntypedFormGroup } from "@angular/forms";
+import { combineLatest, EMPTY, map,merge,startWith, Subject, switchMap } from "rxjs";
 import { AuthService } from "../../auth.service";
 
 export function createLoginViewModel() {
@@ -13,6 +13,7 @@ export function createLoginViewModel() {
   const tryToLoginSubject: Subject<{ username:string, password:string}> = new Subject();
 
   const actions$ = merge(tryToLoginSubject).pipe(
+    switchMap(options => authService.tryToLogin(options.username, options.password)),
     startWith(EMPTY)
   )
 

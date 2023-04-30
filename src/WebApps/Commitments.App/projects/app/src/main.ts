@@ -12,6 +12,7 @@ import { TranslateLoader } from '@ngx-translate/core';
 import { TranslateModule  } from '@ngx-translate/core';
 import { TranslateHttpLoader  } from '@ngx-translate/http-loader';
 import { BASE_URL as IDENTITY_BASE_URL } from '@identity/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -19,7 +20,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
 
 bootstrapApplication(AppComponent, {
   providers: [
-    { provide: DASHBOARD_BASE_URL, useValue: "https://localhost:55360/" },  
+    { provide: DASHBOARD_BASE_URL, useValue: "https://localhost:7007/" },  
     { provide: IDENTITY_BASE_URL, useValue: "https://localhost:7006/" }, 
     {
       provide: HTTP_INTERCEPTORS,
@@ -48,7 +49,7 @@ bootstrapApplication(AppComponent, {
           redirectTo: 'dashboard'
         },
         { path: 'dashboard', loadComponent: () => import('./app/dashboard-page/dashboard-page.component').then(m => m.DashboardPageComponent) }
-      ]),     
+      ]), BrowserAnimationsModule,     
     )
   ]
 }).catch((err) => console.error(err));

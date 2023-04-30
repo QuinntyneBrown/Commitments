@@ -3,12 +3,11 @@
 
 using DashboardService.Core.AggregateModel.CardAggregate.Commands;
 using DashboardService.Core.AggregateModel.CardAggregate.Queries;
-using System.Net;
-using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Mime;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Net;
+using System.Net.Mime;
 
 namespace DashboardService.Api.Controllers;
 

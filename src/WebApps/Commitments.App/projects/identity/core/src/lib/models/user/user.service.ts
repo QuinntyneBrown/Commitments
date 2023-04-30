@@ -40,7 +40,7 @@ export class UserService {
   }
 
   public authenticate(options: { username: string, password: string }): Observable<{ token: string  }> {    
-    return this._client.post<{ token: string }>(`${this._baseUrl}api/1.0/user/token`, options);
+    return this._client.post<{ token: string }>(`${this._baseUrl}api/1.0/user/authenticate`, options);
   }
 
 

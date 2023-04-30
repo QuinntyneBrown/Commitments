@@ -1,8 +1,5 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information.
-
-// Copyright (c) Quinntyne Brown. All Rights Reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information.
+// Licensed under the MIT License. See License.txt in the project root for license information. 
 
 import { inject, Injectable } from '@angular/core';
 import {
@@ -27,6 +24,9 @@ export class AuthInterceptor implements HttpInterceptor {
       tap(
         (httpEvent: HttpEvent<any>) => httpEvent,
         error => {
+
+          console.log(error.status);
+
           if (error instanceof HttpErrorResponse && error.status === 401) {
             localStorage.removeItem(ACCESS_TOKEN_KEY);
             this._authService.authorized$.next(false);

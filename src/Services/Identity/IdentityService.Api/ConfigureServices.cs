@@ -1,6 +1,8 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
@@ -12,7 +14,15 @@ public static class ConfigureServices
     {
         services.AddHttpContextAccessor();
 
-        services.AddControllers();
+        services.AddControllers()
+            .AddMvcOptions(options => options.Filters.Add(new AuthorizeFilter()));
+
+        services.AddApiVersioning(options =>
+        {
+            options.ReportApiVersions = true;
+            options.AssumeDefaultVersionWhenUnspecified = true;
+            options.DefaultApiVersion = new ApiVersion(1, 0);
+        });
 
         services.AddEndpointsApiExplorer();
 

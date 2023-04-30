@@ -22,7 +22,9 @@ export function createAppViewModel() {
     const unauthorizedResponse$ = authService.authorized$.pipe(
         switchMap(authorized => {
             if(!authorized && dialogRef === undefined) {
-                dialogRef = dialog.open(LoginComponent)!;
+                dialogRef = dialog.open(LoginComponent, {
+                    panelClass:'g-overlay-pane'
+                })!;
             }
             return EMPTY;
         }),

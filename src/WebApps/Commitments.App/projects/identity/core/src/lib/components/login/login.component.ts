@@ -8,6 +8,8 @@ import { PushModule } from '@ngrx/component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -20,7 +22,9 @@ import { TranslateModule } from '@ngx-translate/core';
     ReactiveFormsModule, 
     MatCardModule, 
     MatFormFieldModule, 
-    TranslateModule
+    TranslateModule,
+    MatInputModule,
+    MatButtonModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']

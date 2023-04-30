@@ -1,33 +1,28 @@
 <ng-container *ngIf="vm$ | ngrxPush as vm">
 
-    <mat-card>
-        <section class="mat-typography">
-          <h2>Login</h2>
-        </section>
-        <mat-card-title>
-          Login
-        </mat-card-title>
-        <form novalidate autocomplete="off" spellcheck="false" [formGroup]="vm.form">
-          <mat-form-field>
-            <input matInput placeholder="{{ 'Username' | translate }}"
-                   id="username"
-                   formControlName="username" required>
-          </mat-form-field>
-      
-          <mat-form-field>
-            <input matInput
-                   placeholder="{{ 'Password' | translate }}"
-                   id="password"
-                   formControlName="password"
-                   type="password"
-                   required>
-          </mat-form-field>
-      
-          <button mat-raised-button color="primary"
-                  (click)="vm.tryToLogin(vm.form.value)"
-                  [disabled]="!vm.form.valid"
-                  >{{ "Submit" | translate }}</button>
-        </form>
-      </mat-card>
+    <section class="mat-typography">
+      <h2>Login</h2>
+    </section>
+
+    <form novalidate autocomplete="off" spellcheck="false" [formGroup]="vm.form">
+      <mat-form-field>
+        <input matInput placeholder="{{ 'Username' | translate }}"
+                formControlName="username" 
+                required>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <input matInput
+                placeholder="{{ 'Password' | translate }}"
+                formControlName="password"
+                type="password"
+                required>
+      </mat-form-field>
+  
+      <button mat-raised-button color="primary"
+              (click)="vm.tryToLogin(vm.form.value)"
+              [disabled]="!vm.form.valid"
+              >{{ "Submit" | translate }}</button>
+    </form>
 
 </ng-container>

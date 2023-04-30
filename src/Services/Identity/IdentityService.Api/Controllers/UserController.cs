@@ -8,11 +8,13 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 using Swashbuckle.AspNetCore.Annotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IdentityService.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[ApiVersion("1.0")]
+[Route("api/{version:apiVersion}/[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
 [Consumes(MediaTypeNames.Application.Json)]
 public class UserController
@@ -40,6 +42,7 @@ public class UserController
         return await _mediator.Send(request, cancellationToken);
     }
 
+    [AllowAnonymous]
     [SwaggerOperation(
         Summary = "Authenticate",
         Description = @"Authenticate"
@@ -50,6 +53,8 @@ public class UserController
     [ProducesResponseType(typeof(AuthenticateResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<AuthenticateResponse>> Authenticate([FromBody] AuthenticateRequest request, CancellationToken cancellationToken)
     {
+        _logger.LogInformation("Authenticate:{username}", request.Username);
+
         return await _mediator.Send(request, cancellationToken);
     }
 
@@ -82,7 +87,7 @@ public class UserController
     [SwaggerOperation(
     Summary = "Get current user",
     Description = @"Get current user"
-)]
+    )]
     [HttpGet("current", Name = "getCurrentUser")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]

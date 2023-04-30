@@ -2,6 +2,8 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Kernel;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
@@ -12,7 +14,15 @@ public static class ConfigureServices
     public static void AddApiServices(this IServiceCollection services)
     {
 
-        services.AddControllers(o => o.Filters.Add(typeof(HttpGlobalExceptionFilter)));
+        services.AddControllers(o => o.Filters.Add(typeof(HttpGlobalExceptionFilter)))
+            .AddMvcOptions(options => options.Filters.Add(new AuthorizeFilter()));
+
+        services.AddApiVersioning(options =>
+        {
+            options.ReportApiVersions = true;
+            options.AssumeDefaultVersionWhenUnspecified = true;
+            options.DefaultApiVersion = new ApiVersion(1, 0);
+        });
 
         services.AddEndpointsApiExplorer();
 
