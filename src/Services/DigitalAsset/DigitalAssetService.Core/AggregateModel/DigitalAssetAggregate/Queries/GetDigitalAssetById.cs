@@ -8,12 +8,10 @@ public class GetDigitalAssetByIdRequest : IRequest<GetDigitalAssetByIdResponse>
     public Guid DigitalAssetId { get; set; }
 }
 
-
 public class GetDigitalAssetByIdResponse : ResponseBase
 {
     public DigitalAssetDto DigitalAsset { get; set; }
 }
-
 
 public class GetDigitalAssetByIdRequestHandler : IRequestHandler<GetDigitalAssetByIdRequest, GetDigitalAssetByIdResponse>
 {
@@ -33,7 +31,5 @@ public class GetDigitalAssetByIdRequestHandler : IRequestHandler<GetDigitalAsset
         {
             DigitalAsset = (await _context.DigitalAssets.AsNoTracking().SingleOrDefaultAsync(x => x.DigitalAssetId == request.DigitalAssetId)).ToDto()
         };
-
     }
-
 }

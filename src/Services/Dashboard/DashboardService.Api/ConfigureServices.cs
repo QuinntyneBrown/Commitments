@@ -55,7 +55,7 @@ public static class ConfigureServices
 
         }).AddSwaggerGenNewtonsoftSupport();
 
-        services.AddCors(options => options.AddPolicy("CorsPolicy",
+        services.AddCors(options => options.AddPolicy(Constants.CorsPolicy,
             builder => builder
             .WithOrigins("http://localhost:4200")
             .AllowAnyMethod()

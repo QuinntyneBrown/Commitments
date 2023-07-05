@@ -1,10 +1,8 @@
-﻿using IdentityService.Core.Messages;
+﻿var sender = new UdpClientFactory().Create();
 
-var client = new UdpClientFactory().Create();
 
-//await Send(client, new UserCreateMessage("seed", "seed"));
 
-async Task Send(UdpClient client, object message)
+async Task Send(UdpClient sender, object message)
 {
     var messageType = message.GetType().Name;
 
@@ -18,5 +16,5 @@ async Task Send(UdpClient client, object message)
 
     var bytesToSend = System.Text.Encoding.UTF8.GetBytes(json);
 
-    await client.SendAsync(bytesToSend, bytesToSend.Length, UdpClientFactory.MultiCastGroupIp, UdpClientFactory.BroadcastPort);
+    await sender.SendAsync(bytesToSend, bytesToSend.Length, UdpClientFactory.MultiCastGroupIp, UdpClientFactory.BroadcastPort);
 }

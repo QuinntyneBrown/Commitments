@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
 using Commitments.Core.Hubs;
+using Kernel;
 
 Log.Logger = new LoggerConfiguration()
 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
@@ -38,7 +39,7 @@ try
         options.DisplayOperationId();
     });
 
-    app.UseCors("CorsPolicy");
+    app.UseCors(Constants.CorsPolicy);
 
     app.UseHttpsRedirection();
 

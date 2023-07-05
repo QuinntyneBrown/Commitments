@@ -34,7 +34,7 @@ try
         options.DisplayOperationId();
     });
 
-    app.UseCors("CorsPolicy");
+    app.UseCors(Constants.CorsPolicy);
 
     app.UseHttpsRedirection();
 
