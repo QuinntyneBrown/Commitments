@@ -1,8 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Kernel;
-using Microsoft.AspNetCore.Cors.Infrastructure;
+using BuildingBlocks.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.OpenApi.Models;
@@ -60,7 +59,7 @@ public static class ConfigureServices
 
         services.AddHttpContextAccessor();
 
-        services.AddCors(options => options.AddPolicy(Constants.CorsPolicy,
+        services.AddCors(options => options.AddPolicy("CorsPolicy",
             builder => builder
             .WithOrigins("http://localhost:4200")
             .AllowAnyMethod()

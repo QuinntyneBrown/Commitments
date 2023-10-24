@@ -1,0 +1,1 @@
+global using BuildingBlocks.Common;

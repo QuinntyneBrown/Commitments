@@ -3,7 +3,7 @@
 
 using DigitalAssetService.Core.Helpers;
 using FluentValidation;
-using Kernel;
+using BuildingBlocks.Common;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;

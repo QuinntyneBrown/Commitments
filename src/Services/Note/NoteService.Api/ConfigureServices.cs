@@ -4,7 +4,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
-using Kernel;
+using BuildingBlocks.Common;
 using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -58,7 +58,7 @@ public static class ConfigureServices
 
         }).AddSwaggerGenNewtonsoftSupport();
 
-        services.AddCors(options => options.AddPolicy(Constants.CorsPolicy,
+        services.AddCors(options => options.AddPolicy("CorsPolicy",
             builder => builder
             .WithOrigins("http://localhost:4200")
             .AllowAnyMethod()

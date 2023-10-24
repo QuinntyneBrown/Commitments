@@ -1,7 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Kernel;
+using BuildingBlocks.Common;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
@@ -49,7 +49,7 @@ public static class ConfigureServices
 
         }).AddSwaggerGenNewtonsoftSupport();
 
-        services.AddCors(options => options.AddPolicy(Constants.CorsPolicy,
+        services.AddCors(options => options.AddPolicy("CorsPolicy",
             builder => builder
             .WithOrigins("http://localhost:4200")
             .AllowAnyMethod()

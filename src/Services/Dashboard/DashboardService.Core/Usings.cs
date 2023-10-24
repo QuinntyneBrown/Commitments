@@ -3,7 +3,7 @@ global using Microsoft.Extensions.Logging;
 global using Microsoft.EntityFrameworkCore;
 global using FluentValidation;
 global using Security;
-global using Kernel;
+global using BuildingBlocks.Common;
 global using DashboardService.Core.AggregateModel.CardAggregate;
 global using DashboardService.Core.AggregateModel.DashboardAggregate;
 global using DashboardService.Core.AggregateModel.CardLayoutAggregate;

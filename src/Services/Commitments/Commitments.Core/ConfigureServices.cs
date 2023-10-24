@@ -16,7 +16,7 @@ public static class ConfigureServices
 
         services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblyContaining<ICommitmentsClient>());
 
-        services.AddKernelServices();
+        services.AddCommonServices();
 
         services.AddSignalR();
 

@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Services.Common\Services.Common.csproj" />
     <ProjectReference Include="..\Commitments.Infrastructure\Commitments.Infrastructure.csproj" />
   </ItemGroup>
 
