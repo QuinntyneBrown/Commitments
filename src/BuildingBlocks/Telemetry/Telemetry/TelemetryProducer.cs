@@ -11,6 +11,7 @@ public class TelemetryProducer : BackgroundService
 {
     private readonly ILogger<TelemetryProducer> _logger;
     private readonly IServiceBusMessageSender _serviceBusMessageSender;
+    private readonly PeriodicTimer _periodicTimer = new PeriodicTimer(TimeSpan.FromMilliseconds(300));
 
     public TelemetryProducer(
         ILogger<TelemetryProducer> logger,
@@ -22,13 +23,11 @@ public class TelemetryProducer : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        while (!stoppingToken.IsCancellationRequested)
+        while (await _periodicTimer.WaitForNextTickAsync(stoppingToken))
         {
             _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
             await _serviceBusMessageSender.Send(new TelemetryMessage());
-
-            await Task.Delay(300, stoppingToken);
         }
     }
 }

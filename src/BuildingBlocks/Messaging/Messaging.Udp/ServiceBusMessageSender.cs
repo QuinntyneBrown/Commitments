@@ -1,6 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using MessagePack;
 using Microsoft.Extensions.Logging;
 using System.Net.Sockets;
 using System.Text.Json;
@@ -29,11 +30,11 @@ public class ServiceBusMessageSender : IServiceBusMessageSender
         {
             { "MessageType", messageType }
 
-        }, JsonSerializer.Serialize(message));
+        }, MessagePackSerializer.Serialize(message));
 
-        var json = JsonSerializer.Serialize(serviceBusMessage);
+        serviceBusMessage.Type = messageType;
 
-        var bytesToSend = System.Text.Encoding.UTF8.GetBytes(json);
+        var bytesToSend = MessagePackSerializer.Serialize(serviceBusMessage);
 
         _logger.LogInformation("Sending to Ip and Port: {multiCastGroupIp}:{broadcastPort}", UdpClientFactory.MultiCastGroupIp, UdpClientFactory.BroadcastPort);
 

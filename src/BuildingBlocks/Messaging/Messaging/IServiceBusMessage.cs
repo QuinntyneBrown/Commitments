@@ -6,5 +6,6 @@ namespace Messaging;
 public interface IServiceBusMessage
 {
     public IDictionary<string, string> MessageAttributes { get; init; }
-    public string Body { get; init; }
+    public string Type { get; set; }
+    public byte[] Body { get; init; }
 }

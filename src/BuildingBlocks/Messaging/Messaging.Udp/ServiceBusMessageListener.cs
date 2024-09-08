@@ -1,6 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using MessagePack;
 using Messaging.Internals;
 using Microsoft.Extensions.Logging;
 using System.Net.Sockets;
@@ -17,7 +18,10 @@ public class ServiceBusMessageListener : Observable<IServiceBusMessage>, IServic
         IUdpClientFactory udpClientFactory
         )
     {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        ArgumentNullException.ThrowIfNull(logger);
+        ArgumentNullException.ThrowIfNull(udpClientFactory);
+
+        _logger = logger;
         _client = udpClientFactory.Create();
     }
 
@@ -27,9 +31,7 @@ public class ServiceBusMessageListener : Observable<IServiceBusMessage>, IServic
         {
             var result = await _client.ReceiveAsync(cancellationToken);
 
-            var json = System.Text.Encoding.UTF8.GetString(result.Buffer);
-
-            var serviceBusMessage = System.Text.Json.JsonSerializer.Deserialize<IServiceBusMessage>(json)!;
+            var serviceBusMessage = MessagePackSerializer.Deserialize<ServiceBusMessage>(result.Buffer);
 
             Broadcast(serviceBusMessage);
 
