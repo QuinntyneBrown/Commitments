@@ -5,6 +5,7 @@ using ToDoService.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
+using Kernel;
 
 Log.Logger = new LoggerConfiguration()
 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
