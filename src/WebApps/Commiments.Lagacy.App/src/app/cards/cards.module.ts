@@ -8,8 +8,8 @@ import { RouterModule } from '@angular/router';
 import { CardService } from './card.service';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
-import { CardsPageComponent } from './cards-page.component';
-import { EditCardOverlayComponent } from './edit-card-overlay.component';
+import { CardsPageComponent } from 'cards-page/cards-page.component';
+import { EditCardOverlayComponent } from 'edit-card-overlay/edit-card-overlay.component';
 import { EditCardOverlay } from './edit-card-overlay';
 
 const declarations = [

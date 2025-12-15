@@ -8,9 +8,9 @@ import { RouterModule } from '@angular/router';
 import { BehaviourService } from './behaviour.service';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
-import { BehavioursPageComponent } from './behaviours-page.component';
+import { BehavioursPageComponent } from 'behaviours-page/behaviours-page.component';
 import { EditBehaviourOverlay } from './edit-behaviour-overlay';
-import { EditBehaviourOverlayComponent } from './edit-behaviour-overlay.component';
+import { EditBehaviourOverlayComponent } from 'edit-behaviour-overlay/edit-behaviour-overlay.component';
 import { BehaviourTypesModule } from '../behaviour-types/behaviour-types.module';
 
 const declarations = [

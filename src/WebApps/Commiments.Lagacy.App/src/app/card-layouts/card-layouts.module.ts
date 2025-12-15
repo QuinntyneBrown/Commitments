@@ -5,13 +5,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { CardsPageComponent } from '../cards/cards-page.component';
+import { CardsPageComponent } from '../cards/cards-page/cards-page.component';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
-import { CardLayoutsPageComponent } from './card-layouts-page.component';
+import { CardLayoutsPageComponent } from 'card-layouts-page/card-layouts-page.component';
 import { CardLayoutService } from './card-layout.service';
 import { EditCardLayoutOverlay } from './edit-card-layout-overlay';
-import { EditCardLayoutOverlayComponent } from './edit-card-layout-overlay.component';
+import { EditCardLayoutOverlayComponent } from 'edit-card-layout-overlay/edit-card-layout-overlay.component';
 
 const declarations = [
   CardLayoutsPageComponent,

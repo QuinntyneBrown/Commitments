@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { DashboardPageComponent } from './dashboard-page.component';
+import { DashboardPageComponent } from 'dashboard-page/dashboard-page.component';
 import { ActivitiesModule } from '../activities/activities.module';
 import { CommitmentsModule } from '../commitments/commitments.module';
 import { CoreModule } from '../core/core.module';

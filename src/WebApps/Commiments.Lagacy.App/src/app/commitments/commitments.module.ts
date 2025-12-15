@@ -8,10 +8,10 @@ import { RouterModule } from '@angular/router';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { CommitmentService } from './commitment.service';
-import { MyCommimentsPageComponent } from './my-commiments-page.component';
+import { MyCommimentsPageComponent } from 'my-commiments-page/my-commiments-page.component';
 import { BehavioursModule } from '../behaviours/behaviours.module';
 import { FrequenciesModule } from '../frequencies/frequencies.module';
-import { EditCommitmentOverlayComponent } from './edit-commitment-overlay.component';
+import { EditCommitmentOverlayComponent } from 'edit-commitment-overlay/edit-commitment-overlay.component';
 import { EditCommitmentOverlay } from './edit-commitment-overlay';
 
 const declarations = [

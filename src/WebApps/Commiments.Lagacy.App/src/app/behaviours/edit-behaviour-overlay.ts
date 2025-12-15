@@ -4,7 +4,7 @@
 import { Injectable, ComponentRef, Injector } from "@angular/core";
 import { OverlayRefWrapper } from "../core/overlay-ref-wrapper";
 import { ComponentPortal } from "@angular/cdk/portal";
-import { EditBehaviourOverlayComponent } from "./edit-behaviour-overlay.component";
+import { EditBehaviourOverlayComponent } from "edit-behaviour-overlay/edit-behaviour-overlay.component";
 import { OverlayRefProvider } from "../core/overlay-ref-provider";
 import { Observable } from "rxjs";
 

@@ -11,10 +11,10 @@ import { SharedModule } from '../shared/shared.module';
 import { DashboardCardService } from './dashboard-card.service';
 import { DashboardCardConfigurationOverlay } from './dashboard-card-configuration-overlay';
 import { AddDashboardCardsOverlay } from './add-dashboard-cards-overlay';
-import { AddDashboardCardsOverlayComponent } from './add-dashboard-cards-overlay.component';
-import { DashboardCardConfigurationOverlayComponent } from './dashboard-card-configuration-overlay.component';
-import { DashboardCardComponent } from './dashboard-card.component';
-import { PosterDashboardCardComponent } from './poster-dashboard-card.component';
+import { AddDashboardCardsOverlayComponent } from 'add-dashboard-cards-overlay/add-dashboard-cards-overlay.component';
+import { DashboardCardConfigurationOverlayComponent } from 'dashboard-card-configuration-overlay/dashboard-card-configuration-overlay.component';
+import { DashboardCardComponent } from 'dashboard-card/dashboard-card.component';
+import { PosterDashboardCardComponent } from 'poster-dashboard-card/poster-dashboard-card.component';
 import { DashboardCard } from './dashboard-card';
 
 const declarations = [

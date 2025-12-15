@@ -6,7 +6,7 @@ import { OverlayRefWrapper } from "../core/overlay-ref-wrapper";
 import { ComponentPortal } from "@angular/cdk/portal";
 import { OverlayRefProvider } from "../core/overlay-ref-provider";
 import { Observable } from "rxjs";
-import { CreateProfileOverlayComponent } from "./create-profile-overlay.component";
+import { CreateProfileOverlayComponent } from "create-profile-overlay/create-profile-overlay.component";
 
 @Injectable()
 export class CreateProfileOverlay {

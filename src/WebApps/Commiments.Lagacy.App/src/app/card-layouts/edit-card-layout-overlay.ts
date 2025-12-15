@@ -4,7 +4,7 @@
 import { Injectable, ComponentRef, Injector } from "@angular/core";
 import { OverlayRefWrapper } from "../core/overlay-ref-wrapper";
 import { ComponentPortal } from "@angular/cdk/portal";
-import { EditCardLayoutOverlayComponent } from "./edit-card-layout-overlay.component";
+import { EditCardLayoutOverlayComponent } from "edit-card-layout-overlay/edit-card-layout-overlay.component";
 import { OverlayRefProvider } from "../core/overlay-ref-provider";
 import { Observable } from "rxjs";
 

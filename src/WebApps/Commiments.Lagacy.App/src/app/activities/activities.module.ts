@@ -8,8 +8,8 @@ import { RouterModule } from '@angular/router';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { ActivityService } from './activity.service';
-import { ActivitiesPageComponent } from './activities-page.component';
-import { EditActivityOverlayComponent } from './edit-activity-overlay.component';
+import { ActivitiesPageComponent } from 'activities-page/activities-page.component';
+import { EditActivityOverlayComponent } from 'edit-activity-overlay/edit-activity-overlay.component';
 import { EditActivityOverlay } from './edit-activity-overlay';
 
 const declarations = [
