@@ -3,7 +3,7 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from 'login/login.component';
+import { LoginComponent } from './login/login.component';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { ProfilesModule } from '../profiles/profiles.module';

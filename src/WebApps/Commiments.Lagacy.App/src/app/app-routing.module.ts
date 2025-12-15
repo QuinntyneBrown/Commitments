@@ -5,9 +5,9 @@ import {
   Routes,
   RouterModule
 } from '@angular/router';
-import { LoginComponent } from 'users/login/login.component';
-import { MasterPageComponent } from 'master-page/master-page.component';
-import { AnonymousMasterPageComponent } from 'anonymous-master-page/anonymous-master-page.component';
+import { LoginComponent } from './users/login/login.component';
+import { MasterPageComponent } from './master-page/master-page.component';
+import { AnonymousMasterPageComponent } from './anonymous-master-page/anonymous-master-page.component';
 import { NgModule } from '@angular/core';
 import { TagsPageComponent } from 'tags/tags-page/tags-page.component';
 import { NotesPageComponent } from 'notes/notes-page/notes-page.component';

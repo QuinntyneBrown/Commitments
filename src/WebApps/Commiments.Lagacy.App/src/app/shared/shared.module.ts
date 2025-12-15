@@ -37,12 +37,12 @@ import {
   MatTooltipModule
 } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { PrimaryHeaderComponent } from 'primary-header/primary-header.component';
-import { QuillTextEditorComponent } from 'quill-text-editor/quill-text-editor.component';
+import { PrimaryHeaderComponent } from './primary-header/primary-header.component';
+import { QuillTextEditorComponent } from './quill-text-editor/quill-text-editor.component';
 import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
-import { DeleteCellComponent } from 'delete-cell/delete-cell.component';
-import { AutoCompleteChipListComponent } from 'auto-complete-chip-list/auto-complete-chip-list.component';
+import { DeleteCellComponent } from './delete-cell/delete-cell.component';
+import { AutoCompleteChipListComponent } from './auto-complete-chip-list/auto-complete-chip-list.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { EditCellComponent } from 'edit-cell/edit-cell.component';
 import { CheckboxCellComponent } from 'checkbox-cell/checkbox-cell.component';

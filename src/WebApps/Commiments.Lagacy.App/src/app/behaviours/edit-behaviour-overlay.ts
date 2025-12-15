@@ -26,7 +26,6 @@ export class EditBehaviourOverlay {
   public attachOverlayContainer(overlayRef, overlayRefWrapper) {
     // Updated to use Injector.create() instead of deprecated PortalInjector
     const injector = Injector.create({ parent: this._injector, providers: [{ provide: OverlayRefWrapper, useValue: overlayRefWrapper }] });
-    // Injector already created above
     const overlayPortal = new ComponentPortal(EditBehaviourOverlayComponent, null, injector);
     const overlayPortalRef: ComponentRef<EditBehaviourOverlayComponent> = overlayRef.attach(overlayPortal);
     return overlayPortalRef.instance;
