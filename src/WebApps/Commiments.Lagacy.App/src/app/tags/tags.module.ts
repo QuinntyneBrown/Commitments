@@ -8,8 +8,8 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from '../core/core.module';
 import { TagsService } from './tags.service';
-import { TagsPageComponent } from './tags-page.component';
-import { AddTagOverlayComponent } from './add-tag-overlay.component';
+import { TagsPageComponent } from './tags-page/tags-page.component';
+import { AddTagOverlayComponent } from './add-tag-overlay/add-tag-overlay.component';
 import { SharedModule } from '../shared/shared.module';
 import { TagsResolver } from './tags-resolver.service';
 
@@ -20,8 +20,7 @@ const providers = [TagsService, TagsResolver];
 @NgModule({
   declarations: declarations,
   imports: [CommonModule, HttpClientModule, RouterModule, CoreModule, SharedModule],
-  providers,
-  entryComponents: [AddTagOverlayComponent]
+  providers
 })
 export class TagsModule {}
 

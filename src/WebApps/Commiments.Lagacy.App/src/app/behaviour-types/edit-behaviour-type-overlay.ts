@@ -3,8 +3,8 @@
 
 import { Injectable, ComponentRef, Injector } from "@angular/core";
 import { OverlayRefWrapper } from "../core/overlay-ref-wrapper";
-import { PortalInjector, ComponentPortal } from "@angular/cdk/portal";
-import { EditBehaviourTypeOverlayComponent } from "./edit-behaviour-type-overlay.component";
+import { ComponentPortal } from "@angular/cdk/portal";
+import { EditBehaviourTypeOverlayComponent } from "edit-behaviour-type-overlay/edit-behaviour-type-overlay.component";
 import { OverlayRefProvider } from "../core/overlay-ref-provider";
 import { Observable } from "rxjs";
 
@@ -24,9 +24,8 @@ export class EditBehaviourTypeOverlay{
   }
 
   public attachOverlayContainer(overlayRef, overlayRefWrapper) {
-    const injectionTokens = new WeakMap();
-    injectionTokens.set(OverlayRefWrapper, overlayRefWrapper);
-    const injector = new PortalInjector(this._injector, injectionTokens);
+    // Updated to use Injector.create() instead of deprecated PortalInjector
+    const injector = Injector.create({ parent: this._injector, providers: [{ provide: OverlayRefWrapper, useValue: overlayRefWrapper }] });
     const overlayPortal = new ComponentPortal(EditBehaviourTypeOverlayComponent, null, injector);
     const overlayPortalRef: ComponentRef<EditBehaviourTypeOverlayComponent> = overlayRef.attach(overlayPortal);
     return overlayPortalRef.instance;

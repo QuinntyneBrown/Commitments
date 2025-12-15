@@ -10,7 +10,7 @@ import { map, tap, filter } from 'rxjs';
 import { ColDef } from 'ag-grid';
 import { Overlay } from '@angular/cdk/overlay';
 import { OverlayRefWrapper } from '../core/overlay-ref-wrapper';
-import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
+import { ComponentPortal } from '@angular/cdk/portal';
 import { AddTagOverlayComponent } from './add-tag-overlay.component';
 import { takeUntil } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
@@ -126,9 +126,10 @@ export class TagsPageComponent {
 
     const overlayRefWrapper = new OverlayRefWrapper(overlayRef);
 
-    const injectionTokens = new WeakMap();
-    injectionTokens.set(OverlayRefWrapper, overlayRefWrapper);
-    const injector = new PortalInjector(this._injector, injectionTokens);
+    const injector = Injector.create({
+      parent: this._injector,
+      providers: [{ provide: OverlayRefWrapper, useValue: overlayRefWrapper }],
+    });
     const overlayPortal = new ComponentPortal(AddTagOverlayComponent, null, injector);
     overlayRef.attach(overlayPortal);
 

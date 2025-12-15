@@ -9,18 +9,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { TagsModule } from '../tags/tags.module';
 import { NotesService } from './notes.service';
 import { CoreModule } from '../core/core.module';
-import { NotesPageComponent } from './notes-page.component';
+import { NotesPageComponent } from 'notes-page/notes-page.component';
 
-import { EditNotePageComponent } from './edit-note-page.component';
+import { EditNotePageComponent } from 'edit-note-page/edit-note-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { NoteResolver } from './note-resolver.service';
-import { NotesByTagPageComponent } from './notes-by-tag-page.component';
+import { NotesByTagPageComponent } from 'notes-by-tag-page/notes-by-tag-page.component';
 
 const declarations = [EditNotePageComponent, NotesPageComponent, NotesByTagPageComponent];
 
 const providers = [NotesService, NoteResolver];
-
-const entryComponents = [];
 
 @NgModule({
   declarations: declarations,
@@ -35,7 +33,6 @@ const entryComponents = [];
     SharedModule,
     TagsModule
   ],
-  entryComponents,
   providers
 })
 export class NotesModule {}

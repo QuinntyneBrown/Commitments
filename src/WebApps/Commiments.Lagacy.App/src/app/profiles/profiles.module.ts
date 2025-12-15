@@ -8,10 +8,10 @@ import { RouterModule } from '@angular/router';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { ProfileService } from './profile.service';
-import { ProfilesPageComponent } from './profiles-page.component';
-import { CreateProfileOverlayComponent } from './create-profile-overlay.component';
+import { ProfilesPageComponent } from 'profiles-page/profiles-page.component';
+import { CreateProfileOverlayComponent } from 'create-profile-overlay/create-profile-overlay.component';
 import { CreateProfileOverlay } from './create-profile-overlay';
-import { MyProfilePageComponent } from './my-profile-page.component';
+import { MyProfilePageComponent } from 'my-profile-page/my-profile-page.component';
 import { DigitalAssetsModule } from '../digital-assets/digital-assets.module';
 
 const declarations = [
@@ -23,10 +23,6 @@ const declarations = [
 const providers = [
   ProfileService,
   CreateProfileOverlay
-];
-
-const entryComponents = [
-  CreateProfileOverlayComponent
 ];
 
 @NgModule({
@@ -42,7 +38,6 @@ const entryComponents = [
     SharedModule
   ],
   providers,
-  entryComponents
-})
+  })
 export class ProfilesModule { }
 
