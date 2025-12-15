@@ -21,7 +21,3 @@ const providers = [TagsService, TagsResolver];
   declarations: declarations,
   imports: [CommonModule, HttpClientModule, RouterModule, CoreModule, SharedModule],
   providers,
-  entryComponents: [AddTagOverlayComponent]
-})
-export class TagsModule {}
-

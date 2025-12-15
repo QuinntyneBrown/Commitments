@@ -25,9 +25,6 @@ const providers = [
   CreateProfileOverlay
 ];
 
-const entryComponents = [
-  CreateProfileOverlayComponent
-];
 
 @NgModule({
   declarations,
@@ -42,7 +39,3 @@ const entryComponents = [
     SharedModule
   ],
   providers,
-  entryComponents
-})
-export class ProfilesModule { }
-

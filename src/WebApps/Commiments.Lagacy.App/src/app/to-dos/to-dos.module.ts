@@ -20,10 +20,6 @@ const declarations = [
   ToDoDashboardCardComponent
 ];
 
-const entryComponents = [
-  EditToDoOverlayComponent,
-  ToDoDashboardCardComponent
-];
 
 const providers = [
   ToDoService,
@@ -43,7 +39,3 @@ const providers = [
     SharedModule
   ],
   providers,
-  entryComponents
-})
-export class ToDosModule { }
-

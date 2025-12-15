@@ -3,7 +3,7 @@
 
 import { Injectable, ComponentRef, Injector } from "@angular/core";
 import { OverlayRefWrapper } from "../core/overlay-ref-wrapper";
-import { PortalInjector, ComponentPortal } from "@angular/cdk/portal";
+import { ComponentPortal } from "@angular/cdk/portal";
 import { EditCardLayoutOverlayComponent } from "./edit-card-layout-overlay.component";
 import { OverlayRefProvider } from "../core/overlay-ref-provider";
 import { Observable } from "rxjs";
@@ -24,9 +24,9 @@ export class EditCardLayoutOverlay {
   }
 
   public attachOverlayContainer(overlayRef, overlayRefWrapper) {
-    const injectionTokens = new WeakMap();
-    injectionTokens.set(OverlayRefWrapper, overlayRefWrapper);
-    const injector = new PortalInjector(this._injector, injectionTokens);
+    // Updated to use Injector.create() instead of deprecated PortalInjector
+    const injector = Injector.create({ parent: this._injector, providers: [{ provide: OverlayRefWrapper, useValue: overlayRefWrapper }] });
+    // Injector already created above
     const overlayPortal = new ComponentPortal(EditCardLayoutOverlayComponent, null, injector);
     const overlayPortalRef: ComponentRef<EditCardLayoutOverlayComponent> = overlayRef.attach(overlayPortal);
     return overlayPortalRef.instance;

@@ -30,12 +30,6 @@ const providers = [
   AddDashboardCardsOverlay
 ];
 
-const entryComponents = [
-  AddDashboardCardsOverlayComponent,
-  DashboardCardConfigurationOverlayComponent,
-  DashboardCardComponent,
-  PosterDashboardCardComponent
-];
 
 @NgModule({
   declarations,
@@ -50,7 +44,3 @@ const entryComponents = [
     SharedModule
   ],
   providers,
-  entryComponents
-})
-export class DashboardCardsModule { }
-

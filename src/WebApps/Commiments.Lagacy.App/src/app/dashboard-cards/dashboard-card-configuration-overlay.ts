@@ -3,7 +3,7 @@
 
 import { Injectable, ComponentRef, Injector } from "@angular/core";
 import { OverlayRefWrapper } from "../core/overlay-ref-wrapper";
-import { PortalInjector, ComponentPortal } from "@angular/cdk/portal";
+import { ComponentPortal } from "@angular/cdk/portal";
 import { DashboardCardConfigurationOverlayComponent } from "./dashboard-card-configuration-overlay.component";
 import { OverlayRefProvider } from "../core/overlay-ref-provider";
 import { DashboardCard } from "./dashboard-card";
@@ -26,9 +26,9 @@ export class DashboardCardConfigurationOverlay {
   }
 
   public attachOverlayContainer(overlayRef, overlayRefWrapper) {
-    const injectionTokens = new WeakMap();
-    injectionTokens.set(OverlayRefWrapper, overlayRefWrapper);
-    const injector = new PortalInjector(this._injector, injectionTokens);
+    // Updated to use Injector.create() instead of deprecated PortalInjector
+    const injector = Injector.create({ parent: this._injector, providers: [{ provide: OverlayRefWrapper, useValue: overlayRefWrapper }] });
+    // Injector already created above
     const overlayPortal = new ComponentPortal(DashboardCardConfigurationOverlayComponent, null, injector);
     const overlayPortalRef: ComponentRef<DashboardCardConfigurationOverlayComponent> = overlayRef.attach(overlayPortal);
     return overlayPortalRef.instance;

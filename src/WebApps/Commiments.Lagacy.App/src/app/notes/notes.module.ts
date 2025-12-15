@@ -20,23 +20,3 @@ const declarations = [EditNotePageComponent, NotesPageComponent, NotesByTagPageC
 
 const providers = [NotesService, NoteResolver];
 
-const entryComponents = [];
-
-@NgModule({
-  declarations: declarations,
-  imports: [
-    CommonModule,
-    FormsModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    RouterModule,
-
-    CoreModule,
-    SharedModule,
-    TagsModule
-  ],
-  entryComponents,
-  providers
-})
-export class NotesModule {}
-

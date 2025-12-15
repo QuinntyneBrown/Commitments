@@ -27,12 +27,6 @@ const providers = [
   AchievementService
 ];
 
-const entryComponents = [
-  DailyResultsDashboardCardComponent,
-  WeeklyResultsDashboardCardComponent,
-  MonthlyResultsDashboardCardComponent,
-  RelationsResultsDashboardCardComponent
-];
 
 @NgModule({
   declarations,
@@ -48,9 +42,3 @@ const entryComponents = [
     DashboardCardsModule,
     SharedModule,
   ],
-  entryComponents,
-  providers,
-  exports:declarations
-})
-export class AchievementsModule { }
-

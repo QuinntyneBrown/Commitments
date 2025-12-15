@@ -24,9 +24,6 @@ const providers = [
   EditCommitmentOverlay
 ];
 
-const entryComponents = [
-  EditCommitmentOverlayComponent
-];
 
 @NgModule({
   declarations,
@@ -42,7 +39,3 @@ const entryComponents = [
     SharedModule
   ],
   providers,
-  entryComponents
-})
-export class CommitmentsModule { }
-

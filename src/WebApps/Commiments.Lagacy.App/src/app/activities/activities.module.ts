@@ -22,9 +22,6 @@ const providers = [
   EditActivityOverlay
 ];
 
-const entryComponents = [
-  EditActivityOverlayComponent
-];
 
 @NgModule({
   declarations: declarations,
@@ -39,7 +36,3 @@ const entryComponents = [
   ],
   providers,
   exports:declarations,
-  entryComponents
-})
-export class ActivitiesModule { }
-

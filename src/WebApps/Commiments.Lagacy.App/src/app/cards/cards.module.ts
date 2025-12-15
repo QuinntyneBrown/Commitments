@@ -22,9 +22,6 @@ const providers = [
   EditCardOverlay
 ];
 
-const entryComponents = [
-  EditCardOverlayComponent
-];
 
 @NgModule({
   declarations,
@@ -38,7 +35,3 @@ const entryComponents = [
     SharedModule
   ],
   providers,
-  entryComponents
-})
-export class CardsModule { }
-
