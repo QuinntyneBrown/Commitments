@@ -1,7 +1,11 @@
-body, html {
+// Import Material theme
+@import './styles/theme.scss';
+
+body,
+html {
   margin: 0;
   padding: 0;
-  font-family: Roboto,"Helvetica Neue",sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
   height: 100%;
   width: 100%;
 }
@@ -12,12 +16,7 @@ body, html {
   --default-color: rgb(245, 245, 245);
 }
 
-$ag-mat-primary: #3f51b5;
-$ag-mat-accent: #ce5712;
+// AG Grid styles - updated for AG Grid 32
+@import 'ag-grid-community/styles/ag-grid.css';
+@import 'ag-grid-community/styles/ag-theme-material.css';
 
-
-$ag-mat-icons-path: '~ag-grid/src/styles/material-icons/';
-$ag-icons-path: '~ag-grid/src/styles/icons/';
-
-@import '~ag-grid/src/styles/ag-grid';
-@import '~ag-grid/src/styles/ag-theme-material';
