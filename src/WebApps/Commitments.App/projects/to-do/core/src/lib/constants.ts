@@ -1,1 +1,0 @@
-export const BASE_URL = '@TO-DO/CORE:BASE_URL';
