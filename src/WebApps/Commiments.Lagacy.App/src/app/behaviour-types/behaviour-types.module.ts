@@ -22,7 +22,6 @@ const providers = [
   BehaviourTypeService
 ];
 
-
 @NgModule({
   declarations,
   imports: [
@@ -35,3 +34,6 @@ const providers = [
     SharedModule
   ],
   providers,
+  })
+export class BehaviourTypesModule { }
+

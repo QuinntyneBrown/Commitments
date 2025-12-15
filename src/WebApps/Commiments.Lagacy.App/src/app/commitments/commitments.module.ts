@@ -24,7 +24,6 @@ const providers = [
   EditCommitmentOverlay
 ];
 
-
 @NgModule({
   declarations,
   imports: [
@@ -39,3 +38,6 @@ const providers = [
     SharedModule
   ],
   providers,
+  })
+export class CommitmentsModule { }
+

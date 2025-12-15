@@ -20,3 +20,20 @@ const declarations = [EditNotePageComponent, NotesPageComponent, NotesByTagPageC
 
 const providers = [NotesService, NoteResolver];
 
+@NgModule({
+  declarations: declarations,
+  imports: [
+    CommonModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    RouterModule,
+
+    CoreModule,
+    SharedModule,
+    TagsModule
+  ],
+  providers
+})
+export class NotesModule {}
+

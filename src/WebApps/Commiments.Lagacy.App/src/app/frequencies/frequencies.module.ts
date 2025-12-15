@@ -30,7 +30,6 @@ const providers = [
   EditFrequencyOverlay
 ];
 
-
 @NgModule({
   declarations,
   imports: [
@@ -44,3 +43,6 @@ const providers = [
   ],
   providers,
   exports: declarations,
+  })
+export class FrequenciesModule { }
+

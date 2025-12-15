@@ -22,7 +22,6 @@ const providers = [
   EditActivityOverlay
 ];
 
-
 @NgModule({
   declarations: declarations,
   imports: [
@@ -35,4 +34,7 @@ const providers = [
     SharedModule
   ],
   providers,
-  exports:declarations,
+  exports: declarations,
+  })
+export class ActivitiesModule { }
+

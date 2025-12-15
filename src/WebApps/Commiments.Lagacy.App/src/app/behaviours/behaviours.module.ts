@@ -23,7 +23,6 @@ const providers = [
   EditBehaviourOverlay
 ];
 
-
 @NgModule({
   declarations,
   imports: [
@@ -37,3 +36,6 @@ const providers = [
     SharedModule
   ],
   providers,
+  })
+export class BehavioursModule { }
+
