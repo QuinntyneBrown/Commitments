@@ -3,8 +3,8 @@
 
 using Commitments.Api.Controllers;
 using Commitments.Core.Model.CardAggregate;
-using Commitments.Core.Model.CardAggregate.Commands;
-using Commitments.Core.Model.CardAggregate.Queries;
+using Commitments.Api.Features.Card;
+using Commitments.Api.Features.Card;
 using FluentAssertions;
 using MediatR;
 using Moq;

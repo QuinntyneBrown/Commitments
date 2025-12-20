@@ -3,8 +3,8 @@
 
 using Commitments.Api.Controllers;
 using Commitments.Core.Model.BehaviourTypeAggregate;
-using Commitments.Core.Model.BehaviourTypeAggregate.Commands;
-using Commitments.Core.Model.BehaviourTypeAggregate.Queries;
+using Commitments.Api.Features.BehaviourType;
+using Commitments.Api.Features.BehaviourType;
 using FluentAssertions;
 using MediatR;
 using Moq;

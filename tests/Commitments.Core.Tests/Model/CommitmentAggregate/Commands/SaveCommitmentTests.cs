@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments.Core.Model.CommitmentAggregate;
-using Commitments.Core.Model.CommitmentAggregate.Commands;
+using Commitments.Api.Features.Commitment;
 using Commitments.Core.Tests.Helpers;
 using FluentAssertions;
 using Moq;

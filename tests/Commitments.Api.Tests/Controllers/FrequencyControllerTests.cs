@@ -3,8 +3,8 @@
 
 using Commitments.Api.Controllers;
 using Commitments.Core.Model.FrequencyAggregate;
-using Commitments.Core.Model.FrequencyAggregate.Commands;
-using Commitments.Core.Model.FrequencyAggregate.Queries;
+using Commitments.Api.Features.Frequency;
+using Commitments.Api.Features.Frequency;
 using FluentAssertions;
 using MediatR;
 using Moq;

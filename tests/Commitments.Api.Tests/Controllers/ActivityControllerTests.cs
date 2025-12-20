@@ -3,8 +3,8 @@
 
 using Commitments.Api.Controllers;
 using Commitments.Core.Model.ActivityAggregate;
-using Commitments.Core.Model.ActivityAggregate.Commands;
-using Commitments.Core.Model.ActivityAggregate.Queries;
+using Commitments.Api.Features.Activity;
+using Commitments.Api.Features.Activity;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Http;

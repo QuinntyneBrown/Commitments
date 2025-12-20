@@ -4,7 +4,7 @@
 using Commitments.Core.Model.BehaviourAggregate;
 using Commitments.Core.Model.BehaviourTypeAggregate;
 using Commitments.Core.Model.CommitmentAggregate;
-using Commitments.Core.Model.CommitmentAggregate.Queries;
+using Commitments.Api.Features.Commitment;
 using Commitments.Core.Tests.Helpers;
 using FluentAssertions;
 using Moq;

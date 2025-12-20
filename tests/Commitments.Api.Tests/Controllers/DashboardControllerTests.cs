@@ -3,8 +3,8 @@
 
 using Commitments.Api.Controllers;
 using Commitments.Core.Model.DashboardAggregate;
-using Commitments.Core.Model.DashboardAggregate.Commands;
-using Commitments.Core.Model.DashboardAggregate.Queries;
+using Commitments.Api.Features.Dashboard;
+using Commitments.Api.Features.Dashboard;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Http;
