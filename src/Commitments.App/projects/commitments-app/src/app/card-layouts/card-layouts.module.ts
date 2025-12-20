@@ -10,17 +10,17 @@ import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { CardLayoutsPageComponent } from 'card-layouts-page/card-layouts-page.component';
 import { CardLayoutService } from './card-layout.service';
-import { EditCardLayoutOverlay } from './edit-card-layout-overlay';
-import { EditCardLayoutOverlayComponent } from 'edit-card-layout-overlay/edit-card-layout-overlay.component';
+import { EditCardLayoutDialogService } from './edit-card-layout-dialog';
+import { EditCardLayoutDialog } from 'edit-card-layout-dialog/edit-card-layout-dialog';
 
 const declarations = [
   CardLayoutsPageComponent,
-  EditCardLayoutOverlayComponent
+  EditCardLayoutDialog
 ];
 
 const providers = [
   CardLayoutService,
-  EditCardLayoutOverlay
+  EditCardLayoutDialogService
 ];
 
 @NgModule({

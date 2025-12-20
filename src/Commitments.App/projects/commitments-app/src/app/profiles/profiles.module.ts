@@ -9,20 +9,20 @@ import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { ProfileService } from './profile.service';
 import { ProfilesPageComponent } from 'profiles-page/profiles-page.component';
-import { CreateProfileOverlayComponent } from 'create-profile-overlay/create-profile-overlay.component';
-import { CreateProfileOverlay } from './create-profile-overlay';
+import { CreateProfileDialog } from 'create-profile-dialog/create-profile-dialog';
+import { CreateProfileDialogService } from './create-profile-dialog';
 import { MyProfilePageComponent } from 'my-profile-page/my-profile-page.component';
 import { DigitalAssetsModule } from '../digital-assets/digital-assets.module';
 
 const declarations = [
-  CreateProfileOverlayComponent,
+  CreateProfileDialog,
   ProfilesPageComponent,
   MyProfilePageComponent
 ];
 
 const providers = [
   ProfileService,
-  CreateProfileOverlay
+  CreateProfileDialogService
 ];
 
 @NgModule({

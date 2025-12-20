@@ -7,10 +7,9 @@ import { ColDef, GridApi } from "ag-grid";
 import { ToDoService } from "./to-do.service";
 import { Observable } from "rxjs";
 import { ToDo } from "./to-do";
-import { EditToDoOverlayComponent } from "./edit-to-do-overlay.component";
 import { map, takeUntil } from "rxjs";
 import { DeleteCellComponent } from "../shared/delete-cell.component";
-import { EditToDoOverlay } from "./edit-to-do-overlay";
+import { EditToDoDialogService } from "./edit-to-do-dialog";
 import { EditCellComponent } from "../shared/edit-cell.component";
 import { CheckboxCellComponent } from "../shared/checkbox-cell.component";
 
@@ -21,7 +20,7 @@ import { CheckboxCellComponent } from "../shared/checkbox-cell.component";
 })
 export class ToDosPageComponent { 
   constructor(
-    private readonly _editToDoOverlay: EditToDoOverlay,
+    private readonly _editToDoDialog: EditToDoDialogService,
     private readonly _toDoService: ToDoService) {
 
     this.handleRemoveToDoCellClick = this.handleRemoveToDoCellClick.bind(this);
@@ -65,13 +64,13 @@ export class ToDosPageComponent {
   public toDosBehaviourSubject$: BehaviorSubject<Array<ToDo>> = new BehaviorSubject([]);
 
   public handleFabButtonClick() {
-    const overlayRefWrapper = this._editToDoOverlay.create()
+    const overlayRefWrapper = this._editToDoDialog.create()
       .pipe(map(toDo => this.addOrUpdate(toDo)), takeUntil(this.onDestroy))
       .subscribe();
   }
 
   public handleEditToDoCellClick($event) {
-    this._editToDoOverlay.create({ toDoId: $event.data.toDoId })    
+    this._editToDoDialog.create({ toDoId: $event.data.toDoId })    
       .pipe(map(toDo => this.addOrUpdate(toDo)), takeUntil(this.onDestroy))
       .subscribe();
   }

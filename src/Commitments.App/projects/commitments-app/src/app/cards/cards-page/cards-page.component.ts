@@ -3,7 +3,7 @@
 
 import { Component } from "@angular/core";
 import { Subject, BehaviorSubject } from "rxjs";
-import { EditCardOverlay } from "./edit-card-overlay";
+import { EditCardDialogService } from "./edit-card-dialog";
 import { CardService } from "./card.service";
 import { Card } from "./card";
 import { switchMap, takeUntil, map } from "rxjs";
@@ -19,7 +19,7 @@ import { EditCellComponent } from "../shared/edit-cell.component";
 export class CardsPageComponent { 
   constructor(
     private readonly _cardService: CardService,
-    private readonly _editCardOverlay: EditCardOverlay) {
+    private readonly _editCardDialog: EditCardDialogService) {
   }
 
   ngOnInit() {
@@ -33,7 +33,7 @@ export class CardsPageComponent {
   }
 
   public handleFABButtonClick() {
-    this._editCardOverlay.create()
+    this._editCardDialog.create()
       .pipe(
         map(x => this.addOrUpdate(x)),
         takeUntil(this.onDestroy)
@@ -62,7 +62,7 @@ export class CardsPageComponent {
   public cards$: BehaviorSubject<Card[]> = new BehaviorSubject([]);
 
   public handleEditClick($event) {
-    const overlayRefWrapper = this._editCardOverlay
+    const overlayRefWrapper = this._editCardDialog
       .create({ cardId: $event.data.cardId })    
       .pipe(map(card => this.addOrUpdate(card)), takeUntil(this.onDestroy))
       .subscribe();

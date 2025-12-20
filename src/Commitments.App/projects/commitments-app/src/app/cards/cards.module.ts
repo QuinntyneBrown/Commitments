@@ -9,17 +9,17 @@ import { CardService } from './card.service';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { CardsPageComponent } from 'cards-page/cards-page.component';
-import { EditCardOverlayComponent } from 'edit-card-overlay/edit-card-overlay.component';
-import { EditCardOverlay } from './edit-card-overlay';
+import { EditCardDialog } from 'edit-card-dialog/edit-card-dialog';
+import { EditCardDialogService } from './edit-card-dialog';
 
 const declarations = [
   CardsPageComponent,
-  EditCardOverlayComponent
+  EditCardDialog
 ];
 
 const providers = [
   CardService,
-  EditCardOverlay
+  EditCardDialogService
 ];
 
 @NgModule({

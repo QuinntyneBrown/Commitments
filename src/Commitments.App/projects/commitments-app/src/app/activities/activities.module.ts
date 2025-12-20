@@ -9,17 +9,17 @@ import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { ActivityService } from './activity.service';
 import { ActivitiesPageComponent } from 'activities-page/activities-page.component';
-import { EditActivityOverlayComponent } from 'edit-activity-overlay/edit-activity-overlay.component';
-import { EditActivityOverlay } from './edit-activity-overlay';
+import { EditActivityDialog } from 'edit-activity-dialog/edit-activity-dialog';
+import { EditActivityDialogService } from './edit-activity-dialog';
 
 const declarations = [
   ActivitiesPageComponent,
-  EditActivityOverlayComponent
+  EditActivityDialog
 ];
 
 const providers = [
   ActivityService,
-  EditActivityOverlay
+  EditActivityDialogService
 ];
 
 @NgModule({

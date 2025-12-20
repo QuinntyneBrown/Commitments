@@ -13,7 +13,7 @@ import { GridApi, ColDef } from "ag-grid";
 import { CheckboxCellComponent } from "../shared/checkbox-cell.component";
 import { DeleteCellComponent } from "../shared/delete-cell.component";
 import { EditCellComponent } from "../shared/edit-cell.component";
-import { EditCardLayoutOverlay } from "./edit-card-layout-overlay";
+import { EditCardLayoutDialogService } from "./edit-card-layout-dialog";
 
 @Component({
   templateUrl: "./card-layouts-page.component.html",
@@ -23,7 +23,7 @@ import { EditCardLayoutOverlay } from "./edit-card-layout-overlay";
 export class CardLayoutsPageComponent { 
   constructor(
     private readonly _cardLayoutService: CardLayoutService,
-    private readonly _editCardLayoutOverlay: EditCardLayoutOverlay,
+    private readonly _editCardLayoutDialog: EditCardLayoutDialogService,
     private readonly _router: Router
   ) { }
 
@@ -85,7 +85,7 @@ export class CardLayoutsPageComponent {
   }
 
   public handleFABButtonClick() {
-    this._editCardLayoutOverlay.create()
+    this._editCardLayoutDialog.create()
       .pipe(takeUntil(this.onDestroy), map(x => this.addOrUpdate(x)))
       .subscribe();
 

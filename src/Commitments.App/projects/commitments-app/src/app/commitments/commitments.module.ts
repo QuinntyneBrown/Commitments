@@ -11,17 +11,17 @@ import { CommitmentService } from './commitment.service';
 import { MyCommimentsPageComponent } from 'my-commiments-page/my-commiments-page.component';
 import { BehavioursModule } from '../behaviours/behaviours.module';
 import { FrequenciesModule } from '../frequencies/frequencies.module';
-import { EditCommitmentOverlayComponent } from 'edit-commitment-overlay/edit-commitment-overlay.component';
-import { EditCommitmentOverlay } from './edit-commitment-overlay';
+import { EditCommitmentDialog } from 'edit-commitment-dialog/edit-commitment-dialog';
+import { EditCommitmentDialogService } from './edit-commitment-dialog';
 
 const declarations = [
   MyCommimentsPageComponent,
-  EditCommitmentOverlayComponent
+  EditCommitmentDialog
 ];
 
 const providers = [
   CommitmentService,
-  EditCommitmentOverlay
+  EditCommitmentDialogService
 ];
 
 @NgModule({

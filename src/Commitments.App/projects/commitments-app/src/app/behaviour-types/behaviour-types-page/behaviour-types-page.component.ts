@@ -13,7 +13,7 @@ import { GridApi, ColDef } from "ag-grid";
 import { CheckboxCellComponent } from "../shared/checkbox-cell.component";
 import { DeleteCellComponent } from "../shared/delete-cell.component";
 import { EditCellComponent } from "../shared/edit-cell.component";
-import { EditBehaviourTypeOverlay } from "./edit-behaviour-type-overlay";
+import { EditBehaviourTypeDialogService } from "./edit-behaviour-type-dialog";
 
 @Component({
   templateUrl: "./behaviour-types-page.component.html",
@@ -23,7 +23,7 @@ import { EditBehaviourTypeOverlay } from "./edit-behaviour-type-overlay";
 export class BehaviourTypesPageComponent { 
   constructor(
     private readonly _behaviourTypeService: BehaviourTypeService,
-    private readonly _editBehaviourTypeOverlay: EditBehaviourTypeOverlay,
+    private readonly _editBehaviourTypeDialog: EditBehaviourTypeDialogService,
     private readonly _router: Router
   ) { }
 
@@ -57,7 +57,7 @@ export class BehaviourTypesPageComponent {
   }
 
   public handleFABButtonClick() {
-    this._editBehaviourTypeOverlay.create()
+    this._editBehaviourTypeDialog.create()
       .pipe(takeUntil(this.onDestroy), map((x) => this.addOrUpdate(x)))
       .subscribe();
   }

@@ -9,8 +9,8 @@ import { DailyResultsDashboardCardComponent } from "../achievements/daily-result
 import { MonthlyResultsDashboardCardComponent } from "../achievements/monthly-results-dashboard-card.component";
 import { WeeklyResultsDashboardCardComponent } from "../achievements/weekly-results-dashboard-card.component";
 import { deepCopy } from "../core/deep-copy";
-import { AddDashboardCardsOverlay } from "../dashboard-cards/add-dashboard-cards-overlay";
-import { DashboardCardConfigurationOverlay } from "../dashboard-cards/dashboard-card-configuration-overlay";
+import { AddDashboardCardsDialogService } from "../dashboard-cards/add-dashboard-cards-dialog";
+import { DashboardCardConfigurationDialogService } from "../dashboard-cards/dashboard-card-configuration-dialog";
 import { DashboardCardComponent } from "../dashboard-cards/dashboard-card.component";
 import { DashboardCard } from "../dashboard-cards/dashboard-card";
 import { DashboardCardService } from "../dashboard-cards/dashboard-card.service";
@@ -24,11 +24,11 @@ import { RelationsResultsDashboardCardComponent } from "../achievements/relation
   styleUrls: ["./dashboard-page.component.scss"],
   selector: "app-dashboard-page"
 })
-export class DashboardPageComponent { 
+export class DashboardPageComponent {
   constructor(
-    private readonly _addDashboardCardsOverlay: AddDashboardCardsOverlay,
+    private readonly _addDashboardCardsDialogService: AddDashboardCardsDialogService,
     private readonly _componentFactoryResolver: ComponentFactoryResolver,
-    private readonly _dashboardCardConfigurationOverlay: DashboardCardConfigurationOverlay,
+    private readonly _dashboardCardConfigurationDialogService: DashboardCardConfigurationDialogService,
     private readonly _dashboardCardService: DashboardCardService,
     private readonly _dashboardService: DashboardService,    
     private readonly _injector: Injector,
@@ -39,7 +39,7 @@ export class DashboardPageComponent {
   target: ViewContainerRef;
 
   public handleConfigurationClick(options: { dashboardCard: DashboardCard }) {
-    this._dashboardCardConfigurationOverlay.create(options)
+    this._dashboardCardConfigurationDialogService.create(options)
       .pipe(
         map(dashboardCard => {
           const currentDashboard: Dashboard = deepCopy(this.dashboard$.value);
@@ -80,7 +80,7 @@ export class DashboardPageComponent {
   }
 
   public handleFabButtonClick() {
-    this._addDashboardCardsOverlay.create({ dashboardId: this.dashboard$.value.dashboardId })
+    this._addDashboardCardsDialogService.create({ dashboardId: this.dashboard$.value.dashboardId })
       .pipe(
         filter(x => x != null),
         map((dashboardCards: Array<DashboardCard>) => {

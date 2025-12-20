@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
 import { BehaviourService } from "./behaviour.service";
 import { Behaviour } from "./behaviour";
 import { BehaviourType } from "./behaviour-type";
-import { EditBehaviourOverlay } from "./edit-behaviour-overlay";
+import { EditBehaviourDialogService } from "./edit-behaviour-dialog";
 import { deepCopy } from "../core/deep-copy";
 import { GridApi, ColDef } from "ag-grid";
 import { CheckboxCellComponent } from "../shared/checkbox-cell.component";
@@ -26,7 +26,7 @@ export class BehavioursPageComponent {
   constructor(
     private readonly _behaviourService: BehaviourService,
     private readonly _behaviourTypeService: BehaviourTypeService,
-    private readonly _editBehaviourOverlay: EditBehaviourOverlay,
+    private readonly _editBehaviourDialog: EditBehaviourDialogService,
     private readonly _router: Router
   ) { }
 
@@ -45,7 +45,7 @@ export class BehavioursPageComponent {
   public behaviours$: BehaviorSubject<Array<Behaviour>> = new BehaviorSubject([]);
 
   public handleFABButtonClick() {
-    this._editBehaviourOverlay.create({ behaviourId: this.behaviour$.value.behaviourId })
+    this._editBehaviourDialog.create({ behaviourId: this.behaviour$.value.behaviourId })
       .pipe(map(toDo => this.addOrUpdate(toDo)), takeUntil(this.onDestroy))
       .subscribe();
   }
@@ -66,7 +66,7 @@ export class BehavioursPageComponent {
   }
 
   public handleEditClick($event) {    
-    this._editBehaviourOverlay.create({ behaviourId: $event.data.behaviourId })
+    this._editBehaviourDialog.create({ behaviourId: $event.data.behaviourId })
       .pipe(map(toDo => this.addOrUpdate(toDo)), takeUntil(this.onDestroy))
       .subscribe();
   }

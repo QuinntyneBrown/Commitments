@@ -11,7 +11,7 @@ import { ColDef } from 'ag-grid';
 import { Overlay } from '@angular/cdk/overlay';
 import { OverlayRefWrapper } from '../core/overlay-ref-wrapper';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { AddTagOverlayComponent } from './add-tag-overlay.component';
+import { AddTagDialog } from './add-tag-dialog/add-tag-dialog';
 import { takeUntil } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
 import { HubClient } from '../core/hub-client';
@@ -130,7 +130,7 @@ export class TagsPageComponent {
       parent: this._injector,
       providers: [{ provide: OverlayRefWrapper, useValue: overlayRefWrapper }],
     });
-    const overlayPortal = new ComponentPortal(AddTagOverlayComponent, null, injector);
+    const overlayPortal = new ComponentPortal(AddTagDialog, null, injector);
     overlayRef.attach(overlayPortal);
 
     overlayRef.backdropClick().subscribe(x => overlayRef.dispose());

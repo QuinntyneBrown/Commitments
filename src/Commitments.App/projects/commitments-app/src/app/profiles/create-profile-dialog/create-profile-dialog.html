@@ -1,0 +1,28 @@
+<mat-card-title>
+  Create Profile
+</mat-card-title>
+
+<form novalidate autocomplete="off" spellcheck="false" [formGroup]="form">
+  <mat-form-field>
+    <input matInput placeholder="{{ 'Username' | translate }}" id="username" formControlName="username">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="{{ 'Name' | translate }}" id="name" formControlName="name">
+  </mat-form-field>
+
+  <app-digital-asset-input-url [placeholder]="'Avatar Image Url'" formControlName="avatarUrl"></app-digital-asset-input-url>
+
+  <mat-form-field>
+    <input matInput placeholder="{{ 'Password' | translate }}" id="password" formControlName="password" type="password" required>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="{{ 'Confirm Password' | translate }}" id="confirmPassword" formControlName="confirmPassword" type="password" required>
+  </mat-form-field>
+
+  <div class="actions">
+    <button mat-button (click)="handleSaveClick()">{{ "Save" | translate }}</button>
+    <button mat-button (click)="handleCancelClick()">{{ "Cancel" | translate }}</button>
+  </div>
+</form>

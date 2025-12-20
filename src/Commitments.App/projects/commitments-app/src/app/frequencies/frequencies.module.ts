@@ -12,22 +12,22 @@ import { FrequencyTypeService } from './frequency-type.service';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { EditFrequencyPageComponent } from 'edit-frequency-page/edit-frequency-page.component';
-import { EditFrequencyOverlayComponent } from 'edit-frequency-overlay/edit-frequency-overlay.component';
+import { EditFrequencyDialog } from 'edit-frequency-dialog/edit-frequency-dialog';
 import { FrequenciesPageComponent } from 'frequencies-page/frequencies-page.component';
-import { EditFrequencyOverlay } from './edit-frequency-overlay';
+import { EditFrequencyDialogService } from './edit-frequency-dialog';
 
 const declarations = [
   FrequenciesEditorComponent,
   FrequencyEditorComponent,
   EditFrequencyPageComponent,
-  EditFrequencyOverlayComponent,
+  EditFrequencyDialog,
   FrequenciesPageComponent
 ];
 
 const providers = [
   FrequencyService,
   FrequencyTypeService,
-  EditFrequencyOverlay
+  EditFrequencyDialogService
 ];
 
 @NgModule({

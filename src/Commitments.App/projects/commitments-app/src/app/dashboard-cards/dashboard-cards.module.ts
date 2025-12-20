@@ -9,25 +9,25 @@ import { CardsModule } from '../cards/cards.module';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { DashboardCardService } from './dashboard-card.service';
-import { DashboardCardConfigurationOverlay } from './dashboard-card-configuration-overlay';
-import { AddDashboardCardsOverlay } from './add-dashboard-cards-overlay';
-import { AddDashboardCardsOverlayComponent } from 'add-dashboard-cards-overlay/add-dashboard-cards-overlay.component';
-import { DashboardCardConfigurationOverlayComponent } from 'dashboard-card-configuration-overlay/dashboard-card-configuration-overlay.component';
+import { DashboardCardConfigurationDialogService } from './dashboard-card-configuration-dialog';
+import { AddDashboardCardsDialogService } from './add-dashboard-cards-dialog';
+import { AddDashboardCardsDialog } from './add-dashboard-cards-dialog/add-dashboard-cards-dialog';
+import { DashboardCardConfigurationDialog } from './dashboard-card-configuration-dialog/dashboard-card-configuration-dialog';
 import { DashboardCardComponent } from 'dashboard-card/dashboard-card.component';
 import { PosterDashboardCardComponent } from 'poster-dashboard-card/poster-dashboard-card.component';
 import { DashboardCard } from './dashboard-card';
 
 const declarations = [
-  AddDashboardCardsOverlayComponent,
-  DashboardCardConfigurationOverlayComponent,
+  AddDashboardCardsDialog,
+  DashboardCardConfigurationDialog,
   DashboardCardComponent,
   PosterDashboardCardComponent
 ];
 
 const providers = [
   DashboardCardService,
-  DashboardCardConfigurationOverlay,
-  AddDashboardCardsOverlay
+  DashboardCardConfigurationDialogService,
+  AddDashboardCardsDialogService
 ];
 
 @NgModule({

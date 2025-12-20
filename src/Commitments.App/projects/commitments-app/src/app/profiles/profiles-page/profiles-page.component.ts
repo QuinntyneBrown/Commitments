@@ -3,7 +3,7 @@
 
 import { Component } from "@angular/core";
 import { Subject, BehaviorSubject } from "rxjs";
-import { CreateProfileOverlay } from "./create-profile-overlay";
+import { CreateProfileDialogService } from "./create-profile-dialog";
 import { ProfileService } from "./profile.service";
 import { Profile } from "./profile";
 import { takeUntil, map } from "rxjs";
@@ -17,7 +17,7 @@ import { DeleteCellComponent } from "../shared/delete-cell.component";
 })
 export class ProfilesPageComponent { 
   constructor(
-    private readonly _createProfileOverlay: CreateProfileOverlay,
+    private readonly _createProfileDialog: CreateProfileDialogService,
     private readonly _profileService: ProfileService
   ) {
 
@@ -34,7 +34,7 @@ export class ProfilesPageComponent {
   }
 
   public handleFABButtonClick() {
-    this._createProfileOverlay.create()
+    this._createProfileDialog.create()
       .pipe(
         map(x => this.addOrUpdate(x)),
         takeUntil(this.onDestroy)

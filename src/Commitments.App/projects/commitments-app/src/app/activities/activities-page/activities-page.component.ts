@@ -13,17 +13,17 @@ import { GridApi, ColDef } from "ag-grid";
 import { CheckboxCellComponent } from "../shared/checkbox-cell.component";
 import { DeleteCellComponent } from "../shared/delete-cell.component";
 import { EditCellComponent } from "../shared/edit-cell.component";
-import { EditActivityOverlay } from "./edit-activity-overlay";
+import { EditActivityDialogService } from "./edit-activity-dialog";
 
 @Component({
   templateUrl: "./activities-page.component.html",
   styleUrls: ["./activities-page.component.scss"],
   selector: "app-activities-page"
 })
-export class ActivitiesPageComponent { 
+export class ActivitiesPageComponent {
   constructor(
     private readonly _activityService: ActivityService,
-    private readonly _editActityOverlay: EditActivityOverlay,
+    private readonly _editActityDialog: EditActivityDialogService,
     private readonly _router: Router
   ) { }
 
@@ -38,7 +38,7 @@ export class ActivitiesPageComponent {
   public activities$: BehaviorSubject<Array<Activity>> = new BehaviorSubject([]);
 
   ngOnDestroy() {
-    this.onDestroy.next();    
+    this.onDestroy.next();
   }
 
   public handleRemoveClick($event) {
@@ -52,14 +52,14 @@ export class ActivitiesPageComponent {
       .subscribe();
   }
 
-  public handleEditClick($event) {    
-    this._editActityOverlay.create({ activityId: $event.data.activityId })
+  public handleEditClick($event) {
+    this._editActityDialog.create({ activityId: $event.data.activityId })
       .pipe(takeUntil(this.onDestroy), map((x) => this.addOrUpdate(x)))
       .subscribe();
   }
 
   public handleFABButtonClick() {
-    this._editActityOverlay.create()
+    this._editActityDialog.create()
       .pipe(takeUntil(this.onDestroy), map((x) => this.addOrUpdate(x)))
       .subscribe();
   }
@@ -69,7 +69,7 @@ export class ActivitiesPageComponent {
 
     let activities = [...this.activities$.value];
     const i = activities.findIndex((t) => t.activityId == activity.activityId);
-    const _ = i < 0 ? activities.push(activity) : activities[i] = activity;    
+    const _ = i < 0 ? activities.push(activity) : activities[i] = activity;
     this.activities$.next(activities);
   }
 

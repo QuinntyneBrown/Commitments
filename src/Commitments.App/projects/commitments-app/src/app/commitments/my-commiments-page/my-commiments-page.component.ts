@@ -5,7 +5,7 @@ import { Component } from "@angular/core";
 import { Subject, Observable, BehaviorSubject } from "rxjs";
 import { CommitmentService } from "./commitment.service";
 import { map, takeUntil } from "rxjs";
-import { EditCommitmentOverlay } from "./edit-commitment-overlay";
+import { EditCommitmentDialogService } from "./edit-commitment-dialog";
 import { Commitment } from "./commitment";
 import { ColDef, GridApi } from "ag-grid";
 import { CheckboxCellComponent } from "../shared/checkbox-cell.component";
@@ -20,7 +20,7 @@ import { EditCellComponent } from "../shared/edit-cell.component";
 export class MyCommimentsPageComponent { 
   constructor(
     private readonly _commitmentService: CommitmentService,
-    private readonly _editCommitmentOverlay: EditCommitmentOverlay
+    private readonly _editCommitmentDialog: EditCommitmentDialogService
     
   ) { }
 
@@ -59,14 +59,14 @@ export class MyCommimentsPageComponent {
   }
 
   public handleFABButtonClick() {
-    this._editCommitmentOverlay.create()
+    this._editCommitmentDialog.create()
       .pipe(takeUntil(this.onDestroy))
       .subscribe()    
   }
 
 
   public handleEditClick($event) {
-    this._editCommitmentOverlay.create({ commitmentId: $event.data.commitmentId })
+    this._editCommitmentDialog.create({ commitmentId: $event.data.commitmentId })
       .pipe(map(commitment => this.addOrUpdate(commitment)), takeUntil(this.onDestroy))
       .subscribe();
   }

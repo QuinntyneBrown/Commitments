@@ -8,17 +8,17 @@ import { RouterModule } from '@angular/router';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { BehaviourTypesPageComponent } from 'behaviour-types-page/behaviour-types-page.component';
-import { EditBehaviourTypeOverlayComponent } from 'edit-behaviour-type-overlay/edit-behaviour-type-overlay.component';
-import { EditBehaviourTypeOverlay } from './edit-behaviour-type-overlay';
+import { EditBehaviourTypeDialog } from 'edit-behaviour-type-dialog/edit-behaviour-type-dialog';
+import { EditBehaviourTypeDialogService } from './edit-behaviour-type-dialog';
 import { BehaviourTypeService } from './behaviour-type.service';
 
 const declarations = [
   BehaviourTypesPageComponent,
-  EditBehaviourTypeOverlayComponent
+  EditBehaviourTypeDialog
 ];
 
 const providers = [
-  EditBehaviourTypeOverlay,
+  EditBehaviourTypeDialogService,
   BehaviourTypeService
 ];
 

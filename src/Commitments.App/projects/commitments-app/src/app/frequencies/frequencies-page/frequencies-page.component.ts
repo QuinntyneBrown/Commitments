@@ -13,7 +13,7 @@ import { GridApi, ColDef } from "ag-grid";
 import { CheckboxCellComponent } from "../shared/checkbox-cell.component";
 import { DeleteCellComponent } from "../shared/delete-cell.component";
 import { EditCellComponent } from "../shared/edit-cell.component";
-import { EditFrequencyOverlay } from "./edit-frequency-overlay";
+import { EditFrequencyDialogService } from "./edit-frequency-dialog";
 
 @Component({
   templateUrl: "./frequencies-page.component.html",
@@ -22,7 +22,7 @@ import { EditFrequencyOverlay } from "./edit-frequency-overlay";
 })
 export class FrequenciesPageComponent { 
   constructor(
-    private readonly _editFrequencyOverlay: EditFrequencyOverlay,
+    private readonly _editFrequencyDialog: EditFrequencyDialogService,
     private readonly _frequencyService: FrequencyService,
     private readonly _router: Router
   ) { }
@@ -57,7 +57,7 @@ export class FrequenciesPageComponent {
   }
 
   public handleFABButtonClick() {
-    this._editFrequencyOverlay.create()
+    this._editFrequencyDialog.create()
       .pipe(takeUntil(this.onDestroy),map(x => this.addOrUpdate(x)))
       .subscribe();
   }

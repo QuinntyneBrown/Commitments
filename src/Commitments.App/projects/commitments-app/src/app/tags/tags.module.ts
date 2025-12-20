@@ -9,11 +9,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from '../core/core.module';
 import { TagsService } from './tags.service';
 import { TagsPageComponent } from './tags-page/tags-page.component';
-import { AddTagOverlayComponent } from './add-tag-overlay/add-tag-overlay.component';
+import { AddTagDialog } from './add-tag-dialog/add-tag-dialog';
 import { SharedModule } from '../shared/shared.module';
 import { TagsResolver } from './tags-resolver.service';
 
-const declarations = [TagsPageComponent, AddTagOverlayComponent];
+const declarations = [TagsPageComponent, AddTagDialog];
 
 const providers = [TagsService, TagsResolver];
 

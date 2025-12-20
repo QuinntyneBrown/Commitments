@@ -9,20 +9,20 @@ import { ToDoService } from './to-do.service';
 import { ToDosPageComponent } from 'to-dos-page/to-dos-page.component';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
-import { EditToDoOverlayComponent } from 'edit-to-do-overlay/edit-to-do-overlay.component';
-import { EditToDoOverlay } from './edit-to-do-overlay';
+import { EditToDoDialog } from 'edit-to-do-dialog/edit-to-do-dialog';
+import { EditToDoDialogService } from './edit-to-do-dialog';
 import { DashboardCardsModule } from '../dashboard-cards/dashboard-cards.module';
 import { ToDoDashboardCardComponent } from 'to-do-dashboard-card/to-do-dashboard-card.component';
 
 const declarations = [
-  EditToDoOverlayComponent,
+  EditToDoDialog,
   ToDosPageComponent,
   ToDoDashboardCardComponent
 ];
 
 const providers = [
   ToDoService,
-  EditToDoOverlay
+  EditToDoDialogService
 ];
 
 @NgModule({
