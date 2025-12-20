@@ -6,7 +6,7 @@ import { storageKey } from './constants';
 
 @Injectable()
 export class LocalStorageService {
-  private readonly _items = null;
+  private _items: Array<any> | null = null;
 
   public get items() {
     if (this._items === null) {

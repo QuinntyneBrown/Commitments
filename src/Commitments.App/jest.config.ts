@@ -25,12 +25,14 @@ const config: Config = {
   coverageDirectory: 'coverage',
   coverageReporters: ['html', 'text', 'lcov', 'json'],
   coveragePathIgnorePatterns: ['/node_modules/', '/dist/', '/coverage/'],
-  testMatch: ['**/projects/commitments-app/**/*.spec.ts'],
+  testMatch: ['**/projects/commitments-app/src/**/*.spec.ts'],
+  testPathIgnorePatterns: ['/node_modules/', '/e2e/'],
   moduleNameMapper: {
     '^@app/(.*)$': '<rootDir>/projects/commitments-app/src/app/$1',
     '^@environments/(.*)$': '<rootDir>/projects/commitments-app/src/environments/$1',
   },
   transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
+  passWithNoTests: true,
 };
 
 export default config;

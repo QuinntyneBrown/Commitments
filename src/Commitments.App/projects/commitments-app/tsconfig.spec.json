@@ -10,7 +10,11 @@
     "emitDecoratorMetadata": true
   },
   "include": [
-    "src/**/*.spec.ts",
+    "src/**/*.ts",
     "src/**/*.d.ts"
+  ],
+  "exclude": [
+    "src/test.ts",
+    "e2e/**/*"
   ]
 }
