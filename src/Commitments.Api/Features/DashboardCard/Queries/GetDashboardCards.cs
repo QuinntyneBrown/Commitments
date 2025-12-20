@@ -1,0 +1,35 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
+namespace Commitments.Api.Features.DashboardCard;
+
+public class GetDashboardCardsRequest : IRequest<GetDashboardCardsResponse> { }
+
+public class GetDashboardCardsResponse : ResponseBase
+{
+    public List<DashboardCardDto> DashboardCards { get; set; }
+}
+
+
+public class GetDashboardCardsRequestHandler : IRequestHandler<GetDashboardCardsRequest, GetDashboardCardsResponse>
+{
+    private readonly ILogger<GetDashboardCardsRequestHandler> _logger;
+
+    private readonly ICommitmentsDbContext _context;
+
+    public GetDashboardCardsRequestHandler(ILogger<GetDashboardCardsRequestHandler> logger, ICommitmentsDbContext context)
+    {
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _context = context ?? throw new ArgumentNullException(nameof(context));
+    }
+
+    public async Task<GetDashboardCardsResponse> Handle(GetDashboardCardsRequest request, CancellationToken cancellationToken)
+    {
+        return new()
+        {
+            DashboardCards = await _context.DashboardCards.AsNoTracking().ToDtosAsync(cancellationToken)
+        };
+
+    }
+
+}

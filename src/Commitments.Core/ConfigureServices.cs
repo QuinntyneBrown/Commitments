@@ -14,7 +14,7 @@ public static class ConfigureServices
     {
         services.AddHostedService<ServiceBusMessageConsumer>();
 
-        services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblyContaining<ICommitmentsClient>());
+        // MediatR handlers moved to Api project
 
         //services.AddKernelServices();
 

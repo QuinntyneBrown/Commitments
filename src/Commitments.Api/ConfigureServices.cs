@@ -1,8 +1,11 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Commitments.Api.Behaviours;
 using Commitments.Core.Services.Kernel;
 using Commitments.Core.Settings;
+using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -16,6 +19,12 @@ public static class ConfigureServices
 {
     public static void AddApiServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ConfigureServices).Assembly));
+
+        services.AddValidatorsFromAssembly(typeof(ConfigureServices).Assembly);
+
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
         services.AddControllers(o =>
         {
             o.Filters.Add(typeof(HttpGlobalExceptionFilter));

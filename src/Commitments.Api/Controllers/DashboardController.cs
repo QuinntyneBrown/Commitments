@@ -1,8 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Core.AggregateModel.DashboardAggregate.Commands;
-using Commitments.Core.AggregateModel.DashboardAggregate.Queries;
+using Commitments.Api.Features.Dashboard;
 using System.Net;
 using System.Threading.Tasks;
 using MediatR;

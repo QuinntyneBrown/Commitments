@@ -2,19 +2,19 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments.Core;
-using Commitments.Core.AggregateModel;
-using Commitments.Core.AggregateModel.ActivityAggregate;
-using Commitments.Core.AggregateModel.BehaviourAggregate;
-using Commitments.Core.AggregateModel.BehaviourTypeAggregate;
-using Commitments.Core.AggregateModel.CardAggregate;
-using Commitments.Core.AggregateModel.CardLayoutAggregate;
-using Commitments.Core.AggregateModel.CommitmentAggregate;
-using Commitments.Core.AggregateModel.DashboardAggregate;
-using Commitments.Core.AggregateModel.DashboardCardAggregate;
-using Commitments.Core.AggregateModel.DigitalAssetAggregate;
-using Commitments.Core.AggregateModel.FrequencyAggregate;
-using Commitments.Core.AggregateModel.FrequencyTypeAggregate;
-using Commitments.Core.AggregateModel.UserAggregate;
+using Commitments.Core.Model;
+using Commitments.Core.Model.ActivityAggregate;
+using Commitments.Core.Model.BehaviourAggregate;
+using Commitments.Core.Model.BehaviourTypeAggregate;
+using Commitments.Core.Model.CardAggregate;
+using Commitments.Core.Model.CardLayoutAggregate;
+using Commitments.Core.Model.CommitmentAggregate;
+using Commitments.Core.Model.DashboardAggregate;
+using Commitments.Core.Model.DashboardCardAggregate;
+using Commitments.Core.Model.DigitalAssetAggregate;
+using Commitments.Core.Model.FrequencyAggregate;
+using Commitments.Core.Model.FrequencyTypeAggregate;
+using Commitments.Core.Model.UserAggregate;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 

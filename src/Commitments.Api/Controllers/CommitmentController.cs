@@ -1,8 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Core.AggregateModel.CommitmentAggregate.Commands;
-using Commitments.Core.AggregateModel.CommitmentAggregate.Queries;
+using Commitments.Api.Features.Commitment;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;

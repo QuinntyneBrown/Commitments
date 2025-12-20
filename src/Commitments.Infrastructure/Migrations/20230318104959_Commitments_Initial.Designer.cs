@@ -26,7 +26,7 @@ namespace Commitments.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.ActivityAggregate.Activity", b =>
+            modelBuilder.Entity("Commitments.Core.Model.ActivityAggregate.Activity", b =>
                 {
                     b.Property<Guid>("ActivityId")
                         .ValueGeneratedOnAdd()
@@ -62,7 +62,7 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("Activities", "Commitments");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.BehaviourAggregate.Behaviour", b =>
+            modelBuilder.Entity("Commitments.Core.Model.BehaviourAggregate.Behaviour", b =>
                 {
                     b.Property<Guid>("BehaviourId")
                         .ValueGeneratedOnAdd()
@@ -96,7 +96,7 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("Behaviours", "Commitments");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.BehaviourTypeAggregate.BehaviourType", b =>
+            modelBuilder.Entity("Commitments.Core.Model.BehaviourTypeAggregate.BehaviourType", b =>
                 {
                     b.Property<Guid>("BehaviourTypeId")
                         .ValueGeneratedOnAdd()
@@ -119,7 +119,7 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("BehaviourTypes", "Commitments");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.CardAggregate.Card", b =>
+            modelBuilder.Entity("Commitments.Core.Model.CardAggregate.Card", b =>
                 {
                     b.Property<Guid>("CardId")
                         .ValueGeneratedOnAdd()
@@ -145,7 +145,7 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("Cards", "Commitments");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.CardLayoutAggregate.CardLayout", b =>
+            modelBuilder.Entity("Commitments.Core.Model.CardLayoutAggregate.CardLayout", b =>
                 {
                     b.Property<Guid>("CardLayoutId")
                         .ValueGeneratedOnAdd()
@@ -171,7 +171,7 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("CardLayouts", "Commitments");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.CommitmentAggregate.Commitment", b =>
+            modelBuilder.Entity("Commitments.Core.Model.CommitmentAggregate.Commitment", b =>
                 {
                     b.Property<Guid>("CommitmentId")
                         .ValueGeneratedOnAdd()
@@ -199,7 +199,7 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("Commitment", "Commitments");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.CommitmentAggregate.CommitmentFrequency", b =>
+            modelBuilder.Entity("Commitments.Core.Model.CommitmentAggregate.CommitmentFrequency", b =>
                 {
                     b.Property<Guid>("CommitmentFrequencyId")
                         .ValueGeneratedOnAdd()
@@ -220,7 +220,7 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("CommitmentFrequency", "Commitments");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.CommitmentAggregate.CommitmentPreCondition", b =>
+            modelBuilder.Entity("Commitments.Core.Model.CommitmentAggregate.CommitmentPreCondition", b =>
                 {
                     b.Property<Guid>("CommitmentPreConditionId")
                         .ValueGeneratedOnAdd()
@@ -239,7 +239,7 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("CommitmentPreCondition", "Commitments");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.DashboardAggregate.Dashboard", b =>
+            modelBuilder.Entity("Commitments.Core.Model.DashboardAggregate.Dashboard", b =>
                 {
                     b.Property<Guid>("DashboardId")
                         .ValueGeneratedOnAdd()
@@ -265,7 +265,7 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("Dashboards", "Commitments");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.DashboardCardAggregate.DashboardCard", b =>
+            modelBuilder.Entity("Commitments.Core.Model.DashboardCardAggregate.DashboardCard", b =>
                 {
                     b.Property<Guid>("DashboardCardId")
                         .ValueGeneratedOnAdd()
@@ -303,7 +303,7 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("DashboardCards", "Commitments");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.DigitalAssetAggregate.DigitalAsset", b =>
+            modelBuilder.Entity("Commitments.Core.Model.DigitalAssetAggregate.DigitalAsset", b =>
                 {
                     b.Property<Guid>("DigitalAssetId")
                         .ValueGeneratedOnAdd()
@@ -324,7 +324,7 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("DigitalAssets", "Commitments");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.FrequencyAggregate.Frequency", b =>
+            modelBuilder.Entity("Commitments.Core.Model.FrequencyAggregate.Frequency", b =>
                 {
                     b.Property<Guid>("FrequencyId")
                         .ValueGeneratedOnAdd()
@@ -355,7 +355,7 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("Frequencies", "Commitments");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.FrequencyTypeAggregate.FrequencyType", b =>
+            modelBuilder.Entity("Commitments.Core.Model.FrequencyTypeAggregate.FrequencyType", b =>
                 {
                     b.Property<Guid>("FrequencyTypeId")
                         .ValueGeneratedOnAdd()
@@ -378,7 +378,7 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("FrequencyTypes", "Commitments");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.NoteAggregate.Note", b =>
+            modelBuilder.Entity("Commitments.Core.Model.NoteAggregate.Note", b =>
                 {
                     b.Property<Guid>("NoteId")
                         .ValueGeneratedOnAdd()
@@ -407,7 +407,7 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("Notes", "Commitments");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.NoteAggregate.NoteTag", b =>
+            modelBuilder.Entity("Commitments.Core.Model.NoteAggregate.NoteTag", b =>
                 {
                     b.Property<Guid>("NoteTagId")
                         .ValueGeneratedOnAdd()
@@ -437,7 +437,7 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("NoteTag", "Commitments");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.ProfileAggregate.Profile", b =>
+            modelBuilder.Entity("Commitments.Core.Model.ProfileAggregate.Profile", b =>
                 {
                     b.Property<Guid>("ProfileId")
                         .ValueGeneratedOnAdd()
@@ -457,7 +457,7 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("Profiles", "Commitments");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.TagAggregate.Tag", b =>
+            modelBuilder.Entity("Commitments.Core.Model.TagAggregate.Tag", b =>
                 {
                     b.Property<Guid>("TagId")
                         .ValueGeneratedOnAdd()
@@ -483,7 +483,7 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("Tags", "Commitments");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.ToDoAggregate.ToDo", b =>
+            modelBuilder.Entity("Commitments.Core.Model.ToDoAggregate.ToDo", b =>
                 {
                     b.Property<Guid>("ToDoId")
                         .ValueGeneratedOnAdd()
@@ -520,15 +520,15 @@ namespace Commitments.Infrastructure.Migrations
                     b.ToTable("ToDos", "Commitments");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.ActivityAggregate.Activity", b =>
+            modelBuilder.Entity("Commitments.Core.Model.ActivityAggregate.Activity", b =>
                 {
-                    b.HasOne("Commitments.Core.AggregateModel.BehaviourAggregate.Behaviour", "Behaviour")
+                    b.HasOne("Commitments.Core.Model.BehaviourAggregate.Behaviour", "Behaviour")
                         .WithMany()
                         .HasForeignKey("BehaviourId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Commitments.Core.AggregateModel.ProfileAggregate.Profile", "Profile")
+                    b.HasOne("Commitments.Core.Model.ProfileAggregate.Profile", "Profile")
                         .WithMany()
                         .HasForeignKey("ProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -539,9 +539,9 @@ namespace Commitments.Infrastructure.Migrations
                     b.Navigation("Profile");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.BehaviourAggregate.Behaviour", b =>
+            modelBuilder.Entity("Commitments.Core.Model.BehaviourAggregate.Behaviour", b =>
                 {
-                    b.HasOne("Commitments.Core.AggregateModel.BehaviourTypeAggregate.BehaviourType", "BehaviourType")
+                    b.HasOne("Commitments.Core.Model.BehaviourTypeAggregate.BehaviourType", "BehaviourType")
                         .WithMany("Behaviours")
                         .HasForeignKey("BehaviourTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -550,9 +550,9 @@ namespace Commitments.Infrastructure.Migrations
                     b.Navigation("BehaviourType");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.CommitmentAggregate.Commitment", b =>
+            modelBuilder.Entity("Commitments.Core.Model.CommitmentAggregate.Commitment", b =>
                 {
-                    b.HasOne("Commitments.Core.AggregateModel.BehaviourAggregate.Behaviour", "Behaviour")
+                    b.HasOne("Commitments.Core.Model.BehaviourAggregate.Behaviour", "Behaviour")
                         .WithMany("Commitments")
                         .HasForeignKey("BehaviourId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -561,13 +561,13 @@ namespace Commitments.Infrastructure.Migrations
                     b.Navigation("Behaviour");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.CommitmentAggregate.CommitmentFrequency", b =>
+            modelBuilder.Entity("Commitments.Core.Model.CommitmentAggregate.CommitmentFrequency", b =>
                 {
-                    b.HasOne("Commitments.Core.AggregateModel.CommitmentAggregate.Commitment", "Commitment")
+                    b.HasOne("Commitments.Core.Model.CommitmentAggregate.Commitment", "Commitment")
                         .WithMany("CommitmentFrequencies")
                         .HasForeignKey("CommitmentId");
 
-                    b.HasOne("Commitments.Core.AggregateModel.FrequencyAggregate.Frequency", "Frequency")
+                    b.HasOne("Commitments.Core.Model.FrequencyAggregate.Frequency", "Frequency")
                         .WithMany("CommitmentFrequencies")
                         .HasForeignKey("FrequencyId");
 
@@ -576,9 +576,9 @@ namespace Commitments.Infrastructure.Migrations
                     b.Navigation("Frequency");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.CommitmentAggregate.CommitmentPreCondition", b =>
+            modelBuilder.Entity("Commitments.Core.Model.CommitmentAggregate.CommitmentPreCondition", b =>
                 {
-                    b.HasOne("Commitments.Core.AggregateModel.CommitmentAggregate.Commitment", "Commitment")
+                    b.HasOne("Commitments.Core.Model.CommitmentAggregate.Commitment", "Commitment")
                         .WithMany("CommitmentPreConditions")
                         .HasForeignKey("CommitmentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -587,17 +587,17 @@ namespace Commitments.Infrastructure.Migrations
                     b.Navigation("Commitment");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.DashboardCardAggregate.DashboardCard", b =>
+            modelBuilder.Entity("Commitments.Core.Model.DashboardCardAggregate.DashboardCard", b =>
                 {
-                    b.HasOne("Commitments.Core.AggregateModel.CardAggregate.Card", "Card")
+                    b.HasOne("Commitments.Core.Model.CardAggregate.Card", "Card")
                         .WithMany()
                         .HasForeignKey("CardId");
 
-                    b.HasOne("Commitments.Core.AggregateModel.CardLayoutAggregate.CardLayout", "CardLayout")
+                    b.HasOne("Commitments.Core.Model.CardLayoutAggregate.CardLayout", "CardLayout")
                         .WithMany()
                         .HasForeignKey("CardLayoutId");
 
-                    b.HasOne("Commitments.Core.AggregateModel.DashboardAggregate.Dashboard", "Dashboard")
+                    b.HasOne("Commitments.Core.Model.DashboardAggregate.Dashboard", "Dashboard")
                         .WithMany("DashboardCards")
                         .HasForeignKey("DashboardId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -610,9 +610,9 @@ namespace Commitments.Infrastructure.Migrations
                     b.Navigation("Dashboard");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.FrequencyAggregate.Frequency", b =>
+            modelBuilder.Entity("Commitments.Core.Model.FrequencyAggregate.Frequency", b =>
                 {
-                    b.HasOne("Commitments.Core.AggregateModel.FrequencyTypeAggregate.FrequencyType", "FrequencyType")
+                    b.HasOne("Commitments.Core.Model.FrequencyTypeAggregate.FrequencyType", "FrequencyType")
                         .WithMany()
                         .HasForeignKey("FrequencyTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -621,15 +621,15 @@ namespace Commitments.Infrastructure.Migrations
                     b.Navigation("FrequencyType");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.NoteAggregate.NoteTag", b =>
+            modelBuilder.Entity("Commitments.Core.Model.NoteAggregate.NoteTag", b =>
                 {
-                    b.HasOne("Commitments.Core.AggregateModel.NoteAggregate.Note", "Note")
+                    b.HasOne("Commitments.Core.Model.NoteAggregate.Note", "Note")
                         .WithMany("NoteTags")
                         .HasForeignKey("NoteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Commitments.Core.AggregateModel.TagAggregate.Tag", "Tag")
+                    b.HasOne("Commitments.Core.Model.TagAggregate.Tag", "Tag")
                         .WithMany("NoteTags")
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -640,9 +640,9 @@ namespace Commitments.Infrastructure.Migrations
                     b.Navigation("Tag");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.ToDoAggregate.ToDo", b =>
+            modelBuilder.Entity("Commitments.Core.Model.ToDoAggregate.ToDo", b =>
                 {
-                    b.HasOne("Commitments.Core.AggregateModel.ProfileAggregate.Profile", "Profile")
+                    b.HasOne("Commitments.Core.Model.ProfileAggregate.Profile", "Profile")
                         .WithMany()
                         .HasForeignKey("ProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -651,39 +651,39 @@ namespace Commitments.Infrastructure.Migrations
                     b.Navigation("Profile");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.BehaviourAggregate.Behaviour", b =>
+            modelBuilder.Entity("Commitments.Core.Model.BehaviourAggregate.Behaviour", b =>
                 {
                     b.Navigation("Commitments");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.BehaviourTypeAggregate.BehaviourType", b =>
+            modelBuilder.Entity("Commitments.Core.Model.BehaviourTypeAggregate.BehaviourType", b =>
                 {
                     b.Navigation("Behaviours");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.CommitmentAggregate.Commitment", b =>
+            modelBuilder.Entity("Commitments.Core.Model.CommitmentAggregate.Commitment", b =>
                 {
                     b.Navigation("CommitmentFrequencies");
 
                     b.Navigation("CommitmentPreConditions");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.DashboardAggregate.Dashboard", b =>
+            modelBuilder.Entity("Commitments.Core.Model.DashboardAggregate.Dashboard", b =>
                 {
                     b.Navigation("DashboardCards");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.FrequencyAggregate.Frequency", b =>
+            modelBuilder.Entity("Commitments.Core.Model.FrequencyAggregate.Frequency", b =>
                 {
                     b.Navigation("CommitmentFrequencies");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.NoteAggregate.Note", b =>
+            modelBuilder.Entity("Commitments.Core.Model.NoteAggregate.Note", b =>
                 {
                     b.Navigation("NoteTags");
                 });
 
-            modelBuilder.Entity("Commitments.Core.AggregateModel.TagAggregate.Tag", b =>
+            modelBuilder.Entity("Commitments.Core.Model.TagAggregate.Tag", b =>
                 {
                     b.Navigation("NoteTags");
                 });

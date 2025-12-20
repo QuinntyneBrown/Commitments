@@ -2,9 +2,9 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments.Api.Controllers;
-using Commitments.Core.AggregateModel.ActivityAggregate;
-using Commitments.Core.AggregateModel.ActivityAggregate.Commands;
-using Commitments.Core.AggregateModel.ActivityAggregate.Queries;
+using Commitments.Core.Model.ActivityAggregate;
+using Commitments.Api.Features.Activity;
+using Commitments.Api.Features.Activity;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Http;
