@@ -37,26 +37,26 @@ import {
   MatTooltipModule
 } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { PrimaryHeaderComponent } from './primary-header/primary-header.component';
-import { QuillTextEditorComponent } from './quill-text-editor/quill-text-editor.component';
+import { PrimaryHeader } from './primary-header/primary-header';
+import { QuillTextEditor } from './quill-text-editor/quill-text-editor';
 import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
-import { DeleteCellComponent } from './delete-cell/delete-cell.component';
-import { AutoCompleteChipListComponent } from './auto-complete-chip-list/auto-complete-chip-list.component';
+import { DeleteCell } from './delete-cell/delete-cell';
+import { AutoCompleteChipList } from './auto-complete-chip-list/auto-complete-chip-list';
 import { TranslateModule } from '@ngx-translate/core';
-import { EditCellComponent } from 'edit-cell/edit-cell.component';
-import { CheckboxCellComponent } from 'checkbox-cell/checkbox-cell.component';
-import { StarCellComponent } from 'star-cell/star-cell.component';
+import { EditCell } from './edit-cell/edit-cell';
+import { CheckboxCell } from './checkbox-cell/checkbox-cell';
+import { StarCell } from './star-cell/star-cell';
 
 @NgModule({
   declarations: [
-    AutoCompleteChipListComponent,
-    CheckboxCellComponent,
-    DeleteCellComponent,
-    EditCellComponent,
-    PrimaryHeaderComponent,
-    QuillTextEditorComponent,
-    StarCellComponent
+    AutoCompleteChipList,
+    CheckboxCell,
+    DeleteCell,
+    EditCell,
+    PrimaryHeader,
+    QuillTextEditor,
+    StarCell
   ],
   imports: [
     MatAutocompleteModule,
@@ -98,10 +98,10 @@ import { StarCellComponent } from 'star-cell/star-cell.component';
     TranslateModule,
 
     AgGridModule.withComponents([
-      CheckboxCellComponent,
-      DeleteCellComponent,
-      EditCellComponent,
-      StarCellComponent
+      CheckboxCell,
+      DeleteCell,
+      EditCell,
+      StarCell
     ])
   ],
   exports: [
@@ -142,13 +142,12 @@ import { StarCellComponent } from 'star-cell/star-cell.component';
     FormsModule,
     ReactiveFormsModule,
 
-    AutoCompleteChipListComponent,
-    CheckboxCellComponent,
-    DeleteCellComponent,
-    PrimaryHeaderComponent,
-    QuillTextEditorComponent,
-    PrimaryHeaderComponent
+    AutoCompleteChipList,
+    CheckboxCell,
+    DeleteCell,
+    PrimaryHeader,
+    QuillTextEditor,
+    PrimaryHeader
   ]
 })
 export class SharedModule {}
-

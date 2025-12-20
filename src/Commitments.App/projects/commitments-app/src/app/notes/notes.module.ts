@@ -9,14 +9,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { TagsModule } from '../tags/tags.module';
 import { NotesService } from './notes.service';
 import { CoreModule } from '../core/core.module';
-import { NotesPageComponent } from 'notes-page/notes-page.component';
-
-import { EditNotePageComponent } from 'edit-note-page/edit-note-page.component';
+import { NotesPage } from './notes-page';
+import { EditNotePage } from './edit-note-page';
+import { NotesByTagPage } from './notes-by-tag-page';
 import { SharedModule } from '../shared/shared.module';
 import { NoteResolver } from './note-resolver.service';
-import { NotesByTagPageComponent } from 'notes-by-tag-page/notes-by-tag-page.component';
 
-const declarations = [EditNotePageComponent, NotesPageComponent, NotesByTagPageComponent];
+const declarations = [EditNotePage, NotesPage, NotesByTagPage];
 
 const providers = [NotesService, NoteResolver];
 

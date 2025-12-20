@@ -7,13 +7,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
-import { BehaviourTypesPageComponent } from 'behaviour-types-page/behaviour-types-page.component';
-import { EditBehaviourTypeOverlayComponent } from 'edit-behaviour-type-overlay/edit-behaviour-type-overlay.component';
+import { BehaviourTypesPage } from './behaviour-types-page/behaviour-types-page';
+import { EditBehaviourTypeOverlay as EditBehaviourTypeOverlayComponent } from './edit-behaviour-type-overlay/edit-behaviour-type-overlay';
 import { EditBehaviourTypeOverlay } from './edit-behaviour-type-overlay';
 import { BehaviourTypeService } from './behaviour-type.service';
 
 const declarations = [
-  BehaviourTypesPageComponent,
+  BehaviourTypesPage,
   EditBehaviourTypeOverlayComponent
 ];
 

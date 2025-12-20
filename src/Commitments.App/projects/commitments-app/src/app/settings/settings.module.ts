@@ -3,12 +3,12 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SettingsPageComponent } from 'settings-page/settings-page.component';
+import { SettingsPage } from './settings-page/settings-page';
 import { CoreModule } from '../core/core.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 
-const declarations = [SettingsPageComponent];
+const declarations = [SettingsPage];
 
 @NgModule({
   imports: [CommonModule, CoreModule, SharedModule],

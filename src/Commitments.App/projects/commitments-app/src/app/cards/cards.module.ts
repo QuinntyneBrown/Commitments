@@ -8,18 +8,18 @@ import { RouterModule } from '@angular/router';
 import { CardService } from './card.service';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
-import { CardsPageComponent } from 'cards-page/cards-page.component';
-import { EditCardOverlayComponent } from 'edit-card-overlay/edit-card-overlay.component';
+import { CardsPage } from './cards-page';
 import { EditCardOverlay } from './edit-card-overlay';
+import { EditCardOverlayService } from './edit-card-overlay.service';
 
 const declarations = [
-  CardsPageComponent,
-  EditCardOverlayComponent
+  CardsPage,
+  EditCardOverlay
 ];
 
 const providers = [
   CardService,
-  EditCardOverlay
+  EditCardOverlayService
 ];
 
 @NgModule({

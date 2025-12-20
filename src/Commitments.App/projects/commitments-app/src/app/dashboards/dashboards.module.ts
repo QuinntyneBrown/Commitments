@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { DashboardPageComponent } from 'dashboard-page/dashboard-page.component';
+import { DashboardPage } from './dashboard-page/dashboard-page';
 import { ActivitiesModule } from '../activities/activities.module';
 import { CommitmentsModule } from '../commitments/commitments.module';
 import { CoreModule } from '../core/core.module';
@@ -14,7 +14,7 @@ import { AchievementsModule } from '../achievements/achievements.module';
 import { DashboardService } from './dashboard.service';
 
 const declarations = [
-  DashboardPageComponent
+  DashboardPage
 ];
 
 const providers = [

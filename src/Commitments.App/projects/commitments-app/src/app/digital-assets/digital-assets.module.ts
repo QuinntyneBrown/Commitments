@@ -8,10 +8,10 @@ import { RouterModule } from '@angular/router';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { DigitalAssetService } from './digital-asset.service';
-import { DigitalAssetInputUrlComponent } from 'digital-asset-url-input/digital-asset-url-input.component';
+import { DigitalAssetInputUrl } from './digital-asset-url-input';
 
 const declarations = [
-  DigitalAssetInputUrlComponent
+  DigitalAssetInputUrl
 ];
 
 const providers = [

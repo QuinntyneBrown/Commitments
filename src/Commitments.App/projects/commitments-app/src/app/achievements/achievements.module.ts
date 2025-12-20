@@ -11,16 +11,16 @@ import { SharedModule } from '../shared/shared.module';
 import { CommitmentsModule } from '../commitments/commitments.module';
 import { ActivitiesModule } from '../activities/activities.module';
 import { DashboardCardsModule } from '../dashboard-cards/dashboard-cards.module';
-import { DailyResultsDashboardCardComponent } from './daily-results-dashboard-card/daily-results-dashboard-card.component';
-import { WeeklyResultsDashboardCardComponent } from './weekly-results-dashboard-card/weekly-results-dashboard-card.component';
-import { MonthlyResultsDashboardCardComponent } from './monthly-results-dashboard-card/monthly-results-dashboard-card.component';
-import { RelationsResultsDashboardCardComponent } from './relations-results-dashboard-card/relations-results-dashboard-card.component';
+import { DailyResultsDashboardCard } from './daily-results-dashboard-card';
+import { WeeklyResultsDashboardCard } from './weekly-results-dashboard-card';
+import { MonthlyResultsDashboardCard } from './monthly-results-dashboard-card';
+import { RelationsResultsDashboardCard } from './relations-results-dashboard-card';
 
 const declarations = [
-  DailyResultsDashboardCardComponent,
-  WeeklyResultsDashboardCardComponent,
-  MonthlyResultsDashboardCardComponent,
-  RelationsResultsDashboardCardComponent
+  DailyResultsDashboardCard,
+  WeeklyResultsDashboardCard,
+  MonthlyResultsDashboardCard,
+  RelationsResultsDashboardCard
 ];
 
 const providers = [

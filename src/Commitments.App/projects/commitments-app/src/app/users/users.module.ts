@@ -3,12 +3,12 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './login/login.component';
+import { Login } from './login';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { ProfilesModule } from '../profiles/profiles.module';
 
-const declarations = [LoginComponent];
+const declarations = [Login];
 
 @NgModule({
   declarations: declarations,

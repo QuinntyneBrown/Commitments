@@ -8,12 +8,12 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from '../core/core.module';
 import { TagsService } from './tags.service';
-import { TagsPageComponent } from './tags-page/tags-page.component';
-import { AddTagOverlayComponent } from './add-tag-overlay/add-tag-overlay.component';
+import { TagsPage } from './tags-page/tags-page';
+import { AddTagOverlay } from './add-tag-overlay/add-tag-overlay';
 import { SharedModule } from '../shared/shared.module';
 import { TagsResolver } from './tags-resolver.service';
 
-const declarations = [TagsPageComponent, AddTagOverlayComponent];
+const declarations = [TagsPage, AddTagOverlay];
 
 const providers = [TagsService, TagsResolver];
 

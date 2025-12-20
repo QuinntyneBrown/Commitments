@@ -8,16 +8,16 @@ import { RouterModule } from '@angular/router';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { ProfileService } from './profile.service';
-import { ProfilesPageComponent } from 'profiles-page/profiles-page.component';
-import { CreateProfileOverlayComponent } from 'create-profile-overlay/create-profile-overlay.component';
+import { ProfilesPage } from './profiles-page';
+import { CreateProfileOverlay as CreateProfileOverlayComponent } from './create-profile-overlay';
 import { CreateProfileOverlay } from './create-profile-overlay';
-import { MyProfilePageComponent } from 'my-profile-page/my-profile-page.component';
+import { MyProfilePage } from './my-profile-page';
 import { DigitalAssetsModule } from '../digital-assets/digital-assets.module';
 
 const declarations = [
   CreateProfileOverlayComponent,
-  ProfilesPageComponent,
-  MyProfilePageComponent
+  ProfilesPage,
+  MyProfilePage
 ];
 
 const providers = [

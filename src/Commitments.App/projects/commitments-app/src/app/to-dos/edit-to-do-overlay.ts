@@ -4,12 +4,12 @@
 import { Injectable, ComponentRef, Injector } from '@angular/core';
 import { OverlayRefWrapper } from '../core/overlay-ref-wrapper';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { EditToDoOverlayComponent } from 'edit-to-do-overlay/edit-to-do-overlay.component';
+import { EditToDoOverlay as EditToDoOverlayComponent } from './edit-to-do-overlay';
 import { OverlayRefProvider } from '../core/overlay-ref-provider';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class EditToDoOverlay {
+export class EditToDoOverlayService {
   constructor(
     public _injector: Injector,
     public _overlayRefProvider: OverlayRefProvider

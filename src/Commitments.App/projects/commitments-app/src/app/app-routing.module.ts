@@ -1,102 +1,98 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import {
-  Routes,
-  RouterModule
-} from '@angular/router';
-import { LoginComponent } from './users/login/login.component';
-import { MasterPageComponent } from './master-page/master-page.component';
-import { AnonymousMasterPageComponent } from './anonymous-master-page/anonymous-master-page.component';
+import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { TagsPageComponent } from 'tags/tags-page/tags-page.component';
-import { NotesPageComponent } from 'notes/notes-page/notes-page.component';
-import { SettingsPageComponent } from 'settings/settings-page/settings-page.component';
+
+import { Login } from './users/login/login';
+import { MasterPage } from './master-page/master-page';
+import { AnonymousMasterPage } from './anonymous-master-page/anonymous-master-page';
+import { TagsPage } from './tags/tags-page/tags-page';
+import { NotesPage } from './notes/notes-page/notes-page';
+import { SettingsPage } from './settings/settings-page/settings-page';
 import { HubClientGuard } from './core/hub-client-guard';
-import { EditNotePageComponent } from 'notes/edit-note-page/edit-note-page.component';
+import { EditNotePage } from './notes/edit-note-page/edit-note-page';
 import { LanguageGuard } from './core/language-guard';
 import { AuthGuard } from './core/auth.guard';
 import { TagsResolver } from './tags/tags-resolver.service';
 import { NoteResolver } from './notes/note-resolver.service';
-import { NotesByTagPageComponent } from 'notes/notes-by-tag-page/notes-by-tag-page.component';
-import { MyCommimentsPageComponent } from 'commitments/my-commiments-page/my-commiments-page.component';
-import { BehavioursPageComponent } from 'behaviours/behaviours-page/behaviours-page.component';
-import { DashboardPageComponent } from 'dashboards/dashboard-page/dashboard-page.component';
-import { EditFrequencyPageComponent } from 'frequencies/edit-frequency-page/edit-frequency-page.component';
-import { ActivitiesPageComponent } from 'activities/activities-page/activities-page.component';
-import { ToDosPageComponent } from 'to-dos/to-dos-page/to-dos-page.component';
-import { CardsPageComponent } from 'cards/cards-page/cards-page.component';
-import { ProfilesPageComponent } from 'profiles/profiles-page/profiles-page.component';
-import { BehaviourTypesPageComponent } from 'behaviour-types/behaviour-types-page/behaviour-types-page.component';
-import { CardLayoutsPageComponent } from 'card-layouts/card-layouts-page/card-layouts-page.component';
-import { MyProfilePageComponent } from 'profiles/my-profile-page/my-profile-page.component';
-import { FrequenciesPageComponent } from 'frequencies/frequencies-page/frequencies-page.component';
-
+import { NotesByTagPage } from './notes/notes-by-tag-page/notes-by-tag-page';
+import { MyCommimentsPage } from './commitments/my-commiments-page/my-commiments-page';
+import { BehavioursPage } from './behaviours/behaviours-page/behaviours-page';
+import { DashboardPage } from './dashboards/dashboard-page/dashboard-page';
+import { ActivitiesPage } from './activities/activities-page/activities-page';
+import { ToDosPage } from './to-dos/to-dos-page/to-dos-page';
+import { CardsPage } from './cards/cards-page/cards-page';
+import { ProfilesPage } from './profiles/profiles-page/profiles-page';
+import { BehaviourTypesPage } from './behaviour-types/behaviour-types-page/behaviour-types-page';
+import { CardLayoutsPage } from './card-layouts/card-layouts-page/card-layouts-page';
+import { MyProfilePage } from './profiles/my-profile-page/my-profile-page';
+import { FrequenciesPage } from './frequencies/frequencies-page/frequencies-page';
 
 export const routes: Routes = [
   {
     path: 'login',
-    component: AnonymousMasterPageComponent,
+    component: AnonymousMasterPage,
     children: [
       {
         path: '',
-        component: LoginComponent
+        component: Login
       }
     ]
   },
   {
     path: '',
-    component: MasterPageComponent,
+    component: MasterPage,
     canActivate: [AuthGuard, HubClientGuard],
     children: [
       {
         path: '',
-        component: DashboardPageComponent,
+        component: DashboardPage,
         canActivate: [LanguageGuard]
       },
       {
         path: 'activities',
-        component: ActivitiesPageComponent,
+        component: ActivitiesPage,
         canActivate: [LanguageGuard]
       },
       {
         path: 'behaviours',
-        component: BehavioursPageComponent,
+        component: BehavioursPage,
         canActivate: [LanguageGuard]
       },
       {
         path: 'behaviour-types',
-        component: BehaviourTypesPageComponent,
+        component: BehaviourTypesPage,
         canActivate: [LanguageGuard]
       },
       {
         path: 'cards',
-        component: CardsPageComponent,
+        component: CardsPage,
         canActivate: [LanguageGuard]
       },
       {
         path: 'card-layouts',
-        component: CardLayoutsPageComponent,
+        component: CardLayoutsPage,
         canActivate: [LanguageGuard]
       },
       {
         path: 'commitments',
-        component: MyCommimentsPageComponent,
+        component: MyCommimentsPage,
         canActivate: [LanguageGuard]
       },
       {
         path: 'frequencies',
-        component: FrequenciesPageComponent,
+        component: FrequenciesPage,
         canActivate: [LanguageGuard]
       },
       {
         path: 'my-profile',
-        component: MyProfilePageComponent,
+        component: MyProfilePage,
         canActivate: [LanguageGuard]
       },
       {
         path: 'notes/create',
-        component: EditNotePageComponent,
+        component: EditNotePage,
         canActivate: [LanguageGuard],
         resolve: {
           tags: TagsResolver,
@@ -105,17 +101,17 @@ export const routes: Routes = [
       },
       {
         path: 'notes',
-        component: NotesPageComponent,
+        component: NotesPage,
         canActivate: [LanguageGuard]
       },
       {
         path: 'tags/:slug',
-        component: NotesByTagPageComponent,
+        component: NotesByTagPage,
         canActivate: [LanguageGuard]
       },
       {
         path: 'notes/:slug',
-        component: EditNotePageComponent,
+        component: EditNotePage,
         canActivate: [LanguageGuard],
         resolve: {
           tags: TagsResolver,
@@ -124,17 +120,17 @@ export const routes: Routes = [
       },
       {
         path: 'profiles',
-        component: ProfilesPageComponent,
+        component: ProfilesPage,
         canActivate: [LanguageGuard]
       },
       {
         path: 'settings',
-        component: SettingsPageComponent,
+        component: SettingsPage,
         canActivate: [LanguageGuard]
       },
       {
         path: 'tags',
-        component: TagsPageComponent,
+        component: TagsPage,
         canActivate: [LanguageGuard],
         resolve: {
           tags: TagsResolver
@@ -142,7 +138,7 @@ export const routes: Routes = [
       },
       {
         path: 'to-dos',
-        component: ToDosPageComponent,
+        component: ToDosPage,
         canActivate: [LanguageGuard]
       },
     ]
@@ -154,4 +150,3 @@ export const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
-

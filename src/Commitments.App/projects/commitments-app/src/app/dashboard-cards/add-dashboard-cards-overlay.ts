@@ -4,12 +4,12 @@
 import { Injectable, ComponentRef, Injector } from "@angular/core";
 import { OverlayRefWrapper } from "../core/overlay-ref-wrapper";
 import { ComponentPortal } from "@angular/cdk/portal";
-import { AddDashboardCardsOverlayComponent } from "add-dashboard-cards-overlay/add-dashboard-cards-overlay.component";
+import { AddDashboardCardsOverlay as AddDashboardCardsOverlayComponent } from "./add-dashboard-cards-overlay";
 import { OverlayRefProvider } from "../core/overlay-ref-provider";
 import { Observable } from "rxjs";
 
 @Injectable()
-export class AddDashboardCardsOverlay {
+export class AddDashboardCardsOverlayService {
   constructor(
     public _injector: Injector,
     public _overlayRefProvider: OverlayRefProvider

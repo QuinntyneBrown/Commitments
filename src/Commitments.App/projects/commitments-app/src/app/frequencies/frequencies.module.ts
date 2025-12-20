@@ -5,29 +5,29 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { FrequenciesEditorComponent } from 'frequencies-editor/frequencies-editor.component';
-import { FrequencyEditorComponent } from 'frequency-editor/frequency-editor.component';
+import { FrequenciesEditor } from './frequencies-editor';
+import { FrequencyEditor } from './frequency-editor';
 import { FrequencyService } from './frequency.service';
 import { FrequencyTypeService } from './frequency-type.service';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
-import { EditFrequencyPageComponent } from 'edit-frequency-page/edit-frequency-page.component';
-import { EditFrequencyOverlayComponent } from 'edit-frequency-overlay/edit-frequency-overlay.component';
-import { FrequenciesPageComponent } from 'frequencies-page/frequencies-page.component';
-import { EditFrequencyOverlay } from './edit-frequency-overlay';
+import { EditFrequencyPage } from './edit-frequency-page';
+import { EditFrequencyOverlay } from './edit-frequency-overlay/';
+import { FrequenciesPage } from './frequencies-page';
+import { EditFrequencyOverlay as EditFrequencyOverlayService } from './edit-frequency-overlay';
 
 const declarations = [
-  FrequenciesEditorComponent,
-  FrequencyEditorComponent,
-  EditFrequencyPageComponent,
-  EditFrequencyOverlayComponent,
-  FrequenciesPageComponent
+  FrequenciesEditor,
+  FrequencyEditor,
+  EditFrequencyPage,
+  EditFrequencyOverlay,
+  FrequenciesPage
 ];
 
 const providers = [
   FrequencyService,
   FrequencyTypeService,
-  EditFrequencyOverlay
+  EditFrequencyOverlayService
 ];
 
 @NgModule({

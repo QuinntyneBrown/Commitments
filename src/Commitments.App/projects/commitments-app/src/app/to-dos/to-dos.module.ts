@@ -6,23 +6,23 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ToDoService } from './to-do.service';
-import { ToDosPageComponent } from 'to-dos-page/to-dos-page.component';
+import { ToDosPage } from './to-dos-page';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
-import { EditToDoOverlayComponent } from 'edit-to-do-overlay/edit-to-do-overlay.component';
 import { EditToDoOverlay } from './edit-to-do-overlay';
+import { EditToDoOverlayService } from './edit-to-do-overlay';
 import { DashboardCardsModule } from '../dashboard-cards/dashboard-cards.module';
-import { ToDoDashboardCardComponent } from 'to-do-dashboard-card/to-do-dashboard-card.component';
+import { ToDoDashboardCard } from './to-do-dashboard-card';
 
 const declarations = [
-  EditToDoOverlayComponent,
-  ToDosPageComponent,
-  ToDoDashboardCardComponent
+  EditToDoOverlay,
+  ToDosPage,
+  ToDoDashboardCard
 ];
 
 const providers = [
   ToDoService,
-  EditToDoOverlay
+  EditToDoOverlayService
 ];
 
 @NgModule({
