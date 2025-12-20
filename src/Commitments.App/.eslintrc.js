@@ -39,5 +39,10 @@ module.exports = {
       extends: ['plugin:@angular-eslint/template/recommended'],
       rules: {},
     },
+    {
+      files: ['*.stories.ts'],
+      extends: ['plugin:storybook/recommended'],
+      rules: {},
+    },
   ],
 };

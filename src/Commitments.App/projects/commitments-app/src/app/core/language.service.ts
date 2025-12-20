@@ -21,7 +21,7 @@ export class LanguageService {
     );
   }
 
-  private readonly _getBrowserLanguage() {
+  private _getBrowserLanguage() {
     if (['en', 'fr'].indexOf(this._translateService.getBrowserLang()) > -1)
       return this._translateService.getBrowserLang();
     return null;

@@ -47,3 +47,9 @@ playwright/.cache/
 .DS_Store
 Thumbs.db
 
+# Angular cache
+.angular/
+
+# Storybook
+storybook-static/
+

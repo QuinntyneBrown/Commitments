@@ -1,0 +1,17 @@
+{
+  "extends": "../tsconfig.app.json",
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "types": ["node"],
+    "skipLibCheck": true
+  },
+  "exclude": [
+    "../src/test.ts",
+    "../src/**/*.spec.ts"
+  ],
+  "include": [
+    "../src/stories/**/*",
+    "../src/styles.scss",
+    "./*"
+  ]
+}

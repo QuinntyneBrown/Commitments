@@ -3,7 +3,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs';

@@ -10,7 +10,8 @@ import { accessTokenKey, baseUrl } from './constants';
 
 @Injectable()
 export class HubClient {
-  private readonly _connection: HubConnection;
+  private _connection: HubConnection | null = null;
+  private _connect: Promise<void> | null = null;
   public messages$: Subject<any> = new Subject();
 
   constructor(
@@ -19,12 +20,10 @@ export class HubClient {
     private readonly _ngZone: NgZone
   ) {}
 
-  private readonly _connect: Promise<any>;
-
-  public connect(): Promise<any> {
+  public connect(): Promise<void> {
     if (this._connect) return this._connect;
 
-    this._connect = new Promise(resolve => {
+    this._connect = new Promise<void>(resolve => {
 
       const options: IHttpConnectionOptions = { };
 
