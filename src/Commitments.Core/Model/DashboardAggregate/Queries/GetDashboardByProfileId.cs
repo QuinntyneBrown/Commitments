@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 
-namespace Commitments.Core.AggregateModel.DashboardAggregate.Queries;
+namespace Commitments.Core.Model.DashboardAggregate.Queries;
 
 public class GetDashboardByProfileIdRequest : IRequest<GetDashboardByProfileIdResponse>
 {

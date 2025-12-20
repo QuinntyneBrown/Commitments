@@ -9,7 +9,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Commitments.Core.AggregateModel.FrequencyAggregate.Queries;
+namespace Commitments.Core.Model.FrequencyAggregate.Queries;
 
 public class GetFrequenciesRequest : IRequest<GetFrequenciesResponse> { }
 

@@ -7,7 +7,7 @@ using System.Threading;
 using FluentValidation;
 
 
-namespace Commitments.Core.AggregateModel.FrequencyAggregate.Queries;
+namespace Commitments.Core.Model.FrequencyAggregate.Queries;
 
 public class GetFrequencyByIdValidator : AbstractValidator<GetFrequencyByIdRequest>
 {

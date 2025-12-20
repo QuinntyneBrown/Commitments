@@ -1,10 +1,10 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Core.AggregateModel.DashboardCardAggregate;
-using Commitments.Core.AggregateModel.UserAggregate;
+using Commitments.Core.Model.DashboardCardAggregate;
+using Commitments.Core.Model.UserAggregate;
 
-namespace Commitments.Core.AggregateModel.DashboardAggregate;
+namespace Commitments.Core.Model.DashboardAggregate;
 
 public class Dashboard
 {

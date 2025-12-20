@@ -1,11 +1,11 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Core.AggregateModel.BehaviourAggregate;
+using Commitments.Core.Model.BehaviourAggregate;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Commitments.Core.AggregateModel.CommitmentAggregate;
+namespace Commitments.Core.Model.CommitmentAggregate;
 
 public class Commitment : BaseEntity
 {

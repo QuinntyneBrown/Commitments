@@ -1,8 +1,8 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Core.AggregateModel.BehaviourTypeAggregate.Commands;
-using Commitments.Core.AggregateModel.BehaviourTypeAggregate.Queries;
+using Commitments.Core.Model.BehaviourTypeAggregate.Commands;
+using Commitments.Core.Model.BehaviourTypeAggregate.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;

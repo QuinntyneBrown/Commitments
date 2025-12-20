@@ -3,7 +3,7 @@
 
 using MediatR;
 
-namespace Commitments.Core.AggregateModel.DigitalAssetAggregate.Commands;
+namespace Commitments.Core.Model.DigitalAssetAggregate.Commands;
 
 public class UploadDigitalAssetRequest : IRequest<UploadDigitalAssetResponse>
 {

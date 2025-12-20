@@ -1,14 +1,14 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Core.AggregateModel;
+using Commitments.Core.Model;
 using FluentValidation;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace Commitments.Core.AggregateModel.BehaviourTypeAggregate.Commands;
+namespace Commitments.Core.Model.BehaviourTypeAggregate.Commands;
 
 public class SaveBehaviourTypeCommandValidator : AbstractValidator<SaveBehaviourTypeRequest>
 {

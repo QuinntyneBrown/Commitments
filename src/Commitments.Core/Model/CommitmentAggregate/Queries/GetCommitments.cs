@@ -9,7 +9,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Commitments.Core.AggregateModel.CommitmentAggregate.Queries;
+namespace Commitments.Core.Model.CommitmentAggregate.Queries;
 
 public class GetCommitmentsRequest : IRequest<GetCommitmentsResponse> { }
 

@@ -5,11 +5,11 @@ using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core.AggregateModel;
+using Commitments.Core.Model;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Commitments.Core.AggregateModel.FrequencyAggregate.Commands;
+namespace Commitments.Core.Model.FrequencyAggregate.Commands;
 
 public class SaveFrequencyCommandValidator : AbstractValidator<SaveFrequencyRequest>
 {

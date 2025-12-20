@@ -2,9 +2,9 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using System.Collections.Generic;
-using Commitments.Core.AggregateModel.BehaviourAggregate;
+using Commitments.Core.Model.BehaviourAggregate;
 
-namespace Commitments.Core.AggregateModel.BehaviourTypeAggregate;
+namespace Commitments.Core.Model.BehaviourTypeAggregate;
 
 public class BehaviourType : BaseEntity
 {

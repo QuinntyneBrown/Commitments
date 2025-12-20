@@ -7,7 +7,7 @@ using System.Threading;
 using FluentValidation;
 
 
-namespace Commitments.Core.AggregateModel.CommitmentAggregate.Queries;
+namespace Commitments.Core.Model.CommitmentAggregate.Queries;
 
 public class GetCommitmentByIdValidator : AbstractValidator<GetCommitmentByIdRequest>
 {

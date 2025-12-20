@@ -5,10 +5,10 @@ using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core.AggregateModel;
+using Commitments.Core.Model;
 
 
-namespace Commitments.Core.AggregateModel.BehaviourAggregate.Commands;
+namespace Commitments.Core.Model.BehaviourAggregate.Commands;
 
 public class RemoveBehaviourCommandValidator : AbstractValidator<RemoveBehaviourRequest>
 {

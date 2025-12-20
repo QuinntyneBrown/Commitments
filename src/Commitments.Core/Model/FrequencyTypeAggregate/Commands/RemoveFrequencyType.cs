@@ -5,10 +5,10 @@ using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core.AggregateModel;
+using Commitments.Core.Model;
 
 
-namespace Commitments.Core.AggregateModel.FrequencyTypeAggregate.Commands;
+namespace Commitments.Core.Model.FrequencyTypeAggregate.Commands;
 
 public class RemoveFrequencyTypeCommandValidator : AbstractValidator<RemoveFrequencyTypeRequest>
 {

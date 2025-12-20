@@ -2,9 +2,9 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments.Api.Controllers;
-using Commitments.Core.AggregateModel.FrequencyAggregate;
-using Commitments.Core.AggregateModel.FrequencyAggregate.Commands;
-using Commitments.Core.AggregateModel.FrequencyAggregate.Queries;
+using Commitments.Core.Model.FrequencyAggregate;
+using Commitments.Core.Model.FrequencyAggregate.Commands;
+using Commitments.Core.Model.FrequencyAggregate.Queries;
 using FluentAssertions;
 using MediatR;
 using Moq;

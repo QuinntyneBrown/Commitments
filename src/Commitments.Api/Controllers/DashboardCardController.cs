@@ -1,8 +1,8 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Core.AggregateModel.DashboardCardAggregate.Commands;
-using Commitments.Core.AggregateModel.DashboardCardAggregate.Queries;
+using Commitments.Core.Model.DashboardCardAggregate.Commands;
+using Commitments.Core.Model.DashboardCardAggregate.Queries;
 using System.Net;
 using System.Threading.Tasks;
 using MediatR;

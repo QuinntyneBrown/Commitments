@@ -1,9 +1,9 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Core.AggregateModel.FrequencyTypeAggregate;
+using Commitments.Core.Model.FrequencyTypeAggregate;
 
-namespace Commitments.Core.AggregateModel.FrequencyAggregate;
+namespace Commitments.Core.Model.FrequencyAggregate;
 
 public class FrequencyDto
 {

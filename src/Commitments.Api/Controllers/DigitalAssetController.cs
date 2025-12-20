@@ -1,8 +1,8 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Core.AggregateModel.DigitalAssetAggregate.Commands;
-using Commitments.Core.AggregateModel.DigitalAssetAggregate.Queries;
+using Commitments.Core.Model.DigitalAssetAggregate.Commands;
+using Commitments.Core.Model.DigitalAssetAggregate.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

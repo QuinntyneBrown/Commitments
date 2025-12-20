@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using System.Collections.Generic;
-using Commitments.Core.AggregateModel.CommitmentAggregate;
-using Commitments.Core.AggregateModel.FrequencyTypeAggregate;
+using Commitments.Core.Model.CommitmentAggregate;
+using Commitments.Core.Model.FrequencyTypeAggregate;
 
-namespace Commitments.Core.AggregateModel.FrequencyAggregate;
+namespace Commitments.Core.Model.FrequencyAggregate;
 
 public class BaseFrequency : BaseEntity
 {

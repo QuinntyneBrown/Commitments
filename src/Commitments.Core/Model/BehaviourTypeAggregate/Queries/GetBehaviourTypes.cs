@@ -9,7 +9,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Commitments.Core.AggregateModel.BehaviourTypeAggregate.Queries;
+namespace Commitments.Core.Model.BehaviourTypeAggregate.Queries;
 
 public class GetBehaviourTypesRequest : IRequest<GetBehaviourTypesResponse> { }
 

@@ -4,7 +4,7 @@
 using Commitments.Core.Interfaces;
 
 
-namespace Commitments.Core.AggregateModel;
+namespace Commitments.Core.Model;
 
 public class BaseEntity : ILoggable
 {

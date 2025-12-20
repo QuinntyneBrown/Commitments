@@ -2,9 +2,9 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments.Api.Controllers;
-using Commitments.Core.AggregateModel.CardAggregate;
-using Commitments.Core.AggregateModel.CardAggregate.Commands;
-using Commitments.Core.AggregateModel.CardAggregate.Queries;
+using Commitments.Core.Model.CardAggregate;
+using Commitments.Core.Model.CardAggregate.Commands;
+using Commitments.Core.Model.CardAggregate.Queries;
 using FluentAssertions;
 using MediatR;
 using Moq;

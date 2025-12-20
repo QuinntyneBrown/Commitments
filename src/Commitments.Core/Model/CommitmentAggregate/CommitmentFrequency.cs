@@ -2,9 +2,9 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 
-using Commitments.Core.AggregateModel.FrequencyAggregate;
+using Commitments.Core.Model.FrequencyAggregate;
 
-namespace Commitments.Core.AggregateModel.CommitmentAggregate;
+namespace Commitments.Core.Model.CommitmentAggregate;
 
 public class CommitmentFrequency
 {

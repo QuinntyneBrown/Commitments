@@ -1,12 +1,12 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Core.AggregateModel.CardAggregate;
-using Commitments.Core.AggregateModel.CardLayoutAggregate;
-using Commitments.Core.AggregateModel.DashboardAggregate;
+using Commitments.Core.Model.CardAggregate;
+using Commitments.Core.Model.CardLayoutAggregate;
+using Commitments.Core.Model.DashboardAggregate;
 using Newtonsoft.Json.Linq;
 
-namespace Commitments.Core.AggregateModel.DashboardCardAggregate.Commands;
+namespace Commitments.Core.Model.DashboardCardAggregate.Commands;
 
 public class UpdateDashboardCardRequestValidator : AbstractValidator<UpdateDashboardCardRequest> { }
 

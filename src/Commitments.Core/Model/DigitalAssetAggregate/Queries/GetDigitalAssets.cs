@@ -4,7 +4,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.Core.AggregateModel.DigitalAssetAggregate.Queries;
+namespace Commitments.Core.Model.DigitalAssetAggregate.Queries;
 
 public class GetDigitalAssetsRequest : IRequest<GetDigitalAssetsResponse> { }
 

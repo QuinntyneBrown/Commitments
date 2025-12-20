@@ -4,7 +4,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 
-namespace Commitments.Core.AggregateModel.CommitmentAggregate;
+namespace Commitments.Core.Model.CommitmentAggregate;
 
 public class CommitmentPreCondition
 {

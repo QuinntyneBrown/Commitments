@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace Commitments.Core.AggregateModel.BehaviourTypeAggregate.Commands;
+namespace Commitments.Core.Model.BehaviourTypeAggregate.Commands;
 
 public class RemoveBehaviourTypeCommandValidator : AbstractValidator<RemoveBehaviourTypeRequest>
 {

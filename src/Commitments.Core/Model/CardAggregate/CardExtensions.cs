@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Commitments.Core.AggregateModel.CardAggregate;
+namespace Commitments.Core.Model.CardAggregate;
 
 public static class CardExtensions
 {

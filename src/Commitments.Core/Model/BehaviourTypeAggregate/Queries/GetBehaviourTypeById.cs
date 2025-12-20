@@ -7,7 +7,7 @@ using System.Threading;
 using FluentValidation;
 
 
-namespace Commitments.Core.AggregateModel.BehaviourTypeAggregate.Queries;
+namespace Commitments.Core.Model.BehaviourTypeAggregate.Queries;
 
 public class GetBehaviourTypeByIdValidator : AbstractValidator<GetBehaviourTypeByIdRequest>
 {

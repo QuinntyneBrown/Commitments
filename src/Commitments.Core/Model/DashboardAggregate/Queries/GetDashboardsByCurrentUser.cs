@@ -3,7 +3,7 @@
 
 using Microsoft.AspNetCore.Http;
 
-namespace Commitments.Core.AggregateModel.DashboardAggregate.Queries;
+namespace Commitments.Core.Model.DashboardAggregate.Queries;
 
 public class GetDashboardsByCurrentUserRequest : IRequest<GetDashboardsByCurrentUserResponse> { }
 

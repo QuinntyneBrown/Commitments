@@ -2,9 +2,9 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments.Api.Controllers;
-using Commitments.Core.AggregateModel.DashboardAggregate;
-using Commitments.Core.AggregateModel.DashboardAggregate.Commands;
-using Commitments.Core.AggregateModel.DashboardAggregate.Queries;
+using Commitments.Core.Model.DashboardAggregate;
+using Commitments.Core.Model.DashboardAggregate.Commands;
+using Commitments.Core.Model.DashboardAggregate.Queries;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Http;

@@ -5,7 +5,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Commitments.Core.AggregateModel.DigitalAssetAggregate.Commands;
+namespace Commitments.Core.Model.DigitalAssetAggregate.Commands;
 
 public class UpdateDigitalAssetRequestValidator : AbstractValidator<UpdateDigitalAssetRequest>
 {

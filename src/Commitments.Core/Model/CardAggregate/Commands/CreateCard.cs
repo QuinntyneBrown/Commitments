@@ -5,7 +5,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace Commitments.Core.AggregateModel.CardAggregate.Commands;
+namespace Commitments.Core.Model.CardAggregate.Commands;
 
 public class CreateCardRequestValidator : AbstractValidator<CreateCardRequest>
 {

@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace Commitments.Core.AggregateModel.BehaviourAggregate.Commands;
+namespace Commitments.Core.Model.BehaviourAggregate.Commands;
 
 public class SaveBehaviourCommandValidator : AbstractValidator<SaveBehaviourRequest>
 {

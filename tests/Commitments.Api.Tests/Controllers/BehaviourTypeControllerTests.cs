@@ -2,9 +2,9 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments.Api.Controllers;
-using Commitments.Core.AggregateModel.BehaviourTypeAggregate;
-using Commitments.Core.AggregateModel.BehaviourTypeAggregate.Commands;
-using Commitments.Core.AggregateModel.BehaviourTypeAggregate.Queries;
+using Commitments.Core.Model.BehaviourTypeAggregate;
+using Commitments.Core.Model.BehaviourTypeAggregate.Commands;
+using Commitments.Core.Model.BehaviourTypeAggregate.Queries;
 using FluentAssertions;
 using MediatR;
 using Moq;

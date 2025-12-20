@@ -8,7 +8,7 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Commitments.Core.AggregateModel.ActivityAggregate.Queries;
+namespace Commitments.Core.Model.ActivityAggregate.Queries;
 
 public class GetActivityByIdValidator : AbstractValidator<GetActivityByIdRequest>
 {

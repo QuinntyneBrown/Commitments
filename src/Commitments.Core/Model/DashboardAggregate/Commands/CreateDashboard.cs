@@ -1,9 +1,9 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Core.AggregateModel.DashboardCardAggregate;
+using Commitments.Core.Model.DashboardCardAggregate;
 
-namespace Commitments.Core.AggregateModel.DashboardAggregate.Commands;
+namespace Commitments.Core.Model.DashboardAggregate.Commands;
 
 public class CreateDashboardRequestValidator : AbstractValidator<CreateDashboardRequest> { }
 

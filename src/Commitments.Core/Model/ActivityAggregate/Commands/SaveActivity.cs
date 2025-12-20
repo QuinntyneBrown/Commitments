@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace Commitments.Core.AggregateModel.ActivityAggregate.Commands;
+namespace Commitments.Core.Model.ActivityAggregate.Commands;
 
 public class SaveActivityCommandValidator : AbstractValidator<SaveActivityRequest>
 {

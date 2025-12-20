@@ -3,7 +3,7 @@
 
 using Newtonsoft.Json.Linq;
 
-namespace Commitments.Core.AggregateModel.DashboardCardAggregate.Commands;
+namespace Commitments.Core.Model.DashboardCardAggregate.Commands;
 
 public class CreateDashboardCardRequestValidator : AbstractValidator<CreateDashboardCardRequest> { }
 

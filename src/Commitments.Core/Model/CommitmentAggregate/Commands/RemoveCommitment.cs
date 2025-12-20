@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Threading;
 
 
-namespace Commitments.Core.AggregateModel.CommitmentAggregate.Commands;
+namespace Commitments.Core.Model.CommitmentAggregate.Commands;
 
 public class RemoveCommitmentCommandValidator : AbstractValidator<RemoveCommitmentRequest>
 {
