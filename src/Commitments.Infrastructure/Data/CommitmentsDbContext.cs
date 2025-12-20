@@ -13,6 +13,8 @@ using Commitments.Core.AggregateModel.DashboardAggregate;
 using Commitments.Core.AggregateModel.DashboardCardAggregate;
 using Commitments.Core.AggregateModel.FrequencyAggregate;
 using Commitments.Core.AggregateModel.FrequencyTypeAggregate;
+using Commitments.Core.AggregateModel.UserAggregate;
+using Commitments.Core.AggregateModel.DigitalAssetAggregate;
 using Commitments.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -42,6 +44,8 @@ public class CommitmentsDbContext : DbContext, ICommitmentsDbContext
     public DbSet<DashboardCard> DashboardCards { get; private set; }
     public DbSet<Profile> Profiles { get; private set; }
     public DbSet<Commitment> ProfileCommitments { get; private set; }
+    public DbSet<User> Users { get; private set; }
+    public DbSet<DigitalAsset> DigitalAssets { get; private set; }
 
     private void OnSavingChanges(object sender, SavingChangesEventArgs e)
     {
@@ -84,6 +88,9 @@ public class CommitmentsDbContext : DbContext, ICommitmentsDbContext
             .HasQueryFilter(e => !e.IsDeleted);
 
         modelBuilder.Entity<Profile>()
+            .HasQueryFilter(e => !e.IsDeleted);
+
+        modelBuilder.Entity<User>()
             .HasQueryFilter(e => !e.IsDeleted);
 
         modelBuilder.Entity<CommitmentFrequency>()

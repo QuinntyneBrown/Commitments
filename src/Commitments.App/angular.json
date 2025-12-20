@@ -3,41 +3,41 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ClientApp": {
+    "commitments-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
-      "root": "",
-      "sourceRoot": "src",
+      "root": "projects/commitments-app",
+      "sourceRoot": "projects/commitments-app/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/ClientApp",
-            "index": "src/index.html",
-            "browser": "src/main.ts",
+            "outputPath": "dist/commitments-app",
+            "index": "projects/commitments-app/src/index.html",
+            "browser": "projects/commitments-app/src/main.ts",
             "polyfills": [
               "zone.js"
             ],
-            "tsConfig": "src/tsconfig.app.json",
+            "tsConfig": "projects/commitments-app/tsconfig.app.json",
             "assets": [
               {
                 "glob": "favicon.ico",
-                "input": "src",
+                "input": "projects/commitments-app/src",
                 "output": "/"
               },
               {
                 "glob": "**/*",
-                "input": "src/assets",
+                "input": "projects/commitments-app/src/assets",
                 "output": "/assets"
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "projects/commitments-app/src/styles.scss"
             ],
             "scripts": []
           },
@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ClientApp:build:production"
+              "buildTarget": "commitments-app:build:production"
             },
             "development": {
-              "buildTarget": "ClientApp:build:development"
+              "buildTarget": "commitments-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:jest",
           "options": {
-            "tsConfig": "src/tsconfig.spec.json",
+            "tsConfig": "projects/commitments-app/tsconfig.spec.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing"
@@ -94,14 +94,15 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
+              "projects/commitments-app/src/**/*.ts",
+              "projects/commitments-app/src/**/*.html"
             ]
           }
         }
       }
     }
   },
+  "defaultProject": "commitments-app",
   "cli": {
     "analytics": false
   }

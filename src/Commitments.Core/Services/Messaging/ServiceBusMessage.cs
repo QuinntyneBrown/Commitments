@@ -8,6 +8,10 @@ namespace Commitments.Core.Services.Messaging;
 [MessagePackObject]
 public class ServiceBusMessage : IServiceBusMessage
 {
+    public ServiceBusMessage()
+    {
+        
+    }
     public ServiceBusMessage(IDictionary<string, string> messageAttributes, byte[] body)
     {
         MessageAttributes = messageAttributes;

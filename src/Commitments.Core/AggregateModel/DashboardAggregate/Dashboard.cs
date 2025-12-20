@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments.Core.AggregateModel.DashboardCardAggregate;
+using Commitments.Core.AggregateModel.UserAggregate;
 
 namespace Commitments.Core.AggregateModel.DashboardAggregate;
 
@@ -18,5 +19,6 @@ public class Dashboard
     public string Name { get; set; }
     public Guid? UserId { get; set; }
     public Guid? ProfileId { get; set; }
+    public User? User { get; set; }
     public List<DashboardCard> DashboardCards { get; set; }
 }

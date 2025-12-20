@@ -3,6 +3,9 @@
 
 namespace Commitments.Core.Services.Kernel;
 
-public static class Constants {
+public static class Constants
+{
 	public static int ApiPort = 80;
+
+	public const string CorsPolicy = "CorsPolicy";
 }

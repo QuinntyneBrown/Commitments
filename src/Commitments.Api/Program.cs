@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
 using Commitments.Core.Hubs;
-using Kernel;
+using Commitments.Core.Services.Kernel;
 
 Log.Logger = new LoggerConfiguration()
 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)

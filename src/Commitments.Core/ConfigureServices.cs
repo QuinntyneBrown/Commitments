@@ -16,17 +16,17 @@ public static class ConfigureServices
 
         services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblyContaining<ICommitmentsClient>());
 
-        services.AddKernelServices();
+        //services.AddKernelServices();
 
         services.AddSignalR();
 
-        services.AddSecurity(environment, configuration);
+        //services.AddSecurity(environment, configuration);
 
-        services.AddValidation(typeof(ICommitmentsClient));
+        //services.AddValidation(typeof(ICommitmentsClient));
 
-        services.AddMessagingUdpServices();
+        //services.AddMessagingUdpServices();
 
-        services.AddTelemetryServices();
+        //services.AddTelemetryServices();
     }
 
 }

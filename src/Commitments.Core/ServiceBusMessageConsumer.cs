@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using MediatR;
 using System.Linq;
+using Commitments.Core.Services.Messaging;
 
 namespace Commitments.Core;
 

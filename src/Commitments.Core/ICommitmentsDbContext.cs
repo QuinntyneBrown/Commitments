@@ -12,6 +12,8 @@ using Commitments.Core.AggregateModel.DashboardAggregate;
 using Commitments.Core.AggregateModel.DashboardCardAggregate;
 using Commitments.Core.AggregateModel.FrequencyAggregate;
 using Commitments.Core.AggregateModel.FrequencyTypeAggregate;
+using Commitments.Core.AggregateModel.UserAggregate;
+using Commitments.Core.AggregateModel.DigitalAssetAggregate;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,5 +36,7 @@ public interface ICommitmentsDbContext : IDisposable
     DbSet<DashboardCard> DashboardCards { get; }
     DbSet<Commitment> ProfileCommitments { get; }
     DbSet<Profile> Profiles { get; }
+    DbSet<User> Users { get; }
+    DbSet<DigitalAsset> DigitalAssets { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
