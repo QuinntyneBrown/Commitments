@@ -26,7 +26,7 @@ try
 
     builder.Services.AddInfrastructureServices(builder.Configuration.GetConnectionString("DefaultConnection")!);
 
-    builder.Services.AddApiServices();
+    builder.Services.AddApiServices(builder.Configuration);
 
     var app = builder.Build();
 

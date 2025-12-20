@@ -2,9 +2,11 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments.Core.Services.Kernel;
+using Commitments.Core.Settings;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
@@ -12,7 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ConfigureServices
 {
-    public static void AddApiServices(this IServiceCollection services)
+    public static void AddApiServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddControllers(o =>
         {
@@ -60,9 +62,11 @@ public static class ConfigureServices
 
         services.AddHttpContextAccessor();
 
+        var corsSettings = configuration.GetSection(CorsSettings.Section).Get<CorsSettings>() ?? new CorsSettings();
+
         services.AddCors(options => options.AddPolicy(Constants.CorsPolicy,
             builder => builder
-            .WithOrigins("http://localhost:4200")
+            .WithOrigins(corsSettings.Origins)
             .AllowAnyMethod()
             .AllowAnyHeader()
             .SetIsOriginAllowed(isOriginAllowed: _ => true)
