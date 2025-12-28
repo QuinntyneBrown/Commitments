@@ -14,6 +14,7 @@ using Commitments.Core.Model.FrequencyAggregate;
 using Commitments.Core.Model.FrequencyTypeAggregate;
 using Commitments.Core.Model.UserAggregate;
 using Commitments.Core.Model.DigitalAssetAggregate;
+using Commitments.Core.Model.ProfileAggregate;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
