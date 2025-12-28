@@ -1,8 +1,11 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Commitments.Core;
+using Commitments.Core.Model.DigitalAssetAggregate;
 using FluentValidation;
 using MediatR;
+using DigitalAssetEntity = Commitments.Core.Model.DigitalAssetAggregate.DigitalAsset;
 
 namespace Commitments.Api.Features.DigitalAsset;
 
@@ -37,7 +40,7 @@ public class CreateDigitalAssetRequestHandler : IRequestHandler<CreateDigitalAss
 
     public async Task<CreateDigitalAssetResponse> Handle(CreateDigitalAssetRequest request, CancellationToken cancellationToken)
     {
-        var entity = new DigitalAsset
+        var entity = new DigitalAssetEntity
         {
             DigitalAssetId = Guid.NewGuid(),
             Name = request.Name,

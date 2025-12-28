@@ -1,7 +1,14 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Commitments.Core;
+using Commitments.Core.Model.DashboardCardAggregate;
+using Commitments.Core.Services.Kernel;
+using FluentValidation;
+using MediatR;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
+using DashboardCardEntity = Commitments.Core.Model.DashboardCardAggregate.DashboardCard;
 
 namespace Commitments.Api.Features.DashboardCard;
 
@@ -36,7 +43,7 @@ public class CreateDashboardCardRequestHandler : IRequestHandler<CreateDashboard
 
     public async Task<CreateDashboardCardResponse> Handle(CreateDashboardCardRequest request, CancellationToken cancellationToken)
     {
-        var dashboardCard = new DashboardCard();
+        var dashboardCard = new DashboardCardEntity();
 
         _context.DashboardCards.Add(dashboardCard);
 

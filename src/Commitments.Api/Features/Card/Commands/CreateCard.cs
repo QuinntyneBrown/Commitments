@@ -1,9 +1,13 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Commitments.Core;
+using Commitments.Core.Model.CardAggregate;
+using Commitments.Core.Services.Kernel;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using CardEntity = Commitments.Core.Model.CardAggregate.Card;
 
 namespace Commitments.Api.Features.Card;
 
@@ -43,7 +47,7 @@ public class CreateCardRequestHandler : IRequestHandler<CreateCardRequest, Creat
 
     public async Task<CreateCardResponse> Handle(CreateCardRequest request, CancellationToken cancellationToken)
     {
-        var card = new Card();
+        var card = new CardEntity();
         _context.Cards.Add(card);
         card.Name = request.Name;
         card.Name = request.Description;

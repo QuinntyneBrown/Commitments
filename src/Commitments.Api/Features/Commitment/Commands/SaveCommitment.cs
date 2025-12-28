@@ -5,8 +5,11 @@ using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
+using Commitments.Core;
 using Commitments.Core.Model;
+using Commitments.Core.Model.CommitmentAggregate;
 using Microsoft.EntityFrameworkCore;
+using CommitmentEntity = Commitments.Core.Model.CommitmentAggregate.Commitment;
 
 
 namespace Commitments.Api.Features.Commitment;
@@ -42,7 +45,7 @@ public class SaveCommitmentCommandHandler : IRequestHandler<SaveCommitmentReques
             .Include("CommitmentFrequencies.Frequency")
             .SingleOrDefaultAsync(x => x.CommitmentId == request.Commitment.CommitmentId);
 
-        if (commitment == null) _context.Commitments.Add(commitment = new Commitment());
+        if (commitment == null) _context.Commitments.Add(commitment = new CommitmentEntity());
 
         commitment.BehaviourId = request.Commitment.BehaviourId;
         commitment.ProfileId = request.Commitment.ProfileId;

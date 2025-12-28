@@ -1,11 +1,14 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Commitments.Core;
+using Commitments.Core.Model;
+using Commitments.Core.Model.FrequencyTypeAggregate;
 using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core.Model;
+using FrequencyTypeEntity = Commitments.Core.Model.FrequencyTypeAggregate.FrequencyType;
 
 
 namespace Commitments.Api.Features.FrequencyType;
@@ -38,7 +41,7 @@ public class SaveFrequencyTypeCommandHandler : IRequestHandler<SaveFrequencyType
     {
         var frequencyType = await _context.FrequencyTypes.FindAsync(request.FrequencyType.FrequencyTypeId);
 
-        if (frequencyType == null) _context.FrequencyTypes.Add(frequencyType = new FrequencyType());
+        if (frequencyType == null) _context.FrequencyTypes.Add(frequencyType = new FrequencyTypeEntity());
 
         frequencyType.Name = request.FrequencyType.Name;
 

@@ -1,6 +1,12 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Commitments.Core;
+using Commitments.Core.Services.Kernel;
+using FluentValidation;
+using MediatR;
+using Microsoft.Extensions.Logging;
+
 namespace Commitments.Api.Features.CardLayout;
 
 public class DeleteCardLayoutRequestValidator : AbstractValidator<DeleteCardLayoutRequest> { }

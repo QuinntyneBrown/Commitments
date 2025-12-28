@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments.Core.Model.BehaviourTypeAggregate;
-using Commitments.Api.Features.BehaviourType;
+using BehaviourTypeEntity = Commitments.Core.Model.BehaviourTypeAggregate.BehaviourType;
 
 namespace Commitments.Api.Features.BehaviourType;
 
@@ -11,7 +11,7 @@ public class BehaviourTypeDto
     public Guid BehaviourTypeId { get; set; }
     public string Name { get; set; }
 
-    public static BehaviourTypeDto FromBehaviourType(BehaviourType behaviourType)
+    public static BehaviourTypeDto FromBehaviourType(BehaviourTypeEntity behaviourType)
     {
         var model = new BehaviourTypeDto();
         model.BehaviourTypeId = behaviourType.BehaviourTypeId;

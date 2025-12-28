@@ -1,9 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npx ng:*)",
-      "Bash(tree:*)",
-      "Bash(cat:*)"
+      "Bash(git checkout:*)",
+      "Bash(src/Commitments.Api/Features/FrequencyType/Commands/SaveFrequencyType.cs )",
+      "Bash(src/Commitments.Api/Features/DigitalAsset/Commands/CreateDigitalAsset.cs )",
+      "Bash(src/Commitments.Api/Features/DigitalAsset/Commands/UploadDigitalAsset.cs)"
     ],
     "deny": [],
     "ask": []

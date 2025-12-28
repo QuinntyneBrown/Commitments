@@ -1,10 +1,13 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Commitments.Core;
+using Commitments.Core.Model.ActivityAggregate;
 using FluentValidation;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using ActivityEntity = Commitments.Core.Model.ActivityAggregate.Activity;
 
 
 namespace Commitments.Api.Features.Activity;
@@ -37,7 +40,7 @@ public class SaveActivityCommandHandler : IRequestHandler<SaveActivityRequest, S
     {
         var activity = await _context.Activities.FindAsync(request.Activity.ActivityId);
 
-        if (activity == null) _context.Activities.Add(activity = new Activity());
+        if (activity == null) _context.Activities.Add(activity = new ActivityEntity());
 
         activity.BehaviourId = request.Activity.BehaviourId;
         activity.ProfileId = request.Activity.ProfileId;

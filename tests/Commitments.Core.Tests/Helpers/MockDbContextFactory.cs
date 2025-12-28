@@ -16,6 +16,7 @@ using Commitments.Core.Model.FrequencyAggregate;
 using Commitments.Core.Model.FrequencyTypeAggregate;
 using Commitments.Core.Model.UserAggregate;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using Moq;
 
 namespace Commitments.Core.Tests.Helpers;

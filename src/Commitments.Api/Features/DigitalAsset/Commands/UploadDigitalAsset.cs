@@ -1,7 +1,10 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Commitments.Core;
+using Commitments.Core.Model.DigitalAssetAggregate;
 using MediatR;
+using DigitalAssetEntity = Commitments.Core.Model.DigitalAssetAggregate.DigitalAsset;
 
 namespace Commitments.Api.Features.DigitalAsset;
 
@@ -28,7 +31,7 @@ public class UploadDigitalAssetRequestHandler : IRequestHandler<UploadDigitalAss
 
     public async Task<UploadDigitalAssetResponse> Handle(UploadDigitalAssetRequest request, CancellationToken cancellationToken)
     {
-        var entity = new DigitalAsset
+        var entity = new DigitalAssetEntity
         {
             DigitalAssetId = Guid.NewGuid(),
             Bytes = request.Bytes,

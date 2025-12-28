@@ -2,9 +2,11 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments.Core.Model.BehaviourAggregate;
+using Commitments.Core.Model.CommitmentAggregate;
 using Commitments.Api.Features.Behaviour;
 using System.Collections.Generic;
 using System.Linq;
+using CommitmentEntity = Commitments.Core.Model.CommitmentAggregate.Commitment;
 
 
 namespace Commitments.Api.Features.Commitment;
@@ -18,7 +20,7 @@ public class CommitmentDto
     public ICollection<CommitmentFrequencyDto> CommitmentFrequencies { get; set; }
     = new HashSet<CommitmentFrequencyDto>();
 
-    public static CommitmentDto FromCommitment(Commitment commitment)
+    public static CommitmentDto FromCommitment(CommitmentEntity commitment)
     {
         var model = new CommitmentDto();
         model.CommitmentId = commitment.CommitmentId;

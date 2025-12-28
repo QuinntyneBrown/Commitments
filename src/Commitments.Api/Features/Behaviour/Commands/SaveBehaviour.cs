@@ -1,11 +1,14 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Commitments.Core;
 using Commitments.Core.Extensions;
+using Commitments.Core.Model.BehaviourAggregate;
 using FluentValidation;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using BehaviourEntity = Commitments.Core.Model.BehaviourAggregate.Behaviour;
 
 
 namespace Commitments.Api.Features.Behaviour;
@@ -38,7 +41,7 @@ public class SaveBehaviourCommandHandler : IRequestHandler<SaveBehaviourRequest,
     {
         var behaviour = await _context.Behaviours.FindAsync(request.Behaviour.BehaviourId);
 
-        if (behaviour == null) _context.Behaviours.Add(behaviour = new Behaviour());
+        if (behaviour == null) _context.Behaviours.Add(behaviour = new BehaviourEntity());
 
         behaviour.Name = request.Behaviour.Name;
         behaviour.Slug = request.Behaviour.Name.GenerateSlug();

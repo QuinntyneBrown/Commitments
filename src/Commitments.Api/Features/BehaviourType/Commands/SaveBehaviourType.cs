@@ -1,11 +1,14 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Commitments.Core;
 using Commitments.Core.Model;
+using Commitments.Core.Model.BehaviourTypeAggregate;
 using FluentValidation;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using BehaviourTypeEntity = Commitments.Core.Model.BehaviourTypeAggregate.BehaviourType;
 
 
 namespace Commitments.Api.Features.BehaviourType;
@@ -38,7 +41,7 @@ public class SaveBehaviourTypeCommandHandler : IRequestHandler<SaveBehaviourType
     {
         var behaviourType = await _context.BehaviourTypes.FindAsync(request.BehaviourType.BehaviourTypeId);
 
-        if (behaviourType == null) _context.BehaviourTypes.Add(behaviourType = new BehaviourType());
+        if (behaviourType == null) _context.BehaviourTypes.Add(behaviourType = new BehaviourTypeEntity());
 
         behaviourType.Name = request.BehaviourType.Name;
 

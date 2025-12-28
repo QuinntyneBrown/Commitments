@@ -1,8 +1,10 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Commitments.Core.Model.BehaviourAggregate;
 using Commitments.Core.Model.BehaviourTypeAggregate;
 using Commitments.Api.Features.BehaviourType;
+using BehaviourEntity = Commitments.Core.Model.BehaviourAggregate.Behaviour;
 
 namespace Commitments.Api.Features.Behaviour;
 
@@ -16,7 +18,7 @@ public class BehaviourDto
     public bool IsDesired { get; set; }
 
     public BehaviourTypeDto BehaviourType { get; set; }
-    public static BehaviourDto FromBehaviour(Behaviour behaviour)
+    public static BehaviourDto FromBehaviour(BehaviourEntity behaviour)
         => new BehaviourDto
         {
             BehaviourId = behaviour.BehaviourId,

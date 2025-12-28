@@ -1,12 +1,15 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Commitments.Core;
+using Commitments.Core.Model;
+using Commitments.Core.Model.FrequencyAggregate;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core.Model;
-using Microsoft.EntityFrameworkCore;
+using FrequencyEntity = Commitments.Core.Model.FrequencyAggregate.Frequency;
 
 
 namespace Commitments.Api.Features.Frequency;
@@ -41,7 +44,7 @@ public class SaveFrequencyCommandHandler : IRequestHandler<SaveFrequencyRequest,
             .Include(x => x.FrequencyType)
             .SingleOrDefaultAsync(x => x.FrequencyId == request.Frequency.FrequencyId);
 
-        if (frequency == null) _context.Frequencies.Add(frequency = new Frequency());
+        if (frequency == null) _context.Frequencies.Add(frequency = new FrequencyEntity());
 
         frequency.Frequency = request.Frequency.Frequency;
 
