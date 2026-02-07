@@ -3,8 +3,6 @@
 
 using Commitments.Core.Model.BehaviourTypeAggregate;
 using Commitments.Core.Model.FrequencyTypeAggregate;
-using System.Linq;
-
 
 namespace Commitments.Infrastructure.Data;
 

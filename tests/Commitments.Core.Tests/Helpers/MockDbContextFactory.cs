@@ -2,19 +2,12 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments.Core;
-using Commitments.Core.Model;
 using Commitments.Core.Model.ActivityAggregate;
 using Commitments.Core.Model.BehaviourAggregate;
 using Commitments.Core.Model.BehaviourTypeAggregate;
-using Commitments.Core.Model.CardAggregate;
-using Commitments.Core.Model.CardLayoutAggregate;
 using Commitments.Core.Model.CommitmentAggregate;
-using Commitments.Core.Model.DashboardAggregate;
-using Commitments.Core.Model.DashboardCardAggregate;
-using Commitments.Core.Model.DigitalAssetAggregate;
 using Commitments.Core.Model.FrequencyAggregate;
 using Commitments.Core.Model.FrequencyTypeAggregate;
-using Commitments.Core.Model.UserAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Moq;
@@ -35,14 +28,6 @@ public static class MockDbContextFactory
         mockContext.Setup(c => c.CommitmentFrequencies).Returns(CreateMockDbSet<CommitmentFrequency>().Object);
         mockContext.Setup(c => c.Frequencies).Returns(CreateMockDbSet<Frequency>().Object);
         mockContext.Setup(c => c.FrequencyTypes).Returns(CreateMockDbSet<FrequencyType>().Object);
-        mockContext.Setup(c => c.Cards).Returns(CreateMockDbSet<Card>().Object);
-        mockContext.Setup(c => c.CardLayouts).Returns(CreateMockDbSet<CardLayout>().Object);
-        mockContext.Setup(c => c.Dashboards).Returns(CreateMockDbSet<Dashboard>().Object);
-        mockContext.Setup(c => c.DashboardCards).Returns(CreateMockDbSet<DashboardCard>().Object);
-        mockContext.Setup(c => c.Profiles).Returns(CreateMockDbSet<Profile>().Object);
-        mockContext.Setup(c => c.ProfileCommitments).Returns(CreateMockDbSet<Commitment>().Object);
-        mockContext.Setup(c => c.Users).Returns(CreateMockDbSet<User>().Object);
-        mockContext.Setup(c => c.DigitalAssets).Returns(CreateMockDbSet<DigitalAsset>().Object);
         mockContext.Setup(c => c.SaveChangesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(1);
 
         return mockContext;

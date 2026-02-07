@@ -27,16 +27,9 @@ public class CommitmentControllerTests
         _mockSender = new Mock<ISender>();
         _mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
 
-        var claims = new List<Claim>
-        {
-            new Claim("ProfileId", _profileId.ToString())
-        };
-        var identity = new ClaimsIdentity(claims, "test");
-        var principal = new ClaimsPrincipal(identity);
-
-        var mockHttpContext = new Mock<HttpContext>();
-        mockHttpContext.Setup(c => c.User).Returns(principal);
-        _mockHttpContextAccessor.Setup(a => a.HttpContext).Returns(mockHttpContext.Object);
+        var httpContext = new DefaultHttpContext();
+        httpContext.Request.Headers["ProfileId"] = _profileId.ToString();
+        _mockHttpContextAccessor.Setup(a => a.HttpContext).Returns(httpContext);
 
         _controller = new CommitmentController(_mockHttpContextAccessor.Object, _mockSender.Object);
     }

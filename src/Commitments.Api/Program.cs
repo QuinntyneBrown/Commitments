@@ -3,12 +3,11 @@
 
 using Commitments.Core;
 using Commitments.Infrastructure.Data;
-using Commitments.Infrastructure;
-using Microsoft.EntityFrameworkCore;
+using Commitments.Shared;
+using FluentValidation;
+using MediatR;
 using Serilog;
 using Serilog.Events;
-using Commitments.Core.Hubs;
-using Commitments.Core.Services.Kernel;
 
 Log.Logger = new LoggerConfiguration()
 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
@@ -22,13 +21,79 @@ try
 
     var builder = WebApplication.CreateBuilder(args);
 
-    builder.Services.AddCoreServices(builder.Environment, builder.Configuration);
+    builder.AddServiceDefaults();
 
-    builder.Services.AddInfrastructureServices(builder.Configuration.GetConnectionString("DefaultConnection")!);
+    builder.AddSqlServerDbContext<CommitmentsDbContext>("CommitmentsDb");
 
-    builder.Services.AddApiServices(builder.Configuration);
+    builder.AddRedisClient("redis");
+
+    builder.Services.AddScoped<ICommitmentsDbContext, CommitmentsDbContext>();
+
+    builder.Services.AddSingleton<IEventBus, RedisEventBus>();
+
+    builder.Services.AddCoreServices(builder.Configuration);
+
+    builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+
+    builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+
+    builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+    builder.Services.AddControllers(o =>
+    {
+        o.Filters.Add(typeof(HttpGlobalExceptionFilter));
+    });
+
+    builder.Services.AddApiVersioning(options =>
+    {
+        options.ReportApiVersions = true;
+        options.AssumeDefaultVersionWhenUnspecified = true;
+        options.DefaultApiVersion = new Asp.Versioning.ApiVersion(1, 0);
+    });
+
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddHttpContextAccessor();
+
+    builder.Services.AddSwaggerGen(options =>
+    {
+        options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+        {
+            Version = "v1",
+            Title = "Commitments",
+            Description = "Commitments Microservice API",
+            TermsOfService = new Uri("https://example.com/terms"),
+            Contact = new Microsoft.OpenApi.Models.OpenApiContact
+            {
+                Name = "Quinntyne Brown",
+                Email = "quinntynebrown@gmail.com"
+            },
+            License = new Microsoft.OpenApi.Models.OpenApiLicense
+            {
+                Name = "Use under MIT",
+                Url = new Uri("https://opensource.org/licenses/MIT"),
+            }
+        });
+
+        options.EnableAnnotations();
+
+        var xmlFilename = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+
+    }).AddSwaggerGenNewtonsoftSupport();
+
+    var corsSettings = builder.Configuration.GetSection(CorsSettings.Section).Get<CorsSettings>() ?? new CorsSettings();
+
+    builder.Services.AddCors(options => options.AddPolicy(Constants.CorsPolicy,
+        b => b
+        .WithOrigins(corsSettings.Origins)
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .SetIsOriginAllowed(isOriginAllowed: _ => true)
+        .AllowCredentials()));
 
     var app = builder.Build();
+
+    app.MapDefaultEndpoints();
 
     app.UseSwagger(options => options.SerializeAsV2 = true);
 
@@ -47,8 +112,6 @@ try
 
     app.MapControllers();
 
-    app.MapHub<CommitmentsHub>("/hub");
-
     var services = (IServiceScopeFactory)app.Services.GetRequiredService(typeof(IServiceScopeFactory));
 
     using (var scope = services.CreateScope())
@@ -57,29 +120,6 @@ try
 
         if (args.Contains("ci"))
             args = new string[4] { "dropdb", "migratedb", "seeddb", "stop" };
-
-        if (args.Contains("dropdb"))
-        {
-            context.Database.ExecuteSql($"DROP TABLE Commitments.Achievements;");
-
-            context.Database.ExecuteSql($"DROP TABLE Commitments.Activities;");
-
-            context.Database.ExecuteSql($"DROP TABLE Commitments.Behaviours;");
-
-            context.Database.ExecuteSql($"DROP TABLE Commitments.Commitments;");
-
-            context.Database.ExecuteSql($"DROP TABLE Commitments.Frequencies;");
-
-            context.Database.ExecuteSql($"DROP TABLE Commitments.BehaviourTypes;");
-
-            context.Database.ExecuteSql($"DROP TABLE Commitments.FrequencyTypes;");
-
-            context.Database.ExecuteSql($"DROP TABLE Commitments.Profiles;");
-
-            context.Database.ExecuteSql($"DROP SCHEMA Commitments;");
-
-            context.Database.ExecuteSql($"DELETE from __EFMigrationsHistory where MigrationId like '%_Commitments_%';");
-        }
 
         if (args.Contains("migratedb"))
         {

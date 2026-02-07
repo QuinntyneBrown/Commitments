@@ -2,6 +2,6 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 global using Commitments.Core;
-global using Commitments.Core.Extensions;
+global using Commitments.Shared;
 global using System.Net.Mime;
 global using MediatR;

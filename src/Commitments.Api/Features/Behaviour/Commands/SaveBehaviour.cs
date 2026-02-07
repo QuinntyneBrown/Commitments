@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments.Core;
-using Commitments.Core.Extensions;
+using Commitments.Shared;
 using Commitments.Core.Model.BehaviourAggregate;
 using FluentValidation;
 using MediatR;

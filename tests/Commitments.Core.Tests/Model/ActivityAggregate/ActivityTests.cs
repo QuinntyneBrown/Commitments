@@ -82,20 +82,6 @@ public class ActivityTests
     }
 
     [Fact]
-    public void Activity_ShouldSetProfile()
-    {
-        // Arrange
-        var activity = new Activity();
-        var profile = new Profile { ProfileId = Guid.NewGuid() };
-
-        // Act
-        activity.Profile = profile;
-
-        // Assert
-        activity.Profile.Should().Be(profile);
-    }
-
-    [Fact]
     public void Activity_ShouldSetBehaviour()
     {
         // Arrange
