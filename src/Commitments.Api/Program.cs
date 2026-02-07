@@ -1,7 +1,6 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Core;
 using Commitments.Infrastructure.Data;
 using Commitments.Shared;
 using FluentValidation;
@@ -30,8 +29,6 @@ try
     builder.Services.AddScoped<ICommitmentsDbContext, CommitmentsDbContext>();
 
     builder.Services.AddSingleton<IEventBus, RedisEventBus>();
-
-    builder.Services.AddCoreServices(builder.Configuration);
 
     builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 

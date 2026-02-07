@@ -2,8 +2,6 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments.Api.Controllers;
-using Commitments.Core.Model.BehaviourAggregate;
-using Commitments.Api.Features.Behaviour;
 using Commitments.Api.Features.Behaviour;
 using FluentAssertions;
 using MediatR;

@@ -2,14 +2,11 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments.Api.Controllers;
-using Commitments.Core.Model.ActivityAggregate;
-using Commitments.Api.Features.Activity;
 using Commitments.Api.Features.Activity;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Moq;
-using System.Security.Claims;
 using Xunit;
 
 namespace Commitments.Api.Tests.Controllers;

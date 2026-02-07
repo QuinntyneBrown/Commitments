@@ -2,8 +2,6 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments.Api.Controllers;
-using Commitments.Core.Model.FrequencyAggregate;
-using Commitments.Api.Features.Frequency;
 using Commitments.Api.Features.Frequency;
 using FluentAssertions;
 using MediatR;
