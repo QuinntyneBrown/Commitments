@@ -1,17 +1,15 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
 import { cultureKey } from './constants';
 import { TranslateService } from '@ngx-translate/core';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LanguageService {
-  constructor(
-    private readonly _localStorageService: LocalStorageService,
-    private readonly _translateService: TranslateService
-  ) {}
+  private readonly _localStorageService = inject(LocalStorageService);
+  private readonly _translateService = inject(TranslateService);
 
   public get current() {
     return (
@@ -38,4 +36,3 @@ export class LanguageService {
 
   public currentTranslations: any = {};
 }
-

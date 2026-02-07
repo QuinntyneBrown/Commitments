@@ -1,17 +1,16 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LoginRedirectService {
-  constructor(private readonly _route: ActivatedRoute, private readonly _router: Router) {}
+  private readonly _route = inject(ActivatedRoute);
+  private readonly _router = inject(Router);
 
   loginUrl: string = '/login';
-
   lastPath: string;
-
   defaultPath: string = '/';
 
   setLoginUrl(value) {
@@ -35,4 +34,3 @@ export class LoginRedirectService {
     }
   }
 }
-

@@ -1,12 +1,12 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Overlay, ScrollStrategyOptions, OverlayContainer, OverlayPositionBuilder, OverlayRef } from "@angular/cdk/overlay";
-import { ComponentFactoryResolver, Injector, NgZone, Injectable } from "@angular/core";
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { Injectable, inject } from '@angular/core';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OverlayRefProvider {
-  constructor(private readonly _overlay: Overlay) { }
+  private readonly _overlay = inject(Overlay);
 
   public create(): OverlayRef {
     const positionStrategy = this._overlay.position()
@@ -20,4 +20,3 @@ export class OverlayRefProvider {
     });
   }
 }
-

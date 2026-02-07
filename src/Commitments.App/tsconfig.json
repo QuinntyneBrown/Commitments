@@ -7,7 +7,6 @@
     "declaration": false,
     "downlevelIteration": true,
     "moduleResolution": "bundler",
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "strict": false,
     "noImplicitReturns": false,
@@ -22,7 +21,15 @@
       "ES2022",
       "dom"
     ],
-    "types": []
+    "types": [],
+    "paths": {
+      "@app/*": ["projects/commitments-app/src/app/*"],
+      "@core/*": ["projects/commitments-app/src/app/core/*"],
+      "@models/*": ["projects/commitments-app/src/app/models/*"],
+      "@services/*": ["projects/commitments-app/src/app/services/*"],
+      "@components/*": ["projects/commitments-app/src/app/components/*"],
+      "@pages/*": ["projects/commitments-app/src/app/pages/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

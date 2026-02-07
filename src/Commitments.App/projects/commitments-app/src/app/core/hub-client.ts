@@ -1,31 +1,27 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Injectable, NgZone, Inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable, NgZone, inject, Inject } from '@angular/core';
 import { Subject } from 'rxjs';
-import { HubConnection, HubConnectionBuilder, IHttpConnectionOptions } from "@microsoft/signalr";
+import { HubConnection, HubConnectionBuilder, IHttpConnectionOptions } from '@microsoft/signalr';
 import { LocalStorageService } from './local-storage.service';
 import { accessTokenKey, baseUrl } from './constants';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class HubClient {
+  private readonly _baseUrl = inject(baseUrl as any) as string;
+  private readonly _storage = inject(LocalStorageService);
+  private readonly _ngZone = inject(NgZone);
+
   private _connection: HubConnection | null = null;
   private _connect: Promise<void> | null = null;
   public messages$: Subject<any> = new Subject();
-
-  constructor(
-    @Inject(baseUrl) private readonly _baseUrl: string,
-    private readonly _storage: LocalStorageService,
-    private readonly _ngZone: NgZone
-  ) {}
 
   public connect(): Promise<void> {
     if (this._connect) return this._connect;
 
     this._connect = new Promise<void>(resolve => {
-
-      const options: IHttpConnectionOptions = { };
+      const options: IHttpConnectionOptions = {};
 
       this._connection = this._connection || new HubConnectionBuilder()
         .withUrl(`${this._baseUrl}hub?token=${this._storage.get({ name: accessTokenKey })}`, options)
@@ -49,4 +45,3 @@ export class HubClient {
     }
   }
 }
-
