@@ -1,26 +1,20 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HubClient } from './hub-client';
-import { Tag } from '../tags/tag';
+import { Tag } from '../models/tag';
 import { BehaviorSubject } from 'rxjs';
-import { Note } from '../notes/note';
+import { Note } from '../models/note';
 import { filter } from 'rxjs';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Store {
-  constructor(private readonly _hubClient: HubClient) {
-    this.note$ = new BehaviorSubject(<Note>{});
-    this.notes$ = new BehaviorSubject([]);
-    this.tags$ = new BehaviorSubject([]);
-  }
+  private readonly _hubClient = inject(HubClient);
 
-  public note$: BehaviorSubject<Note>;
-
-  public notes$: BehaviorSubject<Array<Note>>;
-
-  public tags$: BehaviorSubject<Array<Tag>>;
+  public note$: BehaviorSubject<Note> = new BehaviorSubject(<Note>{});
+  public notes$: BehaviorSubject<Array<Note>> = new BehaviorSubject([]);
+  public tags$: BehaviorSubject<Array<Tag>> = new BehaviorSubject([]);
 
   public handleTagSaved(payload: { tag: Tag }) {
     this.tags$.next([...this.tags$.value, payload.tag]);
@@ -49,4 +43,3 @@ export class Store {
     return this._hubClient.messages$.pipe(filter(x => x.type == '[Tag] Removed'));
   }
 }
-

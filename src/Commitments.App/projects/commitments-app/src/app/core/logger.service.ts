@@ -18,7 +18,7 @@ export enum LogLevel {
   None
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LoggerService implements ILogger {
   constructor(@Inject(minimumLogLevel) private readonly _minimumLogLevel: LogLevel) {}
 
@@ -34,4 +34,3 @@ export class LoggerService implements ILogger {
     this.log(LogLevel.Error, message);
   }
 }
-

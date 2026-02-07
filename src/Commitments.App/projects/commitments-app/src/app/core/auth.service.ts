@@ -1,21 +1,19 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Injectable, Inject } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { LocalStorageService } from '../core/local-storage.service';
+import { Injectable, inject, Inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
-import { accessTokenKey, baseUrl } from '../core/constants';
-import { HubClient } from '../core/hub-client';
+import { accessTokenKey, baseUrl } from './constants';
+import { HubClient } from './hub-client';
+import { LocalStorageService } from './local-storage.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(
-    @Inject(baseUrl) private readonly _baseUrl: string,
-    private readonly _httpClient: HttpClient,
-    private readonly _hubClient: HubClient,
-    private readonly _localStorageService: LocalStorageService
-  ) {}
+  private readonly _baseUrl = inject(baseUrl as any) as string;
+  private readonly _httpClient = inject(HttpClient);
+  private readonly _hubClient = inject(HubClient);
+  private readonly _localStorageService = inject(LocalStorageService);
 
   public logout() {
     this._hubClient.disconnect();
@@ -31,4 +29,3 @@ export class AuthService {
     );
   }
 }
-

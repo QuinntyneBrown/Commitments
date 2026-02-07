@@ -4,7 +4,7 @@
 import { Injectable } from '@angular/core';
 import { storageKey } from './constants';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LocalStorageService {
   private _items: Array<any> | null = null;
 
@@ -50,8 +50,8 @@ export class LocalStorageService {
 
     this.updateLocalStorage();
   };
+
   public updateLocalStorage() {
     localStorage.setItem(storageKey, JSON.stringify(this._items));
   }
 }
-
