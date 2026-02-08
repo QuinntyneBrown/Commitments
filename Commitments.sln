@@ -49,6 +49,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard.Api.Tests", "test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalAssets.Api.Tests", "tests\DigitalAssets.Api.Tests\DigitalAssets.Api.Tests.csproj", "{A100000F-000F-000F-000F-00000000000F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commitments.Testing.Common", "tests\Commitments.Testing.Common\Commitments.Testing.Common.csproj", "{B1000001-0001-0001-0001-000000000001}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commitments.Shared.Tests", "tests\Commitments.Shared.Tests\Commitments.Shared.Tests.csproj", "{B1000002-0002-0002-0002-000000000002}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -139,6 +143,14 @@ Global
 		{A100000F-000F-000F-000F-00000000000F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A100000F-000F-000F-000F-00000000000F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A100000F-000F-000F-000F-00000000000F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1000001-0001-0001-0001-000000000001}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1000001-0001-0001-0001-000000000001}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1000001-0001-0001-0001-000000000001}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1000001-0001-0001-0001-000000000001}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1000002-0002-0002-0002-000000000002}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1000002-0002-0002-0002-000000000002}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1000002-0002-0002-0002-000000000002}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1000002-0002-0002-0002-000000000002}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -165,6 +177,8 @@ Global
 		{A100000D-000D-000D-000D-00000000000D} = {A1B2C3D4-E5F6-7890-ABCD-EF1234567890}
 		{A100000E-000E-000E-000E-00000000000E} = {A1B2C3D4-E5F6-7890-ABCD-EF1234567890}
 		{A100000F-000F-000F-000F-00000000000F} = {A1B2C3D4-E5F6-7890-ABCD-EF1234567890}
+		{B1000001-0001-0001-0001-000000000001} = {A1B2C3D4-E5F6-7890-ABCD-EF1234567890}
+		{B1000002-0002-0002-0002-000000000002} = {A1B2C3D4-E5F6-7890-ABCD-EF1234567890}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D80DB4B0-7BFE-4AF3-B499-EC4FEFAC34C2}

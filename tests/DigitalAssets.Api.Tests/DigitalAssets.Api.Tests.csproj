@@ -27,6 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\DigitalAssets.Api\DigitalAssets.Api.csproj" />
     <ProjectReference Include="..\..\src\DigitalAssets.Core\DigitalAssets.Core.csproj" />
+    <ProjectReference Include="..\Commitments.Testing.Common\Commitments.Testing.Common.csproj" />
   </ItemGroup>
 
 </Project>

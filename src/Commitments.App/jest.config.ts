@@ -30,6 +30,7 @@ const config: Config = {
   moduleNameMapper: {
     '^@app/(.*)$': '<rootDir>/projects/commitments-app/src/app/$1',
     '^@environments/(.*)$': '<rootDir>/projects/commitments-app/src/environments/$1',
+    '^ag-grid$': '<rootDir>/__mocks__/ag-grid.ts',
   },
   transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
   passWithNoTests: true,

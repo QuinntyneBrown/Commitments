@@ -27,6 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Identity.Api\Identity.Api.csproj" />
     <ProjectReference Include="..\..\src\Identity.Core\Identity.Core.csproj" />
+    <ProjectReference Include="..\Commitments.Testing.Common\Commitments.Testing.Common.csproj" />
   </ItemGroup>
 
 </Project>

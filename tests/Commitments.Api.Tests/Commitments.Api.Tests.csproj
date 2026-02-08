@@ -28,6 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Commitments.Api\Commitments.Api.csproj" />
     <ProjectReference Include="..\..\src\Commitments.Core\Commitments.Core.csproj" />
+    <ProjectReference Include="..\Commitments.Testing.Common\Commitments.Testing.Common.csproj" />
   </ItemGroup>
 
 </Project>

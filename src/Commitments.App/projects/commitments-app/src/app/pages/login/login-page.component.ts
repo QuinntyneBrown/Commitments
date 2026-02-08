@@ -52,9 +52,9 @@ export class LoginPageComponent {
     this.usernameNativeElement?.focus();
   }
 
-  public username: string;
+  public username: string = '';
 
-  public password: string;
+  public password: string = '';
 
   private _snackBarRef: MatSnackBarRef<SimpleSnackBar>;
 

@@ -7,7 +7,16 @@
       "node"
     ],
     "esModuleInterop": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "paths": {
+      "@app/*": ["projects/commitments-app/src/app/*"],
+      "@core/*": ["projects/commitments-app/src/app/core/*"],
+      "@models/*": ["projects/commitments-app/src/app/models/*"],
+      "@services/*": ["projects/commitments-app/src/app/services/*"],
+      "@components/*": ["projects/commitments-app/src/app/components/*"],
+      "@pages/*": ["projects/commitments-app/src/app/pages/*"],
+      "ag-grid": ["__mocks__/ag-grid"]
+    }
   },
   "include": [
     "src/**/*.ts",
