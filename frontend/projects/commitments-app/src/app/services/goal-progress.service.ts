@@ -23,4 +23,11 @@ export class GoalProgressService {
     const params = new HttpParams().set('goalId', goalId);
     return this._client.get<GoalProgress>(`${this._baseUrl}api/v1.0/goal-progress/current`, { params });
   }
+
+  getAt(goalId: string, asOf: Date): Observable<GoalProgress> {
+    const params = new HttpParams()
+      .set('goalId', goalId)
+      .set('asOf', asOf.toISOString());
+    return this._client.get<GoalProgress>(`${this._baseUrl}api/v1.0/goal-progress/at`, { params });
+  }
 }

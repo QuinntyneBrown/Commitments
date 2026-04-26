@@ -37,4 +37,18 @@ public class GoalProgressController
             ProfileId = _httpContextAccessor.GetProfileId()
         });
     }
+
+    [HttpGet("at")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetGoalProgressResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetGoalProgressResponse>> GetAt([FromQuery] Guid goalId, [FromQuery] DateTimeOffset asOf)
+    {
+        return await _sender.Send(new GetGoalProgressAtRequest
+        {
+            GoalId = goalId,
+            ProfileId = _httpContextAccessor.GetProfileId(),
+            AsOf = asOf
+        });
+    }
 }

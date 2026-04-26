@@ -8,6 +8,7 @@ import { PLUGIN_TILES, provideDashboardFramework } from '@commitments/dashboard-
 import { provideCommitmentsDashboardPlugin } from '@commitments/dashboard-plugin';
 
 import { LiveGoalMetricsTileComponent } from './components/live-goal-metrics-tile/live-goal-metrics-tile.component';
+import { ReviewGoalHistoryTileComponent } from './components/review-goal-history-tile/review-goal-history-tile.component';
 import { baseUrl, minimumLogLevel } from './core/constants';
 import { headerInterceptor } from './core/headers.interceptor';
 import { jwtInterceptor } from './core/jwt.interceptor';
@@ -19,7 +20,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     ...provideDashboardFramework(),
     ...provideCommitmentsDashboardPlugin(),
-    { provide: PLUGIN_TILES, useValue: [LiveGoalMetricsTileComponent], multi: true },
+    { provide: PLUGIN_TILES, useValue: [LiveGoalMetricsTileComponent, ReviewGoalHistoryTileComponent], multi: true },
     { provide: baseUrl, useValue: 'http://localhost:52748/' },
     { provide: minimumLogLevel, useValue: LogLevel.Trace }
   ]

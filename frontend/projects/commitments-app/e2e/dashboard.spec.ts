@@ -18,6 +18,7 @@ test.describe('dashboard shell', () => {
       'Outstanding To Dos',
       'Relations',
       'Live Goal Metrics',
+      'Review Goal History',
     ]);
   });
 

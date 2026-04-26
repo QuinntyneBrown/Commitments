@@ -1,0 +1,95 @@
+.window {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 8px;
+  align-items: end;
+  margin-bottom: 12px;
+}
+
+.window__field {
+  display: grid;
+  gap: 2px;
+}
+
+.window__label {
+  color: #5b6b84;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.window__field input {
+  padding: 6px 8px;
+  border: 1px solid #c9d2e0;
+  border-radius: 6px;
+  background: #fff;
+  font: inherit;
+  font-size: 13px;
+}
+
+.window__apply {
+  padding: 7px 14px;
+  border: 0;
+  border-radius: 6px;
+  background: #9fa8da;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.window__apply:disabled {
+  background: #d6d9e6;
+  color: #8a93a8;
+  cursor: not-allowed;
+}
+
+.metric {
+  display: grid;
+  gap: 4px;
+}
+
+.metric__value {
+  color: #1d3a5f;
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.metric__separator {
+  margin: 0 6px;
+  color: #5b6b84;
+  font-weight: 400;
+}
+
+.metric__label {
+  color: #5b6b84;
+  font-size: 13px;
+}
+
+.scrub {
+  width: 100%;
+  margin-top: 12px;
+  accent-color: #9fa8da;
+}
+
+.review-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(159, 168, 218, 0.18);
+  color: #5566a6;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.review-badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #9fa8da;
+}
