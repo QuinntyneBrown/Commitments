@@ -1,0 +1,28 @@
+@startuml sequence_scrub
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Review Goal History - Scrubbing the Slider
+
+actor Owner
+participant "Slider" as Sld
+participant "Controller" as Ctrl
+participant "time helpers" as TH
+participant "GoalProgressService" as Svc
+participant "API" as API
+database "SQL Server" as DB
+
+Owner -> Sld: Drag to 72%
+Sld -> Ctrl: scrub(72)
+Ctrl -> TH: scrubInstantFromPct(appliedStart, appliedEnd, 72)
+TH --> Ctrl: scrubAt (epoch)
+Ctrl -> Ctrl: debounce 100ms
+Ctrl -> Svc: getAt(goalId, scrubAt)
+Svc -> API: GET /api/goal-progress/at?goalId=17&asOf=2026-04-05T19:24Z
+API -> DB: SELECT COUNT(*)\n  WHERE GoalId=17 AND ProfileId=@p\n  AND RecordedAt <= @asOf
+DB --> API: 19
+API --> Svc: { count:19, target:30, asOf }
+Svc --> Ctrl: dto
+Ctrl --> Sld: tile re-renders ring + count
+
+@enduml

@@ -1,0 +1,40 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Live Goal Metrics - Domain & Transport
+
+class Goal <<existing>> {
+  +goalId: int
+  +profileId: Guid
+  +title: string
+  +target: int
+}
+
+class Achievement <<existing>> {
+  +achievementId: int
+  +goalId: int
+  +profileId: Guid
+  +recordedAt: DateTimeOffset
+}
+
+class GoalProgressDto <<new, transport>> {
+  +goalId: int
+  +target: int
+  +count: int
+  +asOf: DateTimeOffset
+}
+
+class GoalProgressUpdatedEvent <<new, hub>> {
+  +goalId: int
+  +count: int
+  +asOf: DateTimeOffset
+}
+
+Goal "1" -- "*" Achievement : counted by
+GoalProgressDto ..> Goal : projects
+GoalProgressDto ..> Achievement : aggregates
+GoalProgressUpdatedEvent ..> GoalProgressDto : same shape (no target)
+
+@enduml

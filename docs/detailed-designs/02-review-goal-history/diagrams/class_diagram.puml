@@ -1,0 +1,54 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Review Goal History - Domain & Frontend State
+
+class Goal <<existing>> {
+  +goalId: int
+  +profileId: Guid
+  +target: int
+  +createdAt: DateTimeOffset
+}
+
+class Achievement <<existing>> {
+  +achievementId: int
+  +goalId: int
+  +profileId: Guid
+  +recordedAt: DateTimeOffset
+}
+
+class GoalProgressDto <<reused>> {
+  +goalId: int
+  +target: int
+  +count: int
+  +asOf: DateTimeOffset
+}
+
+class ReviewWindow <<frontend, value>> {
+  +start: number  // epoch ms
+  +end: number
+  +scrubPct: number  // 0..100
+  +scrubAt(): number
+}
+
+class ReviewGoalHistoryController <<frontend>> {
+  +draftStart: Signal<number>
+  +draftEnd: Signal<number>
+  +draftError: Signal<string|null>
+  +scrubPct: Signal<number>
+  +count: Signal<number>
+  +target: Signal<number>
+  +canApply: Signal<boolean>
+  +apply(): void
+  +scrub(pct): void
+}
+
+Goal "1" -- "*" Achievement
+GoalProgressDto ..> Goal
+GoalProgressDto ..> Achievement : counts up to asOf
+ReviewGoalHistoryController ..> ReviewWindow : holds
+ReviewGoalHistoryController ..> GoalProgressDto : consumes
+
+@enduml

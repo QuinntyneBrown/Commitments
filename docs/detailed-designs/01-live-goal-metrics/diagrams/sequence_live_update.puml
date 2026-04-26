@@ -1,0 +1,27 @@
+@startuml sequence_live_update
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Live Goal Metrics - Push on Achievement
+
+actor Owner
+participant "Other Tab\n(record achievement)" as Other
+participant "API\n(CreateAchievement)" as API
+participant "IntegrationHandler" as Int
+participant "SignalR Hub" as Hub
+participant "HubClient (SPA)" as HC
+participant "Controller" as Ctrl
+participant "Tile" as Tile
+
+Owner -> Other: Tap "Did it"
+Other -> API: POST /api/achievements
+API -> API: Persist + raise AchievementCreated
+API -> Int: Handle event
+Int -> Hub: SendAsync('goalProgressUpdated',\n  group='profile:{id}', { goalId, count:13 })
+Hub -> HC: push event
+HC -> Ctrl: callback(event)
+Ctrl -> Ctrl: count.set(13); lastUpdatedAt.set(now)
+Ctrl --> Tile: signals updated
+Tile --> Owner: Ring at 43%, "13 / 30"
+
+@enduml

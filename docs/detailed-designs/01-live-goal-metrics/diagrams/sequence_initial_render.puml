@@ -1,0 +1,26 @@
+@startuml sequence_initial_render
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Live Goal Metrics - Initial Render
+
+actor Owner
+participant "Tile" as Tile
+participant "Controller" as Ctrl
+participant "GoalProgressService" as Svc
+participant "API\n(GoalProgressController)" as API
+database "SQL Server" as DB
+
+Owner -> Tile: Open dashboard
+Tile -> Ctrl: ngOnInit()
+Ctrl -> Svc: getCurrent(goalId)
+Svc -> API: GET /api/goal-progress/current?goalId=17
+API -> DB: SELECT COUNT(*) FROM Achievements WHERE GoalId=17 AND ProfileId=@p
+DB --> API: 12
+API --> Svc: 200 { target:30, count:12, asOf:... }
+Svc --> Ctrl: GoalProgressDto
+Ctrl -> Ctrl: count.set(12); target.set(30)
+Ctrl --> Tile: signals updated
+Tile --> Owner: Ring at 40%, "12 / 30"
+
+@enduml

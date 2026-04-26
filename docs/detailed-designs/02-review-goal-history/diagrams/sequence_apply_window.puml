@@ -1,0 +1,36 @@
+@startuml sequence_apply_window
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Review Goal History - Apply a Window
+
+actor Owner
+participant "Tile" as Tile
+participant "Controller" as Ctrl
+participant "time helpers" as TH
+participant "GoalProgressService" as Svc
+participant "API" as API
+
+Owner -> Tile: Edit Start input
+Tile -> Ctrl: setDraftStart(localValue)
+Ctrl -> TH: localInputToIso(value)
+TH --> Ctrl: epochMs
+Ctrl -> Ctrl: validate -> draftStart, draftError=null
+
+Owner -> Tile: Edit End input
+Tile -> Ctrl: setDraftEnd(localValue)
+Ctrl -> Ctrl: validate -> draftEnd
+
+Owner -> Tile: Tap Apply
+Tile -> Ctrl: apply()
+Ctrl -> Ctrl: appliedStart/End := draft; scrubPct := 50
+Ctrl -> TH: scrubInstantFromPct(start,end,50)
+TH --> Ctrl: midpoint
+Ctrl -> Svc: getAt(goalId, midpoint)
+Svc -> API: GET /api/goal-progress/at?...
+API --> Svc: { count:8, target:30, asOf }
+Svc --> Ctrl: dto
+Ctrl --> Tile: count=8, asOf set
+Tile --> Owner: Ring at 27%, "8 / 30 @ 2026-04-05 14:00"
+
+@enduml

@@ -1,0 +1,24 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title Review Goal History - Containers
+
+Person(owner, "Profile Owner")
+
+System_Boundary(plat, "Commitments Platform") {
+  Container(spa, "Commitments SPA", "Angular 19", "Hosts the ReviewGoalHistoryTile")
+  Container(api, "Commitments.Api", "ASP.NET Core 9", "GoalProgress 'at asOf' endpoint")
+  ContainerDb(db, "SQL Server", "EF Core", "Goals, Achievements")
+}
+
+Rel(owner, spa, "Uses", "HTTPS")
+Rel(spa, api, "GET /api/goal-progress/at?goalId=&asOf=", "JSON/HTTPS")
+Rel(api, db, "COUNT achievements where RecordedAt <= asOf", "SQL")
+
+note right of api
+  Pull-only. No SignalR.
+  Past counts are stable -> cacheable.
+end note
+
+@enduml

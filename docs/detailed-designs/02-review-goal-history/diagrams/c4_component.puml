@@ -1,0 +1,25 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Review Goal History - Components
+
+Container_Boundary(spa, "Commitments SPA") {
+  Component(tile, "ReviewGoalHistoryTileComponent", "Angular standalone", "Date inputs, scrub slider, Apply, count readout")
+  Component(ctrl, "ReviewGoalHistoryController", "Injectable", "Draft/applied window, scrub %, count signal")
+  Component(timehelp, "review-goal-history-time.ts", "Pure functions", "ISO + scrub math")
+  Component(svc, "GoalProgressService", "Angular service", "getAt(goalId, asOf)")
+}
+
+Container_Boundary(api, "Commitments.Api") {
+  Component(ctl2, "GoalProgressController", "ApiController", "GET /goal-progress/at")
+  Component(qh, "GetGoalProgressAtHandler", "MediatR", "COUNT(*) with RecordedAt cutoff")
+}
+
+Rel(tile, ctrl, "binds to signals")
+Rel(ctrl, timehelp, "scrubInstantFromPct, localInputToIso")
+Rel(ctrl, svc, "getAt(goalId, scrubAt)")
+Rel(svc, ctl2, "GET /api/goal-progress/at")
+Rel(ctl2, qh, "Send query")
+
+@enduml
