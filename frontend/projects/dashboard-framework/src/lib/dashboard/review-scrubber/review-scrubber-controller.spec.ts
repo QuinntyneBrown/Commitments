@@ -80,4 +80,26 @@ describe('ReviewScrubberController', () => {
       jest.useRealTimers();
     }
   });
+
+  it('playToggle starts auto-scrubbing and stops itself at the window end', () => {
+    jest.useFakeTimers();
+    try {
+      const controller = new ReviewScrubberController(modeService, 4);
+      controller.jumpToStart();
+      expect(controller.selectedIndex()).toBe(0);
+      expect(controller.isPlaying()).toBe(false);
+
+      controller.playToggle();
+      expect(controller.isPlaying()).toBe(true);
+
+      jest.advanceTimersByTime(1100);
+      expect(controller.selectedIndex()).toBe(1);
+
+      jest.advanceTimersByTime(3000);
+      expect(controller.selectedIndex()).toBe(3);
+      expect(controller.isPlaying()).toBe(false);
+    } finally {
+      jest.useRealTimers();
+    }
+  });
 });
