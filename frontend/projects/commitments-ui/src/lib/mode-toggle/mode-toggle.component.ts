@@ -22,4 +22,9 @@ export class ModeToggleComponent {
     this.mode = next;
     this.modeChange.emit(next);
   }
+
+  onKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'ArrowLeft') this.select('live');
+    else if (event.key === 'ArrowRight') this.select('review');
+  }
 }

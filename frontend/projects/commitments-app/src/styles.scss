@@ -1,6 +1,9 @@
 // Import Material theme
 @import './styles/theme.scss';
 
+// Import shared UI design tokens (design 03)
+@import '../../commitments-ui/src/lib/tokens/tokens';
+
 body,
 html {
   margin: 0;

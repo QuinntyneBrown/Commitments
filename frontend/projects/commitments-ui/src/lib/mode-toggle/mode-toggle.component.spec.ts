@@ -40,4 +40,18 @@ describe('ModeToggleComponent', () => {
 
     expect(emitCount).toBe(0);
   });
+
+  it('switches to review on ArrowRight and to live on ArrowLeft', () => {
+    const component = new ModeToggleComponent();
+    component.mode = 'live';
+    const seen: ('live' | 'review')[] = [];
+    component.modeChange.subscribe(value => {
+      seen.push(value);
+    });
+
+    component.onKeyDown(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
+    component.onKeyDown(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
+
+    expect(seen).toEqual(['review', 'live']);
+  });
 });

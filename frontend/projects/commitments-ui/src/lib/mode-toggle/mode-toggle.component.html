@@ -1,4 +1,4 @@
-<div class="mode-toggle" role="tablist" [class.mode-toggle--disabled]="disabled">
+<div class="mode-toggle" role="tablist" [class.mode-toggle--disabled]="disabled" (keydown)="onKeyDown($event)">
   <button
     type="button"
     role="tab"
