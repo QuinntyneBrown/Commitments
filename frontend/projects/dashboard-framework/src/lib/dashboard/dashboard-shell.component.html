@@ -5,19 +5,27 @@
       <h1>Dashboard</h1>
     </div>
 
+    <cui-mode-toggle
+      data-testid="dashboard-mode-toggle"
+      [mode]="modeService.mode()"
+      (modeChange)="onModeChange($event)">
+    </cui-mode-toggle>
+
     <div class="dashboard-shell__actions">
-      <select
-        class="dashboard-shell__select"
-        data-testid="tile-select"
-        [value]="selectedTileId()"
-        (change)="selectedTileId.set($any($event.target).value)"
-        aria-label="Tile to add"
-      >
-        @for (tile of tiles(); track tile.tileId) {
-          <option [value]="tile.tileId">{{ tile.displayName }}</option>
-        }
-      </select>
-      <button type="button" class="dashboard-shell__button" data-testid="add-tile" (click)="addSelectedTile()">Add Tile</button>
+      @if (modeService.mode() === 'live') {
+        <select
+          class="dashboard-shell__select"
+          data-testid="tile-select"
+          [value]="selectedTileId()"
+          (change)="selectedTileId.set($any($event.target).value)"
+          aria-label="Tile to add"
+        >
+          @for (tile of tiles(); track tile.tileId) {
+            <option [value]="tile.tileId">{{ tile.displayName }}</option>
+          }
+        </select>
+        <button type="button" class="dashboard-shell__button" data-testid="add-tile" (click)="addSelectedTile()">Add Tile</button>
+      }
       <button
         type="button"
         class="dashboard-shell__button"
@@ -32,6 +40,12 @@
       </button>
     </div>
   </header>
+
+  @if (modeService.mode() === 'review') {
+    <div class="dashboard-shell__scrubber-slot" data-testid="dashboard-scrubber-slot">
+      <!-- Feature 06 fills this slot with the review scrubber -->
+    </div>
+  }
 
   <main class="dashboard-shell__main">
     <commitments-dashboard-grid></commitments-dashboard-grid>

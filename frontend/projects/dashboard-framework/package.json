@@ -4,6 +4,7 @@
   "peerDependencies": {
     "@angular/common": "^21.0.0",
     "@angular/core": "^21.0.0",
+    "@commitments/ui": "0.0.1",
     "angular-gridster2": "^21.0.1"
   },
   "dependencies": {

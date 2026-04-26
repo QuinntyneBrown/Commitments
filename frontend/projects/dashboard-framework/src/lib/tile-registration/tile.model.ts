@@ -1,5 +1,7 @@
 import { Signal, Type } from '@angular/core';
 
+export type DashboardMode = 'live' | 'review';
+
 export interface TileSize {
   readonly cols: number;
   readonly rows: number;
@@ -30,6 +32,8 @@ export interface TileContext {
   readonly instanceId: string;
   readonly isEditMode: Signal<boolean>;
   readonly isMaximized: Signal<boolean>;
+  readonly mode: Signal<DashboardMode>;
+  readonly selectedReviewDate: Signal<string | null>;
   remove(): void;
   maximize(): void;
   restore(): void;

@@ -10,6 +10,7 @@ import { NgComponentOutlet } from '@angular/common';
 import { Gridster, GridsterItem as GridsterItemComponent, type GridsterItemConfig } from 'angular-gridster2';
 import { DashboardItem } from './dashboard.model';
 import { DashboardLayoutStore } from './dashboard-layout.store';
+import { DashboardModeService } from './dashboard-mode.service';
 import { TILE_CONTEXT, TileContext, TileRegistryService } from '../tile-registration';
 
 @Component({
@@ -26,6 +27,7 @@ export class DashboardGridComponent {
 
   protected readonly layoutStore = inject(DashboardLayoutStore);
   protected readonly registry = inject(TileRegistryService);
+  private readonly modeService = inject(DashboardModeService);
   protected readonly items = this.layoutStore.items;
   protected readonly isEmpty = computed(() => this.items().length === 0);
   protected readonly gridsterOptions = computed(() => ({
@@ -59,6 +61,8 @@ export class DashboardGridComponent {
       instanceId: item.instanceId,
       isEditMode: this.layoutStore.isEditMode,
       isMaximized: maximizedSignal.asReadonly(),
+      mode: this.modeService.mode,
+      selectedReviewDate: this.modeService.selectedReviewDate,
       remove: () => this.layoutStore.removeTile(item.instanceId),
       maximize: () => {
         maximizedSignal.set(true);
