@@ -31,6 +31,7 @@ public class GoalProgressController
     [ProducesResponseType(typeof(GetGoalProgressResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetGoalProgressResponse>> GetCurrent([FromQuery] Guid goalId)
     {
+        SetCacheControl(asOf: null);
         return await _sender.Send(new GetGoalProgressRequest
         {
             GoalId = goalId,
@@ -44,6 +45,7 @@ public class GoalProgressController
     [ProducesResponseType(typeof(GetGoalProgressResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetGoalProgressResponse>> GetAt([FromQuery] Guid goalId, [FromQuery] DateTimeOffset asOf)
     {
+        SetCacheControl(asOf);
         return await _sender.Send(new GetGoalProgressAtRequest
         {
             GoalId = goalId,
@@ -58,6 +60,7 @@ public class GoalProgressController
     [ProducesResponseType(typeof(GetGoalProgressLast14Response), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetGoalProgressLast14Response>> GetLast14([FromQuery] Guid goalId)
     {
+        SetCacheControl(asOf: null);
         return await _sender.Send(new GetGoalProgressLast14Request
         {
             GoalId = goalId,
@@ -74,6 +77,7 @@ public class GoalProgressController
         [FromQuery] int? windowDays,
         [FromQuery] DateTimeOffset? asOf)
     {
+        SetCacheControl(asOf);
         return await _sender.Send(new GetGoalTrendRequest
         {
             GoalId = goalId,
@@ -81,5 +85,12 @@ public class GoalProgressController
             WindowDays = windowDays,
             AsOf = asOf
         });
+    }
+
+    private void SetCacheControl(DateTimeOffset? asOf)
+    {
+        var response = _httpContextAccessor.HttpContext?.Response;
+        if (response is null) return;
+        response.Headers.CacheControl = CacheControlPolicy.For(asOf, DateTimeOffset.UtcNow);
     }
 }
