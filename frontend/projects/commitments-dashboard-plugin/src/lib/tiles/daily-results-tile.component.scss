@@ -1,0 +1,31 @@
+.metric {
+  display: grid;
+  gap: 4px;
+}
+
+.metric__value {
+  color: #1d5f3f;
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.metric__label {
+  color: #5b6b84;
+  font-size: 13px;
+}
+
+.progress {
+  overflow: hidden;
+  height: 8px;
+  margin-top: 18px;
+  border-radius: 999px;
+  background: #e6edf4;
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #2e9d68;
+}

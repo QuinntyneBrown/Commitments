@@ -7,52 +7,8 @@ import { TileShellComponent } from '@commitments/ui';
   standalone: true,
   imports: [TileShellComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <commitments-tile-shell title="Daily Results" eyebrow="Today" status="Live">
-      <div class="metric">
-        <span class="metric__value">7 / 9</span>
-        <span class="metric__label">commitments completed</span>
-      </div>
-      <div class="progress" role="progressbar" aria-label="Daily progress" aria-valuemin="0" aria-valuemax="9" aria-valuenow="7">
-        <span style="width: 78%"></span>
-      </div>
-    </commitments-tile-shell>
-  `,
-  styles: [
-    `
-      .metric {
-        display: grid;
-        gap: 4px;
-      }
-
-      .metric__value {
-        color: #1d5f3f;
-        font-size: 42px;
-        font-weight: 800;
-        line-height: 1;
-      }
-
-      .metric__label {
-        color: #5b6b84;
-        font-size: 13px;
-      }
-
-      .progress {
-        overflow: hidden;
-        height: 8px;
-        margin-top: 18px;
-        border-radius: 999px;
-        background: #e6edf4;
-      }
-
-      .progress span {
-        display: block;
-        height: 100%;
-        border-radius: inherit;
-        background: #2e9d68;
-      }
-    `
-  ]
+  templateUrl: './daily-results-tile.component.html',
+  styleUrls: ['./daily-results-tile.component.scss']
 })
 export class DailyResultsTileComponent {
   static readonly tileMetadata: TileMetadata = {

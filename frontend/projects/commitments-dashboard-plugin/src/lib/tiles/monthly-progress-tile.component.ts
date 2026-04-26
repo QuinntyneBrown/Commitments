@@ -7,35 +7,8 @@ import { TileShellComponent } from '@commitments/ui';
   standalone: true,
   imports: [TileShellComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <commitments-tile-shell title="Monthly Progress" eyebrow="30 days">
-      <div class="bars" role="img" aria-label="Monthly progress by week">
-        <span style="height: 35%"></span>
-        <span style="height: 72%"></span>
-        <span style="height: 58%"></span>
-        <span style="height: 86%"></span>
-      </div>
-    </commitments-tile-shell>
-  `,
-  styles: [
-    `
-      .bars {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        align-items: end;
-        gap: 10px;
-        height: 100%;
-        min-height: 120px;
-      }
-
-      .bars span {
-        display: block;
-        min-height: 18px;
-        border-radius: 6px 6px 0 0;
-        background: linear-gradient(180deg, #2f6db3, #8bb8e8);
-      }
-    `
-  ]
+  templateUrl: './monthly-progress-tile.component.html',
+  styleUrls: ['./monthly-progress-tile.component.scss']
 })
 export class MonthlyProgressTileComponent {
   static readonly tileMetadata: TileMetadata = {

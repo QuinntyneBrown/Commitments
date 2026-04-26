@@ -1,0 +1,25 @@
+.focus-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.focus-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #edf1f6;
+}
+
+.focus-list strong {
+  color: #172033;
+}
+
+.focus-list span {
+  color: #64748b;
+  font-size: 13px;
+}

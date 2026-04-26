@@ -13,7 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [CommonModule, MatIconModule],
   templateUrl: './delete-cell.component.html',
-  styles: [':host { margin: 0 auto; }']
+  styleUrls: ['./delete-cell.component.scss']
 })
 export class DeleteCellComponent implements ICellRendererAngularComp {
   refresh(params: any): boolean {

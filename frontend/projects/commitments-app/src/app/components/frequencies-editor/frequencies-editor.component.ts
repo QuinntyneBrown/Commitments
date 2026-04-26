@@ -7,11 +7,12 @@ import { Subject, BehaviorSubject } from 'rxjs';
 import { FrequencyType } from '../../models/frequency-type';
 import { Frequency } from '../../models/frequency';
 import { ColDef } from 'ag-grid';
+import { DeleteCellComponent } from '../delete-cell/delete-cell.component';
 
 @Component({
   selector: 'app-frequencies-editor',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DeleteCellComponent],
   templateUrl: './frequencies-editor.component.html',
   styleUrls: ['./frequencies-editor.component.scss']
 })
@@ -58,7 +59,7 @@ export class FrequenciesEditorComponent {
       field: 'frequencyTypeId'
     },
     {
-      template: `<a>Remove</a>`,
+      cellRenderer: DeleteCellComponent,
       onCellClicked: frequency => this.remove(frequency)
     }
   ];

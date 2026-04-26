@@ -7,30 +7,8 @@ import { TileShellComponent } from '@commitments/ui';
   standalone: true,
   imports: [TileShellComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <commitments-tile-shell title="Outstanding To Dos" eyebrow="Queue" status="4 open">
-      <div class="todo-count">4</div>
-      <p class="todo-copy">items need attention before the next review.</p>
-    </commitments-tile-shell>
-  `,
-  styles: [
-    `
-      .todo-count {
-        color: #8b3f10;
-        font-size: 58px;
-        font-weight: 800;
-        line-height: 1;
-      }
-
-      .todo-copy {
-        max-width: 220px;
-        margin: 10px 0 0;
-        color: #5b6b84;
-        font-size: 13px;
-        line-height: 1.4;
-      }
-    `
-  ]
+  templateUrl: './outstanding-todos-tile.component.html',
+  styleUrls: ['./outstanding-todos-tile.component.scss']
 })
 export class OutstandingTodosTileComponent {
   static readonly tileMetadata: TileMetadata = {

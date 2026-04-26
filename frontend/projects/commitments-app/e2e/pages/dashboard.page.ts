@@ -40,13 +40,18 @@ export class DashboardPage {
   }
 
   async goto(options: { clearStorage?: boolean } = {}) {
-    await this.page.goto('/');
-
     if (options.clearStorage ?? true) {
-      await this.page.evaluate((storageKey) => localStorage.removeItem(storageKey), LAYOUT_STORAGE_KEY);
-      await this.page.reload();
+      await this.page.addInitScript((storageKey) => {
+        const setupKey = `${storageKey}.e2e-cleared`;
+
+        if (!sessionStorage.getItem(setupKey)) {
+          localStorage.removeItem(storageKey);
+          sessionStorage.setItem(setupKey, 'true');
+        }
+      }, LAYOUT_STORAGE_KEY);
     }
 
+    await this.page.goto('/');
     await this.waitUntilReady();
   }
 

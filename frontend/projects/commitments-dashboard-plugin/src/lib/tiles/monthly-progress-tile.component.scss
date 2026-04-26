@@ -1,0 +1,15 @@
+.bars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: end;
+  gap: 10px;
+  height: 100%;
+  min-height: 120px;
+}
+
+.bars span {
+  display: block;
+  min-height: 18px;
+  border-radius: 6px 6px 0 0;
+  background: linear-gradient(180deg, #2f6db3, #8bb8e8);
+}

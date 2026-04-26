@@ -13,7 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [CommonModule, MatIconModule],
   templateUrl: './star-cell.component.html',
-  styles: [':host { margin: 0 auto; }']
+  styleUrls: ['./star-cell.component.scss']
 })
 export class StarCellComponent implements ICellRendererAngularComp {
   refresh(params: any): boolean {
