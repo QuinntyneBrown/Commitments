@@ -11,6 +11,8 @@ test.describe('dashboard shell', () => {
 
   test('loads the dashboard with registered plugin tiles', async () => {
     await dashboard.expectDefaultDashboard();
+    // Default mode is 'live'; the dropdown is filtered to live-supporting tiles.
+    // Review Goal History has supportedModes: ['review'] and is hidden here.
     await expect(dashboard.tileOptions).toHaveText([
       'Daily Results',
       'Weekly Focus',
@@ -19,7 +21,6 @@ test.describe('dashboard shell', () => {
       'Relations',
       'Consistency Trend',
       'Live Goal Metrics',
-      'Review Goal History',
     ]);
   });
 

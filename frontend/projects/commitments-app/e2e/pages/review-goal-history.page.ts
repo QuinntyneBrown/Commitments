@@ -11,6 +11,7 @@ export class ReviewGoalHistoryPage {
   readonly target: Locator;
   readonly reviewBadge: Locator;
   readonly dateBadge: Locator;
+  readonly reviewToggle: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -21,6 +22,7 @@ export class ReviewGoalHistoryPage {
     this.target = this.tile.getByTestId('review-goal-history-target');
     this.reviewBadge = this.tile.getByTestId('review-goal-history-review-badge');
     this.dateBadge = this.tile.getByTestId('review-goal-history-date-badge');
+    this.reviewToggle = page.getByTestId('dashboard-mode-toggle').getByRole('tab', { name: /review/i });
   }
 
   async goto() {
@@ -28,6 +30,8 @@ export class ReviewGoalHistoryPage {
   }
 
   async addReviewGoalHistoryTile() {
+    // Tile is review-only after design 10; switch modes before opening the catalog.
+    await this.reviewToggle.click();
     await this.dashboard.addTile('Review Goal History');
   }
 
