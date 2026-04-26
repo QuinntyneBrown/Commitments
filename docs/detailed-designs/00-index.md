@@ -13,7 +13,7 @@ These detailed designs apply a Live / Review tile pattern to goal tracking in Co
 | 07 | [Live Real-Time Metric Tile](07-live-real-time-metric-tile/README.md)                              | Complete | Polished live tile matching `o0BgI`: large metric, delta vs yesterday, 14-day bar strip, SignalR updates. |
 | 08 | [Chart.js Line Chart Tile](08-chartjs-line-chart-tile/README.md)                                   | Complete | Real-canvas Chart.js line chart (`9IpBQ`) with mode-aware highlighting and a reusable `ChartJsLineAdapter`. |
 | 09 | [Review Goal History Tile Polish](09-review-goal-history-tile-polish/README.md)                    | Complete | Polished review tile (`nAfUX`) consuming the global scrubber date with selected-date badge and delta vs today. |
-| 10 | [Mode-Aware Plugin Contracts](10-mode-aware-plugin-contracts/README.md)                            | Accepted | Tile registration metadata for supported modes, per-mode component maps, and tile context with refresh hooks. |
+| 10 | [Mode-Aware Plugin Contracts](10-mode-aware-plugin-contracts/README.md)                            | Complete | Tile registration metadata for supported modes, per-mode component maps, and tile context with refresh hooks. |
 | 11 | [Backend Trend And Snapshot Endpoints](11-backend-trend-and-snapshot-endpoints/README.md)          | Draft    | `/current`, `/at`, `/trend` endpoints with bounded queries, indexes, and cache headers. |
 | 12 | [E2E And Visual Acceptance](12-e2e-and-visual-acceptance/README.md)                                | Draft    | Playwright POM coverage for mode switching, scrubber, FAB visibility, Chart.js canvas, and three viewports. |
 
