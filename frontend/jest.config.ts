@@ -24,7 +24,6 @@ const config: Config = {
     '!projects/commitments-app/src/main.ts',
     '!projects/commitments-app/src/polyfills.ts',
     '!projects/commitments-app/src/environments/**',
-    '!projects/commitments-app/src/test.ts',
   ],
   coverageDirectory: 'coverage',
   coverageReporters: ['html', 'text', 'lcov', 'json'],

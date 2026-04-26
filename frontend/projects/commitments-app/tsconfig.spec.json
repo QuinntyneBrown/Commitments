@@ -26,7 +26,6 @@
     "src/**/*.d.ts"
   ],
   "exclude": [
-    "src/test.ts",
     "e2e/**/*"
   ]
 }
