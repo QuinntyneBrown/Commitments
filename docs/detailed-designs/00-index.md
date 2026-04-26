@@ -4,7 +4,7 @@ These detailed designs apply a Live / Review tile pattern to goal tracking in Co
 
 | #  | Feature                                                       | Status | Description |
 |----|---------------------------------------------------------------|--------|-------------|
-| 01 | [Live Goal Metrics](01-live-goal-metrics/README.md)           | Draft  | Real-time tile that pushes achievement counts against a goal target via SignalR. |
+| 01 | [Live Goal Metrics](01-live-goal-metrics/README.md)           | Accepted | Real-time tile that pushes achievement counts against a goal target via SignalR. |
 | 02 | [Review Goal History](02-review-goal-history/README.md)       | Draft  | Scrub-through-history tile: pick a window, drag the slider, see the goal's count at any past instant. |
 
 ## How they relate
