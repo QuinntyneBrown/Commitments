@@ -4,9 +4,10 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideDashboardFramework } from '@commitments/dashboard-framework';
+import { PLUGIN_TILES, provideDashboardFramework } from '@commitments/dashboard-framework';
 import { provideCommitmentsDashboardPlugin } from '@commitments/dashboard-plugin';
 
+import { LiveGoalMetricsTileComponent } from './components/live-goal-metrics-tile/live-goal-metrics-tile.component';
 import { baseUrl, minimumLogLevel } from './core/constants';
 import { headerInterceptor } from './core/headers.interceptor';
 import { jwtInterceptor } from './core/jwt.interceptor';
@@ -18,6 +19,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     ...provideDashboardFramework(),
     ...provideCommitmentsDashboardPlugin(),
+    { provide: PLUGIN_TILES, useValue: [LiveGoalMetricsTileComponent], multi: true },
     { provide: baseUrl, useValue: 'http://localhost:52748/' },
     { provide: minimumLogLevel, useValue: LogLevel.Trace }
   ]

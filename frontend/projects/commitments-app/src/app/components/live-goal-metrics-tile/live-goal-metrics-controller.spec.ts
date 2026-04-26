@@ -1,4 +1,3 @@
-import { TestBed } from '@angular/core/testing';
 import { Subject } from 'rxjs';
 
 import { HubClient } from '../../core/hub-client';
@@ -8,19 +7,15 @@ import { LiveGoalMetricsController } from './live-goal-metrics-controller';
 
 describe('LiveGoalMetricsController', () => {
   let messages$: Subject<unknown>;
+  let hubClient: HubClient;
+  let goalProgressService: GoalProgressService;
   let getCurrent: jest.Mock;
 
   beforeEach(() => {
     messages$ = new Subject<unknown>();
+    hubClient = { messages$ } as unknown as HubClient;
     getCurrent = jest.fn();
-
-    TestBed.configureTestingModule({
-      providers: [
-        LiveGoalMetricsController,
-        { provide: HubClient, useValue: { messages$, connect: () => Promise.resolve() } },
-        { provide: GoalProgressService, useValue: { getCurrent } as Partial<GoalProgressService> }
-      ]
-    });
+    goalProgressService = { getCurrent } as unknown as GoalProgressService;
   });
 
   it('exposes initial values from the GoalProgressService', () => {
@@ -32,7 +27,7 @@ describe('LiveGoalMetricsController', () => {
     };
     getCurrent.mockReturnValue({ subscribe: (fn: (v: GoalProgress) => void) => fn(initial) });
 
-    const controller = TestBed.inject(LiveGoalMetricsController);
+    const controller = new LiveGoalMetricsController(hubClient, goalProgressService);
     controller.load('goal-1');
 
     expect(controller.count()).toBe(5);
@@ -44,7 +39,7 @@ describe('LiveGoalMetricsController', () => {
     const initial: GoalProgress = { goalId: 'goal-1', target: 30, count: 5, asOf: new Date() };
     getCurrent.mockReturnValue({ subscribe: (fn: (v: GoalProgress) => void) => fn(initial) });
 
-    const controller = TestBed.inject(LiveGoalMetricsController);
+    const controller = new LiveGoalMetricsController(hubClient, goalProgressService);
     controller.load('goal-1');
 
     messages$.next({ event: 'goalProgressUpdated', goalId: 'goal-1', count: 12, asOf: new Date().toISOString() });
@@ -56,7 +51,7 @@ describe('LiveGoalMetricsController', () => {
     const initial: GoalProgress = { goalId: 'goal-1', target: 30, count: 5, asOf: new Date() };
     getCurrent.mockReturnValue({ subscribe: (fn: (v: GoalProgress) => void) => fn(initial) });
 
-    const controller = TestBed.inject(LiveGoalMetricsController);
+    const controller = new LiveGoalMetricsController(hubClient, goalProgressService);
     controller.load('goal-1');
 
     messages$.next({ event: 'goalProgressUpdated', goalId: 'goal-2', count: 99, asOf: new Date().toISOString() });
@@ -68,7 +63,7 @@ describe('LiveGoalMetricsController', () => {
     const initial: GoalProgress = { goalId: 'goal-1', target: 10, count: 25, asOf: new Date() };
     getCurrent.mockReturnValue({ subscribe: (fn: (v: GoalProgress) => void) => fn(initial) });
 
-    const controller = TestBed.inject(LiveGoalMetricsController);
+    const controller = new LiveGoalMetricsController(hubClient, goalProgressService);
     controller.load('goal-1');
 
     expect(controller.pct()).toBe(100);

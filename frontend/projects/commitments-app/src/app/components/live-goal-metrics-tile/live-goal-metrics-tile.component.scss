@@ -1,0 +1,66 @@
+.metric {
+  display: grid;
+  gap: 4px;
+}
+
+.metric__value {
+  color: #1d5f3f;
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.metric__separator {
+  margin: 0 6px;
+  color: #5b6b84;
+  font-weight: 400;
+}
+
+.metric__label {
+  color: #5b6b84;
+  font-size: 13px;
+}
+
+.progress {
+  overflow: hidden;
+  height: 8px;
+  margin-top: 18px;
+  border-radius: 999px;
+  background: #e6edf4;
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #ff4081;
+  transition: width 200ms ease-out;
+}
+
+.live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 64, 129, 0.12);
+  color: #ff4081;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.live-badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ff4081;
+  animation: live-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}

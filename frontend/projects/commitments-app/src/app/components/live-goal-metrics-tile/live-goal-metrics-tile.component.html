@@ -1,0 +1,17 @@
+<commitments-tile-shell title="Live Goal Metrics" eyebrow="Goal Progress" status="Live" data-testid="live-goal-metrics-tile">
+  <div class="metric">
+    <span class="metric__value">
+      <span data-testid="live-goal-metrics-count">{{ controller.count() }}</span>
+      <span class="metric__separator">/</span>
+      <span data-testid="live-goal-metrics-target">{{ controller.target() }}</span>
+    </span>
+    <span class="metric__label">achievements toward target</span>
+  </div>
+  <div class="progress" role="progressbar" aria-label="Goal progress" [attr.aria-valuemin]="0" [attr.aria-valuemax]="controller.target()" [attr.aria-valuenow]="controller.count()">
+    <span [style.width.%]="controller.pct()"></span>
+  </div>
+  <div class="live-badge" data-testid="live-goal-metrics-live-badge" aria-label="Live updates active">
+    <span class="live-badge__dot"></span>
+    LIVE
+  </div>
+</commitments-tile-shell>
