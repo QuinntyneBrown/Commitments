@@ -3,11 +3,13 @@
 ## Prerequisites
 
 - .NET 9 SDK
-- Docker (for Aspire-managed Redis and SQL Server containers)
+- Node.js and npm (for the Angular front-end)
+- SQL Server (LocalDB, SQLEXPRESS, or container)
 
 ## Building
 
 ```
+cd backend
 dotnet restore
 dotnet build
 ```
@@ -15,52 +17,61 @@ dotnet build
 ## Running
 
 ```
-dotnet run --project src/Commitments.AppHost
+cd backend
+dotnet run --project src/Commitments.Api
 ```
 
-This starts all four API services along with Redis and SQL Server via .NET Aspire. The Aspire Dashboard provides observability across all services.
+To apply migrations and seed reference data on startup:
+
+```
+dotnet run --project src/Commitments.Api -- migratedb seeddb
+```
 
 ## Testing
 
 ```
+cd backend
 dotnet test
 ```
 
 ## Project Layout
 
-The solution follows a consistent structure per bounded context:
+The backend is a modular monolith. Each module is a class library that owns its
+domain model, EF Core `DbContext`, MediatR features, and controllers:
 
 ```
-src/<Service>.Api/            Controllers, MediatR feature handlers, DTOs, Program.cs
-src/<Service>.Core/           Domain model (aggregates), DbContext interface
-src/<Service>.Infrastructure/ EF Core DbContext implementation
-tests/<Service>.Api.Tests/    Unit tests
+backend/src/Commitments.Api/        ASP.NET Core host; composes modules in Program.cs
+backend/src/Commitments.Shared/     Shared kernel
+backend/src/Modules/<Module>/       Module project (Controllers, Features, Model, Data)
+backend/tests/<Module>.Api.Tests/   Unit tests
 ```
 
-Shared concerns live in:
+Shared concerns live in `Commitments.Shared`:
 
-- `Commitments.Shared` -- Base types, validation pipeline, event bus, HTTP filters
-- `Commitments.ServiceDefaults` -- Aspire service defaults (telemetry, health checks)
-- `Commitments.AppHost` -- Aspire orchestration (Redis, SQL Server, service wiring)
+- `BaseEntity`, `BaseDbContext` (soft-delete + audit)
+- `ValidationBehavior` (MediatR pipeline behavior wrapping FluentValidation)
+- `IEventBus` / `InMemoryEventBus` for in-process integration events
+- HTTP filters (`HttpGlobalExceptionFilter`) and CORS settings
 
 ## Conventions
 
 - **CQRS with MediatR** -- Each feature is a self-contained file under `Features/<Entity>/Commands/` or `Features/<Entity>/Queries/` containing the request, response, optional validator, and handler.
-- **No cross-service navigation properties** -- Services reference entities in other bounded contexts by `Guid` only.
+- **No cross-module navigation properties** -- Modules reference entities in other modules by `Guid` only.
 - **Soft-delete** -- All entities inherit from `BaseEntity` which provides `IsDeleted`, `CreatedOn`, and `LastModifiedOn`. Deletion sets the flag rather than removing the row.
 - **API versioning** -- Controllers use `[ApiVersion("1.0")]` via `Asp.Versioning.Mvc`.
-- **Integration events** -- Cross-service communication uses `IEventBus` (Redis PubSub). Events are defined in `Commitments.Shared/IntegrationEvents.cs`.
+- **Integration events** -- Cross-module communication uses `IEventBus`. Events are defined in `Commitments.Shared/IntegrationEvents.cs`.
 
 ## Adding a New Feature
 
-1. Add the request, response, and handler in `Features/<Entity>/Commands/` or `Queries/`.
+1. Add the request, response, and handler in `Features/<Entity>/Commands/` or `Queries/` inside the module project.
 2. Add a FluentValidation validator if the request needs validation.
-3. Add the controller endpoint.
+3. Add the controller endpoint to the module's `Controllers/` folder.
 4. Add unit tests in the corresponding test project.
 
-## Adding a New Service
+## Adding a New Module
 
-1. Create `<Service>.Core`, `<Service>.Infrastructure`, and `<Service>.Api` projects following the existing pattern.
-2. Register the service and its database in `Commitments.AppHost/Program.cs`.
-3. Add all three projects to `Commitments.sln`.
-4. Create a test project under `tests/`.
+1. Create a new module project under `backend/src/Modules/<Module>/`.
+2. Add `Controllers/`, `Features/`, `Model/`, `Data/` (with the module's `DbContext`), and a `ModuleExtensions.cs` exposing `AddXxxModule(IConfiguration)`.
+3. Reference the module from `backend/src/Commitments.Api/Commitments.Api.csproj` and call `services.AddXxxModule(configuration)` in `Program.cs`.
+4. Add the module to `backend/Commitments.sln`.
+5. Create a test project under `backend/tests/`.
