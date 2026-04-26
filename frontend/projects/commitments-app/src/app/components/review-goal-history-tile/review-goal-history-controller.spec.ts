@@ -1,102 +1,69 @@
+import { signal } from '@angular/core';
+
 import { GoalProgress, GoalProgressService } from '../../services/goal-progress.service';
 
 import { ReviewGoalHistoryController } from './review-goal-history-controller';
 
+function progress(count: number, target: number = 30, asOf: string = '2026-04-26'): GoalProgress {
+  return { goalId: 'goal-1', target, count, asOf };
+}
+
 describe('ReviewGoalHistoryController', () => {
   let getAt: jest.Mock;
+  let getCurrent: jest.Mock;
   let goalProgressService: GoalProgressService;
+  let selectedReviewDate: ReturnType<typeof signal<string | null>>;
 
   beforeEach(() => {
     getAt = jest.fn();
-    goalProgressService = { getAt } as unknown as GoalProgressService;
+    getCurrent = jest.fn();
+    goalProgressService = { getAt, getCurrent } as unknown as GoalProgressService;
+    selectedReviewDate = signal<string | null>('2026-04-12');
   });
 
-  it('canApply is false until both draft start and end are valid and ordered', () => {
-    const controller = new ReviewGoalHistoryController(goalProgressService);
+  it('loads historical and today snapshots on load', () => {
+    getAt.mockReturnValue({ subscribe: (fn: (v: GoalProgress) => void) => fn(progress(7)) });
+    getCurrent.mockReturnValue({ subscribe: (fn: (v: GoalProgress) => void) => fn(progress(15)) });
 
-    expect(controller.canApply()).toBe(false);
-
-    controller.setDraftStart('2026-04-01T00:00');
-    controller.setDraftEnd('2026-04-10T00:00');
-
-    expect(controller.canApply()).toBe(true);
-  });
-
-  it('canApply is false when draft end is before draft start', () => {
-    const controller = new ReviewGoalHistoryController(goalProgressService);
-
-    controller.setDraftStart('2026-04-10T00:00');
-    controller.setDraftEnd('2026-04-01T00:00');
-
-    expect(controller.canApply()).toBe(false);
-  });
-
-  it('apply pulls progress at the midpoint of the window', () => {
-    const progress: GoalProgress = {
-      goalId: 'goal-1',
-      target: 30,
-      count: 7,
-      asOf: new Date('2026-04-05T12:00:00Z')
-    };
-    getAt.mockReturnValue({ subscribe: (fn: (v: GoalProgress) => void) => fn(progress) });
-
-    const controller = new ReviewGoalHistoryController(goalProgressService);
+    const controller = new ReviewGoalHistoryController(goalProgressService, selectedReviewDate);
     controller.load('goal-1');
-    controller.setDraftStart('2026-04-01T00:00');
-    controller.setDraftEnd('2026-04-10T00:00');
-    controller.apply();
 
     expect(getAt).toHaveBeenCalledTimes(1);
+    expect(getCurrent).toHaveBeenCalledTimes(1);
     expect(controller.count()).toBe(7);
     expect(controller.target()).toBe(30);
   });
 
-  it('scrub re-fetches progress at the new instant (without debounce)', () => {
-    const initial: GoalProgress = { goalId: 'goal-1', target: 30, count: 3, asOf: new Date() };
-    getAt.mockReturnValue({ subscribe: (fn: (v: GoalProgress) => void) => fn(initial) });
+  it('computes delta as historical.count - today.count', () => {
+    getAt.mockReturnValue({ subscribe: (fn: (v: GoalProgress) => void) => fn(progress(8)) });
+    getCurrent.mockReturnValue({ subscribe: (fn: (v: GoalProgress) => void) => fn(progress(20)) });
 
-    const controller = new ReviewGoalHistoryController(goalProgressService);
+    const controller = new ReviewGoalHistoryController(goalProgressService, selectedReviewDate);
     controller.load('goal-1');
-    controller.setDraftStart('2026-04-01T00:00');
-    controller.setDraftEnd('2026-04-10T00:00');
-    controller.apply();
 
-    getAt.mockClear();
-    const next: GoalProgress = { goalId: 'goal-1', target: 30, count: 9, asOf: new Date() };
-    getAt.mockReturnValue({ subscribe: (fn: (v: GoalProgress) => void) => fn(next) });
-
-    controller.scrub(75, 0);
-
-    expect(getAt).toHaveBeenCalledTimes(1);
-    expect(controller.count()).toBe(9);
-    expect(controller.scrubPct()).toBe(75);
+    expect(controller.delta()).toBe(-12);
   });
 
-  it('scrub debounces fetch calls when called rapidly', () => {
-    jest.useFakeTimers();
-    try {
-      const initial: GoalProgress = { goalId: 'goal-1', target: 30, count: 3, asOf: new Date() };
-      getAt.mockReturnValue({ subscribe: (fn: (v: GoalProgress) => void) => fn(initial) });
+  it('falls back to today when selectedReviewDate is null', () => {
+    selectedReviewDate.set(null);
+    getAt.mockReturnValue({ subscribe: (fn: (v: GoalProgress) => void) => fn(progress(0)) });
+    getCurrent.mockReturnValue({ subscribe: (fn: (v: GoalProgress) => void) => fn(progress(0)) });
 
-      const controller = new ReviewGoalHistoryController(goalProgressService);
-      controller.load('goal-1');
-      controller.setDraftStart('2026-04-01T00:00');
-      controller.setDraftEnd('2026-04-10T00:00');
-      controller.apply();
+    const controller = new ReviewGoalHistoryController(goalProgressService, selectedReviewDate);
+    controller.load('goal-1');
 
-      getAt.mockClear();
-      controller.scrub(25);
-      controller.scrub(50);
-      controller.scrub(75);
+    expect(controller.selectedDate()).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  });
 
-      expect(getAt).not.toHaveBeenCalled();
+  it('renders empty day with count 0 and target intact', () => {
+    getAt.mockReturnValue({ subscribe: (fn: (v: GoalProgress) => void) => fn(progress(0, 30)) });
+    getCurrent.mockReturnValue({ subscribe: (fn: (v: GoalProgress) => void) => fn(progress(5, 30)) });
 
-      jest.advanceTimersByTime(150);
+    const controller = new ReviewGoalHistoryController(goalProgressService, selectedReviewDate);
+    controller.load('goal-1');
 
-      expect(getAt).toHaveBeenCalledTimes(1);
-      expect(controller.scrubPct()).toBe(75);
-    } finally {
-      jest.useRealTimers();
-    }
+    expect(controller.count()).toBe(0);
+    expect(controller.target()).toBe(30);
+    expect(controller.isEmpty()).toBe(true);
   });
 });
