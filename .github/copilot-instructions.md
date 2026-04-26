@@ -1,49 +1,42 @@
 # Copilot Instructions for Commitments
 
 ## Project Overview
-- Modular .NET 8 + Angular solution for tracking personal commitments and daily activities.
-- Clean separation: API (ASP.NET Core), domain logic (Core), infrastructure (EF Core), and front-end (Angular).
+- .NET 9 + Angular solution for tracking personal commitments and daily activities.
+- Backend is a **modular monolith**: a single ASP.NET Core host composes feature modules (Commitments, Identity, Dashboard, DigitalAssets) that share a process but keep their domain models, schemas, and `DbContext`s isolated.
 
-## Solution Structure
-- **src/Commitments.Api/**: ASP.NET Core Web API controllers, startup, config.
-- **src/Commitments.Core/**: Domain aggregates (Commitment, Activity, Behaviour, Frequency, Profile), MediatR handlers, cross-cutting services (messaging, security, validation, telemetry).
-- **src/Commitments.Infrastructure/**: EF Core DbContext, migrations, data access.
-- **src/Commitments.App/**: Angular front-end, TypeScript, e2e tests.
+## Repository Layout
+- **backend/** — .NET 9 solution.
+  - **src/Commitments.Api/** — ASP.NET Core host: composes modules, configures Swagger, CORS, MediatR, validation, etc.
+  - **src/Commitments.Shared/** — Shared kernel: `BaseEntity`, `BaseDbContext` (soft-delete + audit), `ValidationBehavior`, `IEventBus` / `InMemoryEventBus`, integration events, HTTP filters.
+  - **src/Modules/<Module>/** — One project per module containing `Controllers/`, `Features/`, `Model/`, `Data/<Module>DbContext.cs`, and `ModuleExtensions.cs`.
+  - **tests/** — xUnit test projects.
+- **frontend/** — Angular workspace (`ng`, Jest, Playwright).
 
 ## Key Patterns & Conventions
-- **Aggregates**: Each domain concept (e.g., Commitment, Activity) is an aggregate in `Core/AggregateModel/*`.
-- **MediatR**: Query/command handlers for business logic.
-- **Services**: Messaging, security, validation, and telemetry in `Core/Services/*`.
-- **Controllers**: API endpoints in `Api/Controllers/*` map to aggregates and MediatR requests.
-- **EF Core**: Migrations and DbContext in `Infrastructure/Data` and `Migrations`.
-- **Angular**: App structure in `App/src/app`, tests in `App/e2e`.
+- **Aggregates** live in `Modules/<Module>/Model/<Aggregate>Aggregate/*`.
+- **CQRS with MediatR** — Each feature is a self-contained file under `Modules/<Module>/Features/<Entity>/Commands/` or `Queries/` containing the request, response, optional validator, and handler.
+- **Controllers** in `Modules/<Module>/Controllers/` map to MediatR requests.
+- **EF Core** — One `DbContext` per module under `Modules/<Module>/Data/`. Each module has its own SQL Server schema.
+- **Soft-delete** — `BaseDbContext` intercepts `SavingChanges` to set `IsDeleted` flags and audit timestamps (`CreatedOn`, `LastModifiedOn`).
+- **Integration events** — Modules communicate in-process via `IEventBus`. Default implementation is `InMemoryEventBus`.
+- **No cross-module navigation properties** — Modules reference entities in other modules by `Guid` only.
+- **API versioning** uses `Asp.Versioning.Mvc`.
 
 ## Developer Workflows
-- **Build backend**: `dotnet restore` then `dotnet build` from solution root.
-- **Run API**: `dotnet run` in `src/Commitments.Api`.
-- **Database setup**: Edit connection string in `Api/appsettings.json`, run `dotnet ef database update` in `Infrastructure`.
-- **Build front-end**: `npm install` then `npm start` or `ng serve` in `src/Commitments.App`.
-- **Test backend**: `dotnet test` in test project directories.
-- **Test front-end**: `npm test` for unit, `npm run e2e` for e2e/Playwright.
+- **Build backend**: `cd backend && dotnet restore && dotnet build`.
+- **Run API**: `cd backend && dotnet run --project src/Commitments.Api`. Optional CLI args: `migratedb`, `seeddb`, `dropdb`, `stop`, `ci` (= `dropdb migratedb seeddb stop`).
+- **Database setup**: Edit connection strings in `backend/src/Commitments.Api/appsettings.json` (`CommitmentsDb`, `IdentityDb`, `DashboardDb`, `DigitalAssetsDb`).
+- **Test backend**: `cd backend && dotnet test`.
+- **Frontend**: `cd frontend && npm install && npm start`. Tests: `npm test` (Jest), `npm run e2e` (Playwright).
 
-## Integration & Communication
-- **API ↔ Core**: Controllers delegate to MediatR handlers and domain services.
-- **Core ↔ Infrastructure**: Domain logic uses EF Core for persistence.
-- **App ↔ API**: Angular front-end calls API endpoints for data.
-- **Messaging/Telemetry**: UDP-based service bus abstraction in `Core/Services/Messaging`.
-- **Security**: JWT authentication and helpers in `Core/Services/Security`.
+## Adding a New Feature
+1. Add the request, response, and handler in `Modules/<Module>/Features/<Entity>/Commands/` or `Queries/`.
+2. Add a FluentValidation validator if the request needs validation.
+3. Add the controller endpoint in `Modules/<Module>/Controllers/`.
+4. Add unit tests in `backend/tests/<Module>.Api.Tests/`.
 
-## Project-Specific Notes
-- Legacy code in `BuildingBlocks/` is mostly superseded by `Core/Services/*`.
-- Dashboard/Card aggregates exist in Core but are partially removed from schema.
-- TypeScript compilation for the front-end can be triggered via MSBuild when building the solution.
-
-## Example: Adding a New Domain Concept
-1. Create aggregate in `Core/AggregateModel/`.
-2. Add MediatR handlers in `Core`.
-3. Expose endpoints in `Api/Controllers/`.
-4. Update DbContext/migrations in `Infrastructure`.
-5. Add UI in `App/src/app` if needed.
-
----
-For unclear or missing conventions, review `README.md` and key files in each project. Ask for feedback if any section is incomplete or ambiguous.
+## Adding a New Module
+1. Create `backend/src/Modules/<Module>/<Module>.Module.csproj` referencing `Commitments.Shared`.
+2. Add `Controllers/`, `Features/`, `Model/`, `Data/<Module>DbContext.cs`, and `ModuleExtensions.cs` exposing `AddXxxModule(IConfiguration)`.
+3. Reference the module from `backend/src/Commitments.Api/Commitments.Api.csproj` and call `services.AddXxxModule(configuration)` in `Program.cs`.
+4. Add the module project to `backend/Commitments.sln`.
