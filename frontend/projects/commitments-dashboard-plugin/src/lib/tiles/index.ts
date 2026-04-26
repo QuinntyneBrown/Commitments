@@ -1,3 +1,5 @@
+export * from './consistency-trend/consistency-trend-tile.component';
+export * from './consistency-trend/consistency-trend.controller';
 export * from './daily-results-tile.component';
 export * from './monthly-progress-tile.component';
 export * from './outstanding-todos-tile.component';

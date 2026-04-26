@@ -64,4 +64,22 @@ public class GoalProgressController
             ProfileId = _httpContextAccessor.GetProfileId()
         });
     }
+
+    [HttpGet("trend")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetGoalTrendResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetGoalTrendResponse>> GetTrend(
+        [FromQuery] Guid goalId,
+        [FromQuery] int? windowDays,
+        [FromQuery] DateTimeOffset? asOf)
+    {
+        return await _sender.Send(new GetGoalTrendRequest
+        {
+            GoalId = goalId,
+            ProfileId = _httpContextAccessor.GetProfileId(),
+            WindowDays = windowDays,
+            AsOf = asOf
+        });
+    }
 }

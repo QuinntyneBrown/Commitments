@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.trend-row {
+  margin-top: 6px;
+}
+
+.plot {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 220px;
+  margin-top: 12px;
+}
+
+.plot canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}

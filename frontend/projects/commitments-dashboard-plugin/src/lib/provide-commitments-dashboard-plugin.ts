@@ -1,6 +1,7 @@
 import { Provider, Type } from '@angular/core';
 import { PLUGIN_TILES } from '@commitments/dashboard-framework';
 import {
+  ConsistencyTrendTileComponent,
   DailyResultsTileComponent,
   MonthlyProgressTileComponent,
   OutstandingTodosTileComponent,
@@ -13,7 +14,8 @@ export const COMMITMENTS_DASHBOARD_TILES: Type<unknown>[] = [
   WeeklyFocusTileComponent,
   MonthlyProgressTileComponent,
   OutstandingTodosTileComponent,
-  RelationsTileComponent
+  RelationsTileComponent,
+  ConsistencyTrendTileComponent
 ];
 
 export function provideCommitmentsDashboardPlugin(): Provider[] {

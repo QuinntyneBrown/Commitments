@@ -1,0 +1,22 @@
+<commitments-tile-shell title="Consistency Trend" eyebrow="Goal completion rate" variant="chart">
+  <cui-status-pill [variant]="pillVariant()" [pulse]="pillVariant() === 'live'" [label]="pillLabel()">
+  </cui-status-pill>
+
+  <cui-metric-header
+    accent="chart"
+    [value]="controller.currentPercentage() + '%'"
+    [caption]="'Peak ' + controller.peakPercentage() + '% / Low ' + controller.lowPercentage() + '%'">
+  </cui-metric-header>
+
+  <div class="trend-row">
+    <cui-delta-badge
+      [delta]="controller.currentPercentage() - controller.lowPercentage()"
+      format="percent"
+      [caption]="controller.deltaLabel()">
+    </cui-delta-badge>
+  </div>
+
+  <div class="plot">
+    <canvas #plot data-testid="consistency-trend-canvas" aria-label="Goal completion rate trend chart"></canvas>
+  </div>
+</commitments-tile-shell>
