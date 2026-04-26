@@ -1,5 +1,6 @@
 import { Injectable, Signal, computed, inject, signal } from '@angular/core';
-import { TileDescriptor, TileRegistryService } from '../tile-registration';
+
+import { DashboardMode, TileDescriptor, TileRegistryService } from '../tile-registration';
 import {
   DEFAULT_COLS,
   DEFAULT_ROWS,
@@ -7,6 +8,7 @@ import {
   GridsterConfig,
   PersistedLayout
 } from './dashboard.model';
+import { DashboardModeService } from './dashboard-mode.service';
 import { LayoutPersistenceService } from './layout-persistence.service';
 
 const FALLBACK_SIZE = { cols: 3, rows: 2 };
@@ -15,18 +17,21 @@ const FALLBACK_SIZE = { cols: 3, rows: 2 };
 export class DashboardLayoutStore {
   private readonly registry = inject(TileRegistryService);
   private readonly persistence = inject(LayoutPersistenceService);
-  private readonly itemsSignal = signal<DashboardItem[]>([]);
+  private readonly modeService = inject(DashboardModeService);
+
+  private readonly liveItems = signal<DashboardItem[]>([]);
+  private readonly reviewItems = signal<DashboardItem[]>([]);
   private readonly editModeSignal = signal(false);
 
-  readonly items: Signal<DashboardItem[]> = this.itemsSignal.asReadonly();
+  readonly items: Signal<DashboardItem[]> = computed(() =>
+    this.modeService.mode() === 'live' ? this.liveItems() : this.reviewItems()
+  );
   readonly isEditMode: Signal<boolean> = this.editModeSignal.asReadonly();
   readonly gridOptions: Signal<GridsterConfig> = computed(() => this.buildGridOptions(this.editModeSignal()));
 
   hydrate(): void {
-    const persisted = this.persistence.load();
-    const persistedItems = persisted ? this.filterKnownTiles(persisted.items) : [];
-
-    this.itemsSignal.set(persistedItems.length > 0 ? persistedItems : this.defaultItems());
+    this.liveItems.set(this.loadOrSeed('live'));
+    this.reviewItems.set(this.loadOrSeed('review'));
   }
 
   toggleEditMode(): void {
@@ -45,25 +50,40 @@ export class DashboardLayoutStore {
       return;
     }
 
-    this.itemsSignal.update((items) => [...items, this.createItem(descriptor, items.length)]);
-    this.persist();
+    this.mutateCurrent((items) => [...items, this.createItem(descriptor, items.length)]);
   }
 
   removeTile(instanceId: string): void {
-    this.itemsSignal.update((items) => items.filter((item) => item.instanceId !== instanceId));
-    this.persist();
+    this.mutateCurrent((items) => items.filter((item) => item.instanceId !== instanceId));
   }
 
   updateItem(instanceId: string, patch: Partial<DashboardItem>): void {
-    this.itemsSignal.update((items) =>
+    this.mutateCurrent((items) =>
       items.map((item) => (item.instanceId === instanceId ? { ...item, ...patch } : item))
     );
-    this.persist();
   }
 
   resetLayout(): void {
-    this.persistence.clear();
-    this.itemsSignal.set(this.defaultItems());
+    const mode = this.modeService.mode();
+    this.persistence.clear(mode);
+    this.signalForMode(mode).set(this.defaultItems());
+  }
+
+  private signalForMode(mode: DashboardMode) {
+    return mode === 'live' ? this.liveItems : this.reviewItems;
+  }
+
+  private mutateCurrent(transform: (items: DashboardItem[]) => DashboardItem[]): void {
+    const mode = this.modeService.mode();
+    const target = this.signalForMode(mode);
+    target.update(transform);
+    this.persist(mode, target());
+  }
+
+  private loadOrSeed(mode: DashboardMode): DashboardItem[] {
+    const persisted = this.persistence.load(mode);
+    const persistedItems = persisted ? this.filterKnownTiles(persisted.items) : [];
+    return persistedItems.length > 0 ? persistedItems : this.defaultItems();
   }
 
   private filterKnownTiles(items: readonly DashboardItem[]): DashboardItem[] {
@@ -95,13 +115,13 @@ export class DashboardLayoutStore {
     };
   }
 
-  private persist(): void {
+  private persist(mode: DashboardMode, items: DashboardItem[]): void {
     const layout: PersistedLayout = {
       schemaVersion: 1,
       savedAt: Date.now(),
-      items: this.itemsSignal()
+      items
     };
-    this.persistence.save(layout);
+    this.persistence.save(mode, layout);
   }
 
   private buildGridOptions(editMode: boolean): GridsterConfig {

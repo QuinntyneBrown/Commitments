@@ -21,3 +21,6 @@ export type { GridsterConfig };
 export const LAYOUT_STORAGE_KEY = 'commitments.dashboard.layout.v1';
 export const DEFAULT_COLS = 12;
 export const DEFAULT_ROWS = 8;
+
+export const LIVE_LAYOUT_STORAGE_KEY = 'commitments.layout.live';
+export const REVIEW_LAYOUT_STORAGE_KEY = 'commitments.layout.review';
