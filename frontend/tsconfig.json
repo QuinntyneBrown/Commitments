@@ -28,7 +28,18 @@
       "@models/*": ["projects/commitments-app/src/app/models/*"],
       "@services/*": ["projects/commitments-app/src/app/services/*"],
       "@components/*": ["projects/commitments-app/src/app/components/*"],
-      "@pages/*": ["projects/commitments-app/src/app/pages/*"]
+      "@pages/*": [
+        "projects/commitments-app/src/app/pages/*"
+      ],
+      "@commitments/dashboard-framework": [
+        "projects/dashboard-framework/src/public-api.ts"
+      ],
+      "@commitments/dashboard-plugin": [
+        "projects/commitments-dashboard-plugin/src/public-api.ts"
+      ],
+      "@commitments/ui": [
+        "projects/commitments-ui/src/public-api.ts"
+      ]
     }
   },
   "angularCompilerOptions": {
@@ -36,5 +47,25 @@
     "strictInjectionParameters": false,
     "strictInputAccessModifiers": false,
     "strictTemplates": false
-  }
+  },
+  "references": [
+    {
+      "path": "./projects/dashboard-framework/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/dashboard-framework/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/commitments-dashboard-plugin/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/commitments-dashboard-plugin/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/commitments-ui/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/commitments-ui/tsconfig.spec.json"
+    }
+  ]
 }

@@ -27,6 +27,7 @@ const config: Config = {
   coveragePathIgnorePatterns: ['/node_modules/', '/dist/', '/coverage/'],
   testMatch: ['**/projects/commitments-app/src/**/*.spec.ts'],
   testPathIgnorePatterns: ['/node_modules/', '/e2e/'],
+  modulePathIgnorePatterns: ['<rootDir>/dist/'],
   moduleNameMapper: {
     '^@app/(.*)$': '<rootDir>/projects/commitments-app/src/app/$1',
     '^@environments/(.*)$': '<rootDir>/projects/commitments-app/src/environments/$1',

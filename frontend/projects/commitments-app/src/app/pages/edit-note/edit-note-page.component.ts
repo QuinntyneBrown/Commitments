@@ -19,7 +19,7 @@ import { LanguageService } from '../../core/language.service';
 import { LocalStorageService } from '../../core/local-storage.service';
 import { QuillTextEditorComponent } from '../../components/quill-text-editor/quill-text-editor.component';
 import { AutoCompleteChipListComponent } from '../../components/auto-complete-chip-list/auto-complete-chip-list.component';
-import { PrimaryHeaderComponent } from '../../components/primary-header/primary-header.component';
+import { PrimaryHeaderComponent } from '@commitments/ui';
 
 @Component({
   selector: 'app-edit-note-page',

@@ -15,7 +15,7 @@ import { Card } from '../../models/card';
 import { EditCardDialogService } from '../../services/edit-card-dialog.service';
 import { DeleteCellComponent } from '../../components/delete-cell/delete-cell.component';
 import { EditCellComponent } from '../../components/edit-cell/edit-cell.component';
-import { PrimaryHeaderComponent } from '../../components/primary-header/primary-header.component';
+import { PrimaryHeaderComponent } from '@commitments/ui';
 
 @Component({
   selector: 'app-cards-page',

@@ -118,6 +118,84 @@
           }
         }
       }
+    },
+    "dashboard-framework": {
+      "projectType": "library",
+      "root": "projects/dashboard-framework",
+      "sourceRoot": "projects/dashboard-framework/src",
+      "prefix": "commitments",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/dashboard-framework/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/dashboard-framework/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/dashboard-framework/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "commitments-ui": {
+      "projectType": "library",
+      "root": "projects/commitments-ui",
+      "sourceRoot": "projects/commitments-ui/src",
+      "prefix": "commitments",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/commitments-ui/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/commitments-ui/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/commitments-ui/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "commitments-dashboard-plugin": {
+      "projectType": "library",
+      "root": "projects/commitments-dashboard-plugin",
+      "sourceRoot": "projects/commitments-dashboard-plugin/src",
+      "prefix": "commitments",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/commitments-dashboard-plugin/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/commitments-dashboard-plugin/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/commitments-dashboard-plugin/tsconfig.spec.json"
+          }
+        }
+      }
     }
   },
   "cli": {

@@ -14,7 +14,7 @@ import { ProfileService } from '../../services/profile.service';
 import { Profile } from '../../models/profile';
 import { CreateProfileDialogService } from '../../services/create-profile-dialog.service';
 import { DeleteCellComponent } from '../../components/delete-cell/delete-cell.component';
-import { PrimaryHeaderComponent } from '../../components/primary-header/primary-header.component';
+import { PrimaryHeaderComponent } from '@commitments/ui';
 
 @Component({
   selector: 'app-profiles-page',

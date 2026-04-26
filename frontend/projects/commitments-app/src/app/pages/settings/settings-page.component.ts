@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { LanguageService } from '../../core/language.service';
-import { PrimaryHeaderComponent } from '../../components/primary-header/primary-header.component';
+import { PrimaryHeaderComponent } from '@commitments/ui';
 
 @Component({
   selector: 'app-settings-page',

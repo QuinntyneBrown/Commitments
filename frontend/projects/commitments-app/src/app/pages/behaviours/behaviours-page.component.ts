@@ -19,7 +19,7 @@ import { EditBehaviourDialogService } from '../../services/edit-behaviour-dialog
 import { CheckboxCellComponent } from '../../components/checkbox-cell/checkbox-cell.component';
 import { DeleteCellComponent } from '../../components/delete-cell/delete-cell.component';
 import { EditCellComponent } from '../../components/edit-cell/edit-cell.component';
-import { PrimaryHeaderComponent } from '../../components/primary-header/primary-header.component';
+import { PrimaryHeaderComponent } from '@commitments/ui';
 
 @Component({
   selector: 'app-edit-behaviour-page',

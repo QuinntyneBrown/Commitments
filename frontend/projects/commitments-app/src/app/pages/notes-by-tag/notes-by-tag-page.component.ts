@@ -10,7 +10,7 @@ import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs';
 import { TagsService } from '../../services/tags.service';
 import { Tag } from '../../models/tag';
-import { PrimaryHeaderComponent } from '../../components/primary-header/primary-header.component';
+import { PrimaryHeaderComponent } from '@commitments/ui';
 
 @Component({
   selector: 'app-notes-by-tag-page',

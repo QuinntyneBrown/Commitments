@@ -13,7 +13,7 @@ import { NotesService } from '../../services/notes.service';
 import { Note } from '../../models/note';
 import { Store } from '../../core/store';
 import { DeleteCellComponent } from '../../components/delete-cell/delete-cell.component';
-import { PrimaryHeaderComponent } from '../../components/primary-header/primary-header.component';
+import { PrimaryHeaderComponent } from '@commitments/ui';
 
 @Component({
   selector: 'app-notes-page',

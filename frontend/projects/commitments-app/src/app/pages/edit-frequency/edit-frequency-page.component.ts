@@ -15,7 +15,7 @@ import { FrequencyTypeService } from '../../services/frequency-type.service';
 import { FrequencyType } from '../../models/frequency-type';
 import { OverlayRefWrapper } from '../../core/overlay-ref-wrapper';
 import { EditFrequencyOverlayComponent } from '../../components/frequencies-editor/edit-frequency-overlay.component';
-import { PrimaryHeaderComponent } from '../../components/primary-header/primary-header.component';
+import { PrimaryHeaderComponent } from '@commitments/ui';
 
 @Component({
   selector: 'app-edit-frequency-page',

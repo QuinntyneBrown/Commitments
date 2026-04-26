@@ -15,7 +15,7 @@ import { Profile } from '../../models/profile';
 import { LocalStorageService } from '../../core/local-storage.service';
 import { currentProfileIdKey, baseUrl } from '../../core/constants';
 import { DigitalAssetInputUrlComponent } from '../../components/digital-asset-url-input/digital-asset-url-input.component';
-import { PrimaryHeaderComponent } from '../../components/primary-header/primary-header.component';
+import { PrimaryHeaderComponent } from '@commitments/ui';
 
 @Component({
   selector: 'app-my-profile-page',

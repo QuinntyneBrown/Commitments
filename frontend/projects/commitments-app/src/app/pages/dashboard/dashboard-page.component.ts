@@ -22,7 +22,7 @@ import { ToDoDashboardCardComponent } from '../../components/to-do-dashboard-car
 import { RelationsResultsDashboardCardComponent } from '../../components/relations-results-dashboard-card/relations-results-dashboard-card.component';
 import { Dashboard } from '../../models/dashboard';
 import { DashboardService } from '../../services/dashboard.service';
-import { PrimaryHeaderComponent } from '../../components/primary-header/primary-header.component';
+import { PrimaryHeaderComponent } from '@commitments/ui';
 
 @Component({
   selector: 'app-dashboard-page',
