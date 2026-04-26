@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs';
 
 import { HubClient } from '../../core/hub-client';
-import { GoalProgress, GoalProgressService } from '../../services/goal-progress.service';
+import { GoalProgress, GoalProgressService, Last14DayPoint } from '../../services/goal-progress.service';
 
 import { LiveGoalMetricsController } from './live-goal-metrics-controller';
 
@@ -10,12 +10,14 @@ describe('LiveGoalMetricsController', () => {
   let hubClient: HubClient;
   let goalProgressService: GoalProgressService;
   let getCurrent: jest.Mock;
+  let getLast14: jest.Mock;
 
   beforeEach(() => {
     messages$ = new Subject<unknown>();
     hubClient = { messages$ } as unknown as HubClient;
     getCurrent = jest.fn();
-    goalProgressService = { getCurrent } as unknown as GoalProgressService;
+    getLast14 = jest.fn().mockReturnValue({ subscribe: (fn: (v: Last14DayPoint[]) => void) => fn([]) });
+    goalProgressService = { getCurrent, getLast14 } as unknown as GoalProgressService;
   });
 
   it('exposes initial values from the GoalProgressService', () => {
@@ -67,5 +69,44 @@ describe('LiveGoalMetricsController', () => {
     controller.load('goal-1');
 
     expect(controller.pct()).toBe(100);
+  });
+
+  it('loads the last14 series and exposes deltaVsYesterday', () => {
+    const initial: GoalProgress = { goalId: 'goal-1', target: 30, count: 5, asOf: new Date() };
+    const last14: Last14DayPoint[] = Array.from({ length: 14 }, (_, i) => ({
+      date: `2026-04-${String(13 + i).padStart(2, '0')}`,
+      completed: i,
+      target: 30,
+      percent: Math.round((i / 30) * 100)
+    }));
+    getCurrent.mockReturnValue({ subscribe: (fn: (v: GoalProgress) => void) => fn(initial) });
+    getLast14.mockReturnValue({ subscribe: (fn: (v: Last14DayPoint[]) => void) => fn(last14) });
+
+    const controller = new LiveGoalMetricsController(hubClient, goalProgressService);
+    controller.load('goal-1');
+
+    expect(controller.last14().length).toBe(14);
+    // today=13, yesterday=12 -> delta = 13-12 = 1
+    expect(controller.deltaVsYesterday()).toBe(1);
+  });
+
+  it('patches todays last14 entry when a goalProgressUpdated message arrives', () => {
+    const initial: GoalProgress = { goalId: 'goal-1', target: 30, count: 5, asOf: new Date() };
+    const last14: Last14DayPoint[] = Array.from({ length: 14 }, (_, i) => ({
+      date: `2026-04-${String(13 + i).padStart(2, '0')}`,
+      completed: i,
+      target: 30,
+      percent: Math.round((i / 30) * 100)
+    }));
+    getCurrent.mockReturnValue({ subscribe: (fn: (v: GoalProgress) => void) => fn(initial) });
+    getLast14.mockReturnValue({ subscribe: (fn: (v: Last14DayPoint[]) => void) => fn(last14) });
+
+    const controller = new LiveGoalMetricsController(hubClient, goalProgressService);
+    controller.load('goal-1');
+
+    messages$.next({ event: 'goalProgressUpdated', goalId: 'goal-1', count: 22, asOf: new Date().toISOString() });
+
+    const todayPoint = controller.last14()[13];
+    expect(todayPoint.completed).toBe(22);
   });
 });
