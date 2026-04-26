@@ -1,0 +1,6 @@
+<div class="metric-header" [class]="'metric-header--' + accent">
+  <span class="metric-header__value">{{ value }}</span>
+  @if (caption) {
+    <span class="metric-header__caption">{{ caption }}</span>
+  }
+</div>

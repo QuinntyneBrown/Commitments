@@ -1,0 +1,22 @@
+<div class="mode-toggle" role="tablist" [class.mode-toggle--disabled]="disabled">
+  <button
+    type="button"
+    role="tab"
+    class="mode-toggle__segment mode-toggle__segment--live"
+    [class.mode-toggle__segment--active]="mode === 'live'"
+    [attr.aria-pressed]="mode === 'live'"
+    [disabled]="disabled"
+    (click)="select('live')">
+    Live
+  </button>
+  <button
+    type="button"
+    role="tab"
+    class="mode-toggle__segment mode-toggle__segment--review"
+    [class.mode-toggle__segment--active]="mode === 'review'"
+    [attr.aria-pressed]="mode === 'review'"
+    [disabled]="disabled"
+    (click)="select('review')">
+    Review
+  </button>
+</div>

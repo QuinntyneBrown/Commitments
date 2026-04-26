@@ -1,0 +1,40 @@
+.mode-toggle {
+  display: inline-flex;
+  padding: 4px;
+  border-radius: 999px;
+  background: #1E1E1E;
+  border: 1px solid #3A3A3A;
+}
+
+.mode-toggle__segment {
+  padding: 6px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #B0B0B0;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.mode-toggle__segment:focus-visible {
+  outline: 2px solid #FFFFFF;
+  outline-offset: 2px;
+}
+
+.mode-toggle__segment--live.mode-toggle__segment--active {
+  background: #FF4081;
+  color: #FFFFFF;
+}
+
+.mode-toggle__segment--review.mode-toggle__segment--active {
+  background: #9FA8DA;
+  color: #1E1E1E;
+}
+
+.mode-toggle--disabled .mode-toggle__segment {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

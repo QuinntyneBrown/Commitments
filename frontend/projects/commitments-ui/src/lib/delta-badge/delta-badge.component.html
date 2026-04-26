@@ -1,0 +1,6 @@
+<span class="delta-badge" [class]="'delta-badge--' + tone()">
+  <span class="delta-badge__value">{{ formatted() }}</span>
+  @if (caption) {
+    <span class="delta-badge__caption">{{ caption }}</span>
+  }
+</span>

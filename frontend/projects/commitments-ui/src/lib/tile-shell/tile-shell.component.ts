@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+export type TileShellVariant = 'metric' | 'review' | 'chart';
+
 @Component({
   selector: 'commitments-tile-shell',
   standalone: true,
@@ -13,4 +15,5 @@ export class TileShellComponent {
   @Input() title = '';
   @Input() eyebrow = '';
   @Input() status = '';
+  @Input() variant: TileShellVariant = 'metric';
 }

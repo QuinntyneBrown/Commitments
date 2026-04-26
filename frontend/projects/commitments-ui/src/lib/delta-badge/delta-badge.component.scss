@@ -1,0 +1,35 @@
+.delta-badge {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.delta-badge__value {
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.delta-badge__caption {
+  color: #B0B0B0;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.delta-badge--positive {
+  color: #66BB6A;
+  background: rgba(102, 187, 106, 0.12);
+}
+
+.delta-badge--negative {
+  color: #FF4081;
+  background: rgba(255, 64, 129, 0.12);
+}
+
+.delta-badge--neutral {
+  color: #666666;
+  background: rgba(102, 102, 102, 0.16);
+}
