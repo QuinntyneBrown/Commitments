@@ -51,7 +51,7 @@ describe('ReviewGoalHistoryController', () => {
     expect(controller.target()).toBe(30);
   });
 
-  it('scrub re-fetches progress at the new instant', () => {
+  it('scrub re-fetches progress at the new instant (without debounce)', () => {
     const initial: GoalProgress = { goalId: 'goal-1', target: 30, count: 3, asOf: new Date() };
     getAt.mockReturnValue({ subscribe: (fn: (v: GoalProgress) => void) => fn(initial) });
 
@@ -65,10 +65,38 @@ describe('ReviewGoalHistoryController', () => {
     const next: GoalProgress = { goalId: 'goal-1', target: 30, count: 9, asOf: new Date() };
     getAt.mockReturnValue({ subscribe: (fn: (v: GoalProgress) => void) => fn(next) });
 
-    controller.scrub(75);
+    controller.scrub(75, 0);
 
     expect(getAt).toHaveBeenCalledTimes(1);
     expect(controller.count()).toBe(9);
     expect(controller.scrubPct()).toBe(75);
+  });
+
+  it('scrub debounces fetch calls when called rapidly', () => {
+    jest.useFakeTimers();
+    try {
+      const initial: GoalProgress = { goalId: 'goal-1', target: 30, count: 3, asOf: new Date() };
+      getAt.mockReturnValue({ subscribe: (fn: (v: GoalProgress) => void) => fn(initial) });
+
+      const controller = new ReviewGoalHistoryController(goalProgressService);
+      controller.load('goal-1');
+      controller.setDraftStart('2026-04-01T00:00');
+      controller.setDraftEnd('2026-04-10T00:00');
+      controller.apply();
+
+      getAt.mockClear();
+      controller.scrub(25);
+      controller.scrub(50);
+      controller.scrub(75);
+
+      expect(getAt).not.toHaveBeenCalled();
+
+      jest.advanceTimersByTime(150);
+
+      expect(getAt).toHaveBeenCalledTimes(1);
+      expect(controller.scrubPct()).toBe(75);
+    } finally {
+      jest.useRealTimers();
+    }
   });
 });

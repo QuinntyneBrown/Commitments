@@ -7,11 +7,14 @@ import { GoalProgress, GoalProgressService } from '../../services/goal-progress.
 
 import { localInputToIso, scrubInstantFromPct } from './review-goal-history-time';
 
+const SCRUB_DEBOUNCE_MS = 100;
+
 @Injectable()
 export class ReviewGoalHistoryController {
   private _goalId: string | null = null;
   private _appliedStart: number | null = null;
   private _appliedEnd: number | null = null;
+  private _scrubTimer: ReturnType<typeof setTimeout> | null = null;
 
   readonly draftStart = signal<number | null>(null);
   readonly draftEnd = signal<number | null>(null);
@@ -48,9 +51,14 @@ export class ReviewGoalHistoryController {
     this._fetchAtCurrentScrub();
   }
 
-  scrub(pct: number): void {
+  scrub(pct: number, debounceMs: number = SCRUB_DEBOUNCE_MS): void {
     this.scrubPct.set(Math.max(0, Math.min(100, pct)));
-    this._fetchAtCurrentScrub();
+    if (this._scrubTimer !== null) clearTimeout(this._scrubTimer);
+    if (debounceMs <= 0) {
+      this._fetchAtCurrentScrub();
+      return;
+    }
+    this._scrubTimer = setTimeout(() => this._fetchAtCurrentScrub(), debounceMs);
   }
 
   private _fetchAtCurrentScrub(): void {
