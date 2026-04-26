@@ -40,6 +40,7 @@
     "ag-grid-angular": "^32.0.0",
     "ag-grid-community": "^32.0.0",
     "angular-gridster2": "^21.0.1",
+    "chart.js": "^4.5.1",
     "moment": "^2.30.0",
     "quill": "^2.0.0",
     "rxjs": "^7.8.0",

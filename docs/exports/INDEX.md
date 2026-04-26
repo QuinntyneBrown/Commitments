@@ -35,6 +35,28 @@ mobile-first Angular Material, designed at four breakpoints: **S** 360px,
 | Edit Frequency     | fWdQN | u8pHa | 8qC93 | 70FCr |
 | Notes by Tag       | 2k0we | f6Xe5 | 9rtee | lXQ17 |
 
+## Live & Review mode (new)
+
+| File | Description |
+|------|-------------|
+| `jl9rS.png`  | Section overview — toggle, scrubber, tile components together |
+| `A1yim.png`  | Mode-Toggle (Live active, accent pulse dot) |
+| `WFYHQ.png`  | Mode-Toggle (Review active, indigo + history icon) |
+| `zNLnf.png`  | Scrubber/Timeline — date label, prev/play/next, jump-to-today, marker on track |
+| `nAfUX.png`  | Review-Tile — historical metric with date badge + delta-vs-today indicator |
+| `o0BgI.png`  | Real-Time Metric Tile — chart.js style 14-day bar chart, today bar in accent gradient with glow, LIVE badge |
+| `9IpBQ.png`  | Line-Chart-Tile — chart.js style smooth line + gradient area fill, 14 data dots, today point glows, axis labels |
+| `39pLD.png`  | Dashboard **Live** — LG (1280) — chart tile + standard tiles + FAB |
+| `TFRTa.png`  | Dashboard **Review** — LG (1280) — scrubber + 6 review tiles, no FAB |
+| `yZqDW.png`  | Dashboard **Live** — XL (1920) |
+| `wk1pH.png`  | Dashboard **Review** — XL (1920) |
+
+The mode toggle sits in the page header (top-right). Switching to Review mode swaps:
+- Live tiles → Review-Tiles (date badge, delta vs today, primary border)
+- Real-time chart hides; scrubber appears at the top of the grid
+- FAB hides (read-only history)
+- "Jump to today" returns to Live
+
 ## Reusable component IDs (in the .pen file)
 
 Buttons: `AgzGC` Raised/Primary · `K0jVB` Raised/Accent · `45CHX` Stroked ·
@@ -54,3 +76,7 @@ Surfaces: `IX2FV` Mat-Card · `0UH2Q` Dashboard Tile · `2GdJ8` Table Header ·
 Inputs/Feedback: `GR3ut` Chip · `tlI4V` Chip/Selected · `GDVHN` Radio ·
 `OhR7i` Radio/Selected · `KZYdg` Snackbar · `USNXD` Snackbar/Error ·
 `8LaDm` Snackbar/Success · `XqnnL` Mat-Dialog
+
+Live/Review: `A1yim` Mode-Toggle (Live) · `WFYHQ` Mode-Toggle (Review) ·
+`zNLnf` Scrubber · `nAfUX` Review-Tile · `o0BgI` Real-Time Metric Tile (bar) ·
+`9IpBQ` Line-Chart-Tile
