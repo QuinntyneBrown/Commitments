@@ -1,4 +1,4 @@
-namespace Identity.Api.Features.Profile;
+namespace Identity.Features.Profile;
 
 public class ProfileDto
 {

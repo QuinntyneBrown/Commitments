@@ -1,8 +1,8 @@
 using Commitments.Shared;
-using DigitalAssets.Core;
+using DigitalAssets.Data;
 using MediatR;
 
-namespace DigitalAssets.Api.Features.DigitalAsset;
+namespace DigitalAssets.Features.DigitalAsset;
 
 public class GetDigitalAssetByIdRequest : IRequest<GetDigitalAssetByIdResponse>
 {

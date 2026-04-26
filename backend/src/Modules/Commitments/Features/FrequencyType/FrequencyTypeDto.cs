@@ -1,10 +1,10 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Core.Model.FrequencyTypeAggregate;
-using FrequencyTypeEntity = Commitments.Core.Model.FrequencyTypeAggregate.FrequencyType;
+using Commitments.Domain.FrequencyTypeAggregate;
+using FrequencyTypeEntity = Commitments.Domain.FrequencyTypeAggregate.FrequencyType;
 
-namespace Commitments.Api.Features.FrequencyType;
+namespace Commitments.Features.FrequencyType;
 
 public class FrequencyTypeDto
 {

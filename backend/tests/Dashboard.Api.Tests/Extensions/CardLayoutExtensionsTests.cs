@@ -1,7 +1,7 @@
-using Dashboard.Api.Features.CardLayout;
+using Dashboard.Features.CardLayout;
 using FluentAssertions;
 using Xunit;
-using CardLayoutModel = Dashboard.Core.Model.CardLayoutAggregate.CardLayout;
+using CardLayoutModel = Dashboard.Domain.CardLayoutAggregate.CardLayout;
 
 namespace Dashboard.Api.Tests.Extensions;
 

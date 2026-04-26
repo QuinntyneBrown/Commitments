@@ -9,7 +9,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Commitments.Api.Features.Activity;
+namespace Commitments.Features.Activity;
 
 public class GetActivitiesRequest : IRequest<GetActivitiesResponse> { }
 

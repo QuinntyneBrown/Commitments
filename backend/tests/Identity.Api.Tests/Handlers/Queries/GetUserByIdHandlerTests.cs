@@ -1,6 +1,6 @@
-using Identity.Api.Features.User;
-using Identity.Core;
-using Identity.Core.Model.UserAggregate;
+using Identity.Features.User;
+using Identity.Data;
+using Identity.Domain.UserAggregate;
 using Commitments.Testing.Common;
 using Commitments.Testing.Common.Builders;
 using FluentAssertions;

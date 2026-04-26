@@ -1,7 +1,7 @@
 using Commitments.Testing.Common;
-using Dashboard.Api.Features.Dashboard;
-using Dashboard.Core;
-using Dashboard.Core.Model.DashboardAggregate;
+using Dashboard.Features.Dashboard;
+using Dashboard.Data;
+using Dashboard.Domain.DashboardAggregate;
 using FluentAssertions;
 using Moq;
 using Xunit;

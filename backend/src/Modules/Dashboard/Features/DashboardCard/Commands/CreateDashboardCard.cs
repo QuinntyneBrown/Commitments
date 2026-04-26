@@ -1,9 +1,9 @@
 using Commitments.Shared;
-using Dashboard.Core;
-using DashboardCardModel = Dashboard.Core.Model.DashboardCardAggregate.DashboardCard;
+using Dashboard.Data;
+using DashboardCardModel = Dashboard.Domain.DashboardCardAggregate.DashboardCard;
 using MediatR;
 
-namespace Dashboard.Api.Features.DashboardCard;
+namespace Dashboard.Features.DashboardCard;
 
 public class CreateDashboardCardRequest : IRequest<CreateDashboardCardResponse>
 {

@@ -1,5 +1,5 @@
-using Identity.Api.Controllers;
-using Identity.Api.Features.Profile;
+using Identity.Controllers;
+using Identity.Features.Profile;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

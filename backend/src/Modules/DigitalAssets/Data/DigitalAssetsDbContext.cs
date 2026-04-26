@@ -1,9 +1,9 @@
 using Commitments.Shared;
-using DigitalAssets.Core;
-using DigitalAssets.Core.Model.DigitalAssetAggregate;
+using DigitalAssets.Data;
+using DigitalAssets.Domain.DigitalAssetAggregate;
 using Microsoft.EntityFrameworkCore;
 
-namespace DigitalAssets.Infrastructure.Data;
+namespace DigitalAssets.Data;
 
 public class DigitalAssetsDbContext : BaseDbContext, IDigitalAssetsDbContext
 {

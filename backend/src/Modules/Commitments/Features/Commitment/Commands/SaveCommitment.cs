@@ -5,20 +5,19 @@ using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core;
-using Commitments.Core.Model;
-using Commitments.Core.Model.CommitmentAggregate;
+using Commitments.Data;
+using Commitments.Domain.CommitmentAggregate;
 using Microsoft.EntityFrameworkCore;
-using CommitmentEntity = Commitments.Core.Model.CommitmentAggregate.Commitment;
+using CommitmentEntity = Commitments.Domain.CommitmentAggregate.Commitment;
 
 
-namespace Commitments.Api.Features.Commitment;
+namespace Commitments.Features.Commitment;
 
 public class SaveCommitmentCommandValidator : AbstractValidator<SaveCommitmentRequest>
 {
     public SaveCommitmentCommandValidator()
     {
-        RuleFor(request => request.Commitment.CommitmentId).NotNull();
+        RuleFor(request => request.Commitment.CommitmentId).NotEmpty();
     }
 }
 

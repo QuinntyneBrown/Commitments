@@ -1,8 +1,8 @@
 using Commitments.Shared;
-using Dashboard.Core;
+using Dashboard.Data;
 using MediatR;
 
-namespace Dashboard.Api.Features.DashboardCard;
+namespace Dashboard.Features.DashboardCard;
 
 public class UpdateDashboardCardRequest : IRequest<UpdateDashboardCardResponse>
 {

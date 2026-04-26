@@ -1,9 +1,9 @@
 using Commitments.Shared;
-using Dashboard.Core;
+using Dashboard.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dashboard.Api.Features.DashboardCard;
+namespace Dashboard.Features.DashboardCard;
 
 public class GetDashboardCardsRequest : IRequest<GetDashboardCardsResponse> { }
 

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using CardLayoutModel = Dashboard.Core.Model.CardLayoutAggregate.CardLayout;
+using CardLayoutModel = Dashboard.Domain.CardLayoutAggregate.CardLayout;
 
-namespace Dashboard.Api.Features.CardLayout;
+namespace Dashboard.Features.CardLayout;
 
 public static class CardLayoutExtensions
 {

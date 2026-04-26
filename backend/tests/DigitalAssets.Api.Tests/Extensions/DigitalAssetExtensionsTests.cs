@@ -1,5 +1,5 @@
-using DigitalAssets.Api.Features.DigitalAsset;
-using DigitalAssets.Core.Model.DigitalAssetAggregate;
+using DigitalAssets.Features.DigitalAsset;
+using DigitalAssets.Domain.DigitalAssetAggregate;
 using Commitments.Testing.Common.Builders;
 using FluentAssertions;
 using Xunit;

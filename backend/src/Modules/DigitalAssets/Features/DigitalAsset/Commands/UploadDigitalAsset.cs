@@ -1,9 +1,9 @@
 using Commitments.Shared;
-using DigitalAssets.Core;
+using DigitalAssets.Data;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 
-namespace DigitalAssets.Api.Features.DigitalAsset;
+namespace DigitalAssets.Features.DigitalAsset;
 
 public class UploadDigitalAssetRequest : IRequest<UploadDigitalAssetResponse> { }
 
@@ -26,14 +26,14 @@ public class UploadDigitalAssetRequestHandler : IRequestHandler<UploadDigitalAss
     public async Task<UploadDigitalAssetResponse> Handle(UploadDigitalAssetRequest request, CancellationToken cancellationToken)
     {
         var httpContext = _httpContextAccessor.HttpContext!;
-        var digitalAssets = new List<DigitalAssets.Core.Model.DigitalAssetAggregate.DigitalAsset>();
+        var digitalAssets = new List<DigitalAssets.Domain.DigitalAssetAggregate.DigitalAsset>();
 
         foreach (var file in httpContext.Request.Form.Files)
         {
             using var stream = new MemoryStream();
             await file.CopyToAsync(stream, cancellationToken);
 
-            var digitalAsset = new DigitalAssets.Core.Model.DigitalAssetAggregate.DigitalAsset
+            var digitalAsset = new DigitalAssets.Domain.DigitalAssetAggregate.DigitalAsset
             {
                 Name = file.FileName,
                 Bytes = stream.ToArray(),

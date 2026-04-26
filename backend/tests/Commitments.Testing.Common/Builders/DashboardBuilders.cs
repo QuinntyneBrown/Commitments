@@ -1,7 +1,7 @@
-using Dashboard.Core.Model.DashboardAggregate;
-using Dashboard.Core.Model.DashboardCardAggregate;
-using Dashboard.Core.Model.CardAggregate;
-using Dashboard.Core.Model.CardLayoutAggregate;
+using Dashboard.Domain.DashboardAggregate;
+using Dashboard.Domain.DashboardCardAggregate;
+using Dashboard.Domain.CardAggregate;
+using Dashboard.Domain.CardLayoutAggregate;
 
 namespace Commitments.Testing.Common.Builders;
 

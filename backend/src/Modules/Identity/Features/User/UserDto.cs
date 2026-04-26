@@ -1,4 +1,4 @@
-namespace Identity.Api.Features.User;
+namespace Identity.Features.User;
 
 public class UserDto
 {

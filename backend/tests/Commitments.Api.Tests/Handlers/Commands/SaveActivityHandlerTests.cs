@@ -1,6 +1,6 @@
-using Commitments.Api.Features.Activity;
-using Commitments.Core;
-using Commitments.Core.Model.ActivityAggregate;
+using Commitments.Features.Activity;
+using Commitments.Data;
+using Commitments.Domain.ActivityAggregate;
 using Commitments.Testing.Common;
 using FluentAssertions;
 using Moq;

@@ -1,6 +1,6 @@
-using Commitments.Api.Features.BehaviourType;
-using Commitments.Core;
-using Commitments.Core.Model.BehaviourTypeAggregate;
+using Commitments.Features.BehaviourType;
+using Commitments.Data;
+using Commitments.Domain.BehaviourTypeAggregate;
 using Commitments.Testing.Common;
 using FluentAssertions;
 using Moq;

@@ -1,11 +1,11 @@
-using DigitalAssets.Api.Features.DigitalAsset;
+using DigitalAssets.Features.DigitalAsset;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
 using System.Net.Mime;
 
-namespace DigitalAssets.Api.Controllers;
+namespace DigitalAssets.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

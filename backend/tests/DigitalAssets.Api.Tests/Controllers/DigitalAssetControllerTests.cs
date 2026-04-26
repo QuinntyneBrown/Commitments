@@ -1,5 +1,5 @@
-using DigitalAssets.Api.Controllers;
-using DigitalAssets.Api.Features.DigitalAsset;
+using DigitalAssets.Controllers;
+using DigitalAssets.Features.DigitalAsset;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

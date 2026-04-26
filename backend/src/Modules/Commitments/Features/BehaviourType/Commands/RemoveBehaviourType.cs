@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace Commitments.Api.Features.BehaviourType;
+namespace Commitments.Features.BehaviourType;
 
 public class RemoveBehaviourTypeCommandValidator : AbstractValidator<RemoveBehaviourTypeRequest>
 {

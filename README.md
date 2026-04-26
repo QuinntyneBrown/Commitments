@@ -1,6 +1,6 @@
 # Commitments
 
-Commitments is a sample application for managing personal commitments and tracking daily activity against them. The backend is a **modular monolith**: a single ASP.NET Core host composes four feature modules (Commitments, Identity, Dashboard, DigitalAssets) that share a process but keep their domain models, schemas, and `DbContext`s isolated.
+Commitments is a sample application for managing personal commitments and tracking daily activity against them. The backend is a **modular monolith**: a single ASP.NET Core host composes four feature modules (Commitments, Identity, Dashboard, DigitalAssets) that share a process but keep their domain models, database schemas, and `DbContext`s isolated.
 
 ## Repository Layout
 
@@ -35,9 +35,20 @@ Commitments.Api (single ASP.NET Core host)
 ```
 
 Each module:
-- Is a class library that owns its **aggregate roots**, **`DbContext`**, **MediatR features** (commands/queries), and **controllers**.
+- Is a class library that owns its **domain models**, **`DbContext`**, **MediatR features** (commands/queries), and **controllers**.
 - Exposes an `AddXxxModule(IConfiguration)` extension that the host calls once at startup.
 - Communicates with other modules in-process via `IEventBus` (an in-memory pub/sub of `IIntegrationEvent`s) — no Redis, no cross-module DbContext access.
+
+Module layout:
+
+```
+Modules/<Module>/
+├── Controllers/      # thin HTTP adapters
+├── Data/             # EF Core DbContext and module persistence contract
+├── Domain/           # entities owned by the module
+├── Features/         # vertical command/query slices
+└── ModuleExtensions.cs
+```
 
 ## Getting Started
 
@@ -81,7 +92,8 @@ dotnet test
 
 ## Architecture Notes
 
-- Each module follows **Clean Architecture** with CQRS via MediatR: controllers, feature handlers, domain model, and EF Core `DbContext` live together inside the module project.
+- Each module follows **vertical-slice architecture** with CQRS via MediatR: request/response types, validators, handlers, and DTO mapping stay close to the feature they support.
+- EF Core is used directly from feature handlers through the module `DbContext` contract. Repositories are only added when there is a real persistence boundary to hide.
 - **Soft-delete** is handled by `BaseDbContext` in `Commitments.Shared`, which intercepts `SavingChanges` to set `IsDeleted` flags and audit timestamps (`CreatedOn`, `LastModifiedOn`).
 - **API versioning** uses `Asp.Versioning.Mvc`.
 - **Validation** is handled by FluentValidation via a MediatR pipeline behavior (`ValidationBehavior<,>`).

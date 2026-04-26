@@ -1,8 +1,8 @@
 using Commitments.Shared;
-using Dashboard.Core;
+using Dashboard.Data;
 using MediatR;
 
-namespace Dashboard.Api.Features.Card;
+namespace Dashboard.Features.Card;
 
 public class GetCardsRequest : IRequest<GetCardsResponse> { }
 

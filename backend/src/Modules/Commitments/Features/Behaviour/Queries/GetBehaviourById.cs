@@ -8,7 +8,7 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Commitments.Api.Features.Behaviour;
+namespace Commitments.Features.Behaviour;
 
 public class GetBehaviourByIdValidator : AbstractValidator<GetBehaviourByIdRequest>
 {

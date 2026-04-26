@@ -5,10 +5,9 @@ using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core.Model;
 
 
-namespace Commitments.Api.Features.Activity;
+namespace Commitments.Features.Activity;
 
 public class RemoveActivityCommandValidator : AbstractValidator<RemoveActivityRequest>
 {

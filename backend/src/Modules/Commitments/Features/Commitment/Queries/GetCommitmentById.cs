@@ -7,7 +7,7 @@ using System.Threading;
 using FluentValidation;
 
 
-namespace Commitments.Api.Features.Commitment;
+namespace Commitments.Features.Commitment;
 
 public class GetCommitmentByIdValidator : AbstractValidator<GetCommitmentByIdRequest>
 {

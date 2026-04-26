@@ -1,5 +1,5 @@
-using Identity.Api.Features.User;
-using Identity.Core.Model.UserAggregate;
+using Identity.Features.User;
+using Identity.Domain.UserAggregate;
 using Commitments.Testing.Common.Builders;
 using FluentAssertions;
 using Xunit;

@@ -1,8 +1,8 @@
-using Dashboard.Api.Features.Card;
-using Dashboard.Api.Features.CardLayout;
+using Dashboard.Features.Card;
+using Dashboard.Features.CardLayout;
 using Newtonsoft.Json.Linq;
 
-namespace Dashboard.Api.Features.DashboardCard;
+namespace Dashboard.Features.DashboardCard;
 
 public class DashboardCardDto
 {

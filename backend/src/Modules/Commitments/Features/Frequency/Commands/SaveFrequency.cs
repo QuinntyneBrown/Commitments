@@ -1,18 +1,17 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Core;
-using Commitments.Core.Model;
-using Commitments.Core.Model.FrequencyAggregate;
+using Commitments.Data;
+using Commitments.Domain.FrequencyAggregate;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Threading;
-using FrequencyEntity = Commitments.Core.Model.FrequencyAggregate.Frequency;
+using FrequencyEntity = Commitments.Domain.FrequencyAggregate.Frequency;
 
 
-namespace Commitments.Api.Features.Frequency;
+namespace Commitments.Features.Frequency;
 
 public class SaveFrequencyCommandValidator : AbstractValidator<SaveFrequencyRequest>
 {

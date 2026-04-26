@@ -1,5 +1,5 @@
-using Commitments.Api.Controllers;
-using Commitments.Api.Features.Achievement;
+using Commitments.Controllers;
+using Commitments.Features.Achievement;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Http;

@@ -1,9 +1,9 @@
 using Commitments.Shared;
-using Identity.Core;
+using Identity.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Identity.Api.Features.Profile;
+namespace Identity.Features.Profile;
 
 public class GetProfilesRequest : IRequest<GetProfilesResponse> { }
 

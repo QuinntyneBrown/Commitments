@@ -1,7 +1,7 @@
-using Dashboard.Core.Model.DashboardAggregate;
+using Dashboard.Domain.DashboardAggregate;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dashboard.Api.Features.Dashboard;
+namespace Dashboard.Features.Dashboard;
 
 public static class DashboardExtensions
 {

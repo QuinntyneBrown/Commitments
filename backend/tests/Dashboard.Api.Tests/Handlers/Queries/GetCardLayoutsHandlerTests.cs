@@ -1,10 +1,10 @@
 using Commitments.Testing.Common;
-using Dashboard.Api.Features.CardLayout;
-using Dashboard.Core;
+using Dashboard.Features.CardLayout;
+using Dashboard.Data;
 using FluentAssertions;
 using Moq;
 using Xunit;
-using CardLayoutModel = Dashboard.Core.Model.CardLayoutAggregate.CardLayout;
+using CardLayoutModel = Dashboard.Domain.CardLayoutAggregate.CardLayout;
 
 namespace Dashboard.Api.Tests.Handlers.Queries;
 

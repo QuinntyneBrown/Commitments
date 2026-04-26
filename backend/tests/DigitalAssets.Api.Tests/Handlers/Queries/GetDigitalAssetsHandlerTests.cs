@@ -1,6 +1,6 @@
-using DigitalAssets.Api.Features.DigitalAsset;
-using DigitalAssets.Core;
-using DigitalAssets.Core.Model.DigitalAssetAggregate;
+using DigitalAssets.Features.DigitalAsset;
+using DigitalAssets.Data;
+using DigitalAssets.Domain.DigitalAssetAggregate;
 using Commitments.Testing.Common;
 using FluentAssertions;
 using Moq;

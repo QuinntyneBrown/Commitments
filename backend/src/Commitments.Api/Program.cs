@@ -2,15 +2,15 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments;
-using Commitments.Infrastructure.Data;
+using Commitments.Data;
 using Commitments.Shared;
 using Dashboard;
-using Dashboard.Infrastructure.Data;
+using Dashboard.Data;
 using DigitalAssets;
-using DigitalAssets.Infrastructure.Data;
+using DigitalAssets.Data;
 using FluentValidation;
 using Identity;
-using Identity.Infrastructure.Data;
+using Identity.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Serilog;

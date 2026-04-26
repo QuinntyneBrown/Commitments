@@ -1,5 +1,5 @@
-using Dashboard.Api.Controllers;
-using Dashboard.Api.Features.DashboardCard;
+using Dashboard.Controllers;
+using Dashboard.Features.DashboardCard;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

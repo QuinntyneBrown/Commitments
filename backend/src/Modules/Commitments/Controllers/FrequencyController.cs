@@ -1,13 +1,13 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Api.Features.Frequency;
+using Commitments.Features.Frequency;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 
-namespace Commitments.Api.Controllers;
+namespace Commitments.Controllers;
 
 [Authorize]
 [ApiController]

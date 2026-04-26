@@ -1,17 +1,17 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Core;
+using Commitments.Data;
 using Commitments.Shared;
-using Commitments.Core.Model.BehaviourAggregate;
+using Commitments.Domain.BehaviourAggregate;
 using FluentValidation;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using BehaviourEntity = Commitments.Core.Model.BehaviourAggregate.Behaviour;
+using BehaviourEntity = Commitments.Domain.BehaviourAggregate.Behaviour;
 
 
-namespace Commitments.Api.Features.Behaviour;
+namespace Commitments.Features.Behaviour;
 
 public class SaveBehaviourCommandValidator : AbstractValidator<SaveBehaviourRequest>
 {

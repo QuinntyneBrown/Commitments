@@ -1,9 +1,9 @@
-using Dashboard.Api.Features.Card;
-using Dashboard.Api.Features.CardLayout;
+using Dashboard.Features.Card;
+using Dashboard.Features.CardLayout;
 using Microsoft.EntityFrameworkCore;
-using DashboardCardModel = Dashboard.Core.Model.DashboardCardAggregate.DashboardCard;
+using DashboardCardModel = Dashboard.Domain.DashboardCardAggregate.DashboardCard;
 
-namespace Dashboard.Api.Features.DashboardCard;
+namespace Dashboard.Features.DashboardCard;
 
 public static class DashboardCardExtensions
 {

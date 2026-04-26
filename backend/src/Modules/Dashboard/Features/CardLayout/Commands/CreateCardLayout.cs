@@ -1,9 +1,9 @@
 using Commitments.Shared;
-using Dashboard.Core;
-using CardLayoutModel = Dashboard.Core.Model.CardLayoutAggregate.CardLayout;
+using Dashboard.Data;
+using CardLayoutModel = Dashboard.Domain.CardLayoutAggregate.CardLayout;
 using MediatR;
 
-namespace Dashboard.Api.Features.CardLayout;
+namespace Dashboard.Features.CardLayout;
 
 public class CreateCardLayoutRequest : IRequest<CreateCardLayoutResponse>
 {

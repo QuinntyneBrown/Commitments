@@ -1,7 +1,7 @@
-using Commitments.Api.Features.Frequency;
-using Commitments.Core;
-using Commitments.Core.Model.FrequencyAggregate;
-using Commitments.Core.Model.FrequencyTypeAggregate;
+using Commitments.Features.Frequency;
+using Commitments.Data;
+using Commitments.Domain.FrequencyAggregate;
+using Commitments.Domain.FrequencyTypeAggregate;
 using Commitments.Testing.Common;
 using FluentAssertions;
 using Moq;

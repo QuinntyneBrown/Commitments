@@ -1,12 +1,12 @@
 using Asp.Versioning;
-using Identity.Api.Features.Profile;
+using Identity.Features.Profile;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
 using System.Net.Mime;
 
-namespace Identity.Api.Controllers;
+namespace Identity.Controllers;
 
 [ApiController]
 [ApiVersion("1.0")]

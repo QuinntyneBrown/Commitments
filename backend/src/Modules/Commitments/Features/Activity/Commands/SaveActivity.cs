@@ -1,16 +1,16 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Core;
-using Commitments.Core.Model.ActivityAggregate;
+using Commitments.Data;
+using Commitments.Domain.ActivityAggregate;
 using FluentValidation;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using ActivityEntity = Commitments.Core.Model.ActivityAggregate.Activity;
+using ActivityEntity = Commitments.Domain.ActivityAggregate.Activity;
 
 
-namespace Commitments.Api.Features.Activity;
+namespace Commitments.Features.Activity;
 
 public class SaveActivityCommandValidator : AbstractValidator<SaveActivityRequest>
 {

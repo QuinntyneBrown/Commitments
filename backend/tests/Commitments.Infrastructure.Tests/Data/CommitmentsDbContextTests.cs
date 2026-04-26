@@ -1,18 +1,18 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Core.Model.ActivityAggregate;
-using Commitments.Core.Model.BehaviourAggregate;
-using Commitments.Core.Model.BehaviourTypeAggregate;
-using Commitments.Core.Model.CommitmentAggregate;
-using Commitments.Core.Model.FrequencyAggregate;
-using Commitments.Core.Model.FrequencyTypeAggregate;
-using Commitments.Infrastructure.Data;
+using Commitments.Domain.ActivityAggregate;
+using Commitments.Domain.BehaviourAggregate;
+using Commitments.Domain.BehaviourTypeAggregate;
+using Commitments.Domain.CommitmentAggregate;
+using Commitments.Domain.FrequencyAggregate;
+using Commitments.Domain.FrequencyTypeAggregate;
+using Commitments.Data;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
-namespace Commitments.Infrastructure.Tests.Data;
+namespace Commitments.Data.Tests.Data;
 
 public class CommitmentsDbContextTests : IDisposable
 {

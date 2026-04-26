@@ -1,12 +1,12 @@
 using Asp.Versioning;
-using Dashboard.Api.Features.Card;
+using Dashboard.Features.Card;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
 using System.Net.Mime;
 
-namespace Dashboard.Api.Controllers;
+namespace Dashboard.Controllers;
 
 [ApiController]
 [ApiVersion("1.0")]

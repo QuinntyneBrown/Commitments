@@ -1,5 +1,5 @@
-using Dashboard.Api.Features.Dashboard;
-using Dashboard.Core.Model.DashboardAggregate;
+using Dashboard.Features.Dashboard;
+using Dashboard.Domain.DashboardAggregate;
 using FluentAssertions;
 using Xunit;
 

@@ -1,8 +1,8 @@
 using Commitments.Shared;
-using DigitalAssets.Core;
+using DigitalAssets.Data;
 using MediatR;
 
-namespace DigitalAssets.Api.Features.DigitalAsset;
+namespace DigitalAssets.Features.DigitalAsset;
 
 public class CreateDigitalAssetRequest : IRequest<CreateDigitalAssetResponse>
 {
@@ -22,7 +22,7 @@ public class CreateDigitalAssetRequestHandler : IRequestHandler<CreateDigitalAss
 
     public async Task<CreateDigitalAssetResponse> Handle(CreateDigitalAssetRequest request, CancellationToken cancellationToken)
     {
-        var digitalAsset = new DigitalAssets.Core.Model.DigitalAssetAggregate.DigitalAsset
+        var digitalAsset = new DigitalAssets.Domain.DigitalAssetAggregate.DigitalAsset
         {
             Bytes = request.DigitalAsset.Bytes,
             ContentType = request.DigitalAsset.ContentType,

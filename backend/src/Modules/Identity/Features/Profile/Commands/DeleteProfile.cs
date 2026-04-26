@@ -1,8 +1,8 @@
 using Commitments.Shared;
-using Identity.Core;
+using Identity.Data;
 using MediatR;
 
-namespace Identity.Api.Features.Profile;
+namespace Identity.Features.Profile;
 
 public class DeleteProfileRequest : IRequest<DeleteProfileResponse>
 {

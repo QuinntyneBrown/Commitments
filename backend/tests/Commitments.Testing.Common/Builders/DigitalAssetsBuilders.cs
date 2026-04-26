@@ -1,4 +1,4 @@
-using DigitalAssets.Core.Model.DigitalAssetAggregate;
+using DigitalAssets.Domain.DigitalAssetAggregate;
 
 namespace Commitments.Testing.Common.Builders;
 

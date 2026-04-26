@@ -1,8 +1,8 @@
 using Commitments.Shared;
-using Identity.Core;
+using Identity.Data;
 using MediatR;
 
-namespace Identity.Api.Features.User;
+namespace Identity.Features.User;
 
 public class CreateUserRequest : IRequest<CreateUserResponse>
 {
@@ -22,7 +22,7 @@ public class CreateUserRequestHandler : IRequestHandler<CreateUserRequest, Creat
 
     public async Task<CreateUserResponse> Handle(CreateUserRequest request, CancellationToken cancellationToken)
     {
-        var user = new Identity.Core.Model.UserAggregate.User
+        var user = new Identity.Domain.UserAggregate.User
         {
             Username = request.User.Username,
             FirstName = request.User.FirstName,

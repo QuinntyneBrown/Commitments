@@ -1,11 +1,11 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Core.Model.FrequencyAggregate;
-using Commitments.Core.Model.CommitmentAggregate;
-using Commitments.Api.Features.Frequency;
+using Commitments.Domain.FrequencyAggregate;
+using Commitments.Domain.CommitmentAggregate;
+using Commitments.Features.Frequency;
 
-namespace Commitments.Api.Features.Commitment;
+namespace Commitments.Features.Commitment;
 
 public class CommitmentFrequencyDto
 {

@@ -1,8 +1,8 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Api.Controllers;
-using Commitments.Api.Features.Commitment;
+using Commitments.Controllers;
+using Commitments.Features.Commitment;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Http;

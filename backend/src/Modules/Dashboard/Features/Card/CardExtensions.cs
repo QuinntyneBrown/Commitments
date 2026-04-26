@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using CardModel = Dashboard.Core.Model.CardAggregate.Card;
+using CardModel = Dashboard.Domain.CardAggregate.Card;
 
-namespace Dashboard.Api.Features.Card;
+namespace Dashboard.Features.Card;
 
 public static class CardExtensions
 {

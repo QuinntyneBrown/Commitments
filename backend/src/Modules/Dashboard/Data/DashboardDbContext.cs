@@ -1,12 +1,12 @@
 using Commitments.Shared;
-using Dashboard.Core;
-using Dashboard.Core.Model.DashboardAggregate;
-using Dashboard.Core.Model.DashboardCardAggregate;
-using Dashboard.Core.Model.CardAggregate;
-using Dashboard.Core.Model.CardLayoutAggregate;
+using Dashboard.Data;
+using Dashboard.Domain.DashboardAggregate;
+using Dashboard.Domain.DashboardCardAggregate;
+using Dashboard.Domain.CardAggregate;
+using Dashboard.Domain.CardLayoutAggregate;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dashboard.Infrastructure.Data;
+namespace Dashboard.Data;
 
 public class DashboardDbContext : BaseDbContext, IDashboardDbContext
 {

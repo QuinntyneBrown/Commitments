@@ -1,10 +1,10 @@
 using Commitments.Shared;
-using Identity.Core;
-using Identity.Core.Model.UserAggregate;
-using Identity.Core.Model.ProfileAggregate;
+using Identity.Data;
+using Identity.Domain.UserAggregate;
+using Identity.Domain.ProfileAggregate;
 using Microsoft.EntityFrameworkCore;
 
-namespace Identity.Infrastructure.Data;
+namespace Identity.Data;
 
 public class IdentityDbContext : BaseDbContext, IIdentityDbContext
 {

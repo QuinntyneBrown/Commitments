@@ -1,11 +1,11 @@
-using Identity.Core.Model.UserAggregate;
+using Identity.Domain.UserAggregate;
 using Microsoft.EntityFrameworkCore;
 
-namespace Identity.Api.Features.User;
+namespace Identity.Features.User;
 
 public static class UserExtensions
 {
-    public static UserDto ToDto(this Identity.Core.Model.UserAggregate.User user)
+    public static UserDto ToDto(this Identity.Domain.UserAggregate.User user)
     {
         return new UserDto
         {
@@ -17,7 +17,7 @@ public static class UserExtensions
         };
     }
 
-    public static async Task<List<UserDto>> ToDtosAsync(this IQueryable<Identity.Core.Model.UserAggregate.User> users, CancellationToken cancellationToken)
+    public static async Task<List<UserDto>> ToDtosAsync(this IQueryable<Identity.Domain.UserAggregate.User> users, CancellationToken cancellationToken)
     {
         return await users.Select(x => x.ToDto()).ToListAsync(cancellationToken);
     }

@@ -1,8 +1,8 @@
 using Commitments.Shared;
-using Dashboard.Core;
+using Dashboard.Data;
 using MediatR;
 
-namespace Dashboard.Api.Features.CardLayout;
+namespace Dashboard.Features.CardLayout;
 
 public class UpdateCardLayoutRequest : IRequest<UpdateCardLayoutResponse>
 {

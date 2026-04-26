@@ -9,7 +9,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Commitments.Api.Features.Commitment;
+namespace Commitments.Features.Commitment;
 
 public class GetCommitmentsRequest : IRequest<GetCommitmentsResponse> { }
 

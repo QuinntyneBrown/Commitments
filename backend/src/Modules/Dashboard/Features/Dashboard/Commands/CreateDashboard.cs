@@ -1,9 +1,9 @@
 using Commitments.Shared;
-using Dashboard.Core;
-using Dashboard.Core.Model.DashboardAggregate;
+using Dashboard.Data;
+using Dashboard.Domain.DashboardAggregate;
 using MediatR;
 
-namespace Dashboard.Api.Features.Dashboard;
+namespace Dashboard.Features.Dashboard;
 
 public class CreateDashboardRequest : IRequest<CreateDashboardResponse>
 {

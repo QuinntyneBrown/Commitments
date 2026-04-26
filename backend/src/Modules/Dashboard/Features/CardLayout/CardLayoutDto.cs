@@ -1,4 +1,4 @@
-namespace Dashboard.Api.Features.CardLayout;
+namespace Dashboard.Features.CardLayout;
 
 public class CardLayoutDto
 {

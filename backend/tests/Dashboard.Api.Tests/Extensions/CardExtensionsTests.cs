@@ -1,7 +1,7 @@
-using Dashboard.Api.Features.Card;
+using Dashboard.Features.Card;
 using FluentAssertions;
 using Xunit;
-using CardModel = Dashboard.Core.Model.CardAggregate.Card;
+using CardModel = Dashboard.Domain.CardAggregate.Card;
 
 namespace Dashboard.Api.Tests.Extensions;
 

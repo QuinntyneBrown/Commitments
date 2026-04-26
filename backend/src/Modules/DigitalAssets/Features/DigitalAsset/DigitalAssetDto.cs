@@ -1,4 +1,4 @@
-namespace DigitalAssets.Api.Features.DigitalAsset;
+namespace DigitalAssets.Features.DigitalAsset;
 
 public class DigitalAssetDto
 {

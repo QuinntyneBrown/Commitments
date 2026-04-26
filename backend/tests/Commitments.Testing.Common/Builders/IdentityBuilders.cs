@@ -1,5 +1,5 @@
-using Identity.Core.Model.UserAggregate;
-using Identity.Core.Model.ProfileAggregate;
+using Identity.Domain.UserAggregate;
+using Identity.Domain.ProfileAggregate;
 
 namespace Commitments.Testing.Common.Builders;
 

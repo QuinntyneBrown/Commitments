@@ -1,6 +1,6 @@
-using Dashboard.Api.Features.DashboardCard;
+using Dashboard.Features.DashboardCard;
 
-namespace Dashboard.Api.Features.Dashboard;
+namespace Dashboard.Features.Dashboard;
 
 public class DashboardDto
 {

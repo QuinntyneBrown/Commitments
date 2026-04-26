@@ -3,7 +3,7 @@
 
 global using System.Net.Mime;
 global using Asp.Versioning;
-global using Commitments.Core;
+global using Commitments.Data;
 global using Commitments.Shared;
 global using MediatR;
 global using Microsoft.AspNetCore.Http;

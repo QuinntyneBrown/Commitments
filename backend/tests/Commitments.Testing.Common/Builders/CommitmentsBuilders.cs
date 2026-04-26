@@ -1,9 +1,9 @@
-using Commitments.Core.Model.ActivityAggregate;
-using Commitments.Core.Model.BehaviourAggregate;
-using Commitments.Core.Model.BehaviourTypeAggregate;
-using Commitments.Core.Model.CommitmentAggregate;
-using Commitments.Core.Model.FrequencyAggregate;
-using Commitments.Core.Model.FrequencyTypeAggregate;
+using Commitments.Domain.ActivityAggregate;
+using Commitments.Domain.BehaviourAggregate;
+using Commitments.Domain.BehaviourTypeAggregate;
+using Commitments.Domain.CommitmentAggregate;
+using Commitments.Domain.FrequencyAggregate;
+using Commitments.Domain.FrequencyTypeAggregate;
 
 namespace Commitments.Testing.Common.Builders;
 

@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using System.IO;
 
 
-namespace Commitments.Infrastructure.Data;
+namespace Commitments.Data;
 
 public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<CommitmentsDbContext>
 {

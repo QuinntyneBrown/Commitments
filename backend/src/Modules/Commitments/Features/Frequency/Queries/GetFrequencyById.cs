@@ -7,7 +7,7 @@ using System.Threading;
 using FluentValidation;
 
 
-namespace Commitments.Api.Features.Frequency;
+namespace Commitments.Features.Frequency;
 
 public class GetFrequencyByIdValidator : AbstractValidator<GetFrequencyByIdRequest>
 {

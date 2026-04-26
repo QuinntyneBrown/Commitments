@@ -9,7 +9,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Commitments.Api.Features.Behaviour;
+namespace Commitments.Features.Behaviour;
 
 public class GetBehavioursRequest : IRequest<GetBehavioursResponse> { }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Threading;
 
 
-namespace Commitments.Api.Features.Commitment;
+namespace Commitments.Features.Commitment;
 
 public class RemoveCommitmentCommandValidator : AbstractValidator<RemoveCommitmentRequest>
 {

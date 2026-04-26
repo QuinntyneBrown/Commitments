@@ -1,8 +1,8 @@
 using Commitments.Shared;
-using Identity.Core;
+using Identity.Data;
 using MediatR;
 
-namespace Identity.Api.Features.Profile;
+namespace Identity.Features.Profile;
 
 public class CreateProfileRequest : IRequest<CreateProfileResponse>
 {
@@ -27,7 +27,7 @@ public class CreateProfileRequestHandler : IRequestHandler<CreateProfileRequest,
 
     public async Task<CreateProfileResponse> Handle(CreateProfileRequest request, CancellationToken cancellationToken)
     {
-        var profile = new Identity.Core.Model.ProfileAggregate.Profile();
+        var profile = new Identity.Domain.ProfileAggregate.Profile();
 
         _context.Profiles.Add(profile);
         await _context.SaveChangesAsync(cancellationToken);

@@ -1,9 +1,9 @@
 using Commitments.Shared;
-using Dashboard.Core;
+using Dashboard.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dashboard.Api.Features.Dashboard;
+namespace Dashboard.Features.Dashboard;
 
 public class GetDashboardByProfileIdRequest : IRequest<GetDashboardByProfileIdResponse>
 {

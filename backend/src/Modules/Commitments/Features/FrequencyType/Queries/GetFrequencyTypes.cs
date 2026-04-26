@@ -9,7 +9,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Commitments.Api.Features.FrequencyType;
+namespace Commitments.Features.FrequencyType;
 
 public class GetFrequencyTypesRequest : IRequest<GetFrequencyTypesResponse> { }
 

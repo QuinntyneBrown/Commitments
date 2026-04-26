@@ -1,8 +1,8 @@
-using Commitments.Api.Features.Activity;
-using Commitments.Core;
-using Commitments.Core.Model.ActivityAggregate;
-using Commitments.Core.Model.BehaviourAggregate;
-using Commitments.Core.Model.BehaviourTypeAggregate;
+using Commitments.Features.Activity;
+using Commitments.Data;
+using Commitments.Domain.ActivityAggregate;
+using Commitments.Domain.BehaviourAggregate;
+using Commitments.Domain.BehaviourTypeAggregate;
 using Commitments.Testing.Common;
 using FluentAssertions;
 using Moq;

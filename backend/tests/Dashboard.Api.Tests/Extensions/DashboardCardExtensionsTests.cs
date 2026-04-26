@@ -1,7 +1,7 @@
-using Dashboard.Api.Features.DashboardCard;
-using Dashboard.Core.Model.CardAggregate;
-using Dashboard.Core.Model.CardLayoutAggregate;
-using Dashboard.Core.Model.DashboardCardAggregate;
+using Dashboard.Features.DashboardCard;
+using Dashboard.Domain.CardAggregate;
+using Dashboard.Domain.CardLayoutAggregate;
+using Dashboard.Domain.DashboardCardAggregate;
 using FluentAssertions;
 using Xunit;
 

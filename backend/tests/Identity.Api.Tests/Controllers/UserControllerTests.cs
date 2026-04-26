@@ -1,5 +1,5 @@
-using Identity.Api.Controllers;
-using Identity.Api.Features.User;
+using Identity.Controllers;
+using Identity.Features.User;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Moq;

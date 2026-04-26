@@ -5,10 +5,9 @@ using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using Commitments.Core.Model;
 
 
-namespace Commitments.Api.Features.Frequency;
+namespace Commitments.Features.Frequency;
 
 public class RemoveFrequencyCommandValidator : AbstractValidator<RemoveFrequencyRequest>
 {

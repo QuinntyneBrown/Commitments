@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace DigitalAssets.Api.Features.DigitalAsset;
+namespace DigitalAssets.Features.DigitalAsset;
 
 public static class DigitalAssetExtensions
 {
-    public static DigitalAssetDto ToDto(this DigitalAssets.Core.Model.DigitalAssetAggregate.DigitalAsset digitalAsset)
+    public static DigitalAssetDto ToDto(this DigitalAssets.Domain.DigitalAssetAggregate.DigitalAsset digitalAsset)
     {
         return new DigitalAssetDto
         {
@@ -15,7 +15,7 @@ public static class DigitalAssetExtensions
         };
     }
 
-    public static async Task<List<DigitalAssetDto>> ToDtosAsync(this IQueryable<DigitalAssets.Core.Model.DigitalAssetAggregate.DigitalAsset> digitalAssets, CancellationToken cancellationToken)
+    public static async Task<List<DigitalAssetDto>> ToDtosAsync(this IQueryable<DigitalAssets.Domain.DigitalAssetAggregate.DigitalAsset> digitalAssets, CancellationToken cancellationToken)
     {
         return await digitalAssets.Select(x => x.ToDto()).ToListAsync(cancellationToken);
     }

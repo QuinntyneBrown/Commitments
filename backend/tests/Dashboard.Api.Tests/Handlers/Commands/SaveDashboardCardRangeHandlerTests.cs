@@ -1,7 +1,7 @@
 using Commitments.Testing.Common;
-using Dashboard.Api.Features.DashboardCard;
-using Dashboard.Core;
-using Dashboard.Core.Model.DashboardCardAggregate;
+using Dashboard.Features.DashboardCard;
+using Dashboard.Data;
+using Dashboard.Domain.DashboardCardAggregate;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Moq;

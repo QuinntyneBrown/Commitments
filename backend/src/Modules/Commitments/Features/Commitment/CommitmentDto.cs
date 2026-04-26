@@ -1,15 +1,15 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Core.Model.BehaviourAggregate;
-using Commitments.Core.Model.CommitmentAggregate;
-using Commitments.Api.Features.Behaviour;
+using Commitments.Domain.BehaviourAggregate;
+using Commitments.Domain.CommitmentAggregate;
+using Commitments.Features.Behaviour;
 using System.Collections.Generic;
 using System.Linq;
-using CommitmentEntity = Commitments.Core.Model.CommitmentAggregate.Commitment;
+using CommitmentEntity = Commitments.Domain.CommitmentAggregate.Commitment;
 
 
-namespace Commitments.Api.Features.Commitment;
+namespace Commitments.Features.Commitment;
 
 public class CommitmentDto
 {

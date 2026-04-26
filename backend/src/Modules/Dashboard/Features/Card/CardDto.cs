@@ -1,4 +1,4 @@
-namespace Dashboard.Api.Features.Card;
+namespace Dashboard.Features.Card;
 
 public class CardDto
 {

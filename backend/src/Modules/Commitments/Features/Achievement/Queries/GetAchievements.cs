@@ -1,18 +1,18 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Commitments.Core.Model.CommitmentAggregate;
-using Commitments.Api.Features.Commitment;
+using Commitments.Domain.CommitmentAggregate;
+using Commitments.Features.Commitment;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Commitments.Core;
+using Commitments.Data;
 
 
-namespace Commitments.Api.Features.Achievement;
+namespace Commitments.Features.Achievement;
 
 public class GetAchievementsRequest : IRequest<GetAchievementsResponse>
 {
