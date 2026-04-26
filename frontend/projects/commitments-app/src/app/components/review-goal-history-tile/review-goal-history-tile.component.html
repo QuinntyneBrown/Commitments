@@ -1,50 +1,27 @@
-<commitments-tile-shell title="Review Goal History" eyebrow="Goal History" status="Review" data-testid="review-goal-history-tile">
-  <div class="window">
-    <label class="window__field">
-      <span class="window__label">Start</span>
-      <input
-        type="datetime-local"
-        data-testid="review-goal-history-start"
-        (change)="onStartChange($event)" />
-    </label>
-    <label class="window__field">
-      <span class="window__label">End</span>
-      <input
-        type="datetime-local"
-        data-testid="review-goal-history-end"
-        (change)="onEndChange($event)" />
-    </label>
-    <button
-      type="button"
-      class="window__apply"
-      data-testid="review-goal-history-apply"
-      [disabled]="!controller.canApply()"
-      (click)="controller.apply()">
-      Apply
-    </button>
+<commitments-tile-shell title="Review Goal History" eyebrow="Goal Snapshot" variant="review" data-testid="review-goal-history-tile">
+  <cui-status-pill variant="review" label="REVIEW" data-testid="review-goal-history-review-badge"></cui-status-pill>
+
+  <div class="date-badge" data-testid="review-goal-history-date-badge">
+    {{ controller.selectedDateLabel() }}
   </div>
 
-  <div class="metric">
-    <span class="metric__value">
-      <span data-testid="review-goal-history-count">{{ controller.count() }}</span>
-      <span class="metric__separator">/</span>
-      <span data-testid="review-goal-history-target">{{ controller.target() }}</span>
-    </span>
-    <span class="metric__label">at scrub instant</span>
+  <cui-metric-header
+    accent="review"
+    [value]="controller.count() + ' / ' + controller.target()"
+    [caption]="controller.isEmpty() ? 'No achievements that day' : 'Snapshot at end of day'">
+  </cui-metric-header>
+
+  <div class="trend-row">
+    <cui-delta-badge
+      [delta]="controller.delta()"
+      format="count"
+      caption="vs today">
+    </cui-delta-badge>
   </div>
 
-  <input
-    type="range"
-    min="0"
-    max="100"
-    class="scrub"
-    data-testid="review-goal-history-scrub"
-    [value]="controller.scrubPct()"
-    (input)="onScrubChange($event)"
-    aria-label="Scrub through historical window" />
-
-  <div class="review-badge" data-testid="review-goal-history-review-badge" aria-label="Reviewing historical data">
-    <span class="review-badge__dot"></span>
-    REVIEW
+  <div class="readout">
+    <span data-testid="review-goal-history-count">{{ controller.count() }}</span>
+    <span class="readout__separator">/</span>
+    <span data-testid="review-goal-history-target">{{ controller.target() }}</span>
   </div>
 </commitments-tile-shell>

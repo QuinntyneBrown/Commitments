@@ -10,15 +10,12 @@ test.describe('review goal history tile', () => {
     await review.goto();
   });
 
-  test('renders with title, review badge, scrubber controls, and a default 0/30 readout', async () => {
+  test('renders the polished snapshot tile (badge, metric, delta) sourced from the dashboard scrubber', async () => {
     await review.addReviewGoalHistoryTile();
 
     await review.expectVisible();
-    await expect(review.startInput).toBeVisible();
-    await expect(review.endInput).toBeVisible();
-    await expect(review.applyButton).toBeVisible();
-    await expect(review.applyButton).toBeDisabled();
+    await expect(review.dateBadge).toBeVisible();
     await expect(review.count).toHaveText('0');
-    await expect(review.target).toHaveText('30');
+    await expect(review.target).toHaveText('0');
   });
 });

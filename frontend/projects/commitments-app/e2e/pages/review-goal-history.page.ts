@@ -10,10 +10,7 @@ export class ReviewGoalHistoryPage {
   readonly count: Locator;
   readonly target: Locator;
   readonly reviewBadge: Locator;
-  readonly startInput: Locator;
-  readonly endInput: Locator;
-  readonly applyButton: Locator;
-  readonly scrubSlider: Locator;
+  readonly dateBadge: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -23,10 +20,7 @@ export class ReviewGoalHistoryPage {
     this.count = this.tile.getByTestId('review-goal-history-count');
     this.target = this.tile.getByTestId('review-goal-history-target');
     this.reviewBadge = this.tile.getByTestId('review-goal-history-review-badge');
-    this.startInput = this.tile.getByTestId('review-goal-history-start');
-    this.endInput = this.tile.getByTestId('review-goal-history-end');
-    this.applyButton = this.tile.getByTestId('review-goal-history-apply');
-    this.scrubSlider = this.tile.getByTestId('review-goal-history-scrub');
+    this.dateBadge = this.tile.getByTestId('review-goal-history-date-badge');
   }
 
   async goto() {
