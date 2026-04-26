@@ -51,4 +51,17 @@ public class GoalProgressController
             AsOf = asOf
         });
     }
+
+    [HttpGet("last14")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetGoalProgressLast14Response), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetGoalProgressLast14Response>> GetLast14([FromQuery] Guid goalId)
+    {
+        return await _sender.Send(new GetGoalProgressLast14Request
+        {
+            GoalId = goalId,
+            ProfileId = _httpContextAccessor.GetProfileId()
+        });
+    }
 }

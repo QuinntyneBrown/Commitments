@@ -4,7 +4,7 @@
 import { Injectable, computed, signal } from '@angular/core';
 
 import { HubClient } from '../../core/hub-client';
-import { GoalProgressService } from '../../services/goal-progress.service';
+import { GoalProgressService, Last14DayPoint } from '../../services/goal-progress.service';
 
 interface GoalProgressUpdatedMessage {
   event: 'goalProgressUpdated';
@@ -25,12 +25,21 @@ export class LiveGoalMetricsController {
   readonly count = signal(0);
   readonly target = signal(0);
   readonly asOf = signal<Date | null>(null);
+  readonly last14 = signal<Last14DayPoint[]>([]);
 
   readonly pct = computed(() => {
     const target = this.target();
     if (target <= 0) return 0;
     const value = (this.count() / target) * 100;
     return Math.max(0, Math.min(100, value));
+  });
+
+  readonly percentDisplay = computed(() => `${Math.round(this.pct())}%`);
+
+  readonly deltaVsYesterday = computed(() => {
+    const series = this.last14();
+    if (series.length < 2) return 0;
+    return series[series.length - 1].completed - series[series.length - 2].completed;
   });
 
   constructor(
@@ -41,6 +50,7 @@ export class LiveGoalMetricsController {
       if (isGoalProgressUpdated(message) && message.goalId === this._goalId) {
         this.count.set(message.count);
         this.asOf.set(new Date(message.asOf));
+        this._patchTodayInLast14(message.count);
       }
     });
   }
@@ -52,5 +62,19 @@ export class LiveGoalMetricsController {
       this.target.set(progress.target);
       this.asOf.set(progress.asOf ? new Date(progress.asOf) : null);
     });
+    this._service.getLast14(goalId).subscribe(points => this.last14.set(points));
+  }
+
+  private _patchTodayInLast14(completed: number): void {
+    const series = this.last14();
+    if (series.length === 0) return;
+    const last = series[series.length - 1];
+    const target = last.target || this.target() || 1;
+    const updated: Last14DayPoint = {
+      ...last,
+      completed,
+      percent: Math.round((completed / target) * 100)
+    };
+    this.last14.set([...series.slice(0, -1), updated]);
   }
 }

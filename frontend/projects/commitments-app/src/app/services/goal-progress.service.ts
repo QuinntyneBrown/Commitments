@@ -4,6 +4,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { baseUrl } from '../core/constants';
 
@@ -12,6 +13,17 @@ export interface GoalProgress {
   target: number;
   count: number;
   asOf: Date | string;
+}
+
+export interface Last14DayPoint {
+  date: string;
+  completed: number;
+  target: number;
+  percent: number;
+}
+
+interface Last14DayResponse {
+  points: Last14DayPoint[];
 }
 
 @Injectable({ providedIn: 'root' })
@@ -29,5 +41,12 @@ export class GoalProgressService {
       .set('goalId', goalId)
       .set('asOf', asOf.toISOString());
     return this._client.get<GoalProgress>(`${this._baseUrl}api/v1.0/goal-progress/at`, { params });
+  }
+
+  getLast14(goalId: string): Observable<Last14DayPoint[]> {
+    const params = new HttpParams().set('goalId', goalId);
+    return this._client
+      .get<Last14DayResponse>(`${this._baseUrl}api/v1.0/goal-progress/last14`, { params })
+      .pipe(map(r => r.points));
   }
 }

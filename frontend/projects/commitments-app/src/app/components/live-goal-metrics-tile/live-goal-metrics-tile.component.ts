@@ -3,14 +3,19 @@
 
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TileMetadata } from '@commitments/dashboard-framework';
-import { TileShellComponent } from '@commitments/ui';
+import {
+  DeltaBadgeComponent,
+  MetricHeaderComponent,
+  StatusPillComponent,
+  TileShellComponent
+} from '@commitments/ui';
 
 import { LiveGoalMetricsController } from './live-goal-metrics-controller';
 
 @Component({
   selector: 'app-live-goal-metrics-tile',
   standalone: true,
-  imports: [TileShellComponent],
+  imports: [TileShellComponent, StatusPillComponent, MetricHeaderComponent, DeltaBadgeComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [LiveGoalMetricsController],
   templateUrl: './live-goal-metrics-tile.component.html',
