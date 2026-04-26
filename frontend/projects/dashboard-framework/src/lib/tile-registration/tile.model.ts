@@ -1,4 +1,5 @@
 import { Signal, Type } from '@angular/core';
+import { Observable } from 'rxjs';
 
 export type DashboardMode = 'live' | 'review';
 
@@ -21,6 +22,8 @@ export interface TileMetadata {
   readonly defaultPosition?: TilePosition;
   readonly includeByDefault?: boolean;
   readonly icon?: string;
+  /** Modes the tile is offered in. Omit to support every mode (back-compat). */
+  readonly supportedModes?: ReadonlyArray<DashboardMode>;
 }
 
 export interface TileDescriptor extends TileMetadata {
@@ -34,6 +37,10 @@ export interface TileContext {
   readonly isMaximized: Signal<boolean>;
   readonly mode: Signal<DashboardMode>;
   readonly selectedReviewDate: Signal<string | null>;
+  /** Emits when the tile should re-fetch (focus regain, scrubber play resume). */
+  readonly refresh$: Observable<void>;
+  /** Fire-and-forget refresh request; framework throttles. */
+  requestRefresh(): void;
   remove(): void;
   maximize(): void;
   restore(): void;

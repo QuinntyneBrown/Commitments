@@ -20,6 +20,10 @@ class FakeTileRegistry {
   listTiles(): TileDescriptor[] {
     return this._tiles();
   }
+
+  tilesForMode(mode: 'live' | 'review'): TileDescriptor[] {
+    return this._tiles().filter(t => !t.supportedModes || t.supportedModes.includes(mode));
+  }
 }
 
 function tileDescriptor(tileId: string): TileDescriptor {

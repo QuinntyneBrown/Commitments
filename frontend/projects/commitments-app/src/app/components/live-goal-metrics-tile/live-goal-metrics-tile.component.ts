@@ -29,7 +29,8 @@ export class LiveGoalMetricsTileComponent {
     category: 'Commitments',
     defaultSize: { cols: 3, rows: 3 },
     defaultPosition: { x: 0, y: 0 },
-    includeByDefault: false
+    includeByDefault: false,
+    supportedModes: ['live']
   };
 
   constructor(readonly controller: LiveGoalMetricsController) {}

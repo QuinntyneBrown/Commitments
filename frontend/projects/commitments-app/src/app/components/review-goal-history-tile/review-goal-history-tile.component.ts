@@ -37,7 +37,8 @@ export class ReviewGoalHistoryTileComponent implements OnInit {
     category: 'Commitments',
     defaultSize: { cols: 3, rows: 3 },
     defaultPosition: { x: 0, y: 0 },
-    includeByDefault: false
+    includeByDefault: false,
+    supportedModes: ['review']
   };
 
   @Input() goalId = '';

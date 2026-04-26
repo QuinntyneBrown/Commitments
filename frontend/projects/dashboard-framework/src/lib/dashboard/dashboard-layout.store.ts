@@ -68,7 +68,7 @@ export class DashboardLayoutStore {
   resetLayout(): void {
     const mode = this.modeService.mode();
     this.persistence.clear(mode);
-    this.signalForMode(mode).set(this.defaultItems());
+    this.signalForMode(mode).set(this.defaultItems(mode));
   }
 
   private signalForMode(mode: DashboardMode) {
@@ -85,16 +85,16 @@ export class DashboardLayoutStore {
   private loadOrSeed(mode: DashboardMode): DashboardItem[] {
     const persisted = this.persistence.load(mode);
     const persistedItems = persisted ? this.filterKnownTiles(persisted.items) : [];
-    return persistedItems.length > 0 ? persistedItems : this.defaultItems();
+    return persistedItems.length > 0 ? persistedItems : this.defaultItems(mode);
   }
 
   private filterKnownTiles(items: readonly DashboardItem[]): DashboardItem[] {
     return items.filter((item) => this.registry.getTile(item.tileId));
   }
 
-  private defaultItems(): DashboardItem[] {
+  private defaultItems(mode: DashboardMode): DashboardItem[] {
     return this.registry
-      .listTiles()
+      .tilesForMode(mode)
       .filter((descriptor) => descriptor.includeByDefault)
       .map((descriptor, index) => this.createItem(descriptor, index));
   }

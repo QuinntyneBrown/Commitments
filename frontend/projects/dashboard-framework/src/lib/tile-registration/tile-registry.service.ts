@@ -1,5 +1,9 @@
 import { Injectable, Signal, signal } from '@angular/core';
-import { TileDescriptor } from './tile.model';
+import { DashboardMode, TileDescriptor } from './tile.model';
+
+function supports(descriptor: TileDescriptor, mode: DashboardMode): boolean {
+  return !descriptor.supportedModes || descriptor.supportedModes.includes(mode);
+}
 
 @Injectable({ providedIn: 'root' })
 export class TileRegistryService {
@@ -26,5 +30,9 @@ export class TileRegistryService {
 
   listTiles(): TileDescriptor[] {
     return this.descriptors();
+  }
+
+  tilesForMode(mode: DashboardMode): TileDescriptor[] {
+    return this.descriptors().filter(d => supports(d, mode));
   }
 }

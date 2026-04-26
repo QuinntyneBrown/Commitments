@@ -44,7 +44,8 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
     category: 'Commitments',
     defaultSize: { cols: 6, rows: 4 },
     defaultPosition: { x: 0, y: 0 },
-    includeByDefault: false
+    includeByDefault: false,
+    supportedModes: ['live', 'review']
   };
 
   @Input() goalId = '';

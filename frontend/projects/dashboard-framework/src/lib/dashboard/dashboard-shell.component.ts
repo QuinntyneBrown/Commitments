@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
 import { ModeToggleComponent } from '@commitments/ui';
 
 import { DashboardGridComponent } from './dashboard-grid.component';
@@ -20,14 +20,19 @@ export class DashboardShellComponent {
   protected readonly modeService = inject(DashboardModeService);
   private readonly registry = inject(TileRegistryService);
 
-  protected readonly tiles = this.registry.tiles;
+  protected readonly tiles = computed(() =>
+    this.registry.tilesForMode(this.modeService.mode())
+  );
   protected readonly selectedTileId = signal('');
 
   constructor() {
     effect(() => {
-      const firstTileId = this.tiles()[0]?.tileId ?? '';
+      const available = this.tiles();
+      const firstTileId = available[0]?.tileId ?? '';
+      const current = this.selectedTileId();
+      const stillAvailable = available.some(t => t.tileId === current);
 
-      if (!this.selectedTileId() && firstTileId) {
+      if (!stillAvailable && firstTileId) {
         this.selectedTileId.set(firstTileId);
       }
     });
