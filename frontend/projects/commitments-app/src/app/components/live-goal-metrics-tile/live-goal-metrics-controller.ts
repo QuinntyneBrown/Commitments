@@ -13,6 +13,11 @@ interface GoalProgressUpdatedMessage {
   asOf: string;
 }
 
+function isGoalProgressUpdated(value: unknown): value is GoalProgressUpdatedMessage {
+  const msg = value as GoalProgressUpdatedMessage | null;
+  return !!msg && msg.event === 'goalProgressUpdated';
+}
+
 @Injectable()
 export class LiveGoalMetricsController {
   private _goalId: string | null = null;
@@ -32,11 +37,10 @@ export class LiveGoalMetricsController {
     private readonly _hub: HubClient,
     private readonly _service: GoalProgressService
   ) {
-    this._hub.messages$.subscribe(raw => {
-      const msg = raw as Partial<GoalProgressUpdatedMessage> | null;
-      if (msg?.event === 'goalProgressUpdated' && msg.goalId === this._goalId) {
-        this.count.set(msg.count ?? 0);
-        this.asOf.set(msg.asOf ? new Date(msg.asOf) : null);
+    this._hub.messages$.subscribe(message => {
+      if (isGoalProgressUpdated(message) && message.goalId === this._goalId) {
+        this.count.set(message.count);
+        this.asOf.set(new Date(message.asOf));
       }
     });
   }
