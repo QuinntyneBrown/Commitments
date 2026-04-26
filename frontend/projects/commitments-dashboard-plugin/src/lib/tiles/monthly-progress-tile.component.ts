@@ -9,7 +9,7 @@ import { TileShellComponent } from '@commitments/ui';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <commitments-tile-shell title="Monthly Progress" eyebrow="30 days">
-      <div class="bars" aria-label="Monthly progress by week">
+      <div class="bars" role="img" aria-label="Monthly progress by week">
         <span style="height: 35%"></span>
         <span style="height: 72%"></span>
         <span style="height: 58%"></span>

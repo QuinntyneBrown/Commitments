@@ -9,7 +9,7 @@ import { TileRegistryService } from '../tile-registration';
   imports: [DashboardGridComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="dashboard-shell">
+    <div class="dashboard-shell" data-testid="dashboard-shell">
       <header class="dashboard-shell__topbar">
         <div class="dashboard-shell__brand">
           <span class="dashboard-shell__eyebrow">Commitments</span>
@@ -19,6 +19,7 @@ import { TileRegistryService } from '../tile-registration';
         <div class="dashboard-shell__actions">
           <select
             class="dashboard-shell__select"
+            data-testid="tile-select"
             [value]="selectedTileId()"
             (change)="selectedTileId.set($any($event.target).value)"
             aria-label="Tile to add"
@@ -27,16 +28,17 @@ import { TileRegistryService } from '../tile-registration';
               <option [value]="tile.tileId">{{ tile.displayName }}</option>
             }
           </select>
-          <button type="button" class="dashboard-shell__button" (click)="addSelectedTile()">Add Tile</button>
+          <button type="button" class="dashboard-shell__button" data-testid="add-tile" (click)="addSelectedTile()">Add Tile</button>
           <button
             type="button"
             class="dashboard-shell__button"
+            data-testid="edit-layout"
             [class.dashboard-shell__button--active]="layoutStore.isEditMode()"
             (click)="layoutStore.toggleEditMode()"
           >
             {{ layoutStore.isEditMode() ? 'Done' : 'Edit Layout' }}
           </button>
-          <button type="button" class="dashboard-shell__button dashboard-shell__button--muted" (click)="layoutStore.resetLayout()">
+          <button type="button" class="dashboard-shell__button dashboard-shell__button--muted" data-testid="reset-layout" (click)="layoutStore.resetLayout()">
             Reset
           </button>
         </div>

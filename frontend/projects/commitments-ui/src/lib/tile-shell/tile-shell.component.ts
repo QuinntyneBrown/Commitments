@@ -7,13 +7,13 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <article class="tile-shell">
+    <article class="tile-shell" data-testid="tile-shell">
       <header class="tile-shell__header">
         <div>
           @if (eyebrow) {
             <p class="tile-shell__eyebrow">{{ eyebrow }}</p>
           }
-          <h2 class="tile-shell__title">{{ title }}</h2>
+          <h2 class="tile-shell__title" data-testid="tile-title">{{ title }}</h2>
         </div>
         @if (status) {
           <span class="tile-shell__status">{{ status }}</span>

@@ -18,22 +18,23 @@ import { TILE_CONTEXT, TileContext, TileRegistryService } from '../tile-registra
   imports: [Gridster, GridsterItemComponent, NgComponentOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="dashboard-grid">
+    <section class="dashboard-grid" data-testid="dashboard-grid">
       @if (isEmpty()) {
-        <div class="dashboard-grid__empty">
+        <div class="dashboard-grid__empty" data-testid="dashboard-empty-state">
           <h2>No tiles on this dashboard</h2>
           <p>Use Add Tile to place a registered plugin tile.</p>
         </div>
       } @else {
         <gridster [options]="gridsterOptions()">
           @for (item of items(); track item.instanceId) {
-            <gridster-item [item]="item" [attr.data-tile-id]="item.tileId">
+            <gridster-item [item]="item" [attr.data-tile-id]="item.tileId" data-testid="dashboard-tile">
               @if (layoutStore.isEditMode()) {
                 <div class="tile-chrome">
                   <span class="tile-chrome__label">{{ registry.getTile(item.tileId)?.displayName ?? item.tileId }}</span>
                   <button
                     type="button"
                     class="tile-chrome__button"
+                    data-testid="remove-tile"
                     (click)="removeTile(item.instanceId)"
                     aria-label="Remove tile"
                   >

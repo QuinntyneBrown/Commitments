@@ -13,7 +13,7 @@ import { TileShellComponent } from '@commitments/ui';
         <span class="metric__value">7 / 9</span>
         <span class="metric__label">commitments completed</span>
       </div>
-      <div class="progress" aria-label="Daily progress">
+      <div class="progress" role="progressbar" aria-label="Daily progress" aria-valuemin="0" aria-valuemax="9" aria-valuenow="7">
         <span style="width: 78%"></span>
       </div>
     </commitments-tile-shell>
