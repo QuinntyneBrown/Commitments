@@ -1,0 +1,52 @@
+<div class="review-scrubber" data-testid="review-scrubber" (keydown)="onKeyDown($event)">
+  <cui-icon-button
+    icon="chevron_left"
+    ariaLabel="Previous day"
+    data-testid="review-scrubber-prev"
+    (click)="controller.prev()">
+  </cui-icon-button>
+
+  <cui-icon-button
+    [icon]="controller.isPlaying() ? 'pause' : 'play_arrow'"
+    [ariaLabel]="controller.isPlaying() ? 'Pause auto-scrub' : 'Play auto-scrub'"
+    [pressed]="controller.isPlaying()"
+    data-testid="review-scrubber-play"
+    (click)="controller.playToggle()">
+  </cui-icon-button>
+
+  <cui-icon-button
+    icon="chevron_right"
+    ariaLabel="Next day"
+    data-testid="review-scrubber-next"
+    (click)="controller.next()">
+  </cui-icon-button>
+
+  <div class="review-scrubber__track">
+    <input
+      type="range"
+      class="review-scrubber__slider"
+      data-testid="review-scrubber-slider"
+      role="slider"
+      [attr.aria-valuemin]="0"
+      [attr.aria-valuemax]="controller.windowDays() - 1"
+      [attr.aria-valuenow]="controller.selectedIndex()"
+      [attr.min]="0"
+      [attr.max]="controller.windowDays() - 1"
+      [value]="controller.selectedIndex()"
+      (input)="onSliderInput($event)" />
+    <div class="review-scrubber__ticks" aria-hidden="true">
+      @for (label of controller.tickLabels(); track $index) {
+        <span class="review-scrubber__tick">{{ label }}</span>
+      }
+    </div>
+  </div>
+
+  <span class="review-scrubber__date" data-testid="review-scrubber-date">{{ controller.selectedDate() }}</span>
+
+  <cui-icon-button
+    icon="today"
+    ariaLabel="Jump to today"
+    data-testid="review-scrubber-today"
+    (click)="controller.jumpToToday()">
+  </cui-icon-button>
+</div>

@@ -5,3 +5,6 @@ export * from './dashboard-mode.service';
 export * from './dashboard-shell.component';
 export * from './dashboard.model';
 export * from './layout-persistence.service';
+export * from './review-scrubber/review-scrubber.component';
+export * from './review-scrubber/review-scrubber.controller';
+export * from './review-scrubber/review-scrubber.helpers';
