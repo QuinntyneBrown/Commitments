@@ -1,0 +1,51 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Chart Tile - Domain Model
+
+class GoalTrendDto {
+    +goalId: string
+    +mode: 'live' | 'review'
+    +asOf: string
+    +windowDays: int
+    +points: GoalTrendPointDto[]
+    +currentPercentage: int
+    +peakPercentage: int
+    +lowPercentage: int
+    +deltaLabel: string
+}
+
+class GoalTrendPointDto {
+    +date: string
+    +completed: int
+    +target: int
+    +percentage: int
+}
+
+class ConsistencyTrendController {
+    +trend: Signal<GoalTrendDto | null>
+    +highlightedIndex: Signal<number>
+    +chartDataset: Signal<ChartDataset>
+    +loadTrend(): void
+}
+
+class ChartJsLineAdapter {
+    -chart?: Chart
+    +attach(canvas, config): void
+    +updateDataset(dataset): void
+    +destroy(): void
+}
+
+class ConsistencyTrendTileComponent {
+    +goalId: number
+    +windowDays?: number
+}
+
+GoalTrendDto --> "*" GoalTrendPointDto
+ConsistencyTrendTileComponent --> ConsistencyTrendController
+ConsistencyTrendTileComponent --> ChartJsLineAdapter
+ConsistencyTrendController ..> GoalTrendDto
+
+@enduml

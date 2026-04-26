@@ -1,0 +1,15 @@
+@startuml c4_context
+!theme plain
+!include <C4/C4_Context>
+
+title Gridster Layouts By Mode - System Context
+
+Person(user, "Profile Owner", "Drags tiles per mode")
+Person(plugin, "Plugin Tile Author", "Provides default positions")
+
+System(spa, "Commitments SPA", "Hosts mode-aware Gridster")
+
+Rel(user, spa, "Drags / resizes tiles")
+Rel(plugin, spa, "Registers tiles with defaults")
+
+@enduml

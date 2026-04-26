@@ -1,0 +1,22 @@
+@startuml sequence_chart_canvas_spec
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Chart Canvas Spec
+
+participant Spec
+participant ChartTilePo as CT
+participant Browser
+
+Spec -> CT: canvas()
+CT -> Browser: locator('canvas')
+Spec -> CT: assertCanvasNonBlank()
+CT -> Browser: page.evaluate(getImageData)
+Browser --> CT: pixel bytes
+CT -> CT: assert any byte > 0
+Spec -> CT: datasetLength()
+CT -> Browser: window.__chartTestApi__.datasetLength()
+Browser --> CT: 30
+Spec -> Spec: assert datasetLength === windowDays
+
+@enduml

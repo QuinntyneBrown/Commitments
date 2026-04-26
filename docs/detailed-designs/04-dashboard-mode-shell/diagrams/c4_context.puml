@@ -1,0 +1,15 @@
+@startuml c4_context
+!theme plain
+!include <C4/C4_Context>
+
+title Dashboard Mode Shell - System Context
+
+Person(user, "Profile Owner", "Toggles dashboard mode")
+Person(plugin, "Plugin Tile Author", "Reads mode from tile context")
+
+System(spa, "Commitments SPA", "Angular app with dashboard-framework")
+
+Rel(user, spa, "Toggles Live / Review")
+Rel(plugin, spa, "Imports TileContext")
+
+@enduml

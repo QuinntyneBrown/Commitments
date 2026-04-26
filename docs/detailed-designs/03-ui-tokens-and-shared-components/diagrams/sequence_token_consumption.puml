@@ -1,0 +1,19 @@
+@startuml sequence_token_consumption
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Token Consumption (SCSS + TS)
+
+participant "Plugin Tile SCSS" as SCSS
+participant ":root CSS vars" as CSS
+participant "Chart Tile TS" as TS
+participant "tokens.ts" as TOK
+participant "Browser" as BR
+
+SCSS -> CSS: var(--surface-tile)
+CSS --> BR: applies #242424
+TS -> TOK: import { ACCENT_CHART }
+TS -> BR: ctx.strokeStyle = '#42A5F5'
+TS -> BR: gradient.addColorStop('#42A5F566')
+
+@enduml

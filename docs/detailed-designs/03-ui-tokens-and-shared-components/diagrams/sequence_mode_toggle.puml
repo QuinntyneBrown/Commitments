@@ -1,0 +1,19 @@
+@startuml sequence_mode_toggle
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Mode Toggle Interaction
+
+actor User
+participant "ModeToggleComponent" as MT
+participant "Dashboard Shell\n(Feature 04)" as Shell
+participant "Tile Plugin" as Tile
+
+User -> MT: click "Review"
+MT -> MT: emit modeChange('review')
+MT -> Shell: (modeChange)
+Shell -> Shell: mode.set('review')
+Shell -> Tile: rebind tile context
+Tile -> Tile: re-render review variant
+
+@enduml

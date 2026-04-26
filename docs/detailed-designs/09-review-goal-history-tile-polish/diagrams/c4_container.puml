@@ -1,0 +1,26 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title Review Tile - Container Diagram
+
+Person(user, "Profile Owner")
+
+System_Boundary(spa, "Commitments SPA") {
+    Container(plugin, "commitments-dashboard-plugin", "Angular library", "Review tile")
+    Container(ui, "commitments-ui", "Angular library", "TileShell, MetricHeader, StatusPill, DeltaBadge")
+    Container(fw, "dashboard-framework", "Angular library", "TileContext + scrubber")
+}
+
+System_Boundary(svr, "Commitments.Api") {
+    Container(api, "GoalProgressController", "ASP.NET Core")
+    ContainerDb(db, "SQL Server", "Goals + Achievements")
+}
+
+Rel(user, plugin, "Sees")
+Rel(plugin, ui, "Composes primitives")
+Rel(plugin, fw, "Reads selectedReviewDate")
+Rel(plugin, api, "GET /at, /current", "JSON/HTTPS")
+Rel(api, db, "EF Core")
+
+@enduml

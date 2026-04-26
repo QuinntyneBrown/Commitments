@@ -1,0 +1,19 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Review Tile - Component Diagram
+
+Container_Boundary(plugin, "commitments-dashboard-plugin") {
+    Component(comp, "ReviewGoalHistoryTileComponent", "Angular standalone", "Renders shell + delta")
+    Component(ctrl, "ReviewGoalHistoryController", "Angular @Injectable", "Reads context, fetches snapshots")
+    Component(svc, "GoalProgressService", "Angular @Injectable", "getAt + getCurrent")
+}
+
+Component(ctx, "TileContext", "From Feature 04/10", "selectedReviewDate")
+
+Rel(comp, ctrl, "Reads signals")
+Rel(ctrl, svc, "Calls")
+Rel(ctrl, ctx, "Subscribes selectedReviewDate")
+
+@enduml

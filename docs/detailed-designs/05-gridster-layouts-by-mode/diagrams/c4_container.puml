@@ -1,0 +1,19 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title Gridster Layouts By Mode - Container Diagram
+
+Person(user, "Profile Owner")
+
+System_Boundary(spa, "Commitments SPA") {
+    Container(fw, "dashboard-framework", "Angular library", "Mode + layout services, Gridster host")
+    Container(plugin, "commitments-dashboard-plugin", "Angular library", "Tile registrations w/ default positions")
+    ContainerDb(ls, "Browser localStorage", "Web storage", "commitments.layout.live + commitments.layout.review")
+}
+
+Rel(user, fw, "Drag / resize")
+Rel(plugin, fw, "Register tiles")
+Rel(fw, ls, "Read / write per-mode JSON")
+
+@enduml

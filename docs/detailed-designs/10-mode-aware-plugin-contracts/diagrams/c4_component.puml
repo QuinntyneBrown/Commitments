@@ -1,0 +1,29 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Tile Registration - Component Diagram
+
+Container_Boundary(fw, "dashboard-framework") {
+    Component(reg, "TileRegistryService", "Angular @Injectable", "Holds manifests, resolves components")
+    Component(host, "TileHostDirective", "Angular directive", "Creates / destroys tile components per slot")
+    Component(ctx, "TileContext (token)", "DI provider", "mode + selectedReviewDate + refresh$")
+    Component(mode, "DashboardModeService", "Feature 04", "Source of mode + date")
+}
+
+Container_Boundary(plugin, "commitments-dashboard-plugin") {
+    Component(provider, "provideCommitmentsDashboardPlugin", "Angular provider", "Calls registry.register(...) for each tile")
+    Component(tileLive, "LiveGoalMetricsTileComponent", "Angular standalone")
+    Component(tileChart, "ConsistencyTrendTileComponent", "Angular standalone")
+    Component(tileReview, "ReviewGoalHistoryTileComponent", "Angular standalone")
+}
+
+Rel(provider, reg, "register(manifest) x N")
+Rel(host, reg, "componentFor(id, mode)")
+Rel(host, ctx, "Provides per tile")
+Rel(ctx, mode, "Reads")
+Rel(host, tileLive, "createComponent")
+Rel(host, tileChart, "createComponent")
+Rel(host, tileReview, "createComponent")
+
+@enduml

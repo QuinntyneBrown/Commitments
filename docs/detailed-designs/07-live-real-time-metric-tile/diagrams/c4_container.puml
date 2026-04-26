@@ -1,0 +1,29 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title Live Real-Time Metric Tile - Container Diagram
+
+Person(user, "Profile Owner")
+
+System_Boundary(spa, "Commitments SPA") {
+    Container(plugin, "commitments-dashboard-plugin", "Angular library", "Live tile + adapter")
+    Container(ui, "commitments-ui", "Angular library", "TileShell, MetricHeader, StatusPill, DeltaBadge")
+    Container(fw, "dashboard-framework", "Angular library", "TileContext")
+}
+
+System_Boundary(svr, "Commitments.Api") {
+    Container(api, "GoalProgress endpoints", "ASP.NET Core", "/current + /last14")
+    Container(hub, "SignalR Hub", "ASP.NET Core SignalR", "goalProgressUpdated")
+    ContainerDb(db, "SQL Server", "Goals + Achievements")
+}
+
+Rel(user, plugin, "Sees tile")
+Rel(plugin, ui, "Composes primitives")
+Rel(plugin, fw, "Reads TileContext")
+Rel(plugin, api, "GET /current, /last14", "JSON/HTTPS")
+Rel(plugin, hub, "Subscribes", "WebSocket")
+Rel(api, db, "EF Core", "TDS")
+Rel(api, hub, "Publishes")
+
+@enduml

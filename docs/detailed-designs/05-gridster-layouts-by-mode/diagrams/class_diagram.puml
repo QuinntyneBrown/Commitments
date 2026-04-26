@@ -1,0 +1,40 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Gridster Layouts - Domain Model
+
+class GridsterItem {
+    +cols: number
+    +rows: number
+    +x: number
+    +y: number
+    +tileId: string
+    +tileType: string
+}
+
+class DashboardLayoutPersisted {
+    +schemaVersion: number
+    +items: GridsterItem[]
+}
+
+class TileDefaults {
+    +live?: GridsterItem
+    +review?: GridsterItem
+}
+
+class DashboardLayoutService {
+    +liveLayout: Signal<GridsterItem[]>
+    +reviewLayout: Signal<GridsterItem[]>
+    +currentLayout: Signal<GridsterItem[]>
+    +addTile(mode, item): void
+    +removeTile(mode, tileId): void
+    +replaceLayout(mode, items): void
+}
+
+DashboardLayoutService --> "*" GridsterItem : holds
+DashboardLayoutService ..> DashboardLayoutPersisted : '<<reads>>'
+DashboardLayoutService ..> TileDefaults : '<<seeds from>>'
+
+@enduml

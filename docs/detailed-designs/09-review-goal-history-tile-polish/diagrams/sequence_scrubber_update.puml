@@ -1,0 +1,23 @@
+@startuml sequence_scrubber_update
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Scrubber Moves the Date
+
+participant "Review Scrubber" as Scrub
+participant DashboardModeService as Mode
+participant TileContext as Ctx
+participant ReviewGoalHistoryController as Ctrl
+participant GoalProgressService as Svc
+participant "Commitments.Api" as Api
+
+Scrub -> Mode: setSelectedReviewDate('2026-03-15')
+Mode --> Ctx: signal change
+Ctx --> Ctrl: effect fires
+Ctrl -> Svc: getAt(goalId, '2026-03-15T23:59:59Z')\n(switchMap drops in-flight call)
+Svc -> Api: GET /at
+Api --> Svc: GoalProgressDto
+Svc --> Ctrl: historical
+Ctrl -> Ctrl: delta recompute
+
+@enduml

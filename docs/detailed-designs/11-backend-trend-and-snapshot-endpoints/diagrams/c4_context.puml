@@ -1,0 +1,14 @@
+@startuml c4_context
+!theme plain
+!include <C4/C4_Context>
+
+title Backend Trend And Snapshot Endpoints - System Context
+
+System(spa, "Commitments SPA")
+System(api, "Commitments.Api")
+System(db, "SQL Server", "Goals + Achievements")
+
+Rel(spa, api, "GET /current, /at, /trend", "JSON/HTTPS")
+Rel(api, db, "Bounded queries", "TDS")
+
+@enduml

@@ -1,0 +1,21 @@
+@startuml sequence_review_trend
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Review Trend Request
+
+participant Client as C
+participant GoalProgressController as Ctrl
+participant GetGoalProgressTrendHandler as H
+database "SQL Server" as DB
+
+C -> Ctrl: GET /trend?goalId=17&asOf=2026-03-15&windowDays=30
+Ctrl -> Ctrl: parse asOf (UTC EOD), validate
+Ctrl -> H: send(query)
+H -> DB: window CTE ending at 2026-03-15
+DB --> H: 30 rows
+H --> Ctrl: GoalTrendDto (Mode='review')
+Ctrl -> Ctrl: asOf older than 1m -> Cache-Control: public, max-age=300
+Ctrl --> C: 200 OK
+
+@enduml

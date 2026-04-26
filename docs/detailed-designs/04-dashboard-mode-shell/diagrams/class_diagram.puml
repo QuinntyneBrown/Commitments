@@ -1,0 +1,37 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Dashboard Mode - Public Surface
+
+class DashboardModeService {
+    +mode: Signal<DashboardMode>
+    +selectedReviewDate: Signal<string | null>
+    +setMode(mode): void
+    +setSelectedReviewDate(date): void
+    -storage: Storage
+    -load(): void
+    -save(): void
+}
+
+interface TileContext {
+    +mode: Signal<DashboardMode>
+    +selectedReviewDate: Signal<string | null>
+}
+
+class DashboardShellComponent {
+    -modeService: DashboardModeService
+}
+
+class TileHostDirective {
+    +tileId: string
+}
+
+DashboardModeService ..> "DashboardMode" : '<<type>>'
+TileContext ..> DashboardModeService : '<<reads>>'
+DashboardShellComponent --> DashboardModeService
+TileHostDirective --> DashboardModeService
+TileHostDirective ..> TileContext : 'provides'
+
+@enduml

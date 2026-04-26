@@ -1,0 +1,28 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title E2E - Container Diagram
+
+System_Boundary(e2e, "E2E Harness") {
+    Container(pw, "Playwright Runner", "Node.js", "Specs + POM + viewports")
+    Container(pom, "Page Object Model", "TypeScript", "DashboardPage, *Po classes")
+}
+
+System_Boundary(spa, "Commitments SPA") {
+    Container(app, "commitments-app", "Angular", "Dashboard route")
+}
+
+System_Boundary(svr, "Commitments.Api (e2e)") {
+    Container(api, "Controllers + handlers", "ASP.NET Core")
+    Container(seed, "Test seed endpoints", "ASP.NET Core", "Guarded by ASPNETCORE_ENVIRONMENT=e2e")
+    ContainerDb(db, "Test SQL Server", "Isolated DB")
+}
+
+Rel(pw, pom, "uses")
+Rel(pw, app, "drives in browser")
+Rel(pw, seed, "POST /test/seed/reset, /apply")
+Rel(app, api, "JSON / SignalR")
+Rel(api, db, "EF Core")
+
+@enduml

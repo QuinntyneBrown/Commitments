@@ -1,0 +1,24 @@
+@startuml sequence_toggle_mode
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Toggle Mode (Live to Review)
+
+actor User
+participant ModeToggleComponent as MT
+participant DashboardShellComponent as Shell
+participant DashboardModeService as Svc
+database localStorage as LS
+participant "Tile (via TileContext)" as Tile
+
+User -> MT: click "Review"
+MT -> Shell: modeChange('review')
+Shell -> Svc: setMode('review')
+Svc -> LS: setItem('commitments.dashboardMode', 'review')
+Svc -> Svc: ensure selectedReviewDate has a value\n(defaults to today)
+Svc -> LS: setItem('commitments.selectedReviewDate', today)
+Shell -> Shell: hide FAB, show scrubber slot
+Tile -> Svc: signal change
+Tile -> Tile: render review variant
+
+@enduml

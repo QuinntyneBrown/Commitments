@@ -1,0 +1,26 @@
+@startuml sequence_initial_live
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Initial Render - Live
+
+actor User
+participant ConsistencyTrendTileComponent as Comp
+participant ConsistencyTrendController as Ctrl
+participant GoalTrendService as Svc
+participant "Commitments.Api" as Api
+participant ChartJsLineAdapter as Adp
+participant "chart.js Chart" as Chart
+
+User -> Comp: tile mounts
+Comp -> Ctrl: ngOnInit (mode='live')
+Ctrl -> Svc: getTrend(goalId, 'live', null, 30)
+Svc -> Api: GET /trend
+Api --> Svc: GoalTrendDto
+Svc --> Ctrl: trend
+Comp -> Adp: attach(canvas, config)
+Adp -> Chart: new Chart(...)
+Comp -> Adp: updateDataset(toChartDataset)
+Adp -> Chart: chart.data.datasets[0] = ...; chart.update('none')
+
+@enduml

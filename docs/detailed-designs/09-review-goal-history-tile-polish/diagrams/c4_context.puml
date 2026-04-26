@@ -1,0 +1,14 @@
+@startuml c4_context
+!theme plain
+!include <C4/C4_Context>
+
+title Review Goal History Tile Polish - System Context
+
+Person(user, "Profile Owner")
+System(spa, "Commitments SPA")
+System(api, "Commitments.Api")
+
+Rel(user, spa, "Scrubs date / sees tile")
+Rel(spa, api, "GET /at, /current", "JSON")
+
+@enduml

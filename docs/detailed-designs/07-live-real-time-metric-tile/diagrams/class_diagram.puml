@@ -1,0 +1,39 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Live Tile - Domain Model
+
+class GoalProgressDto {
+    +goalId: int
+    +target: int
+    +count: int
+    +asOf: DateTimeOffset
+}
+
+class Last14DayDto {
+    +date: string
+    +completed: int
+    +target: int
+    +percent: int
+}
+
+class LiveGoalMetricsController {
+    +count: Signal<number>
+    +target: Signal<number>
+    +last14: Signal<Last14DayPoint[]>
+    +deltaVsYesterday: Signal<number>
+    +percentDisplay: Signal<string>
+    +ngOnInit(): void
+}
+
+class LiveGoalMetricsTileComponent {
+    +goalId: number
+}
+
+LiveGoalMetricsTileComponent --> LiveGoalMetricsController
+LiveGoalMetricsController ..> GoalProgressDto
+LiveGoalMetricsController --> "14" Last14DayDto
+
+@enduml

@@ -1,0 +1,66 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title POM - Class Diagram
+
+class DashboardPage {
+    -page: Page
+    +modeToggle: ModeTogglePo
+    +scrubber: ScrubberPo
+    +liveTile: LiveMetricTilePo
+    +chartTile: ChartTilePo
+    +reviewTile: ReviewTilePo
+    +goto(): Promise<void>
+    +setViewport(size): Promise<void>
+    +addTile(catalogId): Promise<void>
+}
+
+class ModeTogglePo {
+    +selectLive(): Promise<void>
+    +selectReview(): Promise<void>
+    +assertActive(expected): Promise<void>
+}
+
+class ScrubberPo {
+    +dragToIndex(i): Promise<void>
+    +pressNext(n): Promise<void>
+    +pressPrev(n): Promise<void>
+    +tapToday(): Promise<void>
+    +assertSelectedDate(iso): Promise<void>
+}
+
+class LiveMetricTilePo {
+    +valueText(): Promise<string>
+    +bars(): Promise<Locator>
+    +pulseActive(): Promise<boolean>
+}
+
+class ChartTilePo {
+    +canvas(): Locator
+    +assertCanvasNonBlank(): Promise<void>
+    +datasetLength(): Promise<number>
+}
+
+class ReviewTilePo {
+    +valueText(): Promise<string>
+    +selectedDateBadgeText(): Promise<string>
+    +deltaText(): Promise<string>
+}
+
+class TestSeed <<value>> {
+    +profileId: string
+    +goalId: number
+    +achievementCountToday: number
+    +asOf: string
+}
+
+DashboardPage --> ModeTogglePo
+DashboardPage --> ScrubberPo
+DashboardPage --> LiveMetricTilePo
+DashboardPage --> ChartTilePo
+DashboardPage --> ReviewTilePo
+DashboardPage ..> TestSeed
+
+@enduml

@@ -1,0 +1,28 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Chart Tile - Component Diagram
+
+Container_Boundary(plugin, "commitments-dashboard-plugin") {
+    Component(comp, "ConsistencyTrendTileComponent", "Angular standalone", "Renders shell + canvas")
+    Component(ctrl, "ConsistencyTrendController", "Angular @Injectable", "Signals + fetch")
+    Component(svc, "GoalTrendService", "Angular @Injectable", "HTTP")
+    Component(adapter, "ChartJsLineAdapter", "Angular @Injectable", "attach / update / destroy")
+}
+
+ComponentDb(chart, "chart.js Chart", "npm", "Owned canvas instance")
+
+Container_Boundary(api, "Commitments.Api") {
+    Component(ctrlApi, "GoalProgressController", "ASP.NET Core", "/trend action")
+    Component(handler, "GetGoalTrendHandler", "MediatR", "Window query")
+}
+
+Rel(comp, ctrl, "Reads signals")
+Rel(comp, adapter, "attach / updateDataset / destroy")
+Rel(ctrl, svc, "Calls")
+Rel(adapter, chart, "Owns")
+Rel(svc, ctrlApi, "GET /trend")
+Rel(ctrlApi, handler, "send")
+
+@enduml

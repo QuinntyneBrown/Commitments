@@ -1,0 +1,17 @@
+@startuml c4_context
+!theme plain
+!include <C4/C4_Context>
+
+title UI Tokens And Shared Components - System Context
+
+Person(dev, "Frontend Developer", "Builds tiles and shells")
+Person(user, "Profile Owner", "Sees rendered UI")
+
+System(spa, "Commitments SPA", "Angular workspace with shell, framework, plugin")
+System_Ext(designsrc, "ui-design.pen", "Authoritative design source for tokens and components")
+
+Rel(dev, designsrc, "Reads")
+Rel(dev, spa, "Imports primitives")
+Rel(user, spa, "Uses", "Browser")
+
+@enduml

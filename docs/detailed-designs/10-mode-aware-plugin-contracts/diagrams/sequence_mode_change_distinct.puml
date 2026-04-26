@@ -1,0 +1,19 @@
+@startuml sequence_mode_change_distinct
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Mode Change - Distinct Component Per Mode
+
+participant DashboardModeService as Mode
+participant TileHostDirective as Host
+participant TileRegistryService as Reg
+participant "Live Component" as Live
+participant "Review Component" as Review
+
+Mode --> Host: mode signal -> 'review'
+Host -> Reg: componentFor(id, 'review')
+Reg --> Host: ReviewComponent
+Host -> Live: destroyComponent()
+Host -> Review: createComponent()
+
+@enduml

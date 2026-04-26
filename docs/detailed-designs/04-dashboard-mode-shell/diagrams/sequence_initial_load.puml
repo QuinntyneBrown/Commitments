@@ -1,0 +1,22 @@
+@startuml sequence_initial_load
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Initial Load - Restore Mode
+
+participant Bootstrap as B
+participant DashboardModeService as Svc
+database localStorage as LS
+participant DashboardShellComponent as Shell
+
+B -> Svc: <<construct>>
+Svc -> LS: getItem('commitments.dashboardMode')
+LS --> Svc: 'review' or null
+Svc -> Svc: validate, fallback to 'live' if invalid
+Svc -> LS: getItem('commitments.selectedReviewDate')
+LS --> Svc: ISO date or null
+B -> Shell: <<render>>
+Shell -> Svc: read mode + date signals
+Shell --> B: render toolbar, scrubber slot
+
+@enduml

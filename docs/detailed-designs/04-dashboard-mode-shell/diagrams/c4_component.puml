@@ -1,0 +1,20 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title dashboard-framework - Component Diagram
+
+Container_Boundary(fw, "dashboard-framework") {
+    Component(shell, "DashboardShellComponent", "Angular standalone", "Toolbar + scrubber slot + Gridster slot")
+    Component(svc, "DashboardModeService", "Angular @Injectable", "Holds mode + selectedReviewDate signals; persistence")
+    Component(ctx, "TileContext (DI token)", "Interface + provider", "Per-tile mode/date readers")
+    Component(host, "TileHostDirective", "Angular directive", "Provides TileContext per tile instance")
+    ComponentDb(ls, "localStorage", "Web Storage")
+}
+
+Rel(shell, svc, "Reads + writes signals")
+Rel(host, svc, "Subscribes to mode + date")
+Rel(host, ctx, "Provides per tile")
+Rel(svc, ls, "Persists selection")
+
+@enduml

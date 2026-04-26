@@ -1,0 +1,24 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title E2E POM - Component Diagram
+
+Container_Boundary(pom, "Page Object Model") {
+    Component(dash, "DashboardPage", "TS class", "Top-level locators + actions")
+    Component(toggle, "ModeTogglePo", "TS class")
+    Component(scrub, "ScrubberPo", "TS class")
+    Component(live, "LiveMetricTilePo", "TS class")
+    Component(chart, "ChartTilePo", "TS class")
+    Component(review, "ReviewTilePo", "TS class")
+    Component(seed, "SeedFixture", "TS fixture", "Seeds backend + returns ids")
+}
+
+Rel(dash, toggle, "exposes")
+Rel(dash, scrub, "exposes")
+Rel(dash, live, "exposes")
+Rel(dash, chart, "exposes")
+Rel(dash, review, "exposes")
+Rel(dash, seed, "uses on test setup")
+
+@enduml

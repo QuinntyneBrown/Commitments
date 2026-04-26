@@ -1,0 +1,18 @@
+@startuml sequence_jump_today
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Jump to Today
+
+actor User
+participant ReviewScrubberComponent as Comp
+participant ReviewScrubberController as Ctrl
+participant DashboardModeService as Mode
+database localStorage as LS
+
+User -> Comp: tap Today button
+Comp -> Ctrl: jumpToToday()
+Ctrl -> Mode: setSelectedReviewDate(windowEnd)
+Mode -> LS: setItem('commitments.selectedReviewDate', today)
+
+@enduml

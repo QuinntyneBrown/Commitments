@@ -1,0 +1,15 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title Plugin Contracts - Container Diagram
+
+System_Boundary(spa, "Commitments SPA") {
+    Container(fw, "dashboard-framework", "Angular library", "Mode + registry + host + context")
+    Container(plugin, "commitments-dashboard-plugin", "Angular library", "Tiles register manifests")
+}
+
+Rel(plugin, fw, "register(manifest)")
+Rel(plugin, fw, "Inject TileContext")
+
+@enduml
