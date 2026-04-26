@@ -95,4 +95,12 @@ describe('DashboardLayoutStore mode awareness', () => {
     modeService.setMode('live');
     expect(store.items().length).toBe(liveCountBefore);
   });
+
+  it('exposes liveLayout and reviewLayout as readonly signals', () => {
+    const { store } = createStore();
+    expect(typeof store.liveLayout).toBe('function');
+    expect(typeof store.reviewLayout).toBe('function');
+    expect(Array.isArray(store.liveLayout())).toBe(true);
+    expect(Array.isArray(store.reviewLayout())).toBe(true);
+  });
 });
