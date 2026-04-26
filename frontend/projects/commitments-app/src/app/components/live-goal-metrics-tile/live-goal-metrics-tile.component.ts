@@ -27,7 +27,7 @@ export class LiveGoalMetricsTileComponent {
     displayName: 'Live Goal Metrics',
     description: 'Real-time progress against a single goal target.',
     category: 'Commitments',
-    defaultSize: { cols: 3, rows: 2 },
+    defaultSize: { cols: 3, rows: 3 },
     defaultPosition: { x: 0, y: 0 },
     includeByDefault: false
   };
