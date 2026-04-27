@@ -1,5 +1,7 @@
 # 10 — Tests to update / add
 
+**Status: ACCEPTED**
+
 ## Tasks
 - [ ] **10.1** Update `dashboard-shell.component.spec.ts` to remove tile-select / Add Tile button / Edit Layout / Reset assertions, and add: hamburger toggles sidenav, FAB opens dialog, mode-toggle present in primary header (live + review only).
 - [ ] **10.2** Add a Playwright e2e test for the FAB → Add-Tile-Dialog → tile-grid-select → ADD TILE flow that mirrors [03](03-add-tile-fab-and-dialog.md). Use Page Object Model under `frontend/projects/commitments-app-e2e/`. Cover: opening, selecting one tile, ADD TILE adds it to the layout, CANCEL discards, close-icon discards, backdrop click does NOT discard (modal). Assert ADD TILE is disabled until a tile is selected.
