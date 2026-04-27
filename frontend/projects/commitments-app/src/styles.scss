@@ -11,6 +11,8 @@ html {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
   height: 100%;
   width: 100%;
+  background-color: var(--cui-bg);
+  color: var(--cui-text-primary);
 }
 
 :root {
