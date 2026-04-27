@@ -2,7 +2,7 @@
 
 ## Status
 
-OPEN.
+FIXED — `dashboard.spec.ts` L60, L94, L113 pass on lg-desktop.
 
 ## Symptom
 
@@ -48,6 +48,7 @@ field (only it referenced the dead testid).
 
 ## Resolution
 
-- [ ] Failing tests verified pre-fix.
-- [ ] POM updated.
-- [ ] Tests verified passing post-fix.
+- [x] Failing tests verified pre-fix (timeouts on getByTestId('edit-layout')).
+- [x] POM updated (drop `editLayoutButton`, add `editModeDoneButton`,
+      rewire enter/exitEditMode).
+- [x] Tests verified passing post-fix on lg-desktop.
