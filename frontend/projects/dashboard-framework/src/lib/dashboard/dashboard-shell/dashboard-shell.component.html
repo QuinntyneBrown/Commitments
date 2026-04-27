@@ -1,10 +1,6 @@
 <div class="dashboard-shell" data-testid="dashboard-shell">
+  <app-primary-header title="Dashboard"></app-primary-header>
   <header class="dashboard-shell__topbar">
-    <div class="dashboard-shell__brand">
-      <span class="dashboard-shell__eyebrow">Commitments</span>
-      <h1>Dashboard</h1>
-    </div>
-
     <cui-mode-toggle
       data-testid="dashboard-mode-toggle"
       [mode]="modeService.mode()"

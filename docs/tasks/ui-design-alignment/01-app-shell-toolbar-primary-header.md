@@ -1,6 +1,6 @@
 # 01 — App Shell: replace `dashboard-shell` topbar with two-row Toolbar + PrimaryHeader
 
-**Status: ACCEPTED**
+**Status: COMPLETE**
 
 **Design**: `App-Shell` (`8028h`) is composed of:
 - Row 1: `Mat-Toolbar` (`xGF9T`) — `$toolbar` (#1F2233), height **64**, padding `[0, 16, 0, 8]`, gap 8, drop-shadow blur 6 y2 #00000099. Contents: hamburger `menu` icon (24×24, 40×40 button frame), brand text "Commitments" (Inter, `$fs-xl`/20, `$fw-medium`), spacer, profile name "Quinn Brown" (Inter, `$fs-body`/14, normal), avatar ellipse 40×40 fill `$primary-strong`.

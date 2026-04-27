@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
-import { ModeToggleComponent } from '@commitments/ui';
+import { ModeToggleComponent, PrimaryHeaderComponent } from '@commitments/ui';
 
 import { DashboardGridComponent } from '../dashboard-grid/dashboard-grid.component';
 import { DashboardLayoutStore } from '../dashboard-layout.store';
@@ -10,7 +10,7 @@ import { DashboardMode, TileRegistryService } from '../../tile-registration';
 @Component({
   selector: 'commitments-dashboard-shell',
   standalone: true,
-  imports: [DashboardGridComponent, ModeToggleComponent, ReviewScrubberComponent],
+  imports: [DashboardGridComponent, ModeToggleComponent, PrimaryHeaderComponent, ReviewScrubberComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './dashboard-shell.component.html',
   styleUrls: ['./dashboard-shell.component.scss']
