@@ -2,7 +2,10 @@
 
 ## Status
 
-OPEN.
+FIXED — obsolete. Sonnet's commit `dc36bdb fix(login): remove duplicate
+box-sizing; revert shadow token to match remote test` reverted
+`--cui-shadow-login-card` back to `0 8px 24px #000000B3`. The test now
+passes against the original assertion. No change to the test was needed.
 
 ## Symptom
 
@@ -37,6 +40,6 @@ resolved value of `--cui-shadow-login-card`).
 
 ## Resolution
 
-- [ ] Failing test verified pre-fix.
-- [ ] Test updated to current token value.
-- [ ] Test verified passing post-fix.
+- [x] Failing test verified pre-fix.
+- [x] Token reverted upstream (`dc36bdb`).
+- [x] Test verified passing post-revert.
