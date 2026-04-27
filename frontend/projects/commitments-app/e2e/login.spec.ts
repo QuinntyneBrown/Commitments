@@ -67,4 +67,26 @@ test.describe('login page', () => {
     expect(text).toContain('occurred');
     expect(text).not.toContain('ocurr.');
   });
+
+  test('error snackbar uses the warn (red) background from the design token', async ({ page }) => {
+    await login.usernameInput.fill('bad@user.com');
+    await login.passwordInput.fill('wrong');
+    await login.submitButton.click();
+    const snackbar = page.locator('mat-snack-bar-container');
+    await expect(snackbar).toBeVisible();
+    const bg = await snackbar.evaluate((el) => getComputedStyle(el).backgroundColor);
+    expect(bg).toBe('rgb(244, 67, 54)');
+  });
+
+  test('error snackbar action label is a short dismiss label (not a sentence)', async ({ page }) => {
+    await login.usernameInput.fill('bad@user.com');
+    await login.passwordInput.fill('wrong');
+    await login.submitButton.click();
+    const snackbar = page.locator('mat-snack-bar-container');
+    await expect(snackbar).toBeVisible();
+    const actionBtn = snackbar.locator('button.mat-mdc-snack-bar-action');
+    await expect(actionBtn).toBeVisible();
+    const label = await actionBtn.innerText();
+    expect(label.trim().length).toBeLessThan(15);
+  });
 });
