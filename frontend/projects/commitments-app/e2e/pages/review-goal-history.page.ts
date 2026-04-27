@@ -22,7 +22,7 @@ export class ReviewGoalHistoryPage {
     this.target = this.tile.getByTestId('review-goal-history-target');
     this.reviewBadge = this.tile.getByTestId('review-goal-history-review-badge');
     this.dateBadge = this.tile.getByTestId('review-goal-history-date-badge');
-    this.reviewToggle = page.getByTestId('dashboard-mode-toggle').getByRole('tab', { name: /review/i });
+    this.reviewToggle = page.getByTestId('dashboard-mode-toggle').locator('.mode-toggle__segment--review');
   }
 
   async goto() {
