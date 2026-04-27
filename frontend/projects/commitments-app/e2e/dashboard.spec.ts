@@ -63,6 +63,10 @@ test.describe('dashboard shell', () => {
     await dashboard.exitEditMode();
   });
 
+  test('mode-toggle hides Material mat-pseudo-checkbox inside its segments', async () => {
+    expect(await dashboard.modeTogglePseudoCheckboxVisibleCount()).toBe(0);
+  });
+
   test('loads the dashboard with registered plugin tiles', async () => {
     await dashboard.expectDefaultDashboard();
     // Default mode is 'live'; the dropdown is filtered to live-supporting tiles.

@@ -190,4 +190,8 @@ export class DashboardPage {
   removeTileButtonBackground(): Promise<string> {
     return this.removeTileButtons.first().evaluate((el) => getComputedStyle(el).backgroundColor);
   }
+
+  modeTogglePseudoCheckboxVisibleCount(): Promise<number> {
+    return this.page.locator('.mode-toggle .mat-pseudo-checkbox:visible').count();
+  }
 }
