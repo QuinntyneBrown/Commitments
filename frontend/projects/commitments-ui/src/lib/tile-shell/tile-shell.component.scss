@@ -34,6 +34,21 @@
   text-transform: uppercase;
 }
 
+.tile-shell__title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tile-shell__icon {
+  font-size: 20px;
+  line-height: 20px;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--cui-primary, #9FA8DA);
+}
+
 .tile-shell__title {
   margin: 0;
   color: var(--cui-text-primary, #FFFFFF);

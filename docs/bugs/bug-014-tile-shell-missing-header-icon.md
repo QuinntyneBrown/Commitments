@@ -6,7 +6,7 @@ status: In Progress
 
 # Bug 014 — Tile shell header missing icon
 
-**Status**: In Progress
+**Status**: Fixed ✓
 
 ## Description
 
