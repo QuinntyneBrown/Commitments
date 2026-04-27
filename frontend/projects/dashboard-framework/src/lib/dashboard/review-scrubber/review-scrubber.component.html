@@ -1,4 +1,9 @@
 <div class="review-scrubber" data-testid="review-scrubber" (keydown)="onKeyDown($event)">
+  <span class="review-scrubber__legend" aria-hidden="true">
+    <span class="material-symbols-rounded">history</span>
+    <span class="review-scrubber__legend-label">Reviewing</span>
+  </span>
+
   <cui-icon-button
     icon="chevron_left"
     ariaLabel="Previous day"
