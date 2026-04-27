@@ -1,5 +1,7 @@
 # 08 — Typography consistency
 
+**Status: ACCEPTED**
+
 **Design** uses Inter for everything. **Implementation** mixes:
 - `styles.scss:11` — `font-family: Inter, Roboto, 'Helvetica Neue', sans-serif` ✓.
 - `primary-header.component.scss:32` — `font: 500 28px/1.2 Roboto, Arial, sans-serif` ✗ (Roboto first).
