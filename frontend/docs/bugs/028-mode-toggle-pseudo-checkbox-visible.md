@@ -1,8 +1,10 @@
 ---
 id: 028
 title: Mode-toggle segments still render Material's mat-pseudo-checkbox alongside the colour pill
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: 1d73584
 flow: dashboard-modes
 severity: low
 ---
