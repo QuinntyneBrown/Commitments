@@ -43,7 +43,7 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
     description: 'Goal completion rate over time, mode-aware highlighting.',
     icon: 'trending_up',
     category: 'Commitments',
-    defaultSize: { cols: 6, rows: 4 },
+    defaultSize: { cols: 6, rows: 5 },
     defaultPosition: { x: 0, y: 0 },
     includeByDefault: false,
     supportedModes: ['live', 'review']
