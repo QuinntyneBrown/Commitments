@@ -1,8 +1,10 @@
 ---
 id: 025
 title: Daily Results progress fill is off-palette #2e9d68 - should match the metric's --cui-success
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: 4479306
 flow: dashboard-layout
 severity: low
 ---
