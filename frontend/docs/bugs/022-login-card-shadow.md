@@ -1,8 +1,10 @@
 ---
 id: 022
 title: Login card uses Material's faint elevation shadow - design specifies a prominent floating drop
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: 5efeba2
 flow: authentication
 severity: low
 ---
