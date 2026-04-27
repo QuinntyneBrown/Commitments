@@ -63,9 +63,18 @@ test.describe('dashboard shell', () => {
     expect(await dashboard.progressFillBackground()).toBe('rgb(102, 187, 106)');
   });
 
-  test('tile-chrome remove button uses --cui-surface-3 in edit mode', async () => {
+  test('tile-chrome remove button uses --cui-warn (red) in edit mode', async () => {
     await dashboard.enterEditMode();
-    expect(await dashboard.removeTileButtonBackground()).toBe('rgb(44, 44, 44)');
+    expect(await dashboard.removeTileButtonBackground()).toBe('rgb(244, 67, 54)');
+    await dashboard.exitEditMode();
+  });
+
+  test('tile-chrome shows accent DRAG chip in edit mode', async () => {
+    await dashboard.enterEditMode();
+    const dragChip = dashboard.page.locator('.tile-chrome__drag').first();
+    await expect(dragChip).toBeVisible();
+    const dragLabel = dragChip.locator('.tile-chrome__drag-label');
+    await expect(dragLabel).toHaveText(/drag/i);
     await dashboard.exitEditMode();
   });
 
