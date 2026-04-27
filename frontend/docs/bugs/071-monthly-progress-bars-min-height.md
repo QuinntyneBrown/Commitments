@@ -2,7 +2,8 @@
 
 ## Status
 
-OPEN — same flex layout issue as bug 070 in a different tile.
+FIXED — `.bars { min-height: 120px }` → `min-height: 0`; bars now
+render cleanly at the bottom of the cell with no overflow.
 
 ## Symptom
 
@@ -28,6 +29,7 @@ whatever vertical space the body gives them).
 
 ## Resolution
 
-- [ ] Visual screenshot pre-fix.
-- [ ] SCSS rule updated (`min-height: 120px` → removed or `min-height: 0`).
-- [ ] Visual screenshot post-fix.
+- [x] Visual screenshot pre-fix surfaced via earlier dashboard captures.
+- [x] SCSS updated: `.bars { min-height: 120px }` → `min-height: 0`.
+- [x] Visual screenshot post-fix shows the 4 bars cleanly at the
+      bottom of the tile.
