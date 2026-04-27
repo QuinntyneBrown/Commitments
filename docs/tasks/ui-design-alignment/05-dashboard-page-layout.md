@@ -1,5 +1,7 @@
 # 05 — Dashboard page layout
 
+**Status: ACCEPTED**
+
 **Design**: Frame `OxYKj` (Dashboard — LG 1280, 1280×900). Layout:
 - Toolbar (64h) on top.
 - Body row: sidenav (250w) + content area (1030 wide). The content area has the PrimaryHeader (80h, "Dashboard") then a 24-padded grid of `Dashboard-Tile` (`0UH2Q`) nodes — 320×200 each, gap 24.
