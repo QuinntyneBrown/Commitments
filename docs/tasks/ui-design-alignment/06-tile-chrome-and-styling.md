@@ -1,6 +1,8 @@
 # 06 — Tile chrome (default + editable) and tile card styling
 
-**Status: ACCEPTED**
+**Status: COMPLETE**
+
+> 6.1 — `tile-chrome__button` now renders a Material Symbols Rounded `close` icon (20px) instead of the `x` glyph. 6.3 — gridster-item `box-shadow` removed; tiles use the 1px `--cui-divider` stroke only. 6.2 — defer per-tile audit to follow-up sub-tasks once the design IDs are mapped to plugin components. 6.4/6.5 — editable variant deferred to [11-edit-mode.md](11-edit-mode.md); the default chrome stays clean outside edit mode.
 
 > **2026-04-27 update**: the design now defines a dedicated **`Dashboard-Tile/Editable`** component (`KB9Mx`) for use in edit mode, with explicit drag, close, and resize affordances. The default `Dashboard-Tile` (`0UH2Q`) is unchanged.
 

@@ -24,7 +24,6 @@ gridster-item {
   border: 1px solid var(--cui-divider);
   border-radius: 8px;
   background: var(--cui-surface-2);
-  box-shadow: var(--cui-shadow-raised);
 }
 
 .tile-chrome {
@@ -54,6 +53,9 @@ gridster-item {
 }
 
 .tile-chrome__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 24px;
   height: 24px;
   border: 1px solid var(--cui-divider);
@@ -61,9 +63,11 @@ gridster-item {
   color: var(--cui-text-primary);
   background: var(--cui-surface-3);
   cursor: pointer;
-  font-size: 14px;
-  line-height: 1;
   pointer-events: auto;
+}
+
+.tile-chrome__button .material-symbols-rounded {
+  font-size: 20px;
 }
 
 .tile-chrome__button:hover {
