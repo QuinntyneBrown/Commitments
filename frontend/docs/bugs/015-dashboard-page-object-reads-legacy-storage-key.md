@@ -1,8 +1,10 @@
 ---
 id: 015
 title: dashboard.page.ts persistedTileCount() reads the legacy 'commitments.dashboard.layout.v1' key but the layout service now writes to 'commitments.layout.live'
-status: open
+status: fixed
 discovered: 2026-04-26
+fixed: 2026-04-26
+fixed_in: ee8c379
 flow: dashboard-layout
 severity: medium
 ---
