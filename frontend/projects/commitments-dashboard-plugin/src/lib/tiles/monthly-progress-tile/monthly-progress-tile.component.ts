@@ -15,6 +15,7 @@ export class MonthlyProgressTileComponent {
     tileId: 'commitments.monthly-progress',
     displayName: 'Monthly Progress',
     description: 'Progress trend for the current month.',
+    icon: 'calendar_month',
     category: 'Commitments',
     defaultSize: { cols: 3, rows: 2 },
     defaultPosition: { x: 6, y: 0 },

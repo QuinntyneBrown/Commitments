@@ -26,6 +26,7 @@ export class LiveGoalMetricsTileComponent implements OnInit {
     tileId: 'commitments.live-goal-metrics',
     displayName: 'Live Goal Metrics',
     description: 'Real-time progress against a single goal target.',
+    icon: 'track_changes',
     category: 'Commitments',
     defaultSize: { cols: 3, rows: 3 },
     defaultPosition: { x: 0, y: 0 },

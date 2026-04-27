@@ -15,6 +15,7 @@ export class OutstandingTodosTileComponent {
     tileId: 'commitments.outstanding-todos',
     displayName: 'Outstanding To‑Dos',
     description: 'Open tasks that still need action.',
+    icon: 'checklist',
     category: 'Tasks',
     defaultSize: { cols: 3, rows: 2 },
     defaultPosition: { x: 9, y: 0 },

@@ -15,6 +15,7 @@ export class DailyResultsTileComponent {
     tileId: 'commitments.daily-results',
     displayName: 'Daily Results',
     description: 'Daily commitment completion summary.',
+    icon: 'today',
     category: 'Commitments',
     defaultSize: { cols: 3, rows: 2 },
     defaultPosition: { x: 0, y: 0 },

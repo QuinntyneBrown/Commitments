@@ -93,6 +93,17 @@ test.describe('dashboard shell', () => {
     await dashboard.cancelAddTileDialog();
   });
 
+  test('add-tile catalog cells each show a tile-specific icon (not the generic dashboard fallback)', async () => {
+    await dashboard.openAddTileDialog();
+    const icons = await dashboard.addTileDialog.locator('.add-tile-dialog__icon').allInnerTexts();
+    // Every icon must be non-empty and none may be the 'dashboard' fallback
+    expect(icons.length).toBeGreaterThan(0);
+    for (const icon of icons) {
+      expect(icon.trim()).not.toBe('dashboard');
+    }
+    await dashboard.cancelAddTileDialog();
+  });
+
   test('toggles edit layout mode and exposes tile chrome', async () => {
     await dashboard.enterEditMode();
     await expect(dashboard.removeTileButtons).toHaveCount(5);

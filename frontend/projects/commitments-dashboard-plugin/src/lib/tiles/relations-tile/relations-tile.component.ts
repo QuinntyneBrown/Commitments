@@ -15,6 +15,7 @@ export class RelationsTileComponent {
     tileId: 'commitments.relations',
     displayName: 'Relations',
     description: 'Commitment distribution by relation.',
+    icon: 'diversity_3',
     category: 'Commitments',
     defaultSize: { cols: 4, rows: 2 },
     defaultPosition: { x: 0, y: 2 },

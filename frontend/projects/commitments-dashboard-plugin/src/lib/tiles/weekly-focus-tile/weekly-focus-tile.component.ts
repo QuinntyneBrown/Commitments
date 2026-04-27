@@ -15,6 +15,7 @@ export class WeeklyFocusTileComponent {
     tileId: 'commitments.weekly-focus',
     displayName: 'Weekly Focus',
     description: 'Current weekly focus areas.',
+    icon: 'date_range',
     category: 'Commitments',
     defaultSize: { cols: 3, rows: 2 },
     defaultPosition: { x: 3, y: 0 },

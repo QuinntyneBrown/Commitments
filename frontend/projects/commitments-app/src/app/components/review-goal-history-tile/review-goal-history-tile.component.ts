@@ -34,6 +34,7 @@ export class ReviewGoalHistoryTileComponent implements OnInit {
     tileId: 'commitments.review-goal-history',
     displayName: 'Review Goal History',
     description: 'Snapshot of a goal at the date selected by the dashboard scrubber.',
+    icon: 'history',
     category: 'Commitments',
     defaultSize: { cols: 3, rows: 3 },
     defaultPosition: { x: 0, y: 0 },
