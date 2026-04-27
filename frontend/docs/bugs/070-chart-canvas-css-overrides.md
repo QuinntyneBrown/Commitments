@@ -2,11 +2,19 @@
 
 ## Status
 
-INVESTIGATED, NOT FIXED — removing the canvas `!important` rules did
-not change the visual; the chart is still rendered in a thin band.
-Needs deeper investigation (possibly Chart.js initial-resize timing,
-or the `.plot` container not actually getting the 220px it claims).
-Left open for a future iteration.
+FIXED — root cause was different from the initial hypothesis.
+
+`.plot { min-height: 220px }` was forcing the chart container to keep
+its 220px height even when the surrounding flex column had less room.
+The body's available space (~237px) wasn't enough for the upper
+content (~134px) plus a 220px chart, so the chart's lower portion
+was clipped past the cell.
+
+Changing `.plot { min-height: 220px }` → `min-height: 0` lets the
+flex item shrink to its share of the body's remaining space; chart.js
+(`responsive: true, maintainAspectRatio: false`) sizes the canvas to
+fit. Visual screenshot post-fix shows the chart line traversing the
+visible area.
 
 ## Symptom
 
@@ -52,6 +60,7 @@ attributes.
 
 ## Resolution
 
-- [ ] Visual screenshot pre-fix.
-- [ ] SCSS rule deleted.
-- [ ] Visual screenshot post-fix shows the line spanning the chart area.
+- [x] Visual screenshot pre-fix shows chart squished to a sliver.
+- [x] `.plot { min-height: 220px }` → `min-height: 0`.
+- [x] Visual screenshot post-fix shows the chart traversing the area;
+      28/28 dashboard + chart-tile e2e tests pass on lg-desktop.
