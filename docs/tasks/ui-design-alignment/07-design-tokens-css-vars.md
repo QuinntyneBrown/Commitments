@@ -1,5 +1,7 @@
 # 07 — Design tokens: add missing CSS custom properties
 
+**Status: ACCEPTED**
+
 The .pen file declares variables that are not all surfaced as CSS custom properties in `commitments-ui/src/lib/tokens/_tokens.scss`. Hard-coded font sizes, spacings, and colours leak into component SCSS.
 
 ## Tasks
