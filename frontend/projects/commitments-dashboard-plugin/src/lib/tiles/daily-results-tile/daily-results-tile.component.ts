@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TileMetadata } from '@commitments/dashboard-framework';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { TILE_CONTEXT, TileContext, TileMetadata } from '@commitments/dashboard-framework';
 import { TileShellComponent } from '@commitments/ui';
 
 @Component({
@@ -21,4 +21,11 @@ export class DailyResultsTileComponent {
     defaultPosition: { x: 0, y: 0 },
     includeByDefault: true
   };
+
+  private readonly _tileContext = inject(TILE_CONTEXT, { optional: true }) as TileContext | null;
+  private readonly _fallbackMode = signal<'live' | 'review'>('live').asReadonly();
+
+  protected readonly status = computed(() =>
+    (this._tileContext?.mode ?? this._fallbackMode)() === 'review' ? 'Review' : 'Live'
+  );
 }
