@@ -1,0 +1,32 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title goalProgressUpdated - Containers
+
+Person(o, "Profile Owner", "")
+
+System_Boundary(client, "Browser") {
+    Container(tile, "Live Goal Metric Tile", "Angular standalone", "")
+}
+
+System_Boundary(server, "Commitments.Api") {
+    Container(api, "Activity API", "ASP.NET Core MVC", "POST /activity")
+    Container(bus, "InMemoryEventBus", "Singleton", "ActivityRecordedEvent")
+    Container(notif, "GoalProgressUpdated\nRealtimeNotifier", "IHostedService", "Bridges bus to hub")
+    Container(pub, "IRealtimePublisher", "Singleton", "Envelope wrap + send")
+    Container(hub, "/hub", "SignalR", "profile groups")
+}
+
+ContainerDb(sql, "SQL Server", "Achievements, Commitments")
+
+Rel(o, tile, "Views")
+Rel(api, sql, "INSERT activity", "SQL")
+Rel(api, bus, "PublishAsync", "in-process")
+Rel(bus, notif, "delivers", "in-process")
+Rel(notif, sql, "Count(*)", "SQL")
+Rel(notif, pub, "PublishToProfileAsync")
+Rel(pub, hub, "SendAsync('message', envelope)")
+Rel(hub, tile, "WSS frame", "WebSocket")
+
+@enduml

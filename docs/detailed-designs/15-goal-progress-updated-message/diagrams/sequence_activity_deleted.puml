@@ -1,0 +1,29 @@
+@startuml sequence_activity_deleted
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Activity Deleted -> Live Tile Decrements
+
+actor B as "Recorder"
+actor A as "Owner"
+participant "ActivityController" as AC
+participant "RemoveActivity\nHandler" as RH
+participant "InMemoryEventBus" as BUS
+participant "GoalProgress\nNotifier" as NOT
+participant "IRealtime\nPublisher" as PUB
+participant "/hub" as HUB
+participant "LiveGoalMetrics\nController" as CTRL
+
+B -> AC: DELETE /activity/{id}
+AC -> RH: Send(RemoveActivityRequest)
+RH -> RH: SaveChangesAsync (soft delete)
+RH -> BUS: PublishAsync(ActivityRecordedEvent\n  Reason=Deleted)
+BUS -> NOT: HandleAsync(evt)
+NOT -> NOT: re-Count(*) for today
+NOT -> PUB: PublishToProfileAsync(\n  'goalProgressUpdated',\n  reason='activityDeleted')
+PUB -> HUB: SendAsync(envelope)
+HUB -> A: WSS frame
+A -> CTRL: payload arrives
+CTRL --> A: count decrements
+
+@enduml

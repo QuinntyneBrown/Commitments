@@ -1,0 +1,38 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title SignalR Hub Foundation - Domain Model
+
+class CommitmentsHub <<Hub>> {
+    -http: IHttpContextAccessor
+    -log: ILogger
+    +OnConnectedAsync(): Task
+}
+
+class JwtQueryStringAuthMiddleware <<Middleware>> {
+    +InvokeAsync(ctx, next): Task
+}
+
+class HubPingController <<Controller>> {
+    -hub: IHubContext<CommitmentsHub>
+    -http: IHttpContextAccessor
+    +Ping(req: PingRequest): IActionResult
+}
+
+class PingRequest <<DTO>> {
+    +Text: string?
+}
+
+class HttpContextAccessorExtensions <<extension>> {
+    +GetProfileId(ctx): Guid?
+}
+
+CommitmentsHub --> HttpContextAccessorExtensions : uses
+HubPingController --> HttpContextAccessorExtensions : uses
+HubPingController --> PingRequest : binds
+HubPingController ..> CommitmentsHub : sends to
+JwtQueryStringAuthMiddleware --> CommitmentsHub : precedes
+
+@enduml

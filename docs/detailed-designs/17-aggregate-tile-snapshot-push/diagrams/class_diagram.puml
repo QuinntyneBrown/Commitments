@@ -1,0 +1,40 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Snapshot Push - Shared Pattern
+
+interface IHostedService {
+    +StartAsync(): Task
+    +StopAsync(): Task
+}
+
+abstract class TileSnapshotPushNotifier<TEvent, TQuery, TSnapshot> {
+    -bus: IEventBus
+    -scope: IServiceScopeFactory
+    -publisher: IRealtimePublisher
+    -event: string
+    +HandleAsync(TEvent): Task
+    -BuildQuery(TEvent): TQuery
+}
+
+class DailyResultsSnapshotPushNotifier {}
+class WeeklyFocusSnapshotPushNotifier {}
+class MonthlyProgressSnapshotPushNotifier {}
+class OutstandingTodosSnapshotPushNotifier {}
+class RelationsSnapshotPushNotifier {}
+
+class "<Tile>SnapshotDto" as Dto <<record>> {
+    .. shape per ICD §5.4 ..
+}
+
+IHostedService <|.. TileSnapshotPushNotifier
+TileSnapshotPushNotifier <|-- DailyResultsSnapshotPushNotifier
+TileSnapshotPushNotifier <|-- WeeklyFocusSnapshotPushNotifier
+TileSnapshotPushNotifier <|-- MonthlyProgressSnapshotPushNotifier
+TileSnapshotPushNotifier <|-- OutstandingTodosSnapshotPushNotifier
+TileSnapshotPushNotifier <|-- RelationsSnapshotPushNotifier
+TileSnapshotPushNotifier --> Dto : sends
+
+@enduml

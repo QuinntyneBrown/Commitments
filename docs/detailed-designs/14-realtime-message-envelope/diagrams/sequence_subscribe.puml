@@ -1,0 +1,19 @@
+@startuml sequence_subscribe
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Frontend typed subscribe path
+
+participant "Tile controller" as TC
+participant "HubClient.on<T>" as ON
+participant "messages$" as MS
+participant "WebSocket" as WS
+
+TC -> ON: on<HubPingPayload>('hubPing')
+ON -> MS: subscribe(filter+map)
+WS -> MS: envelope arrives
+MS -> ON: filter: schemaVersion==1\n  && event=='hubPing'
+ON -> ON: map -> payload
+ON --> TC: payload {text:'hello'}
+
+@enduml

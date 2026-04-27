@@ -16,6 +16,7 @@ These detailed designs apply a Live / Review tile pattern to goal tracking in Co
 | 10 | [Mode-Aware Plugin Contracts](10-mode-aware-plugin-contracts/README.md)                            | Complete | Tile registration metadata for supported modes, per-mode component maps, and tile context with refresh hooks. |
 | 11 | [Backend Trend And Snapshot Endpoints](11-backend-trend-and-snapshot-endpoints/README.md)          | Complete | `/current`, `/at`, `/trend` endpoints with bounded queries, indexes, and cache headers. |
 | 12 | [E2E And Visual Acceptance](12-e2e-and-visual-acceptance/README.md)                                | Complete | Playwright POM coverage for mode switching, scrubber, FAB visibility, Chart.js canvas, and three viewports. |
+| 13 | [SignalR Hub Foundation](13-signalr-hub-foundation/README.md)                                      | Accepted | Register SignalR, add `CommitmentsHub` joining `profile:{profileId}` group, JWT-via-query middleware, dev-only `/dev/hub-ping` smoke endpoint. |
 
 ## How they relate
 

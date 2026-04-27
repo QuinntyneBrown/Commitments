@@ -1,0 +1,40 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Tile Invalidation Bus - Components
+
+Container_Boundary(api, "API host") {
+    Component(act, "ActivityRecordedEvent", "record", "")
+    Component(com, "CommitmentChangedEvent", "record", "")
+    Component(frq, "FrequencyChangedEvent", "record", "")
+    Component(td, "ToDoChangedEvent", "record", "")
+    Component(notif, "DashboardTile\nInvalidationNotifier", "IHostedService", "subscribes to 4 events")
+    Component(pl, "DashboardTileData\nInvalidatedPayload", "record", "")
+    Component(pub, "IRealtimePublisher", "abstraction", "")
+}
+
+Container_Boundary(spa, "SPA dashboard-tiles") {
+    Component(srv, "TileInvalidationService", "Angular root", "invalidations$(dataset)")
+    Component(t1, "DailyResultsController", "Angular service", "subscribes 'dailyResults'")
+    Component(t2, "WeeklyFocusController", "Angular service", "")
+    Component(t3, "MonthlyProgressController", "Angular service", "")
+    Component(t4, "OutstandingTodosController", "Angular service", "")
+    Component(t5, "RelationsController", "Angular service", "")
+    Component(t6, "ConsistencyTrendController", "Angular service", "live mode only")
+}
+
+Rel(act, notif, "")
+Rel(com, notif, "")
+Rel(frq, notif, "")
+Rel(td, notif, "")
+Rel(notif, pl, "constructs")
+Rel(notif, pub, "PublishToProfileAsync")
+Rel(srv, t1, "Observable")
+Rel(srv, t2, "Observable")
+Rel(srv, t3, "Observable")
+Rel(srv, t4, "Observable")
+Rel(srv, t5, "Observable")
+Rel(srv, t6, "Observable")
+
+@enduml

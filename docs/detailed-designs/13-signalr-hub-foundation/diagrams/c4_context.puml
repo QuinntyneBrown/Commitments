@@ -1,0 +1,16 @@
+@startuml c4_context
+!theme plain
+!include <C4/C4_Context>
+
+title SignalR Hub Foundation - System Context
+
+Person(owner, "Profile Owner", "Signed-in user of the Commitments SPA")
+System(spa, "Commitments SPA", "Angular workspace; holds long-lived WebSocket")
+System(api, "Commitments API", "ASP.NET Core 9 modular monolith")
+SystemDb(db, "SQL Server", "JWT-issuing identity store")
+
+Rel(owner, spa, "Uses")
+Rel(spa, api, "WebSocket /hub", "WSS + JWT")
+Rel(api, db, "Validates JWT against", "SQL")
+
+@enduml

@@ -1,0 +1,17 @@
+@startuml c4_context
+!theme plain
+!include <C4/C4_Context>
+
+title Tile Invalidation Bus - Context
+
+Person(owner, "Profile Owner", "Watches aggregate tiles")
+Person(other, "Same-profile editor", "Edits activity / to-do / commitment")
+System(spa, "Commitments SPA", "Aggregate tiles")
+System(api, "Commitments API", "ASP.NET Core 9")
+
+Rel(other, spa, "Edits domain")
+Rel(spa, api, "REST + WSS")
+Rel(api, spa, "dashboardTile\nDataInvalidated", "WSS")
+Rel(spa, owner, "Refreshed tiles")
+
+@enduml

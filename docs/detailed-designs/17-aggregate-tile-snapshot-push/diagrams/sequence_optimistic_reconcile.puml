@@ -1,0 +1,28 @@
+@startuml sequence_optimistic_reconcile
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Outstanding To-Dos optimistic reconcile
+
+actor User
+participant "Outstanding\nTodos\nController" as CTL
+participant "ToDoService" as SVC
+participant "API ToDo\nHandler" as TH
+participant "InMemoryEventBus" as BUS
+participant "Outstanding\nNotifier" as NOT
+participant "/hub" as HUB
+
+User -> CTL: tap toggle
+CTL -> CTL: pending.add(id)\nlocal isCompleted=true
+CTL -> SVC: PATCH /todo/{id}
+SVC -> TH: handler
+TH -> BUS: ToDoChangedEvent
+BUS -> NOT: HandleAsync
+NOT -> NOT: query snapshot
+NOT -> HUB: outstandingTodos\nUpdated envelope
+HUB -> CTL: snapshot arrives
+CTL -> CTL: snapshot.set(dto)\nreapply pending(id) if needed
+SVC --> CTL: PATCH 200
+CTL -> CTL: pending.delete(id)
+
+@enduml

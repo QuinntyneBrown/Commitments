@@ -1,0 +1,23 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title Realtime Envelope - Container Diagram
+
+Person(owner, "Profile Owner", "")
+
+System_Boundary(client, "Browser") {
+    Container(spa, "Commitments SPA", "Angular 18", "HubClient.on<T>(event)")
+}
+
+System_Boundary(server, "Commitments.Api host") {
+    Container(host, "API host", "ASP.NET Core 9", "IRealtimePublisher impl")
+    Container(shared, "Commitments.Shared", "C# class library", "RealtimeMessage<T>, IRealtimePublisher")
+    Container(hub, "SignalR hub", "ASP.NET Core SignalR", "/hub")
+}
+
+Rel(host, shared, "References")
+Rel(host, hub, "Uses IHubContext")
+Rel(spa, hub, "WSS", "WebSocket")
+
+@enduml

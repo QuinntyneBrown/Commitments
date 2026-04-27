@@ -1,0 +1,28 @@
+@startuml sequence_todo_invalidation
+!theme plain
+skinparam sequenceMessageAlign center
+
+title To-Do Completed -> Only Outstanding refreshes
+
+actor User
+participant "ToDo\nHandler" as TH
+participant "InMemoryEventBus" as BUS
+participant "Invalidation\nNotifier" as NOT
+participant "IRealtime\nPublisher" as PUB
+participant "/hub" as HUB
+participant "TileInvalidation\nService" as SVC
+participant "Outstanding\nTodos\nController" as OUT
+participant "Other tile\ncontrollers" as OTHERS
+
+User -> TH: complete to-do
+TH -> BUS: ToDoChangedEvent\n{Kind=Completed}
+BUS -> NOT: HandleAsync
+NOT -> PUB: dashboardTileData\nInvalidated\n{datasets:['outstandingTodos']}
+PUB -> HUB: SendAsync envelope
+HUB -> SVC: WSS frame
+SVC -> OUT: matches 'outstandingTodos'
+SVC -> OTHERS: rejected by filter
+OUT -> OUT: _refresh()
+OUT --> User: tile refreshed
+
+@enduml
