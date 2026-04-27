@@ -21,6 +21,10 @@ test.describe('dashboard shell', () => {
     expect(await dashboard.addTileButtonBackground()).toBe('rgba(0, 0, 0, 0)');
   });
 
+  test('inactive mode-toggle segment has no fill (matches the design pill)', async () => {
+    expect(await dashboard.inactiveModeSegmentBackground()).toBe('rgba(0, 0, 0, 0)');
+  });
+
   test('loads the dashboard with registered plugin tiles', async () => {
     await dashboard.expectDefaultDashboard();
     // Default mode is 'live'; the dropdown is filtered to live-supporting tiles.

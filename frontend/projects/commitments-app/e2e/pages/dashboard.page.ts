@@ -123,4 +123,11 @@ export class DashboardPage {
   addTileButtonBackground(): Promise<string> {
     return this.addTileButton.evaluate((el) => getComputedStyle(el).backgroundColor);
   }
+
+  inactiveModeSegmentBackground(): Promise<string> {
+    return this.page
+      .locator('.mode-toggle__segment:not(.mode-toggle__segment--active)')
+      .first()
+      .evaluate((el) => getComputedStyle(el).backgroundColor);
+  }
 }

@@ -33,6 +33,15 @@ const topbar = await page.locator('.dashboard-shell__topbar').first().evaluate((
   bg: getComputedStyle(el).backgroundColor,
   height: el.getBoundingClientRect().height,
 })).catch(() => null);
+const modeToggle = await page.locator('.mode-toggle').first().evaluate((el) => ({
+  bg: getComputedStyle(el).backgroundColor,
+  border: getComputedStyle(el).borderColor,
+})).catch(() => null);
+const inactiveSegment = await page.locator('.mode-toggle__segment:not(.mode-toggle__segment--active)').first()
+  .evaluate((el) => ({
+    bg: getComputedStyle(el).backgroundColor,
+    color: getComputedStyle(el).color,
+  })).catch(() => null);
 
-console.log(JSON.stringify({ url, title, bodyBg, shell, topbar, errors }, null, 2));
+console.log(JSON.stringify({ url, title, bodyBg, shell, topbar, modeToggle, inactiveSegment, errors }, null, 2));
 await browser.close();
