@@ -2,7 +2,10 @@
 
 ## Status
 
-OPEN.
+FIXED — `reviewToggle.click()` now succeeds (verified by failure migrating
+from line 34 to line 35). The remaining `addTile` failure in this test is
+tracked separately (FAB is hidden in review mode → no UI path to add a
+review-only tile).
 
 ## Symptom
 
@@ -36,6 +39,7 @@ this.reviewToggle = page.getByTestId('dashboard-mode-toggle').locator('.mode-tog
 
 ## Resolution
 
-- [ ] Failing test verified pre-fix.
-- [ ] POM updated.
-- [ ] Test verified passing post-fix.
+- [x] Failing test verified pre-fix (timeout on getByRole('tab')).
+- [x] POM updated to `.mode-toggle__segment--review`.
+- [x] reviewToggle click now succeeds. Remaining test failure is at the
+      next step (addTile in review mode) — separate bug.
