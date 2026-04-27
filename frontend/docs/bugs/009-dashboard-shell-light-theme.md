@@ -1,8 +1,10 @@
 ---
 id: 009
 title: Dashboard shell still hard-codes light-theme colors instead of using the dark design tokens
-status: open
+status: fixed
 discovered: 2026-04-26
+fixed: 2026-04-26
+fixed_in: a4af0e0
 flow: dashboard-layout
 severity: high
 ---
