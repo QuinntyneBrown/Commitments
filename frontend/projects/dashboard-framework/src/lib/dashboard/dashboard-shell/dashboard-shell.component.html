@@ -30,12 +30,13 @@
         @if (modeService.mode() === 'live') {
           <button
             type="button"
-            class="dashboard-shell__edit-icon"
+            class="dashboard-shell__edit"
             data-testid="edit-mode-enter"
             aria-label="Edit dashboard"
             (click)="enterEditMode()"
           >
             <span class="material-symbols-rounded">edit</span>
+            <span class="dashboard-shell__edit-label">EDIT</span>
           </button>
         }
       </ng-container>

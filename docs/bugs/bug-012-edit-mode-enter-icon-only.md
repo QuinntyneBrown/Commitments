@@ -6,7 +6,7 @@ status: In Progress
 
 # Bug 012 — Edit-mode-enter button missing text label and stroke border
 
-**Status**: In Progress
+**Status**: Fixed ✓
 
 ## Description
 

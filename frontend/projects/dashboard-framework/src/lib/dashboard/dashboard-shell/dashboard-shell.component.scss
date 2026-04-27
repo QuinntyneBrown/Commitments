@@ -64,25 +64,26 @@
   text-transform: uppercase;
 }
 
-.dashboard-shell__edit-icon {
+.dashboard-shell__edit {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border: none;
-  border-radius: 50%;
-  background: transparent;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.33);
+  border-radius: var(--cui-radius-sm, 4px);
+  background: rgba(255, 255, 255, 0.13);
   color: var(--cui-text-primary);
   cursor: pointer;
+
+  .material-symbols-rounded { font-size: 16px; }
 }
 
-.dashboard-shell__edit-icon:hover {
-  background: var(--cui-hover-overlay, #FFFFFF14);
-}
-
-.dashboard-shell__edit-icon .material-symbols-rounded {
-  font-size: 22px;
+.dashboard-shell__edit-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  font-family: Inter, sans-serif;
 }
 
 .dashboard-shell__done {
