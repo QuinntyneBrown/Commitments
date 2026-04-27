@@ -43,41 +43,41 @@ gridster-item {
   pointer-events: none;
 }
 
-.tile-chrome__label {
-  overflow: hidden;
-  padding: 3px 8px;
-  border: 1px solid var(--cui-divider);
-  border-radius: 999px;
-  color: var(--cui-text-secondary);
-  background: var(--cui-surface-3);
-  font-size: 11px;
-  font-weight: 700;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.tile-chrome__drag {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 6px;
+  height: 20px;
+  border-radius: var(--cui-radius-sm, 4px);
+  background: var(--cui-accent);
+  color: var(--cui-on-accent, #fff);
+  cursor: grab;
+
+  .material-symbols-rounded { font-size: 16px; }
 }
 
-.tile-chrome__button {
+.tile-chrome__drag-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.tile-chrome__remove {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
-  border: 1px solid var(--cui-divider);
-  border-radius: 6px;
-  color: var(--cui-text-primary);
-  background: var(--cui-surface-3);
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 50%;
+  background: var(--cui-warn);
+  color: #fff;
   cursor: pointer;
   pointer-events: auto;
-}
 
-.tile-chrome__button .material-symbols-rounded {
-  font-size: 20px;
-}
-
-.tile-chrome__button:hover {
-  color: var(--cui-text-primary);
-  border-color: var(--cui-warn);
-  background: var(--cui-warn);
+  .material-symbols-rounded { font-size: 14px; }
 }
 
 .dashboard-grid__empty {

@@ -6,7 +6,7 @@ status: In Progress
 
 # Bug 013 — Edit-mode tile chrome visual mismatch
 
-**Status**: In Progress
+**Status**: Fixed ✓
 
 ## Description
 

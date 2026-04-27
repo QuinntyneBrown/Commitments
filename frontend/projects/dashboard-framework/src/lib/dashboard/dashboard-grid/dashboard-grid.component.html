@@ -10,10 +10,13 @@
         <gridster-item [item]="item" [attr.data-tile-id]="item.tileId" data-testid="dashboard-tile">
           @if (layoutStore.isEditMode()) {
             <div class="tile-chrome">
-              <span class="tile-chrome__label">{{ registry.getTile(item.tileId)?.displayName ?? item.tileId }}</span>
+              <div class="tile-chrome__drag" aria-hidden="true">
+                <span class="material-symbols-rounded">drag_indicator</span>
+                <span class="tile-chrome__drag-label">DRAG</span>
+              </div>
               <button
                 type="button"
-                class="tile-chrome__button"
+                class="tile-chrome__remove"
                 data-testid="remove-tile"
                 (click)="removeTile(item.instanceId)"
                 aria-label="Remove tile"
