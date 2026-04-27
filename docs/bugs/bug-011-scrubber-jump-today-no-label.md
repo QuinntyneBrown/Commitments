@@ -1,6 +1,6 @@
 # Bug 011 — Review scrubber "Jump to today" button missing text label
 
-**Status**: Fixed
+**Status**: Fixed ✓
 
 ## Description
 
