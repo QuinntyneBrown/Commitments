@@ -71,8 +71,54 @@ export class ConsistencyTrendController {
 
   private _fetch(): void {
     if (!this._goalId) return;
+    if (this._goalId === 'demo-goal') {
+      this.trend.set(synthesizeDemoTrend(this._windowDays, this._mode(), this._selectedReviewDate()));
+      return;
+    }
     this._service
       .getTrend(this._goalId, this._mode(), this._selectedReviewDate(), this._windowDays)
       .subscribe(trend => this.trend.set(trend));
   }
+}
+
+function synthesizeDemoTrend(
+  windowDays: number,
+  mode: DashboardMode,
+  selectedReviewDate: string | null
+): GoalTrendDto {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const points = Array.from({ length: windowDays }, (_, i) => {
+    const date = new Date(today);
+    date.setDate(today.getDate() - (windowDays - 1 - i));
+    const wave = Math.sin(i / 3) * 12;
+    const drift = i * 1.4;
+    const noise = ((i * 7919) % 11) - 5;
+    const percentage = Math.max(8, Math.min(96, Math.round(40 + drift + wave + noise)));
+    return {
+      date: date.toISOString().slice(0, 10),
+      completed: Math.round((percentage / 100) * 30),
+      target: 30,
+      percentage
+    };
+  });
+  const current = points[points.length - 1].percentage;
+  const peak = Math.max(...points.map(p => p.percentage));
+  const low = Math.min(...points.map(p => p.percentage));
+  const prior = points.length >= 14
+    ? Math.round(points.slice(0, points.length - 14).reduce((s, p) => s + p.percentage, 0) / Math.max(1, points.length - 14))
+    : 0;
+  const delta = current - prior;
+  const sign = delta > 0 ? '+' : delta < 0 ? '' : '±';
+  return {
+    goalId: 'demo-goal',
+    mode,
+    asOf: selectedReviewDate ?? points[points.length - 1].date,
+    windowDays,
+    points,
+    currentPercentage: current,
+    peakPercentage: peak,
+    lowPercentage: low,
+    deltaLabel: `${sign}${delta}% vs prior 14d`
+  };
 }

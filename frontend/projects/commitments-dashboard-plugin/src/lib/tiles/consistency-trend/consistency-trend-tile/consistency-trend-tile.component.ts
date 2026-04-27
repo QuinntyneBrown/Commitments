@@ -48,7 +48,7 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
     supportedModes: ['live', 'review']
   };
 
-  @Input() goalId = '';
+  @Input() goalId = 'demo-goal';
   @Input() windowDays = 30;
 
   @ViewChild('plot') plotRef!: ElementRef<HTMLCanvasElement>;
