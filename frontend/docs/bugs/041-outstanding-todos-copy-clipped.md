@@ -1,8 +1,10 @@
 ---
 id: 041
 title: Outstanding To-Dos description text is mid-word clipped at the tile bottom - apply line-clamp ellipsis
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: c0c19b8
 flow: dashboard-layout
 severity: low
 ---
