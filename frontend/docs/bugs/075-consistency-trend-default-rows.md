@@ -2,7 +2,8 @@
 
 ## Status
 
-OPEN — surfaced by the follow-up note on bug 074.
+FIXED — `defaultSize: { cols: 6, rows: 5 }`; plot at lg now ~116px
+tall with full line + filled area + date labels visible.
 
 ## Symptom
 
@@ -26,6 +27,7 @@ newly-added tiles get the new default.
 
 ## Resolution
 
-- [ ] Visual screenshot pre-fix at lg.
-- [ ] defaultSize updated.
-- [ ] Visual screenshot post-fix shows readable chart at lg.
+- [x] Visual screenshot pre-fix shows ~29px chart sliver.
+- [x] `defaultSize: { cols: 6, rows: 4 }` → `{ cols: 6, rows: 5 }`.
+- [x] Visual screenshot post-fix shows full chart at lg-desktop:
+      ~116px tall with line, filled area, and date labels.
