@@ -1,8 +1,10 @@
 ---
 id: 016
 title: Outstanding To Dos tile description text is invisible (#5b6b84) on the dark surface
-status: open
+status: fixed
 discovered: 2026-04-26
+fixed: 2026-04-26
+fixed_in: b3589d3
 flow: dashboard-layout
 severity: high
 ---
