@@ -1,8 +1,10 @@
 ---
 id: 029
 title: review-scrubber-controller.spec.ts imports `vitest` in a Jest project - the suite never runs
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: bd13e05
 flow: dashboard-modes
 severity: medium
 ---
