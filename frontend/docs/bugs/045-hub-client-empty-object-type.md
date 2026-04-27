@@ -1,8 +1,10 @@
 ---
 id: 045
 title: hub-client.ts uses deprecated `{}` type for empty hubResumed payload
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: 93b0b73
 flow: dashboard-layout
 severity: low
 ---
