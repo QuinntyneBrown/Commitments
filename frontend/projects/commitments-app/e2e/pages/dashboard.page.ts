@@ -20,10 +20,10 @@ export class DashboardPage {
   readonly tileSelect: Locator;
   readonly tileOptions: Locator;
   readonly addTileButton: Locator;
-  readonly editLayoutButton: Locator;
   readonly resetLayoutButton: Locator;
   readonly removeTileButtons: Locator;
   readonly editModeEnterButton: Locator;
+  readonly editModeDoneButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -35,10 +35,10 @@ export class DashboardPage {
     this.tileSelect = page.getByTestId('tile-select');
     this.tileOptions = this.tileSelect.locator('option');
     this.addTileButton = page.getByTestId('add-tile-fab');
-    this.editLayoutButton = page.getByTestId('edit-layout');
     this.resetLayoutButton = page.getByTestId('reset-layout');
     this.removeTileButtons = page.getByTestId('remove-tile');
     this.editModeEnterButton = page.getByTestId('edit-mode-enter');
+    this.editModeDoneButton = page.getByTestId('edit-mode-done');
   }
 
   async goto(options: { clearStorage?: boolean } = {}) {
@@ -77,14 +77,14 @@ export class DashboardPage {
   }
 
   async enterEditMode() {
-    await this.editLayoutButton.click();
-    await expect(this.editLayoutButton).toHaveText('Done');
+    await this.editModeEnterButton.click();
+    await expect(this.editModeDoneButton).toBeVisible();
     await expect(this.removeTileButtons.first()).toBeVisible();
   }
 
   async exitEditMode() {
-    await this.editLayoutButton.click();
-    await expect(this.editLayoutButton).toHaveText('Edit Layout');
+    await this.editModeDoneButton.click();
+    await expect(this.editModeEnterButton).toBeVisible();
     await expect(this.removeTileButtons).toHaveCount(0);
   }
 
