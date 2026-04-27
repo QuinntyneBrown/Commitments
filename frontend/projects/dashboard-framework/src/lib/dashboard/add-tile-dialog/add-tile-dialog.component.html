@@ -1,0 +1,59 @@
+<section class="add-tile-dialog" data-testid="add-tile-dialog">
+  <header class="add-tile-dialog__header">
+    <div class="add-tile-dialog__title-group">
+      <h2 class="add-tile-dialog__title">Add Tile</h2>
+      <p class="add-tile-dialog__subtitle">Choose a tile to add to your dashboard</p>
+    </div>
+    <button
+      type="button"
+      class="add-tile-dialog__close"
+      data-testid="add-tile-dialog-close"
+      aria-label="Close"
+      (click)="cancel()"
+    >
+      <span class="material-symbols-rounded">close</span>
+    </button>
+  </header>
+
+  <hr class="add-tile-dialog__rule" />
+
+  <div class="add-tile-dialog__grid">
+    @for (tile of tiles(); track tile.tileId) {
+      <button
+        type="button"
+        class="add-tile-dialog__cell"
+        [class.add-tile-dialog__cell--selected]="selectedTileId() === tile.tileId"
+        [attr.data-testid]="'add-tile-cell-' + tile.tileId"
+        (click)="select(tile.tileId)"
+      >
+        <span class="add-tile-dialog__icon-container">
+          <span class="material-symbols-rounded add-tile-dialog__icon">{{ tile.icon || 'dashboard' }}</span>
+        </span>
+        <span class="add-tile-dialog__label">{{ tile.displayName }}</span>
+        @if (selectedTileId() === tile.tileId) {
+          <span class="add-tile-dialog__check">
+            <span class="material-symbols-rounded">check</span>
+          </span>
+        }
+      </button>
+    }
+  </div>
+
+  <hr class="add-tile-dialog__rule" />
+
+  <footer class="add-tile-dialog__actions">
+    <button
+      type="button"
+      class="add-tile-dialog__btn add-tile-dialog__btn--basic"
+      data-testid="add-tile-dialog-cancel"
+      (click)="cancel()"
+    >CANCEL</button>
+    <button
+      type="button"
+      class="add-tile-dialog__btn add-tile-dialog__btn--primary"
+      data-testid="add-tile-dialog-confirm"
+      [disabled]="!canConfirm()"
+      (click)="confirm()"
+    >ADD TILE</button>
+  </footer>
+</section>

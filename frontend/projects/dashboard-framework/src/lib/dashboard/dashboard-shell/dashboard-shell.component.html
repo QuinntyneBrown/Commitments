@@ -17,4 +17,16 @@
   <main class="dashboard-shell__main">
     <commitments-dashboard-grid></commitments-dashboard-grid>
   </main>
+
+  @if (modeService.mode() === 'live') {
+    <button
+      type="button"
+      class="dashboard-shell__fab"
+      data-testid="add-tile-fab"
+      aria-label="Add tile"
+      (click)="openAddTileDialog()"
+    >
+      <span class="material-symbols-rounded">add</span>
+    </button>
+  }
 </div>

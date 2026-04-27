@@ -1,0 +1,191 @@
+:host {
+  display: block;
+}
+
+.add-tile-dialog {
+  display: flex;
+  flex-direction: column;
+  width: 560px;
+  max-width: 100%;
+  height: 620px;
+  max-height: 90vh;
+  background: var(--cui-surface);
+  color: var(--cui-text-primary);
+  border-radius: var(--cui-radius-md, 8px);
+  border: 1px solid var(--cui-divider);
+  box-shadow: 0 24px 48px #000000DD;
+  font-family: Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.add-tile-dialog__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 24px 24px 16px 24px;
+  gap: 16px;
+}
+
+.add-tile-dialog__title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.add-tile-dialog__title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--cui-text-primary);
+}
+
+.add-tile-dialog__subtitle {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--cui-text-secondary);
+}
+
+.add-tile-dialog__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: var(--cui-surface-3, #2C2C2C);
+  color: var(--cui-text-primary);
+  cursor: pointer;
+}
+
+.add-tile-dialog__close .material-symbols-rounded {
+  font-size: 18px;
+}
+
+.add-tile-dialog__rule {
+  border: none;
+  border-top: 1px solid var(--cui-divider);
+  margin: 0;
+}
+
+.add-tile-dialog__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  padding: 20px 24px;
+  overflow-y: auto;
+  flex: 1 1 auto;
+}
+
+.add-tile-dialog__cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 120px;
+  padding: 12px;
+  border-radius: var(--cui-radius-md, 8px);
+  border: 1px solid var(--cui-divider);
+  background: var(--cui-surface-2);
+  color: var(--cui-text-primary);
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.add-tile-dialog__cell--selected {
+  background: var(--cui-accent);
+  border: 2px solid var(--cui-accent);
+  box-shadow: 0 4px 12px #FF408155;
+  color: var(--cui-on-accent, #fff);
+}
+
+.add-tile-dialog__icon-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--cui-primary-dim);
+}
+
+.add-tile-dialog__cell--selected .add-tile-dialog__icon-container {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.add-tile-dialog__icon {
+  font-size: 22px;
+  color: var(--cui-text-primary);
+}
+
+.add-tile-dialog__cell--selected .add-tile-dialog__icon {
+  color: var(--cui-on-accent, #fff);
+}
+
+.add-tile-dialog__label {
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.add-tile-dialog__cell--selected .add-tile-dialog__label {
+  font-weight: 700;
+  color: var(--cui-on-accent, #fff);
+}
+
+.add-tile-dialog__check {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--cui-on-accent, #fff);
+  color: var(--cui-accent);
+}
+
+.add-tile-dialog__check .material-symbols-rounded {
+  font-size: 12px;
+}
+
+.add-tile-dialog__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 16px 24px;
+}
+
+.add-tile-dialog__btn {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+  padding: 0 16px;
+  height: 36px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-tile-dialog__btn--basic {
+  background: transparent;
+  border: none;
+  color: var(--cui-text-secondary);
+}
+
+.add-tile-dialog__btn--primary {
+  background: var(--cui-primary);
+  color: var(--cui-on-primary, #fff);
+  border: none;
+}
+
+.add-tile-dialog__btn--primary[disabled] {
+  background: var(--cui-disabled, #555);
+  color: var(--cui-text-disabled, #888);
+  cursor: not-allowed;
+}

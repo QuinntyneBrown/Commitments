@@ -7,6 +7,7 @@
 }
 
 .dashboard-shell {
+  position: relative;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -16,4 +17,26 @@
   display: flex;
   flex: 1 1 auto;
   min-height: calc(100vh - 80px);
+}
+
+.dashboard-shell__fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 50%;
+  background: var(--cui-accent);
+  color: var(--cui-on-primary, #fff);
+  box-shadow: 0 6px 10px #00000099;
+  cursor: pointer;
+}
+
+.dashboard-shell__fab .material-symbols-rounded {
+  font-size: 28px;
 }
