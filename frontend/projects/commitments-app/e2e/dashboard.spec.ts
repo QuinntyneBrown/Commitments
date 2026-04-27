@@ -17,8 +17,14 @@ test.describe('dashboard shell', () => {
     expect(await dashboard.gridBackgroundColor()).toBe('rgb(18, 18, 18)');
   });
 
-  test('topbar action buttons use the stroked-on-dark style (transparent fill)', async () => {
-    expect(await dashboard.editModeEnterBackground()).toBe('rgba(0, 0, 0, 0)');
+  test('edit-mode-enter button uses the stroked-on-dark fill token (rgba white 13%)', async () => {
+    expect(await dashboard.editModeEnterBackground()).toBe('rgba(255, 255, 255, 0.13)');
+  });
+
+  test('edit-mode-enter button shows an "EDIT" text label', async () => {
+    const label = dashboard.editModeEnterButton.locator('.dashboard-shell__edit-label');
+    await expect(label).toBeVisible();
+    await expect(label).toHaveText(/edit/i);
   });
 
   test('inactive mode-toggle segment has no fill (matches the design pill)', async () => {
