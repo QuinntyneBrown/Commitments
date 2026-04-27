@@ -119,4 +119,8 @@ export class DashboardPage {
     return this.page.locator('.dashboard-grid').first()
       .evaluate((el) => getComputedStyle(el).backgroundColor);
   }
+
+  addTileButtonBackground(): Promise<string> {
+    return this.addTileButton.evaluate((el) => getComputedStyle(el).backgroundColor);
+  }
 }

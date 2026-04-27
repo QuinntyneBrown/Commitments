@@ -17,6 +17,10 @@ test.describe('dashboard shell', () => {
     expect(await dashboard.gridBackgroundColor()).toBe('rgb(18, 18, 18)');
   });
 
+  test('topbar action buttons use the stroked-on-dark style (transparent fill)', async () => {
+    expect(await dashboard.addTileButtonBackground()).toBe('rgba(0, 0, 0, 0)');
+  });
+
   test('loads the dashboard with registered plugin tiles', async () => {
     await dashboard.expectDefaultDashboard();
     // Default mode is 'live'; the dropdown is filtered to live-supporting tiles.
