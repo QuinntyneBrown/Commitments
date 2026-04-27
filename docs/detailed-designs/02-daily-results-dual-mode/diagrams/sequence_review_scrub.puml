@@ -1,0 +1,31 @@
+@startuml sequence_review_scrub
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Daily Results - Review scrub
+
+actor User
+participant "Scrubber" as Sc
+participant "TileContext" as Ctx
+participant "Tile" as T
+participant "Controller" as C
+participant "API" as API
+participant "Cache" as Ca
+
+User -> Sc: Drag to 2026-04-15
+Sc -> Ctx: selectedReviewDate(date) [debounced]
+Ctx -> T: signal change
+T -> C: load('review', '2026-04-15T...')
+C -> Ca: GET /commitment/daily-results?asOf=...
+alt cache hit
+  Ca --> C: 200
+else miss
+  C -> API: GET /commitment/daily-results?asOf=...
+  API -> API: clamp asOf, count
+  API --> C: { completed:5, total:9 } + Cache-Control: public, max-age=300
+  C -> Ca: store
+end
+C --> T: signal updates
+T --> User: 5 / 9 with REVIEW pill
+
+@enduml

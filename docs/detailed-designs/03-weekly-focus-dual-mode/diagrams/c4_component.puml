@@ -1,0 +1,33 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Weekly Focus Tile - Components
+
+Container_Boundary(plugin, "commitments-dashboard-plugin") {
+  Component(tile, "WeeklyFocusTileComponent", "Angular component", "Shell + pill + week label + list")
+  Component(ctrl, "WeeklyFocusController", "Injectable", "Signals: snapshot/weekLabel/focusAreas")
+  Component(svc, "WeeklyFocusService", "Angular service", "GET /weekly-focus")
+}
+
+Container_Boundary(ui, "commitments-ui") {
+  Component(shell, "TileShellComponent", "Angular component", "Header/eyebrow/status/body")
+  Component(pill, "StatusPillComponent", "Angular component", "LIVE | REVIEW")
+}
+
+Container_Boundary(framework, "dashboard-framework") {
+  Component(ctx, "TILE_CONTEXT", "DI token", "mode, selectedReviewDate")
+  Component(bind, "bindTileMode()", "Function", "load + effect + invalidations")
+}
+
+Component(invs, "TileInvalidationService", "Angular service", "invalidations$('weeklyFocus')")
+
+Rel(tile, ctx, "inject(optional)")
+Rel(tile, bind, "bindTileMode")
+Rel(bind, ctrl, "load(mode, asOf)")
+Rel(ctrl, svc, "Calls")
+Rel(tile, shell, "Renders")
+Rel(shell, pill, "Embeds")
+Rel(bind, invs, "Subscribes")
+
+@enduml

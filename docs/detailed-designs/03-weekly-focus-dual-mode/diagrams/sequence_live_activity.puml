@@ -1,0 +1,30 @@
+@startuml sequence_live_activity
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Weekly Focus - Activity recorded mid-week
+
+actor User
+participant "Activity Page" as AP
+participant "API" as API
+participant "EventBus" as EB
+participant "Notifier" as N
+participant "SignalR" as SR
+participant "Invalidations$" as IS
+participant "Tile" as T
+participant "Controller" as C
+
+User -> AP: Record activity (Move)
+AP -> API: POST /activity
+API -> EB: ActivityRecordedEvent
+EB -> N: subscriber
+N -> SR: dashboardTileDataInvalidated [weeklyFocus]
+SR -> IS: emit
+IS -> T: bindTileMode wakes
+T -> C: load('live', null)
+C -> API: GET /weekly-focus
+API --> C: top-3 with updated counts
+C --> T: focusAreas signal update
+T --> User: List re-renders, pill stays LIVE
+
+@enduml

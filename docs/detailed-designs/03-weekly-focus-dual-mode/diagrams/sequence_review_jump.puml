@@ -1,0 +1,25 @@
+@startuml sequence_review_jump
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Weekly Focus - Jump to historical week
+
+actor User
+participant "Scrubber" as Sc
+participant "TileContext" as Ctx
+participant "Tile" as T
+participant "Controller" as C
+participant "API" as API
+
+User -> Sc: Pick date 6 weeks ago
+Sc -> Ctx: selectedReviewDate(date)
+Ctx -> T: signal change
+T -> C: load('review', '<date>')
+C -> API: GET /weekly-focus?asOf=<date>
+API -> API: Clamp asOf, compute weekStart/End containing asOf
+API -> API: Top-3 behaviours by activity count\nin that week, profile-scoped
+API --> C: { weekStart, weekEnd, focusAreas } + Cache-Control: public, max-age=300
+C --> T: signal updates
+T --> User: Tile shows historical week, REVIEW pill
+
+@enduml

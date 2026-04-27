@@ -1,0 +1,23 @@
+@startuml c4_context
+!theme plain
+!include <C4/C4_Context>
+
+title Daily Results Tile - System Context
+
+Person(user, "User", "Records activities; views dashboard")
+
+System_Boundary(sys, "Commitments App") {
+  System(spa, "Angular SPA", "Hosts the Daily Results tile in Live and Review")
+  System(api, "Commitments API", "Aggregates today and historical day counts")
+}
+
+System_Ext(db, "SQL Server", "Activities, Commitments, Frequencies")
+System_Ext(signalr, "SignalR Hub", "dashboardTileDataInvalidated [dailyResults]")
+
+Rel(user, spa, "Toggles mode, scrubs date")
+Rel(spa, api, "GET /commitment/daily-results?asOf", "JSON")
+Rel(spa, signalr, "Listens for dailyResults invalidations")
+Rel(api, db, "Counts activities & commitments")
+Rel(api, signalr, "Publishes invalidations on Activity/Commitment events")
+
+@enduml

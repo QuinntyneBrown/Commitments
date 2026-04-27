@@ -1,0 +1,54 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Weekly Focus Tile - Domain Model
+
+class WeeklyFocusTileComponent {
+  +tileMetadata: TileMetadata
+  -context: TileContext
+  -controller: WeeklyFocusController
+}
+
+class WeeklyFocusController {
+  +snapshot: Signal<WeeklyFocusDto|null>
+  +mode: Signal<DashboardMode>
+  +weekLabel: Signal<string>
+  +focusAreas: Signal<FocusArea[]>
+  +load(mode, asOf): void
+}
+
+class WeeklyFocusService {
+  +get(asOf: string|null): Observable<WeeklyFocusDto>
+}
+
+class WeeklyFocusDto {
+  +mode: 'live'|'review'
+  +asOf: string
+  +weekStart: string
+  +weekEnd: string
+  +focusAreas: FocusArea[]
+}
+
+class FocusArea {
+  +name: string
+  +supportingMetric: string
+  +rank: number
+}
+
+class GetWeeklyFocusQuery {
+  +AsOf: DateTimeOffset?
+}
+
+class GetWeeklyFocusHandler {
+  +Handle(q): WeeklyFocusDto
+}
+
+WeeklyFocusTileComponent o-- WeeklyFocusController
+WeeklyFocusController --> WeeklyFocusService
+WeeklyFocusService ..> WeeklyFocusDto
+WeeklyFocusDto *-- FocusArea
+GetWeeklyFocusHandler ..> GetWeeklyFocusQuery
+
+@enduml

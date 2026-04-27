@@ -1,0 +1,33 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title Mode-Invariant Tile Foundation - Containers
+
+Person(user, "User", "Dashboard user")
+
+System_Boundary(spa, "Angular SPA") {
+  Container(app, "commitments-app", "Angular 19", "Dashboard page; mode toggle; scrubber")
+  Container(framework, "dashboard-framework", "Angular lib", "TileRegistry, TileContext, gridster grid")
+  Container(plugin, "commitments-dashboard-plugin", "Angular lib", "Plugin tile components + controllers")
+  Container(ui, "commitments-ui", "Angular lib", "TileShell, StatusPill, MetricHeader, DeltaBadge")
+}
+
+System_Boundary(api, "Commitments.Api Host") {
+  Container(commitments, "Commitments Module", ".NET 9", "Goal/Activity/Commitment queries with asOf")
+  Container(dashboard, "Dashboard Module", ".NET 9", "Dashboard layout & cards")
+  Container(realtime, "Realtime", "ASP.NET", "DashboardTileInvalidationNotifier; CommitmentsHub")
+}
+
+ContainerDb(db, "SQL Server", "RDBMS", "Profile-scoped data")
+
+Rel(user, app, "Toggles mode, scrubs slider", "HTTPS")
+Rel(app, framework, "Provides TileContext")
+Rel(framework, plugin, "Resolves tile components via NgComponentOutlet")
+Rel(plugin, ui, "Composes TileShell + StatusPill")
+Rel(plugin, commitments, "GET /api/v1/...?asOf=...", "JSON")
+Rel(plugin, realtime, "On invalidations$('<dataset>')", "WebSocket")
+Rel(commitments, db, "EF Core", "SQL")
+Rel(realtime, plugin, "dashboardTileDataInvalidated", "SignalR")
+
+@enduml

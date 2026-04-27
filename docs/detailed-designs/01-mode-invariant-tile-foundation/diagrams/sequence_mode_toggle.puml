@@ -1,0 +1,28 @@
+@startuml sequence_mode_toggle
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Mode toggle Live -> Review (no tile remount)
+
+actor User
+participant "DashboardPage" as Page
+participant "TileContext\n(per tile)" as Ctx
+participant "PluginTile" as Tile
+participant "TileController" as Ctrl
+participant "API" as API
+database "SQL" as DB
+
+User -> Page: Click "Review" pill
+Page -> Page: mode.set('review')
+Ctx -> Ctx: mode() emits 'review'
+note over Tile: bindTileMode effect fires
+Tile -> Ctrl: load('review', selectedReviewDate)
+Ctrl -> API: GET /resource?asOf=<date>
+API -> DB: SELECT aggregate WHERE profile=:p AND date<=:asOf
+DB --> API: rows
+API --> Ctrl: { mode:'review', asOf, data }
+Ctrl --> Tile: signal updates
+Tile -> Tile: pill swaps LIVE -> REVIEW\nsame DOM host, same instanceId
+Tile --> User: Body re-renders with historical value
+
+@enduml
