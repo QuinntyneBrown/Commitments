@@ -1,8 +1,10 @@
 ---
 id: 023
 title: Outstanding To Dos count metric is dim off-palette #8b3f10 - design palette has --cui-warning (#FFA726)
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: d09faf2
 flow: dashboard-layout
 severity: low
 ---
