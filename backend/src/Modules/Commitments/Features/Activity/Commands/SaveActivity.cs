@@ -3,6 +3,7 @@
 
 using Commitments.Data;
 using Commitments.Domain.ActivityAggregate;
+using Commitments.Shared;
 using FluentValidation;
 using MediatR;
 using System.Threading;
@@ -32,23 +33,38 @@ public class SaveActivityResponse
 
 public class SaveActivityCommandHandler : IRequestHandler<SaveActivityRequest, SaveActivityResponse>
 {
-    public ICommitmentsDbContext _context { get; set; }
+    private readonly ICommitmentsDbContext _context;
+    private readonly IEventBus _bus;
 
-    public SaveActivityCommandHandler(ICommitmentsDbContext context) => _context = context;
+    public SaveActivityCommandHandler(ICommitmentsDbContext context, IEventBus bus)
+    {
+        _context = context;
+        _bus = bus;
+    }
 
     public async Task<SaveActivityResponse> Handle(SaveActivityRequest request, CancellationToken cancellationToken)
     {
-        var activity = await _context.Activities.FindAsync(request.Activity.ActivityId);
+        var existing = await _context.Activities.FindAsync(request.Activity.ActivityId);
+        var reason = existing is null ? ActivityChangeReason.Created : ActivityChangeReason.Updated;
 
-        if (activity == null) _context.Activities.Add(activity = new ActivityEntity());
+        if (existing == null) _context.Activities.Add(existing = new ActivityEntity());
 
-        activity.BehaviourId = request.Activity.BehaviourId;
-        activity.ProfileId = request.Activity.ProfileId;
-        activity.PerformedOn = request.Activity.PerformedOn;
-        activity.Description = request.Activity.Description;
+        existing.BehaviourId = request.Activity.BehaviourId;
+        existing.ProfileId = request.Activity.ProfileId;
+        existing.PerformedOn = request.Activity.PerformedOn;
+        existing.Description = request.Activity.Description;
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new SaveActivityResponse() { ActivityId = activity.ActivityId };
+        await _bus.PublishAsync(new ActivityRecordedEvent
+        {
+            ActivityId = existing.ActivityId,
+            BehaviourId = existing.BehaviourId,
+            ProfileId = existing.ProfileId,
+            PerformedOn = existing.PerformedOn,
+            Reason = reason
+        }, cancellationToken);
+
+        return new SaveActivityResponse() { ActivityId = existing.ActivityId };
     }
 }

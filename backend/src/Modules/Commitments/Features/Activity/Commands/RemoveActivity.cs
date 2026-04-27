@@ -1,6 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Commitments.Shared;
 using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
@@ -24,13 +25,28 @@ public class RemoveActivityRequest : IRequest
 
 public class RemoveActivityCommandHandler : IRequestHandler<RemoveActivityRequest>
 {
-    public ICommitmentsDbContext _context { get; set; }
+    private readonly ICommitmentsDbContext _context;
+    private readonly IEventBus _bus;
 
-    public RemoveActivityCommandHandler(ICommitmentsDbContext context) => _context = context;
+    public RemoveActivityCommandHandler(ICommitmentsDbContext context, IEventBus bus)
+    {
+        _context = context;
+        _bus = bus;
+    }
 
     public async Task Handle(RemoveActivityRequest request, CancellationToken cancellationToken)
     {
-        _context.Activities.Remove(await _context.Activities.FindAsync(request.ActivityId));
+        var activity = await _context.Activities.FindAsync(request.ActivityId);
+        _context.Activities.Remove(activity);
         await _context.SaveChangesAsync(cancellationToken);
+
+        await _bus.PublishAsync(new ActivityRecordedEvent
+        {
+            ActivityId = activity.ActivityId,
+            BehaviourId = activity.BehaviourId,
+            ProfileId = activity.ProfileId,
+            PerformedOn = activity.PerformedOn,
+            Reason = ActivityChangeReason.Deleted
+        }, cancellationToken);
     }
 }

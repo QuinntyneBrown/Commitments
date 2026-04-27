@@ -18,3 +18,19 @@ public class UserCreatedEvent : IntegrationEvent
     public Guid UserId { get; set; }
     public string Username { get; set; } = null!;
 }
+
+public class ActivityRecordedEvent : IntegrationEvent
+{
+    public Guid ActivityId { get; set; }
+    public Guid BehaviourId { get; set; }
+    public Guid ProfileId { get; set; }
+    public DateTimeOffset PerformedOn { get; set; }
+    public ActivityChangeReason Reason { get; set; }
+}
+
+public enum ActivityChangeReason
+{
+    Created,
+    Updated,
+    Deleted
+}

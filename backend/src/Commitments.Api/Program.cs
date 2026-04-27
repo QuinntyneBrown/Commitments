@@ -79,6 +79,7 @@ try
             options.PayloadSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
         });
     builder.Services.AddSingleton<IRealtimePublisher, SignalRRealtimePublisher>();
+    builder.Services.AddHostedService<GoalProgressUpdatedRealtimeNotifier>();
 
     builder.Services.AddApiVersioning(options =>
     {

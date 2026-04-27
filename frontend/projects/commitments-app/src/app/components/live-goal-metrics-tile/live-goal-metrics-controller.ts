@@ -8,8 +8,14 @@ import { GoalProgressService, Last14DayPoint } from '../../services/goal-progres
 
 export interface GoalProgressUpdatedPayload {
   goalId: string;
+  behaviourId: string | null;
   count: number;
+  target: number;
+  percent: number;
   asOf: string;
+  date: string;
+  reason: 'activityCreated' | 'activityUpdated' | 'activityDeleted' | 'commitmentUpdated';
+  sourceActivityId: string | null;
 }
 
 @Injectable()
@@ -43,6 +49,7 @@ export class LiveGoalMetricsController {
     this._hub.on<GoalProgressUpdatedPayload>('goalProgressUpdated').subscribe(payload => {
       if (payload.goalId !== this._goalId) return;
       this.count.set(payload.count);
+      this.target.set(payload.target);
       this.asOf.set(new Date(payload.asOf));
       this._patchTodayInLast14(payload.count);
     });

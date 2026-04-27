@@ -26,8 +26,10 @@ public class GoalProgressUpdatedRealtimeNotifierTests : IDisposable
     public GoalProgressUpdatedRealtimeNotifierTests()
     {
         var services = new ServiceCollection();
+        var dbName = Guid.NewGuid().ToString();
+        var root = new Microsoft.EntityFrameworkCore.Storage.InMemoryDatabaseRoot();
         services.AddDbContext<CommitmentsDbContext>(o =>
-            o.UseInMemoryDatabase(Guid.NewGuid().ToString()));
+            o.UseInMemoryDatabase(dbName, root));
         services.AddScoped<ICommitmentsDbContext>(sp => sp.GetRequiredService<CommitmentsDbContext>());
         _provider = services.BuildServiceProvider();
         _ctx = _provider.GetRequiredService<CommitmentsDbContext>();
@@ -54,7 +56,8 @@ public class GoalProgressUpdatedRealtimeNotifierTests : IDisposable
                 ActivityId = Guid.NewGuid(),
                 BehaviourId = _behaviourId,
                 ProfileId = _profileId,
-                PerformedOn = DateTime.UtcNow
+                PerformedOn = DateTime.UtcNow,
+                Description = "seeded"
             });
         }
         _ctx.SaveChanges();

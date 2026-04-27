@@ -20,7 +20,21 @@ describe('LiveGoalMetricsController', () => {
     goalProgressService = { getCurrent, getLast14 } as unknown as GoalProgressService;
   });
 
-  function envelope(payload: GoalProgressUpdatedPayload): RealtimeMessage<GoalProgressUpdatedPayload> {
+  function payload(overrides: Partial<GoalProgressUpdatedPayload> & { goalId: string; count: number }): GoalProgressUpdatedPayload {
+    return {
+      goalId: overrides.goalId,
+      behaviourId: null,
+      count: overrides.count,
+      target: overrides.target ?? 30,
+      percent: overrides.percent ?? 0,
+      asOf: overrides.asOf ?? new Date().toISOString(),
+      date: overrides.date ?? new Date().toISOString().slice(0, 10),
+      reason: overrides.reason ?? 'activityCreated',
+      sourceActivityId: overrides.sourceActivityId ?? null
+    };
+  }
+
+  function envelope(p: GoalProgressUpdatedPayload): RealtimeMessage<GoalProgressUpdatedPayload> {
     return {
       schemaVersion: 1,
       messageId: '00000000-0000-0000-0000-000000000001',
@@ -28,7 +42,7 @@ describe('LiveGoalMetricsController', () => {
       profileId: '11111111-2222-3333-4444-555555555555',
       occurredAt: new Date().toISOString(),
       correlationId: null,
-      payload
+      payload: p
     };
   }
 
@@ -56,7 +70,7 @@ describe('LiveGoalMetricsController', () => {
     const controller = new LiveGoalMetricsController(hubClient, goalProgressService);
     controller.load('goal-1');
 
-    messages$.next(envelope({ goalId: 'goal-1', count: 12, asOf: new Date().toISOString() }));
+    messages$.next(envelope(payload({ goalId: 'goal-1', count: 12 })));
 
     expect(controller.count()).toBe(12);
   });
@@ -68,7 +82,7 @@ describe('LiveGoalMetricsController', () => {
     const controller = new LiveGoalMetricsController(hubClient, goalProgressService);
     controller.load('goal-1');
 
-    messages$.next(envelope({ goalId: 'goal-2', count: 99, asOf: new Date().toISOString() }));
+    messages$.next(envelope(payload({ goalId: 'goal-2', count: 99 })));
 
     expect(controller.count()).toBe(5);
   });
@@ -115,7 +129,7 @@ describe('LiveGoalMetricsController', () => {
     const controller = new LiveGoalMetricsController(hubClient, goalProgressService);
     controller.load('goal-1');
 
-    messages$.next(envelope({ goalId: 'goal-1', count: 22, asOf: new Date().toISOString() }));
+    messages$.next(envelope(payload({ goalId: 'goal-1', count: 22 })));
 
     const todayPoint = controller.last14()[13];
     expect(todayPoint.completed).toBe(22);
