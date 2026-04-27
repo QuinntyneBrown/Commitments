@@ -1,11 +1,27 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Injectable, NgZone, inject, Inject } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Injectable, NgZone, inject } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { HubConnection, HubConnectionBuilder, IHttpConnectionOptions } from '@microsoft/signalr';
 import { LocalStorageService } from './local-storage.service';
 import { accessTokenKey, baseUrl, currentProfileIdKey } from './constants';
+
+export interface RealtimeMessage<TPayload> {
+  schemaVersion: 1;
+  messageId: string;
+  event: string;
+  profileId: string;
+  occurredAt: string;
+  correlationId: string | null;
+  payload: TPayload;
+}
+
+function isEnvelope(value: unknown, event: string): boolean {
+  const m = value as Partial<RealtimeMessage<unknown>> | null;
+  return !!m && m.schemaVersion === 1 && m.event === event;
+}
 
 @Injectable({ providedIn: 'root' })
 export class HubClient {
@@ -45,5 +61,12 @@ export class HubClient {
       this._connect = null;
       this._connection = null;
     }
+  }
+
+  public on<TPayload>(event: string): Observable<TPayload> {
+    return this.messages$.pipe(
+      filter((m): m is RealtimeMessage<TPayload> => isEnvelope(m, event)),
+      map(m => m.payload)
+    );
   }
 }

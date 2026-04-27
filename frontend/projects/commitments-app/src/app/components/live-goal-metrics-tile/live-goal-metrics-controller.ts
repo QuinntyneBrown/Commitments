@@ -6,16 +6,10 @@ import { Injectable, computed, signal } from '@angular/core';
 import { HubClient } from '../../core/hub-client';
 import { GoalProgressService, Last14DayPoint } from '../../services/goal-progress.service';
 
-interface GoalProgressUpdatedMessage {
-  event: 'goalProgressUpdated';
+export interface GoalProgressUpdatedPayload {
   goalId: string;
   count: number;
   asOf: string;
-}
-
-function isGoalProgressUpdated(value: unknown): value is GoalProgressUpdatedMessage {
-  const msg = value as GoalProgressUpdatedMessage | null;
-  return !!msg && msg.event === 'goalProgressUpdated';
 }
 
 @Injectable()
@@ -46,12 +40,11 @@ export class LiveGoalMetricsController {
     private readonly _hub: HubClient,
     private readonly _service: GoalProgressService
   ) {
-    this._hub.messages$.subscribe(message => {
-      if (isGoalProgressUpdated(message) && message.goalId === this._goalId) {
-        this.count.set(message.count);
-        this.asOf.set(new Date(message.asOf));
-        this._patchTodayInLast14(message.count);
-      }
+    this._hub.on<GoalProgressUpdatedPayload>('goalProgressUpdated').subscribe(payload => {
+      if (payload.goalId !== this._goalId) return;
+      this.count.set(payload.count);
+      this.asOf.set(new Date(payload.asOf));
+      this._patchTodayInLast14(payload.count);
     });
   }
 

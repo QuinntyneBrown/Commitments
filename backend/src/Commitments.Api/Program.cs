@@ -4,8 +4,10 @@
 using Commitments;
 using Commitments.Api.Hubs;
 using Commitments.Api.Middleware;
+using Commitments.Api.Realtime;
 using Commitments.Data;
 using Commitments.Shared;
+using Commitments.Shared.Realtime;
 using Dashboard;
 using Dashboard.Data;
 using DigitalAssets;
@@ -72,6 +74,7 @@ try
     }
 
     builder.Services.AddSignalR();
+    builder.Services.AddSingleton<IRealtimePublisher, SignalRRealtimePublisher>();
 
     builder.Services.AddApiVersioning(options =>
     {

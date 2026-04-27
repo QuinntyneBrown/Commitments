@@ -1,9 +1,9 @@
 import { Subject } from 'rxjs';
 
-import { HubClient } from '../../core/hub-client';
+import { HubClient, RealtimeMessage } from '../../core/hub-client';
 import { GoalProgress, GoalProgressService, Last14DayPoint } from '../../services/goal-progress.service';
 
-import { LiveGoalMetricsController } from './live-goal-metrics-controller';
+import { GoalProgressUpdatedPayload, LiveGoalMetricsController } from './live-goal-metrics-controller';
 
 describe('LiveGoalMetricsController', () => {
   let messages$: Subject<unknown>;
@@ -14,11 +14,23 @@ describe('LiveGoalMetricsController', () => {
 
   beforeEach(() => {
     messages$ = new Subject<unknown>();
-    hubClient = { messages$ } as unknown as HubClient;
+    hubClient = { messages$, on: HubClient.prototype.on } as unknown as HubClient;
     getCurrent = jest.fn();
     getLast14 = jest.fn().mockReturnValue({ subscribe: (fn: (v: Last14DayPoint[]) => void) => fn([]) });
     goalProgressService = { getCurrent, getLast14 } as unknown as GoalProgressService;
   });
+
+  function envelope(payload: GoalProgressUpdatedPayload): RealtimeMessage<GoalProgressUpdatedPayload> {
+    return {
+      schemaVersion: 1,
+      messageId: '00000000-0000-0000-0000-000000000001',
+      event: 'goalProgressUpdated',
+      profileId: '11111111-2222-3333-4444-555555555555',
+      occurredAt: new Date().toISOString(),
+      correlationId: null,
+      payload
+    };
+  }
 
   it('exposes initial values from the GoalProgressService', () => {
     const initial: GoalProgress = {
@@ -44,7 +56,7 @@ describe('LiveGoalMetricsController', () => {
     const controller = new LiveGoalMetricsController(hubClient, goalProgressService);
     controller.load('goal-1');
 
-    messages$.next({ event: 'goalProgressUpdated', goalId: 'goal-1', count: 12, asOf: new Date().toISOString() });
+    messages$.next(envelope({ goalId: 'goal-1', count: 12, asOf: new Date().toISOString() }));
 
     expect(controller.count()).toBe(12);
   });
@@ -56,7 +68,7 @@ describe('LiveGoalMetricsController', () => {
     const controller = new LiveGoalMetricsController(hubClient, goalProgressService);
     controller.load('goal-1');
 
-    messages$.next({ event: 'goalProgressUpdated', goalId: 'goal-2', count: 99, asOf: new Date().toISOString() });
+    messages$.next(envelope({ goalId: 'goal-2', count: 99, asOf: new Date().toISOString() }));
 
     expect(controller.count()).toBe(5);
   });
@@ -86,7 +98,6 @@ describe('LiveGoalMetricsController', () => {
     controller.load('goal-1');
 
     expect(controller.last14().length).toBe(14);
-    // today=13, yesterday=12 -> delta = 13-12 = 1
     expect(controller.deltaVsYesterday()).toBe(1);
   });
 
@@ -104,7 +115,7 @@ describe('LiveGoalMetricsController', () => {
     const controller = new LiveGoalMetricsController(hubClient, goalProgressService);
     controller.load('goal-1');
 
-    messages$.next({ event: 'goalProgressUpdated', goalId: 'goal-1', count: 22, asOf: new Date().toISOString() });
+    messages$.next(envelope({ goalId: 'goal-1', count: 22, asOf: new Date().toISOString() }));
 
     const todayPoint = controller.last14()[13];
     expect(todayPoint.completed).toBe(22);

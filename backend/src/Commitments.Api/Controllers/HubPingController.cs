@@ -1,9 +1,8 @@
 using Asp.Versioning;
-using Commitments.Api.Hubs;
 using Commitments.Shared;
+using Commitments.Shared.Realtime;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 
 namespace Commitments.Api.Controllers;
 
@@ -13,18 +12,20 @@ namespace Commitments.Api.Controllers;
 [Authorize]
 public sealed class HubPingController : ControllerBase
 {
-    private readonly IHubContext<CommitmentsHub> _hub;
+    private readonly IRealtimePublisher _publisher;
     private readonly IHttpContextAccessor _http;
     private readonly IHostEnvironment _env;
 
-    public HubPingController(IHubContext<CommitmentsHub> hub, IHttpContextAccessor http, IHostEnvironment env)
+    public HubPingController(IRealtimePublisher publisher, IHttpContextAccessor http, IHostEnvironment env)
     {
-        _hub = hub;
+        _publisher = publisher;
         _http = http;
         _env = env;
     }
 
     public sealed record PingRequest(string? Text);
+
+    public sealed record PingPayload(string Text);
 
     [HttpPost]
     public async Task<IActionResult> Ping([FromBody] PingRequest? body)
@@ -34,9 +35,10 @@ public sealed class HubPingController : ControllerBase
         if (!_http.HttpContext!.TryGetProfileId(out var profileId))
             return BadRequest("Missing ProfileId");
 
-        var group = $"profile:{profileId:D}".ToLowerInvariant();
-        await _hub.Clients.Group(group).SendAsync("message",
-            new { @event = "hubPing", text = body?.Text ?? "hello" });
+        await _publisher.PublishToProfileAsync(
+            profileId,
+            @event: "hubPing",
+            payload: new PingPayload(body?.Text ?? "hello"));
 
         return Accepted();
     }
