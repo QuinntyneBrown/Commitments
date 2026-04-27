@@ -188,4 +188,52 @@ public class CommitmentControllerTests
         result.Value.Should().NotBeNull();
         result.Value!.Commitments.Should().HaveCount(1);
     }
+
+    [Fact]
+    public async Task GetDailyResults_ShouldDispatchWithProfileIdAndAsOf()
+    {
+        // Arrange
+        var asOf = new DateTimeOffset(2026, 4, 27, 12, 0, 0, TimeSpan.Zero);
+        var expected = new GetDailyResultsResponse
+        {
+            Mode = "review",
+            AsOf = asOf,
+            Date = "2026-04-27",
+            Completed = 7,
+            Total = 9
+        };
+        GetDailyResultsRequest? captured = null;
+        _mockSender
+            .Setup(s => s.Send(It.IsAny<GetDailyResultsRequest>(), It.IsAny<CancellationToken>()))
+            .Callback<object, CancellationToken>((r, _) => captured = (GetDailyResultsRequest)r)
+            .ReturnsAsync(expected);
+
+        // Act
+        var result = await _controller.GetDailyResults(asOf);
+
+        // Assert
+        result.Value.Should().NotBeNull();
+        result.Value!.Completed.Should().Be(7);
+        result.Value!.Total.Should().Be(9);
+        captured!.ProfileId.Should().Be(_profileId);
+        captured!.AsOf.Should().Be(asOf);
+    }
+
+    [Fact]
+    public async Task GetDailyResults_NoAsOf_DispatchesNullAsOf()
+    {
+        // Arrange
+        var expected = new GetDailyResultsResponse { Mode = "live" };
+        GetDailyResultsRequest? captured = null;
+        _mockSender
+            .Setup(s => s.Send(It.IsAny<GetDailyResultsRequest>(), It.IsAny<CancellationToken>()))
+            .Callback<object, CancellationToken>((r, _) => captured = (GetDailyResultsRequest)r)
+            .ReturnsAsync(expected);
+
+        // Act
+        await _controller.GetDailyResults(asOf: null);
+
+        // Assert
+        captured!.AsOf.Should().BeNull();
+    }
 }
