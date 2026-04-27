@@ -45,4 +45,8 @@ export class LoginPage {
   cardBorderRadius(): Promise<string> {
     return this.page.locator('mat-card').first().evaluate((el) => getComputedStyle(el).borderRadius);
   }
+
+  cardBackgroundColor(): Promise<string> {
+    return this.page.locator('mat-card').first().evaluate((el) => getComputedStyle(el).backgroundColor);
+  }
 }

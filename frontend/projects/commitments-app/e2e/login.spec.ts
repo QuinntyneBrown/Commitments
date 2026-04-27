@@ -44,4 +44,8 @@ test.describe('login page', () => {
   test('card uses the medium radius token (8px) from the design', async () => {
     expect(await login.cardBorderRadius()).toBe('8px');
   });
+
+  test('card uses the surface token (#1E1E1E) from the design', async () => {
+    expect(await login.cardBackgroundColor()).toBe('rgb(30, 30, 30)');
+  });
 });
