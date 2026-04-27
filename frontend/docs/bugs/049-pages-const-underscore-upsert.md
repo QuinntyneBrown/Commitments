@@ -1,8 +1,10 @@
 ---
 id: 049
 title: Five page components share `const _ = i<0 ? push : replace` upsert pattern that trips no-unused-vars
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: 97db099
 flow: dashboard-layout
 severity: low
 ---
