@@ -1,8 +1,10 @@
 ---
 id: 011
 title: Dashboard topbar action buttons + tile-select still hard-code light theme colors
-status: open
+status: fixed
 discovered: 2026-04-26
+fixed: 2026-04-26
+fixed_in: fed99ae
 flow: dashboard-layout
 severity: medium
 ---
