@@ -63,7 +63,7 @@ export class HubClient {
           occurredAt: new Date().toISOString(),
           correlationId: null,
           payload: {}
-        } as RealtimeMessage<{}>));
+        } as RealtimeMessage<Record<string, never>>));
       });
 
       this._connection.start().then(() => resolve());
