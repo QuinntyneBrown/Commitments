@@ -2,10 +2,10 @@
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 10px 16px;
-  color: #5b6b84;
+  color: var(--cui-text-secondary);
   font-size: 13px;
 }
 
 .relations strong {
-  color: #172033;
+  color: var(--cui-text-primary);
 }
