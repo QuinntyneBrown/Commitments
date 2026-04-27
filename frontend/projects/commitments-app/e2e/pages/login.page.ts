@@ -33,4 +33,8 @@ export class LoginPage {
       return r.top + r.height / 2;
     });
   }
+
+  submitButtonWidth(): Promise<number> {
+    return this.submitButton.evaluate((el) => el.getBoundingClientRect().width);
+  }
 }

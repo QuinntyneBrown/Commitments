@@ -31,4 +31,8 @@ test.describe('login page', () => {
     const center = await login.cardVerticalCenter();
     expect(Math.abs(center - viewport.height / 2)).toBeLessThan(20);
   });
+
+  test('Submit button spans the card content width', async () => {
+    expect(await login.submitButtonWidth()).toBeGreaterThanOrEqual(380);
+  });
 });
