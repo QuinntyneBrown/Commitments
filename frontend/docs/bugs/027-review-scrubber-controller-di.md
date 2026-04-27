@@ -1,8 +1,10 @@
 ---
 id: 027
 title: Switching to review mode crashes - ReviewScrubberController constructor incompatible with Angular DI
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: 9497810
 flow: dashboard-modes
 severity: critical
 ---
