@@ -1,8 +1,10 @@
 ---
 id: 004
 title: Login page renders on a transparent / light background instead of the dark design surface
-status: open
+status: fixed
 discovered: 2026-04-26
+fixed: 2026-04-26
+fixed_in: 2917994
 flow: authentication
 severity: high
 ---
