@@ -11,6 +11,10 @@
   margin-bottom: 30px;
 }
 
+mat-card-title {
+  color: var(--cui-text-secondary);
+}
+
 mat-card {
   margin: 0 auto;
   max-width: 480px;
