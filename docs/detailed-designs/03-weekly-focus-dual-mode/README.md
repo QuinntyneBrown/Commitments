@@ -1,5 +1,6 @@
 # Weekly Focus Tile — Dual-Mode Design
 
+**Status:** Accepted — 2026-04-27
 **Tile ID:** `commitments.weekly-focus`
 **Traces to:** L1-010, L1-011, L1-012, **L1-012a**; L2-018, **L2-031a**, L2-038, L2-045.
 
