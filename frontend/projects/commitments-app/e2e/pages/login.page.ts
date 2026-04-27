@@ -37,4 +37,8 @@ export class LoginPage {
   submitButtonWidth(): Promise<number> {
     return this.submitButton.evaluate((el) => el.getBoundingClientRect().width);
   }
+
+  bodyFontFamily(): Promise<string> {
+    return this.page.evaluate(() => getComputedStyle(document.body).fontFamily);
+  }
 }

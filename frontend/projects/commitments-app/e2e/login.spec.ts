@@ -35,4 +35,9 @@ test.describe('login page', () => {
   test('Submit button spans the card content width', async () => {
     expect(await login.submitButtonWidth()).toBeGreaterThanOrEqual(380);
   });
+
+  test('typography uses Inter (the design system font)', async () => {
+    const family = await login.bodyFontFamily();
+    expect(family.toLowerCase()).toContain('inter');
+  });
 });
