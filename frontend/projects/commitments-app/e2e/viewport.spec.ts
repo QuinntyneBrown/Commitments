@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 import { DashboardModePage } from './pages/dashboard-mode.page';
+import { DashboardPage } from './pages/dashboard.page';
 
 const VIEWPORTS = [
   { name: 'tablet', width: 768, height: 1024 },
@@ -23,4 +24,12 @@ test.describe('responsive dashboard shell', () => {
       await mode.expectReviewActive();
     });
   }
+
+  test('topbar does not overflow horizontally at tablet (768x1024)', async ({ page }) => {
+    await page.setViewportSize({ width: 768, height: 1024 });
+    const dashboard = new DashboardPage(page);
+    await dashboard.goto();
+
+    expect(await dashboard.topbarOverflowPx()).toBe(0);
+  });
 });

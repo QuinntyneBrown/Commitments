@@ -209,4 +209,9 @@ export class DashboardPage {
     return this.page.locator('.todo-copy').first()
       .evaluate((el) => getComputedStyle(el).webkitLineClamp);
   }
+
+  topbarOverflowPx(): Promise<number> {
+    return this.page.locator('.dashboard-shell__topbar').first()
+      .evaluate((el) => Math.max(0, el.scrollWidth - el.clientWidth));
+  }
 }
