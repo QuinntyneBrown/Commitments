@@ -1,8 +1,10 @@
 ---
 id: 014
 title: Relations tile percentages render invisible (#172033) on the dark surface
-status: open
+status: fixed
 discovered: 2026-04-26
+fixed: 2026-04-26
+fixed_in: cb76365
 flow: dashboard-layout
 severity: high
 ---
