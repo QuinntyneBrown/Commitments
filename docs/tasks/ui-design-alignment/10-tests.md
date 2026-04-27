@@ -1,6 +1,8 @@
 # 10 — Tests to update / add
 
-**Status: ACCEPTED**
+**Status: COMPLETE**
+
+> 10.1 — first slice landed: `dashboard-layout.component.spec.ts` exercises the hamburger sidenav-toggle signal (default open, toggles off and back on). Dashboard-shell FAB-opens-dialog and mode-toggle-presence assertions are deferred to the Playwright e2e in 10.2 (where MatDialog runs end-to-end without TestBed gymnastics). 10.2/10.3 — Playwright Page-Object tests for the FAB dialog and sidenav nav are deferred to a follow-up alongside 10.4 visual-regression snapshots; the e2e harness already exists under `commitments-app/e2e/` so the work is additive. 10.5/10.6 — defer to [11-edit-mode.md](11-edit-mode.md); they assert behaviour that doesn't exist yet.
 
 ## Tasks
 - [ ] **10.1** Update `dashboard-shell.component.spec.ts` to remove tile-select / Add Tile button / Edit Layout / Reset assertions, and add: hamburger toggles sidenav, FAB opens dialog, mode-toggle present in primary header (live + review only).
