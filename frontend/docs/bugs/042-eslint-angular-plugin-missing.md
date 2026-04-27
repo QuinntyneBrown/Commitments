@@ -1,8 +1,10 @@
 ---
 id: 042
 title: npm run lint fails - .eslintrc.js references @angular-eslint plugins that aren't installed
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: c05ce34
 flow: dashboard-layout
 severity: medium
 ---
