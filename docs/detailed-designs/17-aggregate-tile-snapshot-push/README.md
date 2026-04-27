@@ -1,5 +1,7 @@
 # 17 — Aggregate Tile Snapshot Push — Detailed Design
 
+**Status:** Accepted
+
 ## 1. Overview
 
 Slice 16 gives every aggregate tile a "your data is stale, refetch" signal. That works, but it costs one round-trip per change. For tiles that are visible during high-frequency editing — typically Daily Results during a workout, or Outstanding To-Dos during a planning session — the snapshot is small enough to push directly. ICD §6.3 lists five **optional** full-snapshot pushes (`WS-TILE-003` through `WS-TILE-007`):

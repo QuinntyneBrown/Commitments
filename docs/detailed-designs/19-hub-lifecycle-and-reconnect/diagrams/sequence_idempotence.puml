@@ -1,0 +1,27 @@
+@startuml sequence_idempotence
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Idempotence: duplicate envelope after reconnect
+
+participant "Server" as S
+participant "/hub" as HUB
+participant "HubClient.on('message')" as HC
+participant "MessageIdempotence\nCache" as IC
+participant "messages$" as MS
+participant "LiveGoalMetrics\nController" as CT
+
+S -> HUB: envelope messageId=abc123
+HUB -> HC: deliver
+HC -> IC: seen('abc123')?
+IC --> HC: false (first time)
+HC -> MS: next(envelope)
+MS -> CT: payload arrives -> patch last14
+
+HUB -> HC: SAME envelope re-delivered\n(after Reconnect)
+HC -> IC: seen('abc123')?
+IC --> HC: true
+HC -> HC: drop (no dispatch)
+note over CT: last14 not double-incremented
+
+@enduml

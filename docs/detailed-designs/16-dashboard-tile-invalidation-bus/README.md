@@ -1,5 +1,7 @@
 # 16 — Dashboard Tile Invalidation Bus — Detailed Design
 
+**Status:** Accepted
+
 ## 1. Overview
 
 The aggregate dashboard tiles (Daily Results, Weekly Focus, Monthly Progress, Outstanding To-Dos, Relations) and the Consistency Trend tile do **not** all warrant a full-snapshot push. Recomputing a 30-day series and shipping it on every activity edit is wasted bandwidth — most tiles can simply re-fetch their REST snapshot endpoint when something they depend on changes.

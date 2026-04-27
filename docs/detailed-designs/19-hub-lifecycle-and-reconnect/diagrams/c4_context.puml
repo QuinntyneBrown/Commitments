@@ -1,0 +1,17 @@
+@startuml c4_context
+!theme plain
+!include <C4/C4_Context>
+
+title Hub Lifecycle - Context
+
+Person(owner, "Profile Owner", "May go offline / switch profile")
+System(spa, "Commitments SPA", "HubClient + reconnect + idempotence")
+System(api, "Commitments API", "Hub OnReconnectedAsync")
+System_Ext(net, "Browser network", "Drops happen")
+
+Rel(owner, spa, "Uses")
+Rel(spa, net, "WebSocket")
+Rel(net, api, "WSS")
+Rel(api, spa, "OnReconnected -> rejoin group", "WSS")
+
+@enduml

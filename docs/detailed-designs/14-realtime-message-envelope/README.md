@@ -1,5 +1,7 @@
 # 14 — Realtime Message Envelope — Detailed Design
 
+**Status:** Accepted
+
 ## 1. Overview
 
 Slice 13 wires up `/hub`, profile groups, and one untyped `message` SendAsync. Every later message — `goalProgressUpdated`, `dashboardTileDataInvalidated`, `dailyResultsUpdated`, etc. — needs a stable, versioned shape so the frontend can route it without if-by-string-key chains and so the backend can enforce a single publisher contract.

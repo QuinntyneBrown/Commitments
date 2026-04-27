@@ -1,0 +1,83 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Note/Tag Realtime - Classes
+
+class IntegrationEvent {
+    +Id: Guid
+    +OccurredOn: DateTime
+}
+
+class NoteSavedEvent {
+    +NoteId: Guid
+    +ProfileId: Guid
+    +Title: string
+    +Kind: ChangeKind
+}
+
+class NoteRemovedEvent {
+    +NoteId: Guid
+    +ProfileId: Guid
+}
+
+class TagSavedEvent {
+    +TagId: Guid
+    +ProfileId: Guid
+    +Name: string
+}
+
+class TagRemovedEvent {
+    +TagId: Guid
+    +ProfileId: Guid
+}
+
+class NoteSavedPayload <<record>> {
+    +NoteId: string
+    +Title: string
+    +Kind: string
+}
+
+class NoteRemovedPayload <<record>> {
+    +NoteId: string
+}
+
+class TagSavedPayload <<record>> {
+    +TagId: string
+    +Name: string
+}
+
+class TagRemovedPayload <<record>> {
+    +TagId: string
+}
+
+class NoteTagRealtimeNotifier <<HostedService>> {
+    +HandleNoteSaved(evt): Task
+    +HandleNoteRemoved(evt): Task
+    +HandleTagSaved(evt): Task
+    +HandleTagRemoved(evt): Task
+}
+
+class Store <<Angular>> {
+    +savedNotes
+    +removedNotes
+    +savedTags
+    +removedTags
+}
+
+IntegrationEvent <|-- NoteSavedEvent
+IntegrationEvent <|-- NoteRemovedEvent
+IntegrationEvent <|-- TagSavedEvent
+IntegrationEvent <|-- TagRemovedEvent
+
+NoteTagRealtimeNotifier --> NoteSavedPayload
+NoteTagRealtimeNotifier --> NoteRemovedPayload
+NoteTagRealtimeNotifier --> TagSavedPayload
+NoteTagRealtimeNotifier --> TagRemovedPayload
+Store ..> NoteSavedPayload : maps via on
+Store ..> NoteRemovedPayload
+Store ..> TagSavedPayload
+Store ..> TagRemovedPayload
+
+@enduml

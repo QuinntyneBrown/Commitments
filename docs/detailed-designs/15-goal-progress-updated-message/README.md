@@ -1,5 +1,7 @@
 # 15 — `goalProgressUpdated` Message — Detailed Design
 
+**Status:** Accepted
+
 ## 1. Overview
 
 The Live Real-Time Metric tile (`07-live-real-time-metric-tile`) was shipped against a SignalR push that does not yet exist on the backend. After login, the tile fetches `/api/v1.0/goal-progress/current` once and then sits forever, waiting for an event that nobody publishes.

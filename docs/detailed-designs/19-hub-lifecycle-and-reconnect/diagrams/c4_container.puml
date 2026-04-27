@@ -1,0 +1,26 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title Hub Lifecycle - Containers
+
+System_Boundary(client, "Browser") {
+    Container(hubc, "HubClient", "Angular root", "withAutomaticReconnect\n+ idempotence cache")
+    Container(retry, "HubRetryPolicy", "TS module", "0,2,5,10,30,60s")
+    Container(idem, "MessageIdempotenceCache", "TS class", "FIFO 200")
+    Container(switch, "ProfileSwitchListener", "Angular root", "watches LS")
+    Container(tiles, "Tiles", "Angular standalone", "subscribe hubResumed")
+}
+
+System_Boundary(server, "Commitments.Api") {
+    Container(hub, "CommitmentsHub", "SignalR", "OnConnectedAsync,\nOnReconnectedAsync")
+    Container(ci, "CI guard test", "xUnit", "HubPing 404 in Production")
+}
+
+Rel(hubc, retry, "uses")
+Rel(hubc, idem, "uses")
+Rel(switch, hubc, "restartFor")
+Rel(hubc, hub, "WSS reconnect")
+Rel(hubc, tiles, "hubResumed envelope")
+
+@enduml
