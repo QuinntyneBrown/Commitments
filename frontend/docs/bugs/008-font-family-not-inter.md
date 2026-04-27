@@ -1,8 +1,10 @@
 ---
 id: 008
 title: App typography is Roboto - design system specifies Inter and the Inter font is not loaded
-status: open
+status: fixed
 discovered: 2026-04-26
+fixed: 2026-04-26
+fixed_in: f148970
 flow: authentication
 severity: medium
 ---
