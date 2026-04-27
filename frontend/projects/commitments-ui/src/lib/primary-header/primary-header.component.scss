@@ -1,8 +1,8 @@
 :host {
   display: block;
-  color: #fff;
+  color: var(--cui-text-primary);
   height: 80px;
-  background-color: rgb(63, 81, 181);
+  background-color: var(--cui-primary-dim);
   padding-left: 20px;
   display: flex;
   -webkit-box-align: center;
