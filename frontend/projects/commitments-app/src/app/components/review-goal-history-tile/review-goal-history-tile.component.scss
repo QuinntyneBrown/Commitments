@@ -4,7 +4,7 @@
   padding: 4px 10px;
   border-radius: 999px;
   background: rgba(159, 168, 218, 0.18);
-  color: #5566a6;
+  color: var(--cui-primary);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.4px;
@@ -16,7 +16,7 @@
 
 .readout {
   margin-top: 14px;
-  color: #B0B0B0;
+  color: var(--cui-text-secondary);
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.4px;
@@ -24,6 +24,6 @@
 
 .readout__separator {
   margin: 0 4px;
-  color: #666666;
+  color: var(--cui-text-disabled);
   font-weight: 400;
 }
