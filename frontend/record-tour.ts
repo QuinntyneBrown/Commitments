@@ -1,9 +1,11 @@
-import { chromium } from '@playwright/test';
+import { chromium, type Page } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
+const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const TARGET_URL = process.env.TOUR_URL ?? 'http://127.0.0.1:4200/';
-const OUTPUT_DIR = join(__dirname, 'recordings');
+const OUTPUT_DIR = join(SCRIPT_DIR, 'recordings');
 const VIEWPORT = { width: 1280, height: 800 };
 const TARGET_DURATION_MS = 40_000;
 
@@ -11,6 +13,15 @@ mkdirSync(OUTPUT_DIR, { recursive: true });
 
 async function pause(ms: number) {
   await new Promise((r) => setTimeout(r, ms));
+}
+
+async function addTile(page: Page, tileId: string) {
+  await page.getByTestId('add-tile-fab').click();
+  const cell = page.getByTestId(`add-tile-cell-${tileId}`);
+  await cell.waitFor({ state: 'visible', timeout: 5_000 });
+  await cell.click();
+  await page.getByTestId('add-tile-dialog-confirm').click();
+  await page.getByTestId('add-tile-dialog').waitFor({ state: 'detached', timeout: 5_000 }).catch(() => undefined);
 }
 
 async function main() {
@@ -34,11 +45,8 @@ async function main() {
   await page.getByTestId('dashboard-shell').waitFor({ state: 'visible', timeout: 30_000 });
   await pause(1500);
 
-  // Add the Consistency Trend (Chart.js line graph) tile.
-  const tileSelect = page.getByTestId('tile-select');
-  await tileSelect.selectOption({ label: 'Consistency Trend' });
-  await pause(600);
-  await page.getByTestId('add-tile').click();
+  // Add the Consistency Trend (Chart.js line graph) tile via the new FAB + dialog flow.
+  await addTile(page, 'commitments.consistency-trend');
 
   const trendTile = page
     .getByTestId('tile-shell')
@@ -61,15 +69,11 @@ async function main() {
   await pause(1200);
 
   // Add a second Consistency Trend so two line graphs render side by side.
-  await tileSelect.selectOption({ label: 'Consistency Trend' });
-  await pause(500);
-  await page.getByTestId('add-tile').click();
-  await page.waitForTimeout(800);
+  await addTile(page, 'commitments.consistency-trend');
+  await pause(800);
 
   // Add a Live Goal Metrics tile for variety.
-  await tileSelect.selectOption({ label: 'Live Goal Metrics' });
-  await pause(400);
-  await page.getByTestId('add-tile').click();
+  await addTile(page, 'commitments.live-goal-metrics');
   await pause(1200);
 
   // Tour the second chart so the recording shows two simultaneous line graphs.

@@ -5,6 +5,7 @@ import { DashboardShellComponent } from '@commitments/dashboard-framework';
 
 import { routes } from './app.routes';
 import { DashboardLayoutComponent } from './components/dashboard-layout/dashboard-layout.component';
+import { PlaceholderPageComponent } from './components/placeholder-page/placeholder-page.component';
 import { LoginPageComponent } from './pages/login/login-page/login-page.component';
 
 describe('app.routes', () => {
@@ -40,10 +41,10 @@ describe('app.routes', () => {
     'to-dos',
     'my-profile',
     'settings'
-  ])('lazy-loads the %s child route under the layout', (path) => {
+  ])('routes the %s child path to PlaceholderPageComponent under the layout', (path) => {
     const home = routes.find((r) => r.path === '');
     const child = home?.children?.find((c) => c.path === path);
     expect(child).toBeDefined();
-    expect(typeof child!.loadComponent).toBe('function');
+    expect(child!.component).toBe(PlaceholderPageComponent);
   });
 });
