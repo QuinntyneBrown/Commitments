@@ -7,6 +7,8 @@ import { filter, map } from 'rxjs/operators';
 import { HubConnection, HubConnectionBuilder, IHttpConnectionOptions } from '@microsoft/signalr';
 import { LocalStorageService } from './local-storage.service';
 import { accessTokenKey, baseUrl, currentProfileIdKey } from './constants';
+import { HubRetryPolicy } from './hub-retry-policy';
+import { MessageIdempotenceCache } from './message-idempotence-cache';
 
 export interface RealtimeMessage<TPayload> {
   schemaVersion: 1;
@@ -31,6 +33,7 @@ export class HubClient {
 
   private _connection: HubConnection | null = null;
   private _connect: Promise<void> | null = null;
+  private readonly _idempotence = new MessageIdempotenceCache();
   public messages$: Subject<any> = new Subject();
 
   public connect(): Promise<void> {
@@ -43,16 +46,36 @@ export class HubClient {
       const profileId = this._storage.get({ name: currentProfileIdKey });
       this._connection = this._connection || new HubConnectionBuilder()
         .withUrl(`${this._baseUrl}hub?token=${token}&profileId=${profileId}`, options)
+        .withAutomaticReconnect(HubRetryPolicy)
         .build();
 
       this._connection.on('message', value => {
+        if (this._idempotence.seen(value?.messageId)) return;
         this._ngZone.run(() => this.messages$.next(value));
+      });
+
+      this._connection.onreconnected(() => {
+        this._ngZone.run(() => this.messages$.next({
+          schemaVersion: 1,
+          messageId: this._randomId(),
+          event: 'hubResumed',
+          profileId,
+          occurredAt: new Date().toISOString(),
+          correlationId: null,
+          payload: {}
+        } as RealtimeMessage<{}>));
       });
 
       this._connection.start().then(() => resolve());
     });
 
     return this._connect;
+  }
+
+  private _randomId(): string {
+    const c: any = (globalThis as any).crypto;
+    if (c?.randomUUID) return c.randomUUID();
+    return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
   }
 
   public disconnect() {

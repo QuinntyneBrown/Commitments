@@ -25,8 +25,8 @@ describe('MessageIdempotenceCache', () => {
     cache.seen('b');
     cache.seen('c');
 
-    expect(cache.seen('a')).toBe(false);
     expect(cache.seen('b')).toBe(true);
     expect(cache.seen('c')).toBe(true);
+    expect(cache.seen('a')).toBe(false);
   });
 });
