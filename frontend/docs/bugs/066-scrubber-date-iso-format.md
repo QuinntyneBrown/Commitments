@@ -2,9 +2,8 @@
 
 ## Status
 
-OPEN — surfaced by visual capture
-(`frontend/docs/bugs/screenshots/dashboard-review-1280.png`) compared
-against design `zNLnf` (`Scrubber/Timeline`).
+FIXED — scrubber now reads `Mon · April 27, 2026`; helper unit tests
+12/12, scrubber test suites 20/20.
 
 ## Symptom
 
@@ -34,7 +33,7 @@ The raw ISO `selectedDate()` stays unchanged for the rest of the system
 
 ## Resolution
 
-- [ ] Failing unit test added.
-- [ ] Helper / computed signal added.
-- [ ] Template binds the friendly label.
-- [ ] Verified passing; visual screenshot post-fix shows the friendly date.
+- [x] 2 failing unit cases added in `review-scrubber.helpers.spec.ts`.
+- [x] `formatFullDate(iso)` helper + `selectedDateLabel` computed signal.
+- [x] Template binds `selectedDateLabel()`.
+- [x] Visual screenshot post-fix shows `Mon · April 27, 2026`.
