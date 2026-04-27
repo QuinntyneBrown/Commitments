@@ -2,7 +2,8 @@
 
 ## Status
 
-OPEN — surfaced via design comparison.
+FIXED — screenshot post-fix shows ">> Jump to today" with the
+double-arrow icon; existing e2e assertion still passes.
 
 ## Symptom
 
@@ -32,6 +33,8 @@ passes — `/today/i` matches "Jump to today" too.
 
 ## Resolution
 
-- [ ] Visual screenshot pre-fix.
-- [ ] Template updated.
-- [ ] Test verified passing post-fix; visual screenshot post-fix.
+- [x] Visual screenshot pre-fix shows calendar icon + "Today".
+- [x] Template updated (icon → `keyboard_double_arrow_right`,
+      label → "Jump to today").
+- [x] e2e test still passes; visual screenshot post-fix shows
+      ">> Jump to today".
