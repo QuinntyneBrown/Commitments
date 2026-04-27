@@ -1,6 +1,6 @@
 # 16 — Dashboard Tile Invalidation Bus — Detailed Design
 
-**Status:** Accepted
+**Status:** Complete
 
 ## 1. Overview
 
