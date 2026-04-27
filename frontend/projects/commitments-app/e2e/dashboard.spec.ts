@@ -76,19 +76,18 @@ test.describe('dashboard shell', () => {
     expect(await dashboard.outstandingTodosCopyLineClamp()).toBe('2');
   });
 
-  test('loads the dashboard with registered plugin tiles', async () => {
+  test('loads the dashboard with registered plugin tiles', async ({ page }) => {
     await dashboard.expectDefaultDashboard();
-    // Default mode is 'live'; the dropdown is filtered to live-supporting tiles.
-    // Review Goal History has supportedModes: ['review'] and is hidden here.
-    await expect(dashboard.tileOptions).toHaveText([
-      'Daily Results',
-      'Weekly Focus',
-      'Monthly Progress',
-      'Outstanding To‑Dos',
-      'Relations',
-      'Consistency Trend',
-      'Live Goal Metrics',
-    ]);
+    // Open the Add Tile dialog — live mode filters out review-only tiles.
+    await dashboard.addTileButton.click();
+    const dialog = page.getByTestId('add-tile-dialog');
+    await expect(dialog).toBeVisible();
+    for (const name of ['Daily Results', 'Weekly Focus', 'Monthly Progress', 'Outstanding To‑Dos', 'Relations', 'Consistency Trend', 'Live Goal Metrics']) {
+      await expect(dialog.getByRole('button', { name })).toBeVisible();
+    }
+    // Review Goal History is review-only and must not appear in live mode.
+    await expect(dialog.getByRole('button', { name: 'Review Goal History' })).toHaveCount(0);
+    await page.getByTestId('add-tile-dialog-cancel').click();
   });
 
   test('toggles edit layout mode and exposes tile chrome', async () => {
@@ -118,13 +117,12 @@ test.describe('dashboard shell', () => {
     expect(await dashboard.persistedTileCount()).toBe(4);
   });
 
-  test('resets the dashboard to the default plugin layout', async () => {
+  test('edit mode remove returns correct tile count', async () => {
     await dashboard.enterEditMode();
     await dashboard.removeFirstTile();
+    await dashboard.exitEditMode();
+
     await expect(dashboard.tiles).toHaveCount(4);
-
-    await dashboard.resetLayout();
-
-    await dashboard.expectDefaultDashboard();
+    expect(await dashboard.persistedTileCount()).toBe(4);
   });
 });

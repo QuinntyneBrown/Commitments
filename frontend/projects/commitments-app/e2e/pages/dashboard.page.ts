@@ -17,10 +17,7 @@ export class DashboardPage {
   readonly grid: Locator;
   readonly tiles: Locator;
   readonly tileTitles: Locator;
-  readonly tileSelect: Locator;
-  readonly tileOptions: Locator;
   readonly addTileButton: Locator;
-  readonly resetLayoutButton: Locator;
   readonly removeTileButtons: Locator;
   readonly editModeEnterButton: Locator;
   readonly editModeDoneButton: Locator;
@@ -32,10 +29,7 @@ export class DashboardPage {
     this.grid = page.getByTestId('dashboard-grid');
     this.tiles = page.getByTestId('dashboard-tile');
     this.tileTitles = page.getByTestId('tile-title');
-    this.tileSelect = page.getByTestId('tile-select');
-    this.tileOptions = this.tileSelect.locator('option');
     this.addTileButton = page.getByTestId('add-tile-fab');
-    this.resetLayoutButton = page.getByTestId('reset-layout');
     this.removeTileButtons = page.getByTestId('remove-tile');
     this.editModeEnterButton = page.getByTestId('edit-mode-enter');
     this.editModeDoneButton = page.getByTestId('edit-mode-done');
@@ -72,8 +66,9 @@ export class DashboardPage {
   }
 
   async addTile(displayName: string) {
-    await this.tileSelect.selectOption({ label: displayName });
     await this.addTileButton.click();
+    await this.page.getByTestId('add-tile-dialog').getByRole('button', { name: displayName }).click();
+    await this.page.getByTestId('add-tile-dialog-confirm').click();
   }
 
   async enterEditMode() {
@@ -90,10 +85,6 @@ export class DashboardPage {
 
   async removeFirstTile() {
     await this.removeTileButtons.first().click();
-  }
-
-  async resetLayout() {
-    await this.resetLayoutButton.click();
   }
 
   async reloadWithoutClearingStorage() {

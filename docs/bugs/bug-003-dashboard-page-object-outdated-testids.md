@@ -1,6 +1,6 @@
 # Bug 003 — DashboardPage page object uses outdated testids
 
-**Status**: Open
+**Status**: Fixed
 
 ## Description
 
