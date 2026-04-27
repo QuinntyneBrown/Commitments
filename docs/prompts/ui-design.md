@@ -9,11 +9,21 @@ Exercise the flow in the browser.
 
 While exercising the flow, verify
 
-    - the UI is as close to C:\projects\Commitments\docs\ui-design.pen and design system as much as possible
+    - prioritize major structural issues
 
-    - UI components are using Angular material and mostly from C:\projects\Commitments\frontend\projects\commitments-ui
+        - Are the correct components implemented and same as C:\projects\Commitments\docs\ui-design.pen
 
-    - padding, margins, fonts, colors, layout etc... is indentical to C:\projects\Commitments\docs\ui-design.pen and design system as much as possible
+        - Are the same buttons, links, menu options the same as C:\projects\Commitments\docs\ui-design.pen
+
+        - Are all the links triggering the correct behaviour
+
+    - secondary, look for detailed implementation
+
+        - the UI is as close to C:\projects\Commitments\docs\ui-design.pen and design system as much as possible
+
+        - UI components are using Angular material and mostly from C:\projects\Commitments\frontend\projects\commitments-ui
+
+        - padding, margins, fonts, colors, layout etc... is indentical to C:\projects\Commitments\docs\ui-design.pen and design system as much as possible
 
 
 Log any bugs in C:\projects\Commitments\frontend\docs\bugs
