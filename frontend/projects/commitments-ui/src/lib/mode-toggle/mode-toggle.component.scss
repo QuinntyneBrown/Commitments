@@ -50,3 +50,7 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.mode-toggle ::ng-deep .mat-pseudo-checkbox {
+  display: none;
+}
