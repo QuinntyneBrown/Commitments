@@ -158,6 +158,39 @@ public class GoalProgressUpdatedRealtimeNotifierTests : IDisposable
     }
 
     [Fact]
+    public async Task HandleAsync_PublishesOncePerMatchingCommitment()
+    {
+        var secondCommitmentId = Guid.NewGuid();
+        SeedCommitmentAndActivities(activityCount: 3);
+        _ctx.Commitments.Add(new Commitment
+        {
+            CommitmentId = secondCommitmentId,
+            BehaviourId = _behaviourId,
+            ProfileId = _profileId
+        });
+        _ctx.SaveChanges();
+
+        var notifier = CreateNotifier();
+        await notifier.HandleAsync(new ActivityRecordedEvent
+        {
+            ActivityId = Guid.NewGuid(),
+            BehaviourId = _behaviourId,
+            ProfileId = _profileId,
+            PerformedOn = DateTimeOffset.UtcNow,
+            Reason = ActivityChangeReason.Created
+        });
+
+        _publisher.Verify(p => p.PublishToProfileAsync(
+            _profileId, "goalProgressUpdated",
+            It.Is<GoalProgressUpdatedPayload>(x => x.GoalId == _commitmentId),
+            It.IsAny<Guid?>(), It.IsAny<CancellationToken>()), Times.Once);
+        _publisher.Verify(p => p.PublishToProfileAsync(
+            _profileId, "goalProgressUpdated",
+            It.Is<GoalProgressUpdatedPayload>(x => x.GoalId == secondCommitmentId),
+            It.IsAny<Guid?>(), It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+    [Fact]
     public async Task StartAsync_SubscribesToActivityRecordedEventOnTheBus()
     {
         var notifier = CreateNotifier();

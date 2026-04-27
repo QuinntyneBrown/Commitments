@@ -36,10 +36,11 @@ public sealed class GoalProgressUpdatedRealtimeNotifier : IHostedService
         using var scope = _scopeFactory.CreateScope();
         var ctx = scope.ServiceProvider.GetRequiredService<ICommitmentsDbContext>();
 
-        var commitment = await ctx.Commitments
-            .FirstOrDefaultAsync(c => c.BehaviourId == evt.BehaviourId && c.ProfileId == evt.ProfileId);
+        var commitments = await ctx.Commitments
+            .Where(c => c.BehaviourId == evt.BehaviourId && c.ProfileId == evt.ProfileId)
+            .ToListAsync();
 
-        if (commitment is null)
+        if (commitments.Count == 0)
         {
             _log.LogDebug("No commitment for behaviour {BehaviourId} on profile {ProfileId}; skipping push",
                 evt.BehaviourId, evt.ProfileId);
@@ -47,21 +48,29 @@ public sealed class GoalProgressUpdatedRealtimeNotifier : IHostedService
         }
 
         var count = await ctx.Activities
-            .Where(a => a.ProfileId == evt.ProfileId && a.BehaviourId == commitment.BehaviourId)
+            .Where(a => a.ProfileId == evt.ProfileId && a.BehaviourId == evt.BehaviourId)
             .CountAsync();
 
-        var payload = new GoalProgressUpdatedPayload(
-            GoalId: commitment.CommitmentId,
-            BehaviourId: evt.BehaviourId,
-            Count: count,
-            Target: DefaultTarget,
-            Percent: ClampPercent(count, DefaultTarget),
-            AsOf: DateTimeOffset.UtcNow,
-            Date: DateOnly.FromDateTime(evt.PerformedOn.UtcDateTime),
-            Reason: ReasonString(evt.Reason),
-            SourceActivityId: evt.ActivityId);
+        var asOf = DateTimeOffset.UtcNow;
+        var date = DateOnly.FromDateTime(evt.PerformedOn.UtcDateTime);
+        var reason = ReasonString(evt.Reason);
+        var percent = ClampPercent(count, DefaultTarget);
 
-        await _publisher.PublishToProfileAsync(evt.ProfileId, "goalProgressUpdated", payload);
+        foreach (var commitment in commitments)
+        {
+            var payload = new GoalProgressUpdatedPayload(
+                GoalId: commitment.CommitmentId,
+                BehaviourId: evt.BehaviourId,
+                Count: count,
+                Target: DefaultTarget,
+                Percent: percent,
+                AsOf: asOf,
+                Date: date,
+                Reason: reason,
+                SourceActivityId: evt.ActivityId);
+
+            await _publisher.PublishToProfileAsync(evt.ProfileId, "goalProgressUpdated", payload);
+        }
     }
 
     private static int ClampPercent(int count, int target)
