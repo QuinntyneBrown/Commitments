@@ -6,6 +6,26 @@
 
   <span class="review-scrubber__date" data-testid="review-scrubber-date">{{ controller.selectedDateLabel() }}</span>
 
+  <div class="review-scrubber__track">
+    <input
+      type="range"
+      class="review-scrubber__slider"
+      data-testid="review-scrubber-slider"
+      role="slider"
+      [attr.aria-valuemin]="0"
+      [attr.aria-valuemax]="controller.windowDays() - 1"
+      [attr.aria-valuenow]="controller.selectedIndex()"
+      [attr.min]="0"
+      [attr.max]="controller.windowDays() - 1"
+      [value]="controller.selectedIndex()"
+      (input)="onSliderInput($event)" />
+    <div class="review-scrubber__ticks" aria-hidden="true">
+      @for (label of controller.tickLabels(); track $index) {
+        <span class="review-scrubber__tick">{{ label }}</span>
+      }
+    </div>
+  </div>
+
   <cui-icon-button
     icon="chevron_left"
     ariaLabel="Previous day"
@@ -27,26 +47,6 @@
     data-testid="review-scrubber-next"
     (click)="controller.next()">
   </cui-icon-button>
-
-  <div class="review-scrubber__track">
-    <input
-      type="range"
-      class="review-scrubber__slider"
-      data-testid="review-scrubber-slider"
-      role="slider"
-      [attr.aria-valuemin]="0"
-      [attr.aria-valuemax]="controller.windowDays() - 1"
-      [attr.aria-valuenow]="controller.selectedIndex()"
-      [attr.min]="0"
-      [attr.max]="controller.windowDays() - 1"
-      [value]="controller.selectedIndex()"
-      (input)="onSliderInput($event)" />
-    <div class="review-scrubber__ticks" aria-hidden="true">
-      @for (label of controller.tickLabels(); track $index) {
-        <span class="review-scrubber__tick">{{ label }}</span>
-      }
-    </div>
-  </div>
 
   <button
     type="button"
