@@ -41,4 +41,8 @@ export class LoginPage {
   bodyFontFamily(): Promise<string> {
     return this.page.evaluate(() => getComputedStyle(document.body).fontFamily);
   }
+
+  cardBorderRadius(): Promise<string> {
+    return this.page.locator('mat-card').first().evaluate((el) => getComputedStyle(el).borderRadius);
+  }
 }

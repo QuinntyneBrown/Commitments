@@ -40,4 +40,8 @@ test.describe('login page', () => {
     const family = await login.bodyFontFamily();
     expect(family.toLowerCase()).toContain('inter');
   });
+
+  test('card uses the medium radius token (8px) from the design', async () => {
+    expect(await login.cardBorderRadius()).toBe('8px');
+  });
 });
