@@ -2,7 +2,7 @@
 
 ## Status
 
-OPEN — `npx playwright test --project=tablet` (no explicit `--workers`).
+FIXED — `workers: 2` in dev verified across all three viewports (57/57 each).
 
 ## Symptom
 
@@ -38,15 +38,17 @@ boot is slightly heavier.
 
 ## Fix
 
-Cap dev workers at 4 — verified passing for the tablet suite, still
-parallel enough to be fast on lg/xl. CI keeps `workers: 1`.
+Cap dev workers at 2 — `4` was enough for tablet but xl still
+flaked (12/57 timeouts). `2` is the safe ceiling across all three
+viewports while staying parallel. CI keeps `workers: 1`.
 
 ```ts
-workers: process.env.CI ? 1 : 4,
+workers: process.env.CI ? 1 : 2,
 ```
 
 ## Resolution
 
-- [ ] Failing run verified pre-fix (44/57 timeouts at default workers).
-- [ ] Config updated.
-- [ ] Tablet suite verified passing at the new cap.
+- [x] Failing run verified pre-fix (44/57 timeouts at default workers).
+- [x] Config updated to `workers: 2` with an inline comment.
+- [x] All three viewports verified passing at the new cap (tablet 57/57,
+      lg 57/57, xl 57/57).

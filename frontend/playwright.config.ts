@@ -8,6 +8,8 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
+  // Dev cap at 2 — higher counts overwhelm the single Angular dev
+  // server and time out tablet/xl runs (see frontend/docs/bugs/062).
   workers: process.env.CI ? 1 : 2,
   reporter: [
     ['html'],
