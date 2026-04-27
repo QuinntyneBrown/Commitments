@@ -1,7 +1,26 @@
-<commitments-tile-shell title="Weekly Focus" eyebrow="This week" icon="date_range">
-  <ul class="focus-list">
-    <li><strong>Move</strong><span>5 sessions planned</span></li>
-    <li><strong>Read</strong><span>3 sessions planned</span></li>
-    <li><strong>Reflect</strong><span>2 notes pending</span></li>
-  </ul>
+<commitments-tile-shell
+  title="Weekly Focus"
+  [eyebrow]="controller.weekLabel() || 'This week'"
+  icon="date_range"
+  variant="metric"
+  data-testid="weekly-focus-tile"
+>
+  <cui-status-pill
+    [variant]="controller.mode()"
+    [pulse]="controller.mode() === 'live'"
+    [label]="statusLabel()"
+  ></cui-status-pill>
+
+  @if (controller.focusAreas().length === 0) {
+    <p class="empty">No focus set for this week.</p>
+  } @else {
+    <ul class="focus-list">
+      @for (item of controller.focusAreas(); track item.rank) {
+        <li>
+          <strong>{{ item.name }}</strong>
+          <span>{{ item.supportingMetric }}</span>
+        </li>
+      }
+    </ul>
+  }
 </commitments-tile-shell>
