@@ -43,10 +43,13 @@
 
   <span class="review-scrubber__date" data-testid="review-scrubber-date">{{ controller.selectedDate() }}</span>
 
-  <cui-icon-button
-    icon="today"
-    ariaLabel="Jump to today"
+  <button
+    type="button"
+    class="review-scrubber__today"
     data-testid="review-scrubber-today"
+    aria-label="Jump to today"
     (click)="controller.jumpToToday()">
-  </cui-icon-button>
+    <span class="material-symbols-rounded">today</span>
+    <span class="review-scrubber__today-label">Today</span>
+  </button>
 </div>
