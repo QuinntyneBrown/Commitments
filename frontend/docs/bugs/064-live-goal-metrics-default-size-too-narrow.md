@@ -2,9 +2,8 @@
 
 ## Status
 
-OPEN — surfaced via visual capture
-(`frontend/docs/bugs/screenshots/live-goal-metrics-tile-1280.png`) compared
-against design frame `o0BgI` (`Real-Time-Metric-Tile`).
+FIXED — bars container went from 159px → 411px wide; full lg-desktop
+e2e 57/57.
 
 ## Symptom
 
@@ -41,6 +40,11 @@ This only affects newly-added tile instances; persisted layouts in
 
 ## Resolution
 
-- [ ] Visual screenshot captured pre-fix.
-- [ ] defaultSize updated.
-- [ ] Re-screenshot post-fix shows full bar chart.
+- [x] Visual screenshot captured pre-fix (203px-tall content in 150px cell;
+      bars 159px wide).
+- [x] Two changes:
+      1. `.tile-shell { width: 100% }` — surfaced while auditing; the mat-card
+         was content-sized, so even a wide cell didn't widen the body.
+      2. live-goal-metrics-tile `defaultSize: { cols: 6, rows: 3 }` — matches
+         the chart-tile aspect of design `o0BgI`.
+- [x] Bars container now 411px wide (was 159); 57/57 e2e on lg-desktop.
