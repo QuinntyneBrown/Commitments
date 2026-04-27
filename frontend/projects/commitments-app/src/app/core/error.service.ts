@@ -20,12 +20,13 @@ export class ErrorService {
   public handle$(
     httpErrorResponse: HttpErrorResponse,
     message: string = 'Error',
-    action: string = 'An error occurred. Try it again.'
+    action: string = 'Dismiss'
   ) {
     return this.translations$([message, action]).pipe(
       map(translations =>
         this._snackBar.open(translations[message], translations[action], {
-          duration: 0
+          duration: 0,
+          panelClass: ['snackbar--error']
         })
       )
     );
