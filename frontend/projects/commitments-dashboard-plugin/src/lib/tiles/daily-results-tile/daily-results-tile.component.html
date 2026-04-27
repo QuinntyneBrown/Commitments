@@ -1,9 +1,29 @@
-<commitments-tile-shell title="Daily Results" eyebrow="Today" icon="today" [status]="status()">
+<commitments-tile-shell
+  title="Daily Results"
+  eyebrow="Today"
+  icon="today"
+  variant="metric"
+  data-testid="daily-results-tile"
+>
+  <cui-status-pill
+    [variant]="statusVariant()"
+    [pulse]="statusVariant() === 'live'"
+    [label]="statusLabel()"
+  ></cui-status-pill>
+
   <div class="metric">
-    <span class="metric__value">7 / 9</span>
+    <span class="metric__value">{{ controller.completed() }} / {{ controller.total() }}</span>
     <span class="metric__label">commitments completed</span>
   </div>
-  <div class="progress" role="progressbar" aria-label="Daily progress" aria-valuemin="0" aria-valuemax="9" aria-valuenow="7">
-    <span style="width: 78%"></span>
+
+  <div
+    class="progress"
+    role="progressbar"
+    aria-label="Daily progress"
+    aria-valuemin="0"
+    [attr.aria-valuemax]="controller.total()"
+    [attr.aria-valuenow]="controller.completed()"
+  >
+    <span [style.width.%]="controller.percentage()"></span>
   </div>
 </commitments-tile-shell>

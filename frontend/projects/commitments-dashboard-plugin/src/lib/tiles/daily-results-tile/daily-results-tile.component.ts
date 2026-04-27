@@ -1,12 +1,24 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { TILE_CONTEXT, TileContext, TileMetadata } from '@commitments/dashboard-framework';
-import { TileShellComponent } from '@commitments/ui';
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import {
+  TILE_CONTEXT,
+  TileContext,
+  TileMetadata,
+  bindTileMode
+} from '@commitments/dashboard-framework';
+import { StatusPillComponent, TileShellComponent } from '@commitments/ui';
+
+import { DailyResultsService } from '../../data/daily-results.service';
+import { DailyResultsController } from './daily-results.controller';
 
 @Component({
   selector: 'commitments-daily-results-tile',
   standalone: true,
-  imports: [TileShellComponent],
+  imports: [TileShellComponent, StatusPillComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [DailyResultsController],
   templateUrl: './daily-results-tile.component.html',
   styleUrls: ['./daily-results-tile.component.scss']
 })
@@ -19,13 +31,21 @@ export class DailyResultsTileComponent {
     category: 'Commitments',
     defaultSize: { cols: 3, rows: 2 },
     defaultPosition: { x: 0, y: 0 },
-    includeByDefault: true
+    includeByDefault: true,
+    supportedModes: ['live', 'review']
   };
 
+  private readonly _service = inject(DailyResultsService);
   private readonly _tileContext = inject(TILE_CONTEXT, { optional: true }) as TileContext | null;
-  private readonly _fallbackMode = signal<'live' | 'review'>('live').asReadonly();
+  protected readonly controller = inject(DailyResultsController);
 
-  protected readonly status = computed(() =>
-    (this._tileContext?.mode ?? this._fallbackMode)() === 'review' ? 'Review' : 'Live'
-  );
+  protected readonly statusVariant = computed(() => this.controller.mode());
+  protected readonly statusLabel = computed(() => this.controller.mode().toUpperCase());
+
+  constructor() {
+    bindTileMode({
+      context: this._tileContext,
+      load: (mode, asOf) => this.controller.load(mode, asOf)
+    });
+  }
 }

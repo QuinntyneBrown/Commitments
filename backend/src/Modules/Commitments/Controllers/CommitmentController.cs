@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments.Features.Commitment;
+using Commitments.Features.GoalProgress;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -69,4 +70,21 @@ public class CommitmentController
     [ProducesResponseType(typeof(GetDailyCommitmentsResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetDailyCommitmentsResponse>> GetDaily()
         => await _sender.Send(new GetDailyCommitmentsRequest() { ProfileId = _httpContextAccessor.GetProfileId() });
+
+    [HttpGet("daily-results")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetDailyResultsResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetDailyResultsResponse>> GetDailyResults([FromQuery] DateTimeOffset? asOf)
+    {
+        var response = _httpContextAccessor.HttpContext?.Response;
+        if (response is not null)
+            response.Headers.CacheControl = CacheControlPolicy.For(asOf, DateTimeOffset.UtcNow);
+
+        return await _sender.Send(new GetDailyResultsRequest
+        {
+            ProfileId = _httpContextAccessor.GetProfileId(),
+            AsOf = asOf
+        });
+    }
 }
