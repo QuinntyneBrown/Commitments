@@ -1,6 +1,8 @@
 # 04 — Sidenav: add left sidebar with active/hover states
 
-**Status: ACCEPTED**
+**Status: COMPLETE**
+
+> Already implemented in `frontend/projects/commitments-app/src/app/components/dashboard-layout/`. Width 250, `--cui-sidenav` background, padding-top 20, right border `--cui-divider`, hamburger toggle (4.1); 12 nav items in design order (4.2); height 48 / padding 16 / gap 16 / Material Symbols 20px / Inter 14 (4.3); active state `#9FA8DA22` + 3px left `--cui-primary` (4.4); hover `--cui-hover-overlay` (4.5); icons match the specified set (4.6); every nav route wired in `app.routes.ts` (4.7).
 
 **Design**: `Mat-Sidenav` (`1WUcZ`), width **250**, background `$sidenav` (#181A24), padding `[20, 0, 0, 0]`, right border 1px `$divider`. Items use:
 - `Mat-SidenavItem` (`ZOXJ0`): height 48, padding `[0, 16]`, gap 16, transparent background. Icon (Material Symbols Rounded, 20×20, `$text-secondary`) + label (Inter, `$fs-body`/14, normal, `$text-primary`).
