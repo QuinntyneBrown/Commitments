@@ -22,4 +22,8 @@ export class LoginPage {
   bodyBackgroundColor(): Promise<string> {
     return this.page.evaluate(() => getComputedStyle(document.body).backgroundColor);
   }
+
+  cardWidth(): Promise<number> {
+    return this.page.locator('mat-card').first().evaluate((el) => el.getBoundingClientRect().width);
+  }
 }

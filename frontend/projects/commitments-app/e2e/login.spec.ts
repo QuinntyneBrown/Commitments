@@ -21,4 +21,8 @@ test.describe('login page', () => {
   test('renders on the dark app background from the design tokens', async () => {
     expect(await login.bodyBackgroundColor()).toBe(DESIGN_BG);
   });
+
+  test('card width matches the LG design (480px)', async () => {
+    expect(await login.cardWidth()).toBe(480);
+  });
 });
