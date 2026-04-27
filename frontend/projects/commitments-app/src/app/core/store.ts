@@ -2,19 +2,29 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 import { Injectable, inject } from '@angular/core';
-import { HubClient } from './hub-client';
-import { Tag } from '../models/tag';
 import { BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { HubClient } from './hub-client';
 import { Note } from '../models/note';
-import { filter } from 'rxjs';
+import { Tag } from '../models/tag';
+
+export interface NoteSavedPayload { noteId: string; title: string; kind: 'Created' | 'Updated'; }
+export interface NoteRemovedPayload { noteId: string; }
+export interface TagSavedPayload { tagId: string; name: string; }
+export interface TagRemovedPayload { tagId: string; }
 
 @Injectable({ providedIn: 'root' })
 export class Store {
-  private readonly _hubClient = inject(HubClient);
+  private readonly _hubClient: HubClient;
 
   public note$: BehaviorSubject<Note> = new BehaviorSubject(<Note>{});
   public notes$: BehaviorSubject<Array<Note>> = new BehaviorSubject([]);
   public tags$: BehaviorSubject<Array<Tag>> = new BehaviorSubject([]);
+
+  constructor(hubClient: HubClient = inject(HubClient)) {
+    this._hubClient = hubClient;
+  }
 
   public handleTagSaved(payload: { tag: Tag }) {
     this.tags$.next([...this.tags$.value, payload.tag]);
@@ -28,18 +38,22 @@ export class Store {
   }
 
   public get savedNotes$() {
-    return this._hubClient.messages$.pipe(filter(x => x.type == '[Note] Saved'));
+    return this._hubClient.on<NoteSavedPayload>('noteSaved')
+      .pipe(map(p => ({ note: { noteId: p.noteId, title: p.title } })));
   }
 
   public get removedNotes$() {
-    return this._hubClient.messages$.pipe(filter(x => x.type == '[Note] Removed'));
+    return this._hubClient.on<NoteRemovedPayload>('noteRemoved')
+      .pipe(map(p => ({ noteId: p.noteId })));
   }
 
   public get savedTags$() {
-    return this._hubClient.messages$.pipe(filter(x => x.type == '[Tag] Saved'));
+    return this._hubClient.on<TagSavedPayload>('tagSaved')
+      .pipe(map(p => ({ tag: { tagId: p.tagId, name: p.name } })));
   }
 
   public get removedTags$() {
-    return this._hubClient.messages$.pipe(filter(x => x.type == '[Tag] Removed'));
+    return this._hubClient.on<TagRemovedPayload>('tagRemoved')
+      .pipe(map(p => ({ tagId: p.tagId })));
   }
 }

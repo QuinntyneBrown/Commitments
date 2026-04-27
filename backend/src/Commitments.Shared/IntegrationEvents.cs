@@ -62,3 +62,30 @@ public enum ChangeKind
     Removed,
     Completed
 }
+
+public class NoteSavedEvent : IntegrationEvent
+{
+    public Guid NoteId { get; set; }
+    public Guid ProfileId { get; set; }
+    public string Title { get; set; } = null!;
+    public ChangeKind Kind { get; set; }
+}
+
+public class NoteRemovedEvent : IntegrationEvent
+{
+    public Guid NoteId { get; set; }
+    public Guid ProfileId { get; set; }
+}
+
+public class TagSavedEvent : IntegrationEvent
+{
+    public Guid TagId { get; set; }
+    public Guid ProfileId { get; set; }
+    public string Name { get; set; } = null!;
+}
+
+public class TagRemovedEvent : IntegrationEvent
+{
+    public Guid TagId { get; set; }
+    public Guid ProfileId { get; set; }
+}
