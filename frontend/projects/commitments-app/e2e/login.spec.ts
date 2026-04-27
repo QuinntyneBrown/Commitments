@@ -52,4 +52,8 @@ test.describe('login page', () => {
   test('"Login" mat-card-title uses the secondary text token (#B0B0B0)', async () => {
     expect(await login.cardTitleColor()).toBe('rgb(176, 176, 176)');
   });
+
+  test('card uses the floating shadow token from the design', async () => {
+    expect(await login.cardBoxShadow()).toContain('rgba(0, 0, 0, 0.6) 0px 6px 12px');
+  });
 });
