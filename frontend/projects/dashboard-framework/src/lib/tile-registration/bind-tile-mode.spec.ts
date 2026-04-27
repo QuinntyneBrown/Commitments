@@ -1,8 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, runInInjectionContext, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Subject } from 'rxjs';
 
-import { bindTileMode } from './bind-tile-mode';
+import { bindTileMode, BindTileModeOptions } from './bind-tile-mode';
 import { DashboardMode, TileContext } from './tile.model';
 
 function makeContext(overrides?: Partial<TileContext>): TileContext {
@@ -27,11 +27,11 @@ function makeContext(overrides?: Partial<TileContext>): TileContext {
 @Component({ standalone: true, template: '' })
 class HostComponent {}
 
-function bindInHost(opts: Parameters<typeof bindTileMode>[0]): { destroy: () => void } {
+function mount(opts: BindTileModeOptions) {
   const fixture = TestBed.createComponent(HostComponent);
-  TestBed.runInInjectionContext(() => bindTileMode(opts));
+  runInInjectionContext(fixture.componentRef.injector, () => bindTileMode(opts));
   fixture.detectChanges();
-  return { destroy: () => fixture.destroy() };
+  return fixture;
 }
 
 describe('bindTileMode', () => {
@@ -41,9 +41,7 @@ describe('bindTileMode', () => {
 
   it('calls load(mode, asOf) once on first invocation', () => {
     const load = jest.fn();
-    const context = makeContext();
-
-    bindInHost({ context, load });
+    mount({ context: makeContext(), load });
 
     expect(load).toHaveBeenCalledTimes(1);
     expect(load).toHaveBeenCalledWith('live', null);
@@ -51,8 +49,7 @@ describe('bindTileMode', () => {
 
   it('treats null context as live mode with no review date', () => {
     const load = jest.fn();
-
-    bindInHost({ context: null, load });
+    mount({ context: null, load });
 
     expect(load).toHaveBeenCalledTimes(1);
     expect(load).toHaveBeenCalledWith('live', null);
@@ -61,13 +58,11 @@ describe('bindTileMode', () => {
   it('calls load when context.mode() changes', () => {
     const load = jest.fn();
     const mode = signal<DashboardMode>('live');
-    const context = makeContext({ mode: mode.asReadonly() });
-
-    bindInHost({ context, load });
+    const fixture = mount({ context: makeContext({ mode: mode.asReadonly() }), load });
     load.mockClear();
 
     mode.set('review');
-    TestBed.tick();
+    fixture.detectChanges();
 
     expect(load).toHaveBeenCalledWith('review', null);
   });
@@ -75,13 +70,14 @@ describe('bindTileMode', () => {
   it('calls load when context.selectedReviewDate() changes', () => {
     const load = jest.fn();
     const date = signal<string | null>(null);
-    const context = makeContext({ selectedReviewDate: date.asReadonly() });
-
-    bindInHost({ context, load });
+    const fixture = mount({
+      context: makeContext({ selectedReviewDate: date.asReadonly() }),
+      load
+    });
     load.mockClear();
 
     date.set('2026-04-15T18:30:00Z');
-    TestBed.tick();
+    fixture.detectChanges();
 
     expect(load).toHaveBeenCalledWith('live', '2026-04-15T18:30:00Z');
   });
@@ -89,9 +85,7 @@ describe('bindTileMode', () => {
   it('calls load when refresh$ emits', () => {
     const load = jest.fn();
     const refresh$ = new Subject<void>();
-    const context = makeContext({ refresh$: refresh$.asObservable() });
-
-    bindInHost({ context, load });
+    mount({ context: makeContext({ refresh$: refresh$.asObservable() }), load });
     load.mockClear();
 
     refresh$.next();
@@ -102,9 +96,7 @@ describe('bindTileMode', () => {
   it('calls load when invalidations$ emits', () => {
     const load = jest.fn();
     const invalidations$ = new Subject<unknown>();
-    const context = makeContext();
-
-    bindInHost({ context, invalidations$: invalidations$.asObservable(), load });
+    mount({ context: makeContext(), invalidations$: invalidations$.asObservable(), load });
     load.mockClear();
 
     invalidations$.next('something');
@@ -115,10 +107,11 @@ describe('bindTileMode', () => {
   it('stops calling load after the host is destroyed', () => {
     const load = jest.fn();
     const refresh$ = new Subject<void>();
-    const context = makeContext({ refresh$: refresh$.asObservable() });
-
-    const handle = bindInHost({ context, load });
-    handle.destroy();
+    const fixture = mount({
+      context: makeContext({ refresh$: refresh$.asObservable() }),
+      load
+    });
+    fixture.destroy();
     load.mockClear();
 
     refresh$.next();

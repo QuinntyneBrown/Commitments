@@ -1,5 +1,22 @@
 import { Injectable, Signal, signal } from '@angular/core';
+import { MisconfiguredTileError } from './misconfigured-tile-error';
 import { DashboardMode, TileDescriptor } from './tile.model';
+
+const REQUIRED_MODES: ReadonlyArray<DashboardMode> = ['live', 'review'];
+
+function validateSupportedModes(descriptor: TileDescriptor): void {
+  const modes = descriptor.supportedModes;
+  if (!modes) return;
+
+  const set = new Set(modes);
+  const matches = modes.length === REQUIRED_MODES.length && REQUIRED_MODES.every((m) => set.has(m));
+  if (!matches) {
+    throw new MisconfiguredTileError(
+      descriptor.tileId,
+      `supportedModes must be omitted or exactly ['live','review']; got ${JSON.stringify(modes)}`
+    );
+  }
+}
 
 function supports(descriptor: TileDescriptor, mode: DashboardMode): boolean {
   return !descriptor.supportedModes || descriptor.supportedModes.includes(mode);
@@ -20,6 +37,8 @@ export class TileRegistryService {
       return;
     }
 
+    validateSupportedModes(descriptor);
+
     this.byId.set(descriptor.tileId, descriptor);
     this.descriptors.update((tiles) => [...tiles, descriptor]);
   }
@@ -33,6 +52,6 @@ export class TileRegistryService {
   }
 
   tilesForMode(mode: DashboardMode): TileDescriptor[] {
-    return this.descriptors().filter(d => supports(d, mode));
+    return this.descriptors().filter((d) => supports(d, mode));
   }
 }
