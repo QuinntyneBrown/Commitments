@@ -46,22 +46,25 @@ gridster-item {
 .tile-chrome__drag {
   display: inline-flex;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
   padding: 0 6px;
   height: 20px;
   border-radius: var(--cui-radius-sm, 4px);
-  background: var(--cui-accent);
   color: var(--cui-on-accent, #fff);
-  cursor: grab;
+  background: var(--cui-accent);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  pointer-events: none;
+}
 
-  .material-symbols-rounded { font-size: 16px; }
+.tile-chrome__drag-icon {
+  font-size: 14px;
+  line-height: 1;
 }
 
 .tile-chrome__drag-label {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+  line-height: 1;
 }
 
 .tile-chrome__remove {
@@ -71,13 +74,14 @@ gridster-item {
   width: 22px;
   height: 22px;
   border: none;
-  border-radius: 50%;
+  border-radius: var(--cui-radius-full, 9999px);
+  color: var(--cui-on-accent, #fff);
   background: var(--cui-warn);
-  color: #fff;
   cursor: pointer;
   pointer-events: auto;
 
-  .material-symbols-rounded { font-size: 14px; }
+.tile-chrome__remove .material-symbols-rounded {
+  font-size: 16px;
 }
 
 .dashboard-grid__empty {
