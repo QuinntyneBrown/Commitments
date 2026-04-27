@@ -5,7 +5,7 @@ import { Injectable, NgZone, inject, Inject } from '@angular/core';
 import { Subject } from 'rxjs';
 import { HubConnection, HubConnectionBuilder, IHttpConnectionOptions } from '@microsoft/signalr';
 import { LocalStorageService } from './local-storage.service';
-import { accessTokenKey, baseUrl } from './constants';
+import { accessTokenKey, baseUrl, currentProfileIdKey } from './constants';
 
 @Injectable({ providedIn: 'root' })
 export class HubClient {
@@ -23,8 +23,10 @@ export class HubClient {
     this._connect = new Promise<void>(resolve => {
       const options: IHttpConnectionOptions = {};
 
+      const token = this._storage.get({ name: accessTokenKey });
+      const profileId = this._storage.get({ name: currentProfileIdKey });
       this._connection = this._connection || new HubConnectionBuilder()
-        .withUrl(`${this._baseUrl}hub?token=${this._storage.get({ name: accessTokenKey })}`, options)
+        .withUrl(`${this._baseUrl}hub?token=${token}&profileId=${profileId}`, options)
         .build();
 
       this._connection.on('message', value => {

@@ -13,4 +13,10 @@ public static class HttpContextAccessorExtensions
 
         return new Guid(profileId);
     }
+
+    public static bool TryGetProfileId(this HttpContext context, out Guid profileId)
+    {
+        var raw = context.Request.Headers["ProfileId"].FirstOrDefault();
+        return Guid.TryParse(raw, out profileId) && profileId != Guid.Empty;
+    }
 }

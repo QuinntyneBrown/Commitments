@@ -1,6 +1,6 @@
 # 13 — SignalR Hub Foundation — Detailed Design
 
-**Status:** Accepted
+**Status:** Complete
 
 ## 1. Overview
 

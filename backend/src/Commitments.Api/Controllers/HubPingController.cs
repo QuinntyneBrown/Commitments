@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Commitments.Api.Hubs;
+using Commitments.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -30,8 +31,7 @@ public sealed class HubPingController : ControllerBase
     {
         if (!_env.IsDevelopment()) return NotFound();
 
-        var raw = _http.HttpContext!.Request.Headers["ProfileId"].FirstOrDefault();
-        if (!Guid.TryParse(raw, out var profileId) || profileId == Guid.Empty)
+        if (!_http.HttpContext!.TryGetProfileId(out var profileId))
             return BadRequest("Missing ProfileId");
 
         var group = $"profile:{profileId:D}".ToLowerInvariant();

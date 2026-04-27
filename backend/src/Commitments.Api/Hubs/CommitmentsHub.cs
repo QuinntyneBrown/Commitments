@@ -1,3 +1,4 @@
+using Commitments.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
@@ -17,8 +18,7 @@ public sealed class CommitmentsHub : Hub
 
     public override async Task OnConnectedAsync()
     {
-        var raw = _http.HttpContext?.Request.Headers["ProfileId"].FirstOrDefault();
-        if (!Guid.TryParse(raw, out var profileId) || profileId == Guid.Empty)
+        if (_http.HttpContext is null || !_http.HttpContext.TryGetProfileId(out var profileId))
         {
             _log.LogWarning("Hub connect rejected: missing/invalid ProfileId for {ConnectionId}", Context.ConnectionId);
             Context.Abort();
