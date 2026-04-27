@@ -3,6 +3,8 @@
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const MONTH_FULL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const WEEKDAY = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 function parseIsoDate(iso: string): Date {
   const [y, m, d] = iso.split('-').map(Number);
@@ -34,6 +36,11 @@ export function indexOfDate(start: string, date: string): number {
 }
 
 const MIN_TICK_PX = 64;
+
+export function formatFullDate(iso: string): string {
+  const date = parseIsoDate(iso);
+  return `${WEEKDAY[date.getUTCDay()]} · ${MONTH_FULL[date.getUTCMonth()]} ${date.getUTCDate()}, ${date.getUTCFullYear()}`;
+}
 
 export function tickLabels(start: string, count: number, slotWidthPx: number): string[] {
   if (count <= 0) return [];

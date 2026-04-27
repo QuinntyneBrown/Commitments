@@ -1,5 +1,6 @@
 import {
   clampIndex,
+  formatFullDate,
   indexOfDate,
   isoDateAtIndex,
   tickLabels
@@ -41,6 +42,16 @@ describe('review-scrubber.helpers', () => {
 
     it('returns the day offset', () => {
       expect(indexOfDate('2026-04-01', '2026-04-10')).toBe(9);
+    });
+  });
+
+  describe('formatFullDate', () => {
+    it('returns weekday · month-name day, year', () => {
+      expect(formatFullDate('2026-04-15')).toBe('Wed · April 15, 2026');
+    });
+
+    it('handles a different weekday', () => {
+      expect(formatFullDate('2026-04-27')).toBe('Mon · April 27, 2026');
     });
   });
 

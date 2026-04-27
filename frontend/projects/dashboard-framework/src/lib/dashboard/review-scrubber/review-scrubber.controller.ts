@@ -5,7 +5,7 @@ import { Inject, Injectable, InjectionToken, Optional, computed, signal } from '
 
 import { DashboardModeService } from '../dashboard-mode.service';
 
-import { clampIndex, indexOfDate, isoDateAtIndex, tickLabels } from './review-scrubber.helpers';
+import { clampIndex, formatFullDate, indexOfDate, isoDateAtIndex, tickLabels } from './review-scrubber.helpers';
 
 const DEFAULT_WINDOW_DAYS = 90;
 
@@ -37,6 +37,8 @@ export class ReviewScrubberController {
   readonly selectedDate = computed(() =>
     this._modeService.selectedReviewDate() ?? this.windowEnd()
   );
+
+  readonly selectedDateLabel = computed(() => formatFullDate(this.selectedDate()));
 
   readonly selectedIndex = computed(() => {
     const idx = indexOfDate(this.windowStart(), this.selectedDate());
