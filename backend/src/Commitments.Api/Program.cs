@@ -2,6 +2,8 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Commitments;
+using Commitments.Api.Hubs;
+using Commitments.Api.Middleware;
 using Commitments.Data;
 using Commitments.Shared;
 using Dashboard;
@@ -68,6 +70,8 @@ try
     {
         mvcBuilder.AddApplicationPart(assembly);
     }
+
+    builder.Services.AddSignalR();
 
     builder.Services.AddApiVersioning(options =>
     {
@@ -139,9 +143,13 @@ try
 
     app.UseHttpsRedirection();
 
+    app.UseMiddleware<JwtQueryStringAuthMiddleware>();
+
     app.UseAuthorization();
 
     app.MapControllers();
+
+    app.MapHub<CommitmentsHub>("/hub");
 
     using (var scope = app.Services.CreateScope())
     {

@@ -4,6 +4,8 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
 using Moq;
 using Xunit;
 
@@ -23,14 +25,24 @@ public class HubPingControllerTests
         _hub.Setup(h => h.Clients).Returns(_clients.Object);
     }
 
-    private HubPingController CreateController(Guid? profileId)
+    private HubPingController CreateController(Guid? profileId, string environmentName = "Development")
     {
         var httpContext = new DefaultHttpContext();
         if (profileId is not null)
             httpContext.Request.Headers["ProfileId"] = profileId.ToString();
         _httpAccessor.Setup(a => a.HttpContext).Returns(httpContext);
 
-        return new HubPingController(_hub.Object, _httpAccessor.Object);
+        var env = new StubHostEnvironment(environmentName);
+        return new HubPingController(_hub.Object, _httpAccessor.Object, env);
+    }
+
+    private sealed class StubHostEnvironment : IHostEnvironment
+    {
+        public StubHostEnvironment(string environmentName) => EnvironmentName = environmentName;
+        public string EnvironmentName { get; set; }
+        public string ApplicationName { get; set; } = "Tests";
+        public string ContentRootPath { get; set; } = AppContext.BaseDirectory;
+        public IFileProvider ContentRootFileProvider { get; set; } = new NullFileProvider();
     }
 
     [Fact]
@@ -74,6 +86,17 @@ public class HubPingControllerTests
         var result = await controller.Ping(new HubPingController.PingRequest("hello"));
 
         result.Should().BeOfType<BadRequestObjectResult>();
+        _clientProxy.Verify(p => p.SendCoreAsync(It.IsAny<string>(), It.IsAny<object?[]>(), It.IsAny<CancellationToken>()), Times.Never);
+    }
+
+    [Fact]
+    public async Task Ping_OutsideDevelopment_ReturnsNotFound()
+    {
+        var controller = CreateController(_profileId, environmentName: "Production");
+
+        var result = await controller.Ping(new HubPingController.PingRequest("hello"));
+
+        result.Should().BeOfType<NotFoundResult>();
         _clientProxy.Verify(p => p.SendCoreAsync(It.IsAny<string>(), It.IsAny<object?[]>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 }
