@@ -139,7 +139,7 @@ export class DashboardLayoutStore {
       minCols: DEFAULT_COLS,
       maxCols: DEFAULT_COLS,
       minRows: DEFAULT_ROWS,
-      maxRows: 24
+      maxRows: DEFAULT_ROWS
     };
   }
 
