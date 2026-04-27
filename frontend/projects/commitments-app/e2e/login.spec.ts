@@ -25,4 +25,10 @@ test.describe('login page', () => {
   test('card width matches the LG design (480px)', async () => {
     expect(await login.cardWidth()).toBe(480);
   });
+
+  test('card is vertically centered in the viewport', async ({ page }) => {
+    const viewport = page.viewportSize()!;
+    const center = await login.cardVerticalCenter();
+    expect(Math.abs(center - viewport.height / 2)).toBeLessThan(20);
+  });
 });

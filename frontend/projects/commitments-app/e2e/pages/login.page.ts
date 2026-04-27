@@ -26,4 +26,11 @@ export class LoginPage {
   cardWidth(): Promise<number> {
     return this.page.locator('mat-card').first().evaluate((el) => el.getBoundingClientRect().width);
   }
+
+  cardVerticalCenter(): Promise<number> {
+    return this.page.locator('mat-card').first().evaluate((el) => {
+      const r = el.getBoundingClientRect();
+      return r.top + r.height / 2;
+    });
+  }
 }
