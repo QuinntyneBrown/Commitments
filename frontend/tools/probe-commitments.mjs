@@ -1,11 +1,17 @@
 import { chromium } from 'playwright';
 
 const BASE = process.env.BASE_URL ?? 'http://127.0.0.1:4200';
-const ROUTE = process.env.ROUTE ?? '/commitments';
-const SCREENSHOT = process.env.SCREENSHOT ?? `docs/bugs/screenshots/${ROUTE.replace(/^\//, '') || 'index'}-actual-1280.png`;
+const ROUTE_RAW = process.env.ROUTE ?? '/commitments';
+// Strip any leading slashes (Git Bash MSYS often turns "/foo" into "C:/.../foo");
+// always re-add exactly one.
+const ROUTE = '/' + ROUTE_RAW.replace(/^[/\\]+/, '');
+const VIEWPORT_W = parseInt(process.env.VW ?? '1280', 10);
+const VIEWPORT_H = parseInt(process.env.VH ?? '800', 10);
+const SLUG = ROUTE.replace(/^\//, '').replace(/[/]/g, '-') || 'index';
+const SCREENSHOT = process.env.SCREENSHOT ?? `docs/bugs/screenshots/${SLUG}-actual-${VIEWPORT_W}.png`;
 
 const browser = await chromium.launch();
-const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+const ctx = await browser.newContext({ viewport: { width: VIEWPORT_W, height: VIEWPORT_H } });
 const page = await ctx.newPage();
 
 const consoleMsgs = [];

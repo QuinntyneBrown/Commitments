@@ -32,4 +32,15 @@ test.describe('responsive dashboard shell', () => {
 
     expect(await dashboard.topbarOverflowPx()).toBe(0);
   });
+
+  test('default tiles render at least 120px tall on lg-desktop', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    const dashboard = new DashboardPage(page);
+    await dashboard.goto();
+
+    const firstTileHeight = await dashboard.tiles.first().evaluate(
+      (el) => el.getBoundingClientRect().height
+    );
+    expect(firstTileHeight).toBeGreaterThanOrEqual(120);
+  });
 });
