@@ -2,7 +2,7 @@
 
 ## Status
 
-OPEN.
+FIXED — `dashboard.spec.ts:20` passes on lg-desktop.
 
 ## Symptom
 
@@ -36,6 +36,6 @@ point the L20 test at it. Single targeted accessor; no API churn elsewhere.
 
 ## Resolution
 
-- [ ] Failing test verified.
-- [ ] POM accessor added; spec updated.
-- [ ] Test verified passing.
+- [x] Failing test verified pre-fix (received `rgb(255, 64, 129)`).
+- [x] POM accessor `editModeEnterBackground()` added; spec L20 switched to it.
+- [x] Test verified passing post-fix.
