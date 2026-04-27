@@ -18,4 +18,8 @@ export class LoginPage {
   async goto() {
     await this.page.goto('/login');
   }
+
+  bodyBackgroundColor(): Promise<string> {
+    return this.page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+  }
 }
