@@ -16,13 +16,13 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrls: ['./delete-cell.component.scss']
 })
 export class DeleteCellComponent implements ICellRendererAngularComp {
-  refresh(params: any): boolean {
+  refresh(_params: any): boolean {
     return true;
   }
 
-  agInit(params: ICellRendererParams): void {}
+  agInit(_params: ICellRendererParams): void {}
 
-  afterGuiAttached?(params?: IAfterGuiAttachedParams): void {}
+  afterGuiAttached?(_params?: IAfterGuiAttachedParams): void {}
 
   public onDestroy: Subject<void> = new Subject<void>();
 

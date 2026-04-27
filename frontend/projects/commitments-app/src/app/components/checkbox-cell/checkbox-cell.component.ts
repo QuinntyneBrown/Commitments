@@ -18,7 +18,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 export class CheckboxCellComponent implements ICellRendererAngularComp {
   public params: ICellRendererParams;
 
-  refresh(params: any): boolean {
+  refresh(_params: any): boolean {
     return true;
   }
 
