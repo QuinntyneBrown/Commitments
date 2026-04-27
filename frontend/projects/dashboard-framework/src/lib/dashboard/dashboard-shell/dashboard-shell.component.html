@@ -7,6 +7,8 @@
           <span class="dashboard-shell__edit-pill-label">EDIT MODE</span>
         </span>
       </ng-container>
+    }
+    @if (layoutStore.isEditMode()) {
       <ng-container header-actions>
         <button
           type="button"

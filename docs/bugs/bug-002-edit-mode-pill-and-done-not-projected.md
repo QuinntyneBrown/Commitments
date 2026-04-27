@@ -1,6 +1,6 @@
 # Bug 002 — EDIT MODE pill and DONE button not projected in edit mode
 
-**Status**: Open
+**Status**: Fixed
 
 ## Description
 
