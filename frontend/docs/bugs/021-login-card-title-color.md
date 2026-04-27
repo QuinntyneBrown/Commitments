@@ -1,8 +1,10 @@
 ---
 id: 021
 title: Login card "Login" subtitle is white - design specifies $text-secondary (#B0B0B0)
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: c6227b2
 flow: authentication
 severity: low
 ---
