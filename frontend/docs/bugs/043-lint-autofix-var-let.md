@@ -1,8 +1,10 @@
 ---
 id: 043
 title: 26 lint errors auto-fixable - var->let / prefer-const cleanup across 22 files
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: 73d4d73
 flow: dashboard-layout
 severity: low
 ---
