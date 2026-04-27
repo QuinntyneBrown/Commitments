@@ -1,8 +1,10 @@
 ---
 id: 044
 title: Two `no-unused-expressions` lint errors flag a real route-guard bug
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: d61c2c8
 flow: dashboard-layout
 severity: medium
 ---
