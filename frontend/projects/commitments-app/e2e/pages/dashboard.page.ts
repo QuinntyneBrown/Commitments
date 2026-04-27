@@ -1,6 +1,6 @@
 import { expect, Locator, Page } from '@playwright/test';
 
-const LAYOUT_STORAGE_KEY = 'commitments.dashboard.layout.v1';
+const LAYOUT_STORAGE_KEY = 'commitments.layout.live';
 
 export const DEFAULT_TILE_TITLES = [
   'Daily Results',
