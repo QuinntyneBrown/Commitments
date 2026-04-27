@@ -1,7 +1,7 @@
 :host {
   align-items: center;
   background-color: var(--default-color, rgb(241, 241, 241));
-  color: #fff;
+  color: var(--cui-text-primary);
   display: flex;
   height: 100vh;
   margin: 0;
