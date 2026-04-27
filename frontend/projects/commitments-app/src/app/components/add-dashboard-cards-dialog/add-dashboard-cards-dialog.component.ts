@@ -34,9 +34,11 @@ export class AddDashboardCardsDialogComponent {
   }
 
   public handleCardClick(card: Card) {
-    this.cardIsSelected(card)
-      ? this.selectedCards.splice(this.selectedCards.indexOf(card), 1)
-      : this.selectedCards.push(card);
+    if (this.cardIsSelected(card)) {
+      this.selectedCards.splice(this.selectedCards.indexOf(card), 1);
+    } else {
+      this.selectedCards.push(card);
+    }
   }
 
   public cardIsSelected(card: Card) {

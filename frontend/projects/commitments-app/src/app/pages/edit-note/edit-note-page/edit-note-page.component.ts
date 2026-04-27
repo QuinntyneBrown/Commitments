@@ -75,7 +75,7 @@ export class EditNotePageComponent {
   }
 
   canDeactivate() {
-    !this.form.dirty;
+    return !this.form.dirty;
   }
 
   ngAfterViewInit() {
