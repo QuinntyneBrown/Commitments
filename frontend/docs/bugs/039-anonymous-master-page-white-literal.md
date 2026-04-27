@@ -4,6 +4,7 @@ title: anonymous-master-page :host hard-codes color #fff - last raw white litera
 status: fixed
 discovered: 2026-04-27
 fixed: 2026-04-27
+fixed_in: ba32270
 flow: dashboard-layout
 severity: low
 ---
