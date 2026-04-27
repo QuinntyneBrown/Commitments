@@ -1,8 +1,10 @@
 ---
 id: 026
 title: Tile chrome (edit-mode label + remove button) still hard-codes white-ish backgrounds and slate text
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: ffab147
 flow: dashboard-layout
 severity: medium
 ---
