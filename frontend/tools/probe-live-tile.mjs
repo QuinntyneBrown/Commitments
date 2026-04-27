@@ -3,6 +3,10 @@ import { chromium } from 'playwright';
 const browser = await chromium.launch();
 const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
 const page = await ctx.newPage();
+await page.addInitScript(() => {
+  localStorage.removeItem('commitments.layout.live');
+  localStorage.removeItem('commitments.layout.review');
+});
 await page.goto('http://127.0.0.1:4200/', { waitUntil: 'domcontentloaded' });
 await page.waitForTimeout(1500);
 await page.getByTestId('add-tile-fab').click();
