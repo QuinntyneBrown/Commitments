@@ -158,4 +158,11 @@ export class DashboardPage {
       .first()
       .evaluate((el) => getComputedStyle(el).color);
   }
+
+  progressTrackBackground(): Promise<string> {
+    return this.page
+      .locator('.progress')
+      .first()
+      .evaluate((el) => getComputedStyle(el).backgroundColor);
+  }
 }

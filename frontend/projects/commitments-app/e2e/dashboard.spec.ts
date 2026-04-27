@@ -41,6 +41,10 @@ test.describe('dashboard shell', () => {
     expect(await dashboard.dailyResultsLabelColor()).toBe('rgb(176, 176, 176)');
   });
 
+  test('Daily Results progress track uses the divider token (no bright bar)', async () => {
+    expect(await dashboard.progressTrackBackground()).toBe('rgb(58, 58, 58)');
+  });
+
   test('loads the dashboard with registered plugin tiles', async () => {
     await dashboard.expectDefaultDashboard();
     // Default mode is 'live'; the dropdown is filtered to live-supporting tiles.
