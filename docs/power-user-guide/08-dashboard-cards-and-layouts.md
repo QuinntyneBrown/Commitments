@@ -34,57 +34,53 @@ Basic workflow:
 3. Save.
 4. Select the layout when configuring dashboard cards.
 
-## Add Dashboard Cards
+## Add Dashboard Tiles
 
-Dashboard cards can be added from the dashboard add flow.
-
-Basic workflow:
-
-1. Open Dashboard.
-2. Use the add action.
-3. Select one or more cards.
-4. Confirm.
-5. Verify the cards appear in the dashboard grid.
-
-## Configure Dashboard Cards
-
-Some cards expose configuration options.
+The dashboard uses a FAB-and-dialog flow for adding tiles. The legacy inline tile selector and "Add Tile" / "Edit Layout" / "Reset" buttons in the header have been removed.
 
 Basic workflow:
 
-1. Open the card configuration action.
+1. Open Dashboard in Live mode (or enter edit mode).
+2. Click the "+" FAB at the bottom-right.
+3. In the Add Tile dialog, click one tile cell to select it.
+4. Click ADD TILE to commit, or CANCEL / close icon to discard.
+5. Verify the tile appears in the dashboard grid.
+
+Repeat the flow to add additional tiles.
+
+## Configure Dashboard Tiles
+
+Some tiles expose configuration options.
+
+Basic workflow:
+
+1. Open the tile configuration action from its header menu.
 2. Change the option values.
 3. Save.
-4. Confirm the card updates.
+4. Confirm the tile updates.
 
-Cancel should leave the current card unchanged.
+Cancel should leave the current tile unchanged.
 
-## Remove Dashboard Cards
+## Remove Dashboard Tiles
 
-Remove a card when it no longer serves the current dashboard.
+Remove a tile when it no longer serves the current dashboard.
 
 Basic workflow:
 
-1. Open the card delete or remove action.
-2. Confirm if prompted.
-3. Verify the card disappears.
+1. Enter edit mode from the dashboard primary header.
+2. Use the close action on the editable tile chrome.
+3. Click DONE in the primary header to exit edit mode.
 4. Refresh the dashboard if needed to confirm persistence.
 
 ## Modern Tile Layout
 
-The dashboard framework provides a tile grid with mode-aware tile context.
+The dashboard framework provides a tile grid with mode-aware tile context. Tile chrome and available actions depend on dashboard mode:
 
-Available tile actions can include:
-
-- Add Tile.
-- Edit Layout.
-- Done.
-- Reset.
-- Remove tile.
-- Maximize or restore tile.
-- Focus tile.
-
-Use Edit Layout for grid maintenance. Use Reset when manual layout changes no longer help scanning.
+| Mode | What you see | Available actions |
+|---|---|---|
+| Live | Default tile chrome, mode toggle, "+" FAB | Add tile, enter edit mode, per-tile menu |
+| Review | Default tile chrome, mode toggle, scrubber | Per-tile menu (no add or edit) |
+| Edit (entered from Live) | Editable tile chrome with 2px accent border, EDIT MODE pill, DONE button, "+" FAB | Reorder, resize, remove tiles, add tiles |
 
 ## Tile Modes
 

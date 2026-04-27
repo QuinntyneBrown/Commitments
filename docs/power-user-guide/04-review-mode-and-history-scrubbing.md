@@ -5,7 +5,7 @@ Review mode is the analysis view. It lets you select a historical date and inspe
 ## Enter Review Mode
 
 1. Open Dashboard.
-2. Use the mode toggle and choose Review.
+2. Use the mode toggle in the right side of the primary header and choose Review.
 3. Confirm the review scrubber appears above the dashboard grid.
 4. Confirm review-capable tiles show review status or historical values.
 
@@ -16,7 +16,8 @@ Review mode persists the selected review date in browser storage. If you leave a
 When Review mode is active:
 
 - The review scrubber appears.
-- The Add Tile selector is hidden.
+- The "+" FAB is hidden — review is for historical inspection, not for changing tile composition.
+- Edit mode is unreachable from review; switch back to Live first.
 - Tiles receive the selected review date through dashboard tile context.
 - Review tiles show historical values, date badges, and deltas where available.
 - Live push messages are not applied directly to historical tile values.

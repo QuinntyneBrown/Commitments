@@ -74,7 +74,7 @@ Use this workflow after editing activity history, changing frequencies, or inves
 | Live tile updates wrong count | Activity was edited/deleted or target changed | Inspect Activities, Commitments, and Frequencies for the same date |
 | Review tile does not change while scrubbing | Tile is not review-aware or historical query failed | Use Review Goal History or Consistency Trend, check network/API errors |
 | Scrubber jumps unexpectedly | Selected date restored from browser storage | Use Jump to today or drag to desired date |
-| Dashboard layout feels broken | Manual edits became noisy | Use Reset, then rebuild the tile order intentionally |
+| Dashboard layout feels broken | Manual edits became noisy | Enter edit mode, remove the disruptive tiles, exit edit mode, then rebuild the order with the "+" FAB |
 | Avatar or asset does not load | Asset belongs to another profile or URL is stale | Re-upload under the active profile and save again |
 
 ## Live Stream Checks

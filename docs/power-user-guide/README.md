@@ -71,5 +71,6 @@ The authenticated app shell exposes these primary destinations when the full wor
 - Use Live mode for operations and Review mode for analysis.
 - Scrub historical dashboard metrics after changing commitments, frequencies, or activity history.
 - Keep one dashboard layout for daily monitoring and use review tiles for diagnostic work.
+- Use the "+" FAB to add tiles and enter edit mode (from Live) to rearrange or remove them.
 - Use tags on notes consistently so reviews and retrospectives are easy to navigate.
 

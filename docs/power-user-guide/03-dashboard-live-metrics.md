@@ -30,18 +30,21 @@ The current dashboard tile catalog includes these reusable tiles:
 ## Enter Live Mode
 
 1. Open Dashboard.
-2. Use the mode toggle and choose Live.
+2. Use the mode toggle in the primary header and choose Live.
 3. Confirm live tiles show current values and any `LIVE` status pill where applicable.
 
-When Live is active, the dashboard shows the tile selector and Add Tile action. These controls are hidden from Review mode because review is for historical inspection, not changing the live monitoring setup.
+When Live is active, the floating "+" button (FAB) at the bottom-right is available for adding tiles. The FAB is hidden in Review mode because review is for historical inspection, not changing the live monitoring setup.
 
 ## Add a Live Tile
 
 1. Open Dashboard.
-2. Switch to Live mode.
-3. Choose a tile from the tile selector.
-4. Select Add Tile.
-5. Confirm the tile appears in the dashboard grid.
+2. Switch to Live mode (or enter edit mode — the FAB is available in both).
+3. Click the "+" FAB at the bottom-right of the dashboard.
+4. In the **Add Tile** dialog, click a tile cell to select it. The selected cell highlights in accent pink with a check badge.
+5. Click **ADD TILE** to commit, or **CANCEL** / the close icon to discard.
+6. Confirm the tile appears in the dashboard grid.
+
+The dialog lists every tile registered for the current dashboard mode. Only one tile can be selected per Add action; repeat the flow to add more.
 
 Power users commonly keep these tiles visible:
 
@@ -100,12 +103,15 @@ After making one of these changes, return to Dashboard Live mode and confirm the
 
 ## Edit the Dashboard Layout
 
-1. Open Dashboard.
-2. Select Edit Layout.
-3. Reorder, resize, or adjust tiles as supported by the grid.
-4. Select Done.
+Edit mode is a dashboard-scoped state. Only enter it from Live mode.
 
-Use Reset if the layout becomes noisy or you want to return to the default arrangement.
+1. Open Dashboard in Live mode.
+2. Click the **edit** icon-button on the right side of the primary header.
+3. The primary header background flips to accent pink, an **EDIT MODE** pill appears next to the title, the mode toggle hides, and tiles render with editable chrome (a 2px accent border).
+4. Reorder, resize, or remove tiles as supported by the grid. The "+" FAB stays available for adding tiles.
+5. Click **DONE** in the primary header to exit. The header returns to its normal indigo, tiles return to their default chrome, and the mode toggle reappears.
+
+Edit mode is orthogonal to live and review — you cannot enter it from Review mode.
 
 ## Live Mode Operating Routine
 

@@ -4,35 +4,35 @@ The Commitments workspace is organized around a persistent application shell and
 
 ## Application Shell
 
-The authenticated shell contains:
+The authenticated shell uses a two-row header over a sidenav-and-content body:
 
-- Top toolbar with the Commitments title.
-- Menu button for opening the side navigation.
-- Active profile name.
-- Profile avatar.
-- Side navigation with the primary destinations.
-- Main content area for the selected page.
+- **Toolbar row** (height 64) — hamburger menu button on the left, "Commitments" brand text, flex spacer, active profile name, and a circular profile avatar on the right.
+- **Primary header row** (height 80) — the page title (for example, "Dashboard"). On the dashboard page this row also hosts the right-aligned mode toggle (Live / Review) and, while edit mode is active, the EDIT MODE pill and DONE button.
+- **Sidenav** (width 250) — left-anchored navigation list with active and hover states. The hamburger button in the toolbar toggles it open and closed.
+- **Main content area** — fills the remaining space and scrolls independently.
 
-On narrower screens, the side navigation can be opened with the menu button and closes after selecting a destination.
+On narrower screens, use the hamburger button to open the sidenav; on desktop it stays expanded by default. Inter is used for all text in the shell, with Material Symbols Rounded icons.
 
 ## Primary Navigation
 
-Use the side navigation for major context changes:
+The sidenav lists the primary destinations in this order, each with a Material Symbols Rounded icon:
 
-| Item | What you do there |
-|---|---|
-| Dashboard | Monitor live metrics, switch to review mode, adjust dashboard layout |
-| Activities | Record and inspect behaviour activity |
-| Behaviours | Maintain the behaviour catalog |
-| Behaviour Types | Maintain behaviour categories |
-| Commitments | Create and edit expectations |
-| Cards | Manage dashboard card definitions |
-| Card Layouts | Manage dashboard card layout definitions |
-| Frequencies | Maintain frequency rules |
-| Notes | Create or edit rich-text notes |
-| Profiles | Manage profiles |
-| To Do's | Create, complete, edit, and delete tasks |
-| Logout | Clear the session and return to login |
+| Item | Icon | What you do there |
+|---|---|---|
+| Dashboard | `dashboard` | Monitor live metrics, switch to review mode, edit dashboard layout |
+| Activities | `event_available` | Record and inspect behaviour activity |
+| Behaviours | `repeat` | Maintain the behaviour catalog |
+| Behaviour Types | `category` | Maintain behaviour categories |
+| Commitments | `task_alt` | Create and edit expectations |
+| Cards | `style` | Manage dashboard card definitions |
+| Card Layouts | `dashboard_customize` | Manage dashboard card layout definitions |
+| Frequencies | `schedule` | Maintain frequency rules |
+| Notes | `description` | Create or edit rich-text notes |
+| Profiles | `person` | Manage profiles |
+| To Do's | `format_list_bulleted` | Create, complete, edit, and delete tasks |
+| Logout | `logout` | Clear the session and return to login |
+
+The active item is highlighted with a translucent primary fill and a 3px primary left-border. Hover applies a subtle white overlay.
 
 ## Common Page Patterns
 
