@@ -2,7 +2,9 @@
 
 ## Status
 
-OPEN.
+FIXED — `.tile-shell__body` is now a flex column; the plot fits inside
+the body without overflow (measured 29px at default size, no longer
+142px past the cell). 28/28 e2e tests pass on lg-desktop.
 
 ## Symptom
 
@@ -55,7 +57,16 @@ and shrink instead of overflowing.
 
 ## Resolution
 
-- [ ] Visual screenshot pre-fix.
-- [ ] tile-shell SCSS updated.
-- [ ] Visual screenshot post-fix shows the chart fully inside the cell.
-- [ ] Other tiles unaffected (visual + e2e regression).
+- [x] Visual screenshot pre-fix surfaced via earlier captures.
+- [x] tile-shell SCSS updated with `display: flex; flex-direction: column`.
+- [x] Visual screenshot post-fix shows the chart fully inside the cell.
+- [x] 28/28 dashboard + chart-tile e2e tests pass on lg-desktop.
+
+## Follow-up
+
+The chart is now visible but small at the consistency-trend tile's
+default size (`{ cols: 6, rows: 4 }`) because the upper content
+(status pill + metric header + delta) leaves only ~29px for the plot.
+Either the upper section can be tightened or a larger default size
+(`rows: 5+`) would give the chart more vertical room. Tracked
+separately — out of scope for this bug, which was about overflow.
