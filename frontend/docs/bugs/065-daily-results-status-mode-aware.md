@@ -2,8 +2,9 @@
 
 ## Status
 
-OPEN — surfaced by visual capture
-(`frontend/docs/bugs/screenshots/dashboard-review-1280.png`).
+FIXED — visual screenshot post-fix shows the Daily Results badge as
+"Review" when the dashboard is in review mode; full lg-desktop e2e
+58/58 including the new mode-aware status guard.
 
 ## Symptom
 
@@ -38,6 +39,7 @@ fall back to "Live" so existing behaviour holds.
 
 ## Resolution
 
-- [ ] Failing e2e test added (review mode shows "Review" badge).
-- [ ] Tile updated.
-- [ ] Test verified passing.
+- [x] Failing e2e test added in `dashboard-mode.spec.ts`.
+- [x] `daily-results-tile` injects `TILE_CONTEXT` and computes
+      `status() = mode === 'review' ? 'Review' : 'Live'`.
+- [x] Test passes; full lg-desktop e2e 58/58.
