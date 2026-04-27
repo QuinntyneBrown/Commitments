@@ -1,8 +1,10 @@
 ---
 id: 033
 title: Dashboard empty-state still hard-codes light-theme text colours - invisible if a user empties the layout
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: 1f79c56
 flow: dashboard-layout
 severity: medium
 ---
