@@ -1,8 +1,10 @@
 ---
 id: 030
 title: review-scrubber.component.scss hard-codes hex literals for colours that have --cui-* tokens
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: 6a8badc
 flow: dashboard-modes
 severity: low
 ---
