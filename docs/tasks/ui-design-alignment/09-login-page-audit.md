@@ -1,5 +1,7 @@
 # 09 — Login page audit (out of scope for the reported issues, but listed for completeness)
 
+**Status: ACCEPTED**
+
 **Design**: `Login — LG` (`8xz6c`), centered `loginCard` on `$bg`. Responsive variants exist at S/M/LG/XL (`YfR0i`, `oC1bM`, `8xz6c`, `rKU7X`).
 
 **Implementation**: `LoginPageComponent` is referenced by routes but was not audited in this pass.
