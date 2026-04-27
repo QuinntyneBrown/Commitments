@@ -1,8 +1,10 @@
 ---
 id: 007
 title: Login Submit button is right-aligned and content-width instead of design's full-width raised-primary
-status: open
+status: fixed
 discovered: 2026-04-26
+fixed: 2026-04-26
+fixed_in: 97332a9
 flow: authentication
 severity: medium
 ---
