@@ -18,7 +18,7 @@ test.describe('dashboard shell', () => {
   });
 
   test('topbar action buttons use the stroked-on-dark style (transparent fill)', async () => {
-    expect(await dashboard.addTileButtonBackground()).toBe('rgba(0, 0, 0, 0)');
+    expect(await dashboard.editModeEnterBackground()).toBe('rgba(0, 0, 0, 0)');
   });
 
   test('inactive mode-toggle segment has no fill (matches the design pill)', async () => {

@@ -23,6 +23,7 @@ export class DashboardPage {
   readonly editLayoutButton: Locator;
   readonly resetLayoutButton: Locator;
   readonly removeTileButtons: Locator;
+  readonly editModeEnterButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -37,6 +38,7 @@ export class DashboardPage {
     this.editLayoutButton = page.getByTestId('edit-layout');
     this.resetLayoutButton = page.getByTestId('reset-layout');
     this.removeTileButtons = page.getByTestId('remove-tile');
+    this.editModeEnterButton = page.getByTestId('edit-mode-enter');
   }
 
   async goto(options: { clearStorage?: boolean } = {}) {
@@ -122,6 +124,10 @@ export class DashboardPage {
 
   addTileButtonBackground(): Promise<string> {
     return this.addTileButton.evaluate((el) => getComputedStyle(el).backgroundColor);
+  }
+
+  editModeEnterBackground(): Promise<string> {
+    return this.editModeEnterButton.evaluate((el) => getComputedStyle(el).backgroundColor);
   }
 
   inactiveModeSegmentBackground(): Promise<string> {
