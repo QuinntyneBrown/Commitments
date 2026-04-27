@@ -1,7 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, ElementRef, AfterViewInit, Input, forwardRef, inject } from '@angular/core';
+import { Component, ElementRef, Input, forwardRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DigitalAssetService } from '../../services/digital-asset.service';

@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 import { OverlayRefWrapper } from '../../core/overlay-ref-wrapper';
 import { DashboardCard } from '../../models/dashboard-card';
 import { DashboardCardService } from '../../services/dashboard-card.service';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { takeUntil, map } from 'rxjs';
 
 @Component({

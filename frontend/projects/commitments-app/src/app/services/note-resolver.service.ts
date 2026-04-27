@@ -3,7 +3,7 @@
 
 import { inject } from '@angular/core';
 import { ResolveFn } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 import { map, tap } from 'rxjs';
 import { Store } from '../core/store';
 import { Note } from '../models/note';

@@ -1,7 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, ElementRef, Inject, inject } from '@angular/core';
+import { Component, ElementRef, inject } from '@angular/core';
 import { CommonModule, AsyncPipe } from '@angular/common';
 import { ProfileService } from '../../services/profile.service';
 import { AppStore } from '../../app-store';

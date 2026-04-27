@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
-import { ICellRendererParams, IAfterGuiAttachedParams } from 'ag-grid';
+import { ICellRendererParams } from 'ag-grid';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({

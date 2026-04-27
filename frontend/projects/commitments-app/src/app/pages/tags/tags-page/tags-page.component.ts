@@ -10,7 +10,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Observable, Subject } from 'rxjs';
-import { filter, map, takeUntil, tap } from 'rxjs';
+import { map, takeUntil, tap } from 'rxjs';
 import { ColDef } from 'ag-grid';
 import { TagsService } from '../../../services/tags.service';
 import { Tag } from '../../../models/tag';
