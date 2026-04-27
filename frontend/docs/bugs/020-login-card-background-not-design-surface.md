@@ -1,8 +1,10 @@
 ---
 id: 020
 title: Login card paints Material's default #424242 instead of the design's $surface (#1E1E1E)
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: 46d11aa
 flow: authentication
 severity: low
 ---
