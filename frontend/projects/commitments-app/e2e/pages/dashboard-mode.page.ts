@@ -2,8 +2,6 @@ import { expect, Locator, Page } from '@playwright/test';
 
 import { DashboardPage } from './dashboard.page';
 
-const ACTIVE_SEGMENT_CLASS = 'mode-toggle__segment--active';
-
 export class DashboardModePage {
   readonly page: Page;
   readonly dashboard: DashboardPage;
@@ -36,14 +34,14 @@ export class DashboardModePage {
   }
 
   async expectLiveActive() {
-    await expect(this.liveSegment).toHaveClass(new RegExp(`\\b${ACTIVE_SEGMENT_CLASS}\\b`));
+    await expect(this.liveSegment).toHaveClass(/mode-toggle__segment--active/);
     await expect(this.addTileFab).toBeVisible();
-    await expect(this.scrubberSlot).toHaveCount(0);
+    await expect(this.scrubberSlot).toBeHidden();
   }
 
   async expectReviewActive() {
-    await expect(this.reviewSegment).toHaveClass(new RegExp(`\\b${ACTIVE_SEGMENT_CLASS}\\b`));
-    await expect(this.addTileFab).toHaveCount(0);
+    await expect(this.reviewSegment).toHaveClass(/mode-toggle__segment--active/);
+    await expect(this.addTileFab).toBeHidden();
     await expect(this.scrubberSlot).toBeVisible();
   }
 }

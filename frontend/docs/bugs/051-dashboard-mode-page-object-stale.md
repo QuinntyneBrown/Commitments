@@ -2,7 +2,7 @@
 
 ## Status
 
-OPEN — discovered while exercising `docs/flows/dashboard-modes/README.md`.
+FIXED — `dashboard-mode.spec.ts` 9/9 passing across tablet, lg-desktop, xl-desktop.
 
 ## Symptom
 
@@ -39,6 +39,6 @@ The existing `dashboard-mode.spec.ts` is the failing test; once the POM is corre
 
 ## Resolution
 
-- [ ] Failing tests verified (9/9 fail).
-- [ ] POM updated.
-- [ ] Tests verified passing.
+- [x] Failing tests verified (9/9 fail) — pre-fix run.
+- [x] POM updated (`fix(e2e): align DashboardModePage POM…`).
+- [x] Tests verified passing (9/9 pass post-fix, all viewports).
