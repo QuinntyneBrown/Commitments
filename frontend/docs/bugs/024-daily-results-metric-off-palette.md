@@ -1,8 +1,10 @@
 ---
 id: 024
 title: Daily Results metric value is off-palette #1d5f3f - design palette has --cui-success (#66BB6A)
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: d6f243c
 flow: dashboard-layout
 severity: low
 ---
