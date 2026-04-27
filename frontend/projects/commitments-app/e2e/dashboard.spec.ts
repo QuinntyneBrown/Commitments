@@ -72,6 +72,15 @@ test.describe('dashboard shell', () => {
     expect(await dashboard.reviewScrubberBackground()).toBe('rgb(30, 30, 30)');
   });
 
+  test('review scrubber jump-to-today button shows visible text label', async ({ page }) => {
+    await dashboard.switchToReview();
+    const todayBtn = page.getByTestId('review-scrubber-today');
+    await expect(todayBtn).toBeVisible();
+    const label = todayBtn.locator('.review-scrubber__today-label');
+    await expect(label).toBeVisible();
+    await expect(label).toHaveText(/today/i);
+  });
+
   test('Outstanding To-Dos copy uses 2-line clamp ellipsis (no mid-word clip)', async () => {
     expect(await dashboard.outstandingTodosCopyLineClamp()).toBe('2');
   });
