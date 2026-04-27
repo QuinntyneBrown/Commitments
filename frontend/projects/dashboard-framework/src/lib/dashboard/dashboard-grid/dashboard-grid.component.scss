@@ -9,7 +9,7 @@
   display: block;
   height: 100%;
   min-height: 0;
-  background: #f4f7fb;
+  background: var(--cui-bg);
 }
 
 gridster {
@@ -21,10 +21,10 @@ gridster {
 gridster-item {
   overflow: hidden;
   padding: 16px;
-  border: 1px solid #d9e2ee;
+  border: 1px solid var(--cui-divider);
   border-radius: 8px;
-  background: #ffffff;
-  box-shadow: 0 10px 24px rgba(28, 43, 66, 0.08);
+  background: var(--cui-surface-2);
+  box-shadow: var(--cui-shadow-raised);
 }
 
 .tile-chrome {
