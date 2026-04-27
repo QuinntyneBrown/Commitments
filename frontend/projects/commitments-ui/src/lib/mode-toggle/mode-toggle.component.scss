@@ -20,8 +20,21 @@
   transition: background 150ms ease, color 150ms ease;
 }
 
+.mode-toggle__segment ::ng-deep .mat-button-toggle-button {
+  height: 100%;
+}
+
+.mode-toggle__segment ::ng-deep .mat-button-toggle-label-content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  line-height: 1;
+  padding: 0 12px;
+}
+
 .mode-toggle__dot {
-  display: inline-block;
+  flex: 0 0 auto;
   width: 8px;
   height: 8px;
   margin-right: 6px;
@@ -30,10 +43,12 @@
 }
 
 .mode-toggle__icon {
+  flex: 0 0 auto;
   width: 14px;
   height: 14px;
   margin-right: 6px;
   font-size: 14px;
+  line-height: 1;
 }
 
 .mode-toggle__segment--live.mode-toggle__segment--active {
