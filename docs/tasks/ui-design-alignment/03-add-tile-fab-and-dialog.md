@@ -1,5 +1,7 @@
 # 03 — Add Tile flow: replace inline picker with FAB + Dialog
 
+**Status: ACCEPTED**
+
 > **2026-04-27 update**: the design now ships an explicit "Add Tile Dialog" frame (`a2Cjz`) and a dedicated dialog frame (`AhkGr`). The old "Add Dashboard Cards" search-and-chip layout has been **superseded** by a tile-grid layout. This task has been rewritten to match.
 
 **Design** — frames `a2Cjz` (full screen w/ dialog open) and `AhkGr` (dialog itself):
