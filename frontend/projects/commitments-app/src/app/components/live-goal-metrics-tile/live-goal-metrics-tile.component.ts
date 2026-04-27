@@ -28,7 +28,7 @@ export class LiveGoalMetricsTileComponent implements OnInit {
     description: 'Real-time progress against a single goal target.',
     icon: 'track_changes',
     category: 'Commitments',
-    defaultSize: { cols: 3, rows: 3 },
+    defaultSize: { cols: 6, rows: 3 },
     defaultPosition: { x: 0, y: 0 },
     includeByDefault: false,
     supportedModes: ['live']
