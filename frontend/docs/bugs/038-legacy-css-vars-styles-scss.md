@@ -1,8 +1,10 @@
 ---
 id: 038
 title: styles.scss declares three legacy CSS vars that the design system has superseded
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: 8bfad02
 flow: dashboard-layout
 severity: low
 ---
