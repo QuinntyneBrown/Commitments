@@ -1,8 +1,10 @@
 ---
 id: 037
 title: poster + to-do dashboard-card variants use Material's #E91E63 pink + #fff white instead of --cui tokens
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: b1e9b5a
 flow: dashboard-layout
 severity: low
 ---
