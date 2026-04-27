@@ -1,8 +1,10 @@
 ---
 id: 031
 title: live-goal-metrics-tile.component.scss hard-codes hex literals for colours that have --cui-* tokens
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: 3b77365
 flow: dashboard-layout
 severity: low
 ---
