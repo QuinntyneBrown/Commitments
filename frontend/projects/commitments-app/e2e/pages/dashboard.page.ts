@@ -111,7 +111,7 @@ export class DashboardPage {
   }
 
   topbarBackgroundColor(): Promise<string> {
-    return this.page.locator('.dashboard-shell__topbar').first()
+    return this.page.locator('.dashboard-layout__toolbar').first()
       .evaluate((el) => getComputedStyle(el).backgroundColor);
   }
 
@@ -211,7 +211,7 @@ export class DashboardPage {
   }
 
   topbarOverflowPx(): Promise<number> {
-    return this.page.locator('.dashboard-shell__topbar').first()
+    return this.page.locator('.dashboard-layout__toolbar').first()
       .evaluate((el) => Math.max(0, el.scrollWidth - el.clientWidth));
   }
 }
