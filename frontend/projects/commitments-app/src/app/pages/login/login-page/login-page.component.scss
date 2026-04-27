@@ -23,6 +23,7 @@ mat-card {
   padding: 40px 40px 40px 40px;
   border-radius: var(--cui-radius-md);
   background-color: var(--cui-surface);
+  box-shadow: var(--cui-shadow-floating);
 }
 
 mat-form-field {
