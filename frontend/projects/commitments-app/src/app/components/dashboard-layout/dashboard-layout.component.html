@@ -1,0 +1,38 @@
+<div class="dashboard-layout" data-testid="dashboard-layout">
+  <header class="dashboard-layout__toolbar" data-testid="dashboard-layout-toolbar">
+    <button
+      type="button"
+      class="dashboard-layout__hamburger"
+      data-testid="dashboard-layout-hamburger"
+      aria-label="Toggle navigation"
+      (click)="toggleSidenav()"
+    >
+      <span class="material-symbols-rounded">menu</span>
+    </button>
+    <span class="dashboard-layout__brand">Commitments</span>
+  </header>
+  <div class="dashboard-layout__body">
+    <nav
+      class="dashboard-layout__sidenav"
+      data-testid="dashboard-sidenav"
+      [ngClass]="{ 'dashboard-layout__sidenav--collapsed': !sidenavOpen() }"
+      aria-label="Primary"
+    >
+      @for (item of navItems; track item.routerLink) {
+        <a
+          class="sidenav-item"
+          [routerLink]="item.routerLink"
+          routerLinkActive="sidenav-item--active"
+          [routerLinkActiveOptions]="{ exact: !!item.exact }"
+          [attr.data-testid]="'sidenav-item-' + item.label"
+        >
+          <span class="material-symbols-rounded sidenav-item__icon">{{ item.icon }}</span>
+          <span class="sidenav-item__label">{{ item.label }}</span>
+        </a>
+      }
+    </nav>
+    <main class="dashboard-layout__content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
