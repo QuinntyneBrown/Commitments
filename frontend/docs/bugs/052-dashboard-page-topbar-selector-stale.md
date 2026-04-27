@@ -2,7 +2,7 @@
 
 ## Status
 
-OPEN — discovered while exercising `docs/flows/dashboard-modes/README.md` (continuation of 051 audit).
+FIXED — `dashboard.spec.ts:12` and `viewport.spec.ts` overflow check now pass.
 
 ## Symptom
 
@@ -38,6 +38,6 @@ The existing `dashboard.spec.ts:12` is the failing test; once the selector is co
 
 ## Resolution
 
-- [ ] Failing test verified.
-- [ ] POM updated.
-- [ ] Test verified passing.
+- [x] Failing test verified pre-fix.
+- [x] POM updated (`fix(e2e): point DashboardPage topbar selectors at .dashboard-layout__toolbar`).
+- [x] Tests verified passing post-fix on tablet/lg-desktop viewports.
