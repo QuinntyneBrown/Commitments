@@ -51,10 +51,10 @@ h1 {
 .dashboard-shell__select,
 .dashboard-shell__button {
   height: 36px;
-  border: 1px solid #c9d4e2;
+  border: 1px solid var(--cui-primary);
   border-radius: 6px;
-  background: #ffffff;
-  color: #172033;
+  background: transparent;
+  color: var(--cui-primary);
   font: inherit;
   font-size: 13px;
 }
@@ -71,18 +71,18 @@ h1 {
 }
 
 .dashboard-shell__button:hover {
-  border-color: #2f6db3;
-  color: #1f5d9f;
+  border-color: var(--cui-primary-strong);
+  color: var(--cui-text-primary);
 }
 
 .dashboard-shell__button--active {
-  border-color: #235f9f;
-  color: #ffffff;
-  background: #235f9f;
+  border-color: var(--cui-primary);
+  color: var(--cui-on-primary);
+  background: var(--cui-primary);
 }
 
 .dashboard-shell__button--muted {
-  color: #5b6b84;
+  color: var(--cui-text-secondary);
 }
 
 .dashboard-shell__main {
