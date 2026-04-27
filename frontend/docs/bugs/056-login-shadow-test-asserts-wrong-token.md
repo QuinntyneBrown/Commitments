@@ -2,7 +2,7 @@
 
 ## Status
 
-OPEN.
+FIXED — `login.spec.ts:56` passes on lg-desktop.
 
 ## Symptom
 
@@ -37,6 +37,7 @@ intent explicit.
 
 ## Resolution
 
-- [ ] Failing test verified pre-fix.
-- [ ] Test updated to the dedicated token value.
-- [ ] Test verified passing post-fix.
+- [x] Failing test verified pre-fix.
+- [x] Test updated to assert `rgba(0, 0, 0, 0.7) 0px 8px 24px` and
+      renamed to mention `--cui-shadow-login-card`.
+- [x] Test verified passing post-fix.
