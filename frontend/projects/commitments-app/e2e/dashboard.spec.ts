@@ -25,6 +25,10 @@ test.describe('dashboard shell', () => {
     expect(await dashboard.inactiveModeSegmentBackground()).toBe('rgba(0, 0, 0, 0)');
   });
 
+  test('Weekly Focus row label uses the dark-theme primary text token', async () => {
+    expect(await dashboard.weeklyFocusLabelColor()).toBe('rgb(255, 255, 255)');
+  });
+
   test('loads the dashboard with registered plugin tiles', async () => {
     await dashboard.expectDefaultDashboard();
     // Default mode is 'live'; the dropdown is filtered to live-supporting tiles.

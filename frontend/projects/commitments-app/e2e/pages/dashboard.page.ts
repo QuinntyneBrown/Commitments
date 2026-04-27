@@ -130,4 +130,11 @@ export class DashboardPage {
       .first()
       .evaluate((el) => getComputedStyle(el).backgroundColor);
   }
+
+  weeklyFocusLabelColor(): Promise<string> {
+    return this.page
+      .locator('.focus-list strong')
+      .first()
+      .evaluate((el) => getComputedStyle(el).color);
+  }
 }
