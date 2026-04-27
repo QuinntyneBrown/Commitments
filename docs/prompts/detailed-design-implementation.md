@@ -3,14 +3,15 @@
 
 Pull any changes from origin
 
-Find a detailed design in C:\projects\gers\docs\detailed-designs starting at C:\projects\Commitments\docs\detailed-designs\01-live-goal-metrics
+Find a detailed design in C:\projects\gers\docs\detailed-designs starting at
+
+C:\projects\Commitments\docs\detailed-designs\13-signalr-hub-foundation
 
 that is not implemented respecting the sequential order.
 
 Mark the design as accepted.
 
-Commit all changes and push.
-
+COMMIT ALL CHANGES AND PUSH TO ORIGIN
 
 Implement the detailed design using Acceptance Test Driven Development.
 
@@ -22,7 +23,7 @@ Implement the detailed design using Acceptance Test Driven Development.
 
         - TARGETING THE LOWEST COMPLEXITY SCORE POSSIBLE
 
-    4. commit and push to origin
+    4. COMMIT ALL CHANGES AND PUSH TO ORIGIN
 
     5. Audit the implementation 5 times for radical simplicity and completeness against the detail design, docs and C:\projects\gers\docs\ui-design.pen.
 
@@ -35,4 +36,4 @@ Implement the detailed design using Acceptance Test Driven Development.
 
     6. Mark detailed design as complete
 
-    7. commit and push to origin
+    7. COMMIT ALL CHANGES AND PUSH TO ORIGIN
