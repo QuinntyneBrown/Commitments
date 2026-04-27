@@ -1,5 +1,7 @@
 # 06 — Tile chrome (default + editable) and tile card styling
 
+**Status: ACCEPTED**
+
 > **2026-04-27 update**: the design now defines a dedicated **`Dashboard-Tile/Editable`** component (`KB9Mx`) for use in edit mode, with explicit drag, close, and resize affordances. The default `Dashboard-Tile` (`0UH2Q`) is unchanged.
 
 ## Default tile
