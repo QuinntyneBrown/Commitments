@@ -78,7 +78,11 @@ export class FrequenciesPageComponent {
 
     const frequencies = [...this.frequencies$.value];
     const i = frequencies.findIndex((t) => t.frequencyId == frequency.frequencyId);
-    const _ = i < 0 ? frequencies.push(frequency) : frequencies[i] = frequency;
+    if (i < 0) {
+      frequencies.push(frequency);
+    } else {
+      frequencies[i] = frequency;
+    }
     this.frequencies$.next(frequencies);
   }
 

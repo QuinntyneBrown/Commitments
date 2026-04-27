@@ -80,7 +80,11 @@ export class ActivitiesPageComponent {
 
     const activities = [...this.activities$.value];
     const i = activities.findIndex((t) => t.activityId == activity.activityId);
-    const _ = i < 0 ? activities.push(activity) : activities[i] = activity;
+    if (i < 0) {
+      activities.push(activity);
+    } else {
+      activities[i] = activity;
+    }
     this.activities$.next(activities);
   }
 

@@ -87,7 +87,11 @@ export class BehavioursPageComponent {
 
     const behaviours = [...this.behaviours$.value];
     const i = behaviours.findIndex((t) => t.behaviourId == behaviour.behaviourId);
-    const _ = i < 0 ? behaviours.push(behaviour) : behaviours[i] = behaviour;
+    if (i < 0) {
+      behaviours.push(behaviour);
+    } else {
+      behaviours[i] = behaviour;
+    }
     this.behaviours$.next(behaviours);
   }
 

@@ -78,7 +78,11 @@ export class BehaviourTypesPageComponent {
 
     const behaviourTypes = [...this.behaviourTypes$.value];
     const i = behaviourTypes.findIndex((t) => t.behaviourTypeId == behaviourType.behaviourTypeId);
-    const _ = i < 0 ? behaviourTypes.push(behaviourType) : behaviourTypes[i] = behaviourType;
+    if (i < 0) {
+      behaviourTypes.push(behaviourType);
+    } else {
+      behaviourTypes[i] = behaviourType;
+    }
     this.behaviourTypes$.next(behaviourTypes);
   }
 

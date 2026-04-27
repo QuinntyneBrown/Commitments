@@ -72,7 +72,11 @@ export class CardLayoutsPageComponent {
 
     const cardLayouts = [...this.cardLayouts$.value];
     const i = cardLayouts.findIndex((t) => t.cardLayoutId == cardLayout.cardLayoutId);
-    const _ = i < 0 ? cardLayouts.push(cardLayout) : cardLayouts[i] = cardLayout;
+    if (i < 0) {
+      cardLayouts.push(cardLayout);
+    } else {
+      cardLayouts[i] = cardLayout;
+    }
     this.cardLayouts$.next(cardLayouts);
   }
 
