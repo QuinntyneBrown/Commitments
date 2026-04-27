@@ -2,22 +2,24 @@ import { expect, Locator, Page } from '@playwright/test';
 
 import { DashboardPage } from './dashboard.page';
 
+const ACTIVE_SEGMENT_CLASS = 'mode-toggle__segment--active';
+
 export class DashboardModePage {
   readonly page: Page;
   readonly dashboard: DashboardPage;
   readonly modeToggle: Locator;
   readonly liveSegment: Locator;
   readonly reviewSegment: Locator;
-  readonly addTileButton: Locator;
+  readonly addTileFab: Locator;
   readonly scrubberSlot: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.dashboard = new DashboardPage(page);
     this.modeToggle = page.getByTestId('dashboard-mode-toggle');
-    this.liveSegment = this.modeToggle.getByRole('tab', { name: /live/i });
-    this.reviewSegment = this.modeToggle.getByRole('tab', { name: /review/i });
-    this.addTileButton = page.getByTestId('add-tile');
+    this.liveSegment = this.modeToggle.locator('.mode-toggle__segment--live');
+    this.reviewSegment = this.modeToggle.locator('.mode-toggle__segment--review');
+    this.addTileFab = page.getByTestId('add-tile-fab');
     this.scrubberSlot = page.getByTestId('dashboard-scrubber-slot');
   }
 
@@ -34,14 +36,14 @@ export class DashboardModePage {
   }
 
   async expectLiveActive() {
-    await expect(this.liveSegment).toHaveAttribute('aria-pressed', 'true');
-    await expect(this.addTileButton).toBeVisible();
-    await expect(this.scrubberSlot).toBeHidden();
+    await expect(this.liveSegment).toHaveClass(new RegExp(`\\b${ACTIVE_SEGMENT_CLASS}\\b`));
+    await expect(this.addTileFab).toBeVisible();
+    await expect(this.scrubberSlot).toHaveCount(0);
   }
 
   async expectReviewActive() {
-    await expect(this.reviewSegment).toHaveAttribute('aria-pressed', 'true');
-    await expect(this.addTileButton).toBeHidden();
+    await expect(this.reviewSegment).toHaveClass(new RegExp(`\\b${ACTIVE_SEGMENT_CLASS}\\b`));
+    await expect(this.addTileFab).toHaveCount(0);
     await expect(this.scrubberSlot).toBeVisible();
   }
 }
