@@ -56,4 +56,15 @@ test.describe('login page', () => {
   test('card uses the dedicated --cui-shadow-login-card token from the design', async () => {
     expect(await login.cardBoxShadow()).toContain('rgba(0, 0, 0, 0.7) 0px 8px 24px');
   });
+
+  test('failed login shows an error snackbar with correct spelling', async ({ page }) => {
+    await login.usernameInput.fill('bad@user.com');
+    await login.passwordInput.fill('wrong');
+    await login.submitButton.click();
+    const snackbar = page.locator('mat-snack-bar-container');
+    await expect(snackbar).toBeVisible();
+    const text = await snackbar.innerText();
+    expect(text).toContain('occurred');
+    expect(text).not.toContain('ocurr.');
+  });
 });

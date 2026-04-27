@@ -20,7 +20,7 @@ export class ErrorService {
   public handle$(
     httpErrorResponse: HttpErrorResponse,
     message: string = 'Error',
-    action: string = 'An error ocurr.Try it again.'
+    action: string = 'An error occurred. Try it again.'
   ) {
     return this.translations$([message, action]).pipe(
       map(translations =>
