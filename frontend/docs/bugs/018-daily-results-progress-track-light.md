@@ -1,8 +1,10 @@
 ---
 id: 018
 title: Daily Results progress track is hard-coded #e6edf4 - shows as a bright bar on the dark surface
-status: open
+status: fixed
 discovered: 2026-04-26
+fixed: 2026-04-26
+fixed_in: f818cba
 flow: dashboard-layout
 severity: medium
 ---
