@@ -1,8 +1,10 @@
 ---
 id: 048
 title: styles.scss uses deprecated @import for SCSS partials - swap to @use for Dart Sass 3.0 forward-compat
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: 276ec94
 flow: dashboard-layout
 severity: low
 ---
