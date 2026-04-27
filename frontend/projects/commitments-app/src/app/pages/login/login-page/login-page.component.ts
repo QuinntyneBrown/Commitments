@@ -91,7 +91,7 @@ export class LoginPageComponent {
 
   public handleErrorResponse(errorResponse) {
     this._errorService
-      .handle$(errorResponse, 'Login Failed')
+      .handle$(errorResponse, 'An error occurred. Try it again.')
       .pipe(takeUntil(this.onDestroy), map(snackBarRef => (this._snackBarRef = snackBarRef)))
       .subscribe();
   }
