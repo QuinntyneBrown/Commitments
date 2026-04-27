@@ -4,6 +4,8 @@
     <span class="review-scrubber__legend-label">Reviewing</span>
   </span>
 
+  <span class="review-scrubber__date" data-testid="review-scrubber-date">{{ controller.selectedDateLabel() }}</span>
+
   <cui-icon-button
     icon="chevron_left"
     ariaLabel="Previous day"
@@ -45,8 +47,6 @@
       }
     </div>
   </div>
-
-  <span class="review-scrubber__date" data-testid="review-scrubber-date">{{ controller.selectedDateLabel() }}</span>
 
   <button
     type="button"
