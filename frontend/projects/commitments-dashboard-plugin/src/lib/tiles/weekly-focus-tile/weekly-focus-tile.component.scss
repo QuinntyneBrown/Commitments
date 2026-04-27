@@ -12,14 +12,14 @@
   justify-content: space-between;
   gap: 10px;
   padding: 10px 0;
-  border-bottom: 1px solid #edf1f6;
+  border-bottom: 1px solid var(--cui-divider);
 }
 
 .focus-list strong {
-  color: #172033;
+  color: var(--cui-text-primary);
 }
 
 .focus-list span {
-  color: #64748b;
+  color: var(--cui-text-secondary);
   font-size: 13px;
 }
