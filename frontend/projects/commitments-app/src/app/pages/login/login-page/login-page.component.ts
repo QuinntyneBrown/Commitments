@@ -12,7 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs';
-import { AuthService } from '../../../core/auth';
+import { AuthService } from '../../../core/auth.service';
 import { LoginRedirectService } from '../../../core/redirect.service';
 import { ErrorService } from '../../../core/error.service';
 import { LocalStorageService } from '../../../core/local-storage.service';

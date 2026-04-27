@@ -4,9 +4,12 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
+import { provideTranslateService } from '@ngx-translate/core';
 import { PLUGIN_TILES, provideDashboardFramework } from '@commitments/dashboard-framework';
 import { provideCommitmentsDashboardPlugin } from '@commitments/dashboard-plugin';
 
+import { routes } from './app.routes';
 import { LiveGoalMetricsTileComponent } from './components/live-goal-metrics-tile/live-goal-metrics-tile.component';
 import { ReviewGoalHistoryTileComponent } from './components/review-goal-history-tile/review-goal-history-tile.component';
 import { baseUrl, minimumLogLevel } from './core/constants';
@@ -18,6 +21,8 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(withInterceptors([headerInterceptor, jwtInterceptor])),
     provideAnimations(),
+    provideRouter(routes),
+    provideTranslateService({ defaultLanguage: 'en' }),
     ...provideDashboardFramework(),
     ...provideCommitmentsDashboardPlugin(),
     { provide: PLUGIN_TILES, useValue: [LiveGoalMetricsTileComponent, ReviewGoalHistoryTileComponent], multi: true },

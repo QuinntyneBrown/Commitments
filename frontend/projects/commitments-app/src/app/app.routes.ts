@@ -2,5 +2,11 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 import { Routes } from '@angular/router';
+import { DashboardShellComponent } from '@commitments/dashboard-framework';
 
-export const routes: Routes = [];
+import { LoginPageComponent } from './pages/login/login-page/login-page.component';
+
+export const routes: Routes = [
+  { path: 'login', component: LoginPageComponent },
+  { path: '', component: DashboardShellComponent }
+];
