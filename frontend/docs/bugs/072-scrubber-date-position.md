@@ -2,7 +2,8 @@
 
 ## Status
 
-OPEN — surfaced via design comparison.
+FIXED — date pill is now adjacent to the "Reviewing" legend on the
+left of the scrubber; 3/3 scrubber e2e tests still pass.
 
 ## Symptom
 
@@ -30,6 +31,8 @@ intact so the existing `review-scrubber-date` test continues to find it.
 
 ## Resolution
 
-- [ ] Visual screenshot pre-fix.
-- [ ] Template re-ordered.
-- [ ] e2e tests still green; visual screenshot post-fix.
+- [x] Visual screenshot pre-fix surfaced via earlier review captures.
+- [x] Template re-ordered: `.review-scrubber__date` moved adjacent to
+      `.review-scrubber__legend`.
+- [x] 3/3 scrubber e2e tests pass; visual screenshot post-fix shows
+      the new layout.
