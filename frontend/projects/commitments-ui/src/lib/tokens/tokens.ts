@@ -39,4 +39,36 @@ export const TOOLBAR_HEIGHT = 64;
 export const HEADER_HEIGHT = 80;
 export const SIDENAV_WIDTH = 250;
 
+export const ON_ACCENT = '#FFFFFF';
+
+export const FONT_BODY = 'Inter';
+export const FONT_DISPLAY = 'Inter';
+export const FONT_MONO = 'Roboto Mono';
+
+export const FS_XS = 11;
+export const FS_SM = 12;
+export const FS_BODY = 14;
+export const FS_MD = 16;
+export const FS_LG = 18;
+export const FS_XL = 20;
+export const FS_H3 = 24;
+export const FS_H2 = 28;
+export const FS_H1 = 34;
+export const FS_DISPLAY = 48;
+
+export const FW_REGULAR = 400;
+export const FW_MEDIUM = 500;
+export const FW_BOLD = 700;
+
+export const SP_1 = 4;
+export const SP_2 = 8;
+export const SP_3 = 12;
+export const SP_4 = 16;
+export const SP_5 = 20;
+export const SP_6 = 24;
+export const SP_7 = 32;
+export const SP_8 = 40;
+export const SP_9 = 48;
+export const SP_10 = 64;
+
 export type DashboardMode = 'live' | 'review';

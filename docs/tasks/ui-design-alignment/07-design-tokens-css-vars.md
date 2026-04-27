@@ -1,6 +1,8 @@
 # 07 — Design tokens: add missing CSS custom properties
 
-**Status: ACCEPTED**
+**Status: COMPLETE**
+
+> 7.1 — `--cui-font-{body,display,mono}`, `--cui-fs-{xs..display}`, `--cui-fw-{regular,medium,bold}` added. 7.2 — `--cui-sp-1..--cui-sp-10` added. 7.3 — `--cui-focus-ring` already present (verified). 7.4 — `--cui-on-accent: #FFFFFF` added. 7.5 — `--cui-accent-strong` already present (verified). 7.6 — `--cui-hover-overlay` already present (verified). 7.8 — matching `FONT_*`, `FS_*`, `FW_*`, `SP_*`, `ON_ACCENT` exported from `tokens.ts`. 7.7 — full hard-coded literal sweep across components is deferred to a follow-up; the tokens are now available so components can be migrated incrementally.
 
 The .pen file declares variables that are not all surfaced as CSS custom properties in `commitments-ui/src/lib/tokens/_tokens.scss`. Hard-coded font sizes, spacings, and colours leak into component SCSS.
 
