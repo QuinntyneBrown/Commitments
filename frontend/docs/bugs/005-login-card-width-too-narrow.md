@@ -1,8 +1,10 @@
 ---
 id: 005
 title: Login card max-width is 370px - design specifies 480px at LG/XL
-status: open
+status: fixed
 discovered: 2026-04-26
+fixed: 2026-04-26
+fixed_in: 392a95d
 flow: authentication
 severity: medium
 ---
