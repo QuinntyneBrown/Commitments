@@ -18,17 +18,10 @@ export class DailyResultsController {
     return total > 0 ? Math.round((this.completed() / total) * 100) : 0;
   });
 
-  private _asOf: string | null = null;
-
   constructor(private readonly _service: DailyResultsService) {}
 
   load(mode: DashboardMode, asOf: string | null): void {
     this.mode.set(mode);
-    this._asOf = asOf;
     this._service.get(asOf).subscribe((dto) => this.snapshot.set(dto));
-  }
-
-  refresh(): void {
-    this.load(this.mode(), this._asOf);
   }
 }

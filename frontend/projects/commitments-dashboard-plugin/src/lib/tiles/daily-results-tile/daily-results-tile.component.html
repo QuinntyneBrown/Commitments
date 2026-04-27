@@ -6,8 +6,8 @@
   data-testid="daily-results-tile"
 >
   <cui-status-pill
-    [variant]="statusVariant()"
-    [pulse]="statusVariant() === 'live'"
+    [variant]="controller.mode()"
+    [pulse]="controller.mode() === 'live'"
     [label]="statusLabel()"
   ></cui-status-pill>
 

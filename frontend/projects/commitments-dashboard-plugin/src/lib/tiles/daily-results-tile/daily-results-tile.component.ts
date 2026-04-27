@@ -10,7 +10,6 @@ import {
 } from '@commitments/dashboard-framework';
 import { StatusPillComponent, TileShellComponent } from '@commitments/ui';
 
-import { DailyResultsService } from '../../data/daily-results.service';
 import { DailyResultsController } from './daily-results.controller';
 
 @Component({
@@ -35,16 +34,13 @@ export class DailyResultsTileComponent {
     supportedModes: ['live', 'review']
   };
 
-  private readonly _service = inject(DailyResultsService);
-  private readonly _tileContext = inject(TILE_CONTEXT, { optional: true }) as TileContext | null;
   protected readonly controller = inject(DailyResultsController);
-
-  protected readonly statusVariant = computed(() => this.controller.mode());
   protected readonly statusLabel = computed(() => this.controller.mode().toUpperCase());
 
   constructor() {
+    const context = inject(TILE_CONTEXT, { optional: true }) as TileContext | null;
     bindTileMode({
-      context: this._tileContext,
+      context,
       load: (mode, asOf) => this.controller.load(mode, asOf)
     });
   }

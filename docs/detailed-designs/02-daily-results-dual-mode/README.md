@@ -1,8 +1,10 @@
 # Daily Results Tile — Dual-Mode Design
 
-**Status:** Accepted — 2026-04-27
+**Status:** Implemented — 2026-04-27
 **Tile ID:** `commitments.daily-results`
 **Traces to:** L1-010, L1-011, L1-012, **L1-012a**; L2-018, **L2-031a**, L2-038, L2-045.
+
+> Implementation note: SignalR invalidation wiring (`tileInvalidationService.invalidations$('dailyResults')`) is deferred — `TileInvalidationService` lives in `commitments-app`, but the tile lives in `commitments-dashboard-plugin`, and a clean cross-lib token is out of scope for this design. Live refresh works through `TileContext.refresh$` (the framework already wires this into `bindTileMode`); SignalR-driven refresh will be plumbed when the host wires `refresh$` to invalidations.
 
 ## 1. Overview
 
