@@ -1,6 +1,8 @@
 # 09 — Login page audit (out of scope for the reported issues, but listed for completeness)
 
-**Status: ACCEPTED**
+**Status: COMPLETE**
+
+> 9.1 audit deliverable lives in [09a-login-detailed-audit.md](09a-login-detailed-audit.md). Implementation follow-ups 9.1.1–9.1.7 are tracked there; the audit task itself (this file) is closed.
 
 **Design**: `Login — LG` (`8xz6c`), centered `loginCard` on `$bg`. Responsive variants exist at S/M/LG/XL (`YfR0i`, `oC1bM`, `8xz6c`, `rKU7X`).
 
