@@ -9,6 +9,10 @@ test.describe('dashboard shell', () => {
     await dashboard.goto();
   });
 
+  test('topbar uses the dark toolbar token from the design system', async () => {
+    expect(await dashboard.topbarBackgroundColor()).toBe('rgb(31, 34, 51)');
+  });
+
   test('loads the dashboard with registered plugin tiles', async () => {
     await dashboard.expectDefaultDashboard();
     // Default mode is 'live'; the dropdown is filtered to live-supporting tiles.

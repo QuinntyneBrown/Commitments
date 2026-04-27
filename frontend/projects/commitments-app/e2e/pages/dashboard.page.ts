@@ -109,4 +109,9 @@ export class DashboardPage {
   tileByTitle(title: string): Locator {
     return this.page.getByTestId('tile-shell').filter({ has: this.page.getByTestId('tile-title').filter({ hasText: title }) });
   }
+
+  topbarBackgroundColor(): Promise<string> {
+    return this.page.locator('.dashboard-shell__topbar').first()
+      .evaluate((el) => getComputedStyle(el).backgroundColor);
+  }
 }
