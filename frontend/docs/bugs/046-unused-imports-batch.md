@@ -1,8 +1,10 @@
 ---
 id: 046
 title: Eight unused imports across the codebase trip @typescript-eslint/no-unused-vars
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: 359ead4
 flow: dashboard-layout
 severity: low
 ---
