@@ -1,0 +1,45 @@
+:host {
+  display: block;
+}
+
+.review-tile {
+  min-height: 240px;
+  border-color: var(--cui-primary, #9FA8DA);
+  border-radius: var(--cui-radius-md, 8px);
+  background: var(--cui-surface-2, #242424);
+  color: var(--cui-text-primary, #FFFFFF);
+}
+
+.review-tile__header,
+.review-tile__footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.review-tile__header mat-icon,
+.review-tile__body strong {
+  color: var(--cui-primary, #9FA8DA);
+}
+
+.review-tile__spacer {
+  flex: 1 1 auto;
+}
+
+.review-tile__body {
+  display: grid;
+  min-height: 128px;
+  place-items: center;
+  text-align: center;
+}
+
+.review-tile__body strong {
+  font-size: 48px;
+  line-height: 1;
+}
+
+.review-tile__body span,
+.review-tile__snapshot {
+  color: var(--cui-text-secondary, #B0B0B0);
+  font-size: 12px;
+}

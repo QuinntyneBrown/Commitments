@@ -1,15 +1,7 @@
 .icon-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   width: 36px;
   height: 36px;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: transparent;
-  color: #B0B0B0;
-  cursor: pointer;
+  color: var(--cui-text-secondary, #B0B0B0);
   transition: background 150ms ease, color 150ms ease;
 }
 
@@ -35,4 +27,6 @@
 
 .icon-button__glyph {
   font-size: 20px;
+  width: 20px;
+  height: 20px;
 }

@@ -1,0 +1,13 @@
+<button
+  mat-list-item
+  type="button"
+  class="sidenav-item"
+  [class.sidenav-item--active]="active()"
+  [disabled]="disabled()"
+  [attr.aria-current]="active() ? 'page' : null"
+  (click)="selected.emit()">
+  @if (icon()) {
+    <mat-icon matListItemIcon aria-hidden="true">{{ icon() }}</mat-icon>
+  }
+  <span matListItemTitle>{{ label() }}</span>
+</button>

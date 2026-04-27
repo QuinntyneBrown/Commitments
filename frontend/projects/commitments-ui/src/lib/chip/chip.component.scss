@@ -1,0 +1,17 @@
+:host,
+.chip-set {
+  display: inline-flex;
+}
+
+.chip {
+  min-height: 32px;
+  border-radius: var(--cui-radius-full, 9999px);
+  background: var(--cui-surface-3, #2C2C2C);
+  color: var(--cui-text-primary, #FFFFFF);
+  font-size: 12px;
+}
+
+.chip--selected {
+  background: var(--cui-primary, #9FA8DA);
+  color: var(--cui-on-primary, #1A1B23);
+}

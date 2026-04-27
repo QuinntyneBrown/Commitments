@@ -1,0 +1,24 @@
+<mat-form-field class="text-input" appearance="fill" [class.text-input--error]="hasError()">
+  @if (label()) {
+    <mat-label>{{ label() }}</mat-label>
+  }
+  @if (prefixIcon()) {
+    <mat-icon matPrefix aria-hidden="true">{{ prefixIcon() }}</mat-icon>
+  }
+  <input
+    matInput
+    [type]="type()"
+    [value]="value()"
+    [placeholder]="placeholder()"
+    [disabled]="disabled()"
+    [attr.aria-invalid]="hasError()"
+    (input)="updateValue($event)" />
+  @if (suffixIcon()) {
+    <mat-icon matSuffix aria-hidden="true">{{ suffixIcon() }}</mat-icon>
+  }
+  @if (hasError()) {
+    <mat-error>{{ error() }}</mat-error>
+  } @else if (hint()) {
+    <mat-hint>{{ hint() }}</mat-hint>
+  }
+</mat-form-field>

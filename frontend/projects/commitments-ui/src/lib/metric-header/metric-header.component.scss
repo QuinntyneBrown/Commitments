@@ -4,26 +4,26 @@
 }
 
 .metric-header__value {
-  color: #FFFFFF;
+  color: var(--cui-text-primary, #FFFFFF);
   font-size: 42px;
   font-weight: 300;
   line-height: 1;
-  letter-spacing: -0.5px;
+  letter-spacing: 0;
 }
 
 .metric-header__caption {
-  color: #B0B0B0;
+  color: var(--cui-text-secondary, #B0B0B0);
   font-size: 13px;
 }
 
 .metric-header--live .metric-header__value {
-  color: #FF4081;
+  color: var(--cui-accent, #FF4081);
 }
 
 .metric-header--review .metric-header__value {
-  color: #9FA8DA;
+  color: var(--cui-primary, #9FA8DA);
 }
 
 .metric-header--chart .metric-header__value {
-  color: #42A5F5;
+  color: var(--cui-info, #42A5F5);
 }

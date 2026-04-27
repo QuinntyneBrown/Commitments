@@ -1,5 +1,11 @@
-<section class="mat-typography">
-  <h2>
-    <ng-content></ng-content>
-  </h2>  
-</section>
+<mat-toolbar class="primary-header mat-typography">
+  <h1 class="primary-header__title">
+    @if (title()) {
+      {{ title() }}
+    } @else {
+      <ng-content></ng-content>
+    }
+  </h1>
+  <span class="primary-header__spacer"></span>
+  <ng-content select="[header-actions]"></ng-content>
+</mat-toolbar>

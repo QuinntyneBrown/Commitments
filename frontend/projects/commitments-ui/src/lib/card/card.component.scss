@@ -1,0 +1,15 @@
+:host {
+  display: block;
+}
+
+.card {
+  border-color: var(--cui-divider, #3A3A3A);
+  border-radius: var(--cui-radius-md, 8px);
+  background: var(--cui-surface, #1E1E1E);
+  color: var(--cui-text-primary, #FFFFFF);
+  box-shadow: var(--cui-shadow-raised, 0 2px 8px rgba(0, 0, 0, 0.5));
+}
+
+mat-card-subtitle {
+  color: var(--cui-text-secondary, #B0B0B0);
+}

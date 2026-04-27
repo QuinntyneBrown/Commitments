@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+.dialog-shell {
+  min-width: min(480px, 100vw - 32px);
+  border-radius: var(--cui-radius-md, 8px);
+  background: var(--cui-surface, #1E1E1E);
+  color: var(--cui-text-primary, #FFFFFF);
+}
+
+mat-dialog-content {
+  color: var(--cui-text-secondary, #B0B0B0);
+}

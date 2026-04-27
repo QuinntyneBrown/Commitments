@@ -7,7 +7,12 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": []
+    "types": [],
+    "paths": {
+      "@commitments/ui": [
+        "dist/commitments-ui"
+      ]
+    }
   },
   "include": [
     "src/**/*.ts"

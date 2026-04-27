@@ -1,7 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 import { DashboardMode } from '../tokens/tokens';
 
@@ -15,7 +15,7 @@ export type MetricHeaderAccent = DashboardMode | 'chart';
   styleUrls: ['./metric-header.component.scss']
 })
 export class MetricHeaderComponent {
-  @Input() value = '';
-  @Input() caption = '';
-  @Input() accent: MetricHeaderAccent = 'chart';
+  readonly value = input('');
+  readonly caption = input('');
+  readonly accent = input<MetricHeaderAccent>('chart');
 }

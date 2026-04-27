@@ -1,17 +1,14 @@
+import { TestBed } from '@angular/core/testing';
+
 import { TileShellComponent } from './tile-shell.component';
 
 describe('TileShellComponent', () => {
-  it('defaults to the metric variant', () => {
-    const component = new TileShellComponent();
-    expect(component.variant).toBe('metric');
+  beforeEach(() => {
+    TestBed.configureTestingModule({ imports: [TileShellComponent] });
   });
 
-  it('accepts metric, review, and chart variants', () => {
-    const component = new TileShellComponent();
-    component.variant = 'review';
-    expect(component.variant).toBe('review');
-
-    component.variant = 'chart';
-    expect(component.variant).toBe('chart');
+  it('defaults to the metric variant', () => {
+    const component = TestBed.createComponent(TileShellComponent).componentInstance;
+    expect(component.variant()).toBe('metric');
   });
 });

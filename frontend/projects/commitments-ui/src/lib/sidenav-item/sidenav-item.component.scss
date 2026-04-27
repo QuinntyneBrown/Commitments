@@ -1,0 +1,28 @@
+:host {
+  display: block;
+}
+
+.sidenav-item {
+  width: 100%;
+  height: 48px;
+  color: var(--cui-text-primary, #FFFFFF);
+}
+
+.sidenav-item mat-icon {
+  color: var(--cui-text-secondary, #B0B0B0);
+}
+
+.sidenav-item:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sidenav-item--active {
+  border-left: 3px solid var(--cui-primary, #9FA8DA);
+  background: color-mix(in srgb, var(--cui-primary, #9FA8DA) 14%, transparent);
+  color: var(--cui-primary, #9FA8DA);
+  font-weight: 500;
+}
+
+.sidenav-item--active mat-icon {
+  color: var(--cui-primary, #9FA8DA);
+}

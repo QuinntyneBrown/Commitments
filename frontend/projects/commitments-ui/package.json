@@ -2,8 +2,10 @@
   "name": "@commitments/ui",
   "version": "0.0.1",
   "peerDependencies": {
+    "@angular/cdk": "^21.0.0",
     "@angular/common": "^21.0.0",
-    "@angular/core": "^21.0.0"
+    "@angular/core": "^21.0.0",
+    "@angular/material": "^21.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"

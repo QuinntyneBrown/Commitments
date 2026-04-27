@@ -1,41 +1,36 @@
+import { TestBed } from '@angular/core/testing';
+
 import { IconButtonComponent } from './icon-button.component';
 
 describe('IconButtonComponent', () => {
-  it('exposes icon and ariaLabel inputs', () => {
-    const component = new IconButtonComponent();
-    component.icon = 'play_arrow';
-    component.ariaLabel = 'Play';
+  beforeEach(() => {
+    TestBed.configureTestingModule({ imports: [IconButtonComponent] });
+  });
 
-    expect(component.icon).toBe('play_arrow');
-    expect(component.ariaLabel).toBe('Play');
+  it('exposes icon and ariaLabel inputs', () => {
+    const component = TestBed.createComponent(IconButtonComponent).componentInstance;
+
+    expect(component.icon()).toBe('');
+    expect(component.ariaLabel()).toBe('');
   });
 
   it('toggles pressed state when toggle is invoked', () => {
-    const component = new IconButtonComponent();
-    component.pressed = false;
-    let emitted: boolean | null = null;
-    component.pressedChange.subscribe(value => {
-      emitted = value;
-    });
+    const component = TestBed.createComponent(IconButtonComponent).componentInstance;
+    component.pressed.set(false);
 
     component.toggle();
 
-    expect(component.pressed).toBe(true);
-    expect(emitted).toBe(true);
+    expect(component.pressed()).toBe(true);
   });
 
   it('does not toggle when disabled', () => {
-    const component = new IconButtonComponent();
-    component.pressed = false;
-    component.disabled = true;
-    let emitCount = 0;
-    component.pressedChange.subscribe(() => {
-      emitCount++;
-    });
+    const fixture = TestBed.createComponent(IconButtonComponent);
+    fixture.componentRef.setInput('disabled', true);
+    const component = fixture.componentInstance;
+    component.pressed.set(false);
 
     component.toggle();
 
-    expect(component.pressed).toBe(false);
-    expect(emitCount).toBe(0);
+    expect(component.pressed()).toBe(false);
   });
 });

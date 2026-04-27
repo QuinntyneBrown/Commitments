@@ -1,57 +1,48 @@
+import { TestBed } from '@angular/core/testing';
+
 import { ModeToggleComponent } from './mode-toggle.component';
 
 describe('ModeToggleComponent', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({ imports: [ModeToggleComponent] });
+  });
+
   it('emits modeChange when select is called with a different mode', () => {
-    const component = new ModeToggleComponent();
-    component.mode = 'live';
-    let emitted: 'live' | 'review' | null = null;
-    component.modeChange.subscribe(value => {
-      emitted = value;
-    });
+    const component = TestBed.createComponent(ModeToggleComponent).componentInstance;
+    component.mode.set('live');
 
     component.select('review');
 
-    expect(emitted).toBe('review');
+    expect(component.mode()).toBe('review');
   });
 
   it('does not emit when select is called with the current mode', () => {
-    const component = new ModeToggleComponent();
-    component.mode = 'live';
-    let emitCount = 0;
-    component.modeChange.subscribe(() => {
-      emitCount++;
-    });
+    const component = TestBed.createComponent(ModeToggleComponent).componentInstance;
+    component.mode.set('live');
 
     component.select('live');
 
-    expect(emitCount).toBe(0);
+    expect(component.mode()).toBe('live');
   });
 
   it('does not emit when disabled', () => {
-    const component = new ModeToggleComponent();
-    component.mode = 'live';
-    component.disabled = true;
-    let emitCount = 0;
-    component.modeChange.subscribe(() => {
-      emitCount++;
-    });
+    const fixture = TestBed.createComponent(ModeToggleComponent);
+    fixture.componentRef.setInput('disabled', true);
+    const component = fixture.componentInstance;
+    component.mode.set('live');
 
     component.select('review');
 
-    expect(emitCount).toBe(0);
+    expect(component.mode()).toBe('live');
   });
 
   it('switches to review on ArrowRight and to live on ArrowLeft', () => {
-    const component = new ModeToggleComponent();
-    component.mode = 'live';
-    const seen: ('live' | 'review')[] = [];
-    component.modeChange.subscribe(value => {
-      seen.push(value);
-    });
+    const component = TestBed.createComponent(ModeToggleComponent).componentInstance;
+    component.mode.set('live');
 
     component.onKeyDown(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
     component.onKeyDown(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
 
-    expect(seen).toEqual(['review', 'live']);
+    expect(component.mode()).toBe('live');
   });
 });

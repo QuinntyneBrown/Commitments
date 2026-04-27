@@ -1,10 +1,11 @@
 <button
+  mat-icon-button
   type="button"
   class="icon-button"
-  [class.icon-button--pressed]="pressed"
-  [disabled]="disabled"
-  [attr.aria-label]="ariaLabel"
-  [attr.aria-pressed]="pressed"
+  [class.icon-button--pressed]="pressed()"
+  [disabled]="disabled()"
+  [attr.aria-label]="ariaLabel()"
+  [attr.aria-pressed]="pressed()"
   (click)="toggle()">
-  <span class="material-symbols-outlined icon-button__glyph" aria-hidden="true">{{ icon }}</span>
+  <mat-icon class="icon-button__glyph" aria-hidden="true">{{ icon() }}</mat-icon>
 </button>

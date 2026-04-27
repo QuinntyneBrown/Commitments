@@ -1,22 +1,24 @@
-<div class="mode-toggle" role="tablist" [class.mode-toggle--disabled]="disabled" (keydown)="onKeyDown($event)">
-  <button
-    type="button"
-    role="tab"
+<mat-button-toggle-group
+  class="mode-toggle"
+  [class.mode-toggle--disabled]="disabled()"
+  [disabled]="disabled()"
+  [value]="mode()"
+  aria-label="Dashboard mode"
+  (keydown)="onKeyDown($event)">
+  <mat-button-toggle
     class="mode-toggle__segment mode-toggle__segment--live"
-    [class.mode-toggle__segment--active]="mode === 'live'"
-    [attr.aria-pressed]="mode === 'live'"
-    [disabled]="disabled"
+    [class.mode-toggle__segment--active]="mode() === 'live'"
+    value="live"
     (click)="select('live')">
+    <span class="mode-toggle__dot" aria-hidden="true"></span>
     Live
-  </button>
-  <button
-    type="button"
-    role="tab"
+  </mat-button-toggle>
+  <mat-button-toggle
     class="mode-toggle__segment mode-toggle__segment--review"
-    [class.mode-toggle__segment--active]="mode === 'review'"
-    [attr.aria-pressed]="mode === 'review'"
-    [disabled]="disabled"
+    [class.mode-toggle__segment--active]="mode() === 'review'"
+    value="review"
     (click)="select('review')">
+    <mat-icon class="mode-toggle__icon" aria-hidden="true">history</mat-icon>
     Review
-  </button>
-</div>
+  </mat-button-toggle>
+</mat-button-toggle-group>

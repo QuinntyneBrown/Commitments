@@ -1,0 +1,5 @@
+<mat-radio-group class="radio-group" [attr.aria-label]="label()" [disabled]="disabled()" [value]="value()" (change)="value.set($event.value)">
+  @for (option of options(); track option.value) {
+    <mat-radio-button [value]="option.value" [disabled]="option.disabled">{{ option.label }}</mat-radio-button>
+  }
+</mat-radio-group>

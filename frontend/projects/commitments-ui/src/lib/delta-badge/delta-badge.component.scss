@@ -1,8 +1,13 @@
+.delta-badge-set {
+  display: inline-flex;
+}
+
 .delta-badge {
   display: inline-flex;
   align-items: baseline;
   gap: 6px;
-  padding: 2px 8px;
+  min-height: 24px;
+  padding: 0 8px;
   border-radius: 999px;
   font-size: 12px;
   font-weight: 600;
@@ -14,22 +19,22 @@
 }
 
 .delta-badge__caption {
-  color: #B0B0B0;
+  color: var(--cui-text-secondary, #B0B0B0);
   font-size: 11px;
   font-weight: 500;
 }
 
 .delta-badge--positive {
-  color: #66BB6A;
-  background: rgba(102, 187, 106, 0.12);
+  color: var(--cui-success, #66BB6A);
+  background: color-mix(in srgb, var(--cui-success, #66BB6A) 14%, transparent);
 }
 
 .delta-badge--negative {
-  color: #FF4081;
-  background: rgba(255, 64, 129, 0.12);
+  color: var(--cui-accent, #FF4081);
+  background: color-mix(in srgb, var(--cui-accent, #FF4081) 14%, transparent);
 }
 
 .delta-badge--neutral {
-  color: #666666;
-  background: rgba(102, 102, 102, 0.16);
+  color: var(--cui-text-disabled, #666666);
+  background: color-mix(in srgb, var(--cui-text-disabled, #666666) 16%, transparent);
 }

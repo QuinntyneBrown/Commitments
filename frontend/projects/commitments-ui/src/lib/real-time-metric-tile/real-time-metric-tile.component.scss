@@ -1,0 +1,70 @@
+:host {
+  display: block;
+}
+
+.metric-tile {
+  border-color: var(--cui-divider, #3A3A3A);
+  border-radius: var(--cui-radius-md, 8px);
+  background: var(--cui-surface-2, #242424);
+  color: var(--cui-text-primary, #FFFFFF);
+  box-shadow: var(--cui-shadow-floating, 0 6px 12px rgba(0, 0, 0, 0.6));
+}
+
+.metric-tile__header {
+  align-items: center;
+  gap: 10px;
+}
+
+.metric-tile__header mat-icon,
+.metric-tile__summary strong,
+.metric-tile__label--today {
+  color: var(--cui-accent, #FF4081);
+}
+
+.metric-tile__spacer {
+  flex: 1 1 auto;
+}
+
+.metric-tile__summary {
+  display: flex;
+  align-items: end;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.metric-tile__summary strong {
+  font-size: 48px;
+  line-height: 1;
+}
+
+.metric-tile__summary span,
+.metric-tile__labels {
+  color: var(--cui-text-secondary, #B0B0B0);
+  font-size: 11px;
+}
+
+.metric-tile__bars {
+  display: flex;
+  height: 180px;
+  align-items: end;
+  gap: 6px;
+}
+
+.metric-tile__bar {
+  flex: 1 1 0;
+  min-width: 4px;
+  border-radius: 3px 3px 0 0;
+  background: var(--cui-primary-strong, #7986CB);
+}
+
+.metric-tile__bar--today {
+  background: linear-gradient(180deg, var(--cui-accent, #FF4081), var(--cui-accent-strong, #F50057));
+  box-shadow: 0 0 8px color-mix(in srgb, var(--cui-accent, #FF4081) 60%, transparent);
+}
+
+.metric-tile__labels {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 6px;
+}

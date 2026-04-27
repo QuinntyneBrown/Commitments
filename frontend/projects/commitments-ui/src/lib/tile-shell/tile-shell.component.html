@@ -1,17 +1,23 @@
-<article class="tile-shell" [class]="'tile-shell--' + variant" data-testid="tile-shell">
-  <header class="tile-shell__header">
-    <div>
-      @if (eyebrow) {
-        <p class="tile-shell__eyebrow">{{ eyebrow }}</p>
+<mat-card
+  class="tile-shell"
+  [class.tile-shell--metric]="variant() === 'metric'"
+  [class.tile-shell--review]="variant() === 'review'"
+  [class.tile-shell--chart]="variant() === 'chart'"
+  appearance="outlined"
+  data-testid="tile-shell">
+  <mat-card-header class="tile-shell__header">
+    <div class="tile-shell__heading">
+      @if (eyebrow()) {
+        <p class="tile-shell__eyebrow">{{ eyebrow() }}</p>
       }
-      <h2 class="tile-shell__title" data-testid="tile-title">{{ title }}</h2>
+      <mat-card-title class="tile-shell__title" data-testid="tile-title">{{ title() }}</mat-card-title>
     </div>
-    @if (status) {
-      <span class="tile-shell__status">{{ status }}</span>
+    @if (status()) {
+      <span class="tile-shell__status">{{ status() }}</span>
     }
-  </header>
+  </mat-card-header>
 
-  <section class="tile-shell__body">
+  <mat-card-content class="tile-shell__body">
     <ng-content></ng-content>
-  </section>
-</article>
+  </mat-card-content>
+</mat-card>

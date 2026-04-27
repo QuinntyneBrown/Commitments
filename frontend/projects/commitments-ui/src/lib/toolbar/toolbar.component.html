@@ -1,0 +1,16 @@
+<mat-toolbar class="toolbar">
+  @if (showMenuButton()) {
+    <button mat-icon-button type="button" [attr.aria-label]="menuAriaLabel()" (click)="menuClick.emit()">
+      <mat-icon aria-hidden="true">menu</mat-icon>
+    </button>
+  }
+  <span class="toolbar__title">{{ appName() }}</span>
+  <span class="toolbar__spacer"></span>
+  <ng-content select="[toolbar-actions]"></ng-content>
+  @if (userName()) {
+    <span class="toolbar__user">{{ userName() }}</span>
+  }
+  @if (avatarText()) {
+    <span class="toolbar__avatar" aria-hidden="true">{{ avatarText() }}</span>
+  }
+</mat-toolbar>

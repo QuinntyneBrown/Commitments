@@ -14,3 +14,26 @@ h2 {
   margin: 0;
   padding: 0;
 }
+:host {
+  display: block;
+}
+
+.primary-header {
+  min-height: var(--cui-header-height, 80px);
+  padding: 0 var(--cui-header-padding, 20px);
+  background: var(--cui-primary-dim, #3F51B5);
+  color: var(--cui-text-primary, #FFFFFF);
+}
+
+.primary-header__title {
+  margin: 0;
+  overflow: hidden;
+  color: inherit;
+  font: 500 28px/1.2 Roboto, Arial, sans-serif;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.primary-header__spacer {
+  flex: 1 1 auto;
+}

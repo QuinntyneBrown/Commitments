@@ -1,0 +1,26 @@
+:host {
+  display: inline-flex;
+}
+
+.cui-button {
+  border-radius: var(--cui-radius-sm, 4px);
+  font-weight: 500;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.cui-button mat-icon {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+}
+
+.cui-button--icon {
+  border-radius: var(--cui-radius-full, 9999px);
+}
+
+.cui-button--fab,
+.cui-button--mini-fab,
+.cui-button--extended-fab {
+  box-shadow: var(--cui-shadow-floating, 0 6px 12px rgba(0, 0, 0, 0.6));
+}

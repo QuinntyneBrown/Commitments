@@ -1,0 +1,13 @@
+<mat-chip-set class="chip-set" aria-label="Chip">
+  <mat-chip class="chip" [class.chip--selected]="selected()" [disabled]="disabled()" [highlighted]="selected()">
+    @if (selected()) {
+      <mat-icon matChipAvatar aria-hidden="true">check</mat-icon>
+    }
+    {{ label() }}
+    @if (removable()) {
+      <button matChipRemove type="button" aria-label="Remove" (click)="removed.emit()">
+        <mat-icon aria-hidden="true">close</mat-icon>
+      </button>
+    }
+  </mat-chip>
+</mat-chip-set>
