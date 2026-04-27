@@ -80,6 +80,7 @@ try
         });
     builder.Services.AddSingleton<IRealtimePublisher, SignalRRealtimePublisher>();
     builder.Services.AddHostedService<GoalProgressUpdatedRealtimeNotifier>();
+    builder.Services.AddHostedService<DashboardTileInvalidationNotifier>();
 
     builder.Services.AddApiVersioning(options =>
     {

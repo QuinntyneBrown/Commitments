@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Commitments.Data;
 using Commitments.Domain.CommitmentAggregate;
+using Commitments.Shared;
 using Microsoft.EntityFrameworkCore;
 using CommitmentEntity = Commitments.Domain.CommitmentAggregate.Commitment;
 
@@ -33,9 +34,14 @@ public class SaveCommitmentResponse
 
 public class SaveCommitmentCommandHandler : IRequestHandler<SaveCommitmentRequest, SaveCommitmentResponse>
 {
-    public ICommitmentsDbContext _context { get; set; }
+    private readonly ICommitmentsDbContext _context;
+    private readonly IEventBus _bus;
 
-    public SaveCommitmentCommandHandler(ICommitmentsDbContext context) => _context = context;
+    public SaveCommitmentCommandHandler(ICommitmentsDbContext context, IEventBus bus)
+    {
+        _context = context;
+        _bus = bus;
+    }
 
     public async Task<SaveCommitmentResponse> Handle(SaveCommitmentRequest request, CancellationToken cancellationToken)
     {
@@ -43,6 +49,8 @@ public class SaveCommitmentCommandHandler : IRequestHandler<SaveCommitmentReques
             .Include(x => x.CommitmentFrequencies)
             .Include("CommitmentFrequencies.Frequency")
             .SingleOrDefaultAsync(x => x.CommitmentId == request.Commitment.CommitmentId);
+
+        var kind = commitment is null ? ChangeKind.Created : ChangeKind.Updated;
 
         if (commitment == null) _context.Commitments.Add(commitment = new CommitmentEntity());
 
@@ -59,6 +67,13 @@ public class SaveCommitmentCommandHandler : IRequestHandler<SaveCommitmentReques
             });
         }
         await _context.SaveChangesAsync(cancellationToken);
+
+        await _bus.PublishAsync(new CommitmentChangedEvent
+        {
+            CommitmentId = commitment.CommitmentId,
+            ProfileId = commitment.ProfileId,
+            Kind = kind
+        }, cancellationToken);
 
         return new SaveCommitmentResponse() { CommitmentId = commitment.CommitmentId };
     }

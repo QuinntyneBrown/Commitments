@@ -34,3 +34,31 @@ public enum ActivityChangeReason
     Updated,
     Deleted
 }
+
+public class CommitmentChangedEvent : IntegrationEvent
+{
+    public Guid CommitmentId { get; set; }
+    public Guid ProfileId { get; set; }
+    public ChangeKind Kind { get; set; }
+}
+
+public class FrequencyChangedEvent : IntegrationEvent
+{
+    public Guid CommitmentId { get; set; }
+    public Guid ProfileId { get; set; }
+}
+
+public class ToDoChangedEvent : IntegrationEvent
+{
+    public Guid ToDoId { get; set; }
+    public Guid ProfileId { get; set; }
+    public ChangeKind Kind { get; set; }
+}
+
+public enum ChangeKind
+{
+    Created,
+    Updated,
+    Removed,
+    Completed
+}

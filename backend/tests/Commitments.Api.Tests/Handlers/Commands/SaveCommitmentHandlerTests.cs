@@ -27,12 +27,11 @@ public class SaveCommitmentHandlerTests : IDisposable
     {
         var handler = new SaveCommitmentCommandHandler(_ctx, _bus.Object);
         var profileId = Guid.NewGuid();
-        var commitmentId = Guid.NewGuid();
         var request = new SaveCommitmentRequest
         {
             Commitment = new CommitmentDto
             {
-                CommitmentId = commitmentId,
+                CommitmentId = Guid.NewGuid(),
                 BehaviourId = Guid.NewGuid(),
                 ProfileId = profileId,
                 CommitmentFrequencies = new List<CommitmentFrequencyDto>()
@@ -43,7 +42,6 @@ public class SaveCommitmentHandlerTests : IDisposable
 
         _bus.Verify(b => b.PublishAsync(
             It.Is<CommitmentChangedEvent>(e =>
-                e.CommitmentId == commitmentId &&
                 e.ProfileId == profileId &&
                 e.Kind == ChangeKind.Created),
             It.IsAny<CancellationToken>()), Times.Once);

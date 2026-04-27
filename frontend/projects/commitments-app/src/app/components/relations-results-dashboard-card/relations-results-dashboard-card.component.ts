@@ -11,10 +11,7 @@ import { DashboardCardComponent } from '../dashboard-card/dashboard-card.compone
   standalone: true,
   imports: [CommonModule],
   templateUrl: './relations-results-dashboard-card.component.html',
-  styleUrls: [
-    '../dashboard-card/dashboard-card.component.scss',
-    './relations-results-dashboard-card.component.scss'
-  ]
+  styleUrls: ['./relations-results-dashboard-card.component.scss']
 })
 export class RelationsResultsDashboardCardComponent extends DashboardCardComponent {
   ngOnInit() {}

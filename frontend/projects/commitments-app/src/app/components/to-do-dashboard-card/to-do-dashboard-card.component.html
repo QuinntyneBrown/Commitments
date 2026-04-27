@@ -7,11 +7,12 @@
 </section>
 
 <section class="mat-typography">
-  <h2>Outstanding To Dos</h2>
+  <h2>{{ title }}</h2>
 </section>
 
+
 <p>
-  {{ (outstandingToDos$ | async)?.length }}
+  {{ (value$ | async) }}
 </p>
 
 <mat-menu #dashboardCardMenu="matMenu">

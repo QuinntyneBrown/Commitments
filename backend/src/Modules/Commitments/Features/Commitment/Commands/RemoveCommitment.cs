@@ -1,6 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Commitments.Shared;
 using FluentValidation;
 using MediatR;
 using System.Threading.Tasks;
@@ -24,14 +25,26 @@ public class RemoveCommitmentRequest : IRequest
 
 public class RemoveCommitmentCommandHandler : IRequestHandler<RemoveCommitmentRequest>
 {
-    public ICommitmentsDbContext _context { get; set; }
+    private readonly ICommitmentsDbContext _context;
+    private readonly IEventBus _bus;
 
-    public RemoveCommitmentCommandHandler(ICommitmentsDbContext context) => _context = context;
+    public RemoveCommitmentCommandHandler(ICommitmentsDbContext context, IEventBus bus)
+    {
+        _context = context;
+        _bus = bus;
+    }
 
     public async Task Handle(RemoveCommitmentRequest request, CancellationToken cancellationToken)
     {
-        _context.Commitments.Remove(await _context.Commitments.FindAsync(request.CommitmentId));
+        var commitment = await _context.Commitments.FindAsync(request.CommitmentId);
+        _context.Commitments.Remove(commitment);
         await _context.SaveChangesAsync(cancellationToken);
-    }
 
+        await _bus.PublishAsync(new CommitmentChangedEvent
+        {
+            CommitmentId = commitment.CommitmentId,
+            ProfileId = commitment.ProfileId,
+            Kind = ChangeKind.Removed
+        }, cancellationToken);
+    }
 }

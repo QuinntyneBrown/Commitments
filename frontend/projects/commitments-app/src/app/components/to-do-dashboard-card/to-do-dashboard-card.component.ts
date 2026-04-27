@@ -12,12 +12,8 @@ import { PosterDashboardCardComponent } from '../poster-dashboard-card/poster-da
   selector: 'app-to-do-dashboard-card',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: '../poster-dashboard-card/poster-dashboard-card.component.html',
-  styleUrls: [
-    '../dashboard-card/dashboard-card.component.scss',
-    '../poster-dashboard-card/poster-dashboard-card.component.scss',
-    './to-do-dashboard-card.component.scss'
-  ]
+  templateUrl: './to-do-dashboard-card.component.html',
+  styleUrls: ['./to-do-dashboard-card.component.scss']
 })
 export class ToDoDashboardCardComponent extends PosterDashboardCardComponent {
   private readonly _toDoService = inject(ToDoService);

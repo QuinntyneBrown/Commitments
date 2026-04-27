@@ -14,10 +14,7 @@ import { AchievementService } from '../../services/achievement.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './daily-results-dashboard-card.component.html',
-  styleUrls: [
-    '../dashboard-card/dashboard-card.component.scss',
-    './daily-results-dashboard-card.component.scss'
-  ]
+  styleUrls: ['./daily-results-dashboard-card.component.scss']
 })
 export class DailyResultsDashboardCardComponent extends DashboardCardComponent {
   private readonly _achievementService = inject(AchievementService);

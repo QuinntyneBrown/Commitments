@@ -1,3 +1,5 @@
+import { vi } from 'vitest';
+
 import { DashboardModeService } from '../dashboard-mode.service';
 
 import { ReviewScrubberController } from './review-scrubber.controller';
@@ -62,7 +64,7 @@ describe('ReviewScrubberController', () => {
   });
 
   it('scrubTo debounces the write to DashboardModeService', () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
     try {
       const controller = new ReviewScrubberController(modeService, 5);
       const before = modeService.selectedReviewDate();
@@ -72,17 +74,17 @@ describe('ReviewScrubberController', () => {
 
       expect(modeService.selectedReviewDate()).toBe(before);
 
-      jest.advanceTimersByTime(150);
+      vi.advanceTimersByTime(150);
 
       expect(modeService.selectedReviewDate()).not.toBe(before);
       expect(controller.selectedIndex()).toBe(3);
     } finally {
-      jest.useRealTimers();
+      vi.useRealTimers();
     }
   });
 
   it('playToggle starts auto-scrubbing and stops itself at the window end', () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
     try {
       const controller = new ReviewScrubberController(modeService, 4);
       controller.jumpToStart();
@@ -92,14 +94,14 @@ describe('ReviewScrubberController', () => {
       controller.playToggle();
       expect(controller.isPlaying()).toBe(true);
 
-      jest.advanceTimersByTime(1100);
+      vi.advanceTimersByTime(1100);
       expect(controller.selectedIndex()).toBe(1);
 
-      jest.advanceTimersByTime(3000);
+      vi.advanceTimersByTime(3000);
       expect(controller.selectedIndex()).toBe(3);
       expect(controller.isPlaying()).toBe(false);
     } finally {
-      jest.useRealTimers();
+      vi.useRealTimers();
     }
   });
 });
