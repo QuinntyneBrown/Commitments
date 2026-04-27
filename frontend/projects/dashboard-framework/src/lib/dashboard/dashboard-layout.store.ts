@@ -134,7 +134,7 @@ export class DashboardLayoutStore {
       swap: editMode,
       displayGrid: editMode ? 'always' : 'none',
       gridType: 'fit',
-      margin: 16,
+      margin: 24,
       outerMargin: true,
       minCols: DEFAULT_COLS,
       maxCols: DEFAULT_COLS,

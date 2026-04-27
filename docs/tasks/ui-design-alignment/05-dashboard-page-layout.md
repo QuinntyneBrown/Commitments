@@ -1,6 +1,8 @@
 # 05 — Dashboard page layout
 
-**Status: ACCEPTED**
+**Status: COMPLETE**
+
+> 5.1 — `dashboard-layout__content` is `flex: 1 1 auto; overflow: auto; background: var(--cui-bg)`; gridster provides the 24-margin gutter. 5.2 — `cui-mode-toggle` lives in the dashboard PrimaryHeader's `[header-actions]` slot (rendered only by `DashboardShellComponent`, which only mounts on the `/` route). 5.3 — empty-state copy updated to "Tap the **+** button to add a tile." 5.4 — gridster `margin` now `24`. 5.5 — deferred to [11-edit-mode.md](11-edit-mode.md).
 
 **Design**: Frame `OxYKj` (Dashboard — LG 1280, 1280×900). Layout:
 - Toolbar (64h) on top.
