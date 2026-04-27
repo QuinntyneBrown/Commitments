@@ -1,13 +1,18 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Injectable, computed, signal } from '@angular/core';
+import { Inject, Injectable, InjectionToken, Optional, computed, signal } from '@angular/core';
 
 import { DashboardModeService } from '../dashboard-mode.service';
 
 import { clampIndex, indexOfDate, isoDateAtIndex, tickLabels } from './review-scrubber.helpers';
 
 const DEFAULT_WINDOW_DAYS = 90;
+
+export const REVIEW_INITIAL_WINDOW_DAYS = new InjectionToken<number>(
+  'REVIEW_INITIAL_WINDOW_DAYS',
+  { factory: () => DEFAULT_WINDOW_DAYS }
+);
 const DEFAULT_DEBOUNCE_MS = 100;
 const PLAY_INTERVAL_MS = 1000;
 
@@ -44,9 +49,9 @@ export class ReviewScrubberController {
 
   constructor(
     private readonly _modeService: DashboardModeService,
-    initialWindowDays: number = DEFAULT_WINDOW_DAYS
+    @Optional() @Inject(REVIEW_INITIAL_WINDOW_DAYS) initialWindowDays: number | null = DEFAULT_WINDOW_DAYS
   ) {
-    this.windowDays.set(initialWindowDays);
+    this.windowDays.set(initialWindowDays ?? DEFAULT_WINDOW_DAYS);
   }
 
   prev(): void {
