@@ -1,8 +1,10 @@
 ---
 id: 006
 title: Login card sits at the top of the viewport instead of being vertically centered
-status: open
+status: fixed
 discovered: 2026-04-26
+fixed: 2026-04-26
+fixed_in: a34d642
 flow: authentication
 severity: medium
 ---
