@@ -2,7 +2,9 @@
 
 ## Status
 
-OPEN — surfaced via design comparison.
+FIXED — `.review-scrubber__legend` shows clock icon + "REVIEWING" at
+the start of the scrubber; e2e assertion passes; visual screenshot
+confirms.
 
 ## Symptom
 
@@ -26,6 +28,7 @@ interaction.
 
 ## Resolution
 
-- [ ] Failing e2e assertion added (legend visible in review mode).
-- [ ] Template + scss updated.
-- [ ] Visual screenshot post-fix shows the label.
+- [x] Failing e2e assertion added (legend visible in review mode).
+- [x] Template + scss updated (presentational span, aria-hidden,
+      uppercase token-driven styling matching tile-shell eyebrow).
+- [x] Visual screenshot post-fix shows the label.
