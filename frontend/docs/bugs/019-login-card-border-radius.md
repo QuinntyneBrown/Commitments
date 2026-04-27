@@ -1,8 +1,10 @@
 ---
 id: 019
 title: Login card border-radius is 4px - design specifies 8px ($r-md)
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: 86c9d5f
 flow: authentication
 severity: low
 ---
