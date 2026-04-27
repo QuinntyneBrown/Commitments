@@ -1,8 +1,10 @@
 ---
 id: 040
 title: Outstanding To-Dos title still breaks at the regular hyphen - use U+2011 so the wrap stays between words
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: e6489b3
 flow: dashboard-layout
 severity: low
 ---
