@@ -1,6 +1,7 @@
 using Commitments.Features.Activity;
 using Commitments.Data;
 using Commitments.Domain.ActivityAggregate;
+using Commitments.Shared;
 using Commitments.Testing.Common;
 using FluentAssertions;
 using Moq;
@@ -10,16 +11,17 @@ namespace Commitments.Api.Tests.Handlers.Commands;
 
 public class SaveActivityHandlerTests
 {
+    private readonly Mock<IEventBus> _bus = new();
+
     [Fact]
     public async Task Handle_NewActivity_AddsAndSaves()
     {
-        // Arrange
         var mockContext = MockCommitmentsDbContextFactory.Create();
         var activities = new List<Activity>();
         var mockDbSet = MockDbSetFactory.CreateMockDbSet(activities);
         mockContext.Setup(c => c.Activities).Returns(mockDbSet.Object);
 
-        var handler = new SaveActivityCommandHandler(mockContext.Object);
+        var handler = new SaveActivityCommandHandler(mockContext.Object, _bus.Object);
         var request = new SaveActivityRequest
         {
             Activity = new ActivityDto
@@ -31,10 +33,8 @@ public class SaveActivityHandlerTests
             }
         };
 
-        // Act
         var result = await handler.Handle(request, CancellationToken.None);
 
-        // Assert
         result.Should().NotBeNull();
         result.ActivityId.Should().Be(default(Guid));
         activities.Should().HaveCount(1);
@@ -45,9 +45,78 @@ public class SaveActivityHandlerTests
     }
 
     [Fact]
+    public async Task Handle_NewActivity_PublishesActivityRecordedEvent_WithCreatedReason()
+    {
+        var mockContext = MockCommitmentsDbContextFactory.Create();
+        var activities = new List<Activity>();
+        var mockDbSet = MockDbSetFactory.CreateMockDbSet(activities);
+        mockContext.Setup(c => c.Activities).Returns(mockDbSet.Object);
+
+        var handler = new SaveActivityCommandHandler(mockContext.Object, _bus.Object);
+        var profileId = Guid.NewGuid();
+        var behaviourId = Guid.NewGuid();
+        var performedOn = DateTime.UtcNow;
+        var request = new SaveActivityRequest
+        {
+            Activity = new ActivityDto
+            {
+                BehaviourId = behaviourId,
+                ProfileId = profileId,
+                PerformedOn = performedOn,
+                Description = "Test"
+            }
+        };
+
+        await handler.Handle(request, CancellationToken.None);
+
+        _bus.Verify(b => b.PublishAsync(
+            It.Is<ActivityRecordedEvent>(e =>
+                e.BehaviourId == behaviourId &&
+                e.ProfileId == profileId &&
+                e.Reason == ActivityChangeReason.Created),
+            It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+    [Fact]
+    public async Task Handle_ExistingActivity_PublishesActivityRecordedEvent_WithUpdatedReason()
+    {
+        var existingId = Guid.NewGuid();
+        var mockContext = MockCommitmentsDbContextFactory.Create();
+        var existingActivity = new Activity
+        {
+            ActivityId = existingId,
+            BehaviourId = Guid.NewGuid(),
+            ProfileId = Guid.NewGuid(),
+            Description = "Old"
+        };
+        var activities = new List<Activity> { existingActivity };
+        var mockDbSet = MockDbSetFactory.CreateMockDbSet(activities);
+        mockDbSet.Setup(d => d.FindAsync(existingId)).ReturnsAsync(existingActivity);
+        mockContext.Setup(c => c.Activities).Returns(mockDbSet.Object);
+
+        var handler = new SaveActivityCommandHandler(mockContext.Object, _bus.Object);
+        var request = new SaveActivityRequest
+        {
+            Activity = new ActivityDto
+            {
+                ActivityId = existingId,
+                BehaviourId = Guid.NewGuid(),
+                ProfileId = Guid.NewGuid(),
+                PerformedOn = DateTime.UtcNow,
+                Description = "Updated"
+            }
+        };
+
+        await handler.Handle(request, CancellationToken.None);
+
+        _bus.Verify(b => b.PublishAsync(
+            It.Is<ActivityRecordedEvent>(e => e.Reason == ActivityChangeReason.Updated),
+            It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+    [Fact]
     public async Task Handle_ExistingActivity_UpdatesAndSaves()
     {
-        // Arrange
         var existingId = Guid.NewGuid();
         var mockContext = MockCommitmentsDbContextFactory.Create();
         var existingActivity = new Activity
@@ -63,7 +132,7 @@ public class SaveActivityHandlerTests
         mockContext.Setup(c => c.Activities).Returns(mockDbSet.Object);
 
         var newBehaviourId = Guid.NewGuid();
-        var handler = new SaveActivityCommandHandler(mockContext.Object);
+        var handler = new SaveActivityCommandHandler(mockContext.Object, _bus.Object);
         var request = new SaveActivityRequest
         {
             Activity = new ActivityDto
@@ -76,10 +145,8 @@ public class SaveActivityHandlerTests
             }
         };
 
-        // Act
         var result = await handler.Handle(request, CancellationToken.None);
 
-        // Assert
         result.Should().NotBeNull();
         result.ActivityId.Should().Be(existingId);
         existingActivity.BehaviourId.Should().Be(newBehaviourId);
