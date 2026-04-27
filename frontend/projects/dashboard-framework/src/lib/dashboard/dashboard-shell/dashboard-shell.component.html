@@ -1,11 +1,40 @@
 <div class="dashboard-shell" data-testid="dashboard-shell">
-  <app-primary-header title="Dashboard">
-    <cui-mode-toggle
-      header-actions
-      data-testid="dashboard-mode-toggle"
-      [mode]="modeService.mode()"
-      (modeChange)="onModeChange($event)">
-    </cui-mode-toggle>
+  <app-primary-header title="Dashboard" [editMode]="layoutStore.isEditMode()">
+    @if (layoutStore.isEditMode()) {
+      <span title-adornment class="dashboard-shell__edit-pill" data-testid="edit-mode-pill">
+        <span class="material-symbols-rounded dashboard-shell__edit-pill-icon">edit</span>
+        <span class="dashboard-shell__edit-pill-label">EDIT MODE</span>
+      </span>
+      <button
+        type="button"
+        header-actions
+        class="dashboard-shell__done"
+        data-testid="edit-mode-done"
+        (click)="exitEditMode()"
+      >
+        <span class="material-symbols-rounded dashboard-shell__done-icon">check</span>
+        <span class="dashboard-shell__done-label">DONE</span>
+      </button>
+    } @else {
+      <cui-mode-toggle
+        header-actions
+        data-testid="dashboard-mode-toggle"
+        [mode]="modeService.mode()"
+        (modeChange)="onModeChange($event)">
+      </cui-mode-toggle>
+      @if (modeService.mode() === 'live') {
+        <button
+          type="button"
+          header-actions
+          class="dashboard-shell__edit-icon"
+          data-testid="edit-mode-enter"
+          aria-label="Edit dashboard"
+          (click)="enterEditMode()"
+        >
+          <span class="material-symbols-rounded">edit</span>
+        </button>
+      }
+    }
   </app-primary-header>
 
   @if (modeService.mode() === 'review') {

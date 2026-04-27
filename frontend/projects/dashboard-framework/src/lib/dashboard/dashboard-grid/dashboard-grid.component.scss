@@ -26,6 +26,10 @@ gridster-item {
   background: var(--cui-surface-2);
 }
 
+.dashboard-grid--edit-mode gridster-item {
+  border: 2px solid var(--cui-accent);
+}
+
 .tile-chrome {
   position: absolute;
   top: 8px;

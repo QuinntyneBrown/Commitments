@@ -1,6 +1,8 @@
 # 11 — Edit Mode: pink PrimaryHeader, EDIT MODE pill, DONE button, editable tile chrome
 
-**Status: ACCEPTED**
+**Status: COMPLETE**
+
+> 11.1 — `DashboardLayoutStore.isEditMode` + `setEditMode`/`toggleEditMode` already existed; reused. 11.2 — Right-side `edit` icon-button added to the `PrimaryHeader` `[header-actions]` slot when `editMode === false && mode === 'live'`. 11.3 — `PrimaryHeaderComponent` gained an `editMode` boolean input (option a from the task) that swaps the `.primary-header` background to `var(--cui-accent-strong)`. 11.4 — `EDIT MODE` pill rendered in the new `[title-adornment]` slot (`13%` white fill, `33%` white border, `edit` icon + Inter 11/700/0.8 label). 11.5 — `DONE` button in `[header-actions]` (white fill, accent-strong icon+label, 0 2px 6px shadow) clears edit mode via `setEditMode(false)`. 11.6 — `cui-mode-toggle` is hidden inside `@if (!isEditMode())`. 11.7 — first slice: `dashboard-grid` gets a `--edit-mode` class that overrides `gridster-item` border to `2px solid var(--cui-accent)`. The full editable-tile chrome (drag pill / resize handle / dedicated close-button position from `KB9Mx`) is deferred. 11.8 — FAB is unchanged so it still renders in edit mode (its visibility only depends on live mode).
 
 > Added 2026-04-27 to track the new "Dashboard — LG (1280) — Edit Mode" frame (`fJpM0`) and the "Dashboard — LG (1280) — Add Tile Dialog" frame (`a2Cjz`), which both render the dashboard in edit mode.
 

@@ -14,4 +14,5 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 })
 export class PrimaryHeaderComponent {
   readonly title = input('');
+  readonly editMode = input(false);
 }

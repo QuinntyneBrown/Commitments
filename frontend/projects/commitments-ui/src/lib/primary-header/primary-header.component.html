@@ -1,4 +1,7 @@
-<mat-toolbar class="primary-header mat-typography">
+<mat-toolbar
+  class="primary-header mat-typography"
+  [class.primary-header--edit-mode]="editMode()"
+>
   <h1 class="primary-header__title">
     @if (title()) {
       {{ title() }}
@@ -6,6 +9,7 @@
       <ng-content></ng-content>
     }
   </h1>
+  <ng-content select="[title-adornment]"></ng-content>
   <span class="primary-header__spacer"></span>
   <ng-content select="[header-actions]"></ng-content>
 </mat-toolbar>

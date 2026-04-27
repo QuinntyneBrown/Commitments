@@ -1,4 +1,4 @@
-<section class="dashboard-grid" data-testid="dashboard-grid">
+<section class="dashboard-grid" data-testid="dashboard-grid" [class.dashboard-grid--edit-mode]="layoutStore.isEditMode()">
   @if (isEmpty()) {
     <div class="dashboard-grid__empty" data-testid="dashboard-empty-state">
       <h2>No tiles on this dashboard</h2>
