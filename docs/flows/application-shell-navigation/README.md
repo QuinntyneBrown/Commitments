@@ -37,16 +37,16 @@ Every authenticated screen renders inside `DashboardLayoutComponent`: a fixed to
      | Label | Icon | Route |
      | --- | --- | --- |
      | Dashboard | `dashboard` | `/` |
-     | Activities | `event_available` | `/activities` |
-     | Behaviours | `repeat` | `/behaviours` |
+     | Activities | `directions_run` | `/activities` |
+     | Behaviours | `psychology` | `/behaviours` |
      | Behaviour Types | `category` | `/behaviour-types` |
      | Commitments | `task_alt` | `/commitments` |
      | Cards | `style` | `/cards` |
      | Card Layouts | `dashboard_customize` | `/card-layouts` |
      | Frequencies | `schedule` | `/frequencies` |
-     | Notes | `description` | `/notes` |
-     | Profiles | `person` | `/profiles` |
-     | To Do's | `format_list_bulleted` | `/to-dos` |
+     | Notes | `sticky_note_2` | `/notes` |
+     | Profiles | `group` | `/profiles` |
+     | To Do's | `checklist` | `/to-dos` |
      | Logout | `logout` | `/login` |
 
 4. **Each link navigates and applies active state.**
