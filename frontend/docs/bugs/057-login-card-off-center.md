@@ -2,7 +2,9 @@
 
 ## Status
 
-OPEN — flow: `docs/flows/authentication/README.md` step 1.
+FIXED — `login.spec.ts:29` passes; full login.spec.ts is 10/10 on lg-desktop;
+visual screenshot at `frontend/docs/bugs/screenshots/login-actual-1280.png`
+confirms the card is centered.
 
 ## Symptom
 
@@ -45,6 +47,6 @@ and the card center lands at the true viewport center (400px).
 
 ## Resolution
 
-- [ ] Failing test verified pre-fix.
-- [ ] `:host` updated to `box-sizing: border-box`.
-- [ ] Test verified passing post-fix.
+- [x] Failing test verified pre-fix (received 23.99 vs expected < 20).
+- [x] `:host` updated to `box-sizing: border-box`.
+- [x] Test verified passing post-fix; visual screenshot confirms centering.

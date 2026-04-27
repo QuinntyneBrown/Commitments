@@ -2,7 +2,7 @@ import { chromium } from 'playwright';
 
 const BASE = process.env.BASE_URL ?? 'http://127.0.0.1:4200';
 const ROUTE = process.env.ROUTE ?? '/commitments';
-const SCREENSHOT = process.env.SCREENSHOT ?? `docs/bugs/screenshots/commitments-actual-1280.png`;
+const SCREENSHOT = process.env.SCREENSHOT ?? `docs/bugs/screenshots/${ROUTE.replace(/^\//, '') || 'index'}-actual-1280.png`;
 
 const browser = await chromium.launch();
 const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
