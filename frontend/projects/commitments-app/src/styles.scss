@@ -15,12 +15,6 @@ html {
   color: var(--cui-text-primary);
 }
 
-:root {
-  --primary-color: #3f51b5;
-  --secondary-color: #3f51b5;
-  --default-color: rgb(245, 245, 245);
-}
-
 // AG Grid styles - updated for AG Grid 32
 @import 'ag-grid-community/styles/ag-grid.css';
 @import 'ag-grid-community/styles/ag-theme-material.css';
