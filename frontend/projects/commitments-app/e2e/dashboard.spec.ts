@@ -53,6 +53,10 @@ test.describe('dashboard shell', () => {
     expect(await dashboard.dailyResultsMetricColor()).toBe('rgb(102, 187, 106)');
   });
 
+  test('Daily Results progress fill matches the metric --cui-success', async () => {
+    expect(await dashboard.progressFillBackground()).toBe('rgb(102, 187, 106)');
+  });
+
   test('loads the dashboard with registered plugin tiles', async () => {
     await dashboard.expectDefaultDashboard();
     // Default mode is 'live'; the dropdown is filtered to live-supporting tiles.
