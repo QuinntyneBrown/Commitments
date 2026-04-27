@@ -1,5 +1,7 @@
 # 09a — Login page detailed audit
 
+**Status: ACCEPTED**
+
 Closes the audit half of `09-login-page-audit.md` (task 9.1). Implementation
 work to bring the page into alignment is still **open** — see the action
 items at the bottom.
