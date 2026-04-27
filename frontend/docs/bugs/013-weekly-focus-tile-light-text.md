@@ -1,8 +1,10 @@
 ---
 id: 013
 title: Weekly Focus tile labels render invisible (#172033) on the dark surface
-status: open
+status: fixed
 discovered: 2026-04-26
+fixed: 2026-04-26
+fixed_in: d68afa9
 flow: dashboard-layout
 severity: high
 ---
