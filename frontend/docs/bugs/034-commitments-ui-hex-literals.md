@@ -1,8 +1,10 @@
 ---
 id: 034
 title: commitments-ui (icon-button + primary-header) hard-codes hex/rgb literals for colours that have --cui-* tokens
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: 7ad98c7
 flow: dashboard-layout
 severity: low
 ---
