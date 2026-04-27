@@ -33,7 +33,7 @@ export class DashboardPage {
     this.tileTitles = page.getByTestId('tile-title');
     this.tileSelect = page.getByTestId('tile-select');
     this.tileOptions = this.tileSelect.locator('option');
-    this.addTileButton = page.getByTestId('add-tile');
+    this.addTileButton = page.getByTestId('add-tile-fab');
     this.editLayoutButton = page.getByTestId('edit-layout');
     this.resetLayoutButton = page.getByTestId('reset-layout');
     this.removeTileButtons = page.getByTestId('remove-tile');
