@@ -2,7 +2,8 @@
 
 ## Status
 
-OPEN — surfaced via design comparison.
+FIXED — eyebrow now reads "7-DAY ROLLING AVERAGE · LAST 14 DAYS"
+(uppercased by tile-shell SCSS); visual screenshot confirms.
 
 ## Symptom
 
@@ -18,6 +19,6 @@ Update the eyebrow in `consistency-trend-tile.component.html` from
 
 ## Resolution
 
-- [ ] Visual screenshot pre-fix.
-- [ ] Eyebrow updated.
-- [ ] Visual screenshot post-fix shows new eyebrow.
+- [x] Visual screenshot pre-fix shows "GOAL COMPLETION RATE".
+- [x] Eyebrow updated to `"7-day rolling average · last 14 days"`.
+- [x] Visual screenshot post-fix shows the new eyebrow.
