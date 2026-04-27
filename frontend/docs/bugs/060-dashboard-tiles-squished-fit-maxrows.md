@@ -2,8 +2,10 @@
 
 ## Status
 
-OPEN — surfaced via visual capture at 1280×800 and 1920×1080
-(`frontend/docs/bugs/screenshots/index-actual-{1280,1920}.png`).
+FIXED — `maxRows` now matches `minRows` (`DEFAULT_ROWS`); 48/48 e2e on
+lg-desktop including the new height-guard; visual screenshots at
+tablet/lg/xl in `frontend/docs/bugs/screenshots/index-actual-*.png`
+confirm full tile content renders.
 
 ## Symptom
 
@@ -58,6 +60,7 @@ shrinking each row.
 
 ## Resolution
 
-- [ ] Failing test verified (visual-only at first; add a height assertion).
-- [ ] Options updated.
-- [ ] Test verified passing post-fix; visual screenshot at lg+ confirms.
+- [x] Failing test added (viewport.spec.ts: tile height ≥ 120px on lg-desktop).
+- [x] Options updated (`maxRows: DEFAULT_ROWS`).
+- [x] 48/48 e2e on lg-desktop; visual screenshots at all 3 viewports
+      confirm tile content fits.
