@@ -1,8 +1,8 @@
 :host {
   display: block;
   min-height: 100vh;
-  color: #172033;
-  background: #f4f7fb;
+  color: var(--cui-text-primary);
+  background: var(--cui-bg);
   font-family: Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
@@ -19,8 +19,8 @@
   gap: 20px;
   min-height: 72px;
   padding: 12px 20px;
-  border-bottom: 1px solid #dce5ef;
-  background: #ffffff;
+  border-bottom: 1px solid var(--cui-divider);
+  background: var(--cui-toolbar);
 }
 
 .dashboard-shell__brand {
@@ -29,7 +29,7 @@
 }
 
 .dashboard-shell__eyebrow {
-  color: #65758d;
+  color: var(--cui-text-secondary);
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
@@ -37,7 +37,7 @@
 
 h1 {
   margin: 0;
-  color: #172033;
+  color: var(--cui-text-primary);
   font-size: 24px;
   line-height: 1.1;
 }
