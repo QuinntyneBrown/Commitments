@@ -2,7 +2,7 @@
 
 ## Status
 
-OPEN — `login.spec.ts:60` (`failed login shows an error snackbar with correct spelling`).
+FIXED — `login.spec.ts:60` passes; full lg-desktop e2e 57/57.
 
 ## Symptom
 
@@ -36,6 +36,6 @@ typo-free sentence containing "occurred".
 
 ## Resolution
 
-- [ ] Failing test verified pre-fix.
-- [ ] Message key swapped.
-- [ ] Test verified passing post-fix.
+- [x] Failing test verified pre-fix.
+- [x] Message key swapped to `'An error occurred. Try it again.'`.
+- [x] Test verified passing post-fix; full lg-desktop e2e 57/57.
