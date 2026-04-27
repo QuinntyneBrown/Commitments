@@ -1,6 +1,6 @@
 # 02 — Header has buttons that are not in the design: remove inline tile picker, Edit Layout, Reset
 
-**Status: ACCEPTED**
+**Status: COMPLETE**
 
 **Design**: The toolbar/primary-header rows do **not** contain a `<select>` dropdown, an "Add Tile" text button, an "Edit Layout" toggle button, or a "Reset" button. The design uses:
 - A floating action button (FAB) anchored bottom-right (`FAB/Accent` `e9DYo`, see [03-add-tile-fab-and-dialog.md](03-add-tile-fab-and-dialog.md)).

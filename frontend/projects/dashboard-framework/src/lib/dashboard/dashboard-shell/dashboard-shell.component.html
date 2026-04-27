@@ -1,41 +1,12 @@
 <div class="dashboard-shell" data-testid="dashboard-shell">
-  <app-primary-header title="Dashboard"></app-primary-header>
-  <header class="dashboard-shell__topbar">
+  <app-primary-header title="Dashboard">
     <cui-mode-toggle
+      header-actions
       data-testid="dashboard-mode-toggle"
       [mode]="modeService.mode()"
       (modeChange)="onModeChange($event)">
     </cui-mode-toggle>
-
-    <div class="dashboard-shell__actions">
-      @if (modeService.mode() === 'live') {
-        <select
-          class="dashboard-shell__select"
-          data-testid="tile-select"
-          [value]="selectedTileId()"
-          (change)="selectedTileId.set($any($event.target).value)"
-          aria-label="Tile to add"
-        >
-          @for (tile of tiles(); track tile.tileId) {
-            <option [value]="tile.tileId">{{ tile.displayName }}</option>
-          }
-        </select>
-        <button type="button" class="dashboard-shell__button" data-testid="add-tile" (click)="addSelectedTile()">Add Tile</button>
-      }
-      <button
-        type="button"
-        class="dashboard-shell__button"
-        data-testid="edit-layout"
-        [class.dashboard-shell__button--active]="layoutStore.isEditMode()"
-        (click)="layoutStore.toggleEditMode()"
-      >
-        {{ layoutStore.isEditMode() ? 'Done' : 'Edit Layout' }}
-      </button>
-      <button type="button" class="dashboard-shell__button dashboard-shell__button--muted" data-testid="reset-layout" (click)="layoutStore.resetLayout()">
-        Reset
-      </button>
-    </div>
-  </header>
+  </app-primary-header>
 
   @if (modeService.mode() === 'review') {
     <div class="dashboard-shell__scrubber-slot" data-testid="dashboard-scrubber-slot">
