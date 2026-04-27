@@ -1,5 +1,7 @@
 # 04 — Sidenav: add left sidebar with active/hover states
 
+**Status: ACCEPTED**
+
 **Design**: `Mat-Sidenav` (`1WUcZ`), width **250**, background `$sidenav` (#181A24), padding `[20, 0, 0, 0]`, right border 1px `$divider`. Items use:
 - `Mat-SidenavItem` (`ZOXJ0`): height 48, padding `[0, 16]`, gap 16, transparent background. Icon (Material Symbols Rounded, 20×20, `$text-secondary`) + label (Inter, `$fs-body`/14, normal, `$text-primary`).
 - `Mat-SidenavItem/Active` (`XFQ3C`): same dimensions, fill `#9FA8DA22` (translucent primary), 3-px left border `$primary`, icon + label both in `$primary`, label weight `$fw-medium`.
