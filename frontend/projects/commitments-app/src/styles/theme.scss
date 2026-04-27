@@ -16,7 +16,7 @@ $commitments-theme: mat.m2-define-light-theme(
       accent: $commitments-accent,
       warn: $commitments-warn,
     ),
-    typography: mat.m2-define-typography-config(),
+    typography: mat.m2-define-typography-config($font-family: 'Inter, Roboto, "Helvetica Neue", sans-serif'),
     density: 0,
   )
 );

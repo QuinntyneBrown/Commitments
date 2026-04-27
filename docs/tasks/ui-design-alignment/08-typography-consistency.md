@@ -1,6 +1,8 @@
 # 08 — Typography consistency
 
-**Status: ACCEPTED**
+**Status: COMPLETE**
+
+> 8.1 — primary-header title now uses `Inter` first (committed with task 01). 8.2 — `theme.scss` Material typography config now sets `$font-family: 'Inter, Roboto, "Helvetica Neue", sans-serif'`. 8.3 — `mode-toggle.component.scss` segment weight 600 → 500. 8.4 — Inter is already loaded as a Google Fonts webfont in `index.html`. 8.5 — Material Symbols Rounded is already linked in `index.html`.
 
 **Design** uses Inter for everything. **Implementation** mixes:
 - `styles.scss:11` — `font-family: Inter, Roboto, 'Helvetica Neue', sans-serif` ✓.
