@@ -1,6 +1,7 @@
-import { test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 import { DashboardModePage } from './pages/dashboard-mode.page';
+import { DashboardPage } from './pages/dashboard.page';
 
 test.describe('dashboard mode shell', () => {
   let mode: DashboardModePage;
@@ -25,5 +26,19 @@ test.describe('dashboard mode shell', () => {
 
     await mode.switchToLive();
     await mode.expectLiveActive();
+  });
+
+  test('Daily Results status pill follows the dashboard mode (Live ↔ Review)', async ({ page }) => {
+    const dashboard = new DashboardPage(page);
+    const dailyResults = dashboard.tileByTitle('Daily Results');
+    const status = dailyResults.locator('.tile-shell__status');
+
+    await expect(status).toHaveText('Live');
+
+    await mode.switchToReview();
+    await expect(status).toHaveText('Review');
+
+    await mode.switchToLive();
+    await expect(status).toHaveText('Live');
   });
 });
