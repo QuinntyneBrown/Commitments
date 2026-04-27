@@ -13,7 +13,7 @@ import { TileShellComponent } from '@commitments/ui';
 export class OutstandingTodosTileComponent {
   static readonly tileMetadata: TileMetadata = {
     tileId: 'commitments.outstanding-todos',
-    displayName: 'Outstanding To Dos',
+    displayName: 'Outstanding To-Dos',
     description: 'Open tasks that still need action.',
     category: 'Tasks',
     defaultSize: { cols: 3, rows: 2 },
