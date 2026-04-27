@@ -100,6 +100,10 @@ test.describe('dashboard shell', () => {
     expect(await dashboard.outstandingTodosCopyLineClamp()).toBe('2');
   });
 
+  test('tile header icon uses the --cui-primary token', async () => {
+    expect(await dashboard.tileHeaderIconColor()).toBe('rgb(159, 168, 218)');
+  });
+
   test('loads the dashboard with registered plugin tiles', async () => {
     await dashboard.expectDefaultDashboard();
     // Default mode is 'live'; the catalog is filtered to live-supporting tiles.

@@ -232,4 +232,9 @@ export class DashboardPage {
     return this.page.locator('.dashboard-layout__toolbar').first()
       .evaluate((el) => Math.max(0, el.scrollWidth - el.clientWidth));
   }
+
+  tileHeaderIconColor(): Promise<string> {
+    return this.page.locator('.tile-shell__icon').first()
+      .evaluate((el) => getComputedStyle(el).color);
+  }
 }
