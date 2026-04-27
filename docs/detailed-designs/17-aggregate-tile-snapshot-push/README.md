@@ -1,6 +1,6 @@
 # 17 — Aggregate Tile Snapshot Push — Detailed Design
 
-**Status:** Accepted
+**Status:** Complete
 
 ## 1. Overview
 

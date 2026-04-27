@@ -20,7 +20,7 @@ These detailed designs apply a Live / Review tile pattern to goal tracking in Co
 | 14 | [Realtime Message Envelope](14-realtime-message-envelope/README.md)                                | Complete | Versioned `RealtimeMessage<TPayload>` envelope, `IRealtimePublisher` service, typed `HubClient.on<T>(event)` operator. |
 | 15 | [`goalProgressUpdated` Message](15-goal-progress-updated-message/README.md)                        | Complete | `ActivityRecordedEvent` + hub bridge that closes the live metric tile push loop end-to-end. |
 | 16 | [Dashboard Tile Invalidation Bus](16-dashboard-tile-invalidation-bus/README.md)                    | Complete | `dashboardTileDataInvalidated` message + `TileInvalidationService` so aggregate tiles refetch after domain changes. |
-| 17 | [Aggregate Tile Snapshot Push](17-aggregate-tile-snapshot-push/README.md)                          | Accepted | Optional full-snapshot push pattern shared by Daily Results, Weekly Focus, Monthly Progress, Outstanding To-Dos, Relations. |
+| 17 | [Aggregate Tile Snapshot Push](17-aggregate-tile-snapshot-push/README.md)                          | Complete | Optional full-snapshot push pattern shared by Daily Results, Weekly Focus, Monthly Progress, Outstanding To-Dos, Relations. |
 | 18 | [Legacy Note/Tag Message Migration](18-legacy-note-tag-message-migration/README.md)                | Accepted | Migrate `[Note] Saved` / `[Tag] Saved` legacy hub keys to envelope `noteSaved` / `tagSaved` / etc. |
 | 19 | [Hub Lifecycle And Reconnect](19-hub-lifecycle-and-reconnect/README.md)                            | Accepted | Reconnect policy, profile rebind, `messageId` idempotence cache, `hubResumed` synthetic refresh, prod guardrail for the dev ping endpoint. |
 
