@@ -43,10 +43,10 @@ gridster-item {
 .tile-chrome__label {
   overflow: hidden;
   padding: 3px 8px;
-  border: 1px solid #d9e2ee;
+  border: 1px solid var(--cui-divider);
   border-radius: 999px;
-  color: #4a5b73;
-  background: rgba(255, 255, 255, 0.92);
+  color: var(--cui-text-secondary);
+  background: var(--cui-surface-3);
   font-size: 11px;
   font-weight: 700;
   text-overflow: ellipsis;
@@ -56,10 +56,10 @@ gridster-item {
 .tile-chrome__button {
   width: 24px;
   height: 24px;
-  border: 1px solid #d5dde8;
+  border: 1px solid var(--cui-divider);
   border-radius: 6px;
-  color: #344258;
-  background: rgba(255, 255, 255, 0.95);
+  color: var(--cui-text-primary);
+  background: var(--cui-surface-3);
   cursor: pointer;
   font-size: 14px;
   line-height: 1;
@@ -67,9 +67,9 @@ gridster-item {
 }
 
 .tile-chrome__button:hover {
-  color: #ffffff;
-  border-color: #bd2b2b;
-  background: #bd2b2b;
+  color: var(--cui-text-primary);
+  border-color: var(--cui-warn);
+  background: var(--cui-warn);
 }
 
 .dashboard-grid__empty {
