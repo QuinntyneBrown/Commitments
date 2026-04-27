@@ -2,7 +2,7 @@
 
 ## Status
 
-OPEN — surfaced via design comparison after 072.
+FIXED — controls now cluster after the track adjacent to Jump-to-today.
 
 ## Symptom
 
@@ -30,6 +30,7 @@ testid changes.
 
 ## Resolution
 
-- [ ] Visual screenshot pre-fix.
-- [ ] Template re-ordered.
-- [ ] e2e tests still green; visual screenshot post-fix.
+- [x] Visual screenshot pre-fix surfaced via earlier review captures.
+- [x] Template re-ordered: prev/play/next moved after `.review-scrubber__track`.
+- [x] 3/3 scrubber e2e tests pass; visual screenshot post-fix matches
+      design `zNLnf` order.
