@@ -1,8 +1,10 @@
 ---
 id: 003
 title: TranslateService is not provided at the app config level
-status: open
+status: fixed
 discovered: 2026-04-26
+fixed: 2026-04-26
+fixed_in: 5f391fc
 flow: authentication
 severity: critical
 ---

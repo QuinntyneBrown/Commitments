@@ -1,8 +1,10 @@
 ---
 id: 001
 title: /login route does not render the LoginPageComponent
-status: open
+status: fixed
 discovered: 2026-04-26
+fixed: 2026-04-26
+fixed_in: 5f391fc
 flow: authentication
 severity: critical
 ---
