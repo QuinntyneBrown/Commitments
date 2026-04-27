@@ -53,7 +53,7 @@ test.describe('login page', () => {
     expect(await login.cardTitleColor()).toBe('rgb(176, 176, 176)');
   });
 
-  test('card uses the floating shadow token from the design', async () => {
-    expect(await login.cardBoxShadow()).toContain('rgba(0, 0, 0, 0.6) 0px 6px 12px');
+  test('card uses the dedicated --cui-shadow-login-card token from the design', async () => {
+    expect(await login.cardBoxShadow()).toContain('rgba(0, 0, 0, 0.7) 0px 8px 24px');
   });
 });
