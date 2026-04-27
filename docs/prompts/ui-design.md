@@ -26,7 +26,7 @@ While exercising the flow, verify
         - padding, margins, fonts, colors, layout etc... is indentical to C:\projects\Commitments\docs\ui-design.pen and design system as much as possible
 
 
-Log any bugs in C:\projects\Commitments\frontend\docs\bugs
+Log any bugs in C:\projects\Commitments\docs\bugs
 
 For each logged bug in session
 

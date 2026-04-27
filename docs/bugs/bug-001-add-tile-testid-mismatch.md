@@ -1,6 +1,6 @@
 # Bug 001 — `add-tile` testid mismatch
 
-**Status**: Open
+**Status**: Fixed (commit 6130415)
 
 ## Description
 

@@ -482,3 +482,6 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Playwright CLI session artifacts (logs, page yml snapshots)
+.playwright-cli/
