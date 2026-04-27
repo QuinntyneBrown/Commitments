@@ -2,9 +2,8 @@
 
 ## Status
 
-OPEN — surfaced via visual capture
-(`frontend/docs/bugs/screenshots/add-tile-dialog-1280.png`) compared against
-design frame `a2Cjz`.
+FIXED — visual screenshot post-fix shows the dialog content-sized,
+matching design frame `a2Cjz`. 12/12 tile/dialog e2e tests pass.
 
 ## Symptom
 
@@ -44,6 +43,7 @@ header + grid + footer, matching the design.
 
 ## Resolution
 
-- [ ] Visual screenshot captured pre-fix.
-- [ ] SCSS updated.
-- [ ] Visual screenshot post-fix confirms tight dialog.
+- [x] Visual screenshot captured pre-fix.
+- [x] SCSS updated (drop `height: 620px`).
+- [x] Visual screenshot post-fix confirms tight dialog; 12/12 tile/dialog
+      e2e tests pass on lg-desktop.
