@@ -1,8 +1,10 @@
 ---
 id: 032
 title: review-goal-history-tile.component.scss hard-codes hex literals (incl. off-palette navy on date badge)
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: 7c40b8b
 flow: dashboard-modes
 severity: low
 ---
