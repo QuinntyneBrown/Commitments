@@ -1,8 +1,10 @@
 ---
 id: 047
 title: Dashboard topbar overflows at the 768 px tablet viewport - Reset button is partially clipped
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: 3dc776d
 flow: dashboard-layout
 severity: medium
 ---
