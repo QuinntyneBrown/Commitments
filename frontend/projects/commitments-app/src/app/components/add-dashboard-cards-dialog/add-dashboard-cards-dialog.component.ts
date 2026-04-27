@@ -44,10 +44,10 @@ export class AddDashboardCardsDialogComponent {
   }
 
   public tryToAddDashboardCards() {
-    let dashboardCards = [];
+    const dashboardCards = [];
 
     for (let i = 0; i < this.selectedCards.length; i++) {
-      let dashboardCard = new DashboardCard();
+      const dashboardCard = new DashboardCard();
       dashboardCard.cardId = this.selectedCards[i].cardId;
       dashboardCard.dashboardId = this.dashboardId;
       dashboardCards.push(dashboardCard);

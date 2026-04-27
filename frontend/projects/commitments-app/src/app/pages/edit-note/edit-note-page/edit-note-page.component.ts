@@ -94,8 +94,8 @@ export class EditNotePageComponent {
   }
 
   public handleSaveClick() {
-    let note = new Note();
-    let tags = this.form.value.tags || [];
+    const note = new Note();
+    const tags = this.form.value.tags || [];
 
     note.noteId = this._store.note$.value.noteId;
     note.title = this.form.value.title;

@@ -56,7 +56,7 @@ export class ProfilesPageComponent {
   public addOrUpdate(profile: Profile) {
     if (!profile) return;
 
-    let profiles = [...this.profiles$.value];
+    const profiles = [...this.profiles$.value];
     const i = profiles.findIndex((t) => t.profileId == profile.profileId);
 
     if (i < 0) {

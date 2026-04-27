@@ -85,7 +85,7 @@ export class BehavioursPageComponent {
   public addOrUpdate(behaviour: Behaviour) {
     if (!behaviour) return;
 
-    let behaviours = [...this.behaviours$.value];
+    const behaviours = [...this.behaviours$.value];
     const i = behaviours.findIndex((t) => t.behaviourId == behaviour.behaviourId);
     const _ = i < 0 ? behaviours.push(behaviour) : behaviours[i] = behaviour;
     this.behaviours$.next(behaviours);

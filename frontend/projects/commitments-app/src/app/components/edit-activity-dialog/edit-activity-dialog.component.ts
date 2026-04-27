@@ -40,7 +40,7 @@ export class EditActivityDialogComponent {
   public activityId: number;
 
   public handleSaveClick() {
-    let activity = new Activity();
+    const activity = new Activity();
 
     activity.activityId = this.activityId;
     activity.behaviourId = this.form.value.behaviourId;

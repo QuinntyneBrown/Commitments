@@ -70,7 +70,7 @@ export class CardLayoutsPageComponent {
   public addOrUpdate(cardLayout: CardLayout) {
     if (!cardLayout) return;
 
-    let cardLayouts = [...this.cardLayouts$.value];
+    const cardLayouts = [...this.cardLayouts$.value];
     const i = cardLayouts.findIndex((t) => t.cardLayoutId == cardLayout.cardLayoutId);
     const _ = i < 0 ? cardLayouts.push(cardLayout) : cardLayouts[i] = cardLayout;
     this.cardLayouts$.next(cardLayouts);

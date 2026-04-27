@@ -10,7 +10,7 @@ export class LocalStorageService {
 
   public get items() {
     if (this._items === null) {
-      var storageItems = localStorage.getItem(storageKey);
+      let storageItems = localStorage.getItem(storageKey);
       if (storageItems === 'null') {
         storageItems = null;
       }
@@ -24,15 +24,15 @@ export class LocalStorageService {
   }
 
   public get = (options: { name: string }) => {
-    var storageItem = null;
-    for (var i = 0; i < this.items.length; i++) {
+    let storageItem = null;
+    for (let i = 0; i < this.items.length; i++) {
       if (options.name === this.items[i].name) storageItem = this.items[i].value;
     }
     return storageItem;
   };
 
   public put = (options: { name: string; value: any }) => {
-    var itemExists = false;
+    let itemExists = false;
 
     this.items.forEach((item: any) => {
       if (options.name === item.name) {
@@ -42,7 +42,7 @@ export class LocalStorageService {
     });
 
     if (!itemExists) {
-      var items = this.items;
+      let items = this.items;
       items.push({ name: options.name, value: options.value });
       this.items = items;
       items = null;

@@ -5,7 +5,7 @@ import { Component, ElementRef, forwardRef, Input, inject } from '@angular/core'
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-declare var Quill: any;
+declare let Quill: any;
 
 @Component({
   selector: 'app-quill-text-editor',

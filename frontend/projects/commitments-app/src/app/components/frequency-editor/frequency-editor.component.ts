@@ -28,7 +28,7 @@ export class FrequencyEditorComponent {
   }
 
   public handleSaveClick() {
-    let frequency = new Frequency();
+    const frequency = new Frequency();
     frequency.frequency = this.form.value.frequency;
     frequency.frequencyTypeId = this.form.value.frequencyTypeId;
     frequency.isDesired = this.form.value.isDesired;

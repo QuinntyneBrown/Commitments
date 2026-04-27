@@ -65,8 +65,8 @@ export class DigitalAssetInputUrlComponent implements ControlValueAccessor {
 
     if (e.dataTransfer && e.dataTransfer.files) {
       const packageFiles = function (fileList: FileList) {
-        let formData = new FormData();
-        for (var i = 0; i < fileList.length; i++) {
+        const formData = new FormData();
+        for (let i = 0; i < fileList.length; i++) {
           formData.append(fileList[i].name, fileList[i]);
         }
         return formData;

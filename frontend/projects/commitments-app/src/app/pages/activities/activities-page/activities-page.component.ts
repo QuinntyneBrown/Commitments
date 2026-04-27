@@ -78,7 +78,7 @@ export class ActivitiesPageComponent {
   public addOrUpdate(activity: Activity) {
     if (!activity) return;
 
-    let activities = [...this.activities$.value];
+    const activities = [...this.activities$.value];
     const i = activities.findIndex((t) => t.activityId == activity.activityId);
     const _ = i < 0 ? activities.push(activity) : activities[i] = activity;
     this.activities$.next(activities);

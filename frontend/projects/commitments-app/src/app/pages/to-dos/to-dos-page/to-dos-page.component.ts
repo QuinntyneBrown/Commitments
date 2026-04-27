@@ -105,7 +105,7 @@ export class ToDosPageComponent {
   public addOrUpdate(toDo: ToDo) {
     if (!toDo) return;
 
-    let toDos = [...this.toDos$.value];
+    const toDos = [...this.toDos$.value];
     const i = toDos.findIndex((t) => t.toDoId == toDo.toDoId);
 
     if (i < 0) {

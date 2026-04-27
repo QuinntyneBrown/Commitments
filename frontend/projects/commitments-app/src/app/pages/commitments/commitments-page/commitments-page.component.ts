@@ -98,7 +98,7 @@ export class CommitmentsPageComponent {
   public addOrUpdate(commitment: Commitment) {
     if (!commitment) return;
 
-    let commitments = [...this.commitments$.value];
+    const commitments = [...this.commitments$.value];
     const i = commitments.findIndex((t) => t.commitmentId == commitment.commitmentId);
 
     if (i < 0) {

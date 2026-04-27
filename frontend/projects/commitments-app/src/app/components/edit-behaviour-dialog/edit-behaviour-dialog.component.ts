@@ -55,7 +55,7 @@ export class EditBehaviourDialogComponent {
   public handleCancelClick() { this._overlay.close(); }
 
   public handleSaveClick() {
-    var behaviour = new Behaviour();
+    const behaviour = new Behaviour();
     behaviour.isDesired = this.form.value.isDesired;
     behaviour.behaviourTypeId = this.form.value.behaviourTypeId;
     behaviour.name = this.form.value.name;

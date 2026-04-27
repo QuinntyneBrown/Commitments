@@ -97,7 +97,7 @@ export class CardsPageComponent {
   public addOrUpdate(card: Card) {
     if (!card) return;
 
-    let cards = [...this.cards$.value];
+    const cards = [...this.cards$.value];
     const i = cards.findIndex((t) => t.cardId == card.cardId);
 
     if (i < 0) {
