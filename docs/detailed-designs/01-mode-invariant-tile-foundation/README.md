@@ -1,6 +1,6 @@
 # Mode-Invariant Tile Foundation — Detailed Design
 
-**Status:** Accepted — 2026-04-27
+**Status:** Implemented — 2026-04-27
 **Traces to:** L1-010, L1-011, L1-012, **L1-012a**, L1-018; L2-027, L2-028, L2-029, L2-030, **L2-031a**, L2-045.
 
 ## 1. Overview

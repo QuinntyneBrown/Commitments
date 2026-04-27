@@ -18,9 +18,9 @@ export function bindTileMode(opts: BindTileModeOptions): void {
     return;
   }
 
-  const read = (): [DashboardMode, string | null] => [context.mode(), context.selectedReviewDate()];
+  const reload = () => load(context.mode(), context.selectedReviewDate());
 
-  effect(() => load(...read()));
-  context.refresh$.pipe(takeUntilDestroyed()).subscribe(() => load(...read()));
-  invalidations$?.pipe(takeUntilDestroyed()).subscribe(() => load(...read()));
+  effect(reload);
+  context.refresh$.pipe(takeUntilDestroyed()).subscribe(reload);
+  invalidations$?.pipe(takeUntilDestroyed()).subscribe(reload);
 }

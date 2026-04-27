@@ -1,5 +1,4 @@
 export * from './bind-tile-mode';
-export * from './misconfigured-tile-error';
 export * from './plugin-tiles.token';
 export * from './register-tile';
 export * from './tile-context.token';

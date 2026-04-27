@@ -2,15 +2,12 @@ import { Injectable, Signal, signal } from '@angular/core';
 import { MisconfiguredTileError } from './misconfigured-tile-error';
 import { DashboardMode, TileDescriptor } from './tile.model';
 
-const REQUIRED_MODES: ReadonlyArray<DashboardMode> = ['live', 'review'];
-
 function validateSupportedModes(descriptor: TileDescriptor): void {
   const modes = descriptor.supportedModes;
   if (!modes) return;
 
-  const set = new Set(modes);
-  const matches = modes.length === REQUIRED_MODES.length && REQUIRED_MODES.every((m) => set.has(m));
-  if (!matches) {
+  const isValid = modes.length === 2 && modes.includes('live') && modes.includes('review');
+  if (!isValid) {
     throw new MisconfiguredTileError(
       descriptor.tileId,
       `supportedModes must be omitted or exactly ['live','review']; got ${JSON.stringify(modes)}`

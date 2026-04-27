@@ -4,7 +4,7 @@ Each design covers the changes needed to satisfy **L1-012a / L2-031a — Mode-In
 
 | #  | Feature                                                                                    | Status | Description                                                                                              |
 | -- | ------------------------------------------------------------------------------------------ | ------ | -------------------------------------------------------------------------------------------------------- |
-| 01 | [Mode-Invariant Tile Foundation](01-mode-invariant-tile-foundation/README.md)              | Accepted | Cross-cutting framework changes: TileContext, registry validation, snapshot-with-asOf endpoint contract. |
+| 01 | [Mode-Invariant Tile Foundation](01-mode-invariant-tile-foundation/README.md)              | Implemented | Cross-cutting framework changes: TileContext, registry validation, snapshot-with-asOf endpoint contract. |
 | 02 | [Daily Results — Dual-Mode](02-daily-results-dual-mode/README.md)                          | Draft  | Wire `DailyResultsTileComponent` to live & historical data; add `GET /commitment/daily?asOf`.            |
 | 03 | [Weekly Focus — Dual-Mode](03-weekly-focus-dual-mode/README.md)                            | Draft  | Build snapshot endpoint, controller, and live/historical bindings for `WeeklyFocusTileComponent`.        |
 | 04 | [Monthly Progress — Dual-Mode](04-monthly-progress-dual-mode/README.md)                    | Draft  | Build snapshot endpoint, controller, and 4-bucket weekly aggregation with `asOf`.                        |
