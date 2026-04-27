@@ -39,7 +39,17 @@ public class GetWeeklyFocusHandler : IRequestHandler<GetWeeklyFocusRequest, GetW
         var effectiveAsOf = request.AsOf is null || request.AsOf > now ? now : request.AsOf.Value;
 
         var asOfUtc = effectiveAsOf.UtcDateTime;
-        var daysSinceMonday = ((int)asOfUtc.DayOfWeek - 1 + 7) % 7;
+        var daysSinceMonday = asOfUtc.DayOfWeek switch
+        {
+            DayOfWeek.Monday => 0,
+            DayOfWeek.Tuesday => 1,
+            DayOfWeek.Wednesday => 2,
+            DayOfWeek.Thursday => 3,
+            DayOfWeek.Friday => 4,
+            DayOfWeek.Saturday => 5,
+            DayOfWeek.Sunday => 6,
+            _ => 0
+        };
         var weekStart = asOfUtc.Date.AddDays(-daysSinceMonday);
         var weekEnd = weekStart.AddDays(6);
 

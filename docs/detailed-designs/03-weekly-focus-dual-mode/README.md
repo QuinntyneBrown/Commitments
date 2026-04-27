@@ -1,8 +1,10 @@
 # Weekly Focus Tile — Dual-Mode Design
 
-**Status:** Accepted — 2026-04-27
+**Status:** Implemented — 2026-04-27
 **Tile ID:** `commitments.weekly-focus`
 **Traces to:** L1-010, L1-011, L1-012, **L1-012a**; L2-018, **L2-031a**, L2-038, L2-045.
+
+> Implementation note: SignalR `weeklyFocus` invalidation wiring deferred (cross-lib coupling — same as design 02). Live refresh works via `TileContext.refresh\$`.
 
 ## 1. Overview
 
