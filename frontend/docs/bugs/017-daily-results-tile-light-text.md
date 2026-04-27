@@ -1,8 +1,10 @@
 ---
 id: 017
 title: Daily Results tile metric label is invisible (#5b6b84) on the dark surface
-status: open
+status: fixed
 discovered: 2026-04-26
+fixed: 2026-04-26
+fixed_in: 2977c15
 flow: dashboard-layout
 severity: high
 ---
