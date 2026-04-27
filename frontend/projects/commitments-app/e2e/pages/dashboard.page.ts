@@ -6,7 +6,7 @@ export const DEFAULT_TILE_TITLES = [
   'Daily Results',
   'Weekly Focus',
   'Monthly Progress',
-  'Outstanding To-Dos',
+  'Outstanding To‑Dos',
   'Relations',
 ] as const;
 
