@@ -1,8 +1,10 @@
 ---
 id: 012
 title: Mode-toggle inactive segments still wear Material's default #424242 fill instead of being transparent
-status: open
+status: fixed
 discovered: 2026-04-26
+fixed: 2026-04-26
+fixed_in: 54b93ef
 flow: dashboard-modes
 severity: medium
 ---
