@@ -204,4 +204,9 @@ export class DashboardPage {
     return this.page.locator('.review-scrubber').first()
       .evaluate((el) => getComputedStyle(el).backgroundColor);
   }
+
+  outstandingTodosCopyLineClamp(): Promise<string> {
+    return this.page.locator('.todo-copy').first()
+      .evaluate((el) => getComputedStyle(el).webkitLineClamp);
+  }
 }
