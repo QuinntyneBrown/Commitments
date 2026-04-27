@@ -17,7 +17,7 @@ export class OutstandingTodosTileComponent {
     description: 'Open tasks that still need action.',
     icon: 'checklist',
     category: 'Tasks',
-    defaultSize: { cols: 3, rows: 2 },
+    defaultSize: { cols: 3, rows: 3 },
     defaultPosition: { x: 9, y: 0 },
     includeByDefault: true
   };
