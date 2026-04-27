@@ -1,5 +1,7 @@
 # 11 — Edit Mode: pink PrimaryHeader, EDIT MODE pill, DONE button, editable tile chrome
 
+**Status: ACCEPTED**
+
 > Added 2026-04-27 to track the new "Dashboard — LG (1280) — Edit Mode" frame (`fJpM0`) and the "Dashboard — LG (1280) — Add Tile Dialog" frame (`a2Cjz`), which both render the dashboard in edit mode.
 
 **Design**: edit mode is a documented toggle on the dashboard. While active:
