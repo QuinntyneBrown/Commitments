@@ -1,8 +1,10 @@
 ---
 id: 035
 title: Outstanding To Dos tile title wraps awkwardly - design uses hyphenated "Outstanding To-Dos"
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: c02ffc3
 flow: dashboard-layout
 severity: low
 ---
