@@ -77,13 +77,13 @@ gridster-item {
   place-items: center;
   align-content: center;
   height: 100%;
-  color: #516178;
+  color: var(--cui-text-secondary);
   text-align: center;
 }
 
 .dashboard-grid__empty h2 {
   margin: 0 0 6px;
-  color: #1d2a3d;
+  color: var(--cui-text-primary);
   font-size: 20px;
 }
 
