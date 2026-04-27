@@ -1,13 +1,16 @@
 # Profile switching
 
+> **Status (2026-04-27):** the `/profiles` and `/my-profile` routes both resolve to `PlaceholderPageComponent` ("Coming soon"). The header in the active shell (`DashboardLayoutComponent`) shows a hard-coded `Quinn Brown` profile name and an empty avatar slot — it does **not** yet read from `currentProfile$` or react to a profile click. The catalog page, create-profile dialog, header avatar/name binding, and SignalR profile-update path described below are the **intended** implementation; the backend Identity module, the create-profile dialog, `profile.service.ts`, `app-store.ts`, and `headers.interceptor.ts` still ship in source. Treat the steps below as the contract a Playwright test will exercise once the placeholders are replaced and the active shell is wired to the profile store.
+
 ## Summary
 
 A signed-in user owns one or more profiles. Domain data (commitments, activities, notes, todos, tags, cards, dashboards) is scoped to the active profile. The user can view their current profile, switch to another profile, and create a new one. The header avatar and name reflect the active profile, and the API includes the active `profileId` on every request via the headers interceptor.
 
 ## Surface area
 
-- Pages: `pages/my-profile/...`, `pages/profiles/...`
-- Header: `components/master-page/master-page.component.{ts,html}` — avatar + name update on profile change, click navigates to `/my-profile`.
+- Pages: `pages/my-profile/...`, `pages/profiles/...` (currently shadowed by `PlaceholderPageComponent`).
+- Header (active shell): `components/dashboard-layout/dashboard-layout.component.{ts,html}` — today the profile name is hard-coded (`Quinn Brown`) and the avatar slot has no `--background-image-url` binding; once wired, avatar + name update on profile change and clicking the name navigates to `/my-profile`.
+- Header (legacy, not routed): `components/master-page/master-page.component.{ts,html}` — kept here for context; no longer reachable from `app.routes.ts`.
 - Dialog: `components/create-profile-dialog/...`
 - Services: `services/profile.service.ts`, `app-store.ts` (BehaviorSubject `currentProfile$`).
 - Storage: `localStorage[currentProfileIdKey]`.
@@ -50,7 +53,8 @@ A signed-in user owns one or more profiles. Domain data (commitments, activities
 
 | Need | Selector |
 | --- | --- |
-| Toolbar profile name link | `.profile-name` (in `master-page.component.html`) |
+| Toolbar profile name | `getByTestId('dashboard-layout-profile-name')` (currently a static span; will become a clickable affordance once wired to `/my-profile`) |
+| Toolbar avatar | `getByTestId('dashboard-layout-avatar')` |
 | Profiles sidenav link | `getByRole('button', { name: /profiles/i })` |
 | Create-profile FAB | first `mat-fab` on the `/profiles` page |
 | Create dialog primary action | role `dialog`, primary `button` (text `Save` / `Create`) |

@@ -1,5 +1,7 @@
 # Tag management
 
+> **Status (2026-04-27):** the `/tags` page is not registered in `app.routes.ts`, and the related `/notes/by-tag/:slug` route is also unregistered (`/notes` itself resolves to `PlaceholderPageComponent`). The page, dialog, and chip-list described below are the **intended** implementation; the backend tag endpoints and the Angular dialog/chip-list components still ship in source. Treat the steps below as the contract a Playwright test will exercise once the routes are wired up.
+
 ## Summary
 
 Tags label notes (and potentially other entities later). Tags are scoped per profile, addressable by slug, and used for the "browse notes by tag" view. Tags are typically created inline as the user is tagging a note (see [`note-management`](../note-management/README.md)) but can also be added explicitly via the add-tag dialog.

@@ -21,7 +21,7 @@ A user signs in with username and password, gets routed to the dashboard, and ca
 
 1. **Land on the login screen.**
    - Navigate to `/login`.
-   - **Assert:** the page shows the heading `Login`, a `Username` input, a `Password` input (type `password`), and a `Submit` button. The Submit button is disabled while the form is invalid.
+   - **Assert:** the login card is centred on a dark `--cui-bg` (#121212) background, 480px wide on LG, with the design's surface fill (#1E1E1E), 8px corner radius, and floating box-shadow. It contains a brand title `Commitments` (Inter / 34 / 700), a `Login` mat-card-title (Inter / 20 / 500, secondary text colour), a `Username` input, a `Password` input (type `password`), and a full-width `Submit` button. The Submit button is disabled while the form is invalid. (See `e2e/login.spec.ts` for the asserted token values.)
 
 2. **Submit empty form is blocked.**
    - Click `Submit` without filling either field.
@@ -38,8 +38,8 @@ A user signs in with username and password, gets routed to the dashboard, and ca
    - **Assert:** the network call returns 4xx; an error snackbar/toast is visible and the app remains on `/login`; `localStorage[accessTokenKey]` is unchanged.
 
 5. **Sign out from the sidenav.**
-   - From the dashboard, open the sidenav (toolbar hamburger button).
-   - Click the `Logout` link.
+   - From the dashboard, the sidenav is open by default; if collapsed, click the toolbar hamburger (`dashboard-layout-hamburger`) to expand it.
+   - Click the `Logout` item (`sidenav-item-Logout`).
    - **Assert:** the app navigates to `/login`; `localStorage[accessTokenKey]` is cleared; reloading any protected route (e.g. `/commitments`) returns to `/login`.
 
 ## Selectors
@@ -49,8 +49,8 @@ A user signs in with username and password, gets routed to the dashboard, and ca
 | Username input | `getByLabel('Username')` or `#username` |
 | Password input | `getByLabel('Password')` or `#password` |
 | Submit button | `getByRole('button', { name: /submit/i })` |
-| Sidenav toggle | toolbar `button[mat-icon-button]` containing `mat-icon` text `menu` |
-| Logout link | `getByRole('button', { name: /logout/i })` (matches the `routerLink="/login"` button in `master-page.component.html`) |
+| Sidenav toggle | `getByTestId('dashboard-layout-hamburger')` |
+| Logout link | `getByTestId('sidenav-item-Logout')` (anchor `routerLink="/login"` in `dashboard-layout.component.html`) |
 
 > **No `data-testid` exists on the login form yet.** A Playwright author should add `data-testid="username"`, `data-testid="password"`, `data-testid="login-submit"` while authoring the test, and update this doc.
 

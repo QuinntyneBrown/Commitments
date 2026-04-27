@@ -1,5 +1,7 @@
 # Activity recording
 
+> **Status (2026-04-27):** the `/activities` route is wired to `PlaceholderPageComponent` ("Coming soon"). The catalog page, edit dialog, and ag-grid described below are the **intended** implementation; the backend controller, MediatR features, and dialog component still ship in source. Treat the steps below as the contract a Playwright test will exercise once the placeholder is replaced.
+
 ## Summary
 
 An **activity** is one instance of a behaviour being performed at a point in time. Recording an activity is what drives commitment progress: dashboard tiles, the `last14` endpoint, and the `trend` endpoint all aggregate over the activities table. The user can record an activity, browse activity history, edit, and delete entries.

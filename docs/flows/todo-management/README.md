@@ -1,5 +1,7 @@
 # To-Do management
 
+> **Status (2026-04-27):** the `/to-dos` route resolves to `PlaceholderPageComponent` ("Coming soon"). The catalog page, edit dialog, and ag-grid described below are the **intended** implementation; the backend controller, MediatR features, and dialog component still ship in source. Treat the steps below as the contract a Playwright test will exercise once the placeholder is replaced.
+
 ## Summary
 
 The user keeps a list of to-do items. Outstanding (incomplete) to-dos are surfaced on the dashboard's `Outstanding To Dos` tile and via `GET /api/toDos/outstanding`. The user can create, edit, complete, and delete items.

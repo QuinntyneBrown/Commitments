@@ -1,5 +1,7 @@
 # Commitment tracking
 
+> **Status (2026-04-27):** the `/commitments` route is wired in `app.routes.ts` to `PlaceholderPageComponent` ("Coming soon"). The catalog page, edit dialog, FAB, and ag-grid described below are the **intended** implementation; the backend controller, MediatR features, and dialog component all still ship in source. Treat the steps below as the contract a Playwright test will exercise once the placeholder is replaced.
+
 ## Summary
 
 A user defines **commitments** that pair a behaviour with one or more frequencies (and optional pre-conditions). The commitment is the unit the dashboard tiles surface live and review-mode metrics for. The user can list commitments, create one, edit one, and remove one.

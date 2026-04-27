@@ -2,68 +2,81 @@
 
 ## Summary
 
-Every authenticated screen renders inside `MasterPageComponent`: a top toolbar (hamburger + app title + profile name + avatar) and a left sidenav with the primary destinations. The sidenav opens on toolbar click, closes on item click, and routes through Angular Router into a `<router-outlet>` in the main content area. Every primary destination is reachable from the sidenav.
+Every authenticated screen renders inside `DashboardLayoutComponent`: a fixed top toolbar (hamburger + brand text + spacer + profile name + circular avatar) and a left sidenav of the primary destinations, both above a `<router-outlet>`. The hamburger collapses/expands the sidenav (the sidenav is open by default on desktop). Each sidenav item is an anchor with `routerLink` + `routerLinkActive` and routes through Angular Router into the content area.
+
+> **Implementation status:** the shell wraps `/` (the dashboard) and the catalog/CRUD routes (`/activities`, `/behaviours`, `/behaviour-types`, `/commitments`, `/cards`, `/card-layouts`, `/frequencies`, `/notes`, `/profiles`, `/to-dos`, plus `/my-profile` and `/settings`). Today the catalog routes resolve to `PlaceholderPageComponent` ("Coming soon") rather than the legacy ag-grid/Material catalog pages — see the individual catalog flow docs for the intended end-state. The legacy `MasterPageComponent` and `AnonymousMasterPageComponent` still exist in the source tree but are **not** routed by `app.routes.ts`.
 
 ## Surface area
 
-- `components/master-page/master-page.component.{ts,html,scss}`
-- `app.routes.ts` — declares the routes referenced from the sidenav (`/`, `/activities`, `/behaviours`, `/behaviour-types`, `/commitments`, `/cards`, `/card-layouts`, `/frequencies`, `/notes/create`, `/profiles`, `/to-dos`, `/login`).
-- Translation: `@ngx-translate/core` — every visible label is translated.
+- Active shell: `frontend/projects/commitments-app/src/app/components/dashboard-layout/dashboard-layout.component.{ts,html,scss}` (replaces the old `MasterPageComponent`).
+- Routes: `frontend/projects/commitments-app/src/app/app.routes.ts` — declares `/login` (component) and `/` (DashboardLayoutComponent) with children `''` (DashboardShell) plus the placeholder paths listed above.
+- Placeholder content: `components/placeholder-page/placeholder-page.component.ts` — derives a title from the route URL.
+- Translation: `@ngx-translate/core` is no longer applied to the sidenav labels; the labels are hard-coded English strings in `DashboardLayoutComponent.navItems`. (The catalog pages continue to use translations once they exist.)
 
 ## Preconditions
 
 - User is authenticated.
-- Translations for the active culture are loaded.
 
 ## Steps
 
-1. **Toolbar renders on every page.**
-   - Visit `/` (dashboard), `/commitments`, `/notes/create`, `/to-dos` in turn.
-   - **Assert:** on each route, the toolbar is visible with `Commitments` title, a hamburger icon button on the left, and the profile name + avatar on the right.
+1. **Toolbar renders on every authenticated route.**
+   - Visit `/`, `/commitments`, `/notes`, `/to-dos` in turn.
+   - **Assert:** on each route, the toolbar (`dashboard-layout-toolbar`) is visible with: hamburger button on the left, `Commitments` brand text, spacer, profile name `Quinn Brown`, and a 40×40 circular avatar slot on the right.
 
-2. **Sidenav opens.**
-   - From any page, click the toolbar hamburger.
-   - **Assert:** the `<mat-sidenav>` becomes visible (in DOM with `mode="side"`) and shows links: `Dashboard`, `Activities`, `Behaviours`, `Behaviour Types`, `Commitments`, `Cards`, `Card Layouts`, `Frequencies`, `Notes`, `Profiles`, `To Do's`, `Logout`.
+2. **Sidenav is open by default; hamburger toggles it.**
+   - Land on `/`.
+   - **Assert:** the sidenav (`dashboard-sidenav`) is visible (250px wide, `--cui-sidenav` background) without any user interaction.
+   - Click `dashboard-layout-hamburger`.
+   - **Assert:** the sidenav collapses (gets the `--collapsed` modifier — width 0).
+   - Click the hamburger again.
+   - **Assert:** the sidenav expands again.
 
-3. **Sidenav closes after a click.**
-   - Click any sidenav link (e.g. `Commitments`).
-   - **Assert:** sidenav closes (its `(click)="drawer.close()"` handler), and the URL updates to the corresponding route.
+3. **Sidenav items in design order.**
+   - With the sidenav open, observe the items.
+   - **Assert:** items render in this order, each with a Material Symbols Rounded icon and the label below:
+     | Label | Icon | Route |
+     | --- | --- | --- |
+     | Dashboard | `dashboard` | `/` |
+     | Activities | `event_available` | `/activities` |
+     | Behaviours | `repeat` | `/behaviours` |
+     | Behaviour Types | `category` | `/behaviour-types` |
+     | Commitments | `task_alt` | `/commitments` |
+     | Cards | `style` | `/cards` |
+     | Card Layouts | `dashboard_customize` | `/card-layouts` |
+     | Frequencies | `schedule` | `/frequencies` |
+     | Notes | `description` | `/notes` |
+     | Profiles | `person` | `/profiles` |
+     | To Do's | `format_list_bulleted` | `/to-dos` |
+     | Logout | `logout` | `/login` |
 
-4. **Each link navigates correctly.**
-   - For each link, open the sidenav and click it.
-   - **Assert:**
-     | Link | URL |
-     | --- | --- |
-     | Dashboard | `/` |
-     | Activities | `/activities` |
-     | Behaviours | `/behaviours` |
-     | Behaviour Types | `/behaviour-types` |
-     | Commitments | `/commitments` |
-     | Cards | `/cards` |
-     | Card Layouts | `/card-layouts` |
-     | Frequencies | `/frequencies` |
-     | Notes | `/notes/create` |
-     | Profiles | `/profiles` |
-     | To Do's | `/to-dos` |
-     | Logout | `/login` |
+4. **Each link navigates and applies active state.**
+   - Click each sidenav item.
+   - **Assert:** the URL updates to the corresponding route; the clicked item gains the `sidenav-item--active` class (driven by `routerLinkActive`); the active item shows the indigo left border and primary-coloured icon/label per the design tokens. The `Dashboard` item is matched with `[routerLinkActiveOptions]="{ exact: true }"` so it is only active on `/`.
 
 5. **Router outlet swaps content.**
-   - Navigate from `/commitments` to `/to-dos`.
-   - **Assert:** the page heading text changes from `Commitments` to `To Do's`; the previous route's grid is gone from the DOM.
+   - Navigate from `/` to `/commitments`.
+   - **Assert:** the dashboard shell unmounts from the content area; the placeholder-page renders with a `Commitments` PrimaryHeader and a "Coming soon." message. Reverse the navigation to confirm the dashboard shell remounts.
+
+6. **Sidenav stays open across navigation.**
+   - With the sidenav open, click any item.
+   - **Assert:** the sidenav remains open (the new shell does **not** auto-close on item click; this differs from the legacy `MasterPageComponent` which had `(click)="drawer.close()"`).
 
 ## Selectors
 
 | Need | Selector |
 | --- | --- |
-| Hamburger button | `mat-toolbar button[mat-icon-button]` containing `mat-icon` `menu` |
-| Sidenav drawer | `mat-sidenav` (or `<mat-sidenav>`) |
-| Sidenav link | `mat-sidenav button[mat-button]:has-text("<label>")` |
-| Page heading | `app-primary-header h1` (catalog pages all use this) |
-
-> **Add `data-testid="sidenav"` on the drawer and `data-testid="nav-<key>"` on each sidenav button** to make this flow stable.
+| App-shell root | `getByTestId('dashboard-layout')` |
+| Toolbar | `getByTestId('dashboard-layout-toolbar')` |
+| Hamburger button | `getByTestId('dashboard-layout-hamburger')` |
+| Profile name | `getByTestId('dashboard-layout-profile-name')` |
+| Profile avatar | `getByTestId('dashboard-layout-avatar')` |
+| Sidenav | `getByTestId('dashboard-sidenav')` |
+| Sidenav item (each) | `getByTestId('sidenav-item-<label>')` (e.g. `sidenav-item-Dashboard`, `sidenav-item-To Do's`) |
+| Active sidenav item (style hook) | `.sidenav-item--active` |
+| Page heading on placeholder routes | `app-primary-header h1` |
 
 ## Edge cases
 
-- Narrow viewport (XS, <576px) — sidenav should still open and overlay content (today it uses `mode="side"`; behaviour at small widths needs verification).
-- RTL languages — labels are translated; ordering of name + avatar should still be readable.
-- Browser back/forward — should not reopen the sidenav.
+- Narrow viewport (<576px) — the sidenav still toggles via the hamburger but its 250px width pushes the content area; if the design later specifies an overlay/off-canvas behaviour at small widths, update this section.
+- Browser back/forward — should not change the sidenav's open/closed state (the signal is component-local).
+- The legacy `MasterPageComponent` still ships in the bundle but is unrouted; flows that reference `mat-sidenav` selectors should be updated to use the new testids above.

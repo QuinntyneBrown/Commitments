@@ -1,5 +1,7 @@
 # Behaviour catalog management
 
+> **Status (2026-04-27):** the `/behaviours` and `/behaviour-types` routes both resolve to `PlaceholderPageComponent` ("Coming soon"). The catalog pages, edit dialogs, and ag-grid described below are the **intended** implementation; the backend controllers, MediatR features, and dialog components still ship in source. Treat the steps below as the contract a Playwright test will exercise once the placeholders are replaced.
+
 ## Summary
 
 A user maintains a catalog of **behaviours** (e.g. "Drink 2L water") classified by **behaviour type** (e.g. "Health"). Behaviours are the building blocks for commitments and activities. The user can list, create, edit, and delete behaviours, plus list and create behaviour types. Behaviour Types `Health`, `Acts Of Service`, `Physical Touch`, `Gifts`, `Words of Affirmation`, `Quality Time`, `Respect`, `Listening` are seeded by `SeedData.cs`.

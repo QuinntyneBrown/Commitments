@@ -1,5 +1,7 @@
 # Note management
 
+> **Status (2026-04-27):** the `/notes` route resolves to `PlaceholderPageComponent` ("Coming soon"); the legacy `/notes/create`, `/notes/by-tag/:slug`, and `/notes/edit/:id` routes referenced below are not registered in `app.routes.ts` today. The pages, Quill editor, tag chip-list, and digital-asset input described below are the **intended** implementation; the backend (Notes / Tags / DigitalAssets modules) and the relevant Angular components still ship in source. Treat the steps below as the contract a Playwright test will exercise once the placeholder is replaced and the sub-routes are wired up.
+
 ## Summary
 
 The user can create rich-text notes (Quill editor), tag them, list them, browse notes by tag, edit, and delete. Notes are profile-scoped and may attach digital assets via the `digital-asset-url-input` component.

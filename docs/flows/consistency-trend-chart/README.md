@@ -23,8 +23,8 @@ This flow has a smoke test (`chart-tile.spec.ts`) that asserts canvas presence +
 ## Steps
 
 1. **Add a Consistency Trend tile.**
-   - Default to Live mode → in the tile catalog, select `Consistency Trend` → click `Add Tile`.
-   - **Assert:** a `tile-shell` containing `Consistency Trend` appears; a `consistency-trend-canvas` element is visible inside it; the canvas's bounding box has non-zero width and height (already asserted by `ChartTilePage.expectCanvasHasDimensions()`).
+   - Default to Live mode → click the bottom-right FAB (`add-tile-fab`) to open the Add Tile dialog → click the `Consistency Trend` cell → click `ADD TILE` (`add-tile-dialog-confirm`).
+   - **Assert:** the dialog closes; a `tile-shell` containing `Consistency Trend` appears; a `consistency-trend-canvas` element is visible inside it; the canvas's bounding box has non-zero width and height (already asserted by `ChartTilePage.expectCanvasHasDimensions()`).
 
 2. **Status pill matches mode.**
    - In Live mode.
