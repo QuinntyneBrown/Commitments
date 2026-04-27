@@ -144,4 +144,11 @@ export class DashboardPage {
       .first()
       .evaluate((el) => getComputedStyle(el).color);
   }
+
+  outstandingTodosCopyColor(): Promise<string> {
+    return this.page
+      .locator('.todo-copy')
+      .first()
+      .evaluate((el) => getComputedStyle(el).color);
+  }
 }

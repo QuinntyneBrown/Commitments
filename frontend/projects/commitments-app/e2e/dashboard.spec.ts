@@ -33,6 +33,10 @@ test.describe('dashboard shell', () => {
     expect(await dashboard.relationsValueColor()).toBe('rgb(255, 255, 255)');
   });
 
+  test('Outstanding To Dos tile description uses the dark-theme secondary text token', async () => {
+    expect(await dashboard.outstandingTodosCopyColor()).toBe('rgb(176, 176, 176)');
+  });
+
   test('loads the dashboard with registered plugin tiles', async () => {
     await dashboard.expectDefaultDashboard();
     // Default mode is 'live'; the dropdown is filtered to live-supporting tiles.
