@@ -194,4 +194,14 @@ export class DashboardPage {
   modeTogglePseudoCheckboxVisibleCount(): Promise<number> {
     return this.page.locator('.mode-toggle .mat-pseudo-checkbox:visible').count();
   }
+
+  async switchToReview(): Promise<void> {
+    await this.page.locator('.mode-toggle__segment--review').first().click();
+    await this.page.waitForTimeout(400);
+  }
+
+  reviewScrubberBackground(): Promise<string> {
+    return this.page.locator('.review-scrubber').first()
+      .evaluate((el) => getComputedStyle(el).backgroundColor);
+  }
 }

@@ -67,6 +67,11 @@ test.describe('dashboard shell', () => {
     expect(await dashboard.modeTogglePseudoCheckboxVisibleCount()).toBe(0);
   });
 
+  test('review scrubber background pins to --cui-surface (#1E1E1E)', async () => {
+    await dashboard.switchToReview();
+    expect(await dashboard.reviewScrubberBackground()).toBe('rgb(30, 30, 30)');
+  });
+
   test('loads the dashboard with registered plugin tiles', async () => {
     await dashboard.expectDefaultDashboard();
     // Default mode is 'live'; the dropdown is filtered to live-supporting tiles.
