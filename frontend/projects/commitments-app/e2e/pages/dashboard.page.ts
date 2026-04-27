@@ -114,4 +114,9 @@ export class DashboardPage {
     return this.page.locator('.dashboard-shell__topbar').first()
       .evaluate((el) => getComputedStyle(el).backgroundColor);
   }
+
+  gridBackgroundColor(): Promise<string> {
+    return this.page.locator('.dashboard-grid').first()
+      .evaluate((el) => getComputedStyle(el).backgroundColor);
+  }
 }
