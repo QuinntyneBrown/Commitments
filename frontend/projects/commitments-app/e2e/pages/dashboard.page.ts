@@ -186,4 +186,8 @@ export class DashboardPage {
       .first()
       .evaluate((el) => getComputedStyle(el).backgroundColor);
   }
+
+  removeTileButtonBackground(): Promise<string> {
+    return this.removeTileButtons.first().evaluate((el) => getComputedStyle(el).backgroundColor);
+  }
 }

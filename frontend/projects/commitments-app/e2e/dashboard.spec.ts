@@ -57,6 +57,12 @@ test.describe('dashboard shell', () => {
     expect(await dashboard.progressFillBackground()).toBe('rgb(102, 187, 106)');
   });
 
+  test('tile-chrome remove button uses --cui-surface-3 in edit mode', async () => {
+    await dashboard.enterEditMode();
+    expect(await dashboard.removeTileButtonBackground()).toBe('rgb(44, 44, 44)');
+    await dashboard.exitEditMode();
+  });
+
   test('loads the dashboard with registered plugin tiles', async () => {
     await dashboard.expectDefaultDashboard();
     // Default mode is 'live'; the dropdown is filtered to live-supporting tiles.
