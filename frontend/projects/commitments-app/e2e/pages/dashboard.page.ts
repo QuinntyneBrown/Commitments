@@ -137,4 +137,11 @@ export class DashboardPage {
       .first()
       .evaluate((el) => getComputedStyle(el).color);
   }
+
+  relationsValueColor(): Promise<string> {
+    return this.page
+      .locator('.relations strong')
+      .first()
+      .evaluate((el) => getComputedStyle(el).color);
+  }
 }
