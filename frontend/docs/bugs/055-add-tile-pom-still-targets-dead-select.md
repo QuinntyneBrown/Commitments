@@ -2,7 +2,7 @@
 
 ## Status
 
-OPEN.
+FIXED — full `dashboard.spec.ts` (21 tests) passes on lg-desktop.
 
 ## Symptom
 
@@ -52,6 +52,9 @@ Then update L79 to open the dialog before reading the catalog labels.
 
 ## Resolution
 
-- [ ] Failing tests verified pre-fix.
-- [ ] POM rewired; spec L79 opens dialog.
-- [ ] Tests verified passing post-fix.
+- [x] Failing tests verified pre-fix (L79: 0 elements at `tile-select option`;
+      L101: hung on `selectOption`).
+- [x] POM rewired (`addTileDialog`, `addTileDialogLabels`, `addTileDialogConfirm`,
+      `addTileDialogCancel` locators; `openAddTileDialog`, `cancelAddTileDialog`,
+      `addTile` helpers); spec L79 opens dialog and cancels.
+- [x] Full dashboard.spec.ts (21 tests) passes post-fix on lg-desktop.
