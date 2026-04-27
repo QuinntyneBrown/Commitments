@@ -1,8 +1,10 @@
 ---
 id: 010
 title: Dashboard grid + gridster-item still hard-code light theme colors
-status: open
+status: fixed
 discovered: 2026-04-26
+fixed: 2026-04-26
+fixed_in: 837c9bd
 flow: dashboard-layout
 severity: high
 ---
