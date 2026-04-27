@@ -1,8 +1,10 @@
 ---
 id: 050
 title: ag-grid cell components leave interface-required `params` arg unprefixed - 9 unused-args errors
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: fbe1fff
 flow: dashboard-layout
 severity: low
 ---
