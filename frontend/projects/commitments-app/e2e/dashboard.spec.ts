@@ -96,6 +96,13 @@ test.describe('dashboard shell', () => {
     await expect(label).toHaveText(/today/i);
   });
 
+  test('review scrubber shows a "Reviewing" legend per design zNLnf', async ({ page }) => {
+    await dashboard.switchToReview();
+    const legend = page.locator('.review-scrubber__legend');
+    await expect(legend).toBeVisible();
+    await expect(legend).toContainText(/reviewing/i);
+  });
+
   test('Outstanding To-Dos copy uses 2-line clamp ellipsis (no mid-word clip)', async () => {
     expect(await dashboard.outstandingTodosCopyLineClamp()).toBe('2');
   });
