@@ -1,7 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { TileMetadata } from '@commitments/dashboard-framework';
 import {
   DeltaBadgeComponent,
@@ -21,7 +21,7 @@ import { LiveGoalMetricsController } from './live-goal-metrics-controller';
   templateUrl: './live-goal-metrics-tile.component.html',
   styleUrls: ['./live-goal-metrics-tile.component.scss']
 })
-export class LiveGoalMetricsTileComponent {
+export class LiveGoalMetricsTileComponent implements OnInit {
   static readonly tileMetadata: TileMetadata = {
     tileId: 'commitments.live-goal-metrics',
     displayName: 'Live Goal Metrics',
@@ -33,5 +33,11 @@ export class LiveGoalMetricsTileComponent {
     supportedModes: ['live']
   };
 
+  @Input() goalId = 'demo-goal';
+
   constructor(readonly controller: LiveGoalMetricsController) {}
+
+  ngOnInit(): void {
+    this.controller.load(this.goalId);
+  }
 }

@@ -2,6 +2,22 @@ import { expect, Locator, Page } from '@playwright/test';
 
 import { DashboardPage } from './dashboard.page';
 
+const REVIEW_LAYOUT_KEY = 'commitments.layout.review';
+const MODE_KEY = 'commitments.dashboardMode';
+
+const REVIEW_TILE_SEED = JSON.stringify({
+  schemaVersion: 1,
+  savedAt: 0,
+  items: [{
+    instanceId: 'e2e-review-goal-history',
+    tileId: 'commitments.review-goal-history',
+    cols: 3,
+    rows: 3,
+    x: 0,
+    y: 0
+  }]
+});
+
 export class ReviewGoalHistoryPage {
   readonly page: Page;
   readonly dashboard: DashboardPage;
@@ -30,9 +46,18 @@ export class ReviewGoalHistoryPage {
   }
 
   async addReviewGoalHistoryTile() {
-    // Tile is review-only after design 10; switch modes before opening the catalog.
-    await this.reviewToggle.click();
-    await this.dashboard.addTile('Review Goal History');
+    // The Add Tile FAB is live-only by design; seed the review layout directly
+    // and switch to review mode so the tile renders.
+    await this.page.addInitScript((args: { layoutKey: string; modeKey: string; seed: string }) => {
+      const setupKey = `${args.layoutKey}.e2e-seeded`;
+      if (!sessionStorage.getItem(setupKey)) {
+        localStorage.setItem(args.layoutKey, args.seed);
+        localStorage.setItem(args.modeKey, 'review');
+        sessionStorage.setItem(setupKey, 'true');
+      }
+    }, { layoutKey: REVIEW_LAYOUT_KEY, modeKey: MODE_KEY, seed: REVIEW_TILE_SEED });
+    await this.page.goto('/');
+    await this.dashboard.waitUntilReady();
   }
 
   async expectVisible() {

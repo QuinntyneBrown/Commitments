@@ -57,6 +57,11 @@ export class LiveGoalMetricsController {
 
   load(goalId: string): void {
     this._goalId = goalId;
+    if (goalId === 'demo-goal') {
+      this.count.set(0);
+      this.target.set(30);
+      return;
+    }
     this._service.getCurrent(goalId).subscribe(progress => {
       this.count.set(progress.count);
       this.target.set(progress.target);
