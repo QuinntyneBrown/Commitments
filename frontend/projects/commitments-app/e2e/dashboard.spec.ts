@@ -76,18 +76,21 @@ test.describe('dashboard shell', () => {
     expect(await dashboard.outstandingTodosCopyLineClamp()).toBe('2');
   });
 
-  test('loads the dashboard with registered plugin tiles', async ({ page }) => {
+  test('loads the dashboard with registered plugin tiles', async () => {
     await dashboard.expectDefaultDashboard();
-    // Open the Add Tile dialog — live mode filters out review-only tiles.
-    await dashboard.addTileButton.click();
-    const dialog = page.getByTestId('add-tile-dialog');
-    await expect(dialog).toBeVisible();
-    for (const name of ['Daily Results', 'Weekly Focus', 'Monthly Progress', 'Outstanding To‑Dos', 'Relations', 'Consistency Trend', 'Live Goal Metrics']) {
-      await expect(dialog.getByRole('button', { name })).toBeVisible();
-    }
-    // Review Goal History is review-only and must not appear in live mode.
-    await expect(dialog.getByRole('button', { name: 'Review Goal History' })).toHaveCount(0);
-    await page.getByTestId('add-tile-dialog-cancel').click();
+    // Default mode is 'live'; the catalog is filtered to live-supporting tiles.
+    // Review Goal History has supportedModes: ['review'] and is hidden here.
+    await dashboard.openAddTileDialog();
+    await expect(dashboard.addTileDialogLabels).toHaveText([
+      'Daily Results',
+      'Weekly Focus',
+      'Monthly Progress',
+      'Outstanding To‑Dos',
+      'Relations',
+      'Consistency Trend',
+      'Live Goal Metrics',
+    ]);
+    await dashboard.cancelAddTileDialog();
   });
 
   test('toggles edit layout mode and exposes tile chrome', async () => {

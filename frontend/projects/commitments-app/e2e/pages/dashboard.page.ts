@@ -18,6 +18,11 @@ export class DashboardPage {
   readonly tiles: Locator;
   readonly tileTitles: Locator;
   readonly addTileButton: Locator;
+  readonly addTileDialog: Locator;
+  readonly addTileDialogLabels: Locator;
+  readonly addTileDialogConfirm: Locator;
+  readonly addTileDialogCancel: Locator;
+  readonly resetLayoutButton: Locator;
   readonly removeTileButtons: Locator;
   readonly editModeEnterButton: Locator;
   readonly editModeDoneButton: Locator;
@@ -30,6 +35,11 @@ export class DashboardPage {
     this.tiles = page.getByTestId('dashboard-tile');
     this.tileTitles = page.getByTestId('tile-title');
     this.addTileButton = page.getByTestId('add-tile-fab');
+    this.addTileDialog = page.getByTestId('add-tile-dialog');
+    this.addTileDialogLabels = this.addTileDialog.locator('.add-tile-dialog__label');
+    this.addTileDialogConfirm = page.getByTestId('add-tile-dialog-confirm');
+    this.addTileDialogCancel = page.getByTestId('add-tile-dialog-cancel');
+    this.resetLayoutButton = page.getByTestId('reset-layout');
     this.removeTileButtons = page.getByTestId('remove-tile');
     this.editModeEnterButton = page.getByTestId('edit-mode-enter');
     this.editModeDoneButton = page.getByTestId('edit-mode-done');
@@ -65,10 +75,21 @@ export class DashboardPage {
     }
   }
 
-  async addTile(displayName: string) {
+  async openAddTileDialog() {
     await this.addTileButton.click();
-    await this.page.getByTestId('add-tile-dialog').getByRole('button', { name: displayName }).click();
-    await this.page.getByTestId('add-tile-dialog-confirm').click();
+    await expect(this.addTileDialog).toBeVisible();
+  }
+
+  async cancelAddTileDialog() {
+    await this.addTileDialogCancel.click();
+    await expect(this.addTileDialog).toHaveCount(0);
+  }
+
+  async addTile(displayName: string) {
+    await this.openAddTileDialog();
+    await this.addTileDialog.locator('.add-tile-dialog__cell', { hasText: displayName }).click();
+    await this.addTileDialogConfirm.click();
+    await expect(this.addTileDialog).toHaveCount(0);
   }
 
   async enterEditMode() {
