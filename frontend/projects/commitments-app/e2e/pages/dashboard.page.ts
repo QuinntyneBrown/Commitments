@@ -165,4 +165,11 @@ export class DashboardPage {
       .first()
       .evaluate((el) => getComputedStyle(el).backgroundColor);
   }
+
+  outstandingTodosCountColor(): Promise<string> {
+    return this.page
+      .locator('.todo-count')
+      .first()
+      .evaluate((el) => getComputedStyle(el).color);
+  }
 }

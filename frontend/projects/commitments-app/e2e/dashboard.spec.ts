@@ -45,6 +45,10 @@ test.describe('dashboard shell', () => {
     expect(await dashboard.progressTrackBackground()).toBe('rgb(58, 58, 58)');
   });
 
+  test('Outstanding To Dos count metric uses the on-palette warning amber', async () => {
+    expect(await dashboard.outstandingTodosCountColor()).toBe('rgb(255, 167, 38)');
+  });
+
   test('loads the dashboard with registered plugin tiles', async () => {
     await dashboard.expectDefaultDashboard();
     // Default mode is 'live'; the dropdown is filtered to live-supporting tiles.
