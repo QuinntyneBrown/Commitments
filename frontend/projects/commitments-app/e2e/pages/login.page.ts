@@ -49,4 +49,8 @@ export class LoginPage {
   cardBackgroundColor(): Promise<string> {
     return this.page.locator('mat-card').first().evaluate((el) => getComputedStyle(el).backgroundColor);
   }
+
+  cardTitleColor(): Promise<string> {
+    return this.page.locator('mat-card-title').first().evaluate((el) => getComputedStyle(el).color);
+  }
 }

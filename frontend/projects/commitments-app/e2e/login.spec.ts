@@ -48,4 +48,8 @@ test.describe('login page', () => {
   test('card uses the surface token (#1E1E1E) from the design', async () => {
     expect(await login.cardBackgroundColor()).toBe('rgb(30, 30, 30)');
   });
+
+  test('"Login" mat-card-title uses the secondary text token (#B0B0B0)', async () => {
+    expect(await login.cardTitleColor()).toBe('rgb(176, 176, 176)');
+  });
 });
