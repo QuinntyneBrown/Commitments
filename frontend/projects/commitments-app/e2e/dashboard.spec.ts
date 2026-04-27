@@ -49,6 +49,10 @@ test.describe('dashboard shell', () => {
     expect(await dashboard.outstandingTodosCountColor()).toBe('rgb(255, 167, 38)');
   });
 
+  test('Daily Results metric uses the on-palette success green', async () => {
+    expect(await dashboard.dailyResultsMetricColor()).toBe('rgb(102, 187, 106)');
+  });
+
   test('loads the dashboard with registered plugin tiles', async () => {
     await dashboard.expectDefaultDashboard();
     // Default mode is 'live'; the dropdown is filtered to live-supporting tiles.

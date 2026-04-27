@@ -172,4 +172,11 @@ export class DashboardPage {
       .first()
       .evaluate((el) => getComputedStyle(el).color);
   }
+
+  dailyResultsMetricColor(): Promise<string> {
+    return this.page
+      .locator('.metric__value')
+      .first()
+      .evaluate((el) => getComputedStyle(el).color);
+  }
 }
