@@ -1,6 +1,6 @@
 # 19 — Hub Lifecycle and Reconnect — Detailed Design
 
-**Status:** Accepted
+**Status:** Complete
 
 ## 1. Overview
 
