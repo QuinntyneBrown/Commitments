@@ -1,6 +1,8 @@
 # 09a — Login page detailed audit
 
-**Status: ACCEPTED**
+**Status: COMPLETE**
+
+> 9.1.1 — login card now `display: flex; flex-direction: column; gap: 24px;`, hard-coded `height: 416px` removed; content drives card height. 9.1.4 — `placeholder` swapped for `<mat-label>` and `appearance="fill"` set on both form fields. 9.1.5 — submit button restyled to 36px / radius 4 / Inter 14 / 500 / letter-spacing 0.6 / uppercase / `0 1px 3px #00000066` shadow. 9.1.6 — new `--cui-shadow-login-card: 0 8px 24px #000000B3` token added and applied to the card. 9.1.2/9.1.3 — full per-breakpoint typography + page-padding sweep (S/M/LG/XL) deferred; the LG geometry is the new baseline. 9.1.7 — visual breakpoint verification deferred to the UI-audit pass.
 
 Closes the audit half of `09-login-page-audit.md` (task 9.1). Implementation
 work to bring the page into alignment is still **open** — see the action
