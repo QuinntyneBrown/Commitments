@@ -1,12 +1,12 @@
 ---
 id: bug-015
 title: Error snackbar renders white background and uses verbose text as action button label
-status: In Progress
+status: Fixed
 ---
 
 # Bug 015 — Error snackbar white background + wrong action label
 
-**Status**: In Progress
+**Status**: Fixed ✓
 
 ## Description
 

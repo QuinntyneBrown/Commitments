@@ -19,9 +19,12 @@ html {
 @import 'ag-grid-community/styles/ag-grid.css';
 @import 'ag-grid-community/styles/ag-theme-material.css';
 
-.snackbar--error .mat-mdc-snack-bar-container {
-  --mdc-snackbar-container-color: var(--cui-warn, #f44336);
-  --mdc-snackbar-supporting-text-color: #fff;
-  --mat-snack-bar-button-color: #fff;
+.snackbar--error .mdc-snackbar__surface {
+  background-color: var(--cui-warn, #f44336) !important;
+  color: #fff !important;
+}
+
+.snackbar--error .mdc-snackbar__surface button {
+  color: #fff !important;
 }
 

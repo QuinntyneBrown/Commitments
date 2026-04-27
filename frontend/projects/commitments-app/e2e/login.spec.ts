@@ -74,7 +74,7 @@ test.describe('login page', () => {
     await login.submitButton.click();
     const snackbar = page.locator('mat-snack-bar-container');
     await expect(snackbar).toBeVisible();
-    const bg = await snackbar.evaluate((el) => getComputedStyle(el).backgroundColor);
+    const bg = await snackbar.evaluate((el) => getComputedStyle(el.querySelector('.mdc-snackbar__surface')!).backgroundColor);
     expect(bg).toBe('rgb(244, 67, 54)');
   });
 
