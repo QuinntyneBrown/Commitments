@@ -4,8 +4,8 @@
   gap: 8px;
   padding: 12px 16px;
   border-radius: 12px;
-  background: #1E1E1E;
-  color: #FFFFFF;
+  background: var(--cui-surface);
+  color: var(--cui-text-primary);
 }
 
 .review-scrubber__track {
@@ -17,13 +17,13 @@
 .review-scrubber__slider {
   width: 100%;
   margin: 0;
-  accent-color: #9FA8DA;
+  accent-color: var(--cui-primary);
 }
 
 .review-scrubber__ticks {
   display: flex;
   justify-content: space-between;
-  color: #B0B0B0;
+  color: var(--cui-text-secondary);
   font-size: 11px;
   letter-spacing: 0.4px;
 }
@@ -37,7 +37,7 @@
   padding: 4px 10px;
   border-radius: 999px;
   background: rgba(159, 168, 218, 0.18);
-  color: #9FA8DA;
+  color: var(--cui-primary);
   font-weight: 700;
   font-size: 12px;
   letter-spacing: 0.4px;
