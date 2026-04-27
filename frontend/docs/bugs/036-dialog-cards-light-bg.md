@@ -1,8 +1,10 @@
 ---
 id: 036
 title: 16 dialog/card components hard-code "background-color: #fff" on :host - bright white over dark theme
-status: open
+status: fixed
 discovered: 2026-04-27
+fixed: 2026-04-27
+fixed_in: 006c295
 flow: dashboard-layout
 severity: medium
 ---
