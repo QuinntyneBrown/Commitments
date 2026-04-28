@@ -1,10 +1,21 @@
 ---
 id: bug-181
 title: styles.scss has lowercase #f44336 fallback and literal font-family Inter
-status: Open
+status: Fixed
 ---
 
 # Bug 181 — `styles.scss` token cleanups
+
+**Status**: Fixed
+
+## Fix
+
+Two SCSS edits in the global stylesheet:
+- `font-family: Inter, Roboto, ...` → `var(--cui-font-display, 'Inter')`
+- `var(--cui-warn, #f44336)` → `var(--cui-warn, #F44336)`
+
+Closes the bug-172 → 173 → 174 → 175 → 181 font-family
+token-migration arc. 381/381 workspace tests green.
 
 ## Description
 
