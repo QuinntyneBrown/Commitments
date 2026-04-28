@@ -23,8 +23,6 @@ export class DashboardLayoutStore {
   private readonly reviewItems = signal<DashboardItem[]>([]);
   private readonly editModeSignal = signal(false);
 
-  readonly liveLayout: Signal<DashboardItem[]> = this.liveItems.asReadonly();
-  readonly reviewLayout: Signal<DashboardItem[]> = this.reviewItems.asReadonly();
   readonly items: Signal<DashboardItem[]> = computed(() =>
     this.modeService.mode() === 'live' ? this.liveItems() : this.reviewItems()
   );
