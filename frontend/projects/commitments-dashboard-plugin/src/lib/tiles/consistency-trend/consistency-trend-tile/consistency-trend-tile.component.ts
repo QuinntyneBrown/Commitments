@@ -153,7 +153,7 @@ export class ConsistencyTrendTileComponent implements AfterViewInit, OnDestroy {
     this._adapter.destroy();
   }
 
-  protected readonly mode = computed(() => this._tileContext?.mode?.() ?? 'live');
+  protected readonly mode = computed(() => this._tileContext?.mode() ?? 'live');
   protected readonly pillVariant = computed<'chart' | 'review'>(() =>
     this.mode() === 'review' ? 'review' : 'chart'
   );
