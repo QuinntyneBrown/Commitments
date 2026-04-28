@@ -108,4 +108,10 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     const block = ruleBlock(':host');
     expect(block).toMatch(/--cui-tile-header-gap\s*:\s*10px\b/);
   });
+
+  it('binds the delta-badge to parsed delta + caption (bug-055)', () => {
+    expect(html).toMatch(/\[delta\]\s*=\s*"controller\.deltaPercentage\(\)"/);
+    expect(html).toMatch(/\[caption\]\s*=\s*"controller\.deltaCaption\(\)"/);
+    expect(html).not.toMatch(/controller\.currentPercentage\(\)\s*-\s*controller\.lowPercentage\(\)/);
+  });
 });

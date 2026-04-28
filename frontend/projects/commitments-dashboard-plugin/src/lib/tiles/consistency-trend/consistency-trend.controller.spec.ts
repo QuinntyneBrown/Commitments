@@ -119,4 +119,30 @@ describe('ConsistencyTrendController', () => {
     expect(ts).toMatch(/pointBorderColor\s*:[\s\S]*?BG_APP/);
     expect(ts).toMatch(/pointBorderWidth\s*:[\s\S]*?\b3\b/);
   });
+
+  describe('deltaPercentage / deltaCaption (bug-055)', () => {
+    function loadWithLabel(label: string) {
+      const trend = trendFixture({ deltaLabel: label });
+      getTrend.mockReturnValue({ subscribe: (fn: (v: GoalTrendDto) => void) => fn(trend) });
+      const controller = new ConsistencyTrendController(trendService, mode, selectedReviewDate);
+      controller.load('goal-1');
+      return controller;
+    }
+
+    it('parses a positive deltaPercentage', () => {
+      expect(loadWithLabel('+12% vs prior 14d').deltaPercentage()).toBe(12);
+    });
+
+    it('parses a negative deltaPercentage', () => {
+      expect(loadWithLabel('-3% vs prior 14d').deltaPercentage()).toBe(-3);
+    });
+
+    it('parses zero deltaPercentage', () => {
+      expect(loadWithLabel('±0% vs prior 14d').deltaPercentage()).toBe(0);
+    });
+
+    it('extracts the caption suffix after the percent sign', () => {
+      expect(loadWithLabel('+12% vs prior 14d').deltaCaption()).toBe('vs prior 14d');
+    });
+  });
 });
