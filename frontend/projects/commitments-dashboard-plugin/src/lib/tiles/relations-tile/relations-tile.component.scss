@@ -8,7 +8,7 @@
   justify-content: center;
   gap: 8px;
   height: 100%;
-  color: var(--cui-text-secondary);
+  color: var(--cui-text-secondary, #B0B0B0);
   font-size: 14px;
 }
 
@@ -26,12 +26,12 @@
 }
 
 .relations strong {
-  color: var(--cui-text-primary);
+  color: var(--cui-text-primary, #FFFFFF);
   font-weight: 700;
 }
 
 .empty {
   margin: 12px 0 0;
-  color: var(--cui-text-secondary);
+  color: var(--cui-text-secondary, #B0B0B0);
   font-size: 13px;
 }
