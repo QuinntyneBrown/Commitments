@@ -1,12 +1,23 @@
 ---
 id: bug-100
 title: weekly-focus-tile.component.scss var() calls omit the design-system fallback hex
-status: Open
+status: Fixed
 ---
 
 # Bug 100 — weekly-focus var() fallback hex
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added the design-system hex fallback to three `var()` references
+in `weekly-focus-tile.component.scss`:
+
+- `var(--cui-text-primary, #FFFFFF)` (focus name `<strong>`)
+- `var(--cui-text-secondary, #B0B0B0)` (supporting metric, .empty)
+
+Same shape as bug-096/097/098/099. The bug-100 spec adds a
+forward-only regex guard. 297/297 workspace tests green.
 
 ## Description
 
