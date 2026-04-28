@@ -17,7 +17,8 @@ public class SaveActivityCommandValidator : AbstractValidator<SaveActivityReques
 {
     public SaveActivityCommandValidator()
     {
-        RuleFor(request => request.Activity.ActivityId).NotNull();
+        RuleFor(request => request.Activity.ActivityId).NotEmpty();
+        RuleFor(request => request.Activity.BehaviourId).NotEmpty();
     }
 }
 

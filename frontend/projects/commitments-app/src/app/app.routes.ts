@@ -6,6 +6,7 @@ import { DashboardShellComponent } from '@commitments/dashboard-framework';
 
 import { DashboardLayoutComponent } from './components/dashboard-layout/dashboard-layout.component';
 import { PlaceholderPageComponent } from './components/placeholder-page/placeholder-page.component';
+import { ActivitiesPageComponent } from './pages/activities/activities-page/activities-page.component';
 import { BehaviourTypesPageComponent } from './pages/behaviour-types/behaviour-types-page/behaviour-types-page.component';
 import { BehavioursPageComponent } from './pages/behaviours/behaviours-page/behaviours-page.component';
 import { CommitmentsPageComponent } from './pages/commitments/commitments-page/commitments-page.component';
@@ -17,7 +18,6 @@ import { ProfilesPageComponent } from './pages/profiles/profiles-page/profiles-p
 import { SettingsPageComponent } from './pages/settings/settings-page/settings-page.component';
 
 const placeholderPaths = [
-  'activities',
   'cards',
   'card-layouts',
   'notes',
@@ -40,6 +40,7 @@ export const routes: Routes = [
       { path: 'edit-frequency', component: EditFrequencyPageComponent },
       { path: 'edit-frequency/:frequencyId', component: EditFrequencyPageComponent },
       { path: 'commitments', component: CommitmentsPageComponent },
+      { path: 'activities', component: ActivitiesPageComponent },
       ...placeholderPaths.map(path => ({ path, component: PlaceholderPageComponent }))
     ]
   }

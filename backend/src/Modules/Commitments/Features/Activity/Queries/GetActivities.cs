@@ -30,6 +30,7 @@ public class GetActivitiesQueryHandler : IRequestHandler<GetActivitiesRequest, G
             Activities = await _context.Activities
             .Include(x => x.Behaviour)
             .Include("Behaviour.BehaviourType")
+            .OrderByDescending(x => x.PerformedOn)
             .Select(x => ActivityDto.FromActivity(x)).ToListAsync()
         };
 }
