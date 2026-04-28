@@ -3,11 +3,7 @@
 
 Pull any changes from origin
 
-Find a detailed design in C:\projects\gers\docs\detailed-designs starting at
-
-C:\projects\Commitments\docs\detailed-designs\13-signalr-hub-foundation
-
-that is not implemented respecting the sequential order.
+Find a detailed design in C:\projects\Commitments\docs\detailed-designs starting that is not implemented respecting the sequential order.
 
 Mark the design as accepted.
 
@@ -25,7 +21,7 @@ Implement the detailed design using Acceptance Test Driven Development.
 
     4. COMMIT ALL CHANGES AND PUSH TO ORIGIN
 
-    5. Audit the implementation 5 times for radical simplicity and completeness against the detail design, docs and C:\projects\gers\docs\ui-design.pen.
+    5. Audit the implementation 5 times for radical simplicity and completeness against the detail design, docs and C:\projects\Commitments\docs\ui-design.pen.
 
         a) Can the implementation be made more testable or simpler? Fix it
 
