@@ -1,12 +1,42 @@
 ---
 id: bug-040
 title: Consistency Trend — header→metric and metric→chart gaps drift from the .pen tile gap of 14
-status: Open
+status: Fixed
 ---
 
 # Bug 040 — Consistency Trend internal vertical spacing
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Two coordinated edits:
+
+`tile-shell.component.scss` adds a chart-variant override:
+```scss
+.tile-shell--chart .tile-shell__body {
+  padding-top: 14px;
+}
+```
+
+This sits alongside the existing `.tile-shell--review` border-color
+override — same per-variant override pattern.
+
+`consistency-trend-tile.component.scss`:
+- `.trend-row` drops its `margin-top: 6px` (the chart-variant body
+  padding-top now supplies the 14px header→trend gap).
+- `.plot` margin-top changes from `12px` to `14px` for the
+  trend→chart gap.
+
+Both internal vertical gaps now equal exactly 14px, matching the
+.pen XUZrO frame's tile gap.
+
+Coverage:
+- `tile-shell.component.spec.ts` asserts the chart-variant body's
+  `padding-top: 14px` declaration.
+- `consistency-trend-tile.component.spec.ts` asserts `.trend-row`
+  has no `margin-top` and `.plot` declares `margin-top: 14px`.
+- All 20 affected suites pass (104/104 — was 101/101 before).
 
 ## Description
 
