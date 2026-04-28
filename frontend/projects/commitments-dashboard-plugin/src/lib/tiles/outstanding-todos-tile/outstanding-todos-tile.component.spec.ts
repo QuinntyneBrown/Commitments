@@ -39,6 +39,17 @@ describe('OutstandingTodosTileComponent (template + CSS source)', () => {
     expect(ts).toMatch(/pillVariant\b[\s\S]*?'warning'/);
   });
 
+  it('chip label is "{count} OPEN", not the dashboard mode (bug-082)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'outstanding-todos-tile.component.ts'),
+      'utf8'
+    );
+    // statusLabel must be derived from controller.count() and the
+    // literal 'OPEN' — never from mode().
+    expect(ts).toMatch(/statusLabel\s*=\s*computed\([\s\S]*?count\(\)[\s\S]*?OPEN/);
+    expect(ts).not.toMatch(/statusLabel\s*=\s*computed\([\s\S]*?mode\(\)[\s\S]*?toUpperCase/);
+  });
+
   it('renders the count at weight 700 (bug-038)', () => {
     const block = ruleBlock('\\.todo-count');
     expect(block).toMatch(/font-weight\s*:\s*700\b/);
