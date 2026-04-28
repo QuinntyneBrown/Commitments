@@ -1,12 +1,22 @@
 ---
 id: bug-112
 title: metric-header, status-pill, and delta-badge don't explicitly pin --cui-font-display
-status: Open
+status: Fixed
 ---
 
 # Bug 112 — cui tile-component font-family
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added `font-family: var(--cui-font-display, 'Inter')` to the
+root rule of all three components (`.metric-header`,
+`.status-pill`, `.delta-badge`). Pinning at the root propagates
+to every child span, mirroring the bug-067 / bug-111 pattern
+on `tile-shell__title` / `tile-shell__eyebrow`.
+
+309/309 workspace tests green.
 
 ## Description
 
