@@ -9,14 +9,14 @@
 }
 
 .metric__value {
-  color: var(--cui-success);
+  color: var(--cui-success, #66BB6A);
   font-size: 48px;
   font-weight: 700;
   line-height: 1;
 }
 
 .metric__label {
-  color: var(--cui-text-secondary);
+  color: var(--cui-text-secondary, #B0B0B0);
   font-size: 12px;
 }
 
@@ -25,12 +25,12 @@
   height: 8px;
   margin-top: var(--cui-tile-body-gap, 10px);
   border-radius: var(--cui-radius-full, 9999px);
-  background: var(--cui-divider);
+  background: var(--cui-divider, #3A3A3A);
 }
 
 .progress span {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: var(--cui-success);
+  background: var(--cui-success, #66BB6A);
 }
