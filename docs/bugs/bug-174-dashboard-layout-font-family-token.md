@@ -1,10 +1,19 @@
 ---
 id: bug-174
 title: dashboard-layout SCSS uses literal `font-family: Inter` instead of --cui-font-display token
-status: Open
+status: Fixed
 ---
 
 # Bug 174 — dashboard-layout font-family should reference `--cui-font-display`
+
+**Status**: Fixed
+
+## Fix
+
+All four `font-family: Inter, Roboto, ...` literals (host,
+brand, profile-name, sidenav-item) replaced with
+`var(--cui-font-display, 'Inter')`. 374/374 workspace tests
+green.
 
 ## Description
 
