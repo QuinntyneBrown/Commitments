@@ -11,7 +11,7 @@
   align-items: center;
   gap: 16px;
   min-height: var(--cui-header-height, 80px);
-  padding: 0 var(--cui-header-padding, 20px);
+  padding: 0 20px;
   background: var(--cui-primary-dim, #3F51B5);
   color: var(--cui-text-primary, #FFFFFF);
 }
@@ -24,7 +24,10 @@
   margin: 0;
   overflow: hidden;
   color: inherit;
-  font: 500 28px/1.2 Inter, Roboto, Arial, sans-serif;
+  font-family: var(--cui-font-display, 'Inter');
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.2;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
