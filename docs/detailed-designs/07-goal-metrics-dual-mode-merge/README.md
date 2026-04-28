@@ -1,5 +1,6 @@
 # Goal Metrics Tile — Dual-Mode Merge
 
+**Status:** Accepted — 2026-04-27
 **Tile ID (post-merge):** `commitments.goal-metrics`
 **Traces to:** L1-011, L1-012, **L1-012a**; L2-023, L2-024, L2-025, L2-026, L2-027, L2-028, L2-029, L2-030, **L2-031a**, L2-043, L2-044, L2-045.
 
