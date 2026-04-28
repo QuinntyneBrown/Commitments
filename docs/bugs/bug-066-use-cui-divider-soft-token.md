@@ -6,7 +6,25 @@ status: Open
 
 # Bug 066 — Replace literal #2A2A2A with `--cui-divider-soft` token
 
-**Status**: Fixed (will be marked Fixed after implementation).
+**Status**: Fixed
+
+## Fix
+
+`var(--cui-divider-soft, #2A2A2A)` replaces the literal `#2A2A2A`
+in both row-divider rules:
+- `relations-tile.component.scss` `.relations__row`
+- `weekly-focus-tile.component.scss` `.focus-list li`
+
+`#2A2A2A` is preserved as the fallback; the token resolves to the
+same value via `_tokens.scss`.
+
+Coverage:
+- Two new specs assert each rule references
+  `--cui-divider-soft`.
+- Existing bug-023 / bug-028 regexes loosened to accept either
+  the literal hex or the token form (parallel to bug-062's
+  earlier loosening pattern).
+- All 22 affected suites pass (154/154 — was 152/152 before).
 
 ## Description
 
