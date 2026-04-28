@@ -38,6 +38,8 @@ export class GoalMetricsTileComponent {
   readonly goalId = input('demo-goal');
 
   constructor() {
+    this.controller.setGoalId(this.goalId());
+
     const context = inject(TILE_CONTEXT, { optional: true });
     bindTileMode({
       context,
