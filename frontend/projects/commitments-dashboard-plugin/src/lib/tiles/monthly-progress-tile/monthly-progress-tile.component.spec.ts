@@ -55,6 +55,14 @@ describe('MonthlyProgressTileComponent (CSS source)', () => {
     expect(block).toMatch(/padding\s*:[^;]*\b4px\b/);
   });
 
+  it('reserves 8px top padding above the tallest bar per design (bug-182)', () => {
+    const block = ruleBlock('\\.bars');
+    // Design's mpBars frame has padding [8, 4, 0, 4] — 8px top.
+    // Match either `padding: 8px ...` or any shorthand that
+    // includes an 8px top value.
+    expect(block).toMatch(/padding\s*:\s*8px\s+4px(?:\s+0)?(?:\s+4px)?\s*;/);
+  });
+
   it('opts in to the 12px tile-body gap (bug-041)', () => {
     const block = ruleBlock(':host');
     expect(block).toMatch(/--cui-tile-body-gap\s*:\s*12px\b/);
