@@ -1,12 +1,27 @@
 ---
 id: bug-121
 title: monthly-progress bar gradient uses magic hex codes #8bb8e8 / #2f6db3 with no descriptive name
-status: Open
+status: Fixed
 ---
 
 # Bug 121 — bar gradient color constants
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Hoisted two SCSS variables at the top of the file:
+
+```scss
+$bar-top: #8bb8e8;    // gradient start (top of bar) — design lighter blue
+$bar-bottom: #2f6db3; // gradient end (bottom of bar) — design deeper blue
+```
+
+The `.bars span` gradient now reads
+`linear-gradient(180deg, $bar-top, $bar-bottom)`. Comments
+document each stop's role. Same shape as bug-116 named
+constants for the today-glow plugin. 318/318 workspace tests
+green.
 
 ## Description
 
