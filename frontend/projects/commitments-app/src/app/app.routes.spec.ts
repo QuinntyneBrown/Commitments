@@ -465,4 +465,13 @@ describe('app.routes', () => {
     );
     expect(src).not.toMatch(/layout-persistence\.service/);
   });
+
+  it('dashboard-framework.initializer file is gone — inlined into provideDashboardFramework (bug-168)', () => {
+    const { existsSync } = require('fs');
+    const { join } = require('path');
+    const file = join(
+      __dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'dashboard', 'dashboard-framework.initializer.ts'
+    );
+    expect(existsSync(file)).toBe(false);
+  });
 });
