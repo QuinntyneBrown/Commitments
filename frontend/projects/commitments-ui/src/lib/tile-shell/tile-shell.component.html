@@ -20,6 +20,7 @@
     @if (status()) {
       <span class="tile-shell__status">{{ status() }}</span>
     }
+    <ng-content select="[tile-status]"></ng-content>
   </mat-card-header>
 
   <mat-card-content class="tile-shell__body">
