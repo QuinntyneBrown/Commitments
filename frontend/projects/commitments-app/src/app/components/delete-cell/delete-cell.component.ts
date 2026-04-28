@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
-import { IAfterGuiAttachedParams, ICellRendererParams } from 'ag-grid';
+import { IAfterGuiAttachedParams, ICellRendererParams } from 'ag-grid-community';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({

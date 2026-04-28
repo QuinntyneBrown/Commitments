@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AgGridModule } from 'ag-grid-angular';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs';
-import { ColDef, GridApi } from 'ag-grid';
+import { ColDef, GridApi } from 'ag-grid-community';
 import { ProfileService } from '../../../services/profile.service';
 import { Profile } from '../../../models/profile';
 import { CreateProfileDialogService } from '../../../services/create-profile-dialog.service';
@@ -69,14 +69,12 @@ export class ProfilesPageComponent {
   }
 
   public handleRemove($event) {
-    const profile = $event.data;
+    const profile: Profile = $event.data;
 
-    const cards: Array<Profile> = [...this.profiles$.value];
-    const index = cards.findIndex(x => x.profileId == $event.data.profileId);
-    cards.splice(index, 1);
-    this.profiles$.next(cards);
+    const profiles = this.profiles$.value.filter(p => p.profileId !== profile.profileId);
+    this.profiles$.next(profiles);
 
-    this._profileService.remove({ profile: profile })
+    this._profileService.remove({ profile })
       .pipe(takeUntil(this.onDestroy))
       .subscribe();
   }

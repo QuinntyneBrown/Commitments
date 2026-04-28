@@ -7,6 +7,7 @@ import { DashboardShellComponent } from '@commitments/dashboard-framework';
 import { DashboardLayoutComponent } from './components/dashboard-layout/dashboard-layout.component';
 import { PlaceholderPageComponent } from './components/placeholder-page/placeholder-page.component';
 import { LoginPageComponent } from './pages/login/login-page/login-page.component';
+import { ProfilesPageComponent } from './pages/profiles/profiles-page/profiles-page.component';
 
 const placeholderPaths = [
   'activities',
@@ -17,7 +18,6 @@ const placeholderPaths = [
   'card-layouts',
   'frequencies',
   'notes',
-  'profiles',
   'to-dos',
   'my-profile',
   'settings'
@@ -30,6 +30,7 @@ export const routes: Routes = [
     component: DashboardLayoutComponent,
     children: [
       { path: '', component: DashboardShellComponent },
+      { path: 'profiles', component: ProfilesPageComponent },
       ...placeholderPaths.map(path => ({ path, component: PlaceholderPageComponent }))
     ]
   }
