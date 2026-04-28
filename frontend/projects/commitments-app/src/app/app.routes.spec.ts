@@ -343,4 +343,17 @@ describe('app.routes', () => {
     expect(modelSrc).not.toMatch(/\bremove\s*\(/);
     expect(modelSrc).not.toMatch(/\bisEditMode\b/);
   });
+
+  it('TileContext drops dead identification fields tileId/instanceId (bug-159)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const modelSrc = readFileSync(
+      join(__dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'tile-registration', 'tile.model.ts'),
+      'utf8'
+    );
+    const ctxBlock = modelSrc.match(/export interface TileContext \{[\s\S]*?\}/);
+    expect(ctxBlock).not.toBeNull();
+    expect(ctxBlock![0]).not.toMatch(/\btileId\b/);
+    expect(ctxBlock![0]).not.toMatch(/\binstanceId\b/);
+  });
 });
