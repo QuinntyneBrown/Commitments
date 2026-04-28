@@ -1,4 +1,6 @@
 import { signal } from '@angular/core';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
 import { ConsistencyTrendController } from './consistency-trend.controller';
 import { GoalTrendDto, GoalTrendService } from '../../data/goal-trend.service';
@@ -94,5 +96,16 @@ describe('ConsistencyTrendController', () => {
     const dataset = controller.chartDataset();
     expect(dataset.data.length).toBe(5);
     expect(dataset.data[4]).toBe(20);
+  });
+
+  it('uses a vertical gradient for the area fill (bug-044)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend.controller.ts'),
+      'utf8'
+    );
+    // backgroundColor must be a function that builds a gradient at draw
+    // time, not a flat colour string.
+    expect(ts).toMatch(/backgroundColor\s*:\s*\([^)]*\)\s*=>/);
+    expect(ts).toMatch(/createLinearGradient\b/);
   });
 });
