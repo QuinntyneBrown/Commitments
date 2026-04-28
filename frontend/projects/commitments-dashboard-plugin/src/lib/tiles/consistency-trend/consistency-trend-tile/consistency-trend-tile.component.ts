@@ -15,7 +15,7 @@ import {
   viewChild
 } from '@angular/core';
 import { ChartConfiguration, Plugin } from 'chart.js';
-import { TILE_CONTEXT, TileContext, TileMetadata } from '@commitments/dashboard-framework';
+import { TILE_CONTEXT, TileMetadata } from '@commitments/dashboard-framework';
 import {
   ACCENT_CHART,
   DeltaBadgeComponent,
@@ -58,7 +58,7 @@ export class ConsistencyTrendTileComponent implements AfterViewInit, OnDestroy {
 
   private readonly _adapter = inject(ChartJsLineAdapter);
   private readonly _trendService = inject(GoalTrendService);
-  private readonly _tileContext = inject(TILE_CONTEXT, { optional: true }) as TileContext | null;
+  private readonly _tileContext = inject(TILE_CONTEXT, { optional: true });
   private readonly _fallbackMode = signal<'live' | 'review'>('live').asReadonly();
   private readonly _fallbackDate = signal<string | null>(null).asReadonly();
 

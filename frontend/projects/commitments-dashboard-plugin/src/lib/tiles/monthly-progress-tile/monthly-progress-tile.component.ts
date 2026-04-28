@@ -4,7 +4,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   TILE_CONTEXT,
-  TileContext,
   TileMetadata,
   bindTileMode
 } from '@commitments/dashboard-framework';
@@ -37,7 +36,7 @@ export class MonthlyProgressTileComponent {
   protected readonly controller = inject(MonthlyProgressController);
 
   constructor() {
-    const context = inject(TILE_CONTEXT, { optional: true }) as TileContext | null;
+    const context = inject(TILE_CONTEXT, { optional: true });
     bindTileMode({
       context,
       load: (mode, asOf) => this.controller.load(mode, asOf)

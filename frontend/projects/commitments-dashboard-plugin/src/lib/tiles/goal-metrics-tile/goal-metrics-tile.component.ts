@@ -4,7 +4,6 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input } from '@angular/core';
 import {
   TILE_CONTEXT,
-  TileContext,
   TileMetadata,
   bindTileMode
 } from '@commitments/dashboard-framework';
@@ -39,7 +38,7 @@ export class GoalMetricsTileComponent {
   readonly goalId = input('demo-goal');
 
   constructor() {
-    const context = inject(TILE_CONTEXT, { optional: true }) as TileContext | null;
+    const context = inject(TILE_CONTEXT, { optional: true });
     bindTileMode({
       context,
       load: (mode, asOf) => this.controller.load(mode, asOf)
