@@ -1,12 +1,39 @@
 ---
 id: bug-061
 title: Consistency-trend uses `pillVariant()` and `pillLabel()` methods; other six tiles use `computed` signals
-status: Open
+status: Fixed
 ---
 
 # Bug 061 — Consistency-trend pill members are methods, others are computed signals
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`consistency-trend-tile.component.ts`:
+- New `mode = computed(() => _tileContext?.mode?.() ?? 'live')`
+- `pillVariant` now `computed<'chart' | 'review'>(...)` derived
+  from `mode`.
+- `pillLabel()` method renamed to `statusLabel` and converted
+  to `computed(() => mode().toUpperCase())`.
+
+Template binding `[label]="pillLabel()"` → `[label]="statusLabel()"`.
+
+`computed` added to the existing `@angular/core` import.
+
+Bug-031's earlier regex spec was loosened to accept either method
+or computed form (mirrors the fix applied for bug-033 on the
+daily-results spec).
+
+Coverage:
+- New TS-source spec asserts `mode`, `pillVariant`, and
+  `statusLabel` are declared as `computed(...)` and the old
+  `pillLabel(): string` method is gone.
+- New template spec asserts `[label]` binds to `statusLabel()`.
+- All 22 affected suites pass (147/147 — was 145/145 before).
+
+Cross-tile convention: every dashboard-plugin tile now uses
+computed signals for mode-derived state (label, variant, etc.).
 
 ## Description
 
