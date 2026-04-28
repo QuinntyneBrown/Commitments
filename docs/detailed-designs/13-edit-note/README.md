@@ -1,6 +1,6 @@
 # Edit Note — Detailed Design
 
-**Status:** Draft
+**Status:** Accepted
 
 **Traces to:** L1-007 · L2-014, L2-041
 

@@ -23,7 +23,7 @@ Conventions used by every design document:
 | 10 | [Activities](10-activities/README.md) | Implemented | Wire route + ATDD on Add Activity dialog with `PerformedOn` defaulting to now (L2-012) |
 | 11 | [To-Dos](11-to-dos/README.md) | Implemented | Add full CRUD module — currently only outstanding-count exists (L2-016) |
 | 12 | [Notes](12-notes/README.md) | Implemented | Add `Note` aggregate, controller, list endpoints — entirely missing backend-side (L2-014) |
-| 13 | [Edit Note](13-edit-note/README.md) | Draft | Add slug-based load + Quill save round-trip + sanitisation (L2-014, L2-041) |
+| 13 | [Edit Note](13-edit-note/README.md) | Accepted | Add slug-based load + Quill save round-trip + sanitisation (L2-014, L2-041) |
 | 14 | [Tags](14-tags/README.md) | Draft | Add `Tag` aggregate + controller — currently missing backend-side (L2-015) |
 | 15 | [Notes by Tag](15-notes-by-tag/README.md) | Draft | Add `Note ⟷ Tag` join + `GET /api/notes/tag/{slug}` (L2-015) |
 | 16 | [Cards](16-cards/README.md) | Draft | Wire catalog page to existing `CardController` with edit dialog (L2-019, L2-022) |
