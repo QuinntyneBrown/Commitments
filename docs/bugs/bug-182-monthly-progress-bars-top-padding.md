@@ -1,10 +1,22 @@
 ---
 id: bug-182
 title: monthly-progress .bars lacks 8px top padding from design
-status: Open
+status: Fixed
 ---
 
 # Bug 182 — monthly-progress `.bars` should have 8px top padding
+
+**Status**: Fixed
+
+## Fix
+
+```scss
+- padding: 0 4px;
++ padding: 8px 4px 0;
+```
+
+A 100% bar now leaves 8px above per design. 382/382
+workspace tests green.
 
 ## Description
 
