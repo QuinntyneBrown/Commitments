@@ -442,4 +442,17 @@ describe('app.routes', () => {
     expect(src).toMatch(/\bTEXT_MUTED\b/);
     expect(src).toMatch(/\bDashboardMode\b/);
   });
+
+  it('dashboard-framework no longer leaks review-scrubber internals (bug-166)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const src = readFileSync(
+      join(__dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'dashboard', 'index.ts'),
+      'utf8'
+    );
+    expect(src).not.toMatch(/review-scrubber\.controller/);
+    expect(src).not.toMatch(/review-scrubber\.helpers/);
+    // The component itself remains exported:
+    expect(src).toMatch(/review-scrubber\.component/);
+  });
 });
