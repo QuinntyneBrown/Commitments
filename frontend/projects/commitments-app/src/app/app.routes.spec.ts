@@ -12,6 +12,7 @@ import { ToDosPageComponent } from './pages/to-dos/to-dos-page/to-dos-page.compo
 import { NotesPageComponent } from './pages/notes/notes-page/notes-page.component';
 import { EditNotePageComponent } from './pages/edit-note/edit-note-page/edit-note-page.component';
 import { TagsPageComponent } from './pages/tags/tags-page/tags-page.component';
+import { NotesByTagPageComponent } from './pages/notes-by-tag/notes-by-tag-page/notes-by-tag-page.component';
 import { BehaviourTypesPageComponent } from './pages/behaviour-types/behaviour-types-page/behaviour-types-page.component';
 import { BehavioursPageComponent } from './pages/behaviours/behaviours-page/behaviours-page.component';
 import { CommitmentsPageComponent } from './pages/commitments/commitments-page/commitments-page.component';
@@ -149,5 +150,12 @@ describe('app.routes', () => {
     const child = home?.children?.find((c) => c.path === 'tags');
     expect(child).toBeDefined();
     expect(child!.component).toBe(TagsPageComponent);
+  });
+
+  it('routes /notes-by-tag/:slug to NotesByTagPageComponent (design 15-Notes-by-Tag Slice C)', () => {
+    const home = routes.find((r) => r.path === '');
+    const child = home?.children?.find((c) => c.path === 'notes-by-tag/:slug');
+    expect(child).toBeDefined();
+    expect(child!.component).toBe(NotesByTagPageComponent);
   });
 });
