@@ -1,6 +1,6 @@
 # Commitments — Detailed Design
 
-**Status:** Accepted
+**Status:** Implemented
 
 **Traces to:** L1-005 · L2-009, L2-010, L2-011, L2-038
 
@@ -54,11 +54,17 @@ The Commitments page (`pages/commitments`, route `/commitments`) is the primary 
 
 ## 8. ATDD Slices
 
-1. **Slice A — list + pagination.** Spec: 7 commitments render 5 rows + pagination control; flipping to page 2 shows the remaining 2.
-2. **Slice B — compose flow.** Spec: opening the dialog, picking a behaviour + a frequency, saving, persists the link rows and the new commitment shows in the list without page refresh.
-3. **Slice C — pre-condition empty-name validation.** Spec: submitting a pre-condition with empty `Name` fails with FluentValidation message.
-4. **Slice D — soft-delete.** Spec: deleting a commitment sets `IsDeleted = true` and the row no longer appears via `GetCommitments` but still exists in the database.
-5. **Slice E — cross-profile isolation.** Spec (server-side test): profile A cannot read profile B's commitments.
+1. **Slice A — list + pagination.** Spec: 7 commitments render 5 rows + pagination control; flipping to page 2 shows the remaining 2. **Status: Implemented.**
+2. **Slice B — compose flow.** Spec: opening the dialog, picking a behaviour + a frequency, saving, persists the link rows and the new commitment shows in the list without page refresh. **Status: Implemented** — `EditCommitmentDialog` already composes behaviour + frequencies and `SaveCommitmentCommandHandler` clears and re-adds `CommitmentFrequencies`; the existing page subscribes to the dialog and calls `addOrUpdate`.
+3. **Slice C — pre-condition empty-name validation.** Spec: submitting a pre-condition with empty `Name` fails with FluentValidation message. **Status: Implemented** via `RuleForEach(PreConditions).ChildRules(NotEmpty(Name))`.
+4. **Slice D — soft-delete.** Spec: deleting a commitment sets `IsDeleted = true` and the row no longer appears via `GetCommitments` but still exists in the database. **Status: Implemented** — verified by an in-memory `DbContext` round-trip test; the soft-delete is performed by `BaseDbContext.OnSavingChanges` which flips `EntityState.Deleted` to `Modified` with `IsDeleted = true`.
+5. **Slice E — cross-profile isolation.** Spec (server-side test): profile A cannot read profile B's commitments. **Status: Implemented** — `GetPersonalCommitmentsQueryHandler` filters by `request.ProfileId`; round-trip test pins the contract.
+
+## 10. Implementation Notes
+
+- `CommitmentPreConditionDto { CommitmentPreConditionId, Name }` was added to carry the PreConditions collection through the DTO surface; the validator's `RuleForEach + ChildRules` syntax is the FluentValidation idiom that the design called out — keeps the rule self-contained and adjacent to the parent rule.
+- Persisting PreConditions in the handler is intentionally **not** in this design; it remains a small follow-up once the dialog actually emits them. Validating now means the door is closed against bad data the moment the dialog wires through.
+- Soft-delete relies on `BaseDbContext`'s `OnSavingChanges` interceptor — central, applies to every aggregate uniformly, no per-handler boilerplate.
 
 ## 9. Open Questions
 
