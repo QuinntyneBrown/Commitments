@@ -1,12 +1,25 @@
 ---
 id: bug-124
 title: consistency-trend uses legacy @ViewChild decorator instead of signal-based viewChild()
-status: Open
+status: Fixed
 ---
 
 # Bug 124 — @ViewChild → viewChild() migration
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Replaced the decorator declaration with `viewChild`:
+
+```ts
+readonly plotRef = viewChild<ElementRef<HTMLCanvasElement>>('plot');
+```
+
+Two consumers updated to call the signal: the `effect()`
+truthy check and `ngAfterViewInit` (uses an explicit local ref
+guard before `attach`). Completes the modern signal alignment
+started by bug-071. 321/321 workspace tests green.
 
 ## Description
 
