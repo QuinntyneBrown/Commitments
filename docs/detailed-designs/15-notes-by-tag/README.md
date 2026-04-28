@@ -1,6 +1,6 @@
 # Notes by Tag — Detailed Design
 
-**Status:** Accepted
+**Status:** Implemented
 
 **Traces to:** L1-007 · L2-015, L2-038
 
@@ -63,10 +63,16 @@ This design adds the join table `NoteTag`, the assignment endpoints, and the by-
 
 ## 8. ATDD Slices
 
-1. **Slice A — join table + assignment endpoints.** Spec: assigning a tag to a note then listing the note shows the tag attached; assigning twice still results in one row.
-2. **Slice B — list-by-slug endpoint.** Spec: a note tagged `weekly` is returned by `GET /api/notes/tag/weekly`; a note from another profile is not returned.
-3. **Slice C — page wiring.** Spec: navigating to `/notes-by-tag/weekly` lists the same note; the title links to `/edit-note/<noteSlug>`.
-4. **Slice D — remove tag.** Spec: removing the tag from the note removes the row from the by-tag list on next reload.
+1. **Slice A — join table + assignment endpoints.** **Status: Implemented** — `AddTagToNoteCommandHandler` is an idempotent insert (no-op if the `(NoteId, TagId)` pair already exists).
+2. **Slice B — list-by-slug endpoint.** **Status: Implemented** — `GetNotesByTagSlugQueryHandler` resolves the tag by `(ProfileId, Slug)` first, then returns Notes via `noteIds.Contains(...)`. Cross-profile is impossible because the tag itself is profile-scoped.
+3. **Slice C — page wiring.** **Status: Implemented** — `app.routes.ts` maps `/notes-by-tag/:slug → NotesByTagPageComponent` (page already wired to `NotesService.getByTagSlug`).
+4. **Slice D — remove tag.** **Status: Implemented** — `RemoveTagFromNoteCommandHandler` deletes the join row; the join is intentionally hard-delete per design §3.2 ("not a domain entity worth auditing").
+
+## 10. Implementation Notes
+
+- The join is **hard-delete**. `BaseDbContext.OnSavingChanges` previously force-flipped every `Deleted` entry to `Modified` with `IsDeleted = true`. With this design's `NoteTag` (no `IsDeleted` column), that crashed at save time. The interceptor now opts out for entities that don't implement `ILoggable` — a one-line guard with broad benefit.
+- Idempotency is `AnyAsync` + early-return — three lines. No upsert SQL, no synchronization primitives.
+- The slug→tagId→noteIds pipeline is three small queries; with `.Contains` translated to SQL `IN`, this is one round-trip on a real database.
 
 ## 9. Open Questions
 
