@@ -1,12 +1,40 @@
 ---
 id: bug-032
 title: Metric Header lacks a "today" sublabel and stacks value above caption; design lays them side-by-side with two captions stacked on the right
-status: Open
+status: Fixed
 ---
 
 # Bug 032 — Metric Header sublabel + horizontal layout
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`MetricHeaderComponent`:
+- New `subCaption` input (default `''`).
+- Template wraps `caption` and `subCaption` in a single
+  `.metric-header__captions` flex column when either is set.
+- SCSS swaps from `display: grid; gap: 4px` to
+  `display: flex; align-items: flex-end; gap: 16px`, so the captions
+  sit baseline-aligned to the right of the value.
+- `.metric-header__caption` typography drops 13px → 11px to match
+  the .pen.
+- `.metric-header__sub-caption` is one shade darker (`#666666`).
+
+`ConsistencyTrendTileComponent` template now passes
+`caption="today"` and `[subCaption]="'Peak X% / Low Y%'"`.
+
+The literal `#666666` is intentional (one consumer); promote to a
+shared token if a second consumer adopts it.
+
+Coverage:
+- New specs in `metric-header.component.spec.ts`:
+  - `subCaption` input default.
+  - `.metric-header` declares `display: flex` with
+    `align-items: flex-end`.
+- New spec in `consistency-trend-tile.component.spec.ts`: template
+  passes `caption="today"` and a `[subCaption]="'Peak …` binding.
+- All 20 affected suites pass (88/88 — was 85/85 before).
 
 ## Description
 
