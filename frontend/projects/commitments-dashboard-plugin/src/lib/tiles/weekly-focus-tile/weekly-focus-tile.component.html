@@ -5,13 +5,6 @@
   variant="metric"
   data-testid="weekly-focus-tile"
 >
-  <cui-status-pill
-    tile-status
-    [variant]="controller.mode()"
-    [pulse]="controller.mode() === 'live'"
-    [label]="statusLabel()"
-  ></cui-status-pill>
-
   @if (controller.focusAreas().length === 0) {
     <p class="empty">No focus set for this week.</p>
   } @else {

@@ -1,21 +1,21 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   TILE_CONTEXT,
   TileContext,
   TileMetadata,
   bindTileMode
 } from '@commitments/dashboard-framework';
-import { StatusPillComponent, TileShellComponent } from '@commitments/ui';
+import { TileShellComponent } from '@commitments/ui';
 
 import { WeeklyFocusController } from './weekly-focus.controller';
 
 @Component({
   selector: 'commitments-weekly-focus-tile',
   standalone: true,
-  imports: [TileShellComponent, StatusPillComponent],
+  imports: [TileShellComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [WeeklyFocusController],
   templateUrl: './weekly-focus-tile.component.html',
@@ -35,7 +35,6 @@ export class WeeklyFocusTileComponent {
   };
 
   protected readonly controller = inject(WeeklyFocusController);
-  protected readonly statusLabel = computed(() => this.controller.mode().toUpperCase());
 
   constructor() {
     const context = inject(TILE_CONTEXT, { optional: true }) as TileContext | null;
