@@ -184,7 +184,7 @@
 }
 
 .add-tile-dialog__btn--primary[disabled] {
-  background: var(--cui-disabled, #555);
-  color: var(--cui-text-disabled, #888);
+  background: #555;
+  color: var(--cui-text-disabled, #666666);
   cursor: not-allowed;
 }
