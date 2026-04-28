@@ -8,10 +8,8 @@ function makeContext(overrides?: Partial<TileContext>): TileContext {
   return {
     tileId: 't',
     instanceId: 'i',
-    isEditMode: signal(false).asReadonly(),
     mode: signal<DashboardMode>('live').asReadonly(),
     selectedReviewDate: signal<string | null>(null).asReadonly(),
-    remove: () => {},
     ...overrides
   };
 }

@@ -57,10 +57,8 @@ export class DashboardGridComponent {
     const context: TileContext = {
       tileId: item.tileId,
       instanceId: item.instanceId,
-      isEditMode: this.layoutStore.isEditMode,
       mode: this.modeService.mode,
-      selectedReviewDate: this.modeService.selectedReviewDate,
-      remove: () => this.layoutStore.removeTile(item.instanceId)
+      selectedReviewDate: this.modeService.selectedReviewDate
     };
 
     const injector = Injector.create({
