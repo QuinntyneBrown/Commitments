@@ -9,7 +9,7 @@
   display: block;
   height: 100%;
   min-height: 0;
-  background: var(--cui-bg);
+  background: var(--cui-bg, #121212);
 }
 
 gridster {
@@ -24,7 +24,7 @@ gridster-item {
 }
 
 .dashboard-grid--edit-mode gridster-item {
-  border: 2px solid var(--cui-accent);
+  border: 2px solid var(--cui-accent, #FF4081);
   border-radius: 8px;
 }
 
@@ -49,7 +49,7 @@ gridster-item {
   height: 20px;
   border-radius: var(--cui-radius-sm, 4px);
   color: var(--cui-on-accent, #fff);
-  background: var(--cui-accent);
+  background: var(--cui-accent, #FF4081);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -74,7 +74,7 @@ gridster-item {
   border: none;
   border-radius: var(--cui-radius-full, 9999px);
   color: var(--cui-on-accent, #fff);
-  background: var(--cui-warn);
+  background: var(--cui-warn, #F44336);
   cursor: pointer;
   pointer-events: auto;
 
@@ -86,13 +86,13 @@ gridster-item {
   place-items: center;
   align-content: center;
   height: 100%;
-  color: var(--cui-text-secondary);
+  color: var(--cui-text-secondary, #B0B0B0);
   text-align: center;
 }
 
 .dashboard-grid__empty h2 {
   margin: 0 0 6px;
-  color: var(--cui-text-primary);
+  color: var(--cui-text-primary, #FFFFFF);
   font-size: 20px;
 }
 
