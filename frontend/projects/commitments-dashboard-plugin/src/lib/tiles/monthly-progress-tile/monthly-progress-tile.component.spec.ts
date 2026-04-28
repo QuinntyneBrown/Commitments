@@ -57,4 +57,10 @@ describe('MonthlyProgressTileComponent (CSS source)', () => {
     const block = ruleBlock(':host');
     expect(block).toMatch(/--cui-tile-icon-color\s*:[^;]*--cui-info/);
   });
+
+  it('uses --cui-text-disabled token for bar labels (bug-065)', () => {
+    const block = ruleBlock('\\.bar-labels');
+    expect(block).toMatch(/var\(\s*--cui-text-disabled/);
+    expect(block).not.toMatch(/color\s*:\s*#666666\b/i);
+  });
 });

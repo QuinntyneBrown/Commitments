@@ -48,5 +48,11 @@ describe('MetricHeaderComponent', () => {
       const block = ruleBlock('\\.metric-header__captions');
       expect(block).toMatch(/padding-bottom\s*:\s*8px\b/);
     });
+
+    it('uses --cui-text-disabled token for the sub-caption (bug-065)', () => {
+      const block = ruleBlock('\\.metric-header__sub-caption');
+      expect(block).toMatch(/var\(\s*--cui-text-disabled/);
+      expect(block).not.toMatch(/color\s*:\s*#666666\b/i);
+    });
   });
 });
