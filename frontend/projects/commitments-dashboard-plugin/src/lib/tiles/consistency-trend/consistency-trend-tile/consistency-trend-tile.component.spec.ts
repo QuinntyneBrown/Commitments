@@ -61,4 +61,15 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     const block = ruleBlock(':host');
     expect(block).toMatch(/--cui-tile-body-gap\s*:\s*14px\b/);
   });
+
+  it('configures the Y-axis grid as muted white (bug-043)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend-tile.component.ts'),
+      'utf8'
+    );
+    // The chart Y-grid colour should now be a muted white rgba —
+    // not the legacy #3A3A3A divider gray.
+    expect(ts).toMatch(/grid\s*:\s*\{[^}]*color\s*:\s*'rgba\(\s*255\s*,\s*255\s*,\s*255/);
+    expect(ts).not.toMatch(/grid\s*:\s*\{[^}]*color\s*:\s*'#3A3A3A'/i);
+  });
 });
