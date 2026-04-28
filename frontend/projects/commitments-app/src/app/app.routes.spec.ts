@@ -356,4 +356,14 @@ describe('app.routes', () => {
     expect(ctxBlock![0]).not.toMatch(/\btileId\b/);
     expect(ctxBlock![0]).not.toMatch(/\binstanceId\b/);
   });
+
+  it('FakeTileRegistry no longer carries the stale listTiles() (bug-160)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const specSrc = readFileSync(
+      join(__dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'dashboard', 'dashboard-layout.store.spec.ts'),
+      'utf8'
+    );
+    expect(specSrc).not.toMatch(/\blistTiles\s*\(/);
+  });
 });
