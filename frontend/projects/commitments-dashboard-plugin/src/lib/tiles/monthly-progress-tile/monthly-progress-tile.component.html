@@ -1,8 +1,26 @@
-<commitments-tile-shell title="Monthly Progress" eyebrow="30 days" icon="calendar_month">
-  <div class="bars" role="img" aria-label="Monthly progress by week">
-    <span style="height: 35%"></span>
-    <span style="height: 72%"></span>
-    <span style="height: 58%"></span>
-    <span style="height: 86%"></span>
-  </div>
+<commitments-tile-shell
+  title="Monthly Progress"
+  eyebrow="30 days"
+  icon="calendar_month"
+  variant="metric"
+  data-testid="monthly-progress-tile"
+>
+  <cui-status-pill
+    [variant]="controller.mode()"
+    [pulse]="controller.mode() === 'live'"
+    [label]="statusLabel()"
+  ></cui-status-pill>
+
+  @if (controller.isEmpty()) {
+    <p class="empty">No activity in this 30-day window.</p>
+  } @else {
+    <div class="bars" role="img" aria-label="Monthly progress by week">
+      @for (bucket of controller.buckets(); track bucket.weekStart; let i = $index) {
+        <span
+          [style.height.%]="bucket.percentage"
+          [attr.aria-label]="'Week ' + (i + 1) + ': ' + bucket.percentage + '% complete'"
+        ></span>
+      }
+    </div>
+  }
 </commitments-tile-shell>
