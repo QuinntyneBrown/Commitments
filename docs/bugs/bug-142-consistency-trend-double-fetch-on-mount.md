@@ -1,10 +1,45 @@
 ---
 id: bug-142
 title: consistency-trend tile fires two fetches on initial mount when TILE_CONTEXT is provided
-status: Open
+status: Fixed
 ---
 
 # Bug 142 — consistency-trend: duplicate `_fetch()` on initial mount
+
+**Status**: Fixed
+
+## Fix
+
+Folded the separate mode/asOf refresh effect into the same
+effect that already calls `controller.load()`:
+
+```ts
+constructor() {
+  effect(() => {
+    const id = this.goalId();
+    if (!id) return;
+    this._tileContext?.mode();
+    this._tileContext?.selectedReviewDate();
+    this.controller.load(id, this.windowDays());
+  });
+
+  effect(() => {
+    const dataset = this.controller.chartDataset();
+    const labels = this.controller.chartLabels();
+    if (this.plotRef()) {
+      this._adapter.updateDataset(dataset, labels);
+    }
+  });
+}
+```
+
+The dashboard host case now fires **one** `_fetch()` on mount —
+the previously redundant `controller.refresh()` call from the
+mode/asOf effect is gone. The controller's `refresh()` method
+is left in place as a small public API surface but is no longer
+invoked by the tile component during normal lifecycle.
+
+353/353 workspace tests green.
 
 ## Description
 
