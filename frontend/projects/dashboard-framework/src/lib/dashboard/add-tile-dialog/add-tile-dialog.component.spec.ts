@@ -22,4 +22,9 @@ describe('AddTileDialogComponent (CSS source)', () => {
       .filter(({ line }) => /\bfont-family\s*:\s*Inter\b/.test(line));
     expect(offenders).toEqual([]);
   });
+
+  it('--cui-on-primary fallback matches the canonical token value #1A1B23 (bug-176)', () => {
+    expect(scss).not.toMatch(/var\(--cui-on-primary,\s*#fff\)/);
+    expect(scss).toMatch(/var\(\s*--cui-on-primary\s*,\s*#1A1B23\s*\)/);
+  });
 });
