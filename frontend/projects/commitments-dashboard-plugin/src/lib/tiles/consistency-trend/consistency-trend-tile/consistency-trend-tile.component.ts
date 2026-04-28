@@ -100,7 +100,7 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
         plugins: { legend: { display: false } },
         scales: {
           x: { type: 'category', ticks: { color: '#666666', autoSkip: true, maxTicksLimit: 6 }, grid: { display: false } },
-          y: { min: 0, max: 100, ticks: { display: false }, grid: { color: '#3A3A3A', drawTicks: false } }
+          y: { min: 0, max: 100, ticks: { display: false }, grid: { color: 'rgba(255, 255, 255, 0.07)', drawTicks: false } }
         },
         interaction: { mode: 'nearest', intersect: false, axis: 'x' }
       }
