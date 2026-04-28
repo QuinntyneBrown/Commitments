@@ -1,10 +1,22 @@
 ---
 id: bug-176
 title: add-tile-dialog uses #fff as --cui-on-primary fallback but token is #1A1B23
-status: Open
+status: Fixed
 ---
 
 # Bug 176 — add-tile-dialog `--cui-on-primary` fallback mismatch
+
+**Status**: Fixed
+
+## Fix
+
+```scss
+- color: var(--cui-on-primary, #fff);
++ color: var(--cui-on-primary, #1A1B23);
+```
+
+The fallback now matches the canonical token. 376/376
+workspace tests green.
 
 ## Description
 
