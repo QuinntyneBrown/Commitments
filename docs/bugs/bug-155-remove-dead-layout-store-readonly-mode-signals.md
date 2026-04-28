@@ -1,10 +1,18 @@
 ---
 id: bug-155
 title: DashboardLayoutStore.liveLayout / reviewLayout signals are unused — remove
-status: Open
+status: Fixed
 ---
 
 # Bug 155 — Drop unused `liveLayout` / `reviewLayout` readonly signals
+
+**Status**: Fixed
+
+## Fix
+
+Removed two `Signal<DashboardItem[]>` declarations from the
+store and the one spec block that asserted their existence.
+9 lines net. 358/358 workspace tests green.
 
 ## Description
 
