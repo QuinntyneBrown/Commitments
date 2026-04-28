@@ -1,6 +1,6 @@
 # Commitments — Detailed Design
 
-**Status:** Draft
+**Status:** Accepted
 
 **Traces to:** L1-005 · L2-009, L2-010, L2-011, L2-038
 
