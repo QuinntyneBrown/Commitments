@@ -1,6 +1,6 @@
 # Settings — Detailed Design
 
-**Status:** Accepted
+**Status:** Implemented
 
 **Traces to:** L1-013, L1-014, L1-035 · L2-035, L2-037
 
@@ -52,8 +52,14 @@ None added in this slice.
 
 ## 8. ATDD Slices
 
-1. **Slice A — page wiring:** route + sections + i18n keys. Spec: opening `/settings` shows three sections with translated labels; clicking each link navigates correctly.
-2. **Slice B — logout:** Spec: clicking Logout clears `accessToken` and `currentProfileId`, then routes to `/login`.
+1. **Slice A — page wiring:** route + sections + i18n keys. Spec: opening `/settings` shows three sections with translated labels; clicking each link navigates correctly. **Status: Implemented.**
+2. **Slice B — logout:** Spec: clicking Logout clears `accessToken` and `currentProfileId`, then routes to `/login`. **Status: Implemented.**
+
+## 10. Implementation Notes
+
+- Sections are declarative arrays (`accountLinks`, `catalogLinks`) so adding or reordering a link is a one-line edit — the template is a single `*ngFor` over each.
+- `environment.ts` now exposes `version: '0.1.0'` and `buildHash: 'dev'`; CI can replace these at build time later (out of scope for this slice).
+- Existing Language radio kept on the page (the design only forbids a *theme* toggle); it lives between Catalogs and About.
 
 ## 9. Open Questions
 
