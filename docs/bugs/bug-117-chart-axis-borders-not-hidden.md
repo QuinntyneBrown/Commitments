@@ -1,12 +1,19 @@
 ---
 id: bug-117
 title: Consistency Trend chart's default X/Y axis border lines are not explicitly hidden
-status: Open
+status: Fixed
 ---
 
 # Bug 117 — chart axis borders
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added `border: { display: false }` to both X and Y scale blocks.
+Chart.js no longer draws the default scale border lines at the
+chart's left and bottom edges — matching the design's `ltPlot`
+which has no visible axis lines. 314/314 workspace tests green.
 
 ## Description
 
