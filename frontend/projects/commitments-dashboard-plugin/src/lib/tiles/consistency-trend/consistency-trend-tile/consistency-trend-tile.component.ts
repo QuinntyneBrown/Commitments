@@ -22,6 +22,7 @@ import {
   DeltaBadgeComponent,
   MetricHeaderComponent,
   StatusPillComponent,
+  TEXT_MUTED,
   TileShellComponent
 } from '@commitments/ui';
 
@@ -105,7 +106,7 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
           x: {
             type: 'category',
             ticks: {
-              color: (ctx) => isLastTick(ctx) ? ACCENT_CHART : '#666666',
+              color: (ctx) => isLastTick(ctx) ? ACCENT_CHART : TEXT_MUTED,
               font: (ctx) => ({ weight: isLastTick(ctx) ? 700 : 400 }),
               autoSkip: true,
               maxTicksLimit: 6,
