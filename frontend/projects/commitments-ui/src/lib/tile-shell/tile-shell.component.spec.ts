@@ -82,5 +82,10 @@ describe('TileShellComponent', () => {
       const block = ruleBlock('\\.tile-shell__header');
       expect(block).not.toMatch(/border-bottom\s*:/);
     });
+
+    it('renders the title at 16px to match every tile design (bug-034)', () => {
+      const block = ruleBlock('\\.tile-shell__title');
+      expect(block).toMatch(/font-size\s*:\s*16px\b/);
+    });
   });
 });

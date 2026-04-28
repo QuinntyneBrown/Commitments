@@ -36,5 +36,16 @@ describe('StatusPillComponent', () => {
       const block = ruleBlock('\\.status-pill--success');
       expect(block).toMatch(/var\(--cui-success/);
     });
+
+    it('renders the dot at 8x8 (bug-034)', () => {
+      const block = ruleBlock('\\.status-pill__dot');
+      expect(block).toMatch(/width\s*:\s*8px\b/);
+      expect(block).toMatch(/height\s*:\s*8px\b/);
+    });
+
+    it('uses 1px letter-spacing on the pill text (bug-034)', () => {
+      const block = ruleBlock('\\.status-pill');
+      expect(block).toMatch(/letter-spacing\s*:\s*1px\b/);
+    });
   });
 });
