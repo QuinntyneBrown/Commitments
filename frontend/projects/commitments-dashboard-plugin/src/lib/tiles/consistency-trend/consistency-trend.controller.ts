@@ -3,7 +3,7 @@
 
 import { Injectable, Signal, computed, signal } from '@angular/core';
 import { ChartDataset, ScriptableContext } from 'chart.js';
-import { ACCENT_CHART, SURFACE_TILE } from '@commitments/ui';
+import { ACCENT_CHART, BG_APP } from '@commitments/ui';
 import { DashboardMode } from '@commitments/dashboard-framework';
 
 import { GoalTrendDto, GoalTrendService } from '../../data/goal-trend.service';
@@ -55,7 +55,8 @@ export class ConsistencyTrendController {
         return gradient;
       },
       pointRadius: points.map((_, i) => (i === highlighted ? POINT_RADIUS_HIGHLIGHT : POINT_RADIUS_DEFAULT)),
-      pointBorderColor: SURFACE_TILE,
+      pointBorderColor: points.map((_, i) => (i === highlighted ? BG_APP : 'transparent')),
+      pointBorderWidth: points.map((_, i) => (i === highlighted ? 3 : 0)),
       pointBackgroundColor: ACCENT_CHART
     };
   });
