@@ -54,5 +54,31 @@ describe('DeltaBadgeComponent', () => {
       expect(block).toMatch(/padding\s*:\s*0\s+6px\b/);
       expect(block).toMatch(/gap\s*:\s*4px\b/);
     });
+
+    it('sizes the directional icon to 12px (bug-053)', () => {
+      const block = ruleBlock('\\.delta-badge__icon');
+      expect(block).toMatch(/font-size\s*:\s*12px\b/);
+      expect(block).toMatch(/width\s*:\s*12px\b/);
+      expect(block).toMatch(/height\s*:\s*12px\b/);
+    });
+  });
+
+  describe('directional icon (bug-053)', () => {
+    it('returns arrow_upward for positive deltas', () => {
+      const fixture = TestBed.createComponent(DeltaBadgeComponent);
+      fixture.componentRef.setInput('delta', 12);
+      expect(fixture.componentInstance.icon()).toBe('arrow_upward');
+    });
+
+    it('returns arrow_downward for negative deltas', () => {
+      const fixture = TestBed.createComponent(DeltaBadgeComponent);
+      fixture.componentRef.setInput('delta', -3);
+      expect(fixture.componentInstance.icon()).toBe('arrow_downward');
+    });
+
+    it('returns empty string for zero (no neutral icon)', () => {
+      const component = TestBed.createComponent(DeltaBadgeComponent).componentInstance;
+      expect(component.icon()).toBe('');
+    });
   });
 });
