@@ -90,8 +90,9 @@ export class LoginPageComponent {
   }
 
   public handleErrorResponse(errorResponse) {
+    const message = errorResponse?.status === 401 ? 'Login Failed' : 'An error occurred. Try it again.';
     this._errorService
-      .handle$(errorResponse, 'An error occurred. Try it again.')
+      .handle$(errorResponse, message)
       .pipe(takeUntil(this.onDestroy), map(snackBarRef => (this._snackBarRef = snackBarRef)))
       .subscribe();
   }
