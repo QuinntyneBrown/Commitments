@@ -13,7 +13,7 @@
   border-radius: var(--cui-radius-md, 8px);
   border: 1px solid var(--cui-divider, #3A3A3A);
   box-shadow: 0 24px 48px #000000DD;
-  font-family: Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--cui-font-display, 'Inter');
 }
 
 .add-tile-dialog__header {
