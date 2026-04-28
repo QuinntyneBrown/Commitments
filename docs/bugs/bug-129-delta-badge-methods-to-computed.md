@@ -1,12 +1,19 @@
 ---
 id: bug-129
 title: delta-badge derivations are methods that recompute on every change detection cycle
-status: Open
+status: Fixed
 ---
 
 # Bug 129 — delta-badge methods → computed signals
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Converted `formatted()`, `tone()`, `icon()` from method-form
+declarations to `computed()` signals. Template call sites
+unchanged. Memoizes results — only recomputes when delta() /
+format() change. 326/326 workspace tests green.
 
 ## Description
 
