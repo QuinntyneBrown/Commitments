@@ -1,12 +1,25 @@
 ---
 id: bug-081
 title: outstanding-todos-tile.tileMetadata.displayName still has the U+2011 hyphen ("Outstanding To‑Dos") that bug-074 was supposed to remove
-status: Open
+status: Fixed
 ---
 
 # Bug 081 — Outstanding Todos tile metadata still has U+2011 hyphen
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Replaced `'Outstanding To‑Dos'` (U+2011 non-breaking hyphen)
+with `'Outstanding Todos'` in
+`outstanding-todos-tile.component.ts`'s `tileMetadata.displayName`.
+A new bug-081 spec extends the bug-074 cross-file guard to read
+the component's own .ts source and assert no `Outstanding To.Dos`
+form remains.
+
+The bug-074 (e2e) and bug-081 (metadata) specs together form a
+comprehensive guard against the title drifting again.
+Workspace-wide 267/267 tests green.
 
 ## Description
 
