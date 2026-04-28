@@ -1,10 +1,28 @@
 ---
 id: bug-151
 title: Remove unused `invalidations$` plumbing — bindTileMode option + TileInvalidationService
-status: Open
+status: Fixed
 ---
 
 # Bug 151 — Drop unused tile-invalidation pipeline
+
+**Status**: Fixed
+
+## Fix
+
+153 lines deleted across 4 files:
+
+- `bind-tile-mode.ts`: drop `invalidations$` field from
+  `BindTileModeOptions`, drop the corresponding subscribe
+  line, drop the now-unused `Observable` import.
+- `bind-tile-mode.spec.ts`: drop the 1 test exercising the
+  unused option.
+- `tile-invalidation.service.ts`: deleted.
+- `tile-invalidation.service.spec.ts`: deleted.
+
+Test count drops from 359 → 354 (−1 from bind-tile-mode, −5
+from tile-invalidation suite, +1 regression guard). 354/354
+workspace tests green.
 
 ## Description
 
