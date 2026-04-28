@@ -1,12 +1,21 @@
 ---
 id: bug-095
 title: Daily Results .progress uses literal border-radius 999px instead of the --cui-radius-full design-system token
-status: Open
+status: Fixed
 ---
 
 # Bug 095 — daily-results progress radius hardcoded
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Replaced `.progress { border-radius: 999px }` with
+`var(--cui-radius-full, 9999px)`, matching the design's
+`cornerRadius: 9999` and the existing
+`button`/`chip` token pattern. `.progress span` (the fill)
+already used `border-radius: inherit`, so it picks up the new
+token automatically. 292/292 workspace tests green.
 
 ## Description
 
