@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Inject, Injectable, InjectionToken, Optional, inject } from '@angular/core';
+import { Injectable, InjectionToken, inject } from '@angular/core';
 import { DashboardMode } from '@commitments/dashboard-framework';
 import { Observable } from 'rxjs';
 
@@ -18,8 +18,7 @@ export interface OutstandingTodosDto {
 @Injectable({ providedIn: 'root' })
 export class OutstandingTodosService {
   private readonly _client = inject(HttpClient);
-
-  constructor(@Optional() @Inject(OUTSTANDING_TODOS_BASE_URL) private readonly _baseUrl: string | null) {}
+  private readonly _baseUrl = inject(OUTSTANDING_TODOS_BASE_URL, { optional: true });
 
   get(mode: DashboardMode, asOf: string | null): Observable<OutstandingTodosDto> {
     let params = new HttpParams();
