@@ -10,7 +10,7 @@ import {
   GoalProgressService
 } from '../../data/goal-progress.service';
 
-export type DeltaTone = 'success' | 'warn' | 'neutral';
+type DeltaTone = 'success' | 'warn' | 'neutral';
 
 @Injectable()
 export class GoalMetricsController {

@@ -6,7 +6,7 @@ import { DashboardMode } from '@commitments/dashboard-framework';
 
 import { OutstandingTodosDto, OutstandingTodosService } from '../../data/outstanding-todos.service';
 
-export type DeltaTone = 'success' | 'warn' | 'neutral';
+type DeltaTone = 'success' | 'warn' | 'neutral';
 
 @Injectable()
 export class OutstandingTodosController {
