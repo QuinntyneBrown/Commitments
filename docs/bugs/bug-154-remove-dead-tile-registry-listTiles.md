@@ -1,10 +1,19 @@
 ---
 id: bug-154
 title: TileRegistryService.listTiles() is dead — replaced by the existing `tiles` signal
-status: Open
+status: Fixed
 ---
 
 # Bug 154 — Drop unused `TileRegistryService.listTiles()`
+
+**Status**: Fixed
+
+## Fix
+
+Removed the 3-line method from the service. Updated the one
+spec line that called `registry.listTiles()` to use
+`registry.tiles()` (the existing readonly signal). 358/358
+workspace tests green.
 
 ## Description
 
