@@ -66,6 +66,21 @@ describe('DeltaBadgeComponent', () => {
       expect(block).toMatch(/font-family\s*:\s*var\(\s*--cui-font-display/);
     });
 
+    it('uses computed() signals for formatted / tone / icon (bug-129)', () => {
+      const ts = readFileSync(
+        join(__dirname, 'delta-badge.component.ts'),
+        'utf8'
+      );
+      expect(ts).toMatch(/import\s*\{[^}]*\bcomputed\b[^}]*\}\s*from\s*'@angular\/core'/);
+      expect(ts).toMatch(/\bformatted\s*=\s*computed\(/);
+      expect(ts).toMatch(/\btone\s*=\s*computed\b/);
+      expect(ts).toMatch(/\bicon\s*=\s*computed\(/);
+      // Old method-form declarations should be gone.
+      expect(ts).not.toMatch(/^\s*formatted\(\)\s*:/m);
+      expect(ts).not.toMatch(/^\s*tone\(\)\s*:/m);
+      expect(ts).not.toMatch(/^\s*icon\(\)\s*:/m);
+    });
+
     it('sizes the directional icon to 12px (bug-053)', () => {
       const block = ruleBlock('\\.delta-badge__icon');
       expect(block).toMatch(/font-size\s*:\s*12px\b/);
