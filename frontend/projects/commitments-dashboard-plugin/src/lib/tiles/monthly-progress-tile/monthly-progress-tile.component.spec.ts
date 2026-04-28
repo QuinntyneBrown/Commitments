@@ -78,4 +78,13 @@ describe('MonthlyProgressTileComponent (CSS source)', () => {
       .filter(({ line }) => /var\(--cui-[a-z0-9-]+\)/.test(line));
     expect(offenders).toEqual([]);
   });
+
+  it('bar gradient is lighter at top, darker at bottom per design (bug-120)', () => {
+    const block = ruleBlock('\\.bars span');
+    // Design screenshot: bars are bright #8bb8e8 at top, deeper
+    // #2f6db3 at the bottom. Impl had it reversed; the lighter
+    // shade must come first in the linear-gradient (180deg).
+    expect(block).toMatch(/linear-gradient\(180deg,\s*#8bb8e8,\s*#2f6db3\)/i);
+    expect(block).not.toMatch(/linear-gradient\(180deg,\s*#2f6db3,\s*#8bb8e8\)/i);
+  });
 });
