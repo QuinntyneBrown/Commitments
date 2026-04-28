@@ -82,9 +82,17 @@ describe('MonthlyProgressTileComponent (CSS source)', () => {
   it('bar gradient is lighter at top, darker at bottom per design (bug-120)', () => {
     const block = ruleBlock('\\.bars span');
     // Design screenshot: bars are bright #8bb8e8 at top, deeper
-    // #2f6db3 at the bottom. Impl had it reversed; the lighter
-    // shade must come first in the linear-gradient (180deg).
-    expect(block).toMatch(/linear-gradient\(180deg,\s*#8bb8e8,\s*#2f6db3\)/i);
+    // #2f6db3 at the bottom. Lighter shade must come first in
+    // the linear-gradient (180deg). After bug-121 the stops can
+    // also appear as `$bar-top` / `$bar-bottom` SCSS variables.
+    expect(block).toMatch(/linear-gradient\(180deg,\s*(?:#8bb8e8|\$bar-top),\s*(?:#2f6db3|\$bar-bottom)\)/i);
     expect(block).not.toMatch(/linear-gradient\(180deg,\s*#2f6db3,\s*#8bb8e8\)/i);
+  });
+
+  it('bar gradient stops are named SCSS variables, not magic hex (bug-121)', () => {
+    expect(scss).toMatch(/\$bar-top\s*:\s*#8bb8e8\b/i);
+    expect(scss).toMatch(/\$bar-bottom\s*:\s*#2f6db3\b/i);
+    const block = ruleBlock('\\.bars span');
+    expect(block).toMatch(/linear-gradient\(180deg,\s*\$bar-top,\s*\$bar-bottom\)/);
   });
 });
