@@ -251,4 +251,14 @@ describe('app.routes', () => {
     );
     expect(bindSrc).not.toMatch(/invalidations\$/);
   });
+
+  it('TileContext no longer declares the unused requestFocus method (bug-152)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const modelSrc = readFileSync(
+      join(__dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'tile-registration', 'tile.model.ts'),
+      'utf8'
+    );
+    expect(modelSrc).not.toMatch(/\brequestFocus\b/);
+  });
 });
