@@ -1,12 +1,28 @@
 ---
 id: bug-092
 title: Consistency Trend tick label highlight always tracks the LAST date even when review mode selected a different one
-status: Open
+status: Fixed
 ---
 
 # Bug 092 — chart tick label vs point highlight mismatch
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Replaced `isLastTick(ctx)` with
+`ctx.index === controller.highlightedIndex()` in both the
+x-axis tick `color` and `font` Scriptables. The bold-blue tick
+label now follows the same index that drives the enlarged data
+point.
+
+In live mode `highlightedIndex` is the last point's index, so
+nothing changes visually. In review mode it now matches the
+date the user selected via the scrubber.
+
+The top-level `isLastTick` helper had no remaining callers and
+was deleted (net-negative diff: 3 inserts, 7 deletes).
+289/289 workspace tests green.
 
 ## Description
 
