@@ -1,10 +1,28 @@
 ---
 id: bug-136
 title: monthly-progress.service mixes inject() with @Optional()/@Inject() constructor decorators
-status: Open
+status: Fixed
 ---
 
 # Bug 136 — monthly-progress.service: drop decorator-based DI for `inject()` form
+
+**Status**: Fixed
+
+## Fix
+
+```ts
+import { Injectable, InjectionToken, inject } from '@angular/core';
+...
+export class MonthlyProgressService {
+  private readonly _client = inject(HttpClient);
+  private readonly _baseUrl = inject(MONTHLY_PROGRESS_BASE_URL, { optional: true });
+  ...
+}
+```
+
+`Inject` and `Optional` decorator imports dropped, empty
+constructor removed. Both DI sites now use the `inject()`
+function. 338/338 workspace tests green.
 
 ## Description
 
