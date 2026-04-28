@@ -1,12 +1,34 @@
 ---
 id: bug-045
 title: Consistency Trend chart applies a uniform point border colour; design has a `#121212` stroke only on the highlighted "today" dot
-status: Open
+status: Fixed
 ---
 
 # Bug 045 — Consistency Trend chart point border per-state
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`consistency-trend.controller.ts`:
+- `pointBorderColor` becomes a per-point array — `BG_APP` for the
+  highlighted index, `'transparent'` otherwise.
+- New `pointBorderWidth` array — `3` for the highlighted index, `0`
+  otherwise.
+- `SURFACE_TILE` import dropped (no longer referenced).
+
+The pattern mirrors the existing `pointRadius` array; an
+`ifHighlighted` helper was considered and rejected (three call
+sites is too few to justify a wrapper).
+
+The outer glow on the today dot remains out of scope (no per-point
+box-shadow in stock Chart.js).
+
+Coverage:
+- New TS-source spec asserts the controller references `BG_APP` in
+  `pointBorderColor` and a `pointBorderWidth` declaration includes
+  `3`.
+- All 20 affected suites pass (113/113 — was 112/112 before).
 
 ## Description
 
