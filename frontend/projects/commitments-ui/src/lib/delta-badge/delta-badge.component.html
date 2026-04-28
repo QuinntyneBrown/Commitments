@@ -1,5 +1,8 @@
 <mat-chip-set class="delta-badge-set" aria-label="Delta">
   <mat-chip class="delta-badge" [class]="'delta-badge delta-badge--' + tone()">
+    @if (icon()) {
+      <span class="material-symbols-rounded delta-badge__icon" aria-hidden="true">{{ icon() }}</span>
+    }
     <span class="delta-badge__value">{{ formatted() }}</span>
     @if (caption()) {
       <span class="delta-badge__caption">{{ caption() }}</span>

@@ -34,4 +34,11 @@ export class DeltaBadgeComponent {
     if (value < 0) return 'negative';
     return 'neutral';
   }
+
+  icon(): string {
+    const t = this.tone();
+    if (t === 'positive') return 'arrow_upward';
+    if (t === 'negative') return 'arrow_downward';
+    return '';
+  }
 }

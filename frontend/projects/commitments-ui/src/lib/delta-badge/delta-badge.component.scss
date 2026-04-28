@@ -13,6 +13,14 @@
   font-weight: 600;
 }
 
+.delta-badge__icon {
+  font-size: 12px;
+  line-height: 12px;
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
 .delta-badge__value {
   font-weight: 700;
   letter-spacing: 0.2px;
