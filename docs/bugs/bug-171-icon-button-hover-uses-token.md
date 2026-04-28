@@ -1,10 +1,21 @@
 ---
 id: bug-171
 title: icon-button hover uses literal rgba instead of --cui-hover-overlay token
-status: Open
+status: Fixed
 ---
 
 # Bug 171 — icon-button hover should reference `--cui-hover-overlay`
+
+**Status**: Fixed
+
+## Fix
+
+```scss
+- background: rgba(255, 255, 255, 0.08);
++ background: var(--cui-hover-overlay, rgba(255, 255, 255, 0.08));
+```
+
+371/371 workspace tests green.
 
 ## Description
 
