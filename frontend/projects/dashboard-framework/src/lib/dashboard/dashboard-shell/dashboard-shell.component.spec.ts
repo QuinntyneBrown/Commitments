@@ -11,7 +11,7 @@ describe('DashboardShellComponent (CSS source)', () => {
     const offenders = scss
       .split(/\r?\n/)
       .map((line, i) => ({ n: i + 1, line }))
-      .filter(({ line }) => /var\(--cui-[a-z-]+\)/.test(line));
+      .filter(({ line }) => /var\(--cui-[a-z0-9-]+\)/.test(line));
     expect(offenders).toEqual([]);
   });
 });
