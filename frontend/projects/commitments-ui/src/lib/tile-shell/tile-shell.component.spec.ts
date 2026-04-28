@@ -114,6 +114,17 @@ describe('TileShellComponent', () => {
       expect(scss).not.toMatch(/\.tile-shell__status\b/);
     });
 
+    it('emits the variant class via a single dynamic binding (bug-063)', () => {
+      const html = readFileSync(
+        join(__dirname, 'tile-shell.component.html'),
+        'utf8'
+      );
+      expect(html).toMatch(/\[class\]\s*=\s*"'tile-shell tile-shell--'\s*\+\s*variant\(\)"/);
+      expect(html).not.toMatch(/\[class\.tile-shell--metric\]/);
+      expect(html).not.toMatch(/\[class\.tile-shell--chart\]/);
+      expect(html).not.toMatch(/\[class\.tile-shell--review\]/);
+    });
+
     it('icon colour consumes the per-tile custom property (bug-048)', () => {
       const block = ruleBlock('\\.tile-shell__icon');
       expect(block).toMatch(/color\s*:\s*var\(\s*--cui-tile-icon-color/);
