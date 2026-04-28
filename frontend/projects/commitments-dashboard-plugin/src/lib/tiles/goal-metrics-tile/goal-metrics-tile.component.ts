@@ -1,7 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { ChangeDetectionStrategy, Component, Input, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input } from '@angular/core';
 import {
   TILE_CONTEXT,
   TileContext,
@@ -36,17 +36,16 @@ export class GoalMetricsTileComponent {
 
   protected readonly controller = inject(GoalMetricsController);
   protected readonly statusLabel = computed(() => this.controller.mode().toUpperCase());
-
-  @Input() set goalId(value: string) {
-    this.controller.setGoalId(value);
-  }
+  readonly goalId = input('demo-goal');
 
   constructor() {
-    this.controller.setGoalId('demo-goal');
     const context = inject(TILE_CONTEXT, { optional: true }) as TileContext | null;
     bindTileMode({
       context,
       load: (mode, asOf) => this.controller.load(mode, asOf)
+    });
+    effect(() => {
+      this.controller.setGoalId(this.goalId());
     });
   }
 }
