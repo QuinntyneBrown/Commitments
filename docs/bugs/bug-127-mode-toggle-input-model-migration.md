@@ -1,12 +1,22 @@
 ---
 id: bug-127
 title: mode-toggle uses legacy @Input setters; should use input()/model() like bug-125/126 did for icon-button
-status: Open
+status: Fixed
 ---
 
 # Bug 127 — mode-toggle input/model migration
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Applied the bug-125/126 shape to mode-toggle:
+
+- `disabled` → `input(false)` (read-only)
+- `mode` → `model<DashboardMode>('live')` (2-way, auto-emits modeChange)
+- `select()` simplifies to `this.mode.set(next)` (no manual emit)
+
+Net diff: 3 inserts, 13 deletes. 324/324 workspace tests green.
 
 ## Description
 
