@@ -24,18 +24,18 @@
 }
 
 .focus-list strong {
-  color: var(--cui-text-primary);
+  color: var(--cui-text-primary, #FFFFFF);
   font-size: 14px;
   font-weight: 700;
 }
 
 .focus-list span {
-  color: var(--cui-text-secondary);
+  color: var(--cui-text-secondary, #B0B0B0);
   font-size: 11px;
 }
 
 .empty {
   margin: 12px 0 0;
-  color: var(--cui-text-secondary);
+  color: var(--cui-text-secondary, #B0B0B0);
   font-size: 13px;
 }
