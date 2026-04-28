@@ -1,10 +1,36 @@
 ---
 id: bug-146
 title: Legacy DashboardPageComponent (cardId-based) is unused — delete
-status: Open
+status: Fixed
 ---
 
 # Bug 146 — Remove unused legacy `DashboardPageComponent`
+
+**Status**: Fixed
+
+## Fix
+
+Deleted three files (`.ts`, `.html`, `.scss`) — 196 lines net.
+A new `app.routes.spec` regression guard asserts the file does
+not re-appear:
+
+```ts
+it('legacy DashboardPageComponent has been removed (bug-146)', () => {
+  const { existsSync } = require('fs');
+  const { join } = require('path');
+  const legacy = join(__dirname, 'pages', 'dashboard',
+    'dashboard-page', 'dashboard-page.component.ts');
+  expect(existsSync(legacy)).toBe(false);
+});
+```
+
+354/354 workspace tests green.
+
+The orphaned imports — 5 cardId-based dashboard-card
+components, plus the legacy `DashboardCard` model and
+`DashboardCardService`/`DashboardService` — are now genuinely
+dead and become candidates for follow-up cleanup bugs as the
+cascade is verified.
 
 ## Description
 
