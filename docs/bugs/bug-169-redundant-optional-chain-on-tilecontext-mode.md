@@ -1,10 +1,18 @@
 ---
 id: bug-169
 title: consistency-trend `_tileContext?.mode?.()` has a redundant optional chain
-status: Open
+status: Fixed
 ---
 
 # Bug 169 — Drop the redundant `?.` before `()` on `_tileContext.mode`
+
+**Status**: Fixed
+
+## Fix
+
+One-character removal: `?.mode?.()` → `?.mode()`. Matches the
+single-`?.` pattern used elsewhere in the same file.
+369/369 workspace tests green.
 
 ## Description
 
