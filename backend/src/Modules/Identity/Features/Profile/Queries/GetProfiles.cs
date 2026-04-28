@@ -5,7 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Identity.Features.Profile;
 
-public class GetProfilesRequest : IRequest<GetProfilesResponse> { }
+public class GetProfilesRequest : IRequest<GetProfilesResponse>
+{
+    public Guid UserId { get; set; }
+}
 
 public class GetProfilesResponse : ResponseBase
 {
@@ -22,7 +25,9 @@ public class GetProfilesRequestHandler : IRequestHandler<GetProfilesRequest, Get
     {
         return new GetProfilesResponse
         {
-            Profiles = await _context.Profiles.ToDtosAsync(cancellationToken)
+            Profiles = await _context.Profiles
+                .Where(p => p.UserId == request.UserId)
+                .ToDtosAsync(cancellationToken)
         };
     }
 }

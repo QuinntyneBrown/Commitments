@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Identity.Controllers;
 using Identity.Features.Profile;
 using MediatR;
@@ -22,6 +23,13 @@ public class ProfileControllerTests
         _mockSender = new Mock<ISender>();
         _mockLogger = new Mock<ILogger<ProfileController>>();
         _mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
+
+        var httpContext = new DefaultHttpContext
+        {
+            User = new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim("sub", Guid.NewGuid().ToString()) }))
+        };
+        _mockHttpContextAccessor.Setup(a => a.HttpContext).Returns(httpContext);
+
         _controller = new ProfileController(_mockSender.Object, _mockLogger.Object, _mockHttpContextAccessor.Object);
     }
 

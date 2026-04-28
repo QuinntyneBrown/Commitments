@@ -41,12 +41,15 @@ public class ProfileController
 
     [SwaggerOperation(Summary = "Get Profiles", Description = "Get Profiles")]
     [HttpGet(Name = "getProfiles")]
+    [Authorize]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(GetProfilesResponse), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetProfilesResponse>> Get(CancellationToken cancellationToken)
     {
-        return await _sender.Send(new GetProfilesRequest(), cancellationToken);
+        return await _sender.Send(
+            new GetProfilesRequest { UserId = _httpContextAccessor.GetUserId() },
+            cancellationToken);
     }
 
     [SwaggerOperation(Summary = "Get Profile by id", Description = "Get Profile by id")]
