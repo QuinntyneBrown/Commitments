@@ -1,12 +1,24 @@
 ---
 id: bug-085
 title: Daily Results progress bar uses 18px margin where the design specifies a 10px gap
-status: Open
+status: Fixed
 ---
 
 # Bug 085 — Daily Results progress bar margin
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Changed `.progress { margin-top }` from `18px` to
+`var(--cui-tile-body-gap, 10px)`, matching the design's root gap
+of 10 between drHd/drBody/drTrack. The token reuse keeps the
+gap centralized — same source as the tile-shell's
+`padding-top` between header and body — so future per-tile
+overrides propagate consistently.
+
+The spec accepts either the literal `10px` form or the token
+form. 12/12 daily-results specs green.
 
 ## Description
 
