@@ -1,14 +1,25 @@
 ---
 id: bug-097
 title: outstanding-todos-tile.component.scss var() calls omit the design-system fallback hex
-status: Open
+status: Fixed
 ---
 
 # Bug 097 — outstanding-todos var() fallback hex
 
-**Status**: Fixed once the bug-096 pattern is applied.
+**Status**: Fixed
 
-**Status**: Open
+## Fix
+
+Added the design-system hex fallback to six `var()` references
+in `outstanding-todos-tile.component.scss` (matching the
+bug-096 shape applied to daily-results):
+
+- `var(--cui-warning, #FFA726)` (icon color, count, delta--warn)
+- `var(--cui-text-secondary, #B0B0B0)` (copy, delta default)
+- `var(--cui-success, #66BB6A)` (delta--success)
+
+The bug-097 spec adds a forward-only regex guard. 294/294
+workspace tests green.
 
 ## Description
 
