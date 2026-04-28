@@ -1,5 +1,7 @@
 # Frequencies — Detailed Design
 
+**Status:** Accepted
+
 **Traces to:** L1-004 · L2-007, L2-008
 
 ## 1. Overview
