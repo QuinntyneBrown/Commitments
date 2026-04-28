@@ -1,6 +1,6 @@
 # Edit Frequency — Detailed Design
 
-**Status:** Draft
+**Status:** Accepted
 
 **Traces to:** L1-004 · L2-007
 
