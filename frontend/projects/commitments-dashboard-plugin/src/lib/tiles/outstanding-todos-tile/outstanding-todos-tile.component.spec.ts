@@ -38,4 +38,14 @@ describe('OutstandingTodosTileComponent (template + CSS source)', () => {
     );
     expect(ts).toMatch(/pillVariant\b[\s\S]*?'warning'/);
   });
+
+  it('renders the count at weight 700 (bug-038)', () => {
+    const block = ruleBlock('\\.todo-count');
+    expect(block).toMatch(/font-weight\s*:\s*700\b/);
+  });
+
+  it('renders the copy at 12px (bug-038)', () => {
+    const block = ruleBlock('\\.todo-copy');
+    expect(block).toMatch(/font-size\s*:\s*12px\b/);
+  });
 });
