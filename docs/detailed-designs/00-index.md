@@ -10,7 +10,7 @@ Each design covers the changes needed to satisfy **L1-012a / L2-031a — Mode-In
 | 04 | [Monthly Progress — Dual-Mode](04-monthly-progress-dual-mode/README.md)                    | Implemented | Build snapshot endpoint, controller, and 4-bucket weekly aggregation with `asOf`.                   |
 | 05 | [Outstanding Todos — Dual-Mode](05-outstanding-todos-dual-mode/README.md)                  | Implemented | Wire count endpoint with `asOf`, add delta-vs-today indicator in Review mode.                       |
 | 06 | [Relations — Dual-Mode](06-relations-dual-mode/README.md)                                  | Implemented | Build category-distribution snapshot endpoint and historical projection.                            |
-| 07 | [Goal Metrics — Dual-Mode Merge](07-goal-metrics-dual-mode-merge/README.md)                | Accepted | Merge `LiveGoalMetricsTileComponent` + `ReviewGoalHistoryTileComponent` into a single dual-mode tile.  |
+| 07 | [Goal Metrics — Dual-Mode Merge](07-goal-metrics-dual-mode-merge/README.md)                | Implemented | Merge `LiveGoalMetricsTileComponent` + `ReviewGoalHistoryTileComponent` into a single dual-mode tile. |
 
 ## Reading Order
 
