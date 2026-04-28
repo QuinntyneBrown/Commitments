@@ -1,3 +1,7 @@
+:host {
+  --cui-tile-body-gap: 12px;
+}
+
 .bars {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

@@ -71,15 +71,11 @@
   flex-direction: column;
   flex: 1 1 auto;
   min-height: 0;
-  padding-top: 10px;
+  padding-top: var(--cui-tile-body-gap, 10px);
 }
 
 .tile-shell--review {
   border-color: var(--cui-primary, #9FA8DA);
-}
-
-.tile-shell--chart .tile-shell__body {
-  padding-top: 14px;
 }
 
 .tile-shell--chart .tile-shell__status {
