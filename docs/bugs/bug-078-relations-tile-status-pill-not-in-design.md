@@ -1,12 +1,24 @@
 ---
 id: bug-078
 title: Relations tile renders a status pill the design and README do not include
-status: Open
+status: Fixed
 ---
 
 # Bug 078 — Relations tile shouldn't have a status pill
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Same shape as bug-076 (Monthly Progress): dropped the projected
+`<cui-status-pill>` from the template, removed the
+`StatusPillComponent` import, and removed the now-unused
+`statusLabel` computed from the component class. `bindTileMode`
+still wires the controller to the dashboard's mode/asOf signals.
+
+The bug-057-style "projects pill" spec was inverted to assert
+`<cui-status-pill` does not appear. All 12 relations specs and
+the full 261-test workspace are green.
 
 ## Description
 
