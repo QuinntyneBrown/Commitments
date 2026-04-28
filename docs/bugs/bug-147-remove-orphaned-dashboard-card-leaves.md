@@ -1,10 +1,41 @@
 ---
 id: bug-147
 title: 5 cardId-based dashboard-card components are orphaned after bug-146 — delete
-status: Open
+status: Fixed
 ---
 
 # Bug 147 — Remove orphaned legacy dashboard-card leaf components
+
+**Status**: Fixed
+
+## Fix
+
+Deleted 15 files (5 directories × `.ts`/`.html`/`.scss`) — 330
+lines net. A regression-guard spec asserts each directory's
+`.component.ts` no longer exists:
+
+```ts
+it('orphaned cardId-based dashboard-card components are gone (bug-147)', () => {
+  const legacy = [
+    'daily-results-dashboard-card',
+    'weekly-results-dashboard-card',
+    'monthly-results-dashboard-card',
+    'to-do-dashboard-card',
+    'relations-results-dashboard-card'
+  ];
+  for (const dir of legacy) {
+    const file = join(__dirname, 'components', dir, `${dir}.component.ts`);
+    expect(existsSync(file)).toBe(false);
+  }
+});
+```
+
+355/355 workspace tests green.
+
+The intermediate `PosterDashboardCardComponent` (which only
+`ToDoDashboardCardComponent` extended) and the base
+`DashboardCardComponent` (which the 5 leaves all extended) are
+now genuinely dead too — they land in a follow-up bug.
 
 ## Description
 
