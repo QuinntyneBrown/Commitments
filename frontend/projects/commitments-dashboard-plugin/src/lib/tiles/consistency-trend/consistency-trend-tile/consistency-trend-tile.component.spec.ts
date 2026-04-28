@@ -25,6 +25,21 @@ describe('ConsistencyTrendTileComponent (single fetch effect, source)', () => {
   });
 });
 
+describe('ConsistencyTrendTileComponent (.plot body-gap token, source)', () => {
+  const scss = readFileSync(
+    join(__dirname, 'consistency-trend-tile.component.scss'),
+    'utf8'
+  );
+
+  it('.plot margin-top references --cui-tile-body-gap (bug-143)', () => {
+    const match = scss.match(/\.plot\s*\{([^}]*)\}/);
+    expect(match).not.toBeNull();
+    const block = match![1];
+    expect(block).toMatch(/margin-top\s*:\s*var\(\s*--cui-tile-body-gap/);
+    expect(block).not.toMatch(/margin-top\s*:\s*14px\s*;/);
+  });
+});
+
 describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
   const html = readFileSync(
     join(__dirname, 'consistency-trend-tile.component.html'),
