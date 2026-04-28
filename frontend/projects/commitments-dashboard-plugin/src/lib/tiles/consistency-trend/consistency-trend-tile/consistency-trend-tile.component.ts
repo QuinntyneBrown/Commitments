@@ -17,6 +17,7 @@ import {
 import { ChartConfiguration } from 'chart.js';
 import { TILE_CONTEXT, TileContext, TileMetadata } from '@commitments/dashboard-framework';
 import {
+  ACCENT_CHART,
   DeltaBadgeComponent,
   MetricHeaderComponent,
   StatusPillComponent,
@@ -102,7 +103,8 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
           x: {
             type: 'category',
             ticks: {
-              color: '#666666',
+              color: (ctx) => isLastTick(ctx) ? ACCENT_CHART : '#666666',
+              font: (ctx) => ({ weight: isLastTick(ctx) ? 700 : 400 }),
               autoSkip: true,
               maxTicksLimit: 6,
               callback(value) {
@@ -133,4 +135,9 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
   pillLabel(): string {
     return (this._tileContext?.mode?.() ?? 'live').toUpperCase();
   }
+}
+
+function isLastTick(ctx: { index?: number; scale?: { ticks?: unknown[] } }): boolean {
+  const total = ctx.scale?.ticks?.length ?? 0;
+  return total > 0 && ctx.index === total - 1;
 }
