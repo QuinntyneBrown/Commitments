@@ -16,6 +16,8 @@ import {
 } from 'chart.js';
 
 Chart.register(LineController, LineElement, PointElement, LinearScale, CategoryScale, Filler, Tooltip);
+Chart.defaults.font.family = 'Inter, Roboto, "Helvetica Neue", sans-serif';
+Chart.defaults.font.size = 11;
 
 @Injectable()
 export class ChartJsLineAdapter {
