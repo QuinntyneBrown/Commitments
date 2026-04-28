@@ -15,3 +15,19 @@ describe('ReviewScrubberComponent (CSS source)', () => {
     expect(offenders).toEqual([]);
   });
 });
+
+describe('ReviewScrubberComponent (TS source)', () => {
+  const ts = readFileSync(
+    join(__dirname, 'review-scrubber.component.ts'),
+    'utf8'
+  );
+
+  it('migrates @Input to input() with reactive forward (bug-128)', () => {
+    expect(ts).not.toMatch(/@Input\b/);
+    expect(ts).toMatch(/import\s*\{[^}]*\binput\b[^}]*\}\s*from\s*'@angular\/core'/);
+    expect(ts).toMatch(/\bwindowDays\s*=\s*input\b/);
+    // The forward to controller.windowDays.set must run inside an
+    // effect() so input changes propagate after init.
+    expect(ts).toMatch(/effect\(\s*\(\)\s*=>\s*\{[\s\S]*?windowDays\(\)[\s\S]*?controller\.windowDays\.set/);
+  });
+});
