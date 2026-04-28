@@ -36,6 +36,9 @@ export class OutstandingTodosTileComponent {
 
   protected readonly controller = inject(OutstandingTodosController);
   protected readonly statusLabel = computed(() => this.controller.mode().toUpperCase());
+  protected readonly pillVariant = computed<'warning' | 'review'>(() =>
+    this.controller.mode() === 'review' ? 'review' : 'warning'
+  );
 
   constructor() {
     const context = inject(TILE_CONTEXT, { optional: true }) as TileContext | null;

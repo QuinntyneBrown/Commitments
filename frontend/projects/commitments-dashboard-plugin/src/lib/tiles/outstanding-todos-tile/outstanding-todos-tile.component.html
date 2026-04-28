@@ -6,8 +6,8 @@
   data-testid="outstanding-todos-tile"
 >
   <cui-status-pill
-    [variant]="controller.mode()"
-    [pulse]="controller.mode() === 'live'"
+    [variant]="pillVariant()"
+    [pulse]="pillVariant() === 'warning'"
     [label]="statusLabel()"
   ></cui-status-pill>
 

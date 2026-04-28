@@ -4,7 +4,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 
-export type StatusPillVariant = 'live' | 'review' | 'neutral' | 'chart' | 'success';
+export type StatusPillVariant = 'live' | 'review' | 'neutral' | 'chart' | 'success' | 'warning';
 
 @Component({
   selector: 'cui-status-pill',
