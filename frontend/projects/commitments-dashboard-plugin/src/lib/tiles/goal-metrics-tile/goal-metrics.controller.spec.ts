@@ -179,4 +179,15 @@ describe('GoalMetricsController', () => {
     expect(ts).toMatch(/_reviewDelta\s*=\s*computed</);
     expect(ts).not.toMatch(/^\s*private\s+_reviewDelta\(\)/m);
   });
+
+  it('does not expose applyHubUpdate — no SignalR hub wired (bug-145)', async () => {
+    const { readFileSync } = await import('fs');
+    const { join } = await import('path');
+    const ts = readFileSync(
+      join(__dirname, 'goal-metrics.controller.ts'),
+      'utf8'
+    );
+    expect(ts).not.toMatch(/\bapplyHubUpdate\s*\(/);
+    expect(ts).not.toMatch(/\bGoalProgressUpdated\b/);
+  });
 });
