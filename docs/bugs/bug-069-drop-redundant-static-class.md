@@ -1,12 +1,34 @@
 ---
 id: bug-069
 title: Four commitments-ui primitives carry a static `class="..."` alongside an equivalent dynamic `[class]="..."` binding — drop the dead-weight static
-status: Open
+status: Fixed
 ---
 
 # Bug 069 — Drop redundant static class on four primitives
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Removes the redundant `class="<base>"` static attribute from four
+templates whose dynamic `[class]` binding already emits the same
+base class on every CD cycle:
+
+- `delta-badge.component.html` (mat-chip)
+- `snackbar.component.html` (section)
+- `status-pill.component.html` (mat-chip)
+- `dashboard-tile.component.html` (mat-card)
+
+Same idiom as bug-063 (tile-shell) and bug-068 (metric-header):
+the dynamic binding is the single source of truth for class.
+
+Coverage:
+- Two new specs (status-pill, delta-badge) assert the templates
+  no longer carry the split form. The two demo primitives
+  (snackbar, dashboard-tile) get the same fix without dedicated
+  specs since they aren't consumed by the dashboard plugin or
+  app.
+- All 22 affected suites pass (159/159 — was 157/157 before).
 
 ## Description
 
