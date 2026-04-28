@@ -1,10 +1,19 @@
 ---
 id: bug-157
 title: Maximize/restore feature is fully unused — drop from TileContext, DashboardItem, dashboard-grid
-status: Open
+status: Fixed
 ---
 
 # Bug 157 — Drop dead maximize/restore feature
+
+**Status**: Fixed
+
+## Fix
+
+24 lines removed across 6 files. TileContext is now just
+identification + state signals + a single `remove()` action.
+DashboardItem is just position+size. 359/359 workspace tests
+green.
 
 ## Description
 
