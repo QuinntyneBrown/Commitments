@@ -8,6 +8,7 @@ import { DashboardLayoutComponent } from './components/dashboard-layout/dashboar
 import { PlaceholderPageComponent } from './components/placeholder-page/placeholder-page.component';
 import { BehaviourTypesPageComponent } from './pages/behaviour-types/behaviour-types-page/behaviour-types-page.component';
 import { BehavioursPageComponent } from './pages/behaviours/behaviours-page/behaviours-page.component';
+import { EditFrequencyPageComponent } from './pages/edit-frequency/edit-frequency-page/edit-frequency-page.component';
 import { FrequenciesPageComponent } from './pages/frequencies/frequencies-page/frequencies-page.component';
 import { LoginPageComponent } from './pages/login/login-page/login-page.component';
 import { MyProfilePageComponent } from './pages/my-profile/my-profile-page/my-profile-page.component';
@@ -36,6 +37,8 @@ export const routes: Routes = [
       { path: 'behaviour-types', component: BehaviourTypesPageComponent },
       { path: 'behaviours', component: BehavioursPageComponent },
       { path: 'frequencies', component: FrequenciesPageComponent },
+      { path: 'edit-frequency', component: EditFrequencyPageComponent },
+      { path: 'edit-frequency/:frequencyId', component: EditFrequencyPageComponent },
       ...placeholderPaths.map(path => ({ path, component: PlaceholderPageComponent }))
     ]
   }
