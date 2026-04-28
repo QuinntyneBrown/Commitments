@@ -70,4 +70,12 @@ describe('MonthlyProgressTileComponent (CSS source)', () => {
     expect(block).toMatch(/var\(\s*--cui-text-disabled/);
     expect(block).not.toMatch(/color\s*:\s*#666666\b/i);
   });
+
+  it('every var(--cui-*) reference includes a fallback hex (bug-098)', () => {
+    const offenders = scss
+      .split(/\r?\n/)
+      .map((line, i) => ({ n: i + 1, line }))
+      .filter(({ line }) => /var\(--cui-[a-z-]+\)/.test(line));
+    expect(offenders).toEqual([]);
+  });
 });
