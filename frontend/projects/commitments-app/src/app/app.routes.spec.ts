@@ -589,4 +589,18 @@ describe('app.routes', () => {
     expect(scss).not.toMatch(/\bfont\s*:\s*\d+\s+\d+px\/[\d.]+\s+Inter\b/);
     expect(scss).toMatch(/font-family\s*:\s*var\(\s*--cui-font-display/);
   });
+
+  it('pill-shaped elements use --cui-radius-full token, not literal 999px (bug-185)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const files = [
+      join(__dirname, '..', '..', '..', 'commitments-ui', 'src', 'lib', 'mode-toggle', 'mode-toggle.component.scss'),
+      join(__dirname, '..', '..', '..', 'commitments-ui', 'src', 'lib', 'status-pill', 'status-pill.component.scss'),
+      join(__dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'dashboard', 'review-scrubber', 'review-scrubber.component.scss')
+    ];
+    for (const file of files) {
+      const scss = readFileSync(file, 'utf8');
+      expect(scss).not.toMatch(/border-radius:\s*999px\b/);
+    }
+  });
 });
