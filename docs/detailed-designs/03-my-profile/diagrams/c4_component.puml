@@ -1,0 +1,39 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title My Profile - Component Diagram
+
+Person(user, "Signed-in User")
+
+Container_Boundary(spa, "commitments-app") {
+    Component(page, "MyProfilePageComponent", "Angular standalone", "Reactive form")
+    Component(asset, "digital-asset-url-input", "Angular component", "Upload + URL")
+    Component(svc, "ProfileService", "Angular service", "current / avatar / display-name")
+}
+
+Container_Boundary(api, "Commitments.Api / Identity") {
+    Component(ctrl, "ProfileController", "ASP.NET Core", "current, avatar (NEW), display-name (NEW)")
+    Component(getCurrent, "GetCurrentProfileHandler", "MediatR", "Reads active profile")
+    Component(saveAvatar, "SaveAvatarUrlHandler", "MediatR + FV", "Update AvatarUrl")
+    Component(saveName, "UpdateDisplayNameHandler", "MediatR + FV", "Update DisplayName")
+    ComponentDb(idDb, "Identity DB", "SQL Server", "Profiles")
+}
+
+Container_Boundary(da, "DigitalAssets module") {
+    Component(daCtrl, "DigitalAssetController", "ASP.NET Core", "Upload + URL retrieval")
+}
+
+Rel(user, page, "Edits profile")
+Rel(page, svc, "current() / save*")
+Rel(page, asset, "Upload avatar")
+Rel(asset, daCtrl, "POST asset")
+Rel(svc, ctrl, "JSON over HTTPS")
+Rel(ctrl, getCurrent, "Send")
+Rel(ctrl, saveAvatar, "Send")
+Rel(ctrl, saveName, "Send")
+Rel(getCurrent, idDb, "SELECT")
+Rel(saveAvatar, idDb, "UPDATE AvatarUrl")
+Rel(saveName, idDb, "UPDATE DisplayName")
+
+@enduml

@@ -1,0 +1,29 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+
+title Behaviour Types - Domain & DTO
+
+class BehaviourType {
+    +BehaviourTypeId: Guid
+    +ProfileId: Guid
+    +Name: String
+    +CreatedOn: DateTime
+    +IsDeleted: Boolean
+}
+
+class Behaviour {
+    +BehaviourId: Guid
+    +ProfileId: Guid
+    +BehaviourTypeId: Guid
+    +Name: String
+}
+
+class BehaviourTypeDto {
+    +behaviourTypeId: Guid
+    +name: String
+}
+
+BehaviourType "1" -- "*" Behaviour : referenced by
+
+@enduml

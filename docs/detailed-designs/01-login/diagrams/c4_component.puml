@@ -1,0 +1,38 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Login - Component Diagram
+
+Person(user, "End User", "Anonymous visitor")
+
+Container_Boundary(spa, "commitments-app (Angular SPA)") {
+    Component(login, "LoginPageComponent", "Angular standalone", "Form + submit handler")
+    Component(authsvc, "AuthService", "Angular service", "POSTs credentials, persists token")
+    Component(profsvc, "ProfileService", "Angular service", "GET /api/profiles/current after login")
+    Component(localstor, "LocalStorageService", "Angular service", "accessToken, profileId")
+    Component(interceptors, "Bearer + ProfileId Interceptors", "Angular HttpInterceptor", "Attach headers to outbound requests")
+}
+
+Container_Boundary(api, "Commitments.Api (modular monolith)") {
+    Component(usersCtrl, "UserController", "ASP.NET Core", "POST token (NEW), CRUD")
+    Component(profileCtrl, "ProfileController", "ASP.NET Core", "GET current (NEW), CRUD")
+    Component(getToken, "GetTokenByUsernameAndPasswordHandler", "MediatR + FluentValidation", "Verifies password, issues JWT")
+    Component(getCurrent, "GetCurrentProfileHandler", "MediatR", "Returns caller's first profile")
+    ComponentDb(idDb, "Identity DB schema", "SQL Server", "Users, Profiles")
+}
+
+Rel(user, login, "Submits username/password")
+Rel(login, authsvc, "tryToLogin()")
+Rel(authsvc, usersCtrl, "POST /api/users/token", "JSON/HTTPS")
+Rel(usersCtrl, getToken, "ISender.Send")
+Rel(getToken, idDb, "SELECT user, verify hash")
+Rel(login, profsvc, "current() after login")
+Rel(profsvc, profileCtrl, "GET /api/profiles/current", "JSON/HTTPS")
+Rel(profileCtrl, getCurrent, "ISender.Send")
+Rel(getCurrent, idDb, "SELECT first profile by userId")
+Rel(authsvc, localstor, "Persist accessToken")
+Rel(profsvc, localstor, "Persist profileId")
+Rel(interceptors, localstor, "Read tokens for headers")
+
+@enduml

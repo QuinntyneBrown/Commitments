@@ -1,0 +1,37 @@
+@startuml sequence_edit
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Edit a behaviour type
+
+actor User
+participant "BehaviourTypesPage" as Page
+participant "EditDialog" as Dlg
+participant "BehaviourTypeService" as Svc
+participant "Controller" as Ctrl
+participant "SaveHandler" as H
+database "Commitments DB" as DB
+
+User -> Page: Click edit cell
+Page -> Dlg: open(behaviourTypeId)
+Dlg -> Svc: getById(...)
+Svc -> Ctrl: GET /behaviourtype/{id}
+Ctrl -> H: GetByIdHandler.Send
+H -> DB: SELECT
+DB --> H: row
+H --> Ctrl: dto
+Ctrl --> Dlg: 200
+User -> Dlg: Edit name + Save
+Dlg -> Svc: save({ behaviourType })
+Svc -> Ctrl: POST /behaviourtype
+Ctrl -> H: SaveHandler.Send
+H -> DB: UPDATE
+DB --> H: ok
+H --> Ctrl: { behaviourTypeId }
+Ctrl --> Svc: 200
+Svc --> Dlg: id
+Dlg --> Page: close(updatedDto)
+Page -> Page: addOrUpdate(row)
+Page --> User: Render updated row
+
+@enduml

@@ -1,0 +1,19 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Settings - Component Diagram
+
+Person(user, "Signed-in User")
+
+Container_Boundary(spa, "commitments-app") {
+    Component(page, "SettingsPageComponent", "Angular standalone", "Static link sections + About")
+    Component(auth, "AuthService", "Angular service", "logout()")
+    Component(router, "Angular Router", "Routing", "Navigation")
+}
+
+Rel(user, page, "Opens /settings")
+Rel(page, router, "navigate(...)")
+Rel(page, auth, "logout()")
+
+@enduml

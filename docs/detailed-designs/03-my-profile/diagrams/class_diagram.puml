@@ -1,0 +1,27 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+
+title My Profile - DTOs & Commands
+
+class Profile {
+    +ProfileId: Guid
+    +UserId: Guid
+    +DisplayName: String
+    +AvatarUrl: String
+}
+
+class SaveAvatarUrlRequest {
+    +AvatarUrl: String
+}
+class UpdateDisplayNameRequest {
+    +DisplayName: String
+}
+class ProfileResponse {
+    +ProfileId: Guid
+}
+
+SaveAvatarUrlRequest ..> ProfileResponse
+UpdateDisplayNameRequest ..> ProfileResponse
+
+@enduml

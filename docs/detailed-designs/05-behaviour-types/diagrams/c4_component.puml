@@ -1,0 +1,35 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Behaviour Types - Component Diagram
+
+Person(user, "Signed-in User")
+
+Container_Boundary(spa, "commitments-app") {
+    Component(page, "BehaviourTypesPage", "Angular standalone", "AG Grid + FAB")
+    Component(dlg, "EditBehaviourTypeDialog", "Angular dialog", "Reactive form")
+    Component(svc, "BehaviourTypeService", "Angular service", "REST client")
+}
+
+Container_Boundary(api, "Commitments.Api / Commitments module") {
+    Component(ctrl, "BehaviourTypeController", "ASP.NET Core", "GET / POST / DELETE / GET id")
+    Component(getH, "GetBehaviourTypesHandler", "MediatR", "Order by name")
+    Component(saveH, "SaveBehaviourTypeHandler", "MediatR + FV", "Upsert")
+    Component(remH, "RemoveBehaviourTypeHandler", "MediatR", "Refint guard (delta)")
+    ComponentDb(db, "Commitments DB", "SQL Server", "BehaviourTypes, Behaviours")
+}
+
+Rel(user, page, "Opens /behaviour-types")
+Rel(page, svc, "get / save / remove")
+Rel(page, dlg, "FAB / edit cell")
+Rel(dlg, svc, "save()")
+Rel(svc, ctrl, "JSON over HTTPS")
+Rel(ctrl, getH, "Send")
+Rel(ctrl, saveH, "Send")
+Rel(ctrl, remH, "Send")
+Rel(getH, db, "SELECT")
+Rel(saveH, db, "INSERT / UPDATE")
+Rel(remH, db, "Check refs, UPDATE IsDeleted")
+
+@enduml

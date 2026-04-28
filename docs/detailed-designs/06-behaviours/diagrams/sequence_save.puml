@@ -1,0 +1,30 @@
+@startuml sequence_save
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Save behaviour with server-side slug
+
+actor User
+participant "BehavioursPage" as Page
+participant "EditBehaviourDialog" as Dlg
+participant "BehaviourService" as Svc
+participant "BehaviourController" as Ctrl
+participant "SaveBehaviourHandler" as H
+database "Commitments DB" as DB
+
+User -> Dlg: Edit name "Sleep 8 hours" + Save
+Dlg -> Svc: save({ behaviour })
+Svc -> Ctrl: POST /behaviour
+Ctrl -> H: Send(request)
+H -> H: Validate (FluentValidation)
+H -> H: Slugify(Name) -> "sleep-8-hours"
+H -> DB: UPDATE Behaviour SET Name, Slug, BehaviourTypeId
+DB --> H: ok
+H --> Ctrl: { behaviourId }
+Ctrl --> Svc: 200
+Svc --> Dlg: id
+Dlg --> Page: close(updatedDto)
+Page -> Page: addOrUpdate row
+Page --> User: Render row with new slug
+
+@enduml

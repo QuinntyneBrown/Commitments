@@ -1,0 +1,23 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+
+title Settings - View Model
+
+class SettingsLink {
+    +labelKey: String
+    +route: String
+    +icon: String
+}
+
+class SettingsPageComponent {
+    +accountLinks: SettingsLink[]
+    +catalogLinks: SettingsLink[]
+    +version: String
+    +buildHash: String
+    +logout(): void
+}
+
+SettingsPageComponent o-- "*" SettingsLink
+
+@enduml

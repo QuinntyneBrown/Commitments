@@ -1,0 +1,40 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Login - Domain & Request Model
+
+class User {
+    +UserId: Guid
+    +Username: String
+    +PasswordHash: Byte[]
+    +PasswordSalt: Byte[]
+}
+
+class Profile {
+    +ProfileId: Guid
+    +UserId: Guid
+    +DisplayName: String
+    +AvatarUrl: String
+    +CreatedOn: DateTime
+}
+
+class GetTokenByUsernameAndPasswordRequest {
+    +Username: String
+    +Password: String
+}
+class GetTokenByUsernameAndPasswordResponse {
+    +AccessToken: String
+}
+class GetCurrentProfileRequest {
+}
+class GetCurrentProfileResponse {
+    +Profile: ProfileDto
+}
+
+User "1" -- "*" Profile : owns
+GetTokenByUsernameAndPasswordRequest ..> GetTokenByUsernameAndPasswordResponse
+GetCurrentProfileRequest ..> GetCurrentProfileResponse
+
+@enduml

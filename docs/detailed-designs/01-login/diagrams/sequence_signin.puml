@@ -1,0 +1,39 @@
+@startuml sequence_signin
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Sign-in (golden path)
+
+actor User
+participant "LoginPageComponent" as Page
+participant "AuthService" as Auth
+participant "ProfileService" as Prof
+participant "UserController" as UC
+participant "ProfileController" as PC
+participant "GetTokenHandler" as GT
+participant "GetCurrentProfile" as GP
+database "Identity DB" as DB
+
+User -> Page: Submit form
+Page -> Auth: tryToLogin(creds)
+Auth -> UC: POST /api/users/token
+UC -> GT: Send(request)
+GT -> DB: SELECT user by username
+DB --> GT: row + hash
+GT -> GT: Verify password hash
+GT --> UC: { accessToken }
+UC --> Auth: 200 OK
+Auth -> Auth: Persist accessToken
+Auth --> Page: token
+Page -> Prof: current()
+Prof -> PC: GET /api/profiles/current\n(Authorization: Bearer ...)
+PC -> GP: Send(request)
+GP -> DB: SELECT first Profile by userId
+DB --> GP: profile
+GP --> PC: { profile }
+PC --> Prof: 200 OK
+Prof -> Prof: Persist profileId
+Prof --> Page: profile
+Page -> User: Navigate to /
+
+@enduml

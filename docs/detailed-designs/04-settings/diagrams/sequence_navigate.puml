@@ -1,0 +1,23 @@
+@startuml sequence_navigate
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Open Settings then navigate to a catalog
+
+actor User
+participant "SettingsPage" as Page
+participant "Router" as R
+participant "AuthService" as Auth
+
+User -> Page: Click "Behaviours"
+Page -> R: navigate(['/behaviours'])
+R --> User: Render Behaviours page
+
+== Logout path ==
+User -> Page: Click "Logout"
+Page -> Auth: logout()
+Auth -> Auth: Clear accessToken + profileId
+Page -> R: navigate(['/login'])
+R --> User: Render LoginPage
+
+@enduml

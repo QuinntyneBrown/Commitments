@@ -1,0 +1,36 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+
+title Profiles - Domain & DTOs
+
+class Profile {
+    +ProfileId: Guid
+    +UserId: Guid
+    +DisplayName: String
+    +Username: String
+    +AvatarUrl: String
+    +CreatedOn: DateTime
+    +LastModifiedOn: DateTime
+    +IsDeleted: Boolean
+}
+
+class ProfileDto {
+    +profileId: Guid
+    +displayName: String
+    +avatarUrl: String
+}
+
+class CreateProfileRequest {
+    +Username: String
+    +Password: String
+    +ConfirmPassword: String
+}
+class CreateProfileResponse {
+    +ProfileId: Guid
+}
+
+Profile ..> ProfileDto : projects to
+CreateProfileRequest ..> CreateProfileResponse
+
+@enduml

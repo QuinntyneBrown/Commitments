@@ -1,0 +1,37 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+
+title Behaviours - Domain & DTO
+
+class Behaviour {
+    +BehaviourId: Guid
+    +ProfileId: Guid
+    +BehaviourTypeId: Guid
+    +Name: String
+    +Slug: String
+    +CreatedOn: DateTime
+    +IsDeleted: Boolean
+}
+
+class BehaviourType {
+    +BehaviourTypeId: Guid
+    +Name: String
+}
+
+class Commitment {
+    +CommitmentId: Guid
+    +BehaviourId: Guid
+}
+
+class BehaviourDto {
+    +behaviourId: Guid
+    +name: String
+    +slug: String
+    +behaviourType: BehaviourTypeDto
+}
+
+Behaviour "*" --> "1" BehaviourType
+Behaviour "1" -- "*" Commitment
+
+@enduml

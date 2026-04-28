@@ -1,0 +1,31 @@
+@startuml sequence_create
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Create Profile via FAB dialog
+
+actor User
+participant "ProfilesPage" as Page
+participant "CreateProfileDialog" as Dlg
+participant "ProfileService" as Svc
+participant "ProfileController" as Ctrl
+participant "CreateProfileHandler" as H
+database "Identity DB" as DB
+
+User -> Page: Click FAB (+)
+Page -> Dlg: open()
+User -> Dlg: Fill username/password and submit
+Dlg -> Svc: create(...)
+Svc -> Ctrl: POST /api/profile
+Ctrl -> H: Send(request)
+H -> H: Validate (FluentValidation)
+H -> DB: INSERT User + Profile
+DB --> H: ok
+H --> Ctrl: { profileId }
+Ctrl --> Svc: 200 OK
+Svc --> Dlg: profileId
+Dlg --> Page: close(profileId)
+Page -> Page: append row to profiles$
+Page --> User: Render new row
+
+@enduml

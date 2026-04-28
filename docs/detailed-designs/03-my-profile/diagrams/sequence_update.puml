@@ -1,0 +1,27 @@
+@startuml sequence_update
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Update display name
+
+actor User
+participant "MyProfilePage" as Page
+participant "ProfileService" as Svc
+participant "ProfileController" as Ctrl
+participant "UpdateDisplayName\nHandler" as H
+database "Identity DB" as DB
+
+User -> Page: Edit display name and Save
+Page -> Svc: updateDisplayName({ displayName })
+Svc -> Ctrl: POST /api/profile/display-name\n(Authorization, ProfileId)
+Ctrl -> H: Send(request)
+H -> H: GetProfileId() from header
+H -> DB: UPDATE Profile SET DisplayName WHERE ProfileId=...
+DB --> H: ok
+H --> Ctrl: { profileId }
+Ctrl --> Svc: 200 OK
+Svc --> Page: profileId
+Page -> Page: Update toolbar binding
+Page --> User: Snackbar "Profile updated"
+
+@enduml

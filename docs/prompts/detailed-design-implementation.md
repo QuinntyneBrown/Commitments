@@ -3,7 +3,7 @@
 
 Pull any changes from origin
 
-Find a detailed design in C:\projects\Commitments\docs\detailed-designs starting that is not implemented respecting the sequential order.
+Find a detailed design in C:\projects\Commitments\docs\detailed-designs that is not implemented respecting the sequential order.
 
 Mark the design as accepted.
 

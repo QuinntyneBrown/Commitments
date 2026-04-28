@@ -1,0 +1,35 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Profiles - Component Diagram
+
+Person(user, "Signed-in User", "Holds JWT")
+
+Container_Boundary(spa, "commitments-app") {
+    Component(page, "ProfilesPageComponent", "Angular standalone", "AG Grid + FAB")
+    Component(dialog, "CreateProfileDialog", "Angular dialog", "Reactive form")
+    Component(svc, "ProfileService", "Angular service", "REST client")
+}
+
+Container_Boundary(api, "Commitments.Api / Identity module") {
+    Component(ctrl, "ProfileController", "ASP.NET Core", "GET / POST / DELETE")
+    Component(getH, "GetProfilesHandler", "MediatR", "Scoped to userId (delta)")
+    Component(createH, "CreateProfileHandler", "MediatR", "Existing")
+    Component(deleteH, "DeleteProfileHandler", "MediatR", "Soft-delete")
+    ComponentDb(idDb, "Identity DB schema", "SQL Server", "Profiles, Users")
+}
+
+Rel(user, page, "Opens /profiles")
+Rel(page, svc, "get / remove")
+Rel(page, dialog, "FAB opens")
+Rel(dialog, svc, "create()")
+Rel(svc, ctrl, "JSON over HTTPS")
+Rel(ctrl, getH, "Send")
+Rel(ctrl, createH, "Send")
+Rel(ctrl, deleteH, "Send")
+Rel(getH, idDb, "SELECT WHERE UserId=...")
+Rel(createH, idDb, "INSERT")
+Rel(deleteH, idDb, "UPDATE IsDeleted")
+
+@enduml
