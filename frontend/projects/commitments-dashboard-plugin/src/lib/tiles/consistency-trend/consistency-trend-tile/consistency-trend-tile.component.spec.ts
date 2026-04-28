@@ -206,6 +206,16 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(ts).not.toMatch(/ngOnInit\(\)\s*:\s*void\s*\{[^}]*controller\.load/);
   });
 
+  it('migrates @ViewChild to signal-based viewChild() (bug-124)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend-tile.component.ts'),
+      'utf8'
+    );
+    expect(ts).not.toMatch(/@ViewChild\b/);
+    expect(ts).toMatch(/import\s*\{[^}]*\bviewChild\b[^}]*\}\s*from\s*'@angular\/core'/);
+    expect(ts).toMatch(/plotRef\s*=\s*viewChild\b/);
+  });
+
   it('formats x-axis labels with toLocaleDateString month/day (bug-046)', () => {
     const ts = readFileSync(
       join(__dirname, 'consistency-trend-tile.component.ts'),
