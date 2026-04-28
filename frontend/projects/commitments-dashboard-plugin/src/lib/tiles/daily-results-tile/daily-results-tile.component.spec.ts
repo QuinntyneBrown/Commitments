@@ -42,6 +42,17 @@ describe('DailyResultsTileComponent (CSS source)', () => {
     expect(block).toMatch(/border-radius\s*:\s*var\(\s*--cui-radius-full/);
     expect(block).not.toMatch(/border-radius\s*:\s*999px\b/);
   });
+
+  it('every var(--cui-*) reference includes a fallback hex (bug-096)', () => {
+    // Match `var(--cui-foo)` that is NOT followed by a comma — i.e.
+    // missing a fallback. Each design-system reference should be
+    // `var(--cui-foo, #...)` to stay consistent with cui-ui.
+    const offenders = scss
+      .split(/\r?\n/)
+      .map((line, i) => ({ n: i + 1, line }))
+      .filter(({ line }) => /var\(--cui-[a-z-]+\)/.test(line));
+    expect(offenders).toEqual([]);
+  });
 });
 
 describe('DailyResultsTileComponent (TS source)', () => {
