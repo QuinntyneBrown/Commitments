@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 import { Injectable, Signal, computed, signal } from '@angular/core';
-import { ChartDataset } from 'chart.js';
+import { ChartDataset, ScriptableContext } from 'chart.js';
 import { ACCENT_CHART, SURFACE_TILE } from '@commitments/ui';
 import { DashboardMode } from '@commitments/dashboard-framework';
 
@@ -46,7 +46,14 @@ export class ConsistencyTrendController {
       borderWidth: BORDER_WIDTH,
       tension: TENSION,
       fill: true,
-      backgroundColor: ACCENT_CHART + '33',
+      backgroundColor: (ctx: ScriptableContext<'line'>) => {
+        const area = ctx.chart?.chartArea;
+        if (!area) return ACCENT_CHART + '00';
+        const gradient = ctx.chart.ctx.createLinearGradient(0, area.top, 0, area.bottom);
+        gradient.addColorStop(0, ACCENT_CHART + '66');
+        gradient.addColorStop(1, ACCENT_CHART + '00');
+        return gradient;
+      },
       pointRadius: points.map((_, i) => (i === highlighted ? POINT_RADIUS_HIGHLIGHT : POINT_RADIUS_DEFAULT)),
       pointBorderColor: SURFACE_TILE,
       pointBackgroundColor: ACCENT_CHART
