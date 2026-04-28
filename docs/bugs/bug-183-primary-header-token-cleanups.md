@@ -1,10 +1,27 @@
 ---
 id: bug-183
 title: primary-header references undeclared --cui-header-padding and uses literal font shorthand
-status: Open
+status: Fixed
 ---
 
 # Bug 183 — primary-header SCSS cleanups
+
+**Status**: Fixed
+
+## Fix
+
+```scss
+- padding: 0 var(--cui-header-padding, 20px);
++ padding: 0 20px;
+
+- font: 500 28px/1.2 Inter, Roboto, Arial, sans-serif;
++ font-family: var(--cui-font-display, 'Inter');
++ font-weight: 500;
++ font-size: 28px;
++ line-height: 1.2;
+```
+
+383/383 workspace tests green.
 
 ## Description
 
