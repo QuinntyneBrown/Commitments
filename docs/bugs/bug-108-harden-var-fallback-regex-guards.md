@@ -1,12 +1,25 @@
 ---
 id: bug-108
 title: bug-096–106 regex guards use [a-z-]+ which misses tokens with digits like --cui-surface-3
-status: Open
+status: Fixed
 ---
 
 # Bug 108 — harden var() fallback regex guards
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Broadened the regex character class in all 11 bug-096–106
+guard specs from `[a-z-]+` to `[a-z0-9-]+`. Forward-only
+hardening — current SCSS files comply with both forms, so the
+suite stays green (304/304). The change prevents the same
+gap bug-107 ran into (where the narrower regex slipped past
+`var(--cui-surface-3)` in review-scrubber).
+
+This entry follows the bug-073 precedent: regression-coverage
+extension where the "tests fail before fix" pattern doesn't
+apply because no current code violates the broader form.
 
 ## Description
 
