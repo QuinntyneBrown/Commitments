@@ -1,12 +1,19 @@
 ---
 id: bug-093
 title: Chart x-axis tick padding uses Chart.js default (3px), design specifies a 6px gap between plot and labels
-status: Open
+status: Fixed
 ---
 
 # Bug 093 — chart x-axis tick padding
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added `padding: 6` to the X-axis ticks block. The date labels
+now sit 6px below the plot bottom — matching the design chart
+frame's `gap: 6` between `ltPlot` and `xLabRow` — instead of
+Chart.js's default 3px. 290/290 workspace tests green.
 
 ## Description
 
