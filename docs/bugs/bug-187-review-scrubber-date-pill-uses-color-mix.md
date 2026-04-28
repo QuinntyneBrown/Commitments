@@ -1,10 +1,22 @@
 ---
 id: bug-187
 title: review-scrubber date pill uses literal rgba instead of color-mix on --cui-primary
-status: Open
+status: Fixed
 ---
 
 # Bug 187 — review-scrubber date pill should use `color-mix()` on `--cui-primary`
+
+**Status**: Fixed
+
+## Fix
+
+```scss
+- background: rgba(159, 168, 218, 0.18);
++ background: color-mix(in srgb, var(--cui-primary, #9FA8DA) 18%, transparent);
+```
+
+Matches the `status-pill --review` token-aware convention.
+387/387 workspace tests green.
 
 ## Description
 
