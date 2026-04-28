@@ -1,12 +1,24 @@
 ---
 id: bug-060
 title: `buildVerticalGradient` helper in chart-js-line.adapter.ts is unused after bug-044's inlined gradient
-status: Open
+status: Fixed
 ---
 
 # Bug 060 — Remove dead `buildVerticalGradient` helper
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`buildVerticalGradient` and its 11-line definition removed from
+`chart-js-line.adapter.ts`. `Filler` import / `Chart.register`
+retention preserved — `fill: true` in the consistency-trend
+dataset still depends on it.
+
+Coverage:
+- New `chart-js-line.adapter.spec.ts` source-level spec asserts
+  the symbol no longer appears in the adapter file.
+- All 22 affected suites pass (145/145 — was 144/144 before).
 
 ## Description
 
