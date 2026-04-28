@@ -1,12 +1,23 @@
 ---
 id: bug-104
 title: icon-button.component.scss var() calls omit the design-system fallback hex
-status: Open
+status: Fixed
 ---
 
 # Bug 104 — icon-button var() fallback hex
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added `#FFFFFF` fallback to three `var(--cui-text-primary)`
+references in `icon-button.component.scss` (hover colour,
+focus-visible outline, pressed state). 301/301 workspace tests
+green.
+
+The cui-ui library is now fully consistent with the
+dashboard-plugin tiles (bug-096–102) and dashboard-grid
+(bug-103).
 
 ## Description
 
