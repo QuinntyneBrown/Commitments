@@ -120,6 +120,15 @@ describe('ConsistencyTrendController', () => {
     expect(ts).toMatch(/pointBorderWidth\s*:[\s\S]*?\b3\b/);
   });
 
+  it('renders the line with round cap and round join (bug-090)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend.controller.ts'),
+      'utf8'
+    );
+    expect(ts).toMatch(/borderCapStyle\s*:\s*'round'/);
+    expect(ts).toMatch(/borderJoinStyle\s*:\s*'round'/);
+  });
+
   describe('deltaPercentage / deltaCaption (bug-055)', () => {
     function loadWithLabel(label: string) {
       const trend = trendFixture({ deltaLabel: label });
