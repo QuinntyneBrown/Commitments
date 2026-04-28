@@ -83,10 +83,6 @@ export class ConsistencyTrendController {
     this._fetch();
   }
 
-  refresh(): void {
-    if (this._goalId) this._fetch();
-  }
-
   private _fetch(): void {
     if (!this._goalId) return;
     if (this._goalId === 'demo-goal') {
