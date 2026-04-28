@@ -18,7 +18,7 @@ Conventions used by every design document:
 | 05 | [Behaviour Types](05-behaviour-types/README.md) | Implemented | Wire route + ATDD on existing CRUD; add referential-integrity check (L2-006) |
 | 06 | [Behaviours](06-behaviours/README.md) | Implemented | Wire route + ATDD; reject delete when referenced by commitment (L2-005) |
 | 07 | [Frequencies](07-frequencies/README.md) | Implemented | Wire route + ATDD; render `IsDesirable` warn chip (L2-007) |
-| 08 | [Edit Frequency](08-edit-frequency/README.md) | Accepted | Promote dialog to dedicated route for deep-link from frequency editor (L2-007) |
+| 08 | [Edit Frequency](08-edit-frequency/README.md) | Implemented | Promote dialog to dedicated route for deep-link from frequency editor (L2-007) |
 | 09 | [Commitments](09-commitments/README.md) | Draft | Wire route + 5-row pagination + ATDD on composition dialog (L2-009..L2-011) |
 | 10 | [Activities](10-activities/README.md) | Draft | Wire route + ATDD on Add Activity dialog with `PerformedOn` defaulting to now (L2-012) |
 | 11 | [To-Dos](11-to-dos/README.md) | Draft | Add full CRUD module — currently only outstanding-count exists (L2-016) |

@@ -1,6 +1,6 @@
 # Edit Frequency — Detailed Design
 
-**Status:** Accepted
+**Status:** Implemented
 
 **Traces to:** L1-004 · L2-007
 
@@ -48,8 +48,14 @@ None added. Reuses the routes from design `07-frequencies`.
 
 ## 8. ATDD Slices
 
-1. **Slice A — wrap dialog form on a route.** Spec: `/edit-frequency/<id>` loads the form pre-populated; saving navigates to `/frequencies`.
-2. **Slice B — `?returnTo=` query param.** Spec: navigating from `/commitments?edit=...` includes `returnTo=/commitments`; on save the user lands back at `/commitments`.
+1. **Slice A — wrap dialog form on a route.** Spec: `/edit-frequency/<id>` loads the form pre-populated; saving navigates to `/frequencies`. **Status: Implemented.**
+2. **Slice B — `?returnTo=` query param.** Spec: navigating from `/commitments?edit=...` includes `returnTo=/commitments`; on save the user lands back at `/commitments`. **Status: Implemented.**
+
+## 10. Implementation Notes
+
+- Per the Open Question in §9, the page **shares the form via the existing `EditFrequencyDialogService`** rather than duplicating it — so there is exactly one form implementation, mounted as an overlay on init. The component file is now ~25 lines.
+- Two route entries (`/edit-frequency` and `/edit-frequency/:frequencyId`) are used because Angular doesn't support optional route params natively; this is the radically simple shape.
+- A previous version of the page imported a non-existent `edit-frequency-overlay` component and so never compiled. The rewrite drops that broken import.
 
 ## 9. Open Questions
 
