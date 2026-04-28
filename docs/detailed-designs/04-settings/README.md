@@ -1,5 +1,7 @@
 # Settings — Detailed Design
 
+**Status:** Accepted
+
 **Traces to:** L1-013, L1-014, L1-035 · L2-035, L2-037
 
 ## 1. Overview
