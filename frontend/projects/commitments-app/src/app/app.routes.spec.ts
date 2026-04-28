@@ -292,4 +292,15 @@ describe('app.routes', () => {
     );
     expect(src).not.toMatch(/\blistTiles\s*\(/);
   });
+
+  it('DashboardLayoutStore drops dead per-mode liveLayout/reviewLayout signals (bug-155)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const src = readFileSync(
+      join(__dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'dashboard', 'dashboard-layout.store.ts'),
+      'utf8'
+    );
+    expect(src).not.toMatch(/\bliveLayout\b/);
+    expect(src).not.toMatch(/\breviewLayout\b/);
+  });
 });
