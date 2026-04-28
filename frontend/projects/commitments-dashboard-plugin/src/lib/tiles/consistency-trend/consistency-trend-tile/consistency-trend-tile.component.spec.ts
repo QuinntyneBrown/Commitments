@@ -84,6 +84,16 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(ts).toMatch(/y\s*:\s*\{[\s\S]*?maxTicksLimit\s*:\s*5\b/);
   });
 
+  it('pads x-axis tick labels 6px below the plot (bug-093)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend-tile.component.ts'),
+      'utf8'
+    );
+    // The X axis ticks block must set `padding: 6` to match the
+    // design's chart-frame gap of 6 between plot and labels.
+    expect(ts).toMatch(/x\s*:\s*\{[\s\S]*?ticks\s*:\s*\{[\s\S]*?padding\s*:\s*6\b/);
+  });
+
   it('formats x-axis labels with toLocaleDateString month/day (bug-046)', () => {
     const ts = readFileSync(
       join(__dirname, 'consistency-trend-tile.component.ts'),
