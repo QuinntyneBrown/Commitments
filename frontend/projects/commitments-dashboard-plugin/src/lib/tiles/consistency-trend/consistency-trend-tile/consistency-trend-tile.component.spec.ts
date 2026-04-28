@@ -74,6 +74,16 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(ts).not.toMatch(/grid\s*:\s*\{[^}]*color\s*:\s*'#3A3A3A'/i);
   });
 
+  it('caps the Y-axis at 5 grid lines to match the design (bug-091)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend-tile.component.ts'),
+      'utf8'
+    );
+    // The Y axis block must include `maxTicksLimit: 5` since labels
+    // are hidden — the tick count drives the grid line count.
+    expect(ts).toMatch(/y\s*:\s*\{[\s\S]*?maxTicksLimit\s*:\s*5\b/);
+  });
+
   it('formats x-axis labels with toLocaleDateString month/day (bug-046)', () => {
     const ts = readFileSync(
       join(__dirname, 'consistency-trend-tile.component.ts'),
