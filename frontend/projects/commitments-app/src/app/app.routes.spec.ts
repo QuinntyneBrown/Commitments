@@ -474,4 +474,19 @@ describe('app.routes', () => {
     );
     expect(existsSync(file)).toBe(false);
   });
+
+  it('DeltaTone type aliases are file-local — no exported (bug-170)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const todos = readFileSync(
+      join(__dirname, '..', '..', '..', 'commitments-dashboard-plugin', 'src', 'lib', 'tiles', 'outstanding-todos-tile', 'outstanding-todos.controller.ts'),
+      'utf8'
+    );
+    const goal = readFileSync(
+      join(__dirname, '..', '..', '..', 'commitments-dashboard-plugin', 'src', 'lib', 'tiles', 'goal-metrics-tile', 'goal-metrics.controller.ts'),
+      'utf8'
+    );
+    expect(todos).not.toMatch(/^export type DeltaTone\b/m);
+    expect(goal).not.toMatch(/^export type DeltaTone\b/m);
+  });
 });
