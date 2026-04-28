@@ -17,10 +17,6 @@ class FakeTileRegistry {
     return this._tiles().find(t => t.tileId === tileId);
   }
 
-  listTiles(): TileDescriptor[] {
-    return this._tiles();
-  }
-
   tilesForMode(mode: 'live' | 'review'): TileDescriptor[] {
     return this._tiles().filter(t => !t.supportedModes || t.supportedModes.includes(mode));
   }
