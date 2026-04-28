@@ -154,4 +154,14 @@ describe('ConsistencyTrendController', () => {
       expect(loadWithLabel('+12% vs prior 14d').deltaCaption()).toBe('vs prior 14d');
     });
   });
+
+  describe('public surface (post bug-142)', () => {
+    it('does not expose a refresh() method (bug-144)', () => {
+      const ts = readFileSync(
+        join(__dirname, 'consistency-trend.controller.ts'),
+        'utf8'
+      );
+      expect(ts).not.toMatch(/^\s*refresh\s*\(\s*\)\s*:/m);
+    });
+  });
 });
