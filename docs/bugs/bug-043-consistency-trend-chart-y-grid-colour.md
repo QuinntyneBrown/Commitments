@@ -1,12 +1,27 @@
 ---
 id: bug-043
 title: Consistency Trend chart Y-axis grid lines render `#3A3A3A` (warm gray); design uses muted white at ~7% alpha
-status: Open
+status: Fixed
 ---
 
 # Bug 043 — Consistency Trend chart grid colour mismatch
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`consistency-trend-tile.component.ts` — Chart.js y-axis grid
+colour: `'#3A3A3A'` → `'rgba(255, 255, 255, 0.07)'`.
+
+The 7% white flat alpha is the radically simple match for the .pen
+ltPlot frame's per-line opacities (5–10% across 5 rows). A custom
+Chart.js plugin to vary per-line opacity is technically possible
+but disproportionate to the visual improvement.
+
+Coverage:
+- New TS-source spec asserts the Y-axis grid colour uses an
+  `rgba(255, 255, 255, …)` value and is not `#3A3A3A`.
+- All 20 affected suites pass (111/111 — was 110/110 before).
 
 ## Description
 
