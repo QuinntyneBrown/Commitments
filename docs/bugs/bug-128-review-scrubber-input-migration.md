@@ -1,12 +1,33 @@
 ---
 id: bug-128
 title: review-scrubber uses legacy @Input + ngOnInit to forward windowDays
-status: Open
+status: Fixed
 ---
 
 # Bug 128 — review-scrubber input migration
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Migrated the last `@Input` decorator in the Angular libraries:
+
+```ts
+readonly windowDays = input<number | undefined>(undefined);
+// in constructor:
+effect(() => {
+  const w = this.windowDays();
+  if (w !== undefined) this.controller.windowDays.set(w);
+});
+```
+
+`OnInit` interface and `ngOnInit` removed.
+
+After this commit, `commitments-ui`,
+`commitments-dashboard-plugin`, and `dashboard-framework` are
+completely decorator-free for inputs/queries/outputs (closing
+the bug-071/072/123/124/125/126/127/128 chain).
+325/325 workspace tests green.
 
 ## Description
 
