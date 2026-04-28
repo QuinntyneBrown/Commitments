@@ -1,5 +1,5 @@
 :host {
-  --cui-tile-icon-color: var(--cui-warning);
+  --cui-tile-icon-color: var(--cui-warning, #FFA726);
 }
 
 .todo-body {
@@ -11,7 +11,7 @@
 
 .todo-count {
   flex: 0 0 auto;
-  color: var(--cui-warning);
+  color: var(--cui-warning, #FFA726);
   font-size: 58px;
   font-weight: 700;
   line-height: 1;
@@ -20,7 +20,7 @@
 .todo-copy {
   flex: 1 1 auto;
   margin: 0;
-  color: var(--cui-text-secondary);
+  color: var(--cui-text-secondary, #B0B0B0);
   font-size: 12px;
   line-height: 1.4;
   display: -webkit-box;
@@ -31,15 +31,15 @@
 
 .todo-delta {
   margin: 10px 0 0;
-  color: var(--cui-text-secondary);
+  color: var(--cui-text-secondary, #B0B0B0);
   font-size: 13px;
   font-weight: 600;
 }
 
 .todo-delta--success {
-  color: var(--cui-success);
+  color: var(--cui-success, #66BB6A);
 }
 
 .todo-delta--warn {
-  color: var(--cui-warning);
+  color: var(--cui-warning, #FFA726);
 }
