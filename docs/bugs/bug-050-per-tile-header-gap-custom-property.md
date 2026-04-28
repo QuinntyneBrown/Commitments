@@ -1,12 +1,35 @@
 ---
 id: bug-050
 title: Tile-shell title-row hard-codes 8px gap; consistency-trend design specifies 10px (matching its larger icon/title scale)
-status: Open
+status: Fixed
 ---
 
 # Bug 050 — Tile-shell title-row gap is fixed at 8px instead of per-tile-design
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`tile-shell.component.scss`:
+- `.tile-shell__title-row { gap: var(--cui-tile-header-gap, 8px); }`
+
+`consistency-trend-tile.component.scss`:
+- `:host` adds `--cui-tile-header-gap: 10px`.
+
+Other five tiles inherit the 8px default.
+
+Tile-shell now exposes four per-tile customization slots:
+- `--cui-tile-body-gap` (bug-041)
+- `--cui-tile-header-gap` (bug-050)
+- `--cui-tile-icon-color` (bug-048)
+- `--cui-tile-icon-size` (bug-049)
+
+Coverage:
+- `tile-shell.component.spec.ts` asserts `.tile-shell__title-row`
+  consumes `var(--cui-tile-header-gap)`.
+- `consistency-trend-tile.component.spec.ts` asserts `:host`
+  declares `--cui-tile-header-gap: 10px`.
+- All 20 affected suites pass (123/123 — was 121/121 before).
 
 ## Description
 
