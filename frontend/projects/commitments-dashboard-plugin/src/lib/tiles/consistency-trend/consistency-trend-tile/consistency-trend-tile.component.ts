@@ -111,6 +111,7 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
               font: (ctx) => ({ weight: ctx.index === controller.highlightedIndex() ? 700 : 400 }),
               autoSkip: true,
               maxTicksLimit: 6,
+              padding: 6,
               callback(value) {
                 const label = this.getLabelForValue(value as number);
                 const date = new Date(label + 'T00:00:00');
