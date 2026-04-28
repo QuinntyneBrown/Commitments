@@ -43,5 +43,10 @@ describe('MetricHeaderComponent', () => {
       expect(block).toMatch(/display\s*:\s*flex\b/);
       expect(block).toMatch(/align-items\s*:\s*flex-end\b/);
     });
+
+    it('lifts the captions column 8px to align with the value baseline (bug-051)', () => {
+      const block = ruleBlock('\\.metric-header__captions');
+      expect(block).toMatch(/padding-bottom\s*:\s*8px\b/);
+    });
   });
 });
