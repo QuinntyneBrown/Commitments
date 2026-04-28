@@ -1,10 +1,19 @@
 ---
 id: bug-172
 title: dashboard-shell SCSS uses literal `font-family: Inter` instead of --cui-font-display token
-status: Open
+status: Fixed
 ---
 
 # Bug 172 — dashboard-shell font-family should reference `--cui-font-display`
+
+**Status**: Fixed
+
+## Fix
+
+Four `font-family: Inter, ...` declarations replaced with
+`var(--cui-font-display, 'Inter')`. Matches the convention
+used by the commitments-ui components. 372/372 workspace
+tests green.
 
 ## Description
 
