@@ -39,7 +39,7 @@ test.describe('dashboard shell', () => {
     expect(await dashboard.relationsValueColor()).toBe('rgb(255, 255, 255)');
   });
 
-  test('Outstanding To‑Dos tile description uses the dark-theme secondary text token', async () => {
+  test('Outstanding Todos tile description uses the dark-theme secondary text token', async () => {
     expect(await dashboard.outstandingTodosCopyColor()).toBe('rgb(176, 176, 176)');
   });
 
@@ -51,7 +51,7 @@ test.describe('dashboard shell', () => {
     expect(await dashboard.progressTrackBackground()).toBe('rgb(58, 58, 58)');
   });
 
-  test('Outstanding To‑Dos count metric uses the on-palette warning amber', async () => {
+  test('Outstanding Todos count metric uses the on-palette warning amber', async () => {
     expect(await dashboard.outstandingTodosCountColor()).toBe('rgb(255, 167, 38)');
   });
 
@@ -103,7 +103,7 @@ test.describe('dashboard shell', () => {
     await expect(legend).toContainText(/reviewing/i);
   });
 
-  test('Outstanding To-Dos copy uses 2-line clamp ellipsis (no mid-word clip)', async () => {
+  test('Outstanding Todos copy uses 2-line clamp ellipsis (no mid-word clip)', async () => {
     expect(await dashboard.outstandingTodosCopyLineClamp()).toBe('2');
   });
 
@@ -120,7 +120,7 @@ test.describe('dashboard shell', () => {
       'Daily Results',
       'Weekly Focus',
       'Monthly Progress',
-      'Outstanding To‑Dos',
+      'Outstanding Todos',
       'Relations',
       'Consistency Trend',
       'Live Goal Metrics',
