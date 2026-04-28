@@ -1,0 +1,36 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+
+title Frequencies - Domain & DTO
+
+class FrequencyType {
+    +FrequencyTypeId: Guid
+    +Name: String
+}
+
+class Frequency {
+    +FrequencyId: Guid
+    +ProfileId: Guid
+    +FrequencyTypeId: Guid
+    +Name: String
+    +IsDesirable: Boolean
+}
+
+class CommitmentFrequency {
+    +CommitmentFrequencyId: Guid
+    +CommitmentId: Guid
+    +FrequencyId: Guid
+}
+
+class FrequencyDto {
+    +frequencyId: Guid
+    +name: String
+    +isDesirable: Boolean
+    +frequencyType: FrequencyTypeDto
+}
+
+FrequencyType "1" -- "*" Frequency
+Frequency "1" -- "*" CommitmentFrequency
+
+@enduml

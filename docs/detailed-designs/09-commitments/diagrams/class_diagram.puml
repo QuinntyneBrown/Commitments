@@ -1,0 +1,42 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+
+title Commitments - Domain & DTO
+
+class Commitment {
+    +CommitmentId: Guid
+    +ProfileId: Guid
+    +BehaviourId: Guid
+    +CreatedOn: DateTime
+    +IsDeleted: Boolean
+}
+
+class CommitmentFrequency {
+    +CommitmentFrequencyId: Guid
+    +CommitmentId: Guid
+    +FrequencyId: Guid
+}
+
+class CommitmentPreCondition {
+    +CommitmentPreConditionId: Guid
+    +CommitmentId: Guid
+    +Name: String
+}
+
+class Behaviour {
+    +BehaviourId: Guid
+    +Name: String
+}
+
+class Frequency {
+    +FrequencyId: Guid
+    +Name: String
+}
+
+Commitment "*" --> "1" Behaviour
+Commitment "1" -- "*" CommitmentFrequency
+Commitment "1" -- "*" CommitmentPreCondition
+CommitmentFrequency "*" --> "1" Frequency
+
+@enduml

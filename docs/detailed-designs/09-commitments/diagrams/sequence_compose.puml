@@ -1,0 +1,35 @@
+@startuml sequence_compose
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Compose a new commitment
+
+actor User
+participant "CommitmentsPage" as Page
+participant "EditCommitmentDialog" as Dlg
+participant "CommitmentService" as Svc
+participant "CommitmentController" as Ctrl
+participant "SaveCommitmentHandler" as H
+database "Commitments DB" as DB
+
+User -> Page: Click FAB (+)
+Page -> Dlg: open()
+User -> Dlg: Pick behaviour + frequency + preconds, Save
+Dlg -> Svc: save({ commitment })
+Svc -> Ctrl: POST /commitment
+Ctrl -> H: Send(request)
+H -> H: Validate (FV, RuleForEach preCond.Name NotEmpty)
+H -> DB: BEGIN
+H -> DB: UPSERT Commitment
+H -> DB: DELETE existing CommitmentFrequencies, CommitmentPreConditions
+H -> DB: INSERT new link rows
+H -> DB: COMMIT
+DB --> H: ok
+H --> Ctrl: { commitmentId }
+Ctrl --> Svc: 200
+Svc --> Dlg: id
+Dlg --> Page: close(dto)
+Page -> Page: addOrUpdate(row)
+Page --> User: Render row in pagination
+
+@enduml

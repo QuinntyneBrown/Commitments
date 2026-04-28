@@ -1,0 +1,21 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+
+title Edit Frequency - Component Composition
+
+class EditFrequencyDialog
+class EditFrequencyPageComponent {
+    +frequencyId: Signal<Guid?>
+    +returnTo: Signal<String?>
+    +onSaved(): void
+}
+class FrequencyFormComponent {
+    +frequency: InputSignal<Frequency>
+    +saved: OutputEmitter<Frequency>
+}
+
+EditFrequencyDialog ..> FrequencyFormComponent : hosts
+EditFrequencyPageComponent ..> FrequencyFormComponent : hosts
+
+@enduml

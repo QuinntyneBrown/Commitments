@@ -1,0 +1,27 @@
+@startuml sequence_deeplink
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Deep-link to edit a frequency
+
+actor User
+participant "Browser" as B
+participant "EditFrequencyPage" as Page
+participant "FrequencyService" as Svc
+participant "FrequencyController" as Ctrl
+
+User -> B: Navigate /edit-frequency/<id>?returnTo=/commitments
+B -> Page: ngOnInit
+Page -> Svc: getById({ frequencyId })
+Svc -> Ctrl: GET /frequency/{id}
+Ctrl --> Svc: 200 { frequency }
+Svc --> Page: frequency
+Page --> User: Render pre-populated form
+User -> Page: Edit + Save
+Page -> Svc: save({ frequency })
+Svc -> Ctrl: POST /frequency
+Ctrl --> Svc: 200
+Svc --> Page: ok
+Page -> B: navigate(returnTo or /frequencies)
+
+@enduml

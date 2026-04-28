@@ -1,0 +1,28 @@
+@startuml sequence_toggle
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Toggle IsDesirable on edit
+
+actor User
+participant "FrequenciesPage" as Page
+participant "EditFrequencyDialog" as Dlg
+participant "FrequencyService" as Svc
+participant "FrequencyController" as Ctrl
+participant "SaveFrequencyHandler" as H
+database "Commitments DB" as DB
+
+User -> Dlg: Toggle desirable, Save
+Dlg -> Svc: save({ frequency })
+Svc -> Ctrl: POST /frequency
+Ctrl -> H: Send(request)
+H -> DB: UPDATE Frequency SET IsDesirable
+DB --> H: ok
+H --> Ctrl: { frequencyId }
+Ctrl --> Svc: 200
+Svc --> Dlg: id
+Dlg --> Page: close(updatedDto)
+Page -> Page: Re-render row, swap chip class
+Page --> User: Warn-coloured chip when IsDesirable=false
+
+@enduml

@@ -1,0 +1,31 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+
+title Activities - Domain & DTO
+
+class Activity {
+    +ActivityId: Guid
+    +ProfileId: Guid
+    +BehaviourId: Guid
+    +PerformedOn: DateTime
+    +Description: String
+    +CreatedOn: DateTime
+    +IsDeleted: Boolean
+}
+
+class Behaviour {
+    +BehaviourId: Guid
+    +Name: String
+}
+
+class ActivityDto {
+    +activityId: Guid
+    +behaviour: BehaviourDto
+    +performedOn: DateTime
+    +description: String
+}
+
+Activity "*" --> "1" Behaviour
+
+@enduml

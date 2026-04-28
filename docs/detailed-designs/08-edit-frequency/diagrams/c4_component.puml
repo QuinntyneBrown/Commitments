@@ -1,0 +1,26 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Edit Frequency - Component Diagram
+
+Person(user, "Signed-in User")
+
+Container_Boundary(spa, "commitments-app") {
+    Component(page, "EditFrequencyPageComponent", "Angular standalone", "Route /edit-frequency/:id?")
+    Component(form, "FrequencyFormComponent", "Angular component", "Shared form (dialog + page)")
+    Component(svc, "FrequencyService", "Angular service", "REST")
+    Component(typeSvc, "FrequencyTypeService", "Angular service", "Loads type dropdown")
+}
+
+Container_Boundary(api, "Commitments.Api / Commitments module") {
+    Component(ctrl, "FrequencyController", "ASP.NET Core", "GET id / POST")
+}
+
+Rel(user, page, "Deep-links /edit-frequency/<id>")
+Rel(page, form, "Hosts shared form")
+Rel(form, svc, "getById / save")
+Rel(form, typeSvc, "Load types")
+Rel(svc, ctrl, "JSON over HTTPS")
+
+@enduml

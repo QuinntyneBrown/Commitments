@@ -41,10 +41,16 @@ public static class MockCommitmentsDbContextFactory
 public static class MockIdentityDbContextFactory
 {
     public static Mock<IIdentityDbContext> Create()
+        => Create(new List<User>(), new List<Profile>());
+
+    public static Mock<IIdentityDbContext> Create(List<User> users)
+        => Create(users, new List<Profile>());
+
+    public static Mock<IIdentityDbContext> Create(List<User> users, List<Profile> profiles)
     {
         var mockContext = new Mock<IIdentityDbContext>();
-        mockContext.Setup(c => c.Users).Returns(MockDbSetFactory.CreateMockDbSet<User>().Object);
-        mockContext.Setup(c => c.Profiles).Returns(MockDbSetFactory.CreateMockDbSet<Profile>().Object);
+        mockContext.Setup(c => c.Users).Returns(MockDbSetFactory.CreateMockDbSet(users).Object);
+        mockContext.Setup(c => c.Profiles).Returns(MockDbSetFactory.CreateMockDbSet(profiles).Object);
         mockContext.Setup(c => c.SaveChangesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(1);
         return mockContext;
     }

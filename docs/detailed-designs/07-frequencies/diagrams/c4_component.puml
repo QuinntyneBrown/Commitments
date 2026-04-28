@@ -1,0 +1,38 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Frequencies - Component Diagram
+
+Person(user, "Signed-in User")
+
+Container_Boundary(spa, "commitments-app") {
+    Component(page, "FrequenciesPage", "Angular standalone", "Grid + chip render")
+    Component(dlg, "EditFrequencyDialog", "Angular dialog", "Form")
+    Component(svc, "FrequencyService", "Angular service", "REST")
+    Component(typeSvc, "FrequencyTypeService", "Angular service", "Loads type dropdown")
+}
+
+Container_Boundary(api, "Commitments.Api / Commitments module") {
+    Component(fctrl, "FrequencyController", "ASP.NET Core", "GET / POST / DELETE")
+    Component(ftctrl, "FrequencyTypeController", "ASP.NET Core", "GET / POST / DELETE")
+    Component(fSave, "SaveFrequencyHandler", "MediatR + FV", "Upsert")
+    Component(fRem, "RemoveFrequencyHandler", "MediatR", "Refint guard (delta)")
+    Component(ftRem, "RemoveFrequencyTypeHandler", "MediatR", "Refint guard (delta)")
+    ComponentDb(db, "Commitments DB", "SQL Server", "Frequencies, FrequencyTypes, CommitmentFrequencies")
+}
+
+Rel(user, page, "Opens /frequencies")
+Rel(page, svc, "get / save / remove")
+Rel(page, dlg, "FAB / edit")
+Rel(dlg, typeSvc, "Load type dropdown")
+Rel(svc, fctrl, "JSON over HTTPS")
+Rel(typeSvc, ftctrl, "JSON over HTTPS")
+Rel(fctrl, fSave, "Send")
+Rel(fctrl, fRem, "Send")
+Rel(ftctrl, ftRem, "Send")
+Rel(fSave, db, "INSERT/UPDATE")
+Rel(fRem, db, "Refint check, UPDATE IsDeleted")
+Rel(ftRem, db, "Refint check, UPDATE IsDeleted")
+
+@enduml

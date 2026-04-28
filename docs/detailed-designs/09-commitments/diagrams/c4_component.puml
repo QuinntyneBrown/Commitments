@@ -1,0 +1,39 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Commitments - Component Diagram
+
+Person(user, "Signed-in User")
+
+Container_Boundary(spa, "commitments-app") {
+    Component(page, "CommitmentsPage", "Angular standalone", "AG Grid + pagination(5)")
+    Component(dlg, "EditCommitmentDialog", "Angular dialog", "Behaviour + frequency + preconds")
+    Component(svc, "CommitmentService", "Angular service", "REST")
+    Component(behSvc, "BehaviourService", "Angular service", "Loads behaviour dropdown")
+    Component(freqEditor, "frequencies-editor", "Angular component", "Reused inside dialog")
+}
+
+Container_Boundary(api, "Commitments.Api / Commitments module") {
+    Component(ctrl, "CommitmentController", "ASP.NET Core", "GET / POST / DELETE")
+    Component(saveH, "SaveCommitmentHandler", "MediatR + FV", "Refresh links")
+    Component(remH, "RemoveCommitmentHandler", "MediatR", "Soft delete (verify)")
+    Component(getH, "GetPersonalCommitmentsHandler", "MediatR", "Active profile only")
+    ComponentDb(db, "Commitments DB", "SQL Server", "Commitments + CommitmentFrequencies + CommitmentPreConditions")
+}
+
+Rel(user, page, "Opens /commitments")
+Rel(page, svc, "getPersonal / save / remove")
+Rel(page, dlg, "FAB / edit cell")
+Rel(dlg, freqEditor, "Hosts")
+Rel(dlg, behSvc, "Load behaviour dropdown")
+Rel(dlg, svc, "save()")
+Rel(svc, ctrl, "JSON over HTTPS")
+Rel(ctrl, saveH, "Send")
+Rel(ctrl, remH, "Send")
+Rel(ctrl, getH, "Send")
+Rel(saveH, db, "Upsert + replace links")
+Rel(remH, db, "UPDATE IsDeleted = true")
+Rel(getH, db, "SELECT WHERE ProfileId = active")
+
+@enduml

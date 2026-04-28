@@ -1,0 +1,34 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Activities - Component Diagram
+
+Person(user, "Signed-in User")
+
+Container_Boundary(spa, "commitments-app") {
+    Component(page, "ActivitiesPage", "Angular standalone", "AG Grid + FAB")
+    Component(dlg, "EditActivityDialog", "Angular dialog", "PerformedOn defaults now")
+    Component(svc, "ActivityService", "Angular service", "REST")
+    Component(behSvc, "BehaviourService", "Angular service", "Loads behaviour dropdown")
+}
+
+Container_Boundary(api, "Commitments.Api / Commitments module") {
+    Component(ctrl, "ActivityController", "ASP.NET Core", "GET / POST / DELETE")
+    Component(saveH, "SaveActivityHandler", "MediatR + FV", "BehaviourId NotEmpty")
+    Component(getH, "GetActivitiesHandler", "MediatR", "Sort PerformedOn desc")
+    ComponentDb(db, "Commitments DB", "SQL Server", "Activities")
+}
+
+Rel(user, page, "Opens /activities")
+Rel(page, svc, "get / save / remove")
+Rel(page, dlg, "FAB / edit")
+Rel(dlg, behSvc, "Load dropdown")
+Rel(dlg, svc, "save()")
+Rel(svc, ctrl, "JSON over HTTPS")
+Rel(ctrl, saveH, "Send")
+Rel(ctrl, getH, "Send")
+Rel(saveH, db, "INSERT")
+Rel(getH, db, "SELECT ORDER BY PerformedOn DESC")
+
+@enduml
