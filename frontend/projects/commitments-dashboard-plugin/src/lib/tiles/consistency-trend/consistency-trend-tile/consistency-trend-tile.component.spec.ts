@@ -136,6 +136,18 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(ts).toMatch(/todayPointGlow\s*:\s*Plugin<'line'>/);
   });
 
+  it('todayPointGlow uses named constants for radius + blur (bug-116)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend-tile.component.ts'),
+      'utf8'
+    );
+    expect(ts).toMatch(/TODAY_GLOW_RADIUS\s*=\s*7\b/);
+    expect(ts).toMatch(/TODAY_GLOW_BLUR\s*=\s*8\b/);
+    // Plugin body must reference the constants, not literal 7/8.
+    expect(ts).toMatch(/shadowBlur\s*=\s*TODAY_GLOW_BLUR/);
+    expect(ts).toMatch(/ctx\.arc\([^)]*TODAY_GLOW_RADIUS/);
+  });
+
   it('formats x-axis labels with toLocaleDateString month/day (bug-046)', () => {
     const ts = readFileSync(
       join(__dirname, 'consistency-trend-tile.component.ts'),
