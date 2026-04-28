@@ -1,3 +1,6 @@
+$bar-top: #8bb8e8;    // gradient start (top of bar) — design lighter blue
+$bar-bottom: #2f6db3; // gradient end (bottom of bar) — design deeper blue
+
 :host {
   --cui-tile-body-gap: 12px;
   --cui-tile-icon-color: var(--cui-info, #42A5F5);
@@ -17,7 +20,7 @@
   display: block;
   min-height: 18px;
   border-radius: 4px 4px 0 0;
-  background: linear-gradient(180deg, #8bb8e8, #2f6db3);
+  background: linear-gradient(180deg, $bar-top, $bar-bottom);
 }
 
 .bar-labels {
