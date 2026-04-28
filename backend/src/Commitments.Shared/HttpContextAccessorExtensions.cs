@@ -19,4 +19,10 @@ public static class HttpContextAccessorExtensions
         var raw = context.Request.Headers["ProfileId"].FirstOrDefault();
         return Guid.TryParse(raw, out profileId) && profileId != Guid.Empty;
     }
+
+    public static Guid GetUserId(this IHttpContextAccessor httpContextAccessor)
+    {
+        var sub = httpContextAccessor.HttpContext!.User.FindFirst("sub")?.Value;
+        return new Guid(sub ?? string.Empty);
+    }
 }
