@@ -1,5 +1,4 @@
 import { effect } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { DashboardMode, TileContext } from './tile.model';
 
@@ -16,8 +15,5 @@ export function bindTileMode(opts: BindTileModeOptions): void {
     return;
   }
 
-  const reload = () => load(context.mode(), context.selectedReviewDate());
-
-  effect(reload);
-  context.refresh$.pipe(takeUntilDestroyed()).subscribe(reload);
+  effect(() => load(context.mode(), context.selectedReviewDate()));
 }

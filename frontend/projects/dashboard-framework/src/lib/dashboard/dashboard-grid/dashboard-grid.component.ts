@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { NgComponentOutlet } from '@angular/common';
 import { Gridster, GridsterItem as GridsterItemComponent, type GridsterItemConfig } from 'angular-gridster2';
-import { Subject } from 'rxjs';
 import { DashboardItem } from '../dashboard.model';
 import { DashboardLayoutStore } from '../dashboard-layout.store';
 import { DashboardModeService } from '../dashboard-mode.service';
@@ -57,7 +56,6 @@ export class DashboardGridComponent {
     }
 
     const maximizedSignal = signal(item.maximized);
-    const refresh$ = new Subject<void>();
     const context: TileContext = {
       tileId: item.tileId,
       instanceId: item.instanceId,
@@ -65,8 +63,6 @@ export class DashboardGridComponent {
       isMaximized: maximizedSignal.asReadonly(),
       mode: this.modeService.mode,
       selectedReviewDate: this.modeService.selectedReviewDate,
-      refresh$: refresh$.asObservable(),
-      requestRefresh: () => refresh$.next(),
       remove: () => this.layoutStore.removeTile(item.instanceId),
       maximize: () => {
         maximizedSignal.set(true);

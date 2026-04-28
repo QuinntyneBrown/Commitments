@@ -1,12 +1,10 @@
 import { Component, runInInjectionContext, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Subject } from 'rxjs';
 
 import { bindTileMode, BindTileModeOptions } from './bind-tile-mode';
 import { DashboardMode, TileContext } from './tile.model';
 
 function makeContext(overrides?: Partial<TileContext>): TileContext {
-  const refresh$ = new Subject<void>();
   return {
     tileId: 't',
     instanceId: 'i',
@@ -14,8 +12,6 @@ function makeContext(overrides?: Partial<TileContext>): TileContext {
     isMaximized: signal(false).asReadonly(),
     mode: signal<DashboardMode>('live').asReadonly(),
     selectedReviewDate: signal<string | null>(null).asReadonly(),
-    refresh$: refresh$.asObservable(),
-    requestRefresh: () => refresh$.next(),
     remove: () => {},
     maximize: () => {},
     restore: () => {},
@@ -81,28 +77,16 @@ describe('bindTileMode', () => {
     expect(load).toHaveBeenCalledWith('live', '2026-04-15T18:30:00Z');
   });
 
-  it('calls load when refresh$ emits', () => {
-    const load = jest.fn();
-    const refresh$ = new Subject<void>();
-    mount({ context: makeContext({ refresh$: refresh$.asObservable() }), load });
-    load.mockClear();
-
-    refresh$.next();
-
-    expect(load).toHaveBeenCalledWith('live', null);
-  });
-
   it('stops calling load after the host is destroyed', () => {
     const load = jest.fn();
-    const refresh$ = new Subject<void>();
-    const fixture = mount({
-      context: makeContext({ refresh$: refresh$.asObservable() }),
-      load
-    });
+    const mode = signal<DashboardMode>('live');
+    const fixture = mount({ context: makeContext({ mode: mode.asReadonly() }), load });
     fixture.destroy();
     load.mockClear();
 
-    refresh$.next();
+    mode.set('review');
+    // No detectChanges — the host is destroyed; the effect should
+    // have been cleaned up by takeUntilDestroyed equivalent.
 
     expect(load).not.toHaveBeenCalled();
   });
