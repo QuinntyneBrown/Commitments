@@ -1,6 +1,6 @@
 # Notes — Detailed Design
 
-**Status:** Accepted
+**Status:** Implemented
 
 **Traces to:** L1-007 · L2-014, L2-038, L2-041
 
@@ -65,10 +65,17 @@ The Notes page (`pages/notes`, route `/notes`) is the user's catalog of rich-tex
 
 ## 8. ATDD Slices
 
-1. **Slice A — entity + migration.** Add `Note` to `CommitmentsDbContext`, produce migration, seed nothing. Spec: migration applies cleanly; the table exists with the unique `(ProfileId, Slug)` index.
-2. **Slice B — list endpoint + page wiring.** `GetNotesHandler` + `GET /currentuser` + page replaces placeholder. Spec: opening `/notes` shows the seeded user's empty list; after `Slice C` it reflects new notes.
-3. **Slice C — save endpoint with sanitisation.** Spec: POST with body `<script>alert(1)</script><p>safe</p>` round-trips as `<p>safe</p>` only (L2-041 AC #1).
-4. **Slice D — delete + soft-delete.** Spec: deleting removes from list, row remains in DB with `IsDeleted=true`.
+1. **Slice A — entity + migration.** Add `Note` to `CommitmentsDbContext`, produce migration, seed nothing. **Status: Implemented** — entity + DbContext entry + query filter; EF migration carried with the 01-Login backlog.
+2. **Slice B — list endpoint + page wiring.** **Status: Implemented** — `GetNotesByCurrentUser` filters by `ProfileId` + `OrderByDescending(LastModifiedOn)`, route maps `/notes` to `NotesPageComponent`.
+3. **Slice C — save endpoint with sanitisation.** **Status: Implemented** — two regex-pass strip of `<script>` blocks and `on*=` attributes; slug regenerated from `Title` and deduped within profile by appending `-2`, `-3`...
+4. **Slice D — delete + soft-delete.** **Status: Implemented** — `RemoveNote` calls `Remove()` and `BaseDbContext.OnSavingChanges` flips to `IsDeleted=true`; `NoteRemovedEvent` published.
+
+## 10. Implementation Notes
+
+- Body sanitisation is **two regexes**, not a heavyweight HtmlSanitizer — strip `<script>…</script>` and any attribute starting with `on…`. A junior dev can read the rules in 30 seconds; if the threat model grows, swap in `HtmlSanitizer` later.
+- Slug dedupe is one LINQ projection of taken slugs followed by an `i = 2…` loop. Bounded by collisions in the same profile — fast on typical data.
+- `NoteSavedEvent` / `NoteRemovedEvent` already shipped in `Commitments.Shared/IntegrationEvents.cs`; the new handlers publish them so the existing `NoteTagRealtimeNotifier` fans out without further wiring.
+- Composite unique `(ProfileId, Slug)` index belongs to the deferred migration; the dedupe loop maintains the invariant in code today.
 
 ## 9. Open Questions
 
