@@ -42,7 +42,11 @@ export class ProfileService {
     return this._client.post<{ profileId: number }>(`${this._baseUrl}api/profiles/create`, options);
   }
 
-  public saveAvatarUrl(options: { profileId: number, avatarUrl: string }): Observable<{ profileId: number }> {
-    return this._client.post<{ profileId: number }>(`${this._baseUrl}api/profiles/avatar`, options);
+  public saveAvatarUrl(options: { avatarUrl: string }): Observable<{ profileId: string }> {
+    return this._client.post<{ profileId: string }>(`${this._baseUrl}api/profiles/avatar`, options);
+  }
+
+  public updateDisplayName(options: { displayName: string }): Observable<{ profileId: string }> {
+    return this._client.post<{ profileId: string }>(`${this._baseUrl}api/profiles/display-name`, options);
   }
 }

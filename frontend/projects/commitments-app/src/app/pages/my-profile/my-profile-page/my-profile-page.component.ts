@@ -8,12 +8,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, forkJoin } from 'rxjs';
 import { takeUntil, tap } from 'rxjs';
 import { ProfileService } from '../../../services/profile.service';
 import { Profile } from '../../../models/profile';
-import { LocalStorageService } from '../../../core/local-storage.service';
-import { currentProfileIdKey, baseUrl } from '../../../core/constants';
+import { baseUrl } from '../../../core/constants';
 import { DigitalAssetInputUrlComponent } from '../../../components/digital-asset-url-input/digital-asset-url-input.component';
 import { PrimaryHeaderComponent } from '@commitments/ui';
 
@@ -35,7 +34,6 @@ import { PrimaryHeaderComponent } from '@commitments/ui';
 })
 export class MyProfilePageComponent {
   private readonly _profileService = inject(ProfileService);
-  private readonly _storage = inject(LocalStorageService);
 
   @Inject(baseUrl) public baseUrl: string;
 
@@ -50,11 +48,10 @@ export class MyProfilePageComponent {
   }
 
   public handleSaveClick() {
-    this._profileService.saveAvatarUrl(
-      {
-        avatarUrl: this.form.value.avatarUrl,
-        profileId: this.profileId
-      })
+    forkJoin([
+      this._profileService.saveAvatarUrl({ avatarUrl: this.form.value.avatarUrl }),
+      this._profileService.updateDisplayName({ displayName: this.form.value.name })
+    ])
       .pipe(takeUntil(this.onDestroy))
       .subscribe();
   }
@@ -65,10 +62,6 @@ export class MyProfilePageComponent {
 
   ngOnDestroy() {
     this.onDestroy.next();
-  }
-
-  public get profileId(): number {
-    return +this._storage.get({ name: currentProfileIdKey });
   }
 
   public form: FormGroup = new FormGroup({

@@ -76,6 +76,31 @@ public class ProfileController
         return await _sender.Send(new DeleteProfileRequest() { ProfileId = profileId }, cancellationToken);
     }
 
+    [SwaggerOperation(Summary = "Save avatar URL on the active profile", Description = "Targets the profile from the ProfileId header.")]
+    [HttpPost("avatar", Name = "saveAvatarUrl")]
+    [Authorize]
+    [ProducesResponseType(typeof(SaveAvatarUrlResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<SaveAvatarUrlResponse>> SaveAvatarUrl([FromBody] SaveAvatarUrlBody body, CancellationToken cancellationToken)
+    {
+        return await _sender.Send(
+            new SaveAvatarUrlRequest { ProfileId = _httpContextAccessor.GetProfileId(), AvatarUrl = body.AvatarUrl },
+            cancellationToken);
+    }
+
+    [SwaggerOperation(Summary = "Update display name on the active profile", Description = "Targets the profile from the ProfileId header.")]
+    [HttpPost("display-name", Name = "updateDisplayName")]
+    [Authorize]
+    [ProducesResponseType(typeof(UpdateDisplayNameResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpdateDisplayNameResponse>> UpdateDisplayName([FromBody] UpdateDisplayNameBody body, CancellationToken cancellationToken)
+    {
+        return await _sender.Send(
+            new UpdateDisplayNameRequest { ProfileId = _httpContextAccessor.GetProfileId(), DisplayName = body.DisplayName },
+            cancellationToken);
+    }
+
+    public record SaveAvatarUrlBody(string? AvatarUrl);
+    public record UpdateDisplayNameBody(string? DisplayName);
+
     [SwaggerOperation(Summary = "Get current profile", Description = "Returns the caller's first non-deleted profile.")]
     [HttpGet("current", Name = "getCurrentProfile")]
     [Authorize]
