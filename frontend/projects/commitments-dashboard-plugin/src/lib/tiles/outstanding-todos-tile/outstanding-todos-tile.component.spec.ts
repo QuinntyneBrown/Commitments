@@ -64,4 +64,19 @@ describe('OutstandingTodosTileComponent (template + CSS source)', () => {
       .filter(({ len }) => len > 110);
     expect(overLong).toEqual([]);
   });
+
+  it('e2e POM + spec match the renamed title — no stale "Outstanding To-Dos" (bug-074)', () => {
+    const pom = readFileSync(
+      join(__dirname, '../../../../../commitments-app/e2e/pages/dashboard.page.ts'),
+      'utf8'
+    );
+    const spec = readFileSync(
+      join(__dirname, '../../../../../commitments-app/e2e/dashboard.spec.ts'),
+      'utf8'
+    );
+    // Neither file may reference "Outstanding To-Dos" (regular hyphen)
+    // nor "Outstanding To‑Dos" (U+2011 non-breaking hyphen).
+    expect(pom).not.toMatch(/Outstanding To.Dos/);
+    expect(spec).not.toMatch(/Outstanding To.Dos/);
+  });
 });
