@@ -52,6 +52,8 @@ export class ConsistencyTrendController {
       data: points.map(p => p.percentage),
       borderColor: ACCENT_CHART,
       borderWidth: BORDER_WIDTH,
+      borderCapStyle: 'round',
+      borderJoinStyle: 'round',
       tension: TENSION,
       fill: true,
       backgroundColor: (ctx: ScriptableContext<'line'>) => {
