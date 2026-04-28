@@ -9,6 +9,7 @@ import { PlaceholderPageComponent } from './components/placeholder-page/placehol
 import { LoginPageComponent } from './pages/login/login-page/login-page.component';
 import { BehaviourTypesPageComponent } from './pages/behaviour-types/behaviour-types-page/behaviour-types-page.component';
 import { BehavioursPageComponent } from './pages/behaviours/behaviours-page/behaviours-page.component';
+import { EditFrequencyPageComponent } from './pages/edit-frequency/edit-frequency-page/edit-frequency-page.component';
 import { FrequenciesPageComponent } from './pages/frequencies/frequencies-page/frequencies-page.component';
 import { MyProfilePageComponent } from './pages/my-profile/my-profile-page/my-profile-page.component';
 import { ProfilesPageComponent } from './pages/profiles/profiles-page/profiles-page.component';
@@ -88,5 +89,19 @@ describe('app.routes', () => {
     const child = home?.children?.find((c) => c.path === 'frequencies');
     expect(child).toBeDefined();
     expect(child!.component).toBe(FrequenciesPageComponent);
+  });
+
+  it('routes /edit-frequency to EditFrequencyPageComponent for create-new (design 08-Edit-Frequency Slice A)', () => {
+    const home = routes.find((r) => r.path === '');
+    const child = home?.children?.find((c) => c.path === 'edit-frequency');
+    expect(child).toBeDefined();
+    expect(child!.component).toBe(EditFrequencyPageComponent);
+  });
+
+  it('routes /edit-frequency/:frequencyId to EditFrequencyPageComponent for edit (design 08-Edit-Frequency Slice A)', () => {
+    const home = routes.find((r) => r.path === '');
+    const child = home?.children?.find((c) => c.path === 'edit-frequency/:frequencyId');
+    expect(child).toBeDefined();
+    expect(child!.component).toBe(EditFrequencyPageComponent);
   });
 });
