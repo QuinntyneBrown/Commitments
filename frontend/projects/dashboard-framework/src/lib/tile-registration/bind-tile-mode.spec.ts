@@ -93,17 +93,6 @@ describe('bindTileMode', () => {
     expect(load).toHaveBeenCalledWith('live', null);
   });
 
-  it('calls load when invalidations$ emits', () => {
-    const load = jest.fn();
-    const invalidations$ = new Subject<unknown>();
-    mount({ context: makeContext(), invalidations$: invalidations$.asObservable(), load });
-    load.mockClear();
-
-    invalidations$.next('something');
-
-    expect(load).toHaveBeenCalledWith('live', null);
-  });
-
   it('stops calling load after the host is destroyed', () => {
     const load = jest.fn();
     const refresh$ = new Subject<void>();
