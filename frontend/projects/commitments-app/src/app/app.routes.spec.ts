@@ -603,4 +603,26 @@ describe('app.routes', () => {
       expect(scss).not.toMatch(/border-radius:\s*999px\b/);
     }
   });
+
+  it('remaining border-radius literals route through --cui-radius-* tokens (bug-186)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const files = [
+      join(__dirname, '..', '..', '..', 'commitments-ui', 'src', 'lib', 'delta-badge', 'delta-badge.component.scss'),
+      join(__dirname, 'pages', 'login', 'login-page', 'login-page.component.scss'),
+      join(__dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'dashboard', 'add-tile-dialog', 'add-tile-dialog.component.scss'),
+      join(__dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'dashboard', 'review-scrubber', 'review-scrubber.component.scss')
+    ];
+    for (const file of files) {
+      const scss = readFileSync(file, 'utf8');
+      // Only flag bare-number `border-radius: <number>px;` lines; the
+      // multi-value shorthand on monthly-progress bars (`4px 4px 0 0`)
+      // is intentional and excluded by the trailing semicolon check.
+      const offenders = scss
+        .split(/\r?\n/)
+        .map((line: string, i: number) => ({ n: i + 1, line }))
+        .filter(({ line }: { line: string }) => /border-radius:\s*\d+px\s*;/.test(line));
+      expect(offenders).toEqual([]);
+    }
+  });
 });
