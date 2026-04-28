@@ -112,11 +112,11 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
     this._adapter.destroy();
   }
 
-  pillVariant(): 'live' | 'review' {
-    return this._tileContext?.mode?.() ?? 'live';
+  pillVariant(): 'chart' | 'review' {
+    return this._tileContext?.mode?.() === 'review' ? 'review' : 'chart';
   }
 
   pillLabel(): string {
-    return this.pillVariant().toUpperCase();
+    return (this._tileContext?.mode?.() ?? 'live').toUpperCase();
   }
 }
