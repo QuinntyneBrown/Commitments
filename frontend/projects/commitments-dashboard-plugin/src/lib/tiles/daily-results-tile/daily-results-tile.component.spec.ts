@@ -29,6 +29,12 @@ describe('DailyResultsTileComponent (CSS source)', () => {
     const block = ruleBlock('\\.metric__label');
     expect(block).toMatch(/font-size\s*:\s*12px\b/);
   });
+
+  it('progress bar margin matches the design root gap of 10px (bug-085)', () => {
+    const block = ruleBlock('\\.progress');
+    expect(block).toMatch(/margin-top\s*:\s*10px\b/);
+    expect(block).not.toMatch(/margin-top\s*:\s*18px\b/);
+  });
 });
 
 describe('DailyResultsTileComponent (TS source)', () => {
