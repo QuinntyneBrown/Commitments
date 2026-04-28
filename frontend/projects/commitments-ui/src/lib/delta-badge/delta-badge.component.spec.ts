@@ -61,6 +61,19 @@ describe('DeltaBadgeComponent', () => {
       expect(block).toMatch(/width\s*:\s*12px\b/);
       expect(block).toMatch(/height\s*:\s*12px\b/);
     });
+
+    it('renders uniformly at 11px / weight 500 across value + caption (bug-054)', () => {
+      const block = ruleBlock('\\.delta-badge');
+      expect(block).toMatch(/font-size\s*:\s*11px\b/);
+      expect(block).toMatch(/font-weight\s*:\s*500\b/);
+
+      // The value rule must not bump weight back up; caption rule
+      // must not override the inherited accent colour.
+      const valueBlock = ruleBlock('\\.delta-badge__value');
+      expect(valueBlock).not.toMatch(/font-weight\s*:\s*[6-9]\d\d\b/);
+      const captionBlock = ruleBlock('\\.delta-badge__caption');
+      expect(captionBlock).not.toMatch(/color\s*:\s*var\(\s*--cui-text-secondary/);
+    });
   });
 
   describe('directional icon (bug-053)', () => {
