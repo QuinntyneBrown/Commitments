@@ -1,12 +1,25 @@
 ---
 id: bug-022
 title: Weekly Focus — each focus row renders name and supporting metric side-by-side; design stacks them vertically
-status: Open
+status: Fixed
 ---
 
 # Bug 022 — Weekly Focus row layout is horizontal, design is vertical
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`weekly-focus-tile.component.scss` switches `.focus-list li` to a flex
+column with `gap: 2` and bottom-only padding (`0 0 8px`), matching the
+.pen `wfRow*` frames. A new `.focus-list li:last-child` rule drops the
+divider and bottom padding from the final row, mirroring the design
+where `wfRow3` has no bottom stroke.
+
+Coverage:
+- New `weekly-focus-tile.component.spec.ts` reads the SCSS source and
+  asserts `.focus-list li` declares `flex-direction: column`.
+- All 13 affected suites pass (50/50 — was 44/44 before this loop).
 
 ## Description
 
