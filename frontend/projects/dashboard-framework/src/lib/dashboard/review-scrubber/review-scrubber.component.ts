@@ -1,7 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, effect, input } from '@angular/core';
 import { IconButtonComponent } from '@commitments/ui';
 
 import { ReviewScrubberController } from './review-scrubber.controller';
@@ -15,15 +15,16 @@ import { ReviewScrubberController } from './review-scrubber.controller';
   templateUrl: './review-scrubber.component.html',
   styleUrls: ['./review-scrubber.component.scss']
 })
-export class ReviewScrubberComponent implements OnInit, OnDestroy {
-  @Input() windowDays?: number;
+export class ReviewScrubberComponent implements OnDestroy {
+  readonly windowDays = input<number | undefined>(undefined);
 
-  constructor(readonly controller: ReviewScrubberController) {}
-
-  ngOnInit(): void {
-    if (this.windowDays !== undefined) {
-      this.controller.windowDays.set(this.windowDays);
-    }
+  constructor(readonly controller: ReviewScrubberController) {
+    effect(() => {
+      const w = this.windowDays();
+      if (w !== undefined) {
+        this.controller.windowDays.set(w);
+      }
+    });
   }
 
   ngOnDestroy(): void {
