@@ -1,10 +1,41 @@
 ---
 id: bug-141
 title: goal-metrics-tile setGoalId effect fires AFTER bindTileMode's load — initial load bails on empty _goalId
-status: Open
+status: Fixed
 ---
 
 # Bug 141 — goal-metrics-tile: `_goalId` empty during initial `load()` call
+
+**Status**: Fixed
+
+## Fix
+
+Added a synchronous `controller.setGoalId(this.goalId())` call
+as the first line of the constructor, before `bindTileMode`:
+
+```ts
+constructor() {
+  this.controller.setGoalId(this.goalId());
+
+  const context = inject(TILE_CONTEXT, { optional: true });
+  bindTileMode({
+    context,
+    load: (mode, asOf) => this.controller.load(mode, asOf)
+  });
+  effect(() => {
+    this.controller.setGoalId(this.goalId());
+  });
+}
+```
+
+The synchronous initial set ensures `_goalId` is populated when
+`bindTileMode` runs `load('live', null)` synchronously in
+standalone mode, and also before the registered effect runs in
+context mode. The retained `effect(...)` continues to handle
+runtime updates to the `goalId` input signal.
+
+351/351 workspace tests green; the new `bug-141` behavior test
+now passes (`getCurrent('demo-goal')` is called on mount).
 
 ## Description
 
