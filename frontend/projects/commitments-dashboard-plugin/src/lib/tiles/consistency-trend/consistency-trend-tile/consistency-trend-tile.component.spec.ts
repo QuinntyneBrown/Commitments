@@ -98,4 +98,9 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     const block = ruleBlock(':host');
     expect(block).toMatch(/--cui-tile-icon-color\s*:[^;]*--cui-info/);
   });
+
+  it('opts in to the 22px icon size (bug-049)', () => {
+    const block = ruleBlock(':host');
+    expect(block).toMatch(/--cui-tile-icon-size\s*:\s*22px\b/);
+  });
 });

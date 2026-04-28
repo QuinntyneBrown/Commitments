@@ -109,5 +109,12 @@ describe('TileShellComponent', () => {
       const block = ruleBlock('\\.tile-shell__icon');
       expect(block).toMatch(/color\s*:\s*var\(\s*--cui-tile-icon-color/);
     });
+
+    it('icon size consumes the per-tile custom property (bug-049)', () => {
+      const block = ruleBlock('\\.tile-shell__icon');
+      expect(block).toMatch(/font-size\s*:\s*var\(\s*--cui-tile-icon-size/);
+      expect(block).toMatch(/width\s*:\s*var\(\s*--cui-tile-icon-size/);
+      expect(block).toMatch(/height\s*:\s*var\(\s*--cui-tile-icon-size/);
+    });
   });
 });
