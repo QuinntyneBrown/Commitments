@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Inject, Injectable, InjectionToken, Optional, inject } from '@angular/core';
+import { Injectable, InjectionToken, inject } from '@angular/core';
 import { DashboardMode } from '@commitments/dashboard-framework';
 import { Observable } from 'rxjs';
 
@@ -30,8 +30,7 @@ export interface GoalTrendDto {
 @Injectable({ providedIn: 'root' })
 export class GoalTrendService {
   private readonly _client = inject(HttpClient);
-
-  constructor(@Optional() @Inject(TREND_BASE_URL) private readonly _baseUrl: string | null) {}
+  private readonly _baseUrl = inject(TREND_BASE_URL, { optional: true });
 
   getTrend(
     goalId: string,
