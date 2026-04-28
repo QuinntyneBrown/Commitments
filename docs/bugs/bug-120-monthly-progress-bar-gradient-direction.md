@@ -1,12 +1,22 @@
 ---
 id: bug-120
 title: Monthly Progress bar gradient direction is reversed — design shows lighter at top, impl renders darker at top
-status: Open
+status: Fixed
 ---
 
 # Bug 120 — bar gradient direction
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Swapped the two stops in the bar's `linear-gradient(180deg, ...)`
+from `#2f6db3, #8bb8e8` (darker → lighter, top to bottom) to
+`#8bb8e8, #2f6db3` (lighter → darker, top to bottom). The bars
+now render brighter at the top and deeper blue at the bottom,
+matching the design screenshot.
+
+317/317 workspace tests green.
 
 ## Description
 
