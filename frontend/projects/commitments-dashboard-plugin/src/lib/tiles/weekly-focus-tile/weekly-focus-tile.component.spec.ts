@@ -63,4 +63,12 @@ describe('WeeklyFocusTileComponent (CSS source)', () => {
       .filter(({ len }) => len > 110);
     expect(overLong).toEqual([]);
   });
+
+  it('every var(--cui-*) reference includes a fallback hex (bug-100)', () => {
+    const offenders = scss
+      .split(/\r?\n/)
+      .map((line, i) => ({ n: i + 1, line }))
+      .filter(({ line }) => /var\(--cui-[a-z-]+\)/.test(line));
+    expect(offenders).toEqual([]);
+  });
 });
