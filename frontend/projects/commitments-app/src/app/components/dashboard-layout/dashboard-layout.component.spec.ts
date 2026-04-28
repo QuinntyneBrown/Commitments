@@ -49,4 +49,13 @@ describe('DashboardLayoutComponent', () => {
       .filter(({ line }) => /\bfont-family\s*:\s*Inter\b/.test(line));
     expect(offenders).toEqual([]);
   });
+
+  it('active-sidenav background uses color-mix on --cui-primary (bug-188)', () => {
+    const scss = readFileSync(
+      join(__dirname, 'dashboard-layout.component.scss'),
+      'utf8'
+    );
+    expect(scss).not.toMatch(/#9FA8DA22/);
+    expect(scss).toMatch(/color-mix\(in srgb,\s*var\(\s*--cui-primary[^)]*\)\s*13%,\s*transparent\)/);
+  });
 });
