@@ -1,12 +1,26 @@
 ---
 id: bug-084
 title: e2e dashboard.spec.ts expects "Live Goal Metrics" — design-07 merged this tile with Review Goal History into one "Goal Metrics" tile, leaving the e2e stale
-status: Open
+status: Fixed
 ---
 
 # Bug 084 — e2e expects "Live Goal Metrics" after design-07 merge
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Replaced the stale `'Live Goal Metrics'` literal in
+`dashboard.spec.ts:126` with `'Goal Metrics'` (matching the
+component's `tileMetadata.displayName`), and refreshed the
+comment block above the assertion: the standalone "Review Goal
+History" tile no longer exists since design-07.
+
+A new bug-084 cross-file regression spec on the goal-metrics
+tile reads the e2e source and asserts no `Live Goal Metrics`
+form remains — the same shape as bug-074 / bug-081 guards.
+
+273/273 workspace tests green.
 
 ## Description
 
