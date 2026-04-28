@@ -1,10 +1,37 @@
 ---
 id: bug-145
 title: GoalMetricsController.applyHubUpdate + GoalProgressUpdated DTO are dead — never wired to a hub
-status: Open
+status: Fixed
 ---
 
 # Bug 145 — Drop `applyHubUpdate` + `GoalProgressUpdated` (no production caller)
+
+**Status**: Fixed
+
+## Fix
+
+Deleted 51 lines across three files:
+
+- `goal-metrics.controller.ts`: removed `applyHubUpdate` method
+  (4 lines) and dropped `GoalProgressUpdated` from the
+  `goal-progress.service` import.
+- `goal-progress.service.ts`: removed the `GoalProgressUpdated`
+  interface declaration (5 lines).
+- `goal-metrics.controller.spec.ts`: removed the 3 obsolete
+  unit tests that exercised the now-deleted method
+  (~30 lines), and added one regression-guard spec asserting
+  the symbols don't reappear:
+
+```ts
+it('does not expose applyHubUpdate — no SignalR hub wired (bug-145)', async () => {
+  const ts = readFileSync(... 'goal-metrics.controller.ts', 'utf8');
+  expect(ts).not.toMatch(/\bapplyHubUpdate\s*\(/);
+  expect(ts).not.toMatch(/\bGoalProgressUpdated\b/);
+});
+```
+
+353/353 workspace tests green (down from 355 — net effect is
+-3 obsolete tests, +1 regression guard).
 
 ## Description
 
