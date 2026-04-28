@@ -5,13 +5,6 @@
   variant="metric"
   data-testid="relations-tile"
 >
-  <cui-status-pill
-    tile-status
-    [variant]="controller.mode()"
-    [pulse]="controller.mode() === 'live'"
-    [label]="statusLabel()"
-  ></cui-status-pill>
-
   @if (controller.isEmpty()) {
     <p class="empty">No commitments yet.</p>
   } @else {
