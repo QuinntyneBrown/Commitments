@@ -1,12 +1,31 @@
 ---
 id: bug-039
 title: Monthly Progress — bars container has no horizontal padding so bar columns drift 4px from the W1-W4 label columns
-status: Open
+status: Fixed
 ---
 
 # Bug 039 — Monthly Progress bars and labels columns misaligned by 4px
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`.bars` in `monthly-progress-tile.component.scss` now declares
+`padding: 0 4px`, mirroring `.bar-labels`'s `padding: 0 4px` and
+the .pen `mpBars` frame's `padding: [8, 4, 0, 4]`. Both grid
+containers therefore have the same inner width, so their four
+`repeat(4, 1fr)` columns share x-positions — bar centres align
+with W1-W4 label centres.
+
+Top/bottom padding stays 0 — `align-items: end` already pins bars
+to the bottom and `.bar-labels { margin-top: 8px }` provides the
+8px gap between rows.
+
+Coverage:
+- New spec `insets bars horizontally to align with the bar-labels
+  row (bug-039)` reads the SCSS source and asserts `.bars`
+  declares a `padding` containing `4px`.
+- All 20 affected suites pass (101/101 — was 100/100 before).
 
 ## Description
 
