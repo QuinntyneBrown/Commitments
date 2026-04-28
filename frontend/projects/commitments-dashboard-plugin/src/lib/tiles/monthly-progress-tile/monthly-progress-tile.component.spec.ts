@@ -43,4 +43,9 @@ describe('MonthlyProgressTileComponent (CSS source)', () => {
     const block = ruleBlock('\\.bars');
     expect(block).toMatch(/padding\s*:[^;]*\b4px\b/);
   });
+
+  it('opts in to the 12px tile-body gap (bug-041)', () => {
+    const block = ruleBlock(':host');
+    expect(block).toMatch(/--cui-tile-body-gap\s*:\s*12px\b/);
+  });
 });

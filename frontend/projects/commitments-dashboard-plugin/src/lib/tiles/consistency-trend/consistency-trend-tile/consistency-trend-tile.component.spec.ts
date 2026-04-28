@@ -56,4 +56,9 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     const block = ruleBlock('\\.plot');
     expect(block).toMatch(/margin-top\s*:\s*14px\b/);
   });
+
+  it('opts in to the 14px tile-body gap (bug-041)', () => {
+    const block = ruleBlock(':host');
+    expect(block).toMatch(/--cui-tile-body-gap\s*:\s*14px\b/);
+  });
 });

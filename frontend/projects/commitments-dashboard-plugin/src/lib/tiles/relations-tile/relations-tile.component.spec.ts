@@ -30,4 +30,9 @@ describe('RelationsTileComponent (template + CSS source)', () => {
     const block = ruleBlock('\\.relations__row');
     expect(block).toMatch(/border-bottom\s*:[^;]*#2A2A2A/i);
   });
+
+  it('opts in to the 12px tile-body gap (bug-041)', () => {
+    const block = ruleBlock(':host');
+    expect(block).toMatch(/--cui-tile-body-gap\s*:\s*12px\b/);
+  });
 });

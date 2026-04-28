@@ -88,9 +88,15 @@ describe('TileShellComponent', () => {
       expect(block).toMatch(/font-size\s*:\s*16px\b/);
     });
 
-    it('chart-variant body uses 14px padding-top to match .pen tile gap (bug-040)', () => {
-      const block = ruleBlock('\\.tile-shell--chart \\.tile-shell__body');
-      expect(block).toMatch(/padding-top\s*:\s*14px\b/);
+    it('body padding-top consumes the per-tile custom property (bug-041)', () => {
+      const block = ruleBlock('\\.tile-shell__body');
+      expect(block).toMatch(/padding-top\s*:\s*var\(\s*--cui-tile-body-gap/);
+    });
+
+    it('drops the chart-variant body padding override after bug-041 refactor', () => {
+      // bug-040 introduced `.tile-shell--chart .tile-shell__body { padding-top: 14px }`;
+      // bug-041 replaces it with the per-tile custom property.
+      expect(scss).not.toMatch(/\.tile-shell--chart\s+\.tile-shell__body\s*\{[^}]*padding-top/);
     });
   });
 });

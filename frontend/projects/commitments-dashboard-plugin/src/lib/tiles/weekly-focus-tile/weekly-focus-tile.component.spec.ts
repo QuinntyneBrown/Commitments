@@ -32,4 +32,9 @@ describe('WeeklyFocusTileComponent (CSS source)', () => {
     expect(block).toMatch(/font-size\s*:\s*14px\b/);
     expect(block).toMatch(/font-weight\s*:\s*700\b/);
   });
+
+  it('opts in to the 12px tile-body gap (bug-041)', () => {
+    const block = ruleBlock(':host');
+    expect(block).toMatch(/--cui-tile-body-gap\s*:\s*12px\b/);
+  });
 });
