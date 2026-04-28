@@ -20,6 +20,9 @@
   padding: 0 16px 0 8px;
   background: var(--cui-toolbar);
   box-shadow: 0 2px 6px #00000099;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .dashboard-layout__hamburger {
