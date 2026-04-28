@@ -1,12 +1,40 @@
 ---
 id: bug-062
 title: Three near-identical `.status-pill--{chart,success,warning}` rules — extract a `tinted-pill` mixin
-status: Open
+status: Fixed
 ---
 
 # Bug 062 — Extract `tinted-pill` SASS mixin
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`status-pill.component.scss` now declares:
+
+```scss
+@mixin tinted-pill($token, $fallback) {
+  color: var(#{$token}, #{$fallback});
+  background: color-mix(in srgb, var(#{$token}, #{$fallback}) 14%, transparent);
+}
+
+.status-pill--chart   { @include tinted-pill(--cui-info, #42A5F5); }
+.status-pill--success { @include tinted-pill(--cui-success, #66BB6A); }
+.status-pill--warning { @include tinted-pill(--cui-warning, #FFA726); }
+```
+
+The `#{$token}` interpolation is necessary — Sass doesn't
+substitute Sass variables directly inside `var()` arguments;
+interpolation gives the right CSS output.
+
+Net: -8 lines; future themed variants add one line each.
+
+Coverage:
+- Existing bug-031/033/035 specs loosened from `var\(--cui-…\)`
+  to bare `--cui-…` so they tolerate either the literal or
+  `@include`-arg form.
+- New spec asserts `@mixin tinted-pill` is declared in the SCSS.
+- All 22 affected suites pass (148/148 — was 147/147 before).
 
 ## Description
 
