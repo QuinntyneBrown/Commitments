@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Identity.Data;
+using Identity.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +20,8 @@ public static class ModuleExtensions
             options.UseSqlServer(connectionString, b => b.MigrationsAssembly("Identity.Module")));
 
         services.AddScoped<IIdentityDbContext>(sp => sp.GetRequiredService<IdentityDbContext>());
+
+        services.AddSingleton<IPasswordHasher, Pbkdf2PasswordHasher>();
 
         return services;
     }

@@ -5,6 +5,7 @@ using Commitments;
 using Commitments.Api.Hubs;
 using Commitments.Api.Middleware;
 using Commitments.Api.Realtime;
+using Commitments.Api.Security;
 using Commitments.Data;
 using Commitments.Shared;
 using Commitments.Shared.Realtime;
@@ -15,11 +16,15 @@ using DigitalAssets.Data;
 using FluentValidation;
 using Identity;
 using Identity.Data;
+using Identity.Security;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Events;
 using System.Reflection;
+using System.Text;
 
 Log.Logger = new LoggerConfiguration()
 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
@@ -53,6 +58,25 @@ try
     builder.Services.AddDigitalAssetsModule(builder.Configuration);
 
     builder.Services.AddSingleton<IEventBus, InMemoryEventBus>();
+    builder.Services.AddSingleton<IAccessTokenIssuer, JwtAccessTokenIssuer>();
+
+    var auth = builder.Configuration.GetSection("Authentication");
+    builder.Services
+        .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = auth["JwtIssuer"],
+                ValidAudience = auth["JwtAudience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(auth["JwtKey"]!))
+            };
+        });
+    builder.Services.AddAuthorization();
 
     builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(moduleAssemblies));
 
@@ -155,6 +179,7 @@ try
 
     app.UseMiddleware<JwtQueryStringAuthMiddleware>();
 
+    app.UseAuthentication();
     app.UseAuthorization();
 
     app.MapControllers();

@@ -1,6 +1,7 @@
 using Asp.Versioning;
 using Identity.Features.User;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
@@ -76,5 +77,18 @@ public class UserController
     public async Task<ActionResult<DeleteUserResponse>> Delete([FromRoute] Guid userId, CancellationToken cancellationToken)
     {
         return await _sender.Send(new DeleteUserRequest() { UserId = userId }, cancellationToken);
+    }
+
+    [SwaggerOperation(Summary = "Get token by username and password", Description = "Issues a JWT for the given credentials.")]
+    [HttpPost("token", Name = "getTokenByUsernameAndPassword")]
+    [AllowAnonymous]
+    [ProducesResponseType(typeof(GetTokenByUsernameAndPasswordResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    public async Task<ActionResult<GetTokenByUsernameAndPasswordResponse>> GetToken([FromBody] GetTokenByUsernameAndPasswordRequest request, CancellationToken cancellationToken)
+    {
+        var response = await _sender.Send(request, cancellationToken);
+        if (string.IsNullOrEmpty(response.AccessToken)) return new UnauthorizedResult();
+        return response;
     }
 }
