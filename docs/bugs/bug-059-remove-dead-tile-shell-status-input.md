@@ -1,12 +1,33 @@
 ---
 id: bug-059
 title: Tile-shell's legacy `status` input + `__status` SCSS rules are dead code after the named-slot migration
-status: Open
+status: Fixed
 ---
 
 # Bug 059 — Remove dead tile-shell `status` input
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Three deletions in `tile-shell`:
+- `readonly status = input('');` removed from
+  `tile-shell.component.ts`.
+- `@if (status())` branch removed from
+  `tile-shell.component.html`.
+- `.tile-shell__status` and
+  `.tile-shell--chart .tile-shell__status` rules removed from
+  `tile-shell.component.scss`.
+
+Net: -21 lines, -1 input on the public API. All seven plugin
+tiles continue to project their pills via `[tile-status]`
+ng-content (no behaviour change for any consumer).
+
+Coverage:
+- Component-level spec asserts the instance no longer exposes a
+  `status` field.
+- SCSS-source spec asserts `.tile-shell__status` is gone.
+- All 21 affected suites pass (144/144 — was 142/142 before).
 
 ## Description
 
