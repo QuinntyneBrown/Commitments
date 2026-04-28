@@ -1,6 +1,6 @@
 # Activities — Detailed Design
 
-**Status:** Draft
+**Status:** Accepted
 
 **Traces to:** L1-006 · L2-012, L2-013
 
