@@ -1,12 +1,25 @@
 ---
 id: bug-080
 title: Weekly Focus tile renders a status pill the design and README do not include
-status: Open
+status: Fixed
 ---
 
-# Bug 079 — Weekly Focus tile shouldn't have a status pill
+# Bug 080 — Weekly Focus tile shouldn't have a status pill
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Same shape as bug-076 (Monthly Progress) and bug-078 (Relations):
+dropped the projected `<cui-status-pill>` from the template,
+removed the `StatusPillComponent` import, and removed the unused
+`statusLabel` computed. `bindTileMode` still wires the controller
+to the dashboard's mode/asOf signals.
+
+The bug-057-style "projects pill" spec was inverted to assert
+`<cui-status-pill` does not appear. All 13 weekly-focus specs
+green; the only workspace-level failure is an unrelated
+in-progress activities-route ATDD test.
 
 ## Description
 
