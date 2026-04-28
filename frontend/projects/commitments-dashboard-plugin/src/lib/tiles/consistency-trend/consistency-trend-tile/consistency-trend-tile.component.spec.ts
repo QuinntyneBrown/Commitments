@@ -82,4 +82,15 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     // toLocaleDateString('en-US', { month: 'short', day: 'numeric' }).
     expect(ts).toMatch(/callback\b[\s\S]*?toLocaleDateString[\s\S]*?'short'[\s\S]*?'numeric'/);
   });
+
+  it('highlights the last x-axis tick in chart accent + weight 700 (bug-047)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend-tile.component.ts'),
+      'utf8'
+    );
+    // x-axis tick color must be a Scriptable function that references
+    // ACCENT_CHART; tick font must include weight 700 conditionally.
+    expect(ts).toMatch(/color\s*:\s*\([^)]*\)\s*=>[\s\S]*?ACCENT_CHART/);
+    expect(ts).toMatch(/font\s*:\s*\([^)]*\)\s*=>[\s\S]*?\b700\b/);
+  });
 });
