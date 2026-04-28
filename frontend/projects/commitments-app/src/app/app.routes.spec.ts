@@ -503,4 +503,18 @@ describe('app.routes', () => {
       .filter(({ line }: { line: string }) => /\bfont-family\s*:\s*Inter\b/.test(line));
     expect(offenders).toEqual([]);
   });
+
+  it('--cui-on-accent fallback uses canonical 6-char #FFFFFF across dashboard-framework (bug-178)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const files = [
+      join(__dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'dashboard', 'dashboard-shell', 'dashboard-shell.component.scss'),
+      join(__dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'dashboard', 'add-tile-dialog', 'add-tile-dialog.component.scss'),
+      join(__dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'dashboard', 'dashboard-grid', 'dashboard-grid.component.scss')
+    ];
+    for (const file of files) {
+      const scss = readFileSync(file, 'utf8');
+      expect(scss).not.toMatch(/var\(--cui-on-accent,\s*#fff\)/);
+    }
+  });
 });
