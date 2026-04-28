@@ -1,8 +1,8 @@
 :host {
   display: block;
   min-height: 100vh;
-  color: var(--cui-text-primary);
-  background: var(--cui-bg);
+  color: var(--cui-text-primary, #FFFFFF);
+  background: var(--cui-bg, #121212);
   font-family: Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
@@ -31,7 +31,7 @@
   height: 56px;
   border: none;
   border-radius: 50%;
-  background: var(--cui-accent);
+  background: var(--cui-accent, #FF4081);
   color: var(--cui-on-accent, #fff);
   box-shadow: 0 6px 10px #00000099;
   cursor: pointer;
@@ -49,7 +49,7 @@
   border: 1px solid rgba(255, 255, 255, 0.33);
   border-radius: var(--cui-radius-full, 9999px);
   background: rgba(255, 255, 255, 0.13);
-  color: var(--cui-text-primary);
+  color: var(--cui-text-primary, #FFFFFF);
   font-family: Inter, sans-serif;
 }
 
@@ -72,7 +72,7 @@
   border: 1px solid rgba(255, 255, 255, 0.33);
   border-radius: var(--cui-radius-sm, 4px);
   background: rgba(255, 255, 255, 0.13);
-  color: var(--cui-text-primary);
+  color: var(--cui-text-primary, #FFFFFF);
   cursor: pointer;
 
   .material-symbols-rounded { font-size: 16px; }
