@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Inject, Injectable, InjectionToken, Optional, inject } from '@angular/core';
+import { Injectable, InjectionToken, inject } from '@angular/core';
 import { DashboardMode } from '@commitments/dashboard-framework';
 import { Observable } from 'rxjs';
 
@@ -27,8 +27,7 @@ export interface MonthlyProgressDto {
 @Injectable({ providedIn: 'root' })
 export class MonthlyProgressService {
   private readonly _client = inject(HttpClient);
-
-  constructor(@Optional() @Inject(MONTHLY_PROGRESS_BASE_URL) private readonly _baseUrl: string | null) {}
+  private readonly _baseUrl = inject(MONTHLY_PROGRESS_BASE_URL, { optional: true });
 
   get(asOf: string | null): Observable<MonthlyProgressDto> {
     let params = new HttpParams();
