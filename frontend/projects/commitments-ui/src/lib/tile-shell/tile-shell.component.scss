@@ -78,6 +78,10 @@
   border-color: var(--cui-primary, #9FA8DA);
 }
 
+.tile-shell--chart .tile-shell__body {
+  padding-top: 14px;
+}
+
 .tile-shell--chart .tile-shell__status {
   border-color: color-mix(in srgb, var(--cui-info, #42A5F5) 70%, transparent);
   color: var(--cui-info, #42A5F5);

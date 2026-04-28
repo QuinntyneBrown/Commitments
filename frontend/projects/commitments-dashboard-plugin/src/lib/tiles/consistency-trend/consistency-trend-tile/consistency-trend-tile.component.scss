@@ -8,14 +8,13 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 16px;
-  margin-top: 6px;
 }
 
 .plot {
   position: relative;
   flex: 1 1 auto;
   min-height: 0;
-  margin-top: 12px;
+  margin-top: 14px;
 }
 
 .plot canvas {
