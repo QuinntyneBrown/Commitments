@@ -24,7 +24,7 @@ import { OutstandingTodosController } from './outstanding-todos.controller';
 export class OutstandingTodosTileComponent {
   static readonly tileMetadata: TileMetadata = {
     tileId: 'commitments.outstanding-todos',
-    displayName: 'Outstanding To‑Dos',
+    displayName: 'Outstanding Todos',
     description: 'Open tasks that still need action.',
     icon: 'checklist',
     category: 'Tasks',
