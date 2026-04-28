@@ -1,9 +1,0 @@
-<section [class]="'snackbar snackbar--' + tone()" [attr.role]="role()">
-  @if (icon()) {
-    <mat-icon aria-hidden="true">{{ icon() }}</mat-icon>
-  }
-  <span class="snackbar__message">{{ message() }}</span>
-  @if (action()) {
-    <button mat-button type="button" class="snackbar__action" (click)="actionClick.emit()">{{ action() }}</button>
-  }
-</section>
