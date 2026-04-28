@@ -114,4 +114,8 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(html).toMatch(/\[caption\]\s*=\s*"controller\.deltaCaption\(\)"/);
     expect(html).not.toMatch(/controller\.currentPercentage\(\)\s*-\s*controller\.lowPercentage\(\)/);
   });
+
+  it('sets data-testid="consistency-trend-tile" on the tile-shell (bug-056)', () => {
+    expect(html).toMatch(/<commitments-tile-shell\b[^>]*data-testid="consistency-trend-tile"/);
+  });
 });
