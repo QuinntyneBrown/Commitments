@@ -1,10 +1,19 @@
 ---
 id: bug-153
 title: DashboardLayoutStore.resetLayout/toggleEditMode + POM resetLayoutButton are dead — remove
-status: Open
+status: Fixed
 ---
 
 # Bug 153 — Drop dead `resetLayout()`, `toggleEditMode()`, POM `resetLayoutButton`
+
+**Status**: Fixed
+
+## Fix
+
+Three small removals — 13 lines net across 3 files. Also
+corrected the bug-153 regression spec path (`e2e/` is a sibling
+of `src/` inside `commitments-app/`, not several levels up).
+357/357 workspace tests green.
 
 ## Description
 
