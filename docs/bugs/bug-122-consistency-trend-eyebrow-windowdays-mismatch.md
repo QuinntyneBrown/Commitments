@@ -1,12 +1,25 @@
 ---
 id: bug-122
 title: Consistency Trend eyebrow text says "last 14 days" but windowDays defaults to 30
-status: Open
+status: Fixed
 ---
 
 # Bug 122 — eyebrow ↔ windowDays mismatch
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Replaced the hardcoded eyebrow string with a dynamic binding:
+
+```html
+[eyebrow]="'7-day rolling average · last ' + windowDays() + ' days'"
+```
+
+The user-facing label now reflects the actual chart window
+(default 30, overridable via the windowDays input) — the
+"14 days" / "30 days" drift is gone. 319/319 workspace tests
+green.
 
 ## Description
 
