@@ -6,13 +6,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  Input,
   OnDestroy,
   OnInit,
   ViewChild,
   computed,
   effect,
   inject,
+  input,
   signal
 } from '@angular/core';
 import { ChartConfiguration } from 'chart.js';
@@ -51,8 +51,8 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
     supportedModes: ['live', 'review']
   };
 
-  @Input() goalId = 'demo-goal';
-  @Input() windowDays = 30;
+  readonly goalId = input('demo-goal');
+  readonly windowDays = input(30);
 
   @ViewChild('plot') plotRef!: ElementRef<HTMLCanvasElement>;
 
@@ -87,8 +87,9 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
   }
 
   ngOnInit(): void {
-    if (this.goalId) {
-      this.controller.load(this.goalId, this.windowDays);
+    const id = this.goalId();
+    if (id) {
+      this.controller.load(id, this.windowDays());
     }
   }
 
