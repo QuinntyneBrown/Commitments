@@ -22,9 +22,16 @@ describe('WeeklyFocusTileComponent (CSS source)', () => {
     expect(block).toMatch(/font-size\s*:\s*11px\b/);
   });
 
-  it('uses #2A2A2A for the row divider (bug-023)', () => {
+  it('uses --cui-divider-soft (#2A2A2A) for the row divider (bug-023, post bug-066)', () => {
     const block = ruleBlock('\\.focus-list li');
-    expect(block).toMatch(/border-bottom\s*:[^;]*#2A2A2A/i);
+    // Tolerant of either the literal `#2A2A2A` form or
+    // `var(--cui-divider-soft, …)` token form.
+    expect(block).toMatch(/border-bottom\s*:[^;]*(?:#2A2A2A|--cui-divider-soft)/i);
+  });
+
+  it('references --cui-divider-soft token for the row divider (bug-066)', () => {
+    const block = ruleBlock('\\.focus-list li');
+    expect(block).toMatch(/--cui-divider-soft\b/);
   });
 
   it('pins focus name typography to 14px / 700 (bug-037)', () => {

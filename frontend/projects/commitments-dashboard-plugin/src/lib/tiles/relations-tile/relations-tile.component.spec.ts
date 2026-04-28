@@ -26,9 +26,14 @@ describe('RelationsTileComponent (template + CSS source)', () => {
     expect(block).toMatch(/justify-content\s*:\s*center\b/);
   });
 
-  it('uses #2A2A2A bottom dividers between rows (bug-028)', () => {
+  it('uses --cui-divider-soft (#2A2A2A) bottom dividers between rows (bug-028, post bug-066)', () => {
     const block = ruleBlock('\\.relations__row');
-    expect(block).toMatch(/border-bottom\s*:[^;]*#2A2A2A/i);
+    expect(block).toMatch(/border-bottom\s*:[^;]*(?:#2A2A2A|--cui-divider-soft)/i);
+  });
+
+  it('references --cui-divider-soft token for the row divider (bug-066)', () => {
+    const block = ruleBlock('\\.relations__row');
+    expect(block).toMatch(/--cui-divider-soft\b/);
   });
 
   it('opts in to the 12px tile-body gap (bug-041)', () => {
