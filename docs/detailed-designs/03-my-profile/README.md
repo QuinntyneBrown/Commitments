@@ -1,6 +1,6 @@
 # My Profile — Detailed Design
 
-**Status:** Accepted
+**Status:** Implemented
 
 **Traces to:** L1-002, L1-013 · L2-003, L2-004, L2-038
 
@@ -54,9 +54,15 @@ The `Profile` entity is unchanged (`DisplayName`, `AvatarUrl` already exist). No
 
 ## 8. ATDD Slices
 
-1. **Slice A — page wiring:** route + form + initial GET `/current`. Spec: opening `/my-profile` shows the seeded user's display name.
-2. **Slice B — avatar save:** add `SaveAvatarUrl` command, replace placeholder in service. Spec: uploading an asset persists the URL and reloads the avatar on refresh.
-3. **Slice C — display-name save:** add `UpdateDisplayName` command + frontend service method. Spec: changing the name persists and reflects in the toolbar's user chip.
+1. **Slice A — page wiring:** route + form + initial GET `/current`. Spec: opening `/my-profile` shows the seeded user's display name. **Status: Implemented.**
+2. **Slice B — avatar save:** add `SaveAvatarUrl` command, replace placeholder in service. Spec: uploading an asset persists the URL and reloads the avatar on refresh. **Status: Implemented.**
+3. **Slice C — display-name save:** add `UpdateDisplayName` command + frontend service method. Spec: changing the name persists and reflects in the toolbar's user chip. **Status: Implemented.**
+
+## 10. Implementation Notes
+
+- Profile entity gained nullable `DisplayName` + `AvatarUrl`; schema migration carried with the 01-Login backlog.
+- Both POST endpoints take `ProfileId` from the `IHttpContextAccessor` header — request bodies are deliberately just `{ avatarUrl }` and `{ displayName }`, so a logged-in user cannot mutate another profile by tampering with the body.
+- `MyProfilePageComponent.handleSaveClick` uses a single `forkJoin` to save both fields concurrently; junior-friendly because there is no chained `switchMap`/`mergeMap` cascade.
 
 ## 9. Open Questions
 
