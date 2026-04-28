@@ -9,6 +9,7 @@ import { PlaceholderPageComponent } from './components/placeholder-page/placehol
 import { LoginPageComponent } from './pages/login/login-page/login-page.component';
 import { MyProfilePageComponent } from './pages/my-profile/my-profile-page/my-profile-page.component';
 import { ProfilesPageComponent } from './pages/profiles/profiles-page/profiles-page.component';
+import { SettingsPageComponent } from './pages/settings/settings-page/settings-page.component';
 
 describe('app.routes', () => {
   it('maps /login to LoginPageComponent', () => {
@@ -39,8 +40,7 @@ describe('app.routes', () => {
     'card-layouts',
     'frequencies',
     'notes',
-    'to-dos',
-    'settings'
+    'to-dos'
   ])('routes the %s child path to PlaceholderPageComponent under the layout', (path) => {
     const home = routes.find((r) => r.path === '');
     const child = home?.children?.find((c) => c.path === path);
@@ -60,5 +60,12 @@ describe('app.routes', () => {
     const child = home?.children?.find((c) => c.path === 'my-profile');
     expect(child).toBeDefined();
     expect(child!.component).toBe(MyProfilePageComponent);
+  });
+
+  it('routes /settings to SettingsPageComponent (design 04-Settings Slice A)', () => {
+    const home = routes.find((r) => r.path === '');
+    const child = home?.children?.find((c) => c.path === 'settings');
+    expect(child).toBeDefined();
+    expect(child!.component).toBe(SettingsPageComponent);
   });
 });
