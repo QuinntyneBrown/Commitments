@@ -1,8 +1,14 @@
 # Relations Tile — Dual-Mode Design
 
-**Status:** Accepted — 2026-04-27
+**Status:** Implemented — 2026-04-27
 **Tile ID:** `commitments.relations`
 **Traces to:** L1-010, L1-011, L1-012, **L1-012a**; L2-018, **L2-031a**, L2-038, L2-045.
+
+> Implementation notes:
+> - **Largest-remainder rounding** ensures percentages sum to exactly 100 even when raw fractions don't divide evenly.
+> - **Top capping** server-side: 1..10 (default 3 per `RelationsController`).
+> - **`Commitments.DeletedOn` not yet on the schema** — the M1 query uses `CreatedOn <= asOf` and relies on the `BaseDbContext` global soft-delete filter (which excludes currently-deleted rows). Strict historical reconstruction across deletions is deferred until `DeletedOn` lands on `BaseEntity`.
+> - **SignalR `relations` invalidation** wiring deferred (cross-lib coupling — same as designs 02-05). Live refresh works via `TileContext.refresh\$`.
 
 ## 1. Overview
 
