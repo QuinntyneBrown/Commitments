@@ -1,6 +1,7 @@
 using Commitments.Shared;
 using Dashboard.Data;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace Dashboard.Features.Card;
 
@@ -19,6 +20,12 @@ public class DeleteCardRequestHandler : IRequestHandler<DeleteCardRequest, Delet
 
     public async Task<DeleteCardResponse> Handle(DeleteCardRequest request, CancellationToken cancellationToken)
     {
+        var referenceCount = _context.DashboardCards.Count(dc => dc.CardId == request.CardId);
+        if (referenceCount > 0)
+        {
+            throw new BadHttpRequestException($"Cannot delete: referenced by {referenceCount} dashboard tile(s)", 400);
+        }
+
         var card = await _context.Cards.FindAsync(request.CardId);
         if (card != null)
         {

@@ -12,6 +12,7 @@ import { NotesPageComponent } from './pages/notes/notes-page/notes-page.componen
 import { EditNotePageComponent } from './pages/edit-note/edit-note-page/edit-note-page.component';
 import { TagsPageComponent } from './pages/tags/tags-page/tags-page.component';
 import { NotesByTagPageComponent } from './pages/notes-by-tag/notes-by-tag-page/notes-by-tag-page.component';
+import { CardsPageComponent } from './pages/cards/cards-page/cards-page.component';
 import { noteResolver } from './services/note-resolver.service';
 import { BehaviourTypesPageComponent } from './pages/behaviour-types/behaviour-types-page/behaviour-types-page.component';
 import { BehavioursPageComponent } from './pages/behaviours/behaviours-page/behaviours-page.component';
@@ -24,7 +25,6 @@ import { ProfilesPageComponent } from './pages/profiles/profiles-page/profiles-p
 import { SettingsPageComponent } from './pages/settings/settings-page/settings-page.component';
 
 const placeholderPaths = [
-  'cards',
   'card-layouts'
 ];
 
@@ -50,6 +50,7 @@ export const routes: Routes = [
       { path: 'edit-note/:slug', component: EditNotePageComponent, resolve: { note: noteResolver } },
       { path: 'tags', component: TagsPageComponent },
       { path: 'notes-by-tag/:slug', component: NotesByTagPageComponent },
+      { path: 'cards', component: CardsPageComponent },
       ...placeholderPaths.map(path => ({ path, component: PlaceholderPageComponent }))
     ]
   }

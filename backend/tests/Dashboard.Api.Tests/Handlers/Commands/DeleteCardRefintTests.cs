@@ -1,51 +1,56 @@
+using Commitments.Testing.Common;
 using Dashboard.Data;
 using Dashboard.Domain.CardAggregate;
 using Dashboard.Domain.DashboardCardAggregate;
 using Dashboard.Features.Card;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+using Moq;
 using Xunit;
 
 namespace Dashboard.Api.Tests.Handlers.Commands;
 
 public class DeleteCardRefintTests
 {
-    private static DashboardDbContext NewCtx() =>
-        new(new DbContextOptionsBuilder<DashboardDbContext>()
-            .UseInMemoryDatabase($"card-refint-{Guid.NewGuid()}").Options);
-
     [Fact]
     public async Task Handle_WhenReferencedByDashboardCard_ThrowsBadHttpRequestException(/* design 16 Slice B */)
     {
-        await using var ctx = NewCtx();
         var cardId = Guid.NewGuid();
-        ctx.Cards.Add(new Card { CardId = cardId, Name = "x" });
-        ctx.DashboardCards.Add(new DashboardCard { DashboardCardId = Guid.NewGuid(), CardId = cardId, DashboardId = Guid.NewGuid(), CardLayoutId = Guid.NewGuid() });
-        await ctx.SaveChangesAsync(CancellationToken.None);
+        var existing = new Card { CardId = cardId, Name = "x" };
+        var referencingTile = new DashboardCard { DashboardCardId = Guid.NewGuid(), CardId = cardId };
 
-        var handler = new DeleteCardRequestHandler(ctx);
+        var mockContext = MockDashboardDbContextFactory.Create();
+        var cardSet = MockDbSetFactory.CreateMockDbSet(new List<Card> { existing });
+        cardSet.Setup(d => d.FindAsync(cardId)).ReturnsAsync(existing);
+        mockContext.Setup(c => c.Cards).Returns(cardSet.Object);
+        mockContext.Setup(c => c.DashboardCards).Returns(MockDbSetFactory.CreateMockDbSet(new List<DashboardCard> { referencingTile }).Object);
+
+        var handler = new DeleteCardRequestHandler(mockContext.Object);
 
         var act = async () => await handler.Handle(new DeleteCardRequest { CardId = cardId }, CancellationToken.None);
 
         await act.Should().ThrowAsync<BadHttpRequestException>()
             .Where(e => e.StatusCode == 400 && e.Message.Contains("Cannot delete"));
 
-        (await ctx.Cards.AnyAsync(c => c.CardId == cardId)).Should().BeTrue();
+        cardSet.Verify(d => d.Remove(It.IsAny<Card>()), Times.Never);
     }
 
     [Fact]
     public async Task Handle_WhenNotReferenced_RemovesCard()
     {
-        await using var ctx = NewCtx();
         var cardId = Guid.NewGuid();
-        ctx.Cards.Add(new Card { CardId = cardId, Name = "x" });
-        await ctx.SaveChangesAsync(CancellationToken.None);
+        var existing = new Card { CardId = cardId, Name = "x" };
 
-        var handler = new DeleteCardRequestHandler(ctx);
+        var mockContext = MockDashboardDbContextFactory.Create();
+        var cardSet = MockDbSetFactory.CreateMockDbSet(new List<Card> { existing });
+        cardSet.Setup(d => d.FindAsync(cardId)).ReturnsAsync(existing);
+        mockContext.Setup(c => c.Cards).Returns(cardSet.Object);
+        mockContext.Setup(c => c.DashboardCards).Returns(MockDbSetFactory.CreateMockDbSet(new List<DashboardCard>()).Object);
+
+        var handler = new DeleteCardRequestHandler(mockContext.Object);
 
         await handler.Handle(new DeleteCardRequest { CardId = cardId }, CancellationToken.None);
 
-        (await ctx.Cards.IgnoreQueryFilters().AnyAsync(c => c.CardId == cardId && c.IsDeleted)).Should().BeTrue();
+        cardSet.Verify(d => d.Remove(existing), Times.Once);
     }
 }
