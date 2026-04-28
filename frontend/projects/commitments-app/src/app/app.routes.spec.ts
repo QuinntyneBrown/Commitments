@@ -184,4 +184,20 @@ describe('app.routes', () => {
     );
     expect(existsSync(legacy)).toBe(false);
   });
+
+  it('orphaned cardId-based dashboard-card components are gone (bug-147)', () => {
+    const { existsSync } = require('fs');
+    const { join } = require('path');
+    const legacy = [
+      'daily-results-dashboard-card',
+      'weekly-results-dashboard-card',
+      'monthly-results-dashboard-card',
+      'to-do-dashboard-card',
+      'relations-results-dashboard-card'
+    ];
+    for (const dir of legacy) {
+      const file = join(__dirname, 'components', dir, `${dir}.component.ts`);
+      expect(existsSync(file)).toBe(false);
+    }
+  });
 });
