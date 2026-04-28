@@ -1,12 +1,21 @@
 ---
 id: bug-090
 title: Consistency Trend chart line uses Chart.js default butt/miter cap+join, design specifies round
-status: Open
+status: Fixed
 ---
 
 # Bug 090 — chart line cap/join not round
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added `borderCapStyle: 'round'` and `borderJoinStyle: 'round'`
+to the `chartDataset` returned by `ConsistencyTrendController`.
+The line's endings now end in soft half-circles (matching the
+design's `cap: round`) and any sharp inflection between curves
+rounds smoothly (matching `join: round`) — replacing Chart.js
+defaults of butt/miter. 287/287 workspace tests green.
 
 ## Description
 
