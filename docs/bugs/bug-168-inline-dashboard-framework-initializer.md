@@ -1,10 +1,19 @@
 ---
 id: bug-168
 title: dashboard-framework.initializer.ts is single-consumer indirection — inline into provideDashboardFramework
-status: Open
+status: Fixed
 ---
 
 # Bug 168 — Inline `dashboard-framework.initializer` into `provideDashboardFramework`
+
+**Status**: Fixed
+
+## Fix
+
+The 21-line `dashboard-framework.initializer.ts` file deleted.
+Its factory + Provider inlined directly into
+`provideDashboardFramework`. The dashboard barrel's stale
+re-export removed. 368/368 workspace tests green.
 
 ## Description
 
