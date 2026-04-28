@@ -41,8 +41,8 @@ describe('RelationsTileComponent (template + CSS source)', () => {
     expect(block).toMatch(/--cui-tile-body-gap\s*:\s*12px\b/);
   });
 
-  it('projects the status-pill into the tile-shell header (bug-057)', () => {
-    expect(html).toMatch(/<cui-status-pill\b[^>]*\btile-status\b/);
+  it('does not project a status-pill — design forbids one (bug-078)', () => {
+    expect(html).not.toMatch(/<cui-status-pill\b/);
   });
 
   it('keeps every template line under 110 characters (bug-073)', () => {
