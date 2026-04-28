@@ -1,12 +1,27 @@
 ---
 id: bug-042
 title: Tile-shell sets `box-shadow: none`, overriding the .pen tile drop shadow on every tile
-status: Open
+status: Fixed
 ---
 
 # Bug 042 — Tile-shell drops the .pen drop shadow
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`tile-shell.component.scss` swaps `box-shadow: none` for
+`box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6)`, matching the .pen tile
+shadow effect (offset y 4, blur 12, `#00000099` = 60% black).
+
+Coverage:
+- New spec `renders the .pen drop shadow on every tile (bug-042)`
+  asserts the rule contains a `box-shadow` with both `4px` and
+  `12px` and is not `none`.
+- All 20 affected suites pass (110/110 — was 109/109 before).
+
+Token extraction (`--cui-shadow-tile`) deferred until a second
+consumer adopts the same shadow.
 
 ## Description
 
