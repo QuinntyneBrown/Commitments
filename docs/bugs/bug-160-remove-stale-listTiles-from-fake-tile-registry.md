@@ -1,10 +1,18 @@
 ---
 id: bug-160
 title: FakeTileRegistry in dashboard-layout.store.spec carries stale listTiles() — remove
-status: Open
+status: Fixed
 ---
 
 # Bug 160 — Drop stale `listTiles()` from `FakeTileRegistry`
+
+**Status**: Fixed
+
+## Fix
+
+Removed the 3-line method from the test fake. The fake now
+exactly mirrors the post-bug-154 shape of the real
+`TileRegistryService`. 362/362 workspace tests green.
 
 ## Description
 
