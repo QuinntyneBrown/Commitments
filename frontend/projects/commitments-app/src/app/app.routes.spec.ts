@@ -277,7 +277,7 @@ describe('app.routes', () => {
     const { readFileSync } = require('fs');
     const { join } = require('path');
     const pomSrc = readFileSync(
-      join(__dirname, '..', '..', '..', '..', 'e2e', 'pages', 'dashboard.page.ts'),
+      join(__dirname, '..', '..', 'e2e', 'pages', 'dashboard.page.ts'),
       'utf8'
     );
     expect(pomSrc).not.toMatch(/resetLayoutButton/);

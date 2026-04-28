@@ -22,7 +22,6 @@ export class DashboardPage {
   readonly addTileDialogLabels: Locator;
   readonly addTileDialogConfirm: Locator;
   readonly addTileDialogCancel: Locator;
-  readonly resetLayoutButton: Locator;
   readonly removeTileButtons: Locator;
   readonly editModeEnterButton: Locator;
   readonly editModeDoneButton: Locator;
@@ -39,7 +38,6 @@ export class DashboardPage {
     this.addTileDialogLabels = this.addTileDialog.locator('.add-tile-dialog__label');
     this.addTileDialogConfirm = page.getByTestId('add-tile-dialog-confirm');
     this.addTileDialogCancel = page.getByTestId('add-tile-dialog-cancel');
-    this.resetLayoutButton = page.getByTestId('reset-layout');
     this.removeTileButtons = page.getByTestId('remove-tile');
     this.editModeEnterButton = page.getByTestId('edit-mode-enter');
     this.editModeDoneButton = page.getByTestId('edit-mode-done');

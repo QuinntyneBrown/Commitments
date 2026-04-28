@@ -36,10 +36,6 @@ export class DashboardLayoutStore {
     this.reviewItems.set(this.loadOrSeed('review'));
   }
 
-  toggleEditMode(): void {
-    this.editModeSignal.update((value) => !value);
-  }
-
   setEditMode(value: boolean): void {
     this.editModeSignal.set(value);
   }
@@ -63,12 +59,6 @@ export class DashboardLayoutStore {
     this.mutateCurrent((items) =>
       items.map((item) => (item.instanceId === instanceId ? { ...item, ...patch } : item))
     );
-  }
-
-  resetLayout(): void {
-    const mode = this.modeService.mode();
-    this.persistence.clear(mode);
-    this.signalForMode(mode).set(this.defaultItems(mode));
   }
 
   private signalForMode(mode: DashboardMode) {
