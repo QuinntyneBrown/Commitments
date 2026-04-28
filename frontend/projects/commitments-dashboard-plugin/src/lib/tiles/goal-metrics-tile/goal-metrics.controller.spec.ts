@@ -168,4 +168,15 @@ describe('GoalMetricsController', () => {
     controller.load('review', '2026-04-15T18:30:00Z');
     expect(controller.mode()).toBe('review');
   });
+
+  it('declares _reviewDelta as a computed signal, not a method (bug-130)', async () => {
+    const { readFileSync } = await import('fs');
+    const { join } = await import('path');
+    const ts = readFileSync(
+      join(__dirname, 'goal-metrics.controller.ts'),
+      'utf8'
+    );
+    expect(ts).toMatch(/_reviewDelta\s*=\s*computed</);
+    expect(ts).not.toMatch(/^\s*private\s+_reviewDelta\(\)/m);
+  });
 });
