@@ -195,9 +195,13 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
       join(__dirname, 'consistency-trend-tile.component.ts'),
       'utf8'
     );
-    // controller.load(...) must be inside an effect that reads both
-    // goalId() and windowDays(), so any input change re-loads the trend.
-    expect(ts).toMatch(/effect\(\s*\(\)\s*=>[\s\S]*?goalId\(\)[\s\S]*?windowDays\(\)[\s\S]*?controller\.load/);
+    // Find the effect block that contains controller.load and verify
+    // it references both goalId() and windowDays() (order-agnostic).
+    const effectWithLoad = ts.match(/effect\(\s*\(\)\s*=>\s*\{([\s\S]*?controller\.load[\s\S]*?)\}\s*\)/);
+    expect(effectWithLoad).toBeTruthy();
+    const body = effectWithLoad![1];
+    expect(body).toMatch(/goalId\(\)/);
+    expect(body).toMatch(/windowDays\(\)/);
     // The legacy ngOnInit-based load should be gone.
     expect(ts).not.toMatch(/ngOnInit\(\)\s*:\s*void\s*\{[^}]*controller\.load/);
   });

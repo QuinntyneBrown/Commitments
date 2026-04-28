@@ -7,7 +7,6 @@ import {
   Component,
   ElementRef,
   OnDestroy,
-  OnInit,
   ViewChild,
   computed,
   effect,
@@ -39,7 +38,7 @@ import { ConsistencyTrendController } from '../consistency-trend.controller';
   templateUrl: './consistency-trend-tile.component.html',
   styleUrls: ['./consistency-trend-tile.component.scss']
 })
-export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ConsistencyTrendTileComponent implements AfterViewInit, OnDestroy {
   static readonly tileMetadata: TileMetadata = {
     tileId: 'commitments.consistency-trend',
     displayName: 'Consistency Trend',
@@ -71,6 +70,13 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
 
   constructor() {
     effect(() => {
+      const id = this.goalId();
+      if (id) {
+        this.controller.load(id, this.windowDays());
+      }
+    });
+
+    effect(() => {
       const dataset = this.controller.chartDataset();
       const labels = this.controller.chartLabels();
       if (this.plotRef) {
@@ -84,13 +90,6 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
         this._tileContext!.selectedReviewDate();
         this.controller.refresh();
       });
-    }
-  }
-
-  ngOnInit(): void {
-    const id = this.goalId();
-    if (id) {
-      this.controller.load(id, this.windowDays());
     }
   }
 
