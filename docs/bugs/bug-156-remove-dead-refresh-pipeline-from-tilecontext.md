@@ -1,10 +1,22 @@
 ---
 id: bug-156
 title: TileContext.requestRefresh / refresh$ are unused — remove the dead refresh pipeline
-status: Open
+status: Fixed
 ---
 
 # Bug 156 — Drop dead `refresh$` + `requestRefresh()` from `TileContext`
+
+**Status**: Fixed
+
+## Fix
+
+35 lines removed across 4 files. `bindTileMode` now does
+exactly one reactive thing: an `effect()` that re-calls
+`load(mode, asOf)` when those signals change. No more
+producer/consumer Observable pair, no more
+`takeUntilDestroyed` import, no more Subject in the
+dashboard-grid context provider. 358/358 workspace tests
+green.
 
 ## Description
 
