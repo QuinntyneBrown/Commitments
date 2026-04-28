@@ -15,7 +15,7 @@ import {
   input,
   signal
 } from '@angular/core';
-import { ChartConfiguration } from 'chart.js';
+import { Chart, ChartConfiguration } from 'chart.js';
 import { TILE_CONTEXT, TileContext, TileMetadata } from '@commitments/dashboard-framework';
 import {
   ACCENT_CHART,
@@ -96,6 +96,24 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
 
   ngAfterViewInit(): void {
     const controller = this.controller;
+    const todayPointGlow = {
+      id: 'todayPointGlow',
+      afterDatasetDraw(chart: Chart<'line'>): void {
+        const idx = controller.highlightedIndex();
+        if (idx < 0) return;
+        const point = chart.getDatasetMeta(0).data[idx];
+        if (!point) return;
+        const ctx = chart.ctx;
+        ctx.save();
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = ACCENT_CHART + 'CC';
+        ctx.fillStyle = ACCENT_CHART;
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, 7, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    };
     const config: ChartConfiguration<'line'> = {
       type: 'line',
       data: { labels: this.controller.chartLabels(), datasets: [this.controller.chartDataset()] },
@@ -124,7 +142,8 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
           y: { min: 0, max: 100, ticks: { display: false, maxTicksLimit: 5 }, grid: { color: 'rgba(255, 255, 255, 0.07)', drawTicks: false } }
         },
         interaction: { mode: 'nearest', intersect: false, axis: 'x' }
-      }
+      },
+      plugins: [todayPointGlow]
     };
     this._adapter.attach(this.plotRef, config);
   }
