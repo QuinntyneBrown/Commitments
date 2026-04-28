@@ -1,12 +1,39 @@
 ---
 id: bug-041
 title: Tile shell body padding is hard-coded at 10px; weekly-focus / monthly-progress / relations designs each specify 12 (and consistency-trend 14) — needs per-tile customization
-status: Open
+status: Fixed
 ---
 
 # Bug 041 — Tile body padding-top is fixed at 10px instead of per-tile-design
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`tile-shell.component.scss`:
+- `.tile-shell__body { padding-top: var(--cui-tile-body-gap, 10px); }`
+- Removed `.tile-shell--chart .tile-shell__body { padding-top: 14px; }`
+  (bug-040 mechanism replaced by per-tile property).
+
+Per-tile opt-ins (`:host { --cui-tile-body-gap: …; }`):
+- weekly-focus, monthly-progress, relations: 12px
+- consistency-trend: 14px
+
+Daily-results and outstanding-todos keep the default 10px (no
+override needed — they already match the .pen).
+
+The 12px literal is duplicated across three tiles intentionally;
+promote to a shared token only when cross-cutting demand emerges.
+
+Coverage:
+- `tile-shell.component.spec.ts` asserts `.tile-shell__body`
+  consumes `var(--cui-tile-body-gap)` and the chart-variant override
+  is gone.
+- weekly-focus, monthly-progress, relations specs each assert their
+  `:host` declares `--cui-tile-body-gap: 12px`.
+- consistency-trend spec asserts `:host` declares
+  `--cui-tile-body-gap: 14px`.
+- All 20 affected suites pass (109/109 — was 104/104 before).
 
 ## Description
 
