@@ -7,8 +7,7 @@ import { forkJoin } from 'rxjs';
 
 import {
   GoalProgressDto,
-  GoalProgressService,
-  GoalProgressUpdated
+  GoalProgressService
 } from '../../data/goal-progress.service';
 
 export type DeltaTone = 'success' | 'warn' | 'neutral';
@@ -78,12 +77,5 @@ export class GoalMetricsController {
       this.current.set(historical);
       this.today.set(now);
     });
-  }
-
-  applyHubUpdate(evt: GoalProgressUpdated): void {
-    if (this.mode() !== 'live' || evt.goalId !== this._goalId) return;
-    const c = this.current();
-    if (!c) return;
-    this.current.set({ ...c, count: evt.count, asOf: evt.asOf });
   }
 }

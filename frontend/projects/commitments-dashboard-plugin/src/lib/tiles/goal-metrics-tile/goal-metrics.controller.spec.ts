@@ -81,43 +81,6 @@ describe('GoalMetricsController', () => {
     expect(controller.deltaLabel()).toBeNull();
   });
 
-  it('applyHubUpdate updates current count/asOf in live mode for matching goal', () => {
-    getCurrent.mockReturnValue(of(dto({ count: 10 })));
-
-    const controller = new GoalMetricsController(service);
-    controller.setGoalId('g1');
-    controller.load('live', null);
-
-    controller.applyHubUpdate({ goalId: 'g1', count: 15, asOf: '2026-04-27T18:00:00Z' });
-
-    expect(controller.count()).toBe(15);
-  });
-
-  it('ignores hub update in review mode', () => {
-    getAt.mockReturnValue(of(dto({ count: 5 })));
-    getCurrent.mockReturnValue(of(dto({ count: 10 })));
-
-    const controller = new GoalMetricsController(service);
-    controller.setGoalId('g1');
-    controller.load('review', '2026-04-15T18:30:00Z');
-
-    controller.applyHubUpdate({ goalId: 'g1', count: 99, asOf: '2026-04-27T18:00:00Z' });
-
-    expect(controller.count()).toBe(5); // unchanged
-  });
-
-  it('ignores hub update for a different goalId', () => {
-    getCurrent.mockReturnValue(of(dto({ goalId: 'g1', count: 10 })));
-
-    const controller = new GoalMetricsController(service);
-    controller.setGoalId('g1');
-    controller.load('live', null);
-
-    controller.applyHubUpdate({ goalId: 'other', count: 99, asOf: '2026-04-27T18:00:00Z' });
-
-    expect(controller.count()).toBe(10);
-  });
-
   it('formats positive delta as "+N vs today" with success tone', () => {
     // historical < today → today is better → success
     getAt.mockReturnValue(of(dto({ count: 5 })));

@@ -14,12 +14,6 @@ export interface GoalProgressDto {
   asOf: string;
 }
 
-export interface GoalProgressUpdated {
-  goalId: string;
-  count: number;
-  asOf: string;
-}
-
 @Injectable({ providedIn: 'root' })
 export class GoalProgressService {
   private readonly _client = inject(HttpClient);
