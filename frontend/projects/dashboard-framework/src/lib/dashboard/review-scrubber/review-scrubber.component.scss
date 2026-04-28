@@ -71,7 +71,7 @@
   min-width: 110px;
   padding: 4px 10px;
   border-radius: var(--cui-radius-full, 9999px);
-  background: rgba(159, 168, 218, 0.18);
+  background: color-mix(in srgb, var(--cui-primary, #9FA8DA) 18%, transparent);
   color: var(--cui-primary, #9FA8DA);
   font-weight: 700;
   font-size: 12px;
