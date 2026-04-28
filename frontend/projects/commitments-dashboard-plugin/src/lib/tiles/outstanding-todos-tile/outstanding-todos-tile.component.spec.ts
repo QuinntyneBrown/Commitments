@@ -79,4 +79,15 @@ describe('OutstandingTodosTileComponent (template + CSS source)', () => {
     expect(pom).not.toMatch(/Outstanding To.Dos/);
     expect(spec).not.toMatch(/Outstanding To.Dos/);
   });
+
+  it('component metadata displayName matches the renamed title (bug-081)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'outstanding-todos-tile.component.ts'),
+      'utf8'
+    );
+    // displayName is the source of truth for the add-tile dialog.
+    // It must match the catalog and tile-shell title — no stale
+    // "Outstanding To-Dos" or U+2011 "Outstanding To‑Dos" form.
+    expect(ts).not.toMatch(/Outstanding To.Dos/);
+  });
 });
