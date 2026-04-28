@@ -1,12 +1,23 @@
 ---
 id: bug-099
 title: relations-tile.component.scss var() calls omit the design-system fallback hex
-status: Open
+status: Fixed
 ---
 
 # Bug 099 — relations var() fallback hex
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added the design-system hex fallback to three `var()` references
+in `relations-tile.component.scss`:
+
+- `var(--cui-text-secondary, #B0B0B0)` (label, .empty)
+- `var(--cui-text-primary, #FFFFFF)` (value via <strong>)
+
+Same shape as bug-096/097/098. The bug-099 spec adds a
+forward-only regex guard. 296/296 workspace tests green.
 
 ## Description
 
