@@ -1,12 +1,23 @@
 ---
 id: bug-098
 title: monthly-progress-tile.component.scss var() calls omit the design-system fallback hex
-status: Open
+status: Fixed
 ---
 
 # Bug 098 — monthly-progress var() fallback hex
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added the design-system hex fallback to two `var()` references
+in `monthly-progress-tile.component.scss`:
+
+- `var(--cui-info, #42A5F5)` for `--cui-tile-icon-color`
+- `var(--cui-text-secondary, #B0B0B0)` for `.empty`
+
+Same shape as bug-096/097. The bug-098 spec adds a forward-only
+regex guard. 295/295 workspace tests green.
 
 ## Description
 
