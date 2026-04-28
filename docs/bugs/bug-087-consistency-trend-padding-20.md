@@ -1,12 +1,30 @@
 ---
 id: bug-087
 title: Consistency Trend tile uses Material's default 16px padding where the design specifies 20px
-status: Open
+status: Fixed
 ---
 
 # Bug 087 — Consistency Trend padding 20 vs default 16
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added a `--cui-tile-padding` custom property to tile-shell
+(default `16px`, matching Material's mat-card defaults so every
+existing tile renders unchanged). The header explicitly sets
+`padding: var(--cui-tile-padding, 16px) var(--cui-tile-padding, 16px) 0`
+and the body explicitly sets `padding-inline` and
+`padding-bottom` to consume the same token (top stays as
+`var(--cui-tile-body-gap, …)`).
+
+`consistency-trend-tile`'s `:host` now declares
+`--cui-tile-padding: 20px`, matching the .pen design's root
+padding of 20.
+
+The token pattern matches the existing tile-shell customization
+slots (header-gap, body-gap, icon-color, icon-size). 41/41
+tile-shell + consistency-trend specs green; 283/283 workspace.
 
 ## Description
 
