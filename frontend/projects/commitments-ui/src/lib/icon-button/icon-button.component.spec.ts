@@ -70,4 +70,14 @@ describe('IconButtonComponent', () => {
     expect(ts).toMatch(/\bpressed\s*=\s*model\(/);
     expect(ts).not.toMatch(/pressedChange\s*=\s*output</);
   });
+
+  it('hover background uses --cui-hover-overlay token (bug-171)', () => {
+    const scss = readFileSync(
+      join(__dirname, 'icon-button.component.scss'),
+      'utf8'
+    );
+    const hoverBlock = scss.match(/\.icon-button:hover:not\(:disabled\)\s*\{([^}]*)\}/);
+    expect(hoverBlock).not.toBeNull();
+    expect(hoverBlock![1]).toMatch(/background\s*:\s*var\(\s*--cui-hover-overlay/);
+  });
 });
