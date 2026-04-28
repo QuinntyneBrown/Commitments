@@ -1,12 +1,28 @@
 ---
 id: bug-038
 title: Outstanding Todos — count weight is 800 and copy size is 13px; design specifies 700 and 12px
-status: Open
+status: Fixed
 ---
 
 # Bug 038 — Outstanding Todos count weight + copy size
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`outstanding-todos-tile.component.scss`:
+- `.todo-count` font-weight 800 → 700
+- `.todo-copy` font-size 13px → 12px
+
+Coverage:
+- Two new specs in `outstanding-todos-tile.component.spec.ts`
+  assert the count's weight 700 and the copy's 12px size.
+- All 20 affected suites pass (100/100 — was 98/98 before).
+
+The "big headline number at weight 700 with 12px supporting copy"
+pattern is now consistent between daily-results-tile (bug-036) and
+outstanding-todos-tile. SASS mixin extraction (`big-number-headline`)
+deferred until a third tile adopts the same pattern.
 
 ## Description
 
