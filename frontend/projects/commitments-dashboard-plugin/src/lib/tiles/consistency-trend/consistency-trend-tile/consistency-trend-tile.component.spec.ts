@@ -94,6 +94,16 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(ts).toMatch(/x\s*:\s*\{[\s\S]*?ticks\s*:\s*\{[\s\S]*?padding\s*:\s*6\b/);
   });
 
+  it('caps the x-axis at 5 date labels to match the design (bug-094)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend-tile.component.ts'),
+      'utf8'
+    );
+    // The design's xLabRow has exactly 5 dates — match it.
+    expect(ts).toMatch(/x\s*:\s*\{[\s\S]*?ticks\s*:\s*\{[\s\S]*?maxTicksLimit\s*:\s*5\b/);
+    expect(ts).not.toMatch(/x\s*:\s*\{[\s\S]*?ticks\s*:\s*\{[\s\S]*?maxTicksLimit\s*:\s*6\b/);
+  });
+
   it('formats x-axis labels with toLocaleDateString month/day (bug-046)', () => {
     const ts = readFileSync(
       join(__dirname, 'consistency-trend-tile.component.ts'),
