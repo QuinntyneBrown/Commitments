@@ -1,12 +1,30 @@
 ---
 id: bug-074
 title: e2e Page Object Model and dashboard.spec.ts still reference the old "Outstanding To‑Dos" title (U+2011 hyphen) that bug-027 removed
-status: Open
+status: Fixed
 ---
 
 # Bug 074 — Outstanding Todos title rename broke e2e tests
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Replaced `'Outstanding To‑Dos'` (U+2011 hyphen) with
+`'Outstanding Todos'` in five sites across the e2e suite:
+
+- `dashboard.page.ts` — `DEFAULT_TILE_TITLES` constant
+- `dashboard.spec.ts` — `addTileDialogLabels` expected list
+- `dashboard.spec.ts` — three test names (lines 42, 54, 106)
+
+A regression guard was added to
+`outstanding-todos-tile.component.spec.ts` that reads both e2e
+files and asserts neither matches `/Outstanding To.Dos/` (covers
+both the regular and non-breaking hyphen forms). Future drift is
+caught early in the unit-test layer.
+
+`grep -rn 'Outstanding To.Dos' frontend/projects/commitments-app/e2e`
+returns no matches; 9/9 outstanding-todos-tile specs pass.
 
 ## Description
 
