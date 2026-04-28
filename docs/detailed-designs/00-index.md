@@ -12,7 +12,7 @@ Conventions used by every design document:
 | # | Feature | Status | Delta in one line |
 |---|---------|--------|-------------------|
 | 01 | [Login](01-login/README.md) | Implemented | Add `POST /api/v1.0/users/token` + bootstrap `ProfileId` after login (L2-001..L2-003) |
-| 02 | [Profiles](02-profiles/README.md) | Accepted | Wire route to existing `ProfilesPageComponent`, add `GET /current` and `POST /avatar` (L2-003, L2-004) |
+| 02 | [Profiles](02-profiles/README.md) | Implemented | Wire route to existing `ProfilesPageComponent`, add `GET /current` and `POST /avatar` (L2-003, L2-004) |
 | 03 | [My Profile](03-my-profile/README.md) | Draft | Self-service avatar + display-name slice on top of `Profile` (L2-004) |
 | 04 | [Settings](04-settings/README.md) | Draft | Read-only profile/version panel — no new entity (L2-035, L2-037) |
 | 05 | [Behaviour Types](05-behaviour-types/README.md) | Draft | Wire route + ATDD on existing CRUD; add referential-integrity check (L2-006) |

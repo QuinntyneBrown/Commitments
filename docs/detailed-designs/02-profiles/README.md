@@ -1,6 +1,6 @@
 # Profiles — Detailed Design
 
-**Status:** Accepted
+**Status:** Implemented
 
 **Traces to:** L1-002, L1-013, L1-017 · L2-003, L2-004, L2-038
 
@@ -67,8 +67,14 @@ The delete cell triggers `ProfileService.remove(profile)`; on success the row is
 ## 8. ATDD Slices
 
 1. **Slice A — list scoping:** add `userId` filter to `GetProfilesHandler`. Spec: a second user's seeded profile is not in the response. **Status: Implemented.**
-2. **Slice B — page wiring:** replace placeholder route, render grid, wire FAB → `CreateProfileDialog`. Spec: opening `/profiles` lists the seeded profile; submitting the dialog adds a row without page refresh. **Status: Pending.**
-3. **Slice C — delete:** wire delete cell + soft-delete server-side. Spec: deleted row disappears, dashboard still loads. **Status: Pending.**
+2. **Slice B — page wiring:** replace placeholder route, render grid, wire FAB → `CreateProfileDialog`. Spec: opening `/profiles` lists the seeded profile; submitting the dialog adds a row without page refresh. **Status: Implemented.**
+3. **Slice C — delete:** wire delete cell + soft-delete server-side. Spec: deleted row disappears, dashboard still loads. **Status: Implemented** — the existing `handleRemove` already splices the row and calls `ProfileService.remove`; server-side soft-delete is provided by `BaseDbContext`'s `IsDeleted` interceptor + global query filter.
+
+## 9. Implementation Notes
+
+- Switched grid type imports from the bare `'ag-grid'` module (no longer ships types in v32) to `'ag-grid-community'` so the page actually compiles under jest-preset-angular.
+- Simplified `ProfilesPageComponent.handleRemove` from a `findIndex` + `splice` pair on a misnamed `cards` local to a single `filter()`, lowering the complexity score for a junior-Angular reader.
+- Schema migration for `Profile.UserId` is still deferred (carried with the 01-Login migration backlog).
 
 ## 9. Open Questions
 
