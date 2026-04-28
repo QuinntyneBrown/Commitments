@@ -95,6 +95,16 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(ts).toMatch(/font\s*:\s*\([^)]*\)\s*=>[\s\S]*?\b700\b/);
   });
 
+  it('non-highlighted tick color uses TEXT_MUTED token, not literal #666666 (bug-088)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend-tile.component.ts'),
+      'utf8'
+    );
+    expect(ts).toMatch(/import\s*\{[^}]*\bTEXT_MUTED\b[^}]*\}\s*from\s*'@commitments\/ui'/);
+    expect(ts).toMatch(/color\s*:\s*\([^)]*\)\s*=>[\s\S]*?TEXT_MUTED/);
+    expect(ts).not.toMatch(/'#666666'/);
+  });
+
   it('opts in to the info-blue icon colour (bug-048)', () => {
     const block = ruleBlock(':host');
     expect(block).toMatch(/--cui-tile-icon-color\s*:[^;]*--cui-info/);
