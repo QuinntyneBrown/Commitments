@@ -92,9 +92,11 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(block).not.toMatch(/margin-top\s*:/);
   });
 
-  it('uses 14px gap above the chart canvas (bug-040)', () => {
+  it('uses 14px gap above the chart canvas (bug-040, post bug-143)', () => {
     const block = ruleBlock('\\.plot');
-    expect(block).toMatch(/margin-top\s*:\s*14px\b/);
+    // After bug-143 the literal `14px` lives as the fallback inside
+    // `var(--cui-tile-body-gap, 14px)`, not as a free-standing value.
+    expect(block).toMatch(/margin-top\s*:\s*(?:14px|var\(\s*--cui-tile-body-gap\s*,\s*14px)/);
   });
 
   it('opts in to the 14px tile-body gap (bug-041)', () => {
