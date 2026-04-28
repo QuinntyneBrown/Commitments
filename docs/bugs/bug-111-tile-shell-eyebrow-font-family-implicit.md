@@ -1,12 +1,22 @@
 ---
 id: bug-111
 title: tile-shell eyebrow doesn't explicitly set --cui-font-display, relies on body cascade
-status: Open
+status: Fixed
 ---
 
 # Bug 111 — eyebrow font-family
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added `font-family: var(--cui-font-display, 'Inter')` to
+`.tile-shell__eyebrow`, mirroring the same pinning on
+`.tile-shell__title` (bug-067). 306/306 workspace tests green.
+
+The eyebrow is now consistent with both the title (which uses
+the same token) and every `ui-design.pen` text node (which all
+specify `fontFamily: 'Inter'`).
 
 ## Description
 
