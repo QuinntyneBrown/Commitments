@@ -1,4 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
 import { ModeToggleComponent } from './mode-toggle.component';
 
@@ -44,5 +46,15 @@ describe('ModeToggleComponent', () => {
     component.onKeyDown(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
 
     expect(component.mode()).toBe('live');
+  });
+
+  it('pins font-family to --cui-font-display at the root (bug-113)', () => {
+    const scss = readFileSync(
+      join(__dirname, 'mode-toggle.component.scss'),
+      'utf8'
+    );
+    const block = scss.match(/\.mode-toggle\s*\{([^}]*)\}/);
+    expect(block).toBeTruthy();
+    expect(block![1]).toMatch(/font-family\s*:\s*var\(\s*--cui-font-display/);
   });
 });
