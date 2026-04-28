@@ -1,12 +1,37 @@
 ---
 id: bug-048
 title: Tile-shell icon hard-codes `var(--cui-primary)`; three tile designs (monthly-progress, outstanding-todos, consistency-trend) specify themed icon colours
-status: Open
+status: Fixed
 ---
 
 # Bug 048 — Tile-shell icon colour is fixed at `--cui-primary` instead of per-tile-design
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`tile-shell.component.scss`:
+- `.tile-shell__icon { color: var(--cui-tile-icon-color, var(--cui-primary, #9FA8DA)); }`
+
+Per-tile opt-ins (`:host { --cui-tile-icon-color: …; }`):
+- monthly-progress, consistency-trend: `var(--cui-info)` (chart blue)
+- outstanding-todos: `var(--cui-warning)` (warning amber)
+
+Daily-results, weekly-focus, relations keep the default
+(`--cui-primary` lavender) — no override needed.
+
+Mirrors bug-041's per-tile customization pattern. Each themed
+tile now consistently themes both pill (bug-031/033/035) and icon
+to its tile theme.
+
+Coverage:
+- `tile-shell.component.spec.ts` asserts the icon `color` consumes
+  `var(--cui-tile-icon-color`.
+- monthly-progress and consistency-trend specs each assert their
+  `:host` declares `--cui-tile-icon-color: var(--cui-info)`.
+- outstanding-todos spec asserts its `:host` declares
+  `--cui-tile-icon-color: var(--cui-warning)`.
+- All 20 affected suites pass (119/119 — was 115/115 before).
 
 ## Description
 
