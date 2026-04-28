@@ -1,12 +1,28 @@
 ---
 id: bug-114
 title: Consistency Trend today-point lacks the glow shadow the design specifies
-status: Open
+status: Fixed
 ---
 
 # Bug 114 — today-point glow
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added a small `todayPointGlow` Chart.js plugin in
+`consistency-trend-tile.component.ts`'s `ngAfterViewInit`. The
+plugin's `afterDatasetDraw` reads `controller.highlightedIndex()`
+and draws a filled blue circle behind the highlighted point
+using `ctx.shadowBlur = 8` and
+`ctx.shadowColor = ACCENT_CHART + 'CC'` — matching the
+design's `effect: shadow blur 8 #42A5F5CC`.
+
+The glow follows the same index as the existing point-radius
+and border-color highlighting (live → last point; review →
+selected date), so all three signals stay in sync.
+
+311/311 workspace tests green.
 
 ## Description
 
