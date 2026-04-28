@@ -24,6 +24,11 @@ describe('TileShellComponent', () => {
     expect(component.variant()).toBe('metric');
   });
 
+  it('no longer exposes the legacy `status` input (bug-059)', () => {
+    const component = TestBed.createComponent(TileShellComponent).componentInstance as unknown as Record<string, unknown>;
+    expect(component['status']).toBeUndefined();
+  });
+
   describe('named projection', () => {
     function render() {
       TestBed.configureTestingModule({ imports: [TileShellHostComponent] });
@@ -103,6 +108,10 @@ describe('TileShellComponent', () => {
       const block = ruleBlock('\\.tile-shell');
       expect(block).toMatch(/box-shadow\s*:[^;]*4px[^;]*12px/);
       expect(block).not.toMatch(/box-shadow\s*:\s*none\b/);
+    });
+
+    it('drops the dead `__status` rule after the named-slot migration (bug-059)', () => {
+      expect(scss).not.toMatch(/\.tile-shell__status\b/);
     });
 
     it('icon colour consumes the per-tile custom property (bug-048)', () => {
