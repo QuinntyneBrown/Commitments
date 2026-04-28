@@ -1,12 +1,24 @@
 ---
 id: bug-086
 title: delta-badge uses align-items baseline, the design's ctDelta uses alignItems center
-status: Open
+status: Fixed
 ---
 
 # Bug 086 — delta-badge baseline vs center alignment
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Changed `.delta-badge { align-items }` from `baseline` to
+`center`, matching the design's `ctDelta.alignItems`. The 12px
+Material arrow icon now sits visually centered against the 11px
+Inter text — instead of dropping below center where the
+baseline alignment placed it (Material's icon-font baseline is
+hand-tuned below visual center).
+
+`consistency-trend-tile` is the only consumer of delta-badge.
+11/11 delta-badge specs green.
 
 ## Description
 
