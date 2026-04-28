@@ -10,6 +10,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
+  computed,
   effect,
   inject,
   signal
@@ -128,13 +129,11 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
     this._adapter.destroy();
   }
 
-  pillVariant(): 'chart' | 'review' {
-    return this._tileContext?.mode?.() === 'review' ? 'review' : 'chart';
-  }
-
-  pillLabel(): string {
-    return (this._tileContext?.mode?.() ?? 'live').toUpperCase();
-  }
+  protected readonly mode = computed(() => this._tileContext?.mode?.() ?? 'live');
+  protected readonly pillVariant = computed<'chart' | 'review'>(() =>
+    this.mode() === 'review' ? 'review' : 'chart'
+  );
+  protected readonly statusLabel = computed(() => this.mode().toUpperCase());
 }
 
 function isLastTick(ctx: { index?: number; scale?: { ticks?: unknown[] } }): boolean {

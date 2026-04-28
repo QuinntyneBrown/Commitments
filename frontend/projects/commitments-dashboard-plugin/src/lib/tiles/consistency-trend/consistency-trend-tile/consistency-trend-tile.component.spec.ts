@@ -36,8 +36,9 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
       join(__dirname, 'consistency-trend-tile.component.ts'),
       'utf8'
     );
-    // pillVariant() should map live mode to 'chart' for the chart-themed tile
-    expect(ts).toMatch(/pillVariant\s*\([^)]*\)[^{]*\{[\s\S]*?return[^;]*'chart'/);
+    // Match either `pillVariant() { return ... 'chart' }` or
+    // `pillVariant = computed(() => ... 'chart')` (post bug-061).
+    expect(ts).toMatch(/pillVariant\b[\s\S]*?'chart'/);
   });
 
   it('passes today caption + Peak/Low subCaption to the metric header (bug-032)', () => {
