@@ -29,17 +29,23 @@ describe('StatusPillComponent', () => {
 
     it('exposes a chart variant tinted with --cui-info (bug-031)', () => {
       const block = ruleBlock('\\.status-pill--chart');
-      expect(block).toMatch(/var\(--cui-info/);
+      // Tolerant of either `var(--cui-info)` (literal) or
+      // `@include tinted-pill(--cui-info, …)` (post bug-062).
+      expect(block).toMatch(/--cui-info\b/);
     });
 
     it('exposes a success variant tinted with --cui-success (bug-033)', () => {
       const block = ruleBlock('\\.status-pill--success');
-      expect(block).toMatch(/var\(--cui-success/);
+      expect(block).toMatch(/--cui-success\b/);
     });
 
     it('exposes a warning variant tinted with --cui-warning (bug-035)', () => {
       const block = ruleBlock('\\.status-pill--warning');
-      expect(block).toMatch(/var\(--cui-warning/);
+      expect(block).toMatch(/--cui-warning\b/);
+    });
+
+    it('declares a tinted-pill mixin that variants share (bug-062)', () => {
+      expect(scss).toMatch(/@mixin\s+tinted-pill\b/);
     });
 
     it('renders the dot at 8x8 (bug-034)', () => {
