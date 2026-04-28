@@ -38,4 +38,16 @@ describe('GoalMetricsTileComponent (template source)', () => {
     // assertion must use the merged displayName.
     expect(spec).not.toMatch(/Live Goal Metrics/);
   });
+
+  it('every var(--cui-*) reference includes a fallback hex (bug-102)', () => {
+    const scss = readFileSync(
+      join(__dirname, 'goal-metrics-tile.component.scss'),
+      'utf8'
+    );
+    const offenders = scss
+      .split(/\r?\n/)
+      .map((line, i) => ({ n: i + 1, line }))
+      .filter(({ line }) => /var\(--cui-[a-z-]+\)/.test(line));
+    expect(offenders).toEqual([]);
+  });
 });
