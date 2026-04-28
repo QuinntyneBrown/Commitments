@@ -1,6 +1,6 @@
 # Card Layouts — Detailed Design
 
-**Status:** Accepted
+**Status:** Implemented
 
 **Traces to:** L1-010 · L2-022
 
@@ -53,8 +53,13 @@ Backend `CardLayoutController` already exposes Save/Get/GetById/Remove. The delt
 
 ## 8. ATDD Slices
 
-1. **Slice A — list/route + render.** Spec: `/card-layouts` lists rows; FAB opens dialog; saving with valid name + description adds/updates a row (L2-022 AC #1).
-2. **Slice B — refint on delete.** Spec: deleting a layout referenced by ≥1 card returns 400.
+1. **Slice A — list/route + render.** Spec: `/card-layouts` lists rows; FAB opens dialog; saving with valid name + description adds/updates a row (L2-022 AC #1). **Status: Implemented.**
+2. **Slice B — refint on delete.** Spec: deleting a layout referenced by ≥1 card returns 400. **Status: Implemented** — the schema actually keeps `CardLayoutId` on `DashboardCard` (the tile placement), so the guard counts non-deleted `DashboardCard.CardLayoutId == request.CardLayoutId`.
+
+## 10. Implementation Notes
+
+- Six catalogs (BehaviourType, Behaviour, Frequency, FrequencyType, Tag, Card, CardLayout) now share the **identical** four-line "count + `throw new BadHttpRequestException(message, 400)`" guard. A junior reading any one of them picks up the rest for free.
+- With this design's route wired, every detailed design 02–17 maps to a real component; `app.routes.ts` no longer imports `PlaceholderPageComponent` and the `placeholderPaths` array is removed.
 
 ## 9. Open Questions
 
