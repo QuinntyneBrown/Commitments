@@ -55,6 +55,12 @@ describe('DeltaBadgeComponent', () => {
       expect(block).toMatch(/gap\s*:\s*4px\b/);
     });
 
+    it('aligns icon and text to vertical center, matching ctDelta (bug-086)', () => {
+      const block = ruleBlock('\\.delta-badge');
+      expect(block).toMatch(/align-items\s*:\s*center\b/);
+      expect(block).not.toMatch(/align-items\s*:\s*baseline\b/);
+    });
+
     it('sizes the directional icon to 12px (bug-053)', () => {
       const block = ruleBlock('\\.delta-badge__icon');
       expect(block).toMatch(/font-size\s*:\s*12px\b/);
