@@ -19,3 +19,14 @@ describe('DailyResultsTileComponent (CSS source)', () => {
     expect(block).toMatch(/align-items\s*:\s*center\b/);
   });
 });
+
+describe('DailyResultsTileComponent (TS source)', () => {
+  const ts = readFileSync(
+    join(__dirname, 'daily-results-tile.component.ts'),
+    'utf8'
+  );
+
+  it('returns the success pill variant in live mode (bug-033)', () => {
+    expect(ts).toMatch(/pillVariant\s*\([^)]*\)[^{]*\{[\s\S]*?return[^;]*'success'/);
+  });
+});

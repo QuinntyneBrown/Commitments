@@ -31,5 +31,10 @@ describe('StatusPillComponent', () => {
       const block = ruleBlock('\\.status-pill--chart');
       expect(block).toMatch(/var\(--cui-info/);
     });
+
+    it('exposes a success variant tinted with --cui-success (bug-033)', () => {
+      const block = ruleBlock('\\.status-pill--success');
+      expect(block).toMatch(/var\(--cui-success/);
+    });
   });
 });
