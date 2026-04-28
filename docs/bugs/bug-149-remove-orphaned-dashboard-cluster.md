@@ -1,10 +1,26 @@
 ---
 id: bug-149
 title: Remove orphaned dashboard cluster (4 services, 2 dialog components, 2 models)
-status: Open
+status: Fixed
 ---
 
 # Bug 149 — Remove final orphaned legacy dashboard cluster
+
+**Status**: Fixed
+
+## Fix
+
+Deleted 12 files — 447 lines net. Note the dialog component
+templates are named `*.html` / `*.scss` (without the
+`.component` infix) — different filename pattern than the rest
+of the workspace. Regression-guard spec asserts every file is
+gone. 357/357 workspace tests green.
+
+The four-bug arc (146→147→148→149) has now removed the
+complete legacy cardId-based dashboard infrastructure: the
+page, 5 leaf cards, 1 intermediate, the base class, 4
+services, 2 dialog components, and 2 models. Total: ~1100
+lines of dead code, 33 files.
 
 ## Description
 
