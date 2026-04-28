@@ -1,12 +1,19 @@
 ---
 id: bug-131
 title: OutstandingTodosController._reviewDelta() is a method called from two computed signals; should itself be computed
-status: Open
+status: Fixed
 ---
 
 # Bug 131 — outstanding-todos _reviewDelta computed
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Same shape as bug-130: hoisted `_reviewDelta` from a private
+method to a private `computed<number | null>(...)`. Both
+`deltaLabel` and `deltaTone` share the memoized result.
+328/328 workspace tests green.
 
 ## Description
 
