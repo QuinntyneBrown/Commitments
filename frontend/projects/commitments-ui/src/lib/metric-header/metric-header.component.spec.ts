@@ -55,4 +55,24 @@ describe('MetricHeaderComponent', () => {
       expect(block).not.toMatch(/color\s*:\s*#666666\b/i);
     });
   });
+
+  describe('template (bug-068)', () => {
+    const html = readFileSync(
+      join(__dirname, 'metric-header.component.html'),
+      'utf8'
+    );
+
+    it('keeps mat-typography in the dynamic [class] binding', () => {
+      const match = html.match(/\[class\]\s*=\s*"([^"]+)"/);
+      expect(match).toBeTruthy();
+      expect(match![1]).toContain('mat-typography');
+    });
+
+    it('does not split static class with [class] override', () => {
+      // Static `class="metric-header mat-typography"` plus a `[class]` dynamic
+      // binding silently drops mat-typography on first change detection.
+      // The dynamic binding must be the single source of truth.
+      expect(html).not.toMatch(/<div\s+class="metric-header mat-typography"\s+\[class\]/);
+    });
+  });
 });
