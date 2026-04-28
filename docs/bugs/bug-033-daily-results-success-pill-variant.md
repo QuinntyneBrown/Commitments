@@ -1,12 +1,34 @@
 ---
 id: bug-033
 title: Daily Results — LIVE pill renders accent-pink, but the .pen drLive pill is success-green (#66BB6A)
-status: Open
+status: Fixed
 ---
 
 # Bug 033 — Daily Results pill colour wrong for success-themed tile
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+- `StatusPillVariant` gains a `'success'` member.
+- New `.status-pill--success` rule uses `var(--cui-success)` for the
+  text/dot colour and a 14% tint for the background.
+- `DailyResultsTileComponent` adds a `pillVariant` computed signal
+  that returns `'success'` for live mode and `'review'` for review.
+- Template `[variant]` and `[pulse]` now read the computed; the user
+  still sees `LIVE`/`REVIEW` because `statusLabel` is unchanged.
+
+Mirrors the chart-variant pattern from bug-031. SASS mixin extraction
+deferred until a third themed variant lands (currently chart and
+success both follow the same `colour + color-mix(14%)` shape).
+
+Coverage:
+- `status-pill.component.spec.ts` asserts `.status-pill--success`
+  references `var(--cui-success)`.
+- `daily-results-tile.component.spec.ts` asserts the TS source has
+  `pillVariant` returning `'success'` (regex tolerant of method or
+  computed-signal forms).
+- All 20 affected suites pass (90/90 — was 88/88 before).
 
 ## Description
 
