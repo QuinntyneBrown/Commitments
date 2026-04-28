@@ -1,12 +1,41 @@
 ---
 id: bug-046
 title: Consistency Trend chart x-axis renders raw ISO dates; design shows abbreviated "Apr 25" format
-status: Open
+status: Fixed
 ---
 
 # Bug 046 — Consistency Trend x-axis label format
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`consistency-trend-tile.component.ts` adds a Chart.js
+`scales.x.ticks.callback` that renders each ISO date label
+(`2026-04-25`) as `Apr 25` via
+`toLocaleDateString('en-US', { month: 'short', day: 'numeric' })`,
+matching the .pen xLabRow.
+
+Two subtleties:
+- `'T00:00:00'` suffix on the parsed date avoids the UTC
+  interpretation `new Date('YYYY-MM-DD')` would otherwise produce.
+- `Number.isNaN(date.getTime())` returns the raw label as a
+  defensive fallback for malformed inputs.
+
+Function-style declaration (`callback(value)`) is needed so that
+`this.getLabelForValue` resolves against the Chart.js scale
+binding; an arrow function would lose `this`.
+
+`chartLabels()` continues to expose raw ISO strings for the rest
+of the controller (tooltips, accessibility, future review-mode
+queries) — formatting is purely a presentation concern in the
+chart config.
+
+Coverage:
+- New TS-source spec asserts the x-axis tick callback contains
+  `toLocaleDateString` with `'short'` and `'numeric'` options.
+  Source-level regex avoids locale-dependent runtime tests.
+- All 20 affected suites pass (114/114 — was 113/113 before).
 
 ## Description
 
