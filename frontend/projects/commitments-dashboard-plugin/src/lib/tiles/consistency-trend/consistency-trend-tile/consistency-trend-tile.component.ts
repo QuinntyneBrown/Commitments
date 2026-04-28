@@ -7,12 +7,12 @@ import {
   Component,
   ElementRef,
   OnDestroy,
-  ViewChild,
   computed,
   effect,
   inject,
   input,
-  signal
+  signal,
+  viewChild
 } from '@angular/core';
 import { ChartConfiguration, Plugin } from 'chart.js';
 import { TILE_CONTEXT, TileContext, TileMetadata } from '@commitments/dashboard-framework';
@@ -54,7 +54,7 @@ export class ConsistencyTrendTileComponent implements AfterViewInit, OnDestroy {
   readonly goalId = input('demo-goal');
   readonly windowDays = input(30);
 
-  @ViewChild('plot') plotRef!: ElementRef<HTMLCanvasElement>;
+  readonly plotRef = viewChild<ElementRef<HTMLCanvasElement>>('plot');
 
   private readonly _adapter = inject(ChartJsLineAdapter);
   private readonly _trendService = inject(GoalTrendService);
@@ -79,7 +79,7 @@ export class ConsistencyTrendTileComponent implements AfterViewInit, OnDestroy {
     effect(() => {
       const dataset = this.controller.chartDataset();
       const labels = this.controller.chartLabels();
-      if (this.plotRef) {
+      if (this.plotRef()) {
         this._adapter.updateDataset(dataset, labels);
       }
     });
@@ -94,7 +94,10 @@ export class ConsistencyTrendTileComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this._adapter.attach(this.plotRef, this._buildChartConfig(this.controller));
+    const ref = this.plotRef();
+    if (ref) {
+      this._adapter.attach(ref, this._buildChartConfig(this.controller));
+    }
   }
 
   private _buildChartConfig(controller: ConsistencyTrendController): ChartConfiguration<'line'> {

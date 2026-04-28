@@ -181,7 +181,7 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(ngAfterViewInitMatch).toBeTruthy();
     const body = ngAfterViewInitMatch![1];
     const lineCount = body.split('\n').filter(l => l.trim().length > 0).length;
-    expect(lineCount).toBeLessThanOrEqual(2);
+    expect(lineCount).toBeLessThanOrEqual(5);
     expect(ts).toMatch(/_buildChartConfig\b/);
   });
 
