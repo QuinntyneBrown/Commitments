@@ -99,7 +99,21 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
         maintainAspectRatio: false,
         plugins: { legend: { display: false } },
         scales: {
-          x: { type: 'category', ticks: { color: '#666666', autoSkip: true, maxTicksLimit: 6 }, grid: { display: false } },
+          x: {
+            type: 'category',
+            ticks: {
+              color: '#666666',
+              autoSkip: true,
+              maxTicksLimit: 6,
+              callback(value) {
+                const label = this.getLabelForValue(value as number);
+                const date = new Date(label + 'T00:00:00');
+                if (Number.isNaN(date.getTime())) return label;
+                return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+              }
+            },
+            grid: { display: false }
+          },
           y: { min: 0, max: 100, ticks: { display: false }, grid: { color: 'rgba(255, 255, 255, 0.07)', drawTicks: false } }
         },
         interaction: { mode: 'nearest', intersect: false, axis: 'x' }
