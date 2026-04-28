@@ -1,12 +1,22 @@
 ---
 id: bug-125
 title: icon-button uses legacy @Input({alias}) setters forwarding to internal signals
-status: Open
+status: Fixed
 ---
 
 # Bug 125 — icon-button @Input setter migration
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Replaced three @Input setter + internal signal pairs with
+direct `input()` calls (icon, ariaLabel, disabled). Net diff:
+4 insertions, 16 deletions. `pressed` stays as a writable
+signal + setter for now — that 2-way pattern would need
+`model()` to fully modernize.
+
+322/322 workspace tests green.
 
 ## Description
 
