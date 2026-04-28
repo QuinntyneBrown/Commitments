@@ -157,6 +157,19 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(ts).toMatch(/y\s*:\s*\{[\s\S]*?border\s*:\s*\{\s*display\s*:\s*false/);
   });
 
+  it('extracts the tick highlight predicate to one place (bug-118)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend-tile.component.ts'),
+      'utf8'
+    );
+    // The inline predicate `ctx.index === controller.highlightedIndex()`
+    // should appear AT MOST ONCE — the helper definition. The two
+    // tick Scriptables (color + font) call the helper instead.
+    const matches = ts.match(/ctx\.index\s*===\s*controller\.highlightedIndex\(\)/g) ?? [];
+    expect(matches.length).toBeLessThanOrEqual(1);
+    expect(ts).toMatch(/isHighlighted\b/);
+  });
+
   it('formats x-axis labels with toLocaleDateString month/day (bug-046)', () => {
     const ts = readFileSync(
       join(__dirname, 'consistency-trend-tile.component.ts'),
