@@ -14,6 +14,7 @@ import { EditNotePageComponent } from './pages/edit-note/edit-note-page/edit-not
 import { TagsPageComponent } from './pages/tags/tags-page/tags-page.component';
 import { NotesByTagPageComponent } from './pages/notes-by-tag/notes-by-tag-page/notes-by-tag-page.component';
 import { CardsPageComponent } from './pages/cards/cards-page/cards-page.component';
+import { CardLayoutsPageComponent } from './pages/card-layouts/card-layouts-page/card-layouts-page.component';
 import { BehaviourTypesPageComponent } from './pages/behaviour-types/behaviour-types-page/behaviour-types-page.component';
 import { BehavioursPageComponent } from './pages/behaviours/behaviours-page/behaviours-page.component';
 import { CommitmentsPageComponent } from './pages/commitments/commitments-page/commitments-page.component';
@@ -43,13 +44,11 @@ describe('app.routes', () => {
     expect(index!.component).toBe(DashboardShellComponent);
   });
 
-  it.each([
-    'card-layouts'
-  ])('routes the %s child path to PlaceholderPageComponent under the layout', (path) => {
+  it('contains no PlaceholderPageComponent routes — every page is fully wired (designs 02–17)', () => {
     const home = routes.find((r) => r.path === '');
-    const child = home?.children?.find((c) => c.path === path);
-    expect(child).toBeDefined();
-    expect(child!.component).toBe(PlaceholderPageComponent);
+    home?.children?.forEach(child => {
+      if (child.path !== '') expect(child.component).not.toBe(PlaceholderPageComponent);
+    });
   });
 
   it('routes /profiles to ProfilesPageComponent (design 02-Profiles Slice B)', () => {
@@ -164,5 +163,12 @@ describe('app.routes', () => {
     const child = home?.children?.find((c) => c.path === 'cards');
     expect(child).toBeDefined();
     expect(child!.component).toBe(CardsPageComponent);
+  });
+
+  it('routes /card-layouts to CardLayoutsPageComponent (design 17-Card-Layouts Slice A)', () => {
+    const home = routes.find((r) => r.path === '');
+    const child = home?.children?.find((c) => c.path === 'card-layouts');
+    expect(child).toBeDefined();
+    expect(child!.component).toBe(CardLayoutsPageComponent);
   });
 });
