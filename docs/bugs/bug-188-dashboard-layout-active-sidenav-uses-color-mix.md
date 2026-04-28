@@ -1,10 +1,22 @@
 ---
 id: bug-188
 title: dashboard-layout active sidenav uses literal #9FA8DA22 instead of color-mix on --cui-primary
-status: Open
+status: Fixed
 ---
 
 # Bug 188 — dashboard-layout active-sidenav background should use `color-mix()` on `--cui-primary`
+
+**Status**: Fixed
+
+## Fix
+
+```scss
+- background: #9FA8DA22;
++ background: color-mix(in srgb, var(--cui-primary, #9FA8DA) 13%, transparent);
+```
+
+Continues the bug-187 token-mix convention. 388/388 workspace
+tests green.
 
 ## Description
 
