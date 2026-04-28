@@ -1,10 +1,28 @@
 ---
 id: bug-138
 title: outstanding-todos.service mixes inject() with @Optional()/@Inject() constructor decorators
-status: Open
+status: Fixed
 ---
 
 # Bug 138 — outstanding-todos.service: drop decorator-based DI for `inject()` form
+
+**Status**: Fixed
+
+## Fix
+
+```ts
+import { Injectable, InjectionToken, inject } from '@angular/core';
+...
+export class OutstandingTodosService {
+  private readonly _client = inject(HttpClient);
+  private readonly _baseUrl = inject(OUTSTANDING_TODOS_BASE_URL, { optional: true });
+  ...
+}
+```
+
+`Inject` and `Optional` decorator imports dropped, empty
+constructor removed. Both DI sites now use the `inject()`
+function. 344/344 workspace tests green.
 
 ## Description
 
