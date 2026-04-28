@@ -1,6 +1,6 @@
 # Frequencies — Detailed Design
 
-**Status:** Accepted
+**Status:** Implemented
 
 **Traces to:** L1-004 · L2-007, L2-008
 
@@ -58,10 +58,14 @@ The page also surfaces the **list** of frequency types with a small inline "Mana
 
 ## 8. ATDD Slices
 
-1. **Slice A — list/route + chip rendering.** Spec: undesirable frequency renders with `warn` chip.
-2. **Slice B — edit toggles `IsDesirable`.** Spec: toggling and saving persists the new value and re-renders the chip.
-3. **Slice C — refint on type delete.** Spec: deleting a type used by ≥1 frequency returns 400.
-4. **Slice D — refint on frequency delete.** Spec: deleting a frequency used by ≥1 commitment-frequency returns 400.
+1. **Slice A — list/route + chip rendering.** Spec: undesirable frequency renders with `warn` chip. **Status: Implemented.**
+2. **Slice B — edit toggles `IsDesirable`.** Spec: toggling and saving persists the new value and re-renders the chip. **Status: Implemented** — `SaveFrequency` and `EditFrequencyDialog` already round-trip the boolean.
+3. **Slice C — refint on type delete.** Spec: deleting a type used by ≥1 frequency returns 400. **Status: Implemented.**
+4. **Slice D — refint on frequency delete.** Spec: deleting a frequency used by ≥1 commitment-frequency returns 400. **Status: Implemented.**
+
+## 10. Implementation Notes
+
+- Both new guards reuse the four-line "count + `throw new BadHttpRequestException(message, 400)`" pattern established by designs 05 (BehaviourType) and 06 (Behaviour). Symmetry across catalogs lowers cognitive load: a junior dev who reads one understands them all.
 
 ## 9. Open Questions
 
