@@ -1,10 +1,27 @@
 ---
 id: bug-144
 title: ConsistencyTrendController.refresh() is unused after bug-142 — remove
-status: Open
+status: Fixed
 ---
 
 # Bug 144 — ConsistencyTrendController: drop unused `refresh()` method
+
+**Status**: Fixed
+
+## Fix
+
+Deleted the four-line `refresh()` method from
+`consistency-trend.controller.ts`. A new spec asserts the
+controller does not re-grow the method:
+
+```ts
+it('does not expose a refresh() method (bug-144)', () => {
+  const ts = readFileSync(...);
+  expect(ts).not.toMatch(/^\s*refresh\s*\(\s*\)\s*:/m);
+});
+```
+
+355/355 workspace tests green.
 
 ## Description
 
