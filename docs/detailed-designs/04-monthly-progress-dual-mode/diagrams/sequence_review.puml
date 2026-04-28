@@ -1,0 +1,27 @@
+@startuml sequence_review
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Monthly Progress - Review scrub to a date 60 days back
+
+actor User
+participant "Scrubber" as Sc
+participant "TileContext" as Ctx
+participant "Tile" as T
+participant "Controller" as C
+participant "API" as API
+participant "DB" as DB
+
+User -> Sc: Scrub to 2026-02-27
+Sc -> Ctx: selectedReviewDate (debounced)
+Ctx -> T: signal change
+T -> C: load('review', '2026-02-27T...')
+C -> API: GET /monthly-progress?asOf=...
+API -> API: clamp asOf
+API -> DB: 4 x SELECT COUNT per [asOf-7d..asOf-0d]
+DB --> API: counts
+API --> C: { buckets: [...] } + Cache-Control: public, max-age=300
+C --> T: signal updates
+T --> User: 4 bars + REVIEW pill at historical instant
+
+@enduml

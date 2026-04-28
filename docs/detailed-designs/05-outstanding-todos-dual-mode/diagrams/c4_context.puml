@@ -1,0 +1,23 @@
+@startuml c4_context
+!theme plain
+!include <C4/C4_Context>
+
+title Outstanding Todos Tile - System Context
+
+Person(user, "User")
+
+System_Boundary(sys, "Commitments App") {
+  System(spa, "Angular SPA", "Hosts OutstandingTodosTileComponent")
+  System(api, "Commitments API", "GetOutstandingToDoCount (asOf, includeToday)")
+}
+
+System_Ext(db, "SQL Server", "ToDos with CreatedOn/CompletedOn/DeletedOn")
+System_Ext(signalr, "SignalR Hub", "outstandingTodos invalidations")
+
+Rel(user, spa, "Mode toggle, scrub")
+Rel(spa, api, "GET /todos/outstanding-count?asOf&includeToday")
+Rel(spa, signalr, "Listens for outstandingTodos")
+Rel(api, db, "SELECT COUNT(*) at asOf")
+Rel(api, signalr, "Publishes invalidations")
+
+@enduml

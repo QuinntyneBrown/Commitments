@@ -1,0 +1,31 @@
+<commitments-tile-shell
+  title="Goal Metrics"
+  eyebrow="Goal Progress"
+  icon="track_changes"
+  variant="metric"
+  data-testid="goal-metrics-tile"
+>
+  <cui-status-pill
+    [variant]="controller.mode()"
+    [pulse]="controller.mode() === 'live'"
+    [label]="statusLabel()"
+  ></cui-status-pill>
+
+  <div class="goal-readout">
+    <span class="goal-readout__count" data-testid="goal-metrics-count">{{ controller.count() }}</span>
+    <span class="goal-readout__separator">/</span>
+    <span class="goal-readout__target" data-testid="goal-metrics-target">{{ controller.target() }}</span>
+  </div>
+
+  <p class="goal-percent">{{ controller.percentage() }}%</p>
+
+  @if (controller.deltaLabel()) {
+    <p
+      class="goal-delta"
+      [class.goal-delta--success]="controller.deltaTone() === 'success'"
+      [class.goal-delta--warn]="controller.deltaTone() === 'warn'"
+    >
+      {{ controller.deltaLabel() }}
+    </p>
+  }
+</commitments-tile-shell>

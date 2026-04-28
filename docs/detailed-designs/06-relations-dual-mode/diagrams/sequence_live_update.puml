@@ -1,0 +1,30 @@
+@startuml sequence_live_update
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Relations - Live invalidation on commitment change
+
+actor User
+participant "Commitments Page" as CP
+participant "API" as API
+participant "EventBus" as EB
+participant "Notifier" as N
+participant "SignalR" as SR
+participant "Invalidations$" as IS
+participant "Tile" as T
+participant "Controller" as C
+
+User -> CP: Save new commitment (Health)
+CP -> API: POST /commitments
+API -> EB: CommitmentSavedEvent
+EB -> N: subscriber
+N -> SR: dashboardTileDataInvalidated [relations]
+SR -> IS: emit
+IS -> T: bindTileMode wakes
+T -> C: load('live', null)
+C -> API: GET /relations/summary
+API --> C: { Health 47%, Work 30%, Personal 23% }
+C --> T: signal updates
+T --> User: Tile re-renders, LIVE pill
+
+@enduml

@@ -1,0 +1,28 @@
+@startuml sequence_review_delta
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Goal Metrics - Review delta-vs-today render
+
+actor User
+participant "Scrubber" as Sc
+participant "TileContext" as Ctx
+participant "Tile" as T
+participant "Controller" as C
+participant "API" as API
+
+User -> Sc: Pick 2026-04-15
+Sc -> Ctx: selectedReviewDate
+Ctx -> T: signal change
+T -> C: load('review', '<date>')
+par parallel reads
+  C -> API: GET /goal-progress/at?asOf=<date>
+  API --> C: { count: 8, target: 30 }
+also
+  C -> API: GET /goal-progress/current
+  API --> C: { count: 12, target: 30 }
+end
+C --> T: current=historical, today=now\ndeltaLabel = '-4 vs today', deltaTone='success'
+T --> User: REVIEW pill, ring at 27%, '-4 vs today' (green: today is better)
+
+@enduml

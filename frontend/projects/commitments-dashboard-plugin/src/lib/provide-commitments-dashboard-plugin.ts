@@ -3,6 +3,7 @@ import { PLUGIN_TILES } from '@commitments/dashboard-framework';
 import {
   ConsistencyTrendTileComponent,
   DailyResultsTileComponent,
+  GoalMetricsTileComponent,
   MonthlyProgressTileComponent,
   OutstandingTodosTileComponent,
   RelationsTileComponent,
@@ -15,7 +16,8 @@ export const COMMITMENTS_DASHBOARD_TILES: Type<unknown>[] = [
   MonthlyProgressTileComponent,
   OutstandingTodosTileComponent,
   RelationsTileComponent,
-  ConsistencyTrendTileComponent
+  ConsistencyTrendTileComponent,
+  GoalMetricsTileComponent
 ];
 
 export function provideCommitmentsDashboardPlugin(): Provider[] {

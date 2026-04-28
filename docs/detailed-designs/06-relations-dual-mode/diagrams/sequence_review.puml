@@ -1,0 +1,28 @@
+@startuml sequence_review
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Relations - Historical distribution
+
+actor User
+participant "Scrubber" as Sc
+participant "TileContext" as Ctx
+participant "Tile" as T
+participant "Controller" as C
+participant "API" as API
+participant "DB" as DB
+
+User -> Sc: Pick 2025-12-01
+Sc -> Ctx: selectedReviewDate
+Ctx -> T: signal change
+T -> C: load('review', '<date>')
+C -> API: GET /relations/summary?asOf=<date>
+API -> API: clamp asOf
+API -> DB: SELECT bt.Id, bt.Name, COUNT(*)\nFROM Commitments c JOIN Behaviours b JOIN BehaviourTypes bt\nWHERE ProfileId=:p AND c.CreatedOn<=:asOf\n  AND (c.DeletedOn IS NULL OR c.DeletedOn>:asOf)\nGROUP BY bt.Id, bt.Name
+DB --> API: rows
+API -> API: percentages, top-N, sum-to-100 reconciliation
+API --> C: { relations: [...] } + Cache-Control: public, max-age=300
+C --> T: signal updates
+T --> User: Historical distribution + REVIEW pill
+
+@enduml

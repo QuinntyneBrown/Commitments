@@ -1,0 +1,29 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title Outstanding Todos Tile - Containers
+
+Person(user, "User")
+
+System_Boundary(spa, "Angular SPA") {
+  Container(plugin, "commitments-dashboard-plugin", "Angular lib", "OutstandingTodosTileComponent + Controller")
+  Container(framework, "dashboard-framework", "Angular lib", "TileContext, bindTileMode")
+  Container(invs, "TileInvalidationService", "Angular service", "invalidations$('outstandingTodos')")
+}
+
+System_Boundary(api, "Commitments.Api Host") {
+  Container(commit, "Commitments Module", ".NET 9", "GetOutstandingToDoCountHandler")
+  Container(realtime, "Realtime", "ASP.NET", "DashboardTileInvalidationNotifier")
+}
+
+ContainerDb(db, "SQL Server", "RDBMS", "ToDos per profile")
+
+Rel(user, plugin, "Sees count + LIVE/REVIEW + delta in Review")
+Rel(plugin, framework, "TILE_CONTEXT, bindTileMode")
+Rel(plugin, invs, "Subscribes")
+Rel(plugin, commit, "GET /todos/outstanding-count", "JSON")
+Rel(commit, db, "Indexed COUNT", "SQL")
+Rel(realtime, invs, "outstandingTodos", "WebSocket")
+
+@enduml

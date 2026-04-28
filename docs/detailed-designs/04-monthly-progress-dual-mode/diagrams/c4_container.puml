@@ -1,0 +1,29 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title Monthly Progress Tile - Containers
+
+Person(user, "User")
+
+System_Boundary(spa, "Angular SPA") {
+  Container(plugin, "commitments-dashboard-plugin", "Angular lib", "MonthlyProgressTileComponent + Controller")
+  Container(framework, "dashboard-framework", "Angular lib", "TileContext, bindTileMode")
+  Container(invs, "TileInvalidationService", "Angular service", "invalidations$('monthlyProgress')")
+}
+
+System_Boundary(api, "Commitments.Api Host") {
+  Container(commit, "Commitments Module", ".NET 9", "GetMonthlyProgressHandler")
+  Container(realtime, "Realtime", "ASP.NET", "DashboardTileInvalidationNotifier")
+}
+
+ContainerDb(db, "SQL Server", "RDBMS", "Activities per profile")
+
+Rel(user, plugin, "Sees 4 bars + LIVE/REVIEW pill")
+Rel(plugin, framework, "TILE_CONTEXT, bindTileMode")
+Rel(plugin, invs, "Subscribes")
+Rel(plugin, commit, "GET /monthly-progress?asOf", "JSON")
+Rel(commit, db, "Bucket counts", "SQL")
+Rel(realtime, invs, "monthlyProgress", "WebSocket")
+
+@enduml

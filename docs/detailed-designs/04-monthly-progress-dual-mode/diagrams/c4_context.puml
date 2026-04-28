@@ -1,0 +1,23 @@
+@startuml c4_context
+!theme plain
+!include <C4/C4_Context>
+
+title Monthly Progress Tile - System Context
+
+Person(user, "User")
+
+System_Boundary(sys, "Commitments App") {
+  System(spa, "Angular SPA", "Hosts MonthlyProgressTileComponent")
+  System(api, "Commitments API", "GetMonthlyProgress query (asOf-aware)")
+}
+
+System_Ext(db, "SQL Server", "Activities + Commitments per profile")
+System_Ext(signalr, "SignalR Hub", "monthlyProgress invalidations")
+
+Rel(user, spa, "Mode toggle, scrub")
+Rel(spa, api, "GET /monthly-progress?asOf", "JSON")
+Rel(spa, signalr, "Listens for monthlyProgress")
+Rel(api, db, "4 weekly bucket counts", "SQL")
+Rel(api, signalr, "Publishes invalidations")
+
+@enduml

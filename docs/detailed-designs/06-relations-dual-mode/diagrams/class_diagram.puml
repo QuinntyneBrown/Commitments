@@ -1,0 +1,55 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Relations Tile - Domain Model
+
+class RelationsTileComponent {
+  +tileMetadata: TileMetadata
+  -context: TileContext
+  -controller: RelationsController
+}
+
+class RelationsController {
+  +snapshot: Signal<RelationsSummaryDto|null>
+  +mode: Signal<DashboardMode>
+  +relations: Signal<RelationRow[]>
+  +isEmpty: Signal<boolean>
+  +load(mode, asOf): void
+}
+
+class RelationsSummaryService {
+  +get(asOf: string|null): Observable<RelationsSummaryDto>
+}
+
+class RelationsSummaryDto {
+  +mode: 'live'|'review'
+  +asOf: string
+  +totalCommitments: number
+  +relations: RelationRow[]
+}
+
+class RelationRow {
+  +behaviourTypeId: Guid
+  +name: string
+  +count: number
+  +percentage: number
+}
+
+class GetRelationsSummaryQuery {
+  +AsOf: DateTimeOffset?
+  +Top: int
+}
+
+class GetRelationsSummaryHandler {
+  +Handle(q): RelationsSummaryDto
+}
+
+RelationsTileComponent o-- RelationsController
+RelationsController --> RelationsSummaryService
+RelationsSummaryService ..> RelationsSummaryDto
+RelationsSummaryDto *-- RelationRow
+GetRelationsSummaryHandler ..> GetRelationsSummaryQuery
+
+@enduml

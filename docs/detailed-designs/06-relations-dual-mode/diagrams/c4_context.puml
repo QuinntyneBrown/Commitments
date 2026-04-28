@@ -1,0 +1,23 @@
+@startuml c4_context
+!theme plain
+!include <C4/C4_Context>
+
+title Relations Tile - System Context
+
+Person(user, "User")
+
+System_Boundary(sys, "Commitments App") {
+  System(spa, "Angular SPA", "Hosts RelationsTileComponent")
+  System(api, "Commitments API", "GetRelationsSummary (asOf-aware)")
+}
+
+System_Ext(db, "SQL Server", "Commitments + Behaviours + BehaviourTypes")
+System_Ext(signalr, "SignalR Hub", "relations invalidations")
+
+Rel(user, spa, "Mode toggle, scrub")
+Rel(spa, api, "GET /relations/summary?asOf", "JSON")
+Rel(spa, signalr, "Listens for relations")
+Rel(api, db, "Group commitments by BehaviourType")
+Rel(api, signalr, "Publishes invalidations")
+
+@enduml

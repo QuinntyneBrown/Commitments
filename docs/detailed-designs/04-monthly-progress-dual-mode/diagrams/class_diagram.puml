@@ -1,0 +1,56 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Monthly Progress Tile - Domain Model
+
+class MonthlyProgressTileComponent {
+  +tileMetadata: TileMetadata
+  -context: TileContext
+  -controller: MonthlyProgressController
+}
+
+class MonthlyProgressController {
+  +snapshot: Signal<MonthlyProgressDto|null>
+  +mode: Signal<DashboardMode>
+  +buckets: Signal<Bucket[]>
+  +isEmpty: Signal<boolean>
+  +load(mode, asOf): void
+}
+
+class MonthlyProgressService {
+  +get(asOf: string|null): Observable<MonthlyProgressDto>
+}
+
+class MonthlyProgressDto {
+  +mode: 'live'|'review'
+  +asOf: string
+  +windowDays: 30
+  +buckets: Bucket[]
+  +isEmpty: boolean
+}
+
+class Bucket {
+  +weekStart: string
+  +weekEnd: string
+  +completed: number
+  +target: number
+  +percentage: number
+}
+
+class GetMonthlyProgressQuery {
+  +AsOf: DateTimeOffset?
+}
+
+class GetMonthlyProgressHandler {
+  +Handle(q): MonthlyProgressDto
+}
+
+MonthlyProgressTileComponent o-- MonthlyProgressController
+MonthlyProgressController --> MonthlyProgressService
+MonthlyProgressService ..> MonthlyProgressDto
+MonthlyProgressDto *-- Bucket
+GetMonthlyProgressHandler ..> GetMonthlyProgressQuery
+
+@enduml

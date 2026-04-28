@@ -1,0 +1,34 @@
+@startuml sequence_mode_toggle
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Goal Metrics - Mode toggle without remount
+
+actor User
+participant "DashboardPage" as Page
+participant "Tile" as T
+participant "Controller" as C
+participant "API" as API
+participant "Hub" as H
+
+User -> Page: Click "Review"
+Page -> T: mode() signal flips
+T -> H: unsubscribe goalProgressUpdated
+T -> C: load('review', selectedReviewDate)
+C -> API: GET /goal-progress/at?asOf
+C -> API: GET /goal-progress/current
+API --> C: historical { count: 8, target: 30 }
+API --> C: current { count: 12, target: 30 }
+C --> T: signals (REVIEW pill, ring 27%, delta '-4 vs today')
+note over T: Same DOM host, same instanceId
+T --> User: Tile shows historical view
+== back to Live ==
+User -> Page: Click "Live"
+Page -> T: mode() flips
+T -> C: load('live', null)
+C -> API: GET /goal-progress/current
+API --> C: { count: 12 }
+T -> H: subscribe goalProgressUpdated
+T --> User: LIVE pill, no delta
+
+@enduml
