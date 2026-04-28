@@ -1,12 +1,27 @@
 ---
 id: bug-051
 title: Metric Header captions column has 4px padding-bottom; design specifies 8px
-status: Open
+status: Fixed
 ---
 
 # Bug 051 — Metric Header captions baseline lift
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`metric-header.component.scss` —
+`.metric-header__captions` padding-bottom: 4px → 8px.
+
+Mirrors the .pen `ctMcol` frame's
+`padding: [0, 0, 8, 0]`. Bug-032's earlier 4px was a guess; this
+is the authoritative value.
+
+Coverage:
+- New spec `lifts the captions column 8px to align with the value
+  baseline` reads the SCSS source and asserts `padding-bottom:
+  8px`.
+- All 20 affected suites pass (124/124 — was 123/123 before).
 
 ## Description
 
