@@ -103,4 +103,27 @@ public class SaveBehaviourHandlerTests
 
         response.BehaviourId.Should().Be(id);
     }
+
+    [Fact]
+    public async Task Handle_RegeneratesSlugFromName_IgnoringClientSlug(/* design 06 Slice B / L2-005 AC#2 */)
+    {
+        var mockContext = MockCommitmentsDbContextFactory.Create();
+        var behaviours = new List<Behaviour>();
+        mockContext.Setup(c => c.Behaviours).Returns(MockDbSetFactory.CreateMockDbSet(behaviours).Object);
+
+        var handler = new SaveBehaviourCommandHandler(mockContext.Object);
+        var request = new SaveBehaviourRequest
+        {
+            Behaviour = new BehaviourDto
+            {
+                Name = "Sleep 8 hours",
+                Slug = "evil-spoofed-slug",
+                Description = "x"
+            }
+        };
+
+        await handler.Handle(request, CancellationToken.None);
+
+        behaviours[0].Slug.Should().Be("sleep-8-hours");
+    }
 }
