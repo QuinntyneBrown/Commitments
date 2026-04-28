@@ -118,4 +118,15 @@ describe('OutstandingTodosController', () => {
     expect(controller.deltaLabel()).toBe('±0 vs today');
     expect(controller.deltaTone()).toBe('neutral');
   });
+
+  it('declares _reviewDelta as a computed signal, not a method (bug-131)', async () => {
+    const { readFileSync } = await import('fs');
+    const { join } = await import('path');
+    const ts = readFileSync(
+      join(__dirname, 'outstanding-todos.controller.ts'),
+      'utf8'
+    );
+    expect(ts).toMatch(/_reviewDelta\s*=\s*computed</);
+    expect(ts).not.toMatch(/^\s*private\s+_reviewDelta\(\)/m);
+  });
 });
