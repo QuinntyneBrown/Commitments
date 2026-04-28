@@ -18,6 +18,17 @@ describe('DailyResultsTileComponent (CSS source)', () => {
     expect(block).toMatch(/justify-content\s*:\s*center\b/);
     expect(block).toMatch(/align-items\s*:\s*center\b/);
   });
+
+  it('renders the metric value at 48px / weight 700 (bug-036)', () => {
+    const block = ruleBlock('\\.metric__value');
+    expect(block).toMatch(/font-size\s*:\s*48px\b/);
+    expect(block).toMatch(/font-weight\s*:\s*700\b/);
+  });
+
+  it('renders the metric label at 12px (bug-036)', () => {
+    const block = ruleBlock('\\.metric__label');
+    expect(block).toMatch(/font-size\s*:\s*12px\b/);
+  });
 });
 
 describe('DailyResultsTileComponent (TS source)', () => {
