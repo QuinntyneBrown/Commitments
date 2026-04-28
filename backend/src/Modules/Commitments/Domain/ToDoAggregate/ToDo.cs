@@ -8,6 +8,8 @@ public class ToDo : BaseEntity
     public Guid ToDoId { get; set; }
     public Guid ProfileId { get; set; }
     public string Title { get; set; } = string.Empty;
+    public string? Description { get; set; }
+    public DateTime? DueOn { get; set; }
     public DateTime? CompletedOn { get; set; }
     public DateTime? DeletedOn { get; set; }
 }

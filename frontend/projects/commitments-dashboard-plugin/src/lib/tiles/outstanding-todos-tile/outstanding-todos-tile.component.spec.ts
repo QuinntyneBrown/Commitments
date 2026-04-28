@@ -39,6 +39,10 @@ describe('OutstandingTodosTileComponent (template + CSS source)', () => {
     expect(ts).toMatch(/pillVariant\b[\s\S]*?'warning'/);
   });
 
+  it('chip omits the status-pill dot — design has text-only otChip (bug-083)', () => {
+    expect(html).toMatch(/<cui-status-pill\b[^>]*\[dot\]\s*=\s*"false"/);
+  });
+
   it('chip label is "{count} OPEN", not the dashboard mode (bug-082)', () => {
     const ts = readFileSync(
       join(__dirname, 'outstanding-todos-tile.component.ts'),

@@ -16,6 +16,28 @@ describe('StatusPillComponent', () => {
     expect(component.label()).toBe('');
   });
 
+  describe('optional dot (bug-083)', () => {
+    it('defaults dot to true', () => {
+      const component = TestBed.createComponent(StatusPillComponent).componentInstance;
+      expect(component.dot()).toBe(true);
+    });
+
+    it('renders the dot span by default', () => {
+      const fixture = TestBed.createComponent(StatusPillComponent);
+      fixture.detectChanges();
+      const dot = (fixture.nativeElement as HTMLElement).querySelector('.status-pill__dot');
+      expect(dot).not.toBeNull();
+    });
+
+    it('omits the dot span when [dot]=false', () => {
+      const fixture = TestBed.createComponent(StatusPillComponent);
+      fixture.componentRef.setInput('dot', false);
+      fixture.detectChanges();
+      const dot = (fixture.nativeElement as HTMLElement).querySelector('.status-pill__dot');
+      expect(dot).toBeNull();
+    });
+  });
+
   describe('CSS source', () => {
     const scss = readFileSync(
       join(__dirname, 'status-pill.component.scss'),

@@ -45,4 +45,23 @@ public class ToDoController
             IncludeToday = includeToday
         });
     }
+
+    [HttpGet]
+    public async Task<ActionResult<GetToDosResponse>> Get()
+        => await _sender.Send(new GetToDosRequest { ProfileId = _httpContextAccessor.GetProfileId() });
+
+    [HttpPost]
+    public async Task<ActionResult<SaveToDoResponse>> Save([FromBody] SaveToDoRequest request)
+    {
+        request.ToDo.ProfileId = _httpContextAccessor.GetProfileId();
+        return await _sender.Send(request);
+    }
+
+    [HttpDelete("{toDoId:guid}")]
+    public async Task Remove([FromRoute] Guid toDoId)
+        => await _sender.Send(new RemoveToDoRequest { ToDoId = toDoId });
+
+    [HttpPost("{toDoId:guid}/complete")]
+    public async Task Complete([FromRoute] Guid toDoId)
+        => await _sender.Send(new CompleteToDoRequest { ToDoId = toDoId });
 }
