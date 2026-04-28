@@ -1,8 +1,15 @@
 # Goal Metrics Tile — Dual-Mode Merge
 
-**Status:** Accepted — 2026-04-27
+**Status:** Implemented — 2026-04-27
 **Tile ID (post-merge):** `commitments.goal-metrics`
 **Traces to:** L1-011, L1-012, **L1-012a**; L2-023, L2-024, L2-025, L2-026, L2-027, L2-028, L2-029, L2-030, **L2-031a**, L2-043, L2-044, L2-045.
+
+> Implementation notes:
+> - **Hard cutover** per design recommendation: the legacy `LiveGoalMetricsTileComponent` and `ReviewGoalHistoryTileComponent` (TS / HTML / SCSS / controllers / specs / e2e specs / page objects) and the dead `commitments-app/services/goal-progress.service.ts` are deleted in the same change set as the new `commitments.goal-metrics` tile.
+> - **No backend changes** — the existing `GET /goal-progress/current` and `GET /goal-progress/at` endpoints already meet the dual-mode contract.
+> - **SignalR `goalProgressUpdated` wiring** is exposed via `controller.applyHubUpdate(evt)`; the actual hub subscription belongs to the host (cross-lib coupling — same as designs 02-06). The controller is mode-gated and goalId-gated so it's safe regardless of when the host wires it up.
+> - **One-shot SQL migration** (renaming persisted `dashboardCards.tileId` rows from the legacy IDs to `commitments.goal-metrics`) is **deferred** — no live SQL Server stored dashboards exist yet to migrate; the migration script lands the day before the first prod deploy.
+> - **TileRegistryService deny-list** (Open Question 8.4) skipped: with the legacy components deleted there's nothing to register, and the existing validator already throws `MisconfiguredTileError` if any plugin re-introduces a single-mode `supportedModes`.
 
 ## 1. Overview
 
