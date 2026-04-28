@@ -1,12 +1,30 @@
 ---
 id: bug-025
 title: Monthly Progress — bar corner-radius is 6px and bars gap is 10px; design is 4px and 12px
-status: Open
+status: Fixed
 ---
 
 # Bug 025 — Monthly Progress bar radius + gap drift
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`monthly-progress-tile.component.scss`:
+- `.bars span` border-radius: `6px 6px 0 0` → `4px 4px 0 0`
+- `.bars` gap: `10px` → `12px`
+- `.bar-labels` gap: `10px` → `12px` (kept in sync so column centres
+  align beneath the bars)
+
+The 12px value is duplicated between `.bars` and `.bar-labels`
+intentionally rather than promoted to a shared SCSS variable; with
+only two rules in one file, an explicit literal is more readable for
+a junior.
+
+Coverage:
+- Three new source-level specs in `monthly-progress-tile.component.spec.ts`
+  assert the radius and both gap values.
+- All 15 affected suites pass (61/61 — was 58/58 before).
 
 ## Description
 
