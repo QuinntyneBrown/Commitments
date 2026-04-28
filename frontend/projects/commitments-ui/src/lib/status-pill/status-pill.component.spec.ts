@@ -59,4 +59,16 @@ describe('StatusPillComponent', () => {
       expect(block).toMatch(/letter-spacing\s*:\s*1px\b/);
     });
   });
+
+  describe('template (bug-069)', () => {
+    const html = readFileSync(
+      join(__dirname, 'status-pill.component.html'),
+      'utf8'
+    );
+
+    it('drops redundant static class alongside dynamic [class]', () => {
+      // The dynamic binding already emits the base `status-pill` class.
+      expect(html).not.toMatch(/<mat-chip\s+class="status-pill"\s+\[class\]/);
+    });
+  });
 });

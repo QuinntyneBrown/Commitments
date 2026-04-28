@@ -94,4 +94,15 @@ describe('DeltaBadgeComponent', () => {
       expect(component.icon()).toBe('');
     });
   });
+
+  describe('template (bug-069)', () => {
+    const html = readFileSync(
+      join(__dirname, 'delta-badge.component.html'),
+      'utf8'
+    );
+
+    it('drops redundant static class alongside dynamic [class]', () => {
+      expect(html).not.toMatch(/<mat-chip\s+class="delta-badge"\s+\[class\]/);
+    });
+  });
 });
