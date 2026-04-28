@@ -1,12 +1,29 @@
 ---
 id: bug-077
 title: Consistency Trend chart x-axis labels render in Chart.js default font, not Inter as the design specifies
-status: Open
+status: Fixed
 ---
 
 # Bug 077 — Chart.js default font instead of Inter on consistency-trend axes
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Two lines added to `chart-js-line.adapter.ts` at module load,
+right after the existing `Chart.register(...)` call:
+
+```ts
+Chart.defaults.font.family = 'Inter, Roboto, "Helvetica Neue", sans-serif';
+Chart.defaults.font.size = 11;
+```
+
+Pinning the global Chart.js defaults propagates to every chart
+the adapter creates, with no per-chart config changes. Axis tick
+labels now render in Inter at 11px, matching every text node
+specified in the .pen designs and the rest of the app's
+typography. All 261 jest specs (including the new bug-077
+guard) pass.
 
 ## Description
 
