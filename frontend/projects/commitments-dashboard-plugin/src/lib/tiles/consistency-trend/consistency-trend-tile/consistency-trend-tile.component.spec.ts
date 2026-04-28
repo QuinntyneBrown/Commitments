@@ -127,6 +127,15 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(ts).toMatch(/highlightedIndex\(\)/);
   });
 
+  it('types the todayPointGlow plugin as Plugin<line> (bug-115)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend-tile.component.ts'),
+      'utf8'
+    );
+    expect(ts).toMatch(/import\s*\{[^}]*\bPlugin\b[^}]*\}\s*from\s*'chart\.js'/);
+    expect(ts).toMatch(/todayPointGlow\s*:\s*Plugin<'line'>/);
+  });
+
   it('formats x-axis labels with toLocaleDateString month/day (bug-046)', () => {
     const ts = readFileSync(
       join(__dirname, 'consistency-trend-tile.component.ts'),
