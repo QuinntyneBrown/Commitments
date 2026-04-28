@@ -200,4 +200,14 @@ describe('app.routes', () => {
       expect(existsSync(file)).toBe(false);
     }
   });
+
+  it('dashboard-card base and Poster intermediate are gone (bug-148)', () => {
+    const { existsSync } = require('fs');
+    const { join } = require('path');
+    const legacy = ['dashboard-card', 'poster-dashboard-card'];
+    for (const dir of legacy) {
+      const file = join(__dirname, 'components', dir, `${dir}.component.ts`);
+      expect(existsSync(file)).toBe(false);
+    }
+  });
 });
