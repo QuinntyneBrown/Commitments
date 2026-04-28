@@ -1,5 +1,7 @@
 # Behaviour Types — Detailed Design
 
+**Status:** Accepted
+
 **Traces to:** L1-003 · L2-006
 
 ## 1. Overview

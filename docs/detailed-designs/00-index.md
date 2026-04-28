@@ -15,7 +15,7 @@ Conventions used by every design document:
 | 02 | [Profiles](02-profiles/README.md) | Implemented | Wire route to existing `ProfilesPageComponent`, add `GET /current` and `POST /avatar` (L2-003, L2-004) |
 | 03 | [My Profile](03-my-profile/README.md) | Implemented | Self-service avatar + display-name slice on top of `Profile` (L2-004) |
 | 04 | [Settings](04-settings/README.md) | Implemented | Read-only profile/version panel — no new entity (L2-035, L2-037) |
-| 05 | [Behaviour Types](05-behaviour-types/README.md) | Draft | Wire route + ATDD on existing CRUD; add referential-integrity check (L2-006) |
+| 05 | [Behaviour Types](05-behaviour-types/README.md) | Accepted | Wire route + ATDD on existing CRUD; add referential-integrity check (L2-006) |
 | 06 | [Behaviours](06-behaviours/README.md) | Draft | Wire route + ATDD; reject delete when referenced by commitment (L2-005) |
 | 07 | [Frequencies](07-frequencies/README.md) | Draft | Wire route + ATDD; render `IsDesirable` warn chip (L2-007) |
 | 08 | [Edit Frequency](08-edit-frequency/README.md) | Draft | Promote dialog to dedicated route for deep-link from frequency editor (L2-007) |
