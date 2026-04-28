@@ -14,7 +14,7 @@ export const noteResolver: ResolveFn<Note> = (route, state) => {
   const store = inject(Store);
   const slug = route.params['slug'];
 
-  if (!slug) {
+  if (!slug || slug === 'new') {
     const note = new Note();
     store.note$.next(note);
     return of(note);

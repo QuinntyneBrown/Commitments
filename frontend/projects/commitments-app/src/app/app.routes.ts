@@ -9,6 +9,8 @@ import { PlaceholderPageComponent } from './components/placeholder-page/placehol
 import { ActivitiesPageComponent } from './pages/activities/activities-page/activities-page.component';
 import { ToDosPageComponent } from './pages/to-dos/to-dos-page/to-dos-page.component';
 import { NotesPageComponent } from './pages/notes/notes-page/notes-page.component';
+import { EditNotePageComponent } from './pages/edit-note/edit-note-page/edit-note-page.component';
+import { noteResolver } from './services/note-resolver.service';
 import { BehaviourTypesPageComponent } from './pages/behaviour-types/behaviour-types-page/behaviour-types-page.component';
 import { BehavioursPageComponent } from './pages/behaviours/behaviours-page/behaviours-page.component';
 import { CommitmentsPageComponent } from './pages/commitments/commitments-page/commitments-page.component';
@@ -43,6 +45,7 @@ export const routes: Routes = [
       { path: 'activities', component: ActivitiesPageComponent },
       { path: 'to-dos', component: ToDosPageComponent },
       { path: 'notes', component: NotesPageComponent },
+      { path: 'edit-note/:slug', component: EditNotePageComponent, resolve: { note: noteResolver } },
       ...placeholderPaths.map(path => ({ path, component: PlaceholderPageComponent }))
     ]
   }
