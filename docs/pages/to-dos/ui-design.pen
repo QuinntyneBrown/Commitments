@@ -1,0 +1,1795 @@
+{
+  "version": "2.11",
+  "children": [
+    {
+      "type": "frame",
+      "id": "DclJ3",
+      "x": 0,
+      "y": 0,
+      "name": "To-Dos — XS (320)",
+      "clip": true,
+      "width": 320,
+      "height": 720,
+      "fill": "#0d1018",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "sr7Rx",
+          "width": "fill_container",
+          "height": 56,
+          "fill": "#1a1d2a",
+          "gap": 12,
+          "padding": [
+            0,
+            16
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "dYukl",
+              "fill": "#FFFFFF",
+              "content": "☰",
+              "fontFamily": "Inter",
+              "fontSize": 20,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "xMfUg",
+              "fill": "#FFFFFF",
+              "content": "To-Do's",
+              "fontFamily": "Inter",
+              "fontSize": 16,
+              "fontWeight": "600"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "tXLbo",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 10,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "yCfio",
+              "fill": "#FFFFFF",
+              "content": "To-Do's",
+              "fontFamily": "Inter",
+              "fontSize": 22,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "zN07e",
+              "fill": "#B0B6C2",
+              "content": "4 outstanding",
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "x5HwY0",
+              "width": "fill_container",
+              "fill": "#1a1d2a",
+              "cornerRadius": 8,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#2A2F3D"
+              },
+              "gap": 10,
+              "padding": 12,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "dF1zG",
+                  "width": 18,
+                  "height": 18,
+                  "cornerRadius": 4,
+                  "stroke": {
+                    "thickness": 1.5,
+                    "fill": "#5C6BC0"
+                  }
+                },
+                {
+                  "type": "text",
+                  "id": "sDuvW",
+                  "fill": "#FFFFFF",
+                  "content": "Plan week 17",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "k0vAp",
+              "width": "fill_container",
+              "fill": "#1a1d2a",
+              "cornerRadius": 8,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#2A2F3D"
+              },
+              "gap": 10,
+              "padding": 12,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "U2WyX1",
+                  "width": 18,
+                  "height": 18,
+                  "cornerRadius": 4,
+                  "stroke": {
+                    "thickness": 1.5,
+                    "fill": "#5C6BC0"
+                  }
+                },
+                {
+                  "type": "text",
+                  "id": "c5Aen",
+                  "fill": "#FFFFFF",
+                  "content": "Review L2 spec",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "i2GrY",
+              "width": "fill_container",
+              "fill": "#1a1d2a",
+              "cornerRadius": 8,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#2A2F3D"
+              },
+              "gap": 10,
+              "padding": 12,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "BYiGW",
+                  "width": 18,
+                  "height": 18,
+                  "fill": "#5C6BC0",
+                  "cornerRadius": 4,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "rVxOw",
+                      "fill": "#FFFFFF",
+                      "content": "✓",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "oYY7B",
+                  "fill": "#B0B6C2",
+                  "content": "Push commitments page",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "BN6Am",
+              "width": "fill_container",
+              "fill": "#1a1d2a",
+              "cornerRadius": 8,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#2A2F3D"
+              },
+              "gap": 10,
+              "padding": 12,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "DTqgh",
+                  "width": 18,
+                  "height": 18,
+                  "cornerRadius": 4,
+                  "stroke": {
+                    "thickness": 1.5,
+                    "fill": "#5C6BC0"
+                  }
+                },
+                {
+                  "type": "text",
+                  "id": "e6Oh3Z",
+                  "fill": "#FFFFFF",
+                  "content": "Buy groceries",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "ellipse",
+              "id": "RKz5y",
+              "layoutPosition": "absolute",
+              "x": 248,
+              "y": 580,
+              "fill": "#EC407A",
+              "width": 56,
+              "height": 56
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "K5zdd",
+      "x": 380,
+      "y": 0,
+      "name": "To-Dos — S (360)",
+      "clip": true,
+      "width": 360,
+      "height": 800,
+      "fill": "#0d1018",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "FUw3a",
+          "width": "fill_container",
+          "height": 56,
+          "fill": "#1a1d2a",
+          "gap": 12,
+          "padding": [
+            0,
+            16
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "d0vct",
+              "fill": "#FFFFFF",
+              "content": "☰",
+              "fontFamily": "Inter",
+              "fontSize": 20,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "A3BqwE",
+              "fill": "#FFFFFF",
+              "content": "To-Do's",
+              "fontFamily": "Inter",
+              "fontSize": 16,
+              "fontWeight": "600"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "f9TzYJ",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 12,
+          "padding": 20,
+          "children": [
+            {
+              "type": "text",
+              "id": "R4Frd9",
+              "fill": "#FFFFFF",
+              "content": "To-Do's",
+              "fontFamily": "Inter",
+              "fontSize": 24,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "HNhZ7",
+              "fill": "#B0B6C2",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Manage open and completed to-do items (L2-016).",
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "VR9yB",
+              "width": "fill_container",
+              "fill": "#1a1d2a",
+              "cornerRadius": 8,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#2A2F3D"
+              },
+              "gap": 12,
+              "padding": 14,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "pGHsC",
+                  "width": 20,
+                  "height": 20,
+                  "cornerRadius": 4,
+                  "stroke": {
+                    "thickness": 1.5,
+                    "fill": "#5C6BC0"
+                  }
+                },
+                {
+                  "type": "text",
+                  "id": "b6b9xc",
+                  "fill": "#FFFFFF",
+                  "content": "Plan week 17",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "yWLXG",
+              "width": "fill_container",
+              "fill": "#1a1d2a",
+              "cornerRadius": 8,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#2A2F3D"
+              },
+              "gap": 12,
+              "padding": 14,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "c8Fx2b",
+                  "width": 20,
+                  "height": 20,
+                  "cornerRadius": 4,
+                  "stroke": {
+                    "thickness": 1.5,
+                    "fill": "#5C6BC0"
+                  }
+                },
+                {
+                  "type": "text",
+                  "id": "bGCN9",
+                  "fill": "#FFFFFF",
+                  "content": "Review L2 spec",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "ONFFJ",
+              "width": "fill_container",
+              "fill": "#1a1d2a",
+              "cornerRadius": 8,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#2A2F3D"
+              },
+              "gap": 12,
+              "padding": 14,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "G6AQR",
+                  "width": 20,
+                  "height": 20,
+                  "fill": "#5C6BC0",
+                  "cornerRadius": 4,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "TNcB8",
+                      "fill": "#FFFFFF",
+                      "content": "✓",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "yExNr",
+                  "fill": "#B0B6C2",
+                  "content": "Push commitments page",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "sxoeM",
+              "width": "fill_container",
+              "fill": "#1a1d2a",
+              "cornerRadius": 8,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#2A2F3D"
+              },
+              "gap": 12,
+              "padding": 14,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "c1Js5T",
+                  "width": 20,
+                  "height": 20,
+                  "cornerRadius": 4,
+                  "stroke": {
+                    "thickness": 1.5,
+                    "fill": "#5C6BC0"
+                  }
+                },
+                {
+                  "type": "text",
+                  "id": "s4CVXO",
+                  "fill": "#FFFFFF",
+                  "content": "Buy groceries",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "ellipse",
+              "id": "wF7Ce",
+              "layoutPosition": "absolute",
+              "x": 288,
+              "y": 660,
+              "fill": "#EC407A",
+              "width": 56,
+              "height": 56
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "g3z8tm",
+      "x": 780,
+      "y": 0,
+      "name": "To-Dos — M (768)",
+      "clip": true,
+      "width": 768,
+      "height": 900,
+      "fill": "#0d1018",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "M5wWF",
+          "width": "fill_container",
+          "height": 56,
+          "fill": "#1a1d2a",
+          "gap": 16,
+          "padding": [
+            0,
+            20
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "sfM2o",
+              "fill": "#FFFFFF",
+              "content": "Commitments",
+              "fontFamily": "Inter",
+              "fontSize": 16,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "hykFS",
+              "width": "fill_container",
+              "height": 1
+            },
+            {
+              "type": "text",
+              "id": "aCFao",
+              "fill": "#B0B6C2",
+              "content": "@quinntynebrown",
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "z7ppw9",
+          "width": "fill_container",
+          "height": "fill_container",
+          "children": [
+            {
+              "type": "frame",
+              "id": "N5PamV",
+              "width": 200,
+              "height": "fill_container",
+              "fill": "#1a1d2a",
+              "layout": "vertical",
+              "gap": 4,
+              "padding": 12,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "NO334",
+                  "fill": "#B0B6C2",
+                  "content": "Dashboard",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "feeS8",
+                  "fill": "#B0B6C2",
+                  "content": "Commitments",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "ipvB4",
+                  "fill": "#B0B6C2",
+                  "content": "Notes",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "VgxYw",
+                  "fill": "#FFFFFF",
+                  "content": "To-Do's",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "L1Nj2",
+                  "fill": "#B0B6C2",
+                  "content": "Settings",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "y87iRb",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 14,
+              "padding": 24,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "fVrDm",
+                  "fill": "#FFFFFF",
+                  "content": "To-Do's",
+                  "fontFamily": "Inter",
+                  "fontSize": 28,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "lw1Yn",
+                  "fill": "#B0B6C2",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Create, edit, complete, delete to-do items (L2-016). Completing decrements Outstanding To-Dos tile.",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "BjZ9x",
+                  "width": "fill_container",
+                  "fill": "#1a1d2a",
+                  "cornerRadius": 8,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#2A2F3D"
+                  },
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "ggbeF",
+                      "width": "fill_container",
+                      "height": 50,
+                      "gap": 14,
+                      "padding": [
+                        0,
+                        16
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "zaABY",
+                          "width": 20,
+                          "height": 20,
+                          "cornerRadius": 4,
+                          "stroke": {
+                            "thickness": 1.5,
+                            "fill": "#5C6BC0"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "id": "Z5jbt",
+                          "fill": "#FFFFFF",
+                          "content": "Plan week 17",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "SmagS",
+                      "width": "fill_container",
+                      "height": 50,
+                      "fill": "#1f2331",
+                      "gap": 14,
+                      "padding": [
+                        0,
+                        16
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "nK1wb",
+                          "width": 20,
+                          "height": 20,
+                          "cornerRadius": 4,
+                          "stroke": {
+                            "thickness": 1.5,
+                            "fill": "#5C6BC0"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "id": "i90rR",
+                          "fill": "#FFFFFF",
+                          "content": "Review L2 spec",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "YWQp0",
+                      "width": "fill_container",
+                      "height": 50,
+                      "gap": 14,
+                      "padding": [
+                        0,
+                        16
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "SWdHn",
+                          "width": 20,
+                          "height": 20,
+                          "fill": "#5C6BC0",
+                          "cornerRadius": 4,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "jmKTj",
+                              "fill": "#FFFFFF",
+                              "content": "✓",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "wp2GM",
+                          "fill": "#B0B6C2",
+                          "content": "Push commitments page",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "z2t6Yp",
+                      "width": "fill_container",
+                      "height": 50,
+                      "fill": "#1f2331",
+                      "gap": 14,
+                      "padding": [
+                        0,
+                        16
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "cuhkD",
+                          "width": 20,
+                          "height": 20,
+                          "cornerRadius": 4,
+                          "stroke": {
+                            "thickness": 1.5,
+                            "fill": "#5C6BC0"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "id": "JDuhP",
+                          "fill": "#FFFFFF",
+                          "content": "Buy groceries",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "ellipse",
+                  "id": "yFEmf",
+                  "layoutPosition": "absolute",
+                  "x": 680,
+                  "y": 780,
+                  "fill": "#EC407A",
+                  "width": 56,
+                  "height": 56
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "p3BhY",
+      "x": 1568,
+      "y": 0,
+      "name": "To-Dos — LG (1280)",
+      "clip": true,
+      "width": 1280,
+      "height": 950,
+      "fill": "#0d1018",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "DOUKx",
+          "width": "fill_container",
+          "height": 56,
+          "fill": "#1a1d2a",
+          "gap": 16,
+          "padding": [
+            0,
+            24
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "YFE11",
+              "fill": "#FFFFFF",
+              "content": "Commitments",
+              "fontFamily": "Inter",
+              "fontSize": 16,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "Tx0le",
+              "width": "fill_container",
+              "height": 1
+            },
+            {
+              "type": "text",
+              "id": "IPMrC",
+              "fill": "#B0B6C2",
+              "content": "@quinntynebrown",
+              "fontFamily": "Inter",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "z8ey6b",
+          "width": "fill_container",
+          "height": "fill_container",
+          "children": [
+            {
+              "type": "frame",
+              "id": "RQ8gt",
+              "width": 240,
+              "height": "fill_container",
+              "fill": "#1a1d2a",
+              "layout": "vertical",
+              "gap": 6,
+              "padding": 16,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "nhFZq",
+                  "fill": "#B0B6C2",
+                  "content": "Dashboard",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "WRppL",
+                  "fill": "#B0B6C2",
+                  "content": "Commitments",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "T14gRd",
+                  "fill": "#B0B6C2",
+                  "content": "Notes",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "oIpMW",
+                  "fill": "#FFFFFF",
+                  "content": "To-Do's",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "m4phiS",
+                  "fill": "#B0B6C2",
+                  "content": "Settings",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "e0ENSf",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 18,
+              "padding": 32,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "GMHMm",
+                  "fill": "#FFFFFF",
+                  "content": "To-Do's",
+                  "fontFamily": "Inter",
+                  "fontSize": 32,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "EI3kN",
+                  "fill": "#B0B6C2",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Create, edit, complete, delete to-do items (L2-016). Completing a to-do decrements the Outstanding To-Dos tile.",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "e6Jjc",
+                  "width": "fill_container",
+                  "fill": "#1a1d2a",
+                  "cornerRadius": 10,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#2A2F3D"
+                  },
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "yFIPU",
+                      "width": "fill_container",
+                      "height": 54,
+                      "gap": 16,
+                      "padding": [
+                        0,
+                        20
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "S6YBsx",
+                          "width": 22,
+                          "height": 22,
+                          "cornerRadius": 5,
+                          "stroke": {
+                            "thickness": 1.5,
+                            "fill": "#5C6BC0"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "id": "VpynF",
+                          "fill": "#FFFFFF",
+                          "content": "Plan week 17",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "zCzew",
+                      "width": "fill_container",
+                      "height": 54,
+                      "fill": "#1f2331",
+                      "gap": 16,
+                      "padding": [
+                        0,
+                        20
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "R8Unz",
+                          "width": 22,
+                          "height": 22,
+                          "cornerRadius": 5,
+                          "stroke": {
+                            "thickness": 1.5,
+                            "fill": "#5C6BC0"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "id": "s7uO3f",
+                          "fill": "#FFFFFF",
+                          "content": "Review L2 spec",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "zOkjD",
+                      "width": "fill_container",
+                      "height": 54,
+                      "gap": 16,
+                      "padding": [
+                        0,
+                        20
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "Xzc16",
+                          "width": 22,
+                          "height": 22,
+                          "fill": "#5C6BC0",
+                          "cornerRadius": 5,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "XoOfH",
+                              "fill": "#FFFFFF",
+                              "content": "✓",
+                              "fontFamily": "Inter",
+                              "fontSize": 13,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "NP5sh",
+                          "fill": "#B0B6C2",
+                          "content": "Push commitments page",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "J5eH9B",
+                      "width": "fill_container",
+                      "height": 54,
+                      "fill": "#1f2331",
+                      "gap": 16,
+                      "padding": [
+                        0,
+                        20
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "qqQNv",
+                          "width": 22,
+                          "height": 22,
+                          "cornerRadius": 5,
+                          "stroke": {
+                            "thickness": 1.5,
+                            "fill": "#5C6BC0"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "id": "uthzM",
+                          "fill": "#FFFFFF",
+                          "content": "Buy groceries",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "clWV8",
+                      "width": "fill_container",
+                      "height": 54,
+                      "gap": 16,
+                      "padding": [
+                        0,
+                        20
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "uUyty",
+                          "width": 22,
+                          "height": 22,
+                          "cornerRadius": 5,
+                          "stroke": {
+                            "thickness": 1.5,
+                            "fill": "#5C6BC0"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "id": "fz08U",
+                          "fill": "#FFFFFF",
+                          "content": "Reply to email thread",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "ellipse",
+                  "id": "QtHnz",
+                  "layoutPosition": "absolute",
+                  "x": 1140,
+                  "y": 840,
+                  "fill": "#EC407A",
+                  "width": 60,
+                  "height": 60
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "aZphD",
+      "x": 2888,
+      "y": 0,
+      "name": "To-Dos — XL (1920)",
+      "clip": true,
+      "width": 1920,
+      "height": 1080,
+      "fill": "#0d1018",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "ac3sR",
+          "width": "fill_container",
+          "height": 64,
+          "fill": "#1a1d2a",
+          "gap": 20,
+          "padding": [
+            0,
+            32
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "PBn7m",
+              "fill": "#FFFFFF",
+              "content": "Commitments",
+              "fontFamily": "Inter",
+              "fontSize": 18,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "pNAbl",
+              "width": "fill_container",
+              "height": 1
+            },
+            {
+              "type": "text",
+              "id": "VA0fB",
+              "fill": "#B0B6C2",
+              "content": "@quinntynebrown",
+              "fontFamily": "Inter",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "y6HBQo",
+          "width": "fill_container",
+          "height": "fill_container",
+          "children": [
+            {
+              "type": "frame",
+              "id": "A9GcnK",
+              "width": 280,
+              "height": "fill_container",
+              "fill": "#1a1d2a",
+              "layout": "vertical",
+              "gap": 8,
+              "padding": 20,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "q376fE",
+                  "fill": "#B0B6C2",
+                  "content": "Dashboard",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "OlJHP",
+                  "fill": "#B0B6C2",
+                  "content": "Commitments",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "AwIyh",
+                  "fill": "#B0B6C2",
+                  "content": "Notes",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "iscBx",
+                  "fill": "#FFFFFF",
+                  "content": "To-Do's",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "bHyPP",
+                  "fill": "#B0B6C2",
+                  "content": "Settings",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "VjpYL",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 24,
+              "padding": 48,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "kfZER",
+                  "fill": "#FFFFFF",
+                  "content": "To-Do's",
+                  "fontFamily": "Inter",
+                  "fontSize": 38,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "t1sHN6",
+                  "fill": "#B0B6C2",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Create, edit, complete, delete to-do items (L1-008 / L2-016). Completion decrements the Outstanding To-Dos tile on next dashboard load.",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "Z2MYqS",
+                  "width": "fill_container",
+                  "fill": "#1a1d2a",
+                  "cornerRadius": 12,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#2A2F3D"
+                  },
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "VNRAX",
+                      "width": "fill_container",
+                      "height": 60,
+                      "gap": 18,
+                      "padding": [
+                        0,
+                        28
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "LrUZp",
+                          "width": 24,
+                          "height": 24,
+                          "cornerRadius": 5,
+                          "stroke": {
+                            "thickness": 1.5,
+                            "fill": "#5C6BC0"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "id": "sUq1J",
+                          "fill": "#FFFFFF",
+                          "content": "Plan week 17",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "W2nqsH",
+                      "width": "fill_container",
+                      "height": 60,
+                      "fill": "#1f2331",
+                      "gap": 18,
+                      "padding": [
+                        0,
+                        28
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "yU5Tv",
+                          "width": 24,
+                          "height": 24,
+                          "cornerRadius": 5,
+                          "stroke": {
+                            "thickness": 1.5,
+                            "fill": "#5C6BC0"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "id": "oUT40",
+                          "fill": "#FFFFFF",
+                          "content": "Review L2 spec",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "T3Qim",
+                      "width": "fill_container",
+                      "height": 60,
+                      "gap": 18,
+                      "padding": [
+                        0,
+                        28
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "lUP8q",
+                          "width": 24,
+                          "height": 24,
+                          "fill": "#5C6BC0",
+                          "cornerRadius": 5,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "HPXC6",
+                              "fill": "#FFFFFF",
+                              "content": "✓",
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "cymjf",
+                          "fill": "#B0B6C2",
+                          "content": "Push commitments page",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "mwsMM",
+                      "width": "fill_container",
+                      "height": 60,
+                      "fill": "#1f2331",
+                      "gap": 18,
+                      "padding": [
+                        0,
+                        28
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "Iic1I",
+                          "width": 24,
+                          "height": 24,
+                          "cornerRadius": 5,
+                          "stroke": {
+                            "thickness": 1.5,
+                            "fill": "#5C6BC0"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "id": "y7ckef",
+                          "fill": "#FFFFFF",
+                          "content": "Buy groceries",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "wpwHC",
+                      "width": "fill_container",
+                      "height": 60,
+                      "gap": 18,
+                      "padding": [
+                        0,
+                        28
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "ImF8P",
+                          "width": 24,
+                          "height": 24,
+                          "cornerRadius": 5,
+                          "stroke": {
+                            "thickness": 1.5,
+                            "fill": "#5C6BC0"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "id": "enF4p",
+                          "fill": "#FFFFFF",
+                          "content": "Reply to email thread",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "H3G9t",
+                      "width": "fill_container",
+                      "height": 60,
+                      "fill": "#1f2331",
+                      "gap": 18,
+                      "padding": [
+                        0,
+                        28
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "scd03",
+                          "width": 24,
+                          "height": 24,
+                          "cornerRadius": 5,
+                          "stroke": {
+                            "thickness": 1.5,
+                            "fill": "#5C6BC0"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "id": "L25FU",
+                          "fill": "#FFFFFF",
+                          "content": "Sync with team",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "ellipse",
+                  "id": "nYyfZ",
+                  "layoutPosition": "absolute",
+                  "x": 1740,
+                  "y": 920,
+                  "fill": "#EC407A",
+                  "width": 64,
+                  "height": 64
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "accent": {
+      "type": "color",
+      "value": "#FF4081"
+    },
+    "accent-strong": {
+      "type": "color",
+      "value": "#F50057"
+    },
+    "bg": {
+      "type": "color",
+      "value": "#121212"
+    },
+    "divider": {
+      "type": "color",
+      "value": "#3A3A3A"
+    },
+    "divider-soft": {
+      "type": "color",
+      "value": "#2A2A2A"
+    },
+    "focus-ring": {
+      "type": "color",
+      "value": "#9FA8DA66"
+    },
+    "font-body": {
+      "type": "string",
+      "value": "Roboto"
+    },
+    "font-display": {
+      "type": "string",
+      "value": "Roboto"
+    },
+    "font-mono": {
+      "type": "string",
+      "value": "Roboto Mono"
+    },
+    "fs-body": {
+      "type": "number",
+      "value": 14
+    },
+    "fs-display": {
+      "type": "number",
+      "value": 48
+    },
+    "fs-h1": {
+      "type": "number",
+      "value": 34
+    },
+    "fs-h2": {
+      "type": "number",
+      "value": 28
+    },
+    "fs-h3": {
+      "type": "number",
+      "value": 24
+    },
+    "fs-lg": {
+      "type": "number",
+      "value": 18
+    },
+    "fs-md": {
+      "type": "number",
+      "value": 16
+    },
+    "fs-sm": {
+      "type": "number",
+      "value": 12
+    },
+    "fs-xl": {
+      "type": "number",
+      "value": 20
+    },
+    "fs-xs": {
+      "type": "number",
+      "value": 11
+    },
+    "fw-bold": {
+      "type": "string",
+      "value": "700"
+    },
+    "fw-medium": {
+      "type": "string",
+      "value": "500"
+    },
+    "fw-regular": {
+      "type": "string",
+      "value": "400"
+    },
+    "header-h": {
+      "type": "number",
+      "value": 80
+    },
+    "hover-overlay": {
+      "type": "color",
+      "value": "#FFFFFF14"
+    },
+    "info": {
+      "type": "color",
+      "value": "#42A5F5"
+    },
+    "on-accent": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "on-primary": {
+      "type": "color",
+      "value": "#1A1B23"
+    },
+    "primary": {
+      "type": "color",
+      "value": "#9FA8DA"
+    },
+    "primary-dim": {
+      "type": "color",
+      "value": "#3F51B5"
+    },
+    "primary-strong": {
+      "type": "color",
+      "value": "#7986CB"
+    },
+    "r-full": {
+      "type": "number",
+      "value": 9999
+    },
+    "r-lg": {
+      "type": "number",
+      "value": 12
+    },
+    "r-md": {
+      "type": "number",
+      "value": 8
+    },
+    "r-sm": {
+      "type": "number",
+      "value": 4
+    },
+    "r-xl": {
+      "type": "number",
+      "value": 16
+    },
+    "sidenav": {
+      "type": "color",
+      "value": "#181A24"
+    },
+    "sidenav-w": {
+      "type": "number",
+      "value": 250
+    },
+    "sp-1": {
+      "type": "number",
+      "value": 4
+    },
+    "sp-10": {
+      "type": "number",
+      "value": 64
+    },
+    "sp-2": {
+      "type": "number",
+      "value": 8
+    },
+    "sp-3": {
+      "type": "number",
+      "value": 12
+    },
+    "sp-4": {
+      "type": "number",
+      "value": 16
+    },
+    "sp-5": {
+      "type": "number",
+      "value": 20
+    },
+    "sp-6": {
+      "type": "number",
+      "value": 24
+    },
+    "sp-7": {
+      "type": "number",
+      "value": 32
+    },
+    "sp-8": {
+      "type": "number",
+      "value": 40
+    },
+    "sp-9": {
+      "type": "number",
+      "value": 48
+    },
+    "success": {
+      "type": "color",
+      "value": "#66BB6A"
+    },
+    "surface": {
+      "type": "color",
+      "value": "#1E1E1E"
+    },
+    "surface-2": {
+      "type": "color",
+      "value": "#242424"
+    },
+    "surface-3": {
+      "type": "color",
+      "value": "#2C2C2C"
+    },
+    "surface-4": {
+      "type": "color",
+      "value": "#333333"
+    },
+    "text-disabled": {
+      "type": "color",
+      "value": "#666666"
+    },
+    "text-on-primary": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "text-primary": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "text-secondary": {
+      "type": "color",
+      "value": "#B0B0B0"
+    },
+    "toolbar": {
+      "type": "color",
+      "value": "#1F2233"
+    },
+    "toolbar-h": {
+      "type": "number",
+      "value": 64
+    },
+    "warn": {
+      "type": "color",
+      "value": "#F44336"
+    },
+    "warning": {
+      "type": "color",
+      "value": "#FFA726"
+    }
+  }
+}
