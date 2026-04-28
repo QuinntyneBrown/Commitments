@@ -261,4 +261,25 @@ describe('app.routes', () => {
     );
     expect(modelSrc).not.toMatch(/\brequestFocus\b/);
   });
+
+  it('DashboardLayoutStore drops dead resetLayout / toggleEditMode methods (bug-153)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const storeSrc = readFileSync(
+      join(__dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'dashboard', 'dashboard-layout.store.ts'),
+      'utf8'
+    );
+    expect(storeSrc).not.toMatch(/\bresetLayout\s*\(/);
+    expect(storeSrc).not.toMatch(/\btoggleEditMode\s*\(/);
+  });
+
+  it('DashboardPage POM drops the unused resetLayoutButton locator (bug-153)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const pomSrc = readFileSync(
+      join(__dirname, '..', '..', '..', '..', 'e2e', 'pages', 'dashboard.page.ts'),
+      'utf8'
+    );
+    expect(pomSrc).not.toMatch(/resetLayoutButton/);
+  });
 });
