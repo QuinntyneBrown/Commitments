@@ -1,10 +1,28 @@
 ---
 id: bug-137
 title: weekly-focus.service mixes inject() with @Optional()/@Inject() constructor decorators
-status: Open
+status: Fixed
 ---
 
 # Bug 137 — weekly-focus.service: drop decorator-based DI for `inject()` form
+
+**Status**: Fixed
+
+## Fix
+
+```ts
+import { Injectable, InjectionToken, inject } from '@angular/core';
+...
+export class WeeklyFocusService {
+  private readonly _client = inject(HttpClient);
+  private readonly _baseUrl = inject(WEEKLY_FOCUS_BASE_URL, { optional: true });
+  ...
+}
+```
+
+`Inject` and `Optional` decorator imports dropped, empty
+constructor removed. Both DI sites now use the `inject()`
+function. 341/341 workspace tests green.
 
 ## Description
 
