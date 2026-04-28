@@ -11,7 +11,6 @@ import {
   effect,
   inject,
   input,
-  signal,
   viewChild
 } from '@angular/core';
 import { ChartConfiguration, Plugin } from 'chart.js';
@@ -59,8 +58,8 @@ export class ConsistencyTrendTileComponent implements AfterViewInit, OnDestroy {
   private readonly _adapter = inject(ChartJsLineAdapter);
   private readonly _trendService = inject(GoalTrendService);
   private readonly _tileContext = inject(TILE_CONTEXT, { optional: true });
-  private readonly _fallbackMode = signal<'live' | 'review'>('live').asReadonly();
-  private readonly _fallbackDate = signal<string | null>(null).asReadonly();
+  private readonly _fallbackMode = computed<'live' | 'review'>(() => 'live');
+  private readonly _fallbackDate = computed<string | null>(() => null);
 
   readonly controller = new ConsistencyTrendController(
     this._trendService,
