@@ -1,12 +1,25 @@
 ---
 id: bug-109
 title: Global commitments-app styles.scss var() calls omit the design-system fallback hex
-status: Open
+status: Fixed
 ---
 
 # Bug 109 — global styles.scss var() fallback hex
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added the design-system hex fallback to body color/background
+in `commitments-app/src/styles.scss`:
+
+- `var(--cui-bg, #121212)` (body background)
+- `var(--cui-text-primary, #FFFFFF)` (body color)
+
+This is the page-level fallback every dashboard tile sits on
+top of. 304/304 workspace tests stay green. Per the
+bug-073/108 precedent, no failing spec since global styles
+aren't tested per-component.
 
 ## Description
 
