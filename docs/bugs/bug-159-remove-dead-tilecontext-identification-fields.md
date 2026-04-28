@@ -1,10 +1,26 @@
 ---
 id: bug-159
 title: TileContext.tileId / instanceId are unused — drop both
-status: Open
+status: Fixed
 ---
 
 # Bug 159 — Drop dead `TileContext.tileId` / `TileContext.instanceId`
+
+**Status**: Fixed
+
+## Fix
+
+6 lines removed across 3 files. TileContext is now a clean
+two-signal interface:
+
+```ts
+export interface TileContext {
+  readonly mode: Signal<DashboardMode>;
+  readonly selectedReviewDate: Signal<string | null>;
+}
+```
+
+361/361 workspace tests green.
 
 ## Description
 
