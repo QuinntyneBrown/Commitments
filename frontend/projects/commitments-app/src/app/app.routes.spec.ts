@@ -228,4 +228,16 @@ describe('app.routes', () => {
       expect(existsSync(join(__dirname, rel))).toBe(false);
     }
   });
+
+  it('orphaned AchievementService + Achievement model are gone (bug-150)', () => {
+    const { existsSync } = require('fs');
+    const { join } = require('path');
+    const dead = [
+      'services/achievement.service.ts',
+      'models/achievement.ts'
+    ];
+    for (const rel of dead) {
+      expect(existsSync(join(__dirname, rel))).toBe(false);
+    }
+  });
 });
