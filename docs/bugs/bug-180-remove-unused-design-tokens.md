@@ -1,10 +1,22 @@
 ---
 id: bug-180
 title: 31 design tokens declared in _tokens.scss have zero consumers — drop
-status: Open
+status: Fixed
 ---
 
-# Bug 180 — Drop 31 unused design tokens
+# Bug 180 — Drop 30 unused design tokens
+
+**Status**: Fixed
+
+## Fix
+
+After verifying each token by grep, 30 unused declarations
+removed (the bug doc initially counted 31, but `--cui-shadow-login-card`
+turned out to be used by login-page and was kept).
+
+`_tokens.scss` shrinks from 79 → 41 lines. The bug-179 + 180
+arc has reduced this foundational file from 93 lines to 41
+lines (-56% size). 380/380 workspace tests green.
 
 ## Description
 
