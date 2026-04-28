@@ -23,8 +23,6 @@
   justify-content: space-between;
   gap: 12px;
   min-height: 0;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--cui-divider, #3A3A3A);
 }
 
 .tile-shell__eyebrow {
@@ -73,7 +71,7 @@
   flex-direction: column;
   flex: 1 1 auto;
   min-height: 0;
-  padding-top: 14px;
+  padding-top: 10px;
 }
 
 .tile-shell--review {
