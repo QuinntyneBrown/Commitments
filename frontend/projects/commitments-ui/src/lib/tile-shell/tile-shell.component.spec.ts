@@ -46,4 +46,29 @@ describe('TileShellComponent', () => {
       expect(body.contains(projectedBody)).toBe(true);
     });
   });
+
+  describe('eyebrow placement', () => {
+    function render() {
+      TestBed.configureTestingModule({ imports: [TileShellHostComponent] });
+      const fixture = TestBed.createComponent(TileShellHostComponent);
+      fixture.detectChanges();
+      return fixture.nativeElement as HTMLElement;
+    }
+
+    it('renders the eyebrow after the title-row, in sentence case', () => {
+      const root = render();
+      const titleRow = root.querySelector('.tile-shell__title-row')!;
+      const eyebrow = root.querySelector('.tile-shell__eyebrow')!;
+
+      expect(eyebrow).toBeTruthy();
+      expect(titleRow).toBeTruthy();
+
+      const order = titleRow.compareDocumentPosition(eyebrow);
+      expect(order & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+
+      const style = getComputedStyle(eyebrow);
+      expect(style.textTransform).toBe('none');
+      expect(parseInt(style.fontWeight, 10)).toBeLessThanOrEqual(500);
+    });
+  });
 });
