@@ -1,10 +1,19 @@
 ---
 id: bug-185
 title: 4 SCSS files use literal border-radius 999px instead of --cui-radius-full token
-status: Open
+status: Fixed
 ---
 
 # Bug 185 — Normalize `border-radius: 999px` to `var(--cui-radius-full, 9999px)`
+
+**Status**: Fixed
+
+## Fix
+
+4 occurrences of `border-radius: 999px` replaced with
+`var(--cui-radius-full, 9999px)` across mode-toggle (2x),
+status-pill (1x), and review-scrubber (1x). 385/385 workspace
+tests green.
 
 ## Description
 
