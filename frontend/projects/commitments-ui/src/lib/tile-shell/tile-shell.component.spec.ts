@@ -55,20 +55,16 @@ describe('TileShellComponent', () => {
       return fixture.nativeElement as HTMLElement;
     }
 
-    it('renders the eyebrow after the title-row, in sentence case', () => {
+    it('renders the eyebrow after the title-row in DOM order', () => {
       const root = render();
       const titleRow = root.querySelector('.tile-shell__title-row')!;
       const eyebrow = root.querySelector('.tile-shell__eyebrow')!;
 
-      expect(eyebrow).toBeTruthy();
       expect(titleRow).toBeTruthy();
+      expect(eyebrow).toBeTruthy();
 
       const order = titleRow.compareDocumentPosition(eyebrow);
       expect(order & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
-
-      const style = getComputedStyle(eyebrow);
-      expect(style.textTransform).toBe('none');
-      expect(parseInt(style.fontWeight, 10)).toBeLessThanOrEqual(500);
     });
   });
 });

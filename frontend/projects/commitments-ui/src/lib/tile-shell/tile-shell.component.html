@@ -7,15 +7,15 @@
   data-testid="tile-shell">
   <mat-card-header class="tile-shell__header">
     <div class="tile-shell__heading">
-      @if (eyebrow()) {
-        <p class="tile-shell__eyebrow">{{ eyebrow() }}</p>
-      }
       <div class="tile-shell__title-row">
         @if (icon()) {
           <span class="material-symbols-rounded tile-shell__icon">{{ icon() }}</span>
         }
         <mat-card-title class="tile-shell__title" data-testid="tile-title">{{ title() }}</mat-card-title>
       </div>
+      @if (eyebrow()) {
+        <p class="tile-shell__eyebrow">{{ eyebrow() }}</p>
+      }
     </div>
     @if (status()) {
       <span class="tile-shell__status">{{ status() }}</span>
