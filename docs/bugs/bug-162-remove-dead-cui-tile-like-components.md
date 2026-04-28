@@ -1,10 +1,19 @@
 ---
 id: bug-162
 title: Remove 5 dead UI tile-like components from @commitments/ui
-status: Open
+status: Fixed
 ---
 
 # Bug 162 — Drop 5 dead tile-like UI components
+
+**Status**: Fixed
+
+## Fix
+
+15 component files deleted (5 dirs × .ts/.html/.scss). 5 export
+lines removed from `public-api.ts`. 536 lines net. 364/364
+workspace tests green. Twelve more dead UI components remain
+for follow-up bugs.
 
 ## Description
 
