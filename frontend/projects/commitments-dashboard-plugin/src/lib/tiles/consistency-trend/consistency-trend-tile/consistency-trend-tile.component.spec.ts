@@ -112,6 +112,21 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(offenders).toEqual([]);
   });
 
+  it('draws a glow behind the highlighted today-point (bug-114)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend-tile.component.ts'),
+      'utf8'
+    );
+    // The chart config must register a plugin that uses
+    // shadowBlur + shadowColor to draw the glow at
+    // controller.highlightedIndex() — matching the design's
+    // todayDot effect (blur 8, #42A5F5CC).
+    expect(ts).toMatch(/plugins\s*:\s*\[[\s\S]*?todayPointGlow/);
+    expect(ts).toMatch(/shadowBlur\b[\s\S]*?\b8\b/);
+    expect(ts).toMatch(/shadowColor\b[\s\S]*?ACCENT_CHART/);
+    expect(ts).toMatch(/highlightedIndex\(\)/);
+  });
+
   it('formats x-axis labels with toLocaleDateString month/day (bug-046)', () => {
     const ts = readFileSync(
       join(__dirname, 'consistency-trend-tile.component.ts'),
