@@ -1,4 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
 import { DeltaBadgeComponent } from './delta-badge.component';
 
@@ -32,5 +34,25 @@ describe('DeltaBadgeComponent', () => {
 
     expect(component.formatted()).toBe('±0%');
     expect(component.tone()).toBe('neutral');
+  });
+
+  describe('CSS source', () => {
+    const scss = readFileSync(
+      join(__dirname, 'delta-badge.component.scss'),
+      'utf8'
+    );
+
+    function ruleBlock(selector: string): string {
+      const match = scss.match(new RegExp(`${selector}\\s*\\{([^}]*)\\}`));
+      return match ? match[1] : '';
+    }
+
+    it('renders as a 20px rounded rect with .pen-aligned padding/gap (bug-052)', () => {
+      const block = ruleBlock('\\.delta-badge');
+      expect(block).toMatch(/border-radius\s*:\s*4px\b/);
+      expect(block).toMatch(/min-height\s*:\s*20px\b/);
+      expect(block).toMatch(/padding\s*:\s*0\s+6px\b/);
+      expect(block).toMatch(/gap\s*:\s*4px\b/);
+    });
   });
 });
