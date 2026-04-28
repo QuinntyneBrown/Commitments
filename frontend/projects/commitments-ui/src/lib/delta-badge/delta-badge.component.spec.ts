@@ -47,9 +47,11 @@ describe('DeltaBadgeComponent', () => {
       return match ? match[1] : '';
     }
 
-    it('renders as a 20px rounded rect with .pen-aligned padding/gap (bug-052)', () => {
+    it('renders as a 20px rounded rect with .pen-aligned padding/gap (bug-052, post bug-186)', () => {
       const block = ruleBlock('\\.delta-badge');
-      expect(block).toMatch(/border-radius\s*:\s*4px\b/);
+      // After bug-186 the literal `4px` lives as the fallback inside
+      // `var(--cui-radius-sm, 4px)`, not as a free-standing value.
+      expect(block).toMatch(/border-radius\s*:\s*(?:4px|var\(\s*--cui-radius-sm\s*,\s*4px)/);
       expect(block).toMatch(/min-height\s*:\s*20px\b/);
       expect(block).toMatch(/padding\s*:\s*0\s+6px\b/);
       expect(block).toMatch(/gap\s*:\s*4px\b/);

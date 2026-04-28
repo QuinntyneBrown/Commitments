@@ -3,7 +3,7 @@
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  border-radius: 12px;
+  border-radius: var(--cui-radius-lg, 12px);
   background: var(--cui-surface, #1E1E1E);
   color: var(--cui-text-primary, #FFFFFF);
 }
@@ -53,7 +53,7 @@
   padding: 0 12px;
   height: 32px;
   border: none;
-  border-radius: 9999px;
+  border-radius: var(--cui-radius-full, 9999px);
   background: var(--cui-surface-3, #2C2C2C);
   color: var(--cui-text-primary, #FFFFFF);
   cursor: pointer;
