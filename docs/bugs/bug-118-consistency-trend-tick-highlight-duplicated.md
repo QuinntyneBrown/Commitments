@@ -1,12 +1,31 @@
 ---
 id: bug-118
 title: consistency-trend tick color/font Scriptables duplicate the highlightedIndex check
-status: Open
+status: Fixed
 ---
 
 # Bug 118 — DRY tick highlight check
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Extracted a local `isHighlighted(ctx)` helper next to the
+TODAY_GLOW_* constants and the `todayPointGlow` plugin:
+
+```ts
+const isHighlighted = (ctx: { index?: number }) =>
+  ctx.index === controller.highlightedIndex();
+```
+
+The two tick Scriptables now read `isHighlighted(ctx)` instead
+of inlining the predicate. Refactor only — visual output is
+identical.
+
+The bug-092 spec was loosened so it accepts either the inline
+`highlightedIndex()` form or the new helper form.
+
+315/315 workspace tests green.
 
 ## Description
 
