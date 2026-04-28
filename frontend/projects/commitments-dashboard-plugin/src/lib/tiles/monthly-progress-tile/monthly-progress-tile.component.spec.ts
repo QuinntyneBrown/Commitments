@@ -15,6 +15,13 @@ describe('MonthlyProgressTileComponent (template source)', () => {
   it('projects the status-pill into the tile-shell header (bug-057)', () => {
     expect(html).toMatch(/<cui-status-pill\b[^>]*\btile-status\b/);
   });
+
+  it('keeps every template line under 110 characters (bug-073)', () => {
+    const overLong = html.split(/\r?\n/)
+      .map((line, i) => ({ n: i + 1, len: line.length }))
+      .filter(({ len }) => len > 110);
+    expect(overLong).toEqual([]);
+  });
 });
 
 describe('MonthlyProgressTileComponent (CSS source)', () => {

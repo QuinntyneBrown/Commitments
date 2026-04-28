@@ -20,4 +20,11 @@ describe('GoalMetricsTileComponent (template source)', () => {
     expect(ts).toMatch(/\bgoalId\s*=\s*input\(/);
     expect(ts).toMatch(/effect\(\s*\(\)\s*=>[\s\S]*?setGoalId\(\s*this\.goalId\(\)/);
   });
+
+  it('keeps every template line under 110 characters (bug-073)', () => {
+    const overLong = html.split(/\r?\n/)
+      .map((line, i) => ({ n: i + 1, len: line.length }))
+      .filter(({ len }) => len > 110);
+    expect(overLong).toEqual([]);
+  });
 });

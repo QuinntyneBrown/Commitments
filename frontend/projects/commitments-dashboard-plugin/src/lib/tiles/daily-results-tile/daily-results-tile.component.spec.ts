@@ -43,3 +43,16 @@ describe('DailyResultsTileComponent (TS source)', () => {
     expect(ts).toMatch(/pillVariant\b[\s\S]*?'success'/);
   });
 });
+
+describe('DailyResultsTileComponent (template line length)', () => {
+  it('keeps every template line under 110 characters (bug-073)', () => {
+    const html = readFileSync(
+      join(__dirname, 'daily-results-tile.component.html'),
+      'utf8'
+    );
+    const overLong = html.split(/\r?\n/)
+      .map((line, i) => ({ n: i + 1, len: line.length }))
+      .filter(({ len }) => len > 110);
+    expect(overLong).toEqual([]);
+  });
+});
