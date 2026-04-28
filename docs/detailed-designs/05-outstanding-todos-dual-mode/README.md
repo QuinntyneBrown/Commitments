@@ -1,8 +1,14 @@
 # Outstanding Todos Tile — Dual-Mode Design
 
-**Status:** Accepted — 2026-04-27
+**Status:** Implemented — 2026-04-27
 **Tile ID:** `commitments.outstanding-todos`
 **Traces to:** L1-010, L1-011, L1-012, **L1-012a**; L2-016, L2-018, **L2-031a**, L2-031, L2-038, L2-045.
+
+> Implementation notes:
+> - **New ToDo aggregate.** Open Question 8.1 confirmed: the Commitments module owns To-Dos. Open Question 8.2 confirmed: `CompletedOn`/`DeletedOn` are added to the new entity from day 1 (no migration of pre-existing flags-only schema needed because the table is greenfield).
+> - **Inverted-metric tone.** Per Open Question 8.3 recommendation, the controller exposes `deltaTone()` directly (`success` / `warn` / `neutral`) and the tile renders a tone-classed `<p>` rather than reusing `DeltaBadgeComponent` (which derives tone from sign automatically — wrong polarity for an inverted metric).
+> - **Schema migration deferred** — adding the `Todos` table to the SQL Server DB is a one-line EF migration; tile reads will return 0 until that ships.
+> - **SignalR `outstandingTodos` invalidation** wiring deferred (cross-lib coupling — same as designs 02-04). Live refresh works via `TileContext.refresh\$`.
 
 ## 1. Overview
 
