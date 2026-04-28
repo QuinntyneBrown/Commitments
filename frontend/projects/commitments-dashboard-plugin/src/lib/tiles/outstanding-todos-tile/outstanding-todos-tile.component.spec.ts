@@ -29,6 +29,14 @@ describe('OutstandingTodosTileComponent (template + CSS source)', () => {
     expect(block).toMatch(/padding\s*:\s*4px\b/);
   });
 
+  it('every var(--cui-*) reference includes a fallback hex (bug-097)', () => {
+    const offenders = scss
+      .split(/\r?\n/)
+      .map((line, i) => ({ n: i + 1, line }))
+      .filter(({ line }) => /var\(--cui-[a-z-]+\)/.test(line));
+    expect(offenders).toEqual([]);
+  });
+
   it('uses the .pen-aligned title and eyebrow strings (bug-027)', () => {
     expect(html).toMatch(/title="Outstanding Todos"/);
     expect(html).toMatch(/eyebrow="Tasks"/);
