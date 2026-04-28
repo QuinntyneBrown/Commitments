@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
 import { TileShellComponent } from './tile-shell.component';
 
@@ -65,6 +67,20 @@ describe('TileShellComponent', () => {
 
       const order = titleRow.compareDocumentPosition(eyebrow);
       expect(order & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    });
+  });
+
+  describe('header chrome (CSS source)', () => {
+    const scss = readFileSync(join(__dirname, 'tile-shell.component.scss'), 'utf8');
+
+    function ruleBlock(selector: string): string {
+      const match = scss.match(new RegExp(`${selector}\\s*\\{([^}]*)\\}`));
+      return match ? match[1] : '';
+    }
+
+    it('does not draw a divider beneath the header (bug-020)', () => {
+      const block = ruleBlock('\\.tile-shell__header');
+      expect(block).not.toMatch(/border-bottom\s*:/);
     });
   });
 });
