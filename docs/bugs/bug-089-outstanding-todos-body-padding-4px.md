@@ -1,12 +1,19 @@
 ---
 id: bug-089
 title: Outstanding Todos body container is missing the 4px inner padding the design specifies
-status: Open
+status: Fixed
 ---
 
 # Bug 089 — outstanding-todos body padding
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added `padding: 4px` to `.todo-body`, matching the design's
+`otBody.padding`. The count and copy now sit 4px inside the
+body container — restoring the small inner inset the design
+specifies. 285/285 workspace tests green.
 
 ## Description
 
