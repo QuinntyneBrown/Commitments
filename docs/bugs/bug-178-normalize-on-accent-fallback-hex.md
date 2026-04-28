@@ -1,10 +1,19 @@
 ---
 id: bug-178
 title: --cui-on-accent fallback uses 3-char #fff while sibling --cui-text-primary uses 6-char #FFFFFF
-status: Open
+status: Fixed
 ---
 
 # Bug 178 — Normalize `--cui-on-accent` fallback to `#FFFFFF`
+
+**Status**: Fixed
+
+## Fix
+
+7 occurrences of `var(--cui-on-accent, #fff)` replaced with
+`var(--cui-on-accent, #FFFFFF)` across dashboard-shell,
+add-tile-dialog, and dashboard-grid. 378/378 workspace tests
+green.
 
 ## Description
 
