@@ -110,7 +110,7 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
               color: (ctx) => ctx.index === controller.highlightedIndex() ? ACCENT_CHART : TEXT_MUTED,
               font: (ctx) => ({ weight: ctx.index === controller.highlightedIndex() ? 700 : 400 }),
               autoSkip: true,
-              maxTicksLimit: 6,
+              maxTicksLimit: 5,
               padding: 6,
               callback(value) {
                 const label = this.getLabelForValue(value as number);
