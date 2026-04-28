@@ -422,4 +422,24 @@ describe('app.routes', () => {
       expect(existsSync(file)).toBe(false);
     }
   });
+
+  it('tokens.ts is pruned to only the production-used constants (bug-165)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const src = readFileSync(
+      join(__dirname, '..', '..', '..', 'commitments-ui', 'src', 'lib', 'tokens', 'tokens.ts'),
+      'utf8'
+    );
+    // Dead constants no longer declared:
+    expect(src).not.toMatch(/\bBG_TOOLBAR\b/);
+    expect(src).not.toMatch(/\bSURFACE_TILE\b/);
+    expect(src).not.toMatch(/\bTEXT_PRIMARY\b/);
+    expect(src).not.toMatch(/\bACCENT_LIVE\b/);
+    expect(src).not.toMatch(/^export const (FS_|FW_|SP_|RADIUS_|FONT_)/m);
+    // The three live tokens + DashboardMode type are still here:
+    expect(src).toMatch(/\bACCENT_CHART\b/);
+    expect(src).toMatch(/\bBG_APP\b/);
+    expect(src).toMatch(/\bTEXT_MUTED\b/);
+    expect(src).toMatch(/\bDashboardMode\b/);
+  });
 });
