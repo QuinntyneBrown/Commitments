@@ -1,12 +1,23 @@
 ---
 id: bug-123
 title: Consistency Trend tile doesn't reload when goalId or windowDays input changes after init
-status: Open
+status: Fixed
 ---
 
 # Bug 123 — non-reactive goalId / windowDays
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Replaced the `ngOnInit`-based load with an `effect()` in the
+constructor that reads both `goalId()` and `windowDays()`. Any
+parent input change now reloads the trend, keeping the chart
+and the bug-122 dynamic eyebrow in sync. `ngOnInit` is no
+longer implemented; the `OnInit` import and interface dropped.
+Same shape as goal-metrics bug-072.
+
+320/320 workspace tests green.
 
 ## Description
 
