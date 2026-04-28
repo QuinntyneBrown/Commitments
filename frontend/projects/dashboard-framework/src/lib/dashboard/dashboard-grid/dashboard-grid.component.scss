@@ -25,7 +25,7 @@ gridster-item {
 
 .dashboard-grid--edit-mode gridster-item {
   border: 2px solid var(--cui-accent, #FF4081);
-  border-radius: 8px;
+  border-radius: var(--cui-radius-md, 8px);
 }
 
 .tile-chrome {
