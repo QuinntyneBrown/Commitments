@@ -196,11 +196,14 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
       join(__dirname, 'consistency-trend-tile.component.ts'),
       'utf8'
     );
-    // The tick color/font Scriptables should compare ctx.index to
-    // controller.highlightedIndex() so review mode highlights the
-    // selected date's label, not always the last.
-    expect(ts).toMatch(/color\s*:\s*\([^)]*\)\s*=>[\s\S]*?highlightedIndex\(\)/);
-    expect(ts).toMatch(/font\s*:\s*\([^)]*\)\s*=>[\s\S]*?highlightedIndex\(\)/);
+    // The tick color/font Scriptables must drive their highlight from
+    // the controller's highlightedIndex so review mode highlights the
+    // selected date's label, not always the last. After bug-118 the
+    // predicate is extracted to an isHighlighted helper; either form
+    // is acceptable as long as the Scriptables don't reference
+    // isLastTick.
+    expect(ts).toMatch(/color\s*:\s*\([^)]*\)\s*=>[\s\S]*?(highlightedIndex\(\)|isHighlighted\()/);
+    expect(ts).toMatch(/font\s*:\s*\([^)]*\)\s*=>[\s\S]*?(highlightedIndex\(\)|isHighlighted\()/);
     // The isLastTick helper has no remaining callers and should be gone.
     expect(ts).not.toMatch(/isLastTick\b/);
   });

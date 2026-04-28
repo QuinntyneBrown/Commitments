@@ -98,6 +98,8 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
     const controller = this.controller;
     const TODAY_GLOW_RADIUS = 7; // matches dataset POINT_RADIUS_HIGHLIGHT
     const TODAY_GLOW_BLUR = 8;   // design todayDot effect.blur
+    const isHighlighted = (ctx: { index?: number }) =>
+      ctx.index === controller.highlightedIndex();
     const todayPointGlow: Plugin<'line'> = {
       id: 'todayPointGlow',
       afterDatasetDraw(chart) {
@@ -127,8 +129,8 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
           x: {
             type: 'category',
             ticks: {
-              color: (ctx) => ctx.index === controller.highlightedIndex() ? ACCENT_CHART : TEXT_MUTED,
-              font: (ctx) => ({ weight: ctx.index === controller.highlightedIndex() ? 700 : 400 }),
+              color: (ctx) => isHighlighted(ctx) ? ACCENT_CHART : TEXT_MUTED,
+              font: (ctx) => ({ weight: isHighlighted(ctx) ? 700 : 400 }),
               autoSkip: true,
               maxTicksLimit: 5,
               padding: 6,
