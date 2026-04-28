@@ -70,9 +70,10 @@ export class ConsistencyTrendTileComponent implements AfterViewInit, OnDestroy {
   constructor() {
     effect(() => {
       const id = this.goalId();
-      if (id) {
-        this.controller.load(id, this.windowDays());
-      }
+      if (!id) return;
+      this._tileContext?.mode();
+      this._tileContext?.selectedReviewDate();
+      this.controller.load(id, this.windowDays());
     });
 
     effect(() => {
@@ -82,14 +83,6 @@ export class ConsistencyTrendTileComponent implements AfterViewInit, OnDestroy {
         this._adapter.updateDataset(dataset, labels);
       }
     });
-
-    if (this._tileContext) {
-      effect(() => {
-        this._tileContext!.mode();
-        this._tileContext!.selectedReviewDate();
-        this.controller.refresh();
-      });
-    }
   }
 
   ngAfterViewInit(): void {
