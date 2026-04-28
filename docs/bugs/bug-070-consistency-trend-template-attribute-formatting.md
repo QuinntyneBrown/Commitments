@@ -1,12 +1,27 @@
 ---
 id: bug-070
 title: Consistency-trend template uses long single-line attribute syntax; other 5 tiles use multi-line for readability
-status: Open
+status: Fixed
 ---
 
 # Bug 070 — Consistency-trend template attribute formatting
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Three over-long lines reformatted to multi-line attribute style:
+- `<commitments-tile-shell>` open tag (was ~150 chars)
+- `<cui-status-pill>` open tag (was ~115 chars)
+- `<canvas #plot …>` (was 112 chars)
+
+Brings consistency-trend's template into line with the multi-line
+convention the other five plugin tiles already use.
+
+Coverage:
+- New spec asserts every line in the template ≤110 chars; will
+  fail if a future contributor reverts to single-line syntax.
+- All 22 affected suites pass (160/160 — was 159/159 before).
 
 ## Description
 
