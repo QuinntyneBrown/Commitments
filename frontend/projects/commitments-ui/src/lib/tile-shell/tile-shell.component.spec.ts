@@ -104,5 +104,10 @@ describe('TileShellComponent', () => {
       expect(block).toMatch(/box-shadow\s*:[^;]*4px[^;]*12px/);
       expect(block).not.toMatch(/box-shadow\s*:\s*none\b/);
     });
+
+    it('icon colour consumes the per-tile custom property (bug-048)', () => {
+      const block = ruleBlock('\\.tile-shell__icon');
+      expect(block).toMatch(/color\s*:\s*var\(\s*--cui-tile-icon-color/);
+    });
   });
 });

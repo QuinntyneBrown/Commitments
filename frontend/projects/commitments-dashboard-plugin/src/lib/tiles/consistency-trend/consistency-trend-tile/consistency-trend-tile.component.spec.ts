@@ -93,4 +93,9 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(ts).toMatch(/color\s*:\s*\([^)]*\)\s*=>[\s\S]*?ACCENT_CHART/);
     expect(ts).toMatch(/font\s*:\s*\([^)]*\)\s*=>[\s\S]*?\b700\b/);
   });
+
+  it('opts in to the info-blue icon colour (bug-048)', () => {
+    const block = ruleBlock(':host');
+    expect(block).toMatch(/--cui-tile-icon-color\s*:[^;]*--cui-info/);
+  });
 });

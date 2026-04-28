@@ -48,4 +48,9 @@ describe('OutstandingTodosTileComponent (template + CSS source)', () => {
     const block = ruleBlock('\\.todo-copy');
     expect(block).toMatch(/font-size\s*:\s*12px\b/);
   });
+
+  it('opts in to the warning-amber icon colour (bug-048)', () => {
+    const block = ruleBlock(':host');
+    expect(block).toMatch(/--cui-tile-icon-color\s*:[^;]*--cui-warning/);
+  });
 });

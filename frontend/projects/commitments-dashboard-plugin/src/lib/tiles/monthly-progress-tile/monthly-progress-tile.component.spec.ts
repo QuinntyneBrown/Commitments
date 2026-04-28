@@ -48,4 +48,9 @@ describe('MonthlyProgressTileComponent (CSS source)', () => {
     const block = ruleBlock(':host');
     expect(block).toMatch(/--cui-tile-body-gap\s*:\s*12px\b/);
   });
+
+  it('opts in to the info-blue icon colour (bug-048)', () => {
+    const block = ruleBlock(':host');
+    expect(block).toMatch(/--cui-tile-icon-color\s*:[^;]*--cui-info/);
+  });
 });
