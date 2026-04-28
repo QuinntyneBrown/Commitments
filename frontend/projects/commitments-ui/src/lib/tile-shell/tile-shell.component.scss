@@ -19,10 +19,14 @@
 
 .tile-shell__header {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
   gap: var(--cui-tile-header-gap, 8px);
   min-height: 0;
+}
+
+.tile-shell__heading {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .tile-shell__eyebrow {
@@ -30,12 +34,6 @@
   color: var(--cui-text-secondary, #B0B0B0);
   font-size: 11px;
   font-weight: 400;
-}
-
-.tile-shell__title-row {
-  display: flex;
-  align-items: center;
-  gap: var(--cui-tile-header-gap, 8px);
 }
 
 .tile-shell__icon {

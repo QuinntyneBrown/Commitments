@@ -3,13 +3,11 @@
   appearance="outlined"
   data-testid="tile-shell">
   <mat-card-header class="tile-shell__header">
+    @if (icon()) {
+      <span class="material-symbols-rounded tile-shell__icon">{{ icon() }}</span>
+    }
     <div class="tile-shell__heading">
-      <div class="tile-shell__title-row">
-        @if (icon()) {
-          <span class="material-symbols-rounded tile-shell__icon">{{ icon() }}</span>
-        }
-        <mat-card-title class="tile-shell__title" data-testid="tile-title">{{ title() }}</mat-card-title>
-      </div>
+      <mat-card-title class="tile-shell__title" data-testid="tile-title">{{ title() }}</mat-card-title>
       @if (eyebrow()) {
         <p class="tile-shell__eyebrow">{{ eyebrow() }}</p>
       }
