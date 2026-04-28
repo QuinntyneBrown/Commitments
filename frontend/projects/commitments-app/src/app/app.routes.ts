@@ -8,6 +8,7 @@ import { DashboardLayoutComponent } from './components/dashboard-layout/dashboar
 import { PlaceholderPageComponent } from './components/placeholder-page/placeholder-page.component';
 import { BehaviourTypesPageComponent } from './pages/behaviour-types/behaviour-types-page/behaviour-types-page.component';
 import { BehavioursPageComponent } from './pages/behaviours/behaviours-page/behaviours-page.component';
+import { CommitmentsPageComponent } from './pages/commitments/commitments-page/commitments-page.component';
 import { EditFrequencyPageComponent } from './pages/edit-frequency/edit-frequency-page/edit-frequency-page.component';
 import { FrequenciesPageComponent } from './pages/frequencies/frequencies-page/frequencies-page.component';
 import { LoginPageComponent } from './pages/login/login-page/login-page.component';
@@ -17,7 +18,6 @@ import { SettingsPageComponent } from './pages/settings/settings-page/settings-p
 
 const placeholderPaths = [
   'activities',
-  'commitments',
   'cards',
   'card-layouts',
   'notes',
@@ -39,6 +39,7 @@ export const routes: Routes = [
       { path: 'frequencies', component: FrequenciesPageComponent },
       { path: 'edit-frequency', component: EditFrequencyPageComponent },
       { path: 'edit-frequency/:frequencyId', component: EditFrequencyPageComponent },
+      { path: 'commitments', component: CommitmentsPageComponent },
       ...placeholderPaths.map(path => ({ path, component: PlaceholderPageComponent }))
     ]
   }

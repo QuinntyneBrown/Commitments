@@ -19,6 +19,8 @@ public class SaveCommitmentCommandValidator : AbstractValidator<SaveCommitmentRe
     public SaveCommitmentCommandValidator()
     {
         RuleFor(request => request.Commitment.CommitmentId).NotEmpty();
+        RuleForEach(request => request.Commitment.PreConditions)
+            .ChildRules(p => p.RuleFor(pc => pc.Name).NotEmpty());
     }
 }
 

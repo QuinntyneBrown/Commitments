@@ -19,6 +19,8 @@ public class CommitmentDto
     public BehaviourDto Behaviour { get; set; }
     public ICollection<CommitmentFrequencyDto> CommitmentFrequencies { get; set; }
     = new HashSet<CommitmentFrequencyDto>();
+    public ICollection<CommitmentPreConditionDto> PreConditions { get; set; }
+    = new List<CommitmentPreConditionDto>();
 
     public static CommitmentDto FromCommitment(CommitmentEntity commitment)
     {
