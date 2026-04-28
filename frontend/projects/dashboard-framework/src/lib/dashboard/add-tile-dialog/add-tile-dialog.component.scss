@@ -97,7 +97,7 @@
   background: var(--cui-accent, #FF4081);
   border: 2px solid var(--cui-accent, #FF4081);
   box-shadow: 0 4px 12px #FF408155;
-  color: var(--cui-on-accent, #fff);
+  color: var(--cui-on-accent, #FFFFFF);
 }
 
 .add-tile-dialog__icon-container {
@@ -120,7 +120,7 @@
 }
 
 .add-tile-dialog__cell--selected .add-tile-dialog__icon {
-  color: var(--cui-on-accent, #fff);
+  color: var(--cui-on-accent, #FFFFFF);
 }
 
 .add-tile-dialog__label {
@@ -131,7 +131,7 @@
 
 .add-tile-dialog__cell--selected .add-tile-dialog__label {
   font-weight: 700;
-  color: var(--cui-on-accent, #fff);
+  color: var(--cui-on-accent, #FFFFFF);
 }
 
 .add-tile-dialog__check {
@@ -144,7 +144,7 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--cui-on-accent, #fff);
+  background: var(--cui-on-accent, #FFFFFF);
   color: var(--cui-accent, #FF4081);
 }
 
