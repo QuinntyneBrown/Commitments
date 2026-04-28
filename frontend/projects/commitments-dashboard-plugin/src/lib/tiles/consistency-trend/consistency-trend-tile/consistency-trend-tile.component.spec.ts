@@ -104,6 +104,14 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(ts).not.toMatch(/x\s*:\s*\{[\s\S]*?ticks\s*:\s*\{[\s\S]*?maxTicksLimit\s*:\s*6\b/);
   });
 
+  it('every var(--cui-*) reference includes a fallback hex (bug-101)', () => {
+    const offenders = scss
+      .split(/\r?\n/)
+      .map((line, i) => ({ n: i + 1, line }))
+      .filter(({ line }) => /var\(--cui-[a-z-]+\)/.test(line));
+    expect(offenders).toEqual([]);
+  });
+
   it('formats x-axis labels with toLocaleDateString month/day (bug-046)', () => {
     const ts = readFileSync(
       join(__dirname, 'consistency-trend-tile.component.ts'),
