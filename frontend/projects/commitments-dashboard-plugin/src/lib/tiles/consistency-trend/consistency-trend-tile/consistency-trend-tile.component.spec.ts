@@ -103,4 +103,9 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     const block = ruleBlock(':host');
     expect(block).toMatch(/--cui-tile-icon-size\s*:\s*22px\b/);
   });
+
+  it('opts in to the 10px header gap (bug-050)', () => {
+    const block = ruleBlock(':host');
+    expect(block).toMatch(/--cui-tile-header-gap\s*:\s*10px\b/);
+  });
 });

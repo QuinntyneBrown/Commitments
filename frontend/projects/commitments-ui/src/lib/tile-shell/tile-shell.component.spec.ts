@@ -116,5 +116,10 @@ describe('TileShellComponent', () => {
       expect(block).toMatch(/width\s*:\s*var\(\s*--cui-tile-icon-size/);
       expect(block).toMatch(/height\s*:\s*var\(\s*--cui-tile-icon-size/);
     });
+
+    it('title-row gap consumes the per-tile custom property (bug-050)', () => {
+      const block = ruleBlock('\\.tile-shell__title-row');
+      expect(block).toMatch(/gap\s*:\s*var\(\s*--cui-tile-header-gap/);
+    });
   });
 });
