@@ -1,10 +1,21 @@
 ---
 id: bug-165
 title: tokens.ts exports 40+ constants but only 3 are used in production — prune
-status: Open
+status: Fixed
 ---
 
 # Bug 165 — Prune unused TS token constants
+
+**Status**: Fixed
+
+## Fix
+
+`tokens.ts`: 75 → 13 lines. `tokens.spec.ts`: 39 → 9 lines.
+Net 91 lines deleted. Only `ACCENT_CHART`, `BG_APP`,
+`TEXT_MUTED`, and the `DashboardMode` type remain — exactly
+what production code imports.
+
+365/365 workspace tests green.
 
 ## Description
 
