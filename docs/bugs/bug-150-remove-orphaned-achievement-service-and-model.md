@@ -1,10 +1,17 @@
 ---
 id: bug-150
 title: AchievementService + Achievement model are orphaned after bug-147 — delete
-status: Open
+status: Fixed
 ---
 
 # Bug 150 — Remove orphaned `AchievementService` and `Achievement` model
+
+**Status**: Fixed
+
+## Fix
+
+Deleted 2 files (44 lines net). Regression-guard spec asserts
+neither file exists. 358/358 workspace tests green.
 
 ## Description
 
