@@ -9,6 +9,7 @@ import { PlaceholderPageComponent } from './components/placeholder-page/placehol
 import { LoginPageComponent } from './pages/login/login-page/login-page.component';
 import { BehaviourTypesPageComponent } from './pages/behaviour-types/behaviour-types-page/behaviour-types-page.component';
 import { BehavioursPageComponent } from './pages/behaviours/behaviours-page/behaviours-page.component';
+import { FrequenciesPageComponent } from './pages/frequencies/frequencies-page/frequencies-page.component';
 import { MyProfilePageComponent } from './pages/my-profile/my-profile-page/my-profile-page.component';
 import { ProfilesPageComponent } from './pages/profiles/profiles-page/profiles-page.component';
 import { SettingsPageComponent } from './pages/settings/settings-page/settings-page.component';
@@ -38,7 +39,6 @@ describe('app.routes', () => {
     'commitments',
     'cards',
     'card-layouts',
-    'frequencies',
     'notes',
     'to-dos'
   ])('routes the %s child path to PlaceholderPageComponent under the layout', (path) => {
@@ -81,5 +81,12 @@ describe('app.routes', () => {
     const child = home?.children?.find((c) => c.path === 'behaviours');
     expect(child).toBeDefined();
     expect(child!.component).toBe(BehavioursPageComponent);
+  });
+
+  it('routes /frequencies to FrequenciesPageComponent (design 07-Frequencies Slice A)', () => {
+    const home = routes.find((r) => r.path === '');
+    const child = home?.children?.find((c) => c.path === 'frequencies');
+    expect(child).toBeDefined();
+    expect(child!.component).toBe(FrequenciesPageComponent);
   });
 });

@@ -1,8 +1,10 @@
 using Commitments.Features.Frequency;
 using Commitments.Data;
+using Commitments.Domain.CommitmentAggregate;
 using Commitments.Domain.FrequencyAggregate;
 using Commitments.Testing.Common;
 using FluentAssertions;
+using Microsoft.AspNetCore.Http;
 using Moq;
 using Xunit;
 
@@ -62,5 +64,30 @@ public class RemoveFrequencyHandlerTests
         var result = validator.Validate(request);
 
         result.IsValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task Handle_WhenReferencedByCommitmentFrequency_ThrowsBadHttpRequestException(/* design 07 Slice D */)
+    {
+        var frequencyId = Guid.NewGuid();
+        var existing = new Frequency { FrequencyId = frequencyId };
+        var join = new CommitmentFrequency { CommitmentFrequencyId = Guid.NewGuid(), FrequencyId = frequencyId };
+
+        var mockContext = MockCommitmentsDbContextFactory.Create();
+        var freqSet = MockDbSetFactory.CreateMockDbSet(new List<Frequency> { existing });
+        freqSet.Setup(d => d.FindAsync(frequencyId)).ReturnsAsync(existing);
+        mockContext.Setup(c => c.Frequencies).Returns(freqSet.Object);
+        mockContext.Setup(c => c.CommitmentFrequencies).Returns(MockDbSetFactory.CreateMockDbSet(new List<CommitmentFrequency> { join }).Object);
+
+        var handler = new RemoveFrequencyCommandHandler(mockContext.Object);
+
+        var act = async () => await handler.Handle(
+            new RemoveFrequencyRequest { FrequencyId = frequencyId },
+            CancellationToken.None);
+
+        await act.Should().ThrowAsync<BadHttpRequestException>()
+            .Where(e => e.StatusCode == 400 && e.Message.Contains("Cannot delete"));
+
+        freqSet.Verify(d => d.Remove(It.IsAny<Frequency>()), Times.Never);
     }
 }
