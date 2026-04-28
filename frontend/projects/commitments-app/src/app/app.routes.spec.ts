@@ -240,4 +240,15 @@ describe('app.routes', () => {
       expect(existsSync(join(__dirname, rel))).toBe(false);
     }
   });
+
+  it('unused TileInvalidationService is gone and bindTileMode lost the invalidations$ option (bug-151)', () => {
+    const { existsSync, readFileSync } = require('fs');
+    const { join } = require('path');
+    expect(existsSync(join(__dirname, 'dashboard-tiles', 'tile-invalidation.service.ts'))).toBe(false);
+    const bindSrc = readFileSync(
+      join(__dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'tile-registration', 'bind-tile-mode.ts'),
+      'utf8'
+    );
+    expect(bindSrc).not.toMatch(/invalidations\$/);
+  });
 });
