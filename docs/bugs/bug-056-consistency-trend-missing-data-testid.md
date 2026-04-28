@@ -1,12 +1,29 @@
 ---
 id: bug-056
 title: Consistency Trend tile-shell is missing the `data-testid` attribute that the other five tiles carry
-status: Open
+status: Fixed
 ---
 
 # Bug 056 — Consistency Trend tile-shell missing data-testid
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`consistency-trend-tile.component.html` now carries
+`data-testid="consistency-trend-tile"` on the
+`<commitments-tile-shell>` element, matching the convention the
+other five plugin tiles already follow. Tile chrome addressable
+from Playwright POMs that use uniform tile-id selectors.
+
+Coverage:
+- New template-source spec asserts the attribute is present on
+  the tile-shell element.
+- All 20 affected suites pass (136/136 — was 135/135 before).
+
+Auto-rendering the attribute from `tileMetadata.tileId` via a
+shell input is deferred — the migration cost outweighs the
+cleanup with 5 tiles already manually carrying it.
 
 ## Description
 
