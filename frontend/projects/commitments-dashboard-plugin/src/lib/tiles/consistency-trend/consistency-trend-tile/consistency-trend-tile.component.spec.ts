@@ -72,4 +72,14 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(ts).toMatch(/grid\s*:\s*\{[^}]*color\s*:\s*'rgba\(\s*255\s*,\s*255\s*,\s*255/);
     expect(ts).not.toMatch(/grid\s*:\s*\{[^}]*color\s*:\s*'#3A3A3A'/i);
   });
+
+  it('formats x-axis labels with toLocaleDateString month/day (bug-046)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend-tile.component.ts'),
+      'utf8'
+    );
+    // The x-axis tick callback should render labels as "Apr 25" via
+    // toLocaleDateString('en-US', { month: 'short', day: 'numeric' }).
+    expect(ts).toMatch(/callback\b[\s\S]*?toLocaleDateString[\s\S]*?'short'[\s\S]*?'numeric'/);
+  });
 });
