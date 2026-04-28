@@ -30,4 +30,13 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(block).toMatch(/align-items\s*:\s*flex-end\b/);
     expect(block).toMatch(/justify-content\s*:\s*space-between\b/);
   });
+
+  it('returns the chart pill variant in live mode (bug-031)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend-tile.component.ts'),
+      'utf8'
+    );
+    // pillVariant() should map live mode to 'chart' for the chart-themed tile
+    expect(ts).toMatch(/pillVariant\s*\([^)]*\)[^{]*\{[\s\S]*?return[^;]*'chart'/);
+  });
 });

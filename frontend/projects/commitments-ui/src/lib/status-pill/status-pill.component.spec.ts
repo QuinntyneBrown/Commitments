@@ -1,4 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
 import { StatusPillComponent } from './status-pill.component';
 
@@ -12,5 +14,22 @@ describe('StatusPillComponent', () => {
     expect(component.variant()).toBe('neutral');
     expect(component.pulse()).toBe(false);
     expect(component.label()).toBe('');
+  });
+
+  describe('CSS source', () => {
+    const scss = readFileSync(
+      join(__dirname, 'status-pill.component.scss'),
+      'utf8'
+    );
+
+    function ruleBlock(selector: string): string {
+      const match = scss.match(new RegExp(`${selector}\\s*\\{([^}]*)\\}`));
+      return match ? match[1] : '';
+    }
+
+    it('exposes a chart variant tinted with --cui-info (bug-031)', () => {
+      const block = ruleBlock('\\.status-pill--chart');
+      expect(block).toMatch(/var\(--cui-info/);
+    });
   });
 });
