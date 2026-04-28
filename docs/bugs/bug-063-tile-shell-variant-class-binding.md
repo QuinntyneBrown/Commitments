@@ -1,12 +1,41 @@
 ---
 id: bug-063
 title: Tile-shell template carries 3 boolean variant class bindings; collapse to a single dynamic class string
-status: Open
+status: Fixed
 ---
 
 # Bug 063 — Collapse tile-shell variant class bindings
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`tile-shell.component.html` replaces:
+
+```html
+<mat-card
+  class="tile-shell"
+  [class.tile-shell--metric]="variant() === 'metric'"
+  [class.tile-shell--review]="variant() === 'review'"
+  [class.tile-shell--chart]="variant() === 'chart'"
+  …>
+```
+
+with:
+
+```html
+<mat-card
+  [class]="'tile-shell tile-shell--' + variant()"
+  …>
+```
+
+Same DOM result, -3 lines, single place to update for any future
+variant rename or addition.
+
+Coverage:
+- New spec asserts the new `[class]` form exists and the three
+  boolean `[class.tile-shell--…]` bindings are gone.
+- All 22 affected suites pass (149/149 — was 148/148 before).
 
 ## Description
 
