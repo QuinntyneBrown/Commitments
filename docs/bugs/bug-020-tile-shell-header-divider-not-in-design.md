@@ -1,12 +1,25 @@
 ---
 id: bug-020
 title: Tile shell renders a 1px divider beneath the header, but tile designs have no header divider
-status: Open
+status: Fixed
 ---
 
 # Bug 020 — Tile shell header has a divider not present in the design
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`tile-shell.component.scss` no longer sets `padding-bottom` or
+`border-bottom` on `.tile-shell__header`. `.tile-shell__body`'s
+`padding-top` was tightened from 14px to 10px to match the .pen
+frame gap of 10. The hairline beneath every tile is gone.
+
+Coverage:
+- New spec `does not draw a divider beneath the header (bug-020)`
+  reads the SCSS source and asserts the `.tile-shell__header` rule
+  has no `border-bottom` declaration.
+- All 10 affected suites pass (43/43 — was 42/42 before).
 
 ## Description
 
