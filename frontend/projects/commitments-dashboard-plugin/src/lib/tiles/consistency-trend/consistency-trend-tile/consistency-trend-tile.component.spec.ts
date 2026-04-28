@@ -110,6 +110,11 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(block).toMatch(/--cui-tile-header-gap\s*:\s*10px\b/);
   });
 
+  it('opts in to 20px outer padding to match the .pen design (bug-087)', () => {
+    const block = ruleBlock(':host');
+    expect(block).toMatch(/--cui-tile-padding\s*:\s*20px\b/);
+  });
+
   it('uses signal-form input() for goalId and windowDays (bug-071)', () => {
     const ts = readFileSync(
       join(__dirname, 'consistency-trend-tile.component.ts'),

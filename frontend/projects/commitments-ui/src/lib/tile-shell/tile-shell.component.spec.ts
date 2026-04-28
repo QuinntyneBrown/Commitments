@@ -164,5 +164,15 @@ describe('TileShellComponent', () => {
       expect(block).toMatch(/align-items\s*:\s*center\b/);
       expect(block).not.toMatch(/align-items\s*:\s*flex-start\b/);
     });
+
+    it('header consumes --cui-tile-padding (bug-087)', () => {
+      const block = ruleBlock('\\.tile-shell__header');
+      expect(block).toMatch(/--cui-tile-padding\b/);
+    });
+
+    it('body consumes --cui-tile-padding for sides + bottom (bug-087)', () => {
+      const block = ruleBlock('\\.tile-shell__body');
+      expect(block).toMatch(/--cui-tile-padding\b/);
+    });
   });
 });
