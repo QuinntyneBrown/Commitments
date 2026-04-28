@@ -142,7 +142,7 @@
 }
 
 .sidenav-item--active {
-  background: #9FA8DA22;
+  background: color-mix(in srgb, var(--cui-primary, #9FA8DA) 13%, transparent);
   border-left-color: var(--cui-primary, #9FA8DA);
   color: var(--cui-primary, #9FA8DA);
   font-weight: 500;
