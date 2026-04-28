@@ -1,12 +1,34 @@
 ---
 id: bug-071
 title: Consistency-trend uses legacy `@Input()` decorators; commitments-ui primitives all use modern `input()` signals
-status: Open
+status: Fixed
 ---
 
 # Bug 071 — Consistency-trend `@Input()` migration to `input()` signals
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`consistency-trend-tile.component.ts`:
+- `@Input() goalId = 'demo-goal';` → `readonly goalId = input('demo-goal');`
+- `@Input() windowDays = 30;` → `readonly windowDays = input(30);`
+- `Input` import dropped; `input` added to the existing
+  `@angular/core` import.
+- Two consumers in `ngOnInit` updated to invoke as functions
+  (`this.goalId()`, `this.windowDays()`).
+
+Bug-061 had already migrated pill members to computed signals;
+this finishes the modern-signal alignment for the file.
+
+Coverage:
+- New TS-source spec asserts the file no longer references
+  `@Input` and declares `goalId = input(`/`windowDays = input(`.
+- All 22 affected suites pass (161/161 — was 160/160 before).
+
+Goal-metrics-tile's `@Input set goalId` setter pattern is left
+as a separate follow-up — converting it requires wrapping the
+controller side-effect in an `effect()`.
 
 ## Description
 
