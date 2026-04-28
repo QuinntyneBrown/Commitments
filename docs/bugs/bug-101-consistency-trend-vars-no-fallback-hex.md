@@ -1,12 +1,19 @@
 ---
 id: bug-101
 title: consistency-trend-tile.component.scss var() call omits the design-system fallback hex
-status: Open
+status: Fixed
 ---
 
 # Bug 101 — consistency-trend var() fallback hex
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added `, #42A5F5` fallback to the one remaining `var(--cui-info)`
+reference. Final tile in the bug-096 series — all six
+`/docs/tiles/` tile SCSS files now follow the cui-ui fallback
+convention. 298/298 workspace tests green.
 
 ## Description
 
