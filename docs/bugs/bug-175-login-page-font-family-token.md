@@ -1,10 +1,18 @@
 ---
 id: bug-175
 title: login-page SCSS uses literal `font-family: Inter` instead of --cui-font-display token
-status: Open
+status: Fixed
 ---
 
 # Bug 175 — login-page font-family should reference `--cui-font-display`
+
+**Status**: Fixed
+
+## Fix
+
+Three `font-family: Inter, sans-serif` literals replaced with
+`var(--cui-font-display, 'Inter')`. 375/375 workspace tests
+green.
 
 ## Description
 
