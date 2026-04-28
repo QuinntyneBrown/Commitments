@@ -40,6 +40,17 @@ describe('ConsistencyTrendTileComponent (.plot body-gap token, source)', () => {
   });
 });
 
+describe('ConsistencyTrendTileComponent (no redundant optional chain, source)', () => {
+  const ts = readFileSync(
+    join(__dirname, 'consistency-trend-tile.component.ts'),
+    'utf8'
+  );
+
+  it('reads _tileContext.mode() without a second optional chain (bug-169)', () => {
+    expect(ts).not.toMatch(/_tileContext\?\.mode\?\.\(\)/);
+  });
+});
+
 describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
   const html = readFileSync(
     join(__dirname, 'consistency-trend-tile.component.html'),
