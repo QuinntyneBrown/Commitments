@@ -1,10 +1,18 @@
 ---
 id: bug-186
 title: 5 SCSS files use literal border-radius values instead of --cui-radius-* tokens
-status: Open
+status: Fixed
 ---
 
 # Bug 186 — Migrate remaining `border-radius` literals to tokens
+
+**Status**: Fixed
+
+## Fix
+
+5 SCSS edits across 4 files. The bug-052 regression-guard for
+delta-badge was loosened to accept either form (literal stays
+as fallback inside `var()`). 386/386 workspace tests green.
 
 ## Description
 
