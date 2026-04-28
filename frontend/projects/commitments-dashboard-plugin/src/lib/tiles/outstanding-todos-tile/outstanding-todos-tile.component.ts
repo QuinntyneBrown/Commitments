@@ -35,7 +35,7 @@ export class OutstandingTodosTileComponent {
   };
 
   protected readonly controller = inject(OutstandingTodosController);
-  protected readonly statusLabel = computed(() => this.controller.mode().toUpperCase());
+  protected readonly statusLabel = computed(() => `${this.controller.count()} OPEN`);
   protected readonly pillVariant = computed<'warning' | 'review'>(() =>
     this.controller.mode() === 'review' ? 'review' : 'warning'
   );
