@@ -108,4 +108,15 @@ describe('ConsistencyTrendController', () => {
     expect(ts).toMatch(/backgroundColor\s*:\s*\([^)]*\)\s*=>/);
     expect(ts).toMatch(/createLinearGradient\b/);
   });
+
+  it('strokes only the highlighted point with BG_APP (bug-045)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend.controller.ts'),
+      'utf8'
+    );
+    // pointBorderColor and pointBorderWidth should now be arrays/functions
+    // referencing BG_APP and a 3-px highlight width.
+    expect(ts).toMatch(/pointBorderColor\s*:[\s\S]*?BG_APP/);
+    expect(ts).toMatch(/pointBorderWidth\s*:[\s\S]*?\b3\b/);
+  });
 });
