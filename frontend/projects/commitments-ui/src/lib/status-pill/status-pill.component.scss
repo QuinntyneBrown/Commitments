@@ -41,20 +41,14 @@
   background: color-mix(in srgb, var(--cui-text-secondary, #B0B0B0) 12%, transparent);
 }
 
-.status-pill--chart {
-  color: var(--cui-info, #42A5F5);
-  background: color-mix(in srgb, var(--cui-info, #42A5F5) 14%, transparent);
+@mixin tinted-pill($token, $fallback) {
+  color: var(#{$token}, #{$fallback});
+  background: color-mix(in srgb, var(#{$token}, #{$fallback}) 14%, transparent);
 }
 
-.status-pill--success {
-  color: var(--cui-success, #66BB6A);
-  background: color-mix(in srgb, var(--cui-success, #66BB6A) 14%, transparent);
-}
-
-.status-pill--warning {
-  color: var(--cui-warning, #FFA726);
-  background: color-mix(in srgb, var(--cui-warning, #FFA726) 14%, transparent);
-}
+.status-pill--chart   { @include tinted-pill(--cui-info, #42A5F5); }
+.status-pill--success { @include tinted-pill(--cui-success, #66BB6A); }
+.status-pill--warning { @include tinted-pill(--cui-warning, #FFA726); }
 
 @keyframes status-pill-pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
