@@ -5,7 +5,6 @@ import { Routes } from '@angular/router';
 import { DashboardShellComponent } from '@commitments/dashboard-framework';
 
 import { DashboardLayoutComponent } from './components/dashboard-layout/dashboard-layout.component';
-import { PlaceholderPageComponent } from './components/placeholder-page/placeholder-page.component';
 import { ActivitiesPageComponent } from './pages/activities/activities-page/activities-page.component';
 import { ToDosPageComponent } from './pages/to-dos/to-dos-page/to-dos-page.component';
 import { NotesPageComponent } from './pages/notes/notes-page/notes-page.component';
@@ -13,6 +12,7 @@ import { EditNotePageComponent } from './pages/edit-note/edit-note-page/edit-not
 import { TagsPageComponent } from './pages/tags/tags-page/tags-page.component';
 import { NotesByTagPageComponent } from './pages/notes-by-tag/notes-by-tag-page/notes-by-tag-page.component';
 import { CardsPageComponent } from './pages/cards/cards-page/cards-page.component';
+import { CardLayoutsPageComponent } from './pages/card-layouts/card-layouts-page/card-layouts-page.component';
 import { noteResolver } from './services/note-resolver.service';
 import { BehaviourTypesPageComponent } from './pages/behaviour-types/behaviour-types-page/behaviour-types-page.component';
 import { BehavioursPageComponent } from './pages/behaviours/behaviours-page/behaviours-page.component';
@@ -23,10 +23,6 @@ import { LoginPageComponent } from './pages/login/login-page/login-page.componen
 import { MyProfilePageComponent } from './pages/my-profile/my-profile-page/my-profile-page.component';
 import { ProfilesPageComponent } from './pages/profiles/profiles-page/profiles-page.component';
 import { SettingsPageComponent } from './pages/settings/settings-page/settings-page.component';
-
-const placeholderPaths = [
-  'card-layouts'
-];
 
 export const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
@@ -51,7 +47,7 @@ export const routes: Routes = [
       { path: 'tags', component: TagsPageComponent },
       { path: 'notes-by-tag/:slug', component: NotesByTagPageComponent },
       { path: 'cards', component: CardsPageComponent },
-      ...placeholderPaths.map(path => ({ path, component: PlaceholderPageComponent }))
+      { path: 'card-layouts', component: CardLayoutsPageComponent }
     ]
   }
 ];
