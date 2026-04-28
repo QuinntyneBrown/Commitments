@@ -1,12 +1,38 @@
 ---
 id: bug-068
 title: Metric-header dynamic `[class]` binding overrides static `class="..."`, silently dropping `mat-typography`
-status: Open
+status: Fixed
 ---
 
 # Bug 068 — `[class]` binding silently drops mat-typography
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`metric-header.component.html` drops the static
+`class="metric-header mat-typography"` attribute and folds all
+classes into the single dynamic binding:
+
+```html
+<div [class]="'metric-header mat-typography metric-header--' + accent()">
+```
+
+Angular's `[class]="exp"` replaces the entire `class` attribute
+on every change-detection cycle. The previous split form (static
+class + dynamic binding) had Angular apply the static class on
+attribute init then overwrite it on first CD, silently dropping
+`mat-typography`. Folding all classes into the binding makes it
+the single source of truth, so `mat-typography` persists across
+CD cycles.
+
+Same pattern as bug-063's tile-shell cleanup.
+
+Coverage:
+- Two new template-source specs assert `mat-typography` is in
+  the dynamic binding string AND the split form (`class="…"
+  [class]="…"`) is rejected.
+- All 22 affected suites pass (157/157 — was 155/155 before).
 
 ## Description
 
