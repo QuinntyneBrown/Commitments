@@ -1,12 +1,29 @@
 ---
 id: bug-119
 title: ngAfterViewInit on consistency-trend-tile is ~57 lines mixing constants, helpers, plugin, and chart config
-status: Open
+status: Fixed
 ---
 
 # Bug 119 — extract chart config builder
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`ngAfterViewInit` is now one statement:
+
+```ts
+ngAfterViewInit(): void {
+  this._adapter.attach(this.plotRef, this._buildChartConfig(this.controller));
+}
+```
+
+A new `_buildChartConfig(controller)` private method holds the
+TODAY_GLOW_* constants, `isHighlighted` helper, `todayPointGlow`
+plugin, and the full `ChartConfiguration` object. Refactor
+only — visual output identical.
+
+316/316 workspace tests green.
 
 ## Description
 
