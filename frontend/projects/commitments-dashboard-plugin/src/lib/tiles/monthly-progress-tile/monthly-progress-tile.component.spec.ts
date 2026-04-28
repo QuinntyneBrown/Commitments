@@ -53,4 +53,8 @@ describe('MonthlyProgressTileComponent (CSS source)', () => {
     const block = ruleBlock(':host');
     expect(block).toMatch(/--cui-tile-icon-color\s*:[^;]*--cui-info/);
   });
+
+  it('projects the status-pill into the tile-shell header (bug-057)', () => {
+    expect(html).toMatch(/<cui-status-pill\b[^>]*\btile-status\b/);
+  });
 });

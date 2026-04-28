@@ -118,4 +118,8 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
   it('sets data-testid="consistency-trend-tile" on the tile-shell (bug-056)', () => {
     expect(html).toMatch(/<commitments-tile-shell\b[^>]*data-testid="consistency-trend-tile"/);
   });
+
+  it('projects the status-pill into the tile-shell header (bug-057)', () => {
+    expect(html).toMatch(/<cui-status-pill\b[^>]*\btile-status\b/);
+  });
 });

@@ -37,4 +37,12 @@ describe('WeeklyFocusTileComponent (CSS source)', () => {
     const block = ruleBlock(':host');
     expect(block).toMatch(/--cui-tile-body-gap\s*:\s*12px\b/);
   });
+
+  it('projects the status-pill into the tile-shell header (bug-057)', () => {
+    const html = readFileSync(
+      join(__dirname, 'weekly-focus-tile.component.html'),
+      'utf8'
+    );
+    expect(html).toMatch(/<cui-status-pill\b[^>]*\btile-status\b/);
+  });
 });
