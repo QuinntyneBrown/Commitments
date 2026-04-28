@@ -1,12 +1,20 @@
 ---
 id: bug-091
 title: Consistency Trend Y-axis grid renders 6 lines, design has exactly 5
-status: Open
+status: Fixed
 ---
 
 # Bug 091 — chart Y-axis grid line count
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added `maxTicksLimit: 5` to the Y-axis `ticks` block. Chart.js
+now renders exactly 5 horizontal grid lines, matching the
+design's g1–g5 rectangles. Y-axis labels stay hidden via
+`display: false`; the tick count drives the grid line count.
+288/288 workspace tests green.
 
 ## Description
 
