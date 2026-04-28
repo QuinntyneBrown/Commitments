@@ -1,12 +1,26 @@
 ---
 id: bug-030
 title: Metric Header value renders at 42px; consistency-trend design specifies 48px
-status: Open
+status: Fixed
 ---
 
 # Bug 030 — Metric Header value font size
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`metric-header.component.scss`:
+- `.metric-header__value` font-size: 42px → 48px
+- `.metric-header__value` font-weight: 300 → 700
+
+Coverage:
+- New `CSS source` describe block in
+  `metric-header.component.spec.ts` reads the SCSS and asserts both
+  declarations.
+- Blast radius is bounded: `<cui-metric-header>` is consumed only by
+  the consistency-trend tile, whose .pen is the source for these
+  values; all 20 affected suites pass (83/83 — was 82/82 before).
 
 ## Description
 
