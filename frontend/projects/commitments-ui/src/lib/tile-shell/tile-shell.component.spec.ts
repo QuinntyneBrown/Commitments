@@ -93,6 +93,11 @@ describe('TileShellComponent', () => {
       expect(block).toMatch(/font-size\s*:\s*16px\b/);
     });
 
+    it('pins title font-family to the design font token (bug-067)', () => {
+      const block = ruleBlock('\\.tile-shell__title');
+      expect(block).toMatch(/font-family\s*:\s*var\(\s*--cui-font-display/);
+    });
+
     it('body padding-top consumes the per-tile custom property (bug-041)', () => {
       const block = ruleBlock('\\.tile-shell__body');
       expect(block).toMatch(/padding-top\s*:\s*var\(\s*--cui-tile-body-gap/);
