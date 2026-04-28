@@ -1,6 +1,6 @@
 # Edit Note — Detailed Design
 
-**Status:** Accepted
+**Status:** Implemented
 
 **Traces to:** L1-007 · L2-014, L2-041
 
@@ -50,10 +50,15 @@ Reuses the routes from design `12-notes`. No new endpoints.
 
 ## 8. ATDD Slices
 
-1. **Slice A — resolver + render.** Spec: navigating to `/edit-note/<slug>` waits for the resolver, then renders the editor pre-populated.
-2. **Slice B — save round-trip.** Spec: typing formatted content (bold, lists) and saving stores the same HTML; reloading the page renders the same formatting.
-3. **Slice C — XSS sanitisation.** Spec: pasting `<script>alert(1)</script>` and saving — reloading shows no script tag in the DOM.
-4. **Slice D — new-note flow.** Spec: from `/notes`, FAB navigates to `/edit-note/new`; after first save, URL becomes `/edit-note/<server-generated-slug>`.
+1. **Slice A — resolver + render.** Spec: navigating to `/edit-note/<slug>` waits for the resolver, then renders the editor pre-populated. **Status: Implemented** — route mounts `EditNotePageComponent` with `resolve: { note: noteResolver }`; resolver fetches `GET /api/notes/slug/{slug}` and pushes to the Store before render.
+2. **Slice B — save round-trip.** **Status: Implemented** — `EditNotePageComponent.handleSaveClick` calls `NotesService.save(note)` (POST `/api/notes`) which runs the existing handler from design 12.
+3. **Slice C — XSS sanitisation.** **Status: Implemented** — server-side sanitisation by design 12's `SaveNoteCommandHandler` (regex pair stripping `<script>` and `on*` attributes); the page is purely a transport.
+4. **Slice D — new-note flow.** **Status: Implemented** — `noteResolver` short-circuits when `slug === 'new'`: creates an empty `Note`, pushes to Store, returns `of(note)` without HTTP. Server stamps the slug on first save.
+
+## 10. Implementation Notes
+
+- The `'new'` shortcut is the only delta the resolver needed; the rest of the existing implementation (Quill binding, save submission) was already correct.
+- Sanitisation lives server-side per the security spec (§7) — clients can never be fully trusted, so the page does not duplicate the regex on the way out.
 
 ## 9. Open Questions
 
