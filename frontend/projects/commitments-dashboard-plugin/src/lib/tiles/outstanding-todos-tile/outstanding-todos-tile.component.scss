@@ -1,3 +1,7 @@
+:host {
+  --cui-tile-icon-color: var(--cui-warning);
+}
+
 .todo-body {
   display: flex;
   align-items: center;

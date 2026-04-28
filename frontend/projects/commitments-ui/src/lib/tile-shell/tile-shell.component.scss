@@ -44,7 +44,7 @@
   width: 20px;
   height: 20px;
   flex-shrink: 0;
-  color: var(--cui-primary, #9FA8DA);
+  color: var(--cui-tile-icon-color, var(--cui-primary, #9FA8DA));
 }
 
 .tile-shell__title {
