@@ -1,10 +1,19 @@
 ---
 id: bug-148
 title: DashboardCardComponent (base) and PosterDashboardCardComponent are orphaned after bug-147 — delete
-status: Open
+status: Fixed
 ---
 
 # Bug 148 — Remove orphaned dashboard-card base + Poster intermediate
+
+**Status**: Fixed
+
+## Fix
+
+Deleted 6 files (2 directories × `.ts`/`.html`/`.scss`) — 140
+lines net. The regression-guard spec asserts both directories'
+`.component.ts` files no longer exist. 356/356 workspace tests
+green.
 
 ## Description
 
