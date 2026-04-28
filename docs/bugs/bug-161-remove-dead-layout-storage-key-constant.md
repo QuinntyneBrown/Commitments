@@ -1,10 +1,16 @@
 ---
 id: bug-161
 title: LAYOUT_STORAGE_KEY (legacy single-mode key) is exported but never imported — drop
-status: Open
+status: Fixed
 ---
 
 # Bug 161 — Drop unused `LAYOUT_STORAGE_KEY` constant
+
+**Status**: Fixed
+
+## Fix
+
+One-line removal. 363/363 workspace tests green.
 
 ## Description
 
