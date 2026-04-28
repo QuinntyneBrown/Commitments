@@ -2,6 +2,7 @@
   display: flex;
   align-items: flex-end;
   gap: 16px;
+  font-family: var(--cui-font-display, 'Inter');
 }
 
 .metric-header__value {
