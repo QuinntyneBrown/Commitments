@@ -122,4 +122,21 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
   it('projects the status-pill into the tile-shell header (bug-057)', () => {
     expect(html).toMatch(/<cui-status-pill\b[^>]*\btile-status\b/);
   });
+
+  it('uses computed signals for mode/pillVariant/statusLabel (bug-061)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend-tile.component.ts'),
+      'utf8'
+    );
+    expect(ts).toMatch(/\bmode\s*=\s*computed\(/);
+    expect(ts).toMatch(/\bpillVariant\s*=\s*computed</);
+    expect(ts).toMatch(/\bstatusLabel\s*=\s*computed\(/);
+    // The old method-form pillLabel must be gone.
+    expect(ts).not.toMatch(/\bpillLabel\s*\(\s*\)\s*:/);
+  });
+
+  it('binds the pill label to statusLabel() (bug-061)', () => {
+    expect(html).toMatch(/\[label\]\s*=\s*"statusLabel\(\)"/);
+    expect(html).not.toMatch(/\[label\]\s*=\s*"pillLabel\(\)"/);
+  });
 });
