@@ -1,10 +1,32 @@
 ---
 id: bug-164
 title: Remove final 6 dead shell-related UI components from @commitments/ui
-status: Open
+status: Fixed
 ---
 
 # Bug 164 — Drop final dead shell UI components (app-shell, dashboard-tile, sidenav, sidenav-item, toolbar, table-row)
+
+**Status**: Fixed
+
+## Fix
+
+18 component files deleted (6 dirs × .ts/.html/.scss). 6 export
+lines removed from `public-api.ts`. 410 lines net. 366/366
+workspace tests green.
+
+After this bug closes the bug-162 → 163 → 164 arc, the
+`@commitments/ui` library exports only the 7 actively-consumed
+components plus the design tokens module:
+
+- TileShellComponent
+- PrimaryHeaderComponent
+- ModeToggleComponent
+- StatusPillComponent
+- IconButtonComponent
+- MetricHeaderComponent
+- DeltaBadgeComponent
+
+The library is now ~60% smaller than before bug-162.
 
 ## Description
 
