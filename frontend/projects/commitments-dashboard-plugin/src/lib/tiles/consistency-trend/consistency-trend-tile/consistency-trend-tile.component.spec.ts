@@ -185,6 +185,11 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(ts).toMatch(/_buildChartConfig\b/);
   });
 
+  it('eyebrow tracks windowDays input rather than a literal "14 days" (bug-122)', () => {
+    expect(html).toMatch(/\[eyebrow\]\s*=\s*"[^"]*windowDays\(\)/);
+    expect(html).not.toMatch(/eyebrow="7-day rolling average · last 14 days"/);
+  });
+
   it('formats x-axis labels with toLocaleDateString month/day (bug-046)', () => {
     const ts = readFileSync(
       join(__dirname, 'consistency-trend-tile.component.ts'),
