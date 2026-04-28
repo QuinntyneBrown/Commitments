@@ -7,6 +7,7 @@ import { routes } from './app.routes';
 import { DashboardLayoutComponent } from './components/dashboard-layout/dashboard-layout.component';
 import { PlaceholderPageComponent } from './components/placeholder-page/placeholder-page.component';
 import { LoginPageComponent } from './pages/login/login-page/login-page.component';
+import { BehaviourTypesPageComponent } from './pages/behaviour-types/behaviour-types-page/behaviour-types-page.component';
 import { MyProfilePageComponent } from './pages/my-profile/my-profile-page/my-profile-page.component';
 import { ProfilesPageComponent } from './pages/profiles/profiles-page/profiles-page.component';
 import { SettingsPageComponent } from './pages/settings/settings-page/settings-page.component';
@@ -34,7 +35,6 @@ describe('app.routes', () => {
   it.each([
     'activities',
     'behaviours',
-    'behaviour-types',
     'commitments',
     'cards',
     'card-layouts',
@@ -67,5 +67,12 @@ describe('app.routes', () => {
     const child = home?.children?.find((c) => c.path === 'settings');
     expect(child).toBeDefined();
     expect(child!.component).toBe(SettingsPageComponent);
+  });
+
+  it('routes /behaviour-types to BehaviourTypesPageComponent (design 05-Behaviour-Types Slice A)', () => {
+    const home = routes.find((r) => r.path === '');
+    const child = home?.children?.find((c) => c.path === 'behaviour-types');
+    expect(child).toBeDefined();
+    expect(child!.component).toBe(BehaviourTypesPageComponent);
   });
 });
