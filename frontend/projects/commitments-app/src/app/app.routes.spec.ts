@@ -332,4 +332,15 @@ describe('app.routes', () => {
     );
     expect(dashModel).not.toMatch(/\bmaximized\s*:/);
   });
+
+  it('TileContext drops dead remove() and isEditMode members (bug-158)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const modelSrc = readFileSync(
+      join(__dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'tile-registration', 'tile.model.ts'),
+      'utf8'
+    );
+    expect(modelSrc).not.toMatch(/\bremove\s*\(/);
+    expect(modelSrc).not.toMatch(/\bisEditMode\b/);
+  });
 });
