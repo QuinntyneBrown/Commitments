@@ -1,6 +1,6 @@
 # Notes by Tag — Detailed Design
 
-**Status:** Draft
+**Status:** Accepted
 
 **Traces to:** L1-007 · L2-015, L2-038
 
