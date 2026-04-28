@@ -1,12 +1,29 @@
 ---
 id: bug-023
 title: Weekly Focus — supporting metric is 13px and the row divider is #3A3A3A; design is 11px and #2A2A2A
-status: Open
+status: Fixed
 ---
 
 # Bug 023 — Weekly Focus row typography + divider color drift
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`weekly-focus-tile.component.scss`:
+- `.focus-list span` font-size: 13px → 11px
+- `.focus-list li` border-bottom colour: `var(--cui-divider)` → literal
+  `#2A2A2A`
+
+The literal hex is intentional rather than a new shared token — only
+this tile uses the deeper `#2A2A2A` divider so far; if a second tile
+adopts it, it should be promoted to a `--cui-divider-subtle` token at
+that point.
+
+Coverage:
+- Two new specs in `weekly-focus-tile.component.spec.ts` assert the
+  font size and border colour at the SCSS source level.
+- All 13 affected suites pass (52/52 — was 50/50 before this loop).
 
 ## Description
 
