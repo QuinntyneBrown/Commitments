@@ -38,4 +38,9 @@ describe('MonthlyProgressTileComponent (CSS source)', () => {
     const block = ruleBlock('\\.bar-labels');
     expect(block).toMatch(/gap\s*:\s*12px\b/);
   });
+
+  it('insets bars horizontally to align with the bar-labels row (bug-039)', () => {
+    const block = ruleBlock('\\.bars');
+    expect(block).toMatch(/padding\s*:[^;]*\b4px\b/);
+  });
 });
