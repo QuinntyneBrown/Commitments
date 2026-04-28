@@ -20,7 +20,7 @@ Conventions used by every design document:
 | 07 | [Frequencies](07-frequencies/README.md) | Implemented | Wire route + ATDD; render `IsDesirable` warn chip (L2-007) |
 | 08 | [Edit Frequency](08-edit-frequency/README.md) | Implemented | Promote dialog to dedicated route for deep-link from frequency editor (L2-007) |
 | 09 | [Commitments](09-commitments/README.md) | Implemented | Wire route + 5-row pagination + ATDD on composition dialog (L2-009..L2-011) |
-| 10 | [Activities](10-activities/README.md) | Draft | Wire route + ATDD on Add Activity dialog with `PerformedOn` defaulting to now (L2-012) |
+| 10 | [Activities](10-activities/README.md) | Accepted | Wire route + ATDD on Add Activity dialog with `PerformedOn` defaulting to now (L2-012) |
 | 11 | [To-Dos](11-to-dos/README.md) | Draft | Add full CRUD module — currently only outstanding-count exists (L2-016) |
 | 12 | [Notes](12-notes/README.md) | Draft | Add `Note` aggregate, controller, list endpoints — entirely missing backend-side (L2-014) |
 | 13 | [Edit Note](13-edit-note/README.md) | Draft | Add slug-based load + Quill save round-trip + sanitisation (L2-014, L2-041) |
