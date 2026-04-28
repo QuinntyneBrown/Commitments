@@ -9,6 +9,7 @@ using Commitments.Domain.CommitmentAggregate;
 using Commitments.Domain.FrequencyAggregate;
 using Commitments.Domain.FrequencyTypeAggregate;
 using Commitments.Domain.NoteAggregate;
+using Commitments.Domain.TagAggregate;
 using Commitments.Domain.ToDoAggregate;
 using Commitments.Shared;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,8 @@ public class CommitmentsDbContext : BaseDbContext, ICommitmentsDbContext
     public DbSet<Frequency> Frequencies { get; private set; }
     public DbSet<FrequencyType> FrequencyTypes { get; private set; }
     public DbSet<Note> Notes { get; private set; }
+    public DbSet<NoteTag> NoteTags { get; private set; }
+    public DbSet<Tag> Tags { get; private set; }
     public DbSet<ToDo> Todos { get; private set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -59,6 +62,12 @@ public class CommitmentsDbContext : BaseDbContext, ICommitmentsDbContext
 
         modelBuilder.Entity<Note>()
             .HasQueryFilter(e => !e.IsDeleted);
+
+        modelBuilder.Entity<Tag>()
+            .HasQueryFilter(e => !e.IsDeleted);
+
+        modelBuilder.Entity<NoteTag>()
+            .HasKey(nt => nt.NoteTagId);
 
         modelBuilder.Entity<CommitmentFrequency>()
             .HasOne(nt => nt.Commitment)

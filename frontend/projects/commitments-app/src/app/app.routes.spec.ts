@@ -11,6 +11,7 @@ import { ActivitiesPageComponent } from './pages/activities/activities-page/acti
 import { ToDosPageComponent } from './pages/to-dos/to-dos-page/to-dos-page.component';
 import { NotesPageComponent } from './pages/notes/notes-page/notes-page.component';
 import { EditNotePageComponent } from './pages/edit-note/edit-note-page/edit-note-page.component';
+import { TagsPageComponent } from './pages/tags/tags-page/tags-page.component';
 import { BehaviourTypesPageComponent } from './pages/behaviour-types/behaviour-types-page/behaviour-types-page.component';
 import { BehavioursPageComponent } from './pages/behaviours/behaviours-page/behaviours-page.component';
 import { CommitmentsPageComponent } from './pages/commitments/commitments-page/commitments-page.component';
@@ -141,5 +142,12 @@ describe('app.routes', () => {
     expect(child!.component).toBe(EditNotePageComponent);
     expect(child!.resolve).toBeDefined();
     expect(child!.resolve!['note']).toBeDefined();
+  });
+
+  it('routes /tags to TagsPageComponent (design 14-Tags Slice B)', () => {
+    const home = routes.find((r) => r.path === '');
+    const child = home?.children?.find((c) => c.path === 'tags');
+    expect(child).toBeDefined();
+    expect(child!.component).toBe(TagsPageComponent);
   });
 });
