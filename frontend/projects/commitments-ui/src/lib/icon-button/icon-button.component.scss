@@ -17,11 +17,11 @@
 
 .icon-button:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.08);
-  color: var(--cui-text-primary);
+  color: var(--cui-text-primary, #FFFFFF);
 }
 
 .icon-button:focus-visible {
-  outline: 2px solid var(--cui-text-primary);
+  outline: 2px solid var(--cui-text-primary, #FFFFFF);
   outline-offset: 2px;
 }
 
@@ -32,7 +32,7 @@
 
 .icon-button--pressed {
   background: rgba(255, 255, 255, 0.12);
-  color: var(--cui-text-primary);
+  color: var(--cui-text-primary, #FFFFFF);
 }
 
 .icon-button__glyph {
