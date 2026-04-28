@@ -110,6 +110,14 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(block).toMatch(/--cui-tile-header-gap\s*:\s*10px\b/);
   });
 
+  it('keeps every template line under 110 characters (bug-070)', () => {
+    const lines = html.split(/\r?\n/);
+    const overLong = lines
+      .map((line, i) => ({ n: i + 1, len: line.length }))
+      .filter(({ len }) => len > 110);
+    expect(overLong).toEqual([]);
+  });
+
   it('binds the delta-badge to parsed delta + caption (bug-055)', () => {
     expect(html).toMatch(/\[delta\]\s*=\s*"controller\.deltaPercentage\(\)"/);
     expect(html).toMatch(/\[caption\]\s*=\s*"controller\.deltaCaption\(\)"/);
