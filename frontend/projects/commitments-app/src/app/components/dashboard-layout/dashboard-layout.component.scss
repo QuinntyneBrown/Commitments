@@ -3,7 +3,7 @@
   min-height: 100vh;
   color: var(--cui-text-primary, #FFFFFF);
   background: var(--cui-bg, #121212);
-  font-family: Inter, Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--cui-font-display, 'Inter');
 }
 
 .dashboard-layout {
@@ -48,7 +48,7 @@
 }
 
 .dashboard-layout__brand {
-  font-family: Inter, Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--cui-font-display, 'Inter');
   font-size: 20px;
   font-weight: 500;
   color: var(--cui-text-primary, #FFFFFF);
@@ -59,7 +59,7 @@
 }
 
 .dashboard-layout__profile-name {
-  font-family: Inter, Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--cui-font-display, 'Inter');
   font-size: 14px;
   font-weight: 400;
   color: var(--cui-text-primary, #FFFFFF);
@@ -114,7 +114,7 @@
   background: transparent;
   color: var(--cui-text-primary, #FFFFFF);
   text-decoration: none;
-  font-family: Inter, Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--cui-font-display, 'Inter');
   font-size: 14px;
   font-weight: 400;
   cursor: pointer;
