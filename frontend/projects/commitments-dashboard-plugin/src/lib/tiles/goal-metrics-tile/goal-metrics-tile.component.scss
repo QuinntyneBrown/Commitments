@@ -6,35 +6,35 @@
 }
 
 .goal-readout__count {
-  color: var(--cui-text-primary);
+  color: var(--cui-text-primary, #FFFFFF);
   font-size: 42px;
   line-height: 1;
 }
 
 .goal-readout__separator,
 .goal-readout__target {
-  color: var(--cui-text-secondary);
+  color: var(--cui-text-secondary, #B0B0B0);
   font-size: 24px;
   line-height: 1;
 }
 
 .goal-percent {
   margin: 6px 0 0;
-  color: var(--cui-text-secondary);
+  color: var(--cui-text-secondary, #B0B0B0);
   font-size: 13px;
 }
 
 .goal-delta {
   margin: 10px 0 0;
-  color: var(--cui-text-secondary);
+  color: var(--cui-text-secondary, #B0B0B0);
   font-size: 13px;
   font-weight: 600;
 }
 
 .goal-delta--success {
-  color: var(--cui-success);
+  color: var(--cui-success, #66BB6A);
 }
 
 .goal-delta--warn {
-  color: var(--cui-warning);
+  color: var(--cui-warning, #FFA726);
 }
