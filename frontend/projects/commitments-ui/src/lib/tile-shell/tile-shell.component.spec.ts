@@ -141,5 +141,11 @@ describe('TileShellComponent', () => {
       const block = ruleBlock('\\.tile-shell__title-row');
       expect(block).toMatch(/gap\s*:\s*var\(\s*--cui-tile-header-gap/);
     });
+
+    it('outer header gap also consumes the per-tile custom property (bug-064)', () => {
+      const block = ruleBlock('\\.tile-shell__header');
+      expect(block).toMatch(/gap\s*:\s*var\(\s*--cui-tile-header-gap/);
+      expect(block).not.toMatch(/gap\s*:\s*12px\b/);
+    });
   });
 });
