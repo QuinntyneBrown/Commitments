@@ -1,12 +1,31 @@
 ---
 id: bug-064
 title: Tile-shell `.tile-shell__header` hard-codes gap 12px while `.tile-shell__title-row` uses the per-tile `--cui-tile-header-gap`
-status: Open
+status: Fixed
 ---
 
 # Bug 064 — Tile-shell outer header gap should track the inner gap
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`.tile-shell__header { gap: 12px }` →
+`gap: var(--cui-tile-header-gap, 8px)`.
+
+Both header gap sources (outer between heading and pill, inner
+between icon and title) now share one custom property:
+- 5 tiles default to 8px (was 12px) → 4px tighter heading-to-pill.
+- consistency-trend `--cui-tile-header-gap: 10px` override applies
+  uniformly → 2px tighter heading-to-pill.
+
+Aligns each tile with its .pen header `gap` value (drHd/wfHd/etc
+gap: 8, ctHd gap: 10).
+
+Coverage:
+- New spec asserts `.tile-shell__header` consumes
+  `var(--cui-tile-header-gap)` and no longer matches `gap: 12px`.
+- All 22 affected suites pass (150/150 — was 149/149 before).
 
 ## Description
 
