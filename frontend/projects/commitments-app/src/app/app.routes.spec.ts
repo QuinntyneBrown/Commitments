@@ -489,4 +489,18 @@ describe('app.routes', () => {
     expect(todos).not.toMatch(/^export type DeltaTone\b/m);
     expect(goal).not.toMatch(/^export type DeltaTone\b/m);
   });
+
+  it('login-page font-family declarations reference the --cui-font-display token (bug-175)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const scss = readFileSync(
+      join(__dirname, 'pages', 'login', 'login-page', 'login-page.component.scss'),
+      'utf8'
+    );
+    const offenders = scss
+      .split(/\r?\n/)
+      .map((line: string, i: number) => ({ n: i + 1, line }))
+      .filter(({ line }: { line: string }) => /\bfont-family\s*:\s*Inter\b/.test(line));
+    expect(offenders).toEqual([]);
+  });
 });
