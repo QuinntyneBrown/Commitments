@@ -1,12 +1,42 @@
 ---
 id: bug-044
 title: Consistency Trend chart area renders flat 20% blue; design specifies a vertical gradient `#42A5F566` → `#42A5F500`
-status: Open
+status: Fixed
 ---
 
 # Bug 044 — Consistency Trend chart area uses flat fill instead of vertical gradient
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`consistency-trend.controller.ts` — `backgroundColor` swaps from
+flat `ACCENT_CHART + '33'` to a Chart.js Scriptable function that
+builds a vertical gradient against the chart area:
+
+```ts
+backgroundColor: (ctx: ScriptableContext<'line'>) => {
+  const area = ctx.chart?.chartArea;
+  if (!area) return ACCENT_CHART + '00';
+  const gradient = ctx.chart.ctx.createLinearGradient(0, area.top, 0, area.bottom);
+  gradient.addColorStop(0, ACCENT_CHART + '66');
+  gradient.addColorStop(1, ACCENT_CHART + '00');
+  return gradient;
+}
+```
+
+Top is 40% blue, bottom is fully transparent — matching the .pen
+ltPlot areaFill direction and stops. The fallback covers the first
+paint before `chartArea` is computed.
+
+The `buildVerticalGradient` helper in
+`chart-js-line.adapter.ts` is now technically redundant; left in
+place for future tiles that may want a one-call gradient utility.
+
+Coverage:
+- New TS-source spec asserts the controller's `backgroundColor` is
+  a function and the file calls `createLinearGradient`.
+- All 20 affected suites pass (112/112 — was 111/111 before).
 
 ## Description
 
