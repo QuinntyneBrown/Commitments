@@ -1,14 +1,14 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
-import { Subject } from 'rxjs';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { OverlayRefWrapper } from '../../core/overlay-ref-wrapper';
 import { ProfileService } from '../../services/profile.service';
 import { Profile } from '../../models/profile';
-import { map, tap, takeUntil } from 'rxjs';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-create-profile-dialog',
@@ -20,12 +20,7 @@ import { map, tap, takeUntil } from 'rxjs';
 export class CreateProfileDialogComponent {
   private readonly _profileService = inject(ProfileService);
   private readonly _overlay = inject(OverlayRefWrapper);
-
-  public onDestroy: Subject<void> = new Subject<void>();
-
-  ngOnDestroy() {
-    this.onDestroy.next();
-  }
+  private readonly _destroyRef = inject(DestroyRef);
 
   public handleCancelClick() {
     this._overlay.close();
@@ -45,9 +40,11 @@ export class CreateProfileDialogComponent {
     profile.name = options.name;
     this._profileService.create(options)
       .pipe(
-        map(x => profile.profileId = x.profileId),
-        tap(x => this._overlay.close(profile)),
-        takeUntil(this.onDestroy)
+        takeUntilDestroyed(this._destroyRef),
+        tap(x => {
+          profile.profileId = x.profileId;
+          this._overlay.close(profile);
+        })
       )
       .subscribe();
   }

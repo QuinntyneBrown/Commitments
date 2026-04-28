@@ -1,14 +1,14 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
-import { Subject, BehaviorSubject } from 'rxjs';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { OverlayRefWrapper } from '../../core/overlay-ref-wrapper';
 import { CardLayoutService } from '../../services/card-layout.service';
 import { CardLayout } from '../../models/card-layout';
-import { map, switchMap, tap, takeUntil } from 'rxjs';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-edit-card-layout-dialog',
@@ -20,29 +20,25 @@ import { map, switchMap, tap, takeUntil } from 'rxjs';
 export class EditCardLayoutDialogComponent {
   private readonly _cardLayoutService = inject(CardLayoutService);
   private readonly _overlay = inject(OverlayRefWrapper);
+  private readonly _destroyRef = inject(DestroyRef);
 
-  ngOnInit() {
-    if (this.cardLayoutId)
-      this._cardLayoutService.getById({ cardLayoutId: this.cardLayoutId })
-        .pipe(
-          map(x => this.cardLayout$.next(x)),
-          switchMap(x => this.cardLayout$),
-          map(x => this.form.patchValue({
-            name: x.name
-          }))
-        )
-        .subscribe();
-  }
-
-  public onDestroy: Subject<void> = new Subject<void>();
-
-  ngOnDestroy() {
-    this.onDestroy.next();
-  }
-
-  public cardLayout$: BehaviorSubject<CardLayout> = new BehaviorSubject(<CardLayout>{});
+  public readonly cardLayout = signal<CardLayout>(<CardLayout>{});
 
   public cardLayoutId: number;
+
+  ngOnInit() {
+    if (this.cardLayoutId) {
+      this._cardLayoutService.getById({ cardLayoutId: this.cardLayoutId })
+        .pipe(
+          takeUntilDestroyed(this._destroyRef),
+          tap(x => {
+            this.cardLayout.set(x);
+            this.form.patchValue({ name: x.name });
+          })
+        )
+        .subscribe();
+    }
+  }
 
   public handleCancelClick() {
     this._overlay.close();
@@ -54,9 +50,11 @@ export class EditCardLayoutDialogComponent {
     cardLayout.name = this.form.value.name;
     this._cardLayoutService.save({ cardLayout })
       .pipe(
-        map(x => cardLayout.cardLayoutId = x.cardLayoutId),
-        tap(x => this._overlay.close(cardLayout)),
-        takeUntil(this.onDestroy)
+        takeUntilDestroyed(this._destroyRef),
+        tap(x => {
+          cardLayout.cardLayoutId = x.cardLayoutId;
+          this._overlay.close(cardLayout);
+        })
       )
       .subscribe();
   }

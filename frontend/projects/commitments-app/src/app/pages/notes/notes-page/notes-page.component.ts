@@ -1,13 +1,13 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
-import { map, takeUntil, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { ColDef } from 'ag-grid-community';
 import { NotesService } from '../../../services/notes.service';
 import { Note } from '../../../models/note';
@@ -32,20 +32,25 @@ export class NotesPageComponent {
   private readonly _store = inject(Store);
   private readonly _router = inject(Router);
   private readonly _translateService = inject(TranslateService);
+  private readonly _destroyRef = inject(DestroyRef);
 
-  public onDestroy: Subject<void> = new Subject<void>();
+  public readonly notes = this._store.notes;
 
   public localeText: any = {};
 
   ngOnInit() {
     this._notesService
       .get()
-      .pipe(map(x => this._store.notes$.next(x.notes)))
+      .pipe(
+        takeUntilDestroyed(this._destroyRef),
+        tap(x => this._store.notes.set(x.notes))
+      )
       .subscribe();
 
     this._translateService
       .get(['Title', 'Page', 'of', 'to'])
       .pipe(
+        takeUntilDestroyed(this._destroyRef),
         tap(translations => {
           this.localeText = translations;
           this.columnDefs = [
@@ -66,17 +71,12 @@ export class NotesPageComponent {
   }
 
   public handleDelete($event) {
-    const notes = this._store.notes$.value;
-    const deletedNoteIndex = notes.findIndex(x => x.noteId == $event.data.noteId);
-
-    notes.splice(deletedNoteIndex, 1);
-
     this._notesService
       .remove({ note: <Note>$event.data })
       .pipe(
-        takeUntil(this.onDestroy),
-        tap(x => {
-          this._store.notes$.next([...notes]);
+        takeUntilDestroyed(this._destroyRef),
+        tap(() => {
+          this._store.notes.update(notes => notes.filter(x => x.noteId != $event.data.noteId));
         })
       )
       .subscribe();
@@ -94,13 +94,5 @@ export class NotesPageComponent {
 
   public onGridReady($event) {
     $event.api.sizeColumnsToFit();
-  }
-
-  public get notes$(): Observable<Array<Note>> {
-    return this._store.notes$;
-  }
-
-  ngOnDestroy() {
-    this.onDestroy.next();
   }
 }

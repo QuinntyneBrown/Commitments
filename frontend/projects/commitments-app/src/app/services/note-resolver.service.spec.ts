@@ -12,7 +12,7 @@ import { Store } from '../core/store';
 
 describe('noteResolver', () => {
   function setup(slug: string | undefined, getBySlug = jest.fn()) {
-    const store = { note$: { next: jest.fn(), value: {} } } as unknown as Store;
+    const store = { note: Object.assign(jest.fn(() => ({})), { set: jest.fn(), update: jest.fn() }) } as unknown as Store;
     TestBed.configureTestingModule({
       providers: [
         { provide: NotesService, useValue: { getBySlug } },
@@ -26,7 +26,7 @@ describe('noteResolver', () => {
 
   it('returns an empty Note without HTTP when slug is "new" (design 13 Slice D)', async () => {
     const getBySlug = jest.fn();
-    const store = { note$: { next: jest.fn(), value: {} } } as unknown as Store;
+    const store = { note: Object.assign(jest.fn(() => ({})), { set: jest.fn(), update: jest.fn() }) } as unknown as Store;
     TestBed.configureTestingModule({
       providers: [
         { provide: NotesService, useValue: { getBySlug } },
@@ -46,7 +46,7 @@ describe('noteResolver', () => {
   it('fetches by slug and pushes to the store for non-"new" slugs', async () => {
     const fetched = { note: { noteId: 'abc', title: 'T', slug: 'the-slug', body: 'x' } };
     const getBySlug = jest.fn().mockReturnValue(of(fetched));
-    const store = { note$: { next: jest.fn(), value: {} } } as unknown as Store;
+    const store = { note: Object.assign(jest.fn(() => ({})), { set: jest.fn(), update: jest.fn() }) } as unknown as Store;
     TestBed.configureTestingModule({
       providers: [
         { provide: NotesService, useValue: { getBySlug } },
@@ -60,6 +60,6 @@ describe('noteResolver', () => {
     await TestBed.runInInjectionContext(() => firstValueFrom(noteResolver(route, state) as any));
 
     expect(getBySlug).toHaveBeenCalledWith({ slug: 'the-slug' });
-    expect(store.note$.next).toHaveBeenCalledWith(fetched.note);
+    expect((store.note as any).set).toHaveBeenCalledWith(fetched.note);
   });
 });

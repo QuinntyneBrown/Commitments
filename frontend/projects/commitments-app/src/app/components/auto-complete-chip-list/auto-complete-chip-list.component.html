@@ -1,7 +1,7 @@
 <mat-form-field>
   <mat-chip-list #chipList>
     <mat-chip color="primary"
-              *ngFor="let item of selectedItems"
+              *ngFor="let item of itemsData"
               (remove)="onRemoveItems(item)"
               (click)="onChipClick.emit({ item: item })"
               >
@@ -15,7 +15,7 @@
            [matAutocomplete]="language"
            [formControl]="addItems" #chipInput />
     <mat-autocomplete #language="matAutocomplete" (optionSelected)="onAddItems($event)">
-      <mat-option *ngFor="let item of filteredItems | async" [value]="item">
+      <mat-option *ngFor="let item of filteredItems()" [value]="item">
         <span>{{ item.name }}</span>
       </mat-option>
     </mat-autocomplete>

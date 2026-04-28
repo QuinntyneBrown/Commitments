@@ -5,7 +5,7 @@
 
   <mat-form-field>
     <mat-select placeholder="Frequency Type" formControlName="frequencyTypeId" name="frequencyTypeId">
-      <mat-option *ngFor="let frequencyType of frequencyTypes" [value]="frequencyType.frequencyTypeId">
+      <mat-option *ngFor="let frequencyType of frequencyTypes()" [value]="frequencyType.frequencyTypeId">
         {{ frequencyType.name }}
       </mat-option>
     </mat-select>

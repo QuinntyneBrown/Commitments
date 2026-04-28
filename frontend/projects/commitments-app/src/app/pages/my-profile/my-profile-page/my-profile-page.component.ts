@@ -1,15 +1,15 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, Inject, inject } from '@angular/core';
+import { Component, DestroyRef, Inject, inject } from '@angular/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { Observable, Subject, forkJoin } from 'rxjs';
-import { takeUntil, tap } from 'rxjs';
+import { forkJoin, tap } from 'rxjs';
 import { ProfileService } from '../../../services/profile.service';
 import { Profile } from '../../../models/profile';
 import { baseUrl } from '../../../core/constants';
@@ -34,34 +34,26 @@ import { PrimaryHeaderComponent } from '@commitments/ui';
 })
 export class MyProfilePageComponent {
   private readonly _profileService = inject(ProfileService);
+  private readonly _destroyRef = inject(DestroyRef);
 
   @Inject(baseUrl) public baseUrl: string;
 
-  public ngOnInit() {
-    this.profile$ = this._profileService.current()
-      .pipe(
-        tap(x => this.form.patchValue({
-          name: x.name,
-          avatarUrl: x.avatarUrl
-        }))
-      );
-  }
+  public readonly profile = toSignal<Profile>(
+    this._profileService.current().pipe(
+      tap(x => this.form.patchValue({
+        name: x.name,
+        avatarUrl: x.avatarUrl
+      }))
+    )
+  );
 
   public handleSaveClick() {
     forkJoin([
       this._profileService.saveAvatarUrl({ avatarUrl: this.form.value.avatarUrl }),
       this._profileService.updateDisplayName({ displayName: this.form.value.name })
     ])
-      .pipe(takeUntil(this.onDestroy))
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe();
-  }
-
-  public profile$: Observable<Profile>;
-
-  public onDestroy: Subject<void> = new Subject<void>();
-
-  ngOnDestroy() {
-    this.onDestroy.next();
   }
 
   public form: FormGroup = new FormGroup({

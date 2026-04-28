@@ -1,7 +1,8 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, inject, Injector } from '@angular/core';
+import { Component, DestroyRef, inject, Injector } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,11 +10,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AgGridModule } from 'ag-grid-angular';
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { Observable, Subject } from 'rxjs';
-import { map, takeUntil, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { ColDef } from 'ag-grid-community';
 import { TagsService } from '../../../services/tags.service';
-import { Tag } from '../../../models/tag';
 import { Store } from '../../../core/store';
 import { HubClient } from '../../../core/hub-client';
 import { OverlayRefWrapper } from '../../../core/overlay-ref-wrapper';
@@ -42,18 +41,22 @@ export class TagsPageComponent {
   private readonly _store = inject(Store);
   private readonly _tagsService = inject(TagsService);
   private readonly _translateService = inject(TranslateService);
+  private readonly _destroyRef = inject(DestroyRef);
+
+  public readonly tags = this._store.tags;
 
   public localeText: any = {};
 
   ngOnInit() {
     this._tagsService
       .get()
-      .pipe(takeUntil(this.onDestroy), map(x => this._store.tags$.next(x.tags)))
+      .pipe(takeUntilDestroyed(this._destroyRef), tap(x => this._store.tags.set(x.tags)))
       .subscribe();
 
     this._translateService
       .get(['Name', 'Page', 'of', 'to'])
       .pipe(
+        takeUntilDestroyed(this._destroyRef),
         tap(translations => {
           this.localeText = translations;
           this.columnDefs = [
@@ -77,7 +80,7 @@ export class TagsPageComponent {
   public handleChange($event) {
     this._tagsService
       .save({ tag: $event.data })
-      .pipe(takeUntil(this.onDestroy))
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe();
   }
 
@@ -103,20 +106,10 @@ export class TagsPageComponent {
     params.api.sizeColumnsToFit();
   }
 
-  public get tags$(): Observable<Array<Tag>> {
-    return this._store.tags$;
-  }
-
-  public onDestroy: Subject<void> = new Subject<void>();
-
-  ngOnDestroy() {
-    this.onDestroy.next();
-  }
-
   public handleDelete($event) {
     this._tagsService
       .remove({ tagId: $event.data.tagId })
-      .pipe(takeUntil(this.onDestroy))
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe();
   }
 

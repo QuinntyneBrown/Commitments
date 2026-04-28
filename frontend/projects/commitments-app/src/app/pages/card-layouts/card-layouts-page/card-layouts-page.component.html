@@ -5,7 +5,7 @@
 <section class="page-content-container">
   <ag-grid-angular class="ag-theme-material"
                    [columnDefs]="columnDefs"
-                   [rowData]="cardLayouts$ | async"
+                   [rowData]="cardLayouts()"
                    [pagination]="true"
                    [paginationPageSize]="5"
                    [localeText]="localeText"

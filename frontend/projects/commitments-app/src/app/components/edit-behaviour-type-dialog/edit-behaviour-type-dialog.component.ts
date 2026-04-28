@@ -3,7 +3,6 @@
 
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Subject } from 'rxjs';
 import { OverlayRefWrapper } from '../../core/overlay-ref-wrapper';
 
 @Component({
@@ -16,17 +15,11 @@ import { OverlayRefWrapper } from '../../core/overlay-ref-wrapper';
 export class EditBehaviourTypeDialogComponent {
   private readonly _overlay = inject(OverlayRefWrapper);
 
-  public onDestroy: Subject<void> = new Subject<void>();
-
   public behaviourTypeId: number;
 
   public handleSaveClick() {}
 
   public handleCancelClick() {
     this._overlay.close();
-  }
-
-  ngOnDestroy() {
-    this.onDestroy.next();
   }
 }

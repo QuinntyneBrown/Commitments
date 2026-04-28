@@ -4,7 +4,7 @@
 
 <section class="page-content-container">
   <form novalidate autocomplete="off" spellcheck="false" [formGroup]="form">
-    <img src="{{ baseUrl }}{{ (profile$ | async)?.avatarUrl }}" />
+    <img src="{{ baseUrl }}{{ profile()?.avatarUrl }}" />
 
     <app-digital-asset-input-url [placeholder]="'Avatar Image Url'" formControlName="avatarUrl"></app-digital-asset-input-url>
 

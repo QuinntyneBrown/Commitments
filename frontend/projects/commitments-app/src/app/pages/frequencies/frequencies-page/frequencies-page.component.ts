@@ -1,15 +1,15 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AgGridModule } from 'ag-grid-angular';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs';
+import { tap } from 'rxjs';
 import { ColDef, GridApi } from 'ag-grid-community';
 import { FrequencyService } from '../../../services/frequency.service';
 import { Frequency } from '../../../models/frequency';
@@ -37,29 +37,23 @@ export class FrequenciesPageComponent {
   private readonly _editFrequencyDialog = inject(EditFrequencyDialogService);
   private readonly _frequencyService = inject(FrequencyService);
   private readonly _router = inject(Router);
+  private readonly _destroyRef = inject(DestroyRef);
+
+  public readonly frequencies = signal<Array<Frequency>>([]);
+
+  public localeText: any = {};
 
   ngOnInit() {
     this._frequencyService.get()
-      .pipe(map(x => this.frequencies$.next(x)))
+      .pipe(takeUntilDestroyed(this._destroyRef), tap(x => this.frequencies.set(x)))
       .subscribe();
   }
 
-  public onDestroy: Subject<void> = new Subject<void>();
-
-  public frequencies$: BehaviorSubject<Array<Frequency>> = new BehaviorSubject([]);
-
-  ngOnDestroy() {
-    this.onDestroy.next();
-  }
-
   public handleRemoveClick($event) {
-    const frequencies: Array<Frequency> = [...this.frequencies$.value];
-    const index = frequencies.findIndex(x => x.frequencyId == $event.data.frequencyId);
-    frequencies.splice(index, 1);
-    this.frequencies$.next(frequencies);
+    this.frequencies.update(freqs => freqs.filter(x => x.frequencyId != $event.data.frequencyId));
 
     this._frequencyService.remove({ frequency: $event.data })
-      .pipe(takeUntil(this.onDestroy))
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe();
   }
 
@@ -69,21 +63,23 @@ export class FrequenciesPageComponent {
 
   public handleFABButtonClick() {
     this._editFrequencyDialog.create()
-      .pipe(takeUntil(this.onDestroy), map(x => this.addOrUpdate(x)))
+      .pipe(takeUntilDestroyed(this._destroyRef), tap(x => this.addOrUpdate(x)))
       .subscribe();
   }
 
   public addOrUpdate(frequency: Frequency) {
     if (!frequency) return;
 
-    const frequencies = [...this.frequencies$.value];
-    const i = frequencies.findIndex((t) => t.frequencyId == frequency.frequencyId);
-    if (i < 0) {
-      frequencies.push(frequency);
-    } else {
-      frequencies[i] = frequency;
-    }
-    this.frequencies$.next(frequencies);
+    this.frequencies.update(freqs => {
+      const next = [...freqs];
+      const i = next.findIndex(t => t.frequencyId == frequency.frequencyId);
+      if (i < 0) {
+        next.push(frequency);
+      } else {
+        next[i] = frequency;
+      }
+      return next;
+    });
   }
 
   public columnDefs: Array<ColDef> = [

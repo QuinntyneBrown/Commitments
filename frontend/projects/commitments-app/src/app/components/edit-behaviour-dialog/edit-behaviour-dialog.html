@@ -5,7 +5,7 @@
 <form class="page-content-container" novalidate autocomplete="off" spellcheck="false" [formGroup]="form">
   <mat-form-field>
     <mat-select placeholder="Behaviour Type" formControlName="behaviourTypeId" name="behaviourTypeId">
-      <mat-option *ngFor="let behaviourType of (behaviourTypes$ | async)" [value]="behaviourType.behaviourTypeId">
+      <mat-option *ngFor="let behaviourType of behaviourTypes()" [value]="behaviourType.behaviourTypeId">
         {{ behaviourType.name }}
       </mat-option>
     </mat-select>

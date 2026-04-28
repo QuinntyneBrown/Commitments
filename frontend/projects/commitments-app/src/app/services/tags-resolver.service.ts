@@ -12,5 +12,5 @@ export const tagsResolver: ResolveFn<Tag[]> = (route, state) => {
   const tagsService = inject(TagsService);
   const store = inject(Store);
 
-  return tagsService.get().pipe(tap(x => store.tags$.next(x.tags)), map(x => x.tags));
+  return tagsService.get().pipe(tap(x => store.tags.set(x.tags)), map(x => x.tags));
 };

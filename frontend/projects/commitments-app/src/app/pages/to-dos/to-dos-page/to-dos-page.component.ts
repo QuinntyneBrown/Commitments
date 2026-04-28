@@ -1,14 +1,14 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AgGridModule } from 'ag-grid-angular';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs';
+import { tap } from 'rxjs';
 import { ColDef, GridApi } from 'ag-grid-community';
 import { ToDoService } from '../../../services/to-do.service';
 import { ToDo } from '../../../models/to-do';
@@ -35,6 +35,11 @@ import { PrimaryHeaderComponent } from '@commitments/ui';
 export class ToDosPageComponent {
   private readonly _editToDoDialog = inject(EditToDoDialogService);
   private readonly _toDoService = inject(ToDoService);
+  private readonly _destroyRef = inject(DestroyRef);
+
+  public readonly toDos = signal<Array<ToDo>>([]);
+
+  public localeText: any = {};
 
   constructor() {
     this.handleRemoveToDoCellClick = this.handleRemoveToDoCellClick.bind(this);
@@ -42,14 +47,8 @@ export class ToDosPageComponent {
 
   public ngOnInit() {
     this._toDoService.get()
-      .pipe(map(x => this.toDos$.next(x)))
+      .pipe(takeUntilDestroyed(this._destroyRef), tap(x => this.toDos.set(x)))
       .subscribe();
-  }
-
-  public onDestroy: Subject<void> = new Subject<void>();
-
-  ngOnDestroy() {
-    this.onDestroy.next();
   }
 
   public columnDefs: Array<ColDef> = [
@@ -73,47 +72,40 @@ export class ToDosPageComponent {
     this._gridApi.sizeColumnsToFit();
   }
 
-  public toDos$: BehaviorSubject<Array<ToDo>> = new BehaviorSubject([]);
-
-  public toDosBehaviourSubject$: BehaviorSubject<Array<ToDo>> = new BehaviorSubject([]);
-
   public handleFabButtonClick() {
-    const overlayRefWrapper = this._editToDoDialog.create()
-      .pipe(map(toDo => this.addOrUpdate(toDo)), takeUntil(this.onDestroy))
+    this._editToDoDialog.create()
+      .pipe(takeUntilDestroyed(this._destroyRef), tap(toDo => this.addOrUpdate(toDo)))
       .subscribe();
   }
 
   public handleEditToDoCellClick($event) {
     this._editToDoDialog.create({ toDoId: $event.data.toDoId })
-      .pipe(map(toDo => this.addOrUpdate(toDo)), takeUntil(this.onDestroy))
+      .pipe(takeUntilDestroyed(this._destroyRef), tap(toDo => this.addOrUpdate(toDo)))
       .subscribe();
   }
 
   public handleRemoveToDoCellClick($event) {
     const toDo = $event.data;
 
-    const toDos: Array<ToDo> = [...this.toDos$.value];
-    const index = toDos.findIndex(x => x.toDoId == $event.data.toDoId);
-    toDos.splice(index, 1);
-    this.toDos$.next(toDos);
+    this.toDos.update(toDos => toDos.filter(x => x.toDoId != toDo.toDoId));
 
     this._toDoService.remove({ toDo })
-      .pipe(takeUntil(this.onDestroy))
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe();
   }
 
   public addOrUpdate(toDo: ToDo) {
     if (!toDo) return;
 
-    const toDos = [...this.toDos$.value];
-    const i = toDos.findIndex((t) => t.toDoId == toDo.toDoId);
-
-    if (i < 0) {
-      toDos.push(toDo);
-    } else {
-      toDos[i] = toDo;
-    }
-
-    this.toDos$.next(toDos);
+    this.toDos.update(toDos => {
+      const next = [...toDos];
+      const i = next.findIndex(t => t.toDoId == toDo.toDoId);
+      if (i < 0) {
+        next.push(toDo);
+      } else {
+        next[i] = toDo;
+      }
+      return next;
+    });
   }
 }

@@ -1,14 +1,14 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AgGridModule } from 'ag-grid-angular';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { map, switchMap, takeUntil } from 'rxjs';
+import { tap } from 'rxjs';
 import { ColDef, GridApi } from 'ag-grid-community';
 import { CardService } from '../../../services/card.service';
 import { Card } from '../../../models/card';
@@ -34,13 +34,17 @@ import { PrimaryHeaderComponent } from '@commitments/ui';
 export class CardsPageComponent {
   private readonly _cardService = inject(CardService);
   private readonly _editCardDialog = inject(EditCardDialogService);
+  private readonly _destroyRef = inject(DestroyRef);
+
+  public readonly cards = signal<Card[]>([]);
+
+  public localeText: any = {};
 
   ngOnInit() {
     this._cardService.get()
       .pipe(
-        map(cards => this.cards$.next(cards)),
-        switchMap(() => this.cards$),
-        takeUntil(this.onDestroy)
+        takeUntilDestroyed(this._destroyRef),
+        tap(cards => this.cards.set(cards))
       )
       .subscribe();
   }
@@ -48,8 +52,8 @@ export class CardsPageComponent {
   public handleFABButtonClick() {
     this._editCardDialog.create()
       .pipe(
-        map(x => this.addOrUpdate(x)),
-        takeUntil(this.onDestroy)
+        takeUntilDestroyed(this._destroyRef),
+        tap(x => this.addOrUpdate(x))
       )
       .subscribe();
   }
@@ -72,46 +76,35 @@ export class CardsPageComponent {
     this._gridApi.sizeColumnsToFit();
   }
 
-  public cards$: BehaviorSubject<Card[]> = new BehaviorSubject([]);
-
   public handleEditClick($event) {
-    const overlayRefWrapper = this._editCardDialog
+    this._editCardDialog
       .create({ cardId: $event.data.cardId })
-      .pipe(map(card => this.addOrUpdate(card)), takeUntil(this.onDestroy))
+      .pipe(takeUntilDestroyed(this._destroyRef), tap(card => this.addOrUpdate(card)))
       .subscribe();
   }
 
   public handleRemove($event) {
     const card = $event.data;
 
-    const cards: Array<Card> = [...this.cards$.value];
-    const index = cards.findIndex(x => x.cardId == $event.data.cardId);
-    cards.splice(index, 1);
-    this.cards$.next(cards);
+    this.cards.update(cards => cards.filter(x => x.cardId != card.cardId));
 
-    this._cardService.remove({ card: card })
-      .pipe(takeUntil(this.onDestroy))
+    this._cardService.remove({ card })
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe();
   }
 
   public addOrUpdate(card: Card) {
     if (!card) return;
 
-    const cards = [...this.cards$.value];
-    const i = cards.findIndex((t) => t.cardId == card.cardId);
-
-    if (i < 0) {
-      cards.push(card);
-    } else {
-      cards[i] = card;
-    }
-
-    this.cards$.next(cards);
-  }
-
-  public onDestroy: Subject<void> = new Subject<void>();
-
-  ngOnDestroy() {
-    this.onDestroy.next();
+    this.cards.update(cards => {
+      const next = [...cards];
+      const i = next.findIndex(t => t.cardId == card.cardId);
+      if (i < 0) {
+        next.push(card);
+      } else {
+        next[i] = card;
+      }
+      return next;
+    });
   }
 }

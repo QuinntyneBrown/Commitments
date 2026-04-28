@@ -1,15 +1,15 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AgGridModule } from 'ag-grid-angular';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs';
+import { tap } from 'rxjs';
 import { ColDef, GridApi } from 'ag-grid-community';
 import { BehaviourTypeService } from '../../../services/behaviour-type.service';
 import { BehaviourType } from '../../../models/behaviour-type';
@@ -37,29 +37,23 @@ export class BehaviourTypesPageComponent {
   private readonly _behaviourTypeService = inject(BehaviourTypeService);
   private readonly _editBehaviourTypeDialog = inject(EditBehaviourTypeDialogService);
   private readonly _router = inject(Router);
+  private readonly _destroyRef = inject(DestroyRef);
+
+  public readonly behaviourTypes = signal<Array<BehaviourType>>([]);
+
+  public localeText: any = {};
 
   ngOnInit() {
     this._behaviourTypeService.get()
-      .pipe(map(x => this.behaviourTypes$.next(x)))
+      .pipe(takeUntilDestroyed(this._destroyRef), tap(x => this.behaviourTypes.set(x)))
       .subscribe();
   }
 
-  public onDestroy: Subject<void> = new Subject<void>();
-
-  public behaviourTypes$: BehaviorSubject<Array<BehaviourType>> = new BehaviorSubject([]);
-
-  ngOnDestroy() {
-    this.onDestroy.next();
-  }
-
   public handleRemoveClick($event) {
-    const behaviourTypes: Array<BehaviourType> = [...this.behaviourTypes$.value];
-    const index = behaviourTypes.findIndex(x => x.behaviourTypeId == $event.data.behaviourTypeId);
-    behaviourTypes.splice(index, 1);
-    this.behaviourTypes$.next(behaviourTypes);
+    this.behaviourTypes.update(types => types.filter(x => x.behaviourTypeId != $event.data.behaviourTypeId));
 
     this._behaviourTypeService.remove({ behaviourType: $event.data })
-      .pipe(takeUntil(this.onDestroy))
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe();
   }
 
@@ -69,21 +63,23 @@ export class BehaviourTypesPageComponent {
 
   public handleFABButtonClick() {
     this._editBehaviourTypeDialog.create()
-      .pipe(takeUntil(this.onDestroy), map((x) => this.addOrUpdate(x)))
+      .pipe(takeUntilDestroyed(this._destroyRef), tap(x => this.addOrUpdate(x)))
       .subscribe();
   }
 
   public addOrUpdate(behaviourType: BehaviourType) {
     if (!behaviourType) return;
 
-    const behaviourTypes = [...this.behaviourTypes$.value];
-    const i = behaviourTypes.findIndex((t) => t.behaviourTypeId == behaviourType.behaviourTypeId);
-    if (i < 0) {
-      behaviourTypes.push(behaviourType);
-    } else {
-      behaviourTypes[i] = behaviourType;
-    }
-    this.behaviourTypes$.next(behaviourTypes);
+    this.behaviourTypes.update(types => {
+      const next = [...types];
+      const i = next.findIndex(t => t.behaviourTypeId == behaviourType.behaviourTypeId);
+      if (i < 0) {
+        next.push(behaviourType);
+      } else {
+        next[i] = behaviourType;
+      }
+      return next;
+    });
   }
 
   public columnDefs: Array<ColDef> = [

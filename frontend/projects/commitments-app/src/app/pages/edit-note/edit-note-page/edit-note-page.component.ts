@@ -1,7 +1,8 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, ElementRef, inject } from '@angular/core';
+import { Component, computed, DestroyRef, ElementRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -9,11 +10,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { takeUntil, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { NotesService } from '../../../services/notes.service';
 import { Note } from '../../../models/note';
-import { Tag } from '../../../models/tag';
 import { Store } from '../../../core/store';
 import { LanguageService } from '../../../core/language.service';
 import { LocalStorageService } from '../../../core/local-storage.service';
@@ -46,15 +45,16 @@ export class EditNotePageComponent {
   private readonly _notesService = inject(NotesService);
   private readonly _router = inject(Router);
   private readonly _store = inject(Store);
+  private readonly _destroyRef = inject(DestroyRef);
 
   selectedItems: any[];
   items: any[];
 
   public editorPlaceholder: string = 'Compose a note...';
 
-  public notes$: BehaviorSubject<Note> = new BehaviorSubject(<Note>{});
-
-  public onDestroy: Subject<void> = new Subject();
+  public readonly note = this._store.note;
+  public readonly tags = this._store.tags;
+  public readonly hasNoteId = computed(() => !!this.note().noteId);
 
   public quillEditorFormControl: FormControl = new FormControl('');
 
@@ -67,11 +67,12 @@ export class EditNotePageComponent {
   constructor() {
     this.editorPlaceholder = this._languageService.currentTranslations[this.editorPlaceholder];
 
-    this.selectedItems = this._store.note$.value.tags.map(x => x.name);
-    this.items = this._store.tags$.value;
+    const note = this._store.note();
+    this.selectedItems = note.tags.map(x => x.name);
+    this.items = this._store.tags();
 
-    this.form.controls['title'].setValue(this._store.note$.value.title);
-    this.form.controls['body'].setValue(this._store.note$.value.body);
+    this.form.controls['title'].setValue(note.title);
+    this.form.controls['body'].setValue(note.body);
   }
 
   canDeactivate() {
@@ -79,34 +80,27 @@ export class EditNotePageComponent {
   }
 
   ngAfterViewInit() {
+    const note = this._store.note();
     this.form.patchValue({
-      title: this.note$.value.title,
-      body: this.note$.value.body
+      title: note.title,
+      body: note.body
     });
-  }
-
-  public get tags$(): Observable<Array<Tag>> {
-    return this._store.tags$;
-  }
-
-  public get note$(): BehaviorSubject<Note> {
-    return this._store.note$;
   }
 
   public handleSaveClick() {
     const note = new Note();
     const tags = this.form.value.tags || [];
 
-    note.noteId = this._store.note$.value.noteId;
+    note.noteId = this._store.note().noteId;
     note.title = this.form.value.title;
     note.body = this.form.value.body;
-    note.tags = tags.map(x => this._store.tags$.value.find(t => t.name == x));
+    note.tags = tags.map(x => this._store.tags().find(t => t.name == x));
 
     this._notesService
       .save({
         note
       })
-      .pipe(takeUntil(this.onDestroy), tap(() => this._router.navigateByUrl('/notes')))
+      .pipe(takeUntilDestroyed(this._destroyRef), tap(() => this._router.navigateByUrl('/notes')))
       .subscribe();
   }
 
@@ -114,16 +108,12 @@ export class EditNotePageComponent {
     return this._activatedRoute.snapshot.params['slug'];
   }
 
-  ngOnDestroy() {
-    this.onDestroy.next();
-  }
-
   filterItems(itemName: string) {
     return this.items.filter(item => item.name.toLowerCase().indexOf(itemName.toLowerCase()) === 0);
   }
 
   handleChipClicked($event) {
-    const tag = this._store.tags$.value.find(x => x.name == $event.item);
+    const tag = this._store.tags().find(x => x.name == $event.item);
     this._router.navigate(['tags', tag.slug]);
   }
 }

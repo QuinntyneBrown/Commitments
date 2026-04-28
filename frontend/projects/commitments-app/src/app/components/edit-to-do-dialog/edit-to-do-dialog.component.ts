@@ -1,13 +1,13 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
-import { Subject } from 'rxjs';
 import { ToDoService } from '../../services/to-do.service';
 import { ToDo } from '../../models/to-do';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { map, takeUntil, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { OverlayRefWrapper } from '../../core/overlay-ref-wrapper';
 
 @Component({
@@ -20,18 +20,23 @@ import { OverlayRefWrapper } from '../../core/overlay-ref-wrapper';
 export class EditToDoDialogComponent {
   private readonly _overlay = inject(OverlayRefWrapper);
   private readonly _toDoService = inject(ToDoService);
+  private readonly _destroyRef = inject(DestroyRef);
 
   public ngOnInit() {
-    if (this.toDoId)
+    if (this.toDoId) {
       this._toDoService
         .getById({ toDoId: this.toDoId })
-        .pipe(map(toDo => this.form.patchValue({
-          name: toDo.name,
-          description: toDo.description,
-          dueOn: toDo.dueOn,
-          completedOn: toDo.completedOn
-        })), takeUntil(this.onDestroy))
+        .pipe(
+          takeUntilDestroyed(this._destroyRef),
+          tap(toDo => this.form.patchValue({
+            name: toDo.name,
+            description: toDo.description,
+            dueOn: toDo.dueOn,
+            completedOn: toDo.completedOn
+          }))
+        )
         .subscribe();
+    }
   }
 
   public handleSaveClick() {
@@ -44,21 +49,17 @@ export class EditToDoDialogComponent {
     toDo.isCompleted = !this.form.value.completedOn;
     this._toDoService.save({ toDo })
       .pipe(
-        map(x => toDo.toDoId = x.toDoId),
-        tap(x => this._overlay.close(toDo)),
-        takeUntil(this.onDestroy)
+        takeUntilDestroyed(this._destroyRef),
+        tap(x => {
+          toDo.toDoId = x.toDoId;
+          this._overlay.close(toDo);
+        })
       )
       .subscribe();
   }
 
   public handleCancelClick() {
     this._overlay.close();
-  }
-
-  public onDestroy: Subject<void> = new Subject<void>();
-
-  ngOnDestroy() {
-    this.onDestroy.next();
   }
 
   public toDoId: number;

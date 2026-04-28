@@ -1,11 +1,11 @@
-<app-frequency-editor [frequencyTypes]="frequencyTypes"
+<app-frequency-editor [frequencyTypes]="frequencyTypes()"
                       (save)="handleFrequencySave($event)">
 
 </app-frequency-editor>
 
 <ag-grid-angular class="ag-theme-material"
                  [columnDefs]="columnDefs"
-                 [rowData]="frequencies$ | async"
+                 [rowData]="rows"
                  (gridReady)="onGridReady($event)">
 </ag-grid-angular>
 

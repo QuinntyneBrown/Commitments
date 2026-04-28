@@ -1,8 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, inject, signal, WritableSignal } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 import { HubClient } from './hub-client';
@@ -18,23 +17,20 @@ export interface TagRemovedPayload { tagId: string; }
 export class Store {
   private readonly _hubClient: HubClient;
 
-  public note$: BehaviorSubject<Note> = new BehaviorSubject(<Note>{});
-  public notes$: BehaviorSubject<Array<Note>> = new BehaviorSubject([]);
-  public tags$: BehaviorSubject<Array<Tag>> = new BehaviorSubject([]);
+  public readonly note: WritableSignal<Note> = signal(<Note>{});
+  public readonly notes: WritableSignal<Array<Note>> = signal([]);
+  public readonly tags: WritableSignal<Array<Tag>> = signal([]);
 
   constructor(hubClient: HubClient = inject(HubClient)) {
     this._hubClient = hubClient;
   }
 
   public handleTagSaved(payload: { tag: Tag }) {
-    this.tags$.next([...this.tags$.value, payload.tag]);
+    this.tags.update(tags => [...tags, payload.tag]);
   }
 
   public handleTagRemoved(payload: { tagId: number }) {
-    const tags = this.tags$.value;
-    const deletedTagIndex = tags.findIndex(x => x.tagId == payload.tagId);
-    tags.splice(deletedTagIndex, 1);
-    this.tags$.next([...tags]);
+    this.tags.update(tags => tags.filter(x => x.tagId != payload.tagId));
   }
 
   public get savedNotes$() {

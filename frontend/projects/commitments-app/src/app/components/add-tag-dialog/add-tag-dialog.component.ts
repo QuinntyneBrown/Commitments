@@ -1,14 +1,14 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
-import { Subject } from 'rxjs';
 import { OverlayRefWrapper } from '../../core/overlay-ref-wrapper';
 import { TagsService } from '../../services/tags.service';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Tag } from '../../models/tag';
-import { map, tap, takeUntil } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { Store } from '../../core/store';
 
 @Component({
@@ -22,6 +22,7 @@ export class AddTagDialogComponent {
   private readonly _overlay = inject(OverlayRefWrapper);
   private readonly _store = inject(Store);
   private readonly _tagService = inject(TagsService);
+  private readonly _destroyRef = inject(DestroyRef);
 
   public handleCancel() {
     this._overlay.close();
@@ -31,10 +32,10 @@ export class AddTagDialogComponent {
     this._tagService
       .save({ tag })
       .pipe(
-        takeUntil(this.onDestroy),
+        takeUntilDestroyed(this._destroyRef),
         map((result: any) => {
           tag.tagId = result.tagId;
-          this._store.tags$.next([...this._store.tags$.value, tag]);
+          this._store.tags.update(tags => [...tags, tag]);
         }),
         tap(() => this._overlay.close())
       )
@@ -46,10 +47,4 @@ export class AddTagDialogComponent {
   public form = new FormGroup({
     name: new FormControl(this.tag.name, [Validators.required])
   });
-
-  public onDestroy: Subject<void> = new Subject<void>();
-
-  ngOnDestroy() {
-    this.onDestroy.next();
-  }
 }

@@ -1,14 +1,14 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
-import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { OverlayRefWrapper } from '../../core/overlay-ref-wrapper';
 import { BehaviourService } from '../../services/behaviour.service';
 import { Behaviour } from '../../models/behaviour';
-import { map, switchMap, tap, takeUntil } from 'rxjs';
+import { tap } from 'rxjs';
 import { BehaviourType } from '../../models/behaviour-type';
 import { BehaviourTypeService } from '../../services/behaviour-type.service';
 
@@ -23,34 +23,31 @@ export class EditBehaviourDialogComponent {
   private readonly _behaviourService = inject(BehaviourService);
   private readonly _behaviourTypeService = inject(BehaviourTypeService);
   private readonly _overlay = inject(OverlayRefWrapper);
+  private readonly _destroyRef = inject(DestroyRef);
 
-  public behaviourTypes$: Observable<BehaviourType[]>;
-
-  ngOnInit() {
-    this.behaviourTypes$ = this._behaviourTypeService.get();
-
-    if (this.behaviourId)
-      this._behaviourService.getById({ behaviourId: this.behaviourId })
-        .pipe(
-          map(x => this.behaviour$.next(x)),
-          switchMap(x => this.behaviour$),
-          map(x => this.form.patchValue({
-            name: x.name,
-            description: x.description,
-            behaviourTypeId: x.behaviourTypeId,
-            isDesired: x.isDesired
-          }))
-        )
-        .subscribe();
-  }
-
-  public onDestroy: Subject<void> = new Subject<void>();
-
-  ngOnDestroy() { this.onDestroy.next(); }
-
-  public behaviour$: BehaviorSubject<Behaviour> = new BehaviorSubject(<Behaviour>{});
+  public readonly behaviourTypes = toSignal(this._behaviourTypeService.get(), { initialValue: [] as BehaviourType[] });
+  public readonly behaviour = signal<Behaviour>(<Behaviour>{});
 
   public behaviourId: number;
+
+  ngOnInit() {
+    if (this.behaviourId) {
+      this._behaviourService.getById({ behaviourId: this.behaviourId })
+        .pipe(
+          takeUntilDestroyed(this._destroyRef),
+          tap(x => {
+            this.behaviour.set(x);
+            this.form.patchValue({
+              name: x.name,
+              description: x.description,
+              behaviourTypeId: x.behaviourTypeId,
+              isDesired: x.isDesired
+            });
+          })
+        )
+        .subscribe();
+    }
+  }
 
   public handleCancelClick() { this._overlay.close(); }
 
@@ -63,9 +60,11 @@ export class EditBehaviourDialogComponent {
 
     this._behaviourService.save({ behaviour })
       .pipe(
-        map(x => behaviour.behaviourId = x.behaviourId),
-        tap(x => this._overlay.close(behaviour)),
-        takeUntil(this.onDestroy)
+        takeUntilDestroyed(this._destroyRef),
+        tap(x => {
+          behaviour.behaviourId = x.behaviourId;
+          this._overlay.close(behaviour);
+        })
       )
       .subscribe();
   }

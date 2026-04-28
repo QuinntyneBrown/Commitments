@@ -6,7 +6,7 @@
   <mat-tab label="Select Behaviour">
     <section>
       <mat-selection-list #behaviours>
-        <mat-list-option *ngFor="let behaviour of (behaviours$ |async)" [value]="behaviour">
+        <mat-list-option *ngFor="let behaviour of behaviours()" [value]="behaviour">
           {{ behaviour.name }}
         </mat-list-option>
       </mat-selection-list>
@@ -16,7 +16,7 @@
   <mat-tab label="Select Frequencies">
     <section>
       <mat-selection-list #frequencies>
-        <mat-list-option *ngFor="let frequency of (frequencies$ |async)" [value]="frequency" (change)="onNgModelChange($event)">
+        <mat-list-option *ngFor="let frequency of frequencies()" [value]="frequency" (change)="onNgModelChange($event)">
           {{ frequency.frequency }} {{ frequency.frequencyType.name }}
         </mat-list-option>
       </mat-selection-list>
@@ -25,7 +25,7 @@
 </mat-tab-group>
 
 <div class="actions">
-  <button mat-button (click)="handleSaveClick(behaviours)">Save</button>
+  <button mat-button (click)="handleSaveClick()">Save</button>
   <button mat-button (click)="handleCancelClick()">Cancel</button>
 </div>
 
