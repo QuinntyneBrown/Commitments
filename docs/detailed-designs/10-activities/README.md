@@ -1,6 +1,6 @@
 # Activities — Detailed Design
 
-**Status:** Accepted
+**Status:** Implemented
 
 **Traces to:** L1-006 · L2-012, L2-013
 
@@ -52,9 +52,14 @@ The Activities page (`pages/activities`, route `/activities`) records instances 
 
 ## 8. ATDD Slices
 
-1. **Slice A — list + sort.** Spec: list returns activities ordered by PerformedOn desc.
-2. **Slice B — add with default PerformedOn.** Spec: opening Add Activity defaults the date to "now"; saving without editing produces a row with `PerformedOn ≈ Date.now()`.
-3. **Slice C — server validator on `BehaviourId`.** Spec: a request with empty `BehaviourId` returns 400 with the validator message.
+1. **Slice A — list + sort.** Spec: list returns activities ordered by PerformedOn desc. **Status: Implemented.**
+2. **Slice B — add with default PerformedOn.** Spec: opening Add Activity defaults the date to "now"; saving without editing produces a row with `PerformedOn ≈ Date.now()`. **Status: Implemented** — `EditActivityDialog` already initialises the date control to `new Date()`.
+3. **Slice C — server validator on `BehaviourId`.** Spec: a request with empty `BehaviourId` returns 400 with the validator message. **Status: Implemented** (`NotEmpty()` on `Activity.BehaviourId`, per L2-040).
+
+## 10. Implementation Notes
+
+- The sort is one chained `OrderByDescending(x => x.PerformedOn)` on the existing query — no new fields, no schema, no serializer changes.
+- The validator now also pins `ActivityId` to `NotEmpty()` (was `NotNull()` which always passes for `Guid` value types) — defense-in-depth for the L2-040 contract.
 
 ## 9. Open Questions
 
