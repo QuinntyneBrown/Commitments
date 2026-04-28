@@ -1,12 +1,21 @@
 ---
 id: bug-113
 title: mode-toggle doesn't pin --cui-font-display, relies on body cascade
-status: Open
+status: Fixed
 ---
 
 # Bug 113 — mode-toggle font-family
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added `font-family: var(--cui-font-display, 'Inter')` to the
+`.mode-toggle` root. Propagates to `.mode-toggle__segment`
+labels. Continues the bug-067 / bug-111 / bug-112 pinning
+series.
+
+310/310 workspace tests green.
 
 ## Description
 
