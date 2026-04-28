@@ -1,6 +1,7 @@
 using Identity.Controllers;
 using Identity.Features.Profile;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -13,13 +14,15 @@ public class ProfileControllerTests
 {
     private readonly Mock<ISender> _mockSender;
     private readonly Mock<ILogger<ProfileController>> _mockLogger;
+    private readonly Mock<IHttpContextAccessor> _mockHttpContextAccessor;
     private readonly ProfileController _controller;
 
     public ProfileControllerTests()
     {
         _mockSender = new Mock<ISender>();
         _mockLogger = new Mock<ILogger<ProfileController>>();
-        _controller = new ProfileController(_mockSender.Object, _mockLogger.Object);
+        _mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
+        _controller = new ProfileController(_mockSender.Object, _mockLogger.Object, _mockHttpContextAccessor.Object);
     }
 
     [Fact]
