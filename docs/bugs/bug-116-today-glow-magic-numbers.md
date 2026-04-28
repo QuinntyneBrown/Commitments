@@ -1,12 +1,26 @@
 ---
 id: bug-116
 title: bug-114's todayPointGlow plugin uses magic numbers 7 and 8 instead of named constants
-status: Open
+status: Fixed
 ---
 
 # Bug 116 — todayPointGlow magic numbers
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Hoisted two named constants before the plugin:
+
+- `TODAY_GLOW_RADIUS = 7` (matches dataset `POINT_RADIUS_HIGHLIGHT`)
+- `TODAY_GLOW_BLUR = 8` (design `todayDot.effect.blur`)
+
+Plugin body now reads `ctx.shadowBlur = TODAY_GLOW_BLUR` and
+`ctx.arc(point.x, point.y, TODAY_GLOW_RADIUS, ...)`. Visual
+output is identical; the named constants document intent and
+prevent silent drift if the dataset's highlighted radius later
+changes. The bug-114 spec was loosened to accept a constant
+reference. 313/313 workspace tests green.
 
 ## Description
 
