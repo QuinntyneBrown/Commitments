@@ -1,12 +1,28 @@
 ---
 id: bug-019
 title: Tile shell — eyebrow renders above the title in uppercase/bold; design has it below the title in sentence case
-status: Open
+status: Fixed
 ---
 
 # Bug 019 — Eyebrow position + case wrong on tile shell
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`tile-shell.component.html` now renders `.tile-shell__title-row` first
+inside `.tile-shell__heading`, with the optional `<p
+class="tile-shell__eyebrow">` immediately after. `tile-shell.component.scss`
+drops `text-transform: uppercase` and switches `font-weight` from `700`
+to `400`, with `margin: 2px 0 0` to mirror the design's vertical-frame
+gap of 2.
+
+Coverage:
+- New unit spec `renders the eyebrow after the title-row in DOM order`
+  asserts the rebuilt order via `compareDocumentPosition`.
+- All 10 affected suites pass (42/42 — was 41/41 before this change).
+- Visual case+weight remains a Playwright concern listed in this doc's
+  verification plan.
 
 ## Description
 
