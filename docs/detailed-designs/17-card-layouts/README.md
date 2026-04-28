@@ -1,6 +1,6 @@
 # Card Layouts — Detailed Design
 
-**Status:** Draft
+**Status:** Accepted
 
 **Traces to:** L1-010 · L2-022
 
