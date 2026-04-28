@@ -5,6 +5,7 @@ using Commitments.Domain.BehaviourTypeAggregate;
 using Commitments.Domain.CommitmentAggregate;
 using Commitments.Domain.FrequencyAggregate;
 using Commitments.Domain.FrequencyTypeAggregate;
+using Commitments.Domain.ToDoAggregate;
 using Dashboard.Data;
 using Dashboard.Domain.DashboardAggregate;
 using Dashboard.Domain.DashboardCardAggregate;
@@ -31,6 +32,7 @@ public static class MockCommitmentsDbContextFactory
         mockContext.Setup(c => c.CommitmentFrequencies).Returns(MockDbSetFactory.CreateMockDbSet<CommitmentFrequency>().Object);
         mockContext.Setup(c => c.Frequencies).Returns(MockDbSetFactory.CreateMockDbSet<Frequency>().Object);
         mockContext.Setup(c => c.FrequencyTypes).Returns(MockDbSetFactory.CreateMockDbSet<FrequencyType>().Object);
+        mockContext.Setup(c => c.Todos).Returns(MockDbSetFactory.CreateMockDbSet<ToDo>().Object);
         mockContext.Setup(c => c.SaveChangesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(1);
         return mockContext;
     }

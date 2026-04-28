@@ -16,3 +16,18 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.todo-delta {
+  margin: 10px 0 0;
+  color: var(--cui-text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.todo-delta--success {
+  color: var(--cui-success);
+}
+
+.todo-delta--warn {
+  color: var(--cui-warning);
+}

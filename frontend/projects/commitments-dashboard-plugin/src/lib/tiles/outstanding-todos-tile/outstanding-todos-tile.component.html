@@ -1,4 +1,26 @@
-<commitments-tile-shell title="Outstanding To‑Dos" eyebrow="Queue" icon="checklist" status="4 open">
-  <div class="todo-count">4</div>
+<commitments-tile-shell
+  title="Outstanding To‑Dos"
+  eyebrow="Queue"
+  icon="checklist"
+  variant="metric"
+  data-testid="outstanding-todos-tile"
+>
+  <cui-status-pill
+    [variant]="controller.mode()"
+    [pulse]="controller.mode() === 'live'"
+    [label]="statusLabel()"
+  ></cui-status-pill>
+
+  <div class="todo-count">{{ controller.count() }}</div>
   <p class="todo-copy">items need attention before the next review.</p>
+
+  @if (controller.deltaLabel()) {
+    <p
+      class="todo-delta"
+      [class.todo-delta--success]="controller.deltaTone() === 'success'"
+      [class.todo-delta--warn]="controller.deltaTone() === 'warn'"
+    >
+      {{ controller.deltaLabel() }}
+    </p>
+  }
 </commitments-tile-shell>

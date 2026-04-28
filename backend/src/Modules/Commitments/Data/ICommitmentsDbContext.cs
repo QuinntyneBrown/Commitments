@@ -7,6 +7,7 @@ using Commitments.Domain.BehaviourTypeAggregate;
 using Commitments.Domain.CommitmentAggregate;
 using Commitments.Domain.FrequencyAggregate;
 using Commitments.Domain.FrequencyTypeAggregate;
+using Commitments.Domain.ToDoAggregate;
 using Microsoft.EntityFrameworkCore;
 
 namespace Commitments.Data;
@@ -20,5 +21,6 @@ public interface ICommitmentsDbContext : IDisposable
     DbSet<CommitmentFrequency> CommitmentFrequencies { get; }
     DbSet<Frequency> Frequencies { get; }
     DbSet<FrequencyType> FrequencyTypes { get; }
+    DbSet<ToDo> Todos { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

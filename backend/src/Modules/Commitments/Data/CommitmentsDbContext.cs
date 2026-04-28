@@ -8,6 +8,7 @@ using Commitments.Domain.BehaviourTypeAggregate;
 using Commitments.Domain.CommitmentAggregate;
 using Commitments.Domain.FrequencyAggregate;
 using Commitments.Domain.FrequencyTypeAggregate;
+using Commitments.Domain.ToDoAggregate;
 using Commitments.Shared;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,10 +28,14 @@ public class CommitmentsDbContext : BaseDbContext, ICommitmentsDbContext
     public DbSet<CommitmentFrequency> CommitmentFrequencies { get; private set; }
     public DbSet<Frequency> Frequencies { get; private set; }
     public DbSet<FrequencyType> FrequencyTypes { get; private set; }
+    public DbSet<ToDo> Todos { get; private set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("Commitments");
+
+        modelBuilder.Entity<ToDo>()
+            .HasQueryFilter(e => !e.IsDeleted);
 
         modelBuilder.Entity<Activity>()
             .HasQueryFilter(e => !e.IsDeleted);
