@@ -47,4 +47,18 @@ describe('IconButtonComponent', () => {
       .filter(({ line }) => /var\(--cui-[a-z0-9-]+\)/.test(line));
     expect(offenders).toEqual([]);
   });
+
+  it('migrates read-only @Input setters to input() signals (bug-125)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'icon-button.component.ts'),
+      'utf8'
+    );
+    // pressed remains a writable signal + @Input setter for the 2-way
+    // binding shape; the other three migrate to input().
+    const inputCount = (ts.match(/@Input\b/g) ?? []).length;
+    expect(inputCount).toBe(1);
+    expect(ts).toMatch(/\bicon\s*=\s*input\(/);
+    expect(ts).toMatch(/\bariaLabel\s*=\s*input\(/);
+    expect(ts).toMatch(/\bdisabled\s*=\s*input\(/);
+  });
 });
