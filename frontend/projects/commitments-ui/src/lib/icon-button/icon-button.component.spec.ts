@@ -1,4 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
 import { IconButtonComponent } from './icon-button.component';
 
@@ -32,5 +34,17 @@ describe('IconButtonComponent', () => {
     component.toggle();
 
     expect(component.pressed()).toBe(false);
+  });
+
+  it('every var(--cui-*) reference in SCSS includes a fallback hex (bug-104)', () => {
+    const scss = readFileSync(
+      join(__dirname, 'icon-button.component.scss'),
+      'utf8'
+    );
+    const offenders = scss
+      .split(/\r?\n/)
+      .map((line, i) => ({ n: i + 1, line }))
+      .filter(({ line }) => /var\(--cui-[a-z-]+\)/.test(line));
+    expect(offenders).toEqual([]);
   });
 });
