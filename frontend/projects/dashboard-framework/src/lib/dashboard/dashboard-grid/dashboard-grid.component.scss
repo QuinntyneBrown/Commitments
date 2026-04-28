@@ -20,14 +20,12 @@ gridster {
 
 gridster-item {
   overflow: hidden;
-  padding: 16px;
-  border: 1px solid var(--cui-divider);
-  border-radius: 8px;
-  background: var(--cui-surface-2);
+  background: transparent;
 }
 
 .dashboard-grid--edit-mode gridster-item {
   border: 2px solid var(--cui-accent);
+  border-radius: 8px;
 }
 
 .tile-chrome {
