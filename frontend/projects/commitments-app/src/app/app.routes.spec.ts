@@ -7,6 +7,7 @@ import { routes } from './app.routes';
 import { DashboardLayoutComponent } from './components/dashboard-layout/dashboard-layout.component';
 import { PlaceholderPageComponent } from './components/placeholder-page/placeholder-page.component';
 import { LoginPageComponent } from './pages/login/login-page/login-page.component';
+import { ProfilesPageComponent } from './pages/profiles/profiles-page/profiles-page.component';
 
 describe('app.routes', () => {
   it('maps /login to LoginPageComponent', () => {
@@ -37,7 +38,6 @@ describe('app.routes', () => {
     'card-layouts',
     'frequencies',
     'notes',
-    'profiles',
     'to-dos',
     'my-profile',
     'settings'
@@ -46,5 +46,12 @@ describe('app.routes', () => {
     const child = home?.children?.find((c) => c.path === path);
     expect(child).toBeDefined();
     expect(child!.component).toBe(PlaceholderPageComponent);
+  });
+
+  it('routes /profiles to ProfilesPageComponent (design 02-Profiles Slice B)', () => {
+    const home = routes.find((r) => r.path === '');
+    const child = home?.children?.find((c) => c.path === 'profiles');
+    expect(child).toBeDefined();
+    expect(child!.component).toBe(ProfilesPageComponent);
   });
 });
