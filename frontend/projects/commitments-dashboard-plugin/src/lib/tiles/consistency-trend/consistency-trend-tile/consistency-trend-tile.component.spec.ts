@@ -190,6 +190,18 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(html).not.toMatch(/eyebrow="7-day rolling average · last 14 days"/);
   });
 
+  it('reactively loads on goalId / windowDays input change (bug-123)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend-tile.component.ts'),
+      'utf8'
+    );
+    // controller.load(...) must be inside an effect that reads both
+    // goalId() and windowDays(), so any input change re-loads the trend.
+    expect(ts).toMatch(/effect\(\s*\(\)\s*=>[\s\S]*?goalId\(\)[\s\S]*?windowDays\(\)[\s\S]*?controller\.load/);
+    // The legacy ngOnInit-based load should be gone.
+    expect(ts).not.toMatch(/ngOnInit\(\)\s*:\s*void\s*\{[^}]*controller\.load/);
+  });
+
   it('formats x-axis labels with toLocaleDateString month/day (bug-046)', () => {
     const ts = readFileSync(
       join(__dirname, 'consistency-trend-tile.component.ts'),
