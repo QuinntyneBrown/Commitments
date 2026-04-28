@@ -1,10 +1,28 @@
 ---
 id: bug-139
 title: goal-trend.service mixes inject() with @Optional()/@Inject() constructor decorators
-status: Open
+status: Fixed
 ---
 
 # Bug 139 — goal-trend.service: drop decorator-based DI for `inject()` form
+
+**Status**: Fixed
+
+## Fix
+
+```ts
+import { Injectable, InjectionToken, inject } from '@angular/core';
+...
+export class GoalTrendService {
+  private readonly _client = inject(HttpClient);
+  private readonly _baseUrl = inject(TREND_BASE_URL, { optional: true });
+  ...
+}
+```
+
+`Inject` and `Optional` decorator imports dropped, empty
+constructor removed. Both DI sites now use the `inject()`
+function. 347/347 workspace tests green.
 
 ## Description
 
