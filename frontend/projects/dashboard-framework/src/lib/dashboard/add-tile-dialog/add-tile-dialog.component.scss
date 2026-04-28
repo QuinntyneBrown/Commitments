@@ -8,10 +8,10 @@
   width: 560px;
   max-width: 100%;
   max-height: 90vh;
-  background: var(--cui-surface);
-  color: var(--cui-text-primary);
+  background: var(--cui-surface, #1E1E1E);
+  color: var(--cui-text-primary, #FFFFFF);
   border-radius: var(--cui-radius-md, 8px);
-  border: 1px solid var(--cui-divider);
+  border: 1px solid var(--cui-divider, #3A3A3A);
   box-shadow: 0 24px 48px #000000DD;
   font-family: Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
 }
@@ -34,14 +34,14 @@
   margin: 0;
   font-size: 24px;
   font-weight: 500;
-  color: var(--cui-text-primary);
+  color: var(--cui-text-primary, #FFFFFF);
 }
 
 .add-tile-dialog__subtitle {
   margin: 0;
   font-size: 14px;
   font-weight: 400;
-  color: var(--cui-text-secondary);
+  color: var(--cui-text-secondary, #B0B0B0);
 }
 
 .add-tile-dialog__close {
@@ -53,7 +53,7 @@
   border: none;
   border-radius: 50%;
   background: var(--cui-surface-3, #2C2C2C);
-  color: var(--cui-text-primary);
+  color: var(--cui-text-primary, #FFFFFF);
   cursor: pointer;
 }
 
@@ -63,7 +63,7 @@
 
 .add-tile-dialog__rule {
   border: none;
-  border-top: 1px solid var(--cui-divider);
+  border-top: 1px solid var(--cui-divider, #3A3A3A);
   margin: 0;
 }
 
@@ -86,16 +86,16 @@
   height: 120px;
   padding: 12px;
   border-radius: var(--cui-radius-md, 8px);
-  border: 1px solid var(--cui-divider);
-  background: var(--cui-surface-2);
-  color: var(--cui-text-primary);
+  border: 1px solid var(--cui-divider, #3A3A3A);
+  background: var(--cui-surface-2, #242424);
+  color: var(--cui-text-primary, #FFFFFF);
   font-family: inherit;
   cursor: pointer;
 }
 
 .add-tile-dialog__cell--selected {
-  background: var(--cui-accent);
-  border: 2px solid var(--cui-accent);
+  background: var(--cui-accent, #FF4081);
+  border: 2px solid var(--cui-accent, #FF4081);
   box-shadow: 0 4px 12px #FF408155;
   color: var(--cui-on-accent, #fff);
 }
@@ -107,7 +107,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: var(--cui-primary-dim);
+  background: var(--cui-primary-dim, #3F51B5);
 }
 
 .add-tile-dialog__cell--selected .add-tile-dialog__icon-container {
@@ -116,7 +116,7 @@
 
 .add-tile-dialog__icon {
   font-size: 22px;
-  color: var(--cui-text-primary);
+  color: var(--cui-text-primary, #FFFFFF);
 }
 
 .add-tile-dialog__cell--selected .add-tile-dialog__icon {
@@ -145,7 +145,7 @@
   height: 18px;
   border-radius: 50%;
   background: var(--cui-on-accent, #fff);
-  color: var(--cui-accent);
+  color: var(--cui-accent, #FF4081);
 }
 
 .add-tile-dialog__check .material-symbols-rounded {
@@ -174,11 +174,11 @@
 .add-tile-dialog__btn--basic {
   background: transparent;
   border: none;
-  color: var(--cui-text-secondary);
+  color: var(--cui-text-secondary, #B0B0B0);
 }
 
 .add-tile-dialog__btn--primary {
-  background: var(--cui-primary);
+  background: var(--cui-primary, #9FA8DA);
   color: var(--cui-on-primary, #fff);
   border: none;
 }
