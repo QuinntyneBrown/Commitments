@@ -27,4 +27,10 @@ describe('AddTileDialogComponent (CSS source)', () => {
     expect(scss).not.toMatch(/var\(--cui-on-primary,\s*#fff\)/);
     expect(scss).toMatch(/var\(\s*--cui-on-primary\s*,\s*#1A1B23\s*\)/);
   });
+
+  it('disabled button drops orphan --cui-disabled and corrects --cui-text-disabled fallback (bug-177)', () => {
+    expect(scss).not.toMatch(/var\(\s*--cui-disabled\b/);
+    expect(scss).not.toMatch(/var\(--cui-text-disabled,\s*#888\)/);
+    expect(scss).toMatch(/var\(\s*--cui-text-disabled\s*,\s*#666666\s*\)/);
+  });
 });
