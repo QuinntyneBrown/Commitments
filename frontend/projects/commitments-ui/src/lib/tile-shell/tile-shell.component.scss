@@ -14,7 +14,7 @@
   border-radius: var(--cui-radius-md, 8px);
   color: var(--cui-text-primary, #FFFFFF);
   background: var(--cui-surface-2, #242424);
-  box-shadow: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
 .tile-shell__header {
