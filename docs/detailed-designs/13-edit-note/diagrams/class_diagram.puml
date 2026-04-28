@@ -1,0 +1,28 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+
+title Edit Note - Composition
+
+class EditNotePageComponent {
+    +slug: Signal<String>
+    +note: Signal<Note?>
+    +save(form: NoteForm): void
+}
+
+class NoteResolverService {
+    +resolve(route): Observable<Note>
+}
+
+class QuillTextEditorComponent {
+    +value: InputSignal<String>
+    +textChange: OutputEmitter<String>
+}
+
+class Note
+
+EditNotePageComponent o-- QuillTextEditorComponent
+EditNotePageComponent ..> NoteResolverService
+NoteResolverService ..> Note : returns
+
+@enduml

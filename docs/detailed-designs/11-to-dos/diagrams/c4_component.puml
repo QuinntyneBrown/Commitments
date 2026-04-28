@@ -1,0 +1,38 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title To-Dos - Component Diagram
+
+Person(user, "Signed-in User")
+
+Container_Boundary(spa, "commitments-app") {
+    Component(page, "ToDosPage", "Angular standalone", "AG Grid + FAB + checkbox cell")
+    Component(dlg, "EditToDoDialog", "Angular dialog", "Form")
+    Component(svc, "ToDoService", "Angular service", "REST")
+}
+
+Container_Boundary(api, "Commitments.Api / Commitments module") {
+    Component(ctrl, "ToDoController", "ASP.NET Core", "GET, POST, DELETE, complete (delta)")
+    Component(saveH, "SaveToDoHandler", "MediatR + FV", "Title NotEmpty")
+    Component(remH, "RemoveToDoHandler", "MediatR", "Soft delete")
+    Component(compH, "CompleteToDoHandler", "MediatR", "Idempotent complete")
+    Component(listH, "GetToDosHandler", "MediatR", "Outstanding-first sort")
+    ComponentDb(db, "Commitments DB", "SQL Server", "ToDos (new)")
+}
+
+Rel(user, page, "Opens /to-dos")
+Rel(page, svc, "list / save / delete / complete")
+Rel(page, dlg, "FAB / edit")
+Rel(dlg, svc, "save()")
+Rel(svc, ctrl, "JSON over HTTPS")
+Rel(ctrl, saveH, "Send")
+Rel(ctrl, remH, "Send")
+Rel(ctrl, compH, "Send")
+Rel(ctrl, listH, "Send")
+Rel(saveH, db, "INSERT/UPDATE")
+Rel(remH, db, "UPDATE IsDeleted")
+Rel(compH, db, "UPDATE IsCompleted=true, CompletedOn")
+Rel(listH, db, "SELECT WHERE ProfileId=...")
+
+@enduml

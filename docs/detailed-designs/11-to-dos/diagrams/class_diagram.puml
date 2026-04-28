@@ -1,0 +1,36 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+
+title To-Dos - Domain & DTO
+
+class ToDo {
+    +ToDoId: Guid
+    +ProfileId: Guid
+    +Title: String
+    +Description: String?
+    +DueOn: DateTimeOffset?
+    +IsCompleted: Boolean
+    +CompletedOn: DateTimeOffset?
+    +CreatedOn: DateTime
+    +LastModifiedOn: DateTime
+    +IsDeleted: Boolean
+}
+
+class ToDoDto {
+    +toDoId: Guid
+    +title: String
+    +dueOn: DateTimeOffset?
+    +isCompleted: Boolean
+}
+
+class SaveToDoRequest {
+    +ToDo: ToDoDto
+}
+class CompleteToDoRequest {
+    +ToDoId: Guid
+}
+
+ToDo ..> ToDoDto
+
+@enduml

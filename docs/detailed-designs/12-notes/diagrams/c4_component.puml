@@ -1,0 +1,45 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Notes - Component Diagram
+
+Person(user, "Signed-in User")
+
+Container_Boundary(spa, "commitments-app") {
+    Component(page, "NotesPage", "Angular standalone", "AG Grid + FAB")
+    Component(svc, "NotesService", "Angular service", "REST")
+    Component(router, "Router", "Angular", "/edit-note/:slug")
+}
+
+Container_Boundary(api, "Commitments.Api / Commitments module") {
+    Component(ctrl, "NoteController (NEW)", "ASP.NET Core", "list, slug, save, delete")
+    Component(saveH, "SaveNoteHandler", "MediatR + FV", "Slug + sanitise + event")
+    Component(remH, "RemoveNoteHandler", "MediatR", "Soft delete + event")
+    Component(listH, "GetNotesHandler", "MediatR", "Active profile, desc")
+    Component(slugH, "GetNoteBySlugHandler", "MediatR", "Lookup by slug")
+    ComponentDb(db, "Commitments DB", "SQL Server", "Notes (NEW)")
+    Component(bus, "InMemoryEventBus", "Shared kernel", "Publishes NoteSavedEvent")
+}
+
+Container_Boundary(host, "Commitments.Api host") {
+    Component(notifier, "NoteTagRealtimeNotifier", "HostedService", "Subscribes events, fans out via SignalR")
+}
+
+Rel(user, page, "Opens /notes")
+Rel(page, svc, "getByCurrentUser / save / remove")
+Rel(page, router, "Edit cell -> /edit-note/:slug")
+Rel(svc, ctrl, "JSON over HTTPS")
+Rel(ctrl, saveH, "Send")
+Rel(ctrl, remH, "Send")
+Rel(ctrl, listH, "Send")
+Rel(ctrl, slugH, "Send")
+Rel(saveH, db, "INSERT/UPDATE")
+Rel(remH, db, "UPDATE IsDeleted")
+Rel(listH, db, "SELECT WHERE ProfileId=...")
+Rel(slugH, db, "SELECT WHERE Slug=...")
+Rel(saveH, bus, "Publish NoteSavedEvent")
+Rel(remH, bus, "Publish NoteRemovedEvent")
+Rel(bus, notifier, "Subscriber callback")
+
+@enduml

@@ -1,0 +1,30 @@
+@startuml sequence_list_by_tag
+!theme plain
+skinparam sequenceMessageAlign center
+
+title List notes by tag slug
+
+actor User
+participant "Browser" as B
+participant "TagsResolver" as Res
+participant "NotesByTagPage" as Page
+participant "NotesService" as Svc
+participant "NoteController" as Ctrl
+participant "GetNotesByTagSlug" as H
+database "Commitments DB" as DB
+
+User -> B: Navigate /notes-by-tag/<slug>
+B -> Res: resolve(route)
+Res -> Svc: getByTagSlug({ slug })
+Svc -> Ctrl: GET /api/notes/tag/{slug}
+Ctrl -> H: Send(request)
+H -> H: GetProfileId() from header
+H -> DB: SELECT Notes JOIN NoteTags JOIN Tags\nWHERE Tag.Slug=? AND Tag.ProfileId=? AND Note.ProfileId=?
+DB --> H: rows
+H --> Ctrl: { tag, notes }
+Ctrl --> Svc: 200
+Svc --> Res: { notes }
+Res --> Page: ngOnInit
+Page --> User: Render list
+
+@enduml

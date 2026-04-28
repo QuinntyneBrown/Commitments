@@ -1,0 +1,35 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Tags - Component Diagram
+
+Person(user, "Signed-in User")
+
+Container_Boundary(spa, "commitments-app") {
+    Component(page, "TagsPage", "Angular standalone", "AG Grid + FAB")
+    Component(dlg, "AddTagDialog", "Angular dialog", "Reused in note editor too")
+    Component(svc, "TagsService", "Angular service", "REST")
+}
+
+Container_Boundary(api, "Commitments.Api / Commitments module") {
+    Component(ctrl, "TagController (NEW)", "ASP.NET Core", "list, save, delete")
+    Component(saveH, "SaveTagHandler", "MediatR + FV", "Slug + dedupe + event")
+    Component(remH, "RemoveTagHandler", "MediatR", "Refint via NoteTag")
+    Component(listH, "GetTagsHandler", "MediatR", "Order by name")
+    ComponentDb(db, "Commitments DB", "SQL Server", "Tags (NEW), NoteTags (NEW, see 15)")
+}
+
+Rel(user, page, "Opens /tags")
+Rel(page, svc, "list / save / remove")
+Rel(page, dlg, "FAB")
+Rel(dlg, svc, "save()")
+Rel(svc, ctrl, "JSON over HTTPS")
+Rel(ctrl, saveH, "Send")
+Rel(ctrl, remH, "Send")
+Rel(ctrl, listH, "Send")
+Rel(saveH, db, "INSERT/UPDATE")
+Rel(remH, db, "Refint check, UPDATE IsDeleted")
+Rel(listH, db, "SELECT WHERE ProfileId=...")
+
+@enduml

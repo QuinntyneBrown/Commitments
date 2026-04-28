@@ -1,0 +1,38 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+
+title Cards - Domain & DTO
+
+class Card {
+    +CardId: Guid
+    +ProfileId: Guid
+    +CardLayoutId: Guid
+    +Name: String
+    +Icon: String
+    +IsDeleted: Boolean
+}
+
+class CardLayout {
+    +CardLayoutId: Guid
+    +Name: String
+    +Description: String
+}
+
+class DashboardCard {
+    +DashboardCardId: Guid
+    +DashboardId: Guid
+    +CardId: Guid
+}
+
+class CardDto {
+    +cardId: Guid
+    +name: String
+    +icon: String
+    +cardLayout: CardLayoutDto
+}
+
+Card "*" --> "1" CardLayout
+Card "1" -- "*" DashboardCard
+
+@enduml

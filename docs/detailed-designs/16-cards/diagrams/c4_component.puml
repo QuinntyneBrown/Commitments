@@ -1,0 +1,34 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Cards - Component Diagram
+
+Person(user, "Signed-in User")
+
+Container_Boundary(spa, "commitments-app") {
+    Component(page, "CardsPage", "Angular standalone", "AG Grid + FAB")
+    Component(dlg, "EditCardDialog", "Angular dialog", "Form")
+    Component(svc, "CardService", "Angular service", "REST")
+    Component(layoutSvc, "CardLayoutService", "Angular service", "Loads layout dropdown")
+}
+
+Container_Boundary(api, "Commitments.Api / Dashboard module") {
+    Component(ctrl, "CardController", "ASP.NET Core", "GET / POST / DELETE")
+    Component(saveH, "SaveCardHandler", "MediatR + FV", "Upsert")
+    Component(remH, "RemoveCardHandler", "MediatR", "Refint guard (delta)")
+    ComponentDb(db, "Dashboard DB schema", "SQL Server", "Cards, DashboardCards")
+}
+
+Rel(user, page, "Opens /cards")
+Rel(page, svc, "list / save / remove")
+Rel(page, dlg, "FAB / edit")
+Rel(dlg, layoutSvc, "Load layout dropdown")
+Rel(dlg, svc, "save()")
+Rel(svc, ctrl, "JSON over HTTPS")
+Rel(ctrl, saveH, "Send")
+Rel(ctrl, remH, "Send")
+Rel(saveH, db, "INSERT/UPDATE")
+Rel(remH, db, "Refint check, UPDATE IsDeleted")
+
+@enduml

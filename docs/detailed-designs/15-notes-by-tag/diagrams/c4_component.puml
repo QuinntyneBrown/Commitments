@@ -1,0 +1,34 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Notes by Tag - Component Diagram
+
+Person(user, "Signed-in User")
+
+Container_Boundary(spa, "commitments-app") {
+    Component(page, "NotesByTagPage", "Angular standalone", "List by tag slug")
+    Component(resolver, "tags-resolver.service", "Angular Resolver", "Pre-fetch notes by tag")
+    Component(svc, "NotesService", "Angular service", "REST")
+}
+
+Container_Boundary(api, "Commitments.Api / Commitments module") {
+    Component(ctrl, "NoteController", "ASP.NET Core", "+tag endpoints (delta)")
+    Component(byTagH, "GetNotesByTagSlug", "MediatR", "Join Notes with NoteTags + Tags")
+    Component(addH, "AddTagToNote", "MediatR + FV", "Idempotent insert")
+    Component(remH, "RemoveTagFromNote", "MediatR + FV", "Delete join row")
+    ComponentDb(db, "Commitments DB", "SQL Server", "Notes, Tags, NoteTags (NEW)")
+}
+
+Rel(user, page, "Opens /notes-by-tag/:slug")
+Rel(page, resolver, "Resolves notes")
+Rel(resolver, svc, "getByTagSlug")
+Rel(svc, ctrl, "JSON over HTTPS")
+Rel(ctrl, byTagH, "Send")
+Rel(ctrl, addH, "Send")
+Rel(ctrl, remH, "Send")
+Rel(byTagH, db, "JOIN Notes <-> NoteTags <-> Tags")
+Rel(addH, db, "INSERT NoteTag IF NOT EXISTS")
+Rel(remH, db, "DELETE NoteTag")
+
+@enduml

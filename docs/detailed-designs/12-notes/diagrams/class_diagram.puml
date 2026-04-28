@@ -1,0 +1,32 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+
+title Notes - Domain & DTO
+
+class Note {
+    +NoteId: Guid
+    +ProfileId: Guid
+    +Title: String
+    +Slug: String
+    +Body: String
+    +CreatedOn: DateTime
+    +LastModifiedOn: DateTime
+    +IsDeleted: Boolean
+}
+
+class NoteDto {
+    +noteId: Guid
+    +title: String
+    +slug: String
+    +body: String
+    +lastModifiedOn: DateTime
+}
+
+class SaveNoteRequest
+class RemoveNoteRequest
+class GetNoteBySlugRequest
+
+Note ..> NoteDto
+
+@enduml

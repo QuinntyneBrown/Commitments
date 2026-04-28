@@ -1,0 +1,31 @@
+@startuml sequence_create
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Create a card layout
+
+actor User
+participant "CardLayoutsPage" as Page
+participant "EditCardLayoutDialog" as Dlg
+participant "CardLayoutService" as Svc
+participant "CardLayoutController" as Ctrl
+participant "SaveCardLayoutHandler" as H
+database "Dashboard DB" as DB
+
+User -> Page: Click FAB (+)
+Page -> Dlg: open()
+User -> Dlg: Enter name + description, Save
+Dlg -> Svc: save({ cardLayout })
+Svc -> Ctrl: POST /cardlayout
+Ctrl -> H: Send(request)
+H -> H: Validate (Name + Description NotEmpty)
+H -> DB: INSERT CardLayout
+DB --> H: ok
+H --> Ctrl: { cardLayoutId }
+Ctrl --> Svc: 200
+Svc --> Dlg: id
+Dlg --> Page: close(updatedDto)
+Page -> Page: addOrUpdate row
+Page --> User: Render row
+
+@enduml

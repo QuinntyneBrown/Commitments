@@ -1,0 +1,33 @@
+@startuml sequence_add
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Add Activity (PerformedOn defaults to now)
+
+actor User
+participant "ActivitiesPage" as Page
+participant "EditActivityDialog" as Dlg
+participant "ActivityService" as Svc
+participant "ActivityController" as Ctrl
+participant "SaveActivityHandler" as H
+database "Commitments DB" as DB
+
+User -> Page: Click FAB (+)
+Page -> Dlg: open()
+Dlg -> Dlg: PerformedOn = new Date()
+User -> Dlg: Pick behaviour, Save
+Dlg -> Svc: save({ activity })
+Svc -> Ctrl: POST /activity
+Ctrl -> Ctrl: assign ProfileId = GetProfileId()
+Ctrl -> H: Send(request)
+H -> H: Validate (BehaviourId NotEmpty)
+H -> DB: INSERT Activity
+DB --> H: ok
+H --> Ctrl: { activityId }
+Ctrl --> Svc: 200
+Svc --> Dlg: id
+Dlg --> Page: close(dto)
+Page -> Page: addOrUpdate(row)
+Page --> User: Render row at top
+
+@enduml

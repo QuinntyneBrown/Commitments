@@ -1,0 +1,32 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+
+title Tags - Domain & DTO
+
+class Tag {
+    +TagId: Guid
+    +ProfileId: Guid
+    +Name: String
+    +Slug: String
+    +CreatedOn: DateTime
+    +LastModifiedOn: DateTime
+    +IsDeleted: Boolean
+}
+
+class NoteTag {
+    +NoteId: Guid
+    +TagId: Guid
+}
+
+class TagDto {
+    +tagId: Guid
+    +name: String
+    +slug: String
+    +usageCount: Int
+}
+
+Tag "1" -- "*" NoteTag
+Tag ..> TagDto
+
+@enduml

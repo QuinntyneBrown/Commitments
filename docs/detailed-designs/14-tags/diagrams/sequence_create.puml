@@ -1,0 +1,33 @@
+@startuml sequence_create
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Create a tag
+
+actor User
+participant "TagsPage" as Page
+participant "AddTagDialog" as Dlg
+participant "TagsService" as Svc
+participant "TagController" as Ctrl
+participant "SaveTagHandler" as H
+database "Commitments DB" as DB
+
+User -> Page: Click FAB (+)
+Page -> Dlg: open()
+User -> Dlg: Type name "Weekly", Save
+Dlg -> Svc: save({ tag })
+Svc -> Ctrl: POST /api/tags
+Ctrl -> H: Send(request)
+H -> H: Validate (Name NotEmpty)
+H -> H: Slugify -> "weekly"
+H -> DB: SELECT existing slug, dedupe -> "weekly-2" if needed
+H -> DB: INSERT Tag
+DB --> H: ok
+H --> Ctrl: { tagId, slug }
+Ctrl --> Svc: 200
+Svc --> Dlg: dto
+Dlg --> Page: close(tagDto)
+Page -> Page: addOrUpdate row
+Page --> User: Render row
+
+@enduml

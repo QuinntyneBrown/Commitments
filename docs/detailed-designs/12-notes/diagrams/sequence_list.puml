@@ -1,0 +1,26 @@
+@startuml sequence_list
+!theme plain
+skinparam sequenceMessageAlign center
+
+title List notes for current profile
+
+actor User
+participant "NotesPage" as Page
+participant "NotesService" as Svc
+participant "NoteController" as Ctrl
+participant "GetNotesHandler" as H
+database "Commitments DB" as DB
+
+User -> Page: Open /notes
+Page -> Svc: getByCurrentUser()
+Svc -> Ctrl: GET /api/notes/currentuser
+Ctrl -> H: Send(request)
+H -> H: GetProfileId() from header
+H -> DB: SELECT * FROM Notes WHERE ProfileId=? AND IsDeleted=0\nORDER BY LastModifiedOn DESC
+DB --> H: rows
+H --> Ctrl: { notes: NoteDto[] }
+Ctrl --> Svc: 200
+Svc --> Page: { notes }
+Page --> User: Render rows
+
+@enduml

@@ -1,0 +1,38 @@
+@startuml sequence_edit
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Open by slug, edit, save
+
+actor User
+participant "Browser" as B
+participant "NoteResolver" as Res
+participant "EditNotePage" as Page
+participant "Quill" as Q
+participant "NotesService" as Svc
+participant "NoteController" as Ctrl
+participant "SaveNoteHandler" as H
+database "Commitments DB" as DB
+
+User -> B: Navigate /edit-note/<slug>
+B -> Res: resolve(route)
+Res -> Svc: getBySlug({ slug })
+Svc -> Ctrl: GET /api/notes/slug/{slug}
+Ctrl --> Svc: 200 { note }
+Svc --> Res: note
+Res --> Page: ngOnInit (resolved data)
+Page -> Q: bind value=body
+User -> Q: Edit content
+User -> Page: Save
+Page -> Svc: save({ note })
+Svc -> Ctrl: POST /api/notes
+Ctrl -> H: Send(request)
+H -> H: Sanitise body (strip script/on*)
+H -> DB: INSERT/UPDATE Note
+DB --> H: ok
+H --> Ctrl: { noteId, slug }
+Ctrl --> Svc: 200
+Svc --> Page: ok
+Page -> B: navigate /edit-note/<slug>
+
+@enduml

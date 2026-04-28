@@ -1,0 +1,36 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+
+title Notes by Tag - Domain & DTO
+
+class Note {
+    +NoteId: Guid
+    +ProfileId: Guid
+    +Title: String
+    +Slug: String
+}
+
+class Tag {
+    +TagId: Guid
+    +ProfileId: Guid
+    +Name: String
+    +Slug: String
+}
+
+class NoteTag {
+    +NoteId: Guid
+    +TagId: Guid
+    +CreatedOn: DateTime
+}
+
+class NotesByTagResponse {
+    +tag: TagDto
+    +notes: NoteDto[]
+}
+
+Note "1" -- "*" NoteTag
+Tag "1" -- "*" NoteTag
+NoteTag ..> NotesByTagResponse
+
+@enduml

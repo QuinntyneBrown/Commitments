@@ -1,0 +1,29 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+
+title Card Layouts - Domain & DTO
+
+class CardLayout {
+    +CardLayoutId: Guid
+    +ProfileId: Guid
+    +Name: String
+    +Description: String
+    +CreatedOn: DateTime
+    +IsDeleted: Boolean
+}
+
+class Card {
+    +CardId: Guid
+    +CardLayoutId: Guid
+}
+
+class CardLayoutDto {
+    +cardLayoutId: Guid
+    +name: String
+    +description: String
+}
+
+CardLayout "1" -- "*" Card
+
+@enduml

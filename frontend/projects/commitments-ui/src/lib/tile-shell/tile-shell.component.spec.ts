@@ -62,16 +62,27 @@ describe('TileShellComponent', () => {
       return fixture.nativeElement as HTMLElement;
     }
 
-    it('renders the eyebrow after the title-row in DOM order', () => {
+    it('renders the eyebrow after the title in DOM order', () => {
       const root = render();
-      const titleRow = root.querySelector('.tile-shell__title-row')!;
+      const title = root.querySelector('.tile-shell__title')!;
       const eyebrow = root.querySelector('.tile-shell__eyebrow')!;
 
-      expect(titleRow).toBeTruthy();
+      expect(title).toBeTruthy();
       expect(eyebrow).toBeTruthy();
 
-      const order = titleRow.compareDocumentPosition(eyebrow);
+      const order = title.compareDocumentPosition(eyebrow);
       expect(order & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    });
+
+    it('renders the icon as a sibling of .tile-shell__heading, not inside the title group (bug-075)', () => {
+      const root = render();
+      const icon = root.querySelector('.tile-shell__icon')!;
+      const heading = root.querySelector('.tile-shell__heading')!;
+
+      expect(icon).toBeTruthy();
+      expect(heading).toBeTruthy();
+      expect(heading.contains(icon)).toBe(false);
+      expect(icon.parentElement).toBe(heading.parentElement);
     });
   });
 
@@ -142,15 +153,16 @@ describe('TileShellComponent', () => {
       expect(block).toMatch(/height\s*:\s*var\(\s*--cui-tile-icon-size/);
     });
 
-    it('title-row gap consumes the per-tile custom property (bug-050)', () => {
-      const block = ruleBlock('\\.tile-shell__title-row');
-      expect(block).toMatch(/gap\s*:\s*var\(\s*--cui-tile-header-gap/);
-    });
-
     it('outer header gap also consumes the per-tile custom property (bug-064)', () => {
       const block = ruleBlock('\\.tile-shell__header');
       expect(block).toMatch(/gap\s*:\s*var\(\s*--cui-tile-header-gap/);
       expect(block).not.toMatch(/gap\s*:\s*12px\b/);
+    });
+
+    it('header centers icon vertically against the heading group (bug-075)', () => {
+      const block = ruleBlock('\\.tile-shell__header');
+      expect(block).toMatch(/align-items\s*:\s*center\b/);
+      expect(block).not.toMatch(/align-items\s*:\s*flex-start\b/);
     });
   });
 });

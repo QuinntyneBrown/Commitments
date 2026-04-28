@@ -1,0 +1,31 @@
+@startuml sequence_complete
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Complete a to-do
+
+actor User
+participant "ToDosPage" as Page
+participant "ToDoService" as Svc
+participant "ToDoController" as Ctrl
+participant "CompleteToDoHandler" as H
+database "Commitments DB" as DB
+
+User -> Page: Tick checkbox on row R
+Page -> Svc: complete({ toDoId: R.id })
+Svc -> Ctrl: POST /todos/{id}/complete
+Ctrl -> H: Send(request)
+H -> DB: SELECT ToDo WHERE Id = R.id AND ProfileId = active
+alt already completed
+    H --> Ctrl: 200 (no-op)
+else outstanding
+    H -> DB: UPDATE SET IsCompleted=true, CompletedOn=UtcNow
+    DB --> H: ok
+    H --> Ctrl: 200
+end
+Ctrl --> Svc: 200
+Svc --> Page: ok
+Page -> Page: Mutate row.IsCompleted in place
+Page --> User: Render row in completed visual state
+
+@enduml
