@@ -1,12 +1,29 @@
 ---
 id: bug-037
 title: Weekly Focus — `.focus-list strong` doesn't pin font-size/font-weight; design specifies 14px / 700
-status: Open
+status: Fixed
 ---
 
 # Bug 037 — Weekly Focus row name typography drifts on browser defaults
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`.focus-list strong` in `weekly-focus-tile.component.scss` now
+explicitly declares `font-size: 14px` and `font-weight: 700`,
+keeping it independent of the `<strong>` browser default and
+the Material card-content inheritance chain.
+
+`font-family` is left to the cascade — every other rule in the
+file does the same, so adding `font-family: Inter` only on this
+selector would be inconsistent.
+
+Coverage:
+- New spec `pins focus name typography to 14px / 700` in
+  `weekly-focus-tile.component.spec.ts` reads the SCSS source and
+  asserts both declarations.
+- All 20 affected suites pass (98/98 — was 97/97 before).
 
 ## Description
 
