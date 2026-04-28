@@ -9,6 +9,7 @@ import { PlaceholderPageComponent } from './components/placeholder-page/placehol
 import { LoginPageComponent } from './pages/login/login-page/login-page.component';
 import { BehaviourTypesPageComponent } from './pages/behaviour-types/behaviour-types-page/behaviour-types-page.component';
 import { BehavioursPageComponent } from './pages/behaviours/behaviours-page/behaviours-page.component';
+import { CommitmentsPageComponent } from './pages/commitments/commitments-page/commitments-page.component';
 import { EditFrequencyPageComponent } from './pages/edit-frequency/edit-frequency-page/edit-frequency-page.component';
 import { FrequenciesPageComponent } from './pages/frequencies/frequencies-page/frequencies-page.component';
 import { MyProfilePageComponent } from './pages/my-profile/my-profile-page/my-profile-page.component';
@@ -37,7 +38,6 @@ describe('app.routes', () => {
 
   it.each([
     'activities',
-    'commitments',
     'cards',
     'card-layouts',
     'notes',
@@ -103,5 +103,12 @@ describe('app.routes', () => {
     const child = home?.children?.find((c) => c.path === 'edit-frequency/:frequencyId');
     expect(child).toBeDefined();
     expect(child!.component).toBe(EditFrequencyPageComponent);
+  });
+
+  it('routes /commitments to CommitmentsPageComponent (design 09-Commitments Slice A)', () => {
+    const home = routes.find((r) => r.path === '');
+    const child = home?.children?.find((c) => c.path === 'commitments');
+    expect(child).toBeDefined();
+    expect(child!.component).toBe(CommitmentsPageComponent);
   });
 });
