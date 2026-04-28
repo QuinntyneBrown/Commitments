@@ -28,6 +28,14 @@ export class GoalMetricsController {
     return t > 0 ? Math.round((this.count() / t) * 100) : 0;
   });
 
+  private readonly _reviewDelta = computed<number | null>(() => {
+    if (this.mode() !== 'review') return null;
+    const c = this.current();
+    const today = this.today();
+    if (!c || !today) return null;
+    return c.count - today.count;
+  });
+
   readonly deltaLabel = computed<string | null>(() => {
     const delta = this._reviewDelta();
     if (delta === null) return null;
@@ -77,13 +85,5 @@ export class GoalMetricsController {
     const c = this.current();
     if (!c) return;
     this.current.set({ ...c, count: evt.count, asOf: evt.asOf });
-  }
-
-  private _reviewDelta(): number | null {
-    if (this.mode() !== 'review') return null;
-    const c = this.current();
-    const today = this.today();
-    if (!c || !today) return null;
-    return c.count - today.count;
   }
 }
