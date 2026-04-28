@@ -216,6 +216,16 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(ts).toMatch(/plotRef\s*=\s*viewChild\b/);
   });
 
+  it('fallback mode/date use computed(), not signal().asReadonly() (bug-133)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend-tile.component.ts'),
+      'utf8'
+    );
+    expect(ts).not.toMatch(/signal[^;]*\.asReadonly\(\)/);
+    expect(ts).toMatch(/_fallbackMode\s*=\s*computed</);
+    expect(ts).toMatch(/_fallbackDate\s*=\s*computed</);
+  });
+
   it('formats x-axis labels with toLocaleDateString month/day (bug-046)', () => {
     const ts = readFileSync(
       join(__dirname, 'consistency-trend-tile.component.ts'),
