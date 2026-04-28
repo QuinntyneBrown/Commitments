@@ -19,7 +19,6 @@ function makeContext(overrides?: Partial<TileContext>): TileContext {
     remove: () => {},
     maximize: () => {},
     restore: () => {},
-    requestFocus: () => {},
     ...overrides
   };
 }

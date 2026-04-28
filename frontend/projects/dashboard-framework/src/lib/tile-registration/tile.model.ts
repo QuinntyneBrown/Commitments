@@ -44,5 +44,4 @@ export interface TileContext {
   remove(): void;
   maximize(): void;
   restore(): void;
-  requestFocus(): void;
 }

@@ -75,8 +75,7 @@ export class DashboardGridComponent {
       restore: () => {
         maximizedSignal.set(false);
         this.layoutStore.updateItem(item.instanceId, { maximized: false });
-      },
-      requestFocus: () => undefined
+      }
     };
 
     const injector = Injector.create({
