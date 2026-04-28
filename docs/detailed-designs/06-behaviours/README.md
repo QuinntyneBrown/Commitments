@@ -1,6 +1,6 @@
 # Behaviours — Detailed Design
 
-**Status:** Accepted
+**Status:** Implemented
 
 **Traces to:** L1-003 · L2-005
 
@@ -52,9 +52,14 @@ The Behaviours page (`pages/behaviours`, route `/behaviours`) lists all behaviou
 
 ## 8. ATDD Slices
 
-1. **Slice A — route wiring + list spec.** Spec: list shows correct columns; FAB opens dialog; saving adds a row.
-2. **Slice B — slug regen.** Spec: changing name from "Drink Water" to "Sleep 8 hours" updates `slug` to `sleep-8-hours` regardless of client value.
-3. **Slice C — refint on delete.** Spec: a behaviour referenced by a commitment cannot be deleted.
+1. **Slice A — route wiring + list spec.** Spec: list shows correct columns; FAB opens dialog; saving adds a row. **Status: Implemented.**
+2. **Slice B — slug regen.** Spec: changing name from "Drink Water" to "Sleep 8 hours" updates `slug` to `sleep-8-hours` regardless of client value. **Status: Implemented** — `SaveBehaviourCommandHandler` already calls `request.Behaviour.Name.GenerateSlug()`; the regression test pinned the contract.
+3. **Slice C — refint on delete.** Spec: a behaviour referenced by a commitment cannot be deleted. **Status: Implemented.**
+
+## 10. Implementation Notes
+
+- Slice C reuses the same four-line guard pattern as design 05's `RemoveBehaviourType`: count referencing rows + `throw new BadHttpRequestException(message, 400)`.
+- Slice B was already in place; the new test is a regression guard so a future refactor cannot accidentally pass through a client-supplied slug.
 
 ## 9. Open Questions
 
