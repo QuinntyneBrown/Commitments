@@ -1,12 +1,51 @@
 ---
 id: bug-055
 title: Consistency Trend passes a wrong-derived `[delta]` plus the full API deltaLabel as `[caption]`, so the badge displays two different deltas back-to-back
-status: Open
+status: Fixed
 ---
 
 # Bug 055 — Consistency Trend delta-badge wiring duplicates the delta number
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`consistency-trend.controller.ts` adds two computed signals that
+derive both badge inputs from the single source of truth
+(`deltaLabel`):
+
+```ts
+readonly deltaPercentage = computed(() => {
+  const match = this.deltaLabel().match(/-?\d+/);
+  return match ? Number(match[0]) : 0;
+});
+
+readonly deltaCaption = computed(() => {
+  const idx = this.deltaLabel().indexOf('%');
+  return idx >= 0 ? this.deltaLabel().slice(idx + 1).trim() : '';
+});
+```
+
+`consistency-trend-tile.component.html` now binds:
+
+```html
+<cui-delta-badge
+  [delta]="controller.deltaPercentage()"
+  format="percent"
+  [caption]="controller.deltaCaption()">
+</cui-delta-badge>
+```
+
+The badge renders a single delta number with its descriptive
+suffix — `+12% vs prior 14d` — matching the .pen ctDelta.
+
+Coverage:
+- 4 controller specs: `deltaPercentage()` for positive, negative,
+  and zero, plus `deltaCaption()` for the `'vs prior 14d'` suffix.
+- 1 template-source spec: bindings reference the new computed
+  signals, no longer the `currentPercentage - lowPercentage`
+  expression.
+- All 20 affected suites pass (135/135 — was 130/130 before).
 
 ## Description
 
