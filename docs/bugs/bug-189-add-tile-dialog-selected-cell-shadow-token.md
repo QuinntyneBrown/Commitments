@@ -1,10 +1,21 @@
 ---
 id: bug-189
 title: add-tile-dialog selected-cell box-shadow uses literal #FF408155 instead of color-mix on --cui-accent
-status: Open
+status: Fixed
 ---
 
 # Bug 189 — Selected-cell shadow should use `color-mix()` on `--cui-accent`
+
+**Status**: Fixed
+
+## Fix
+
+```scss
+- box-shadow: 0 4px 12px #FF408155;
++ box-shadow: 0 4px 12px color-mix(in srgb, var(--cui-accent, #FF4081) 33%, transparent);
+```
+
+389/389 workspace tests green.
 
 ## Description
 

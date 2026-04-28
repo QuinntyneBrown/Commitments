@@ -96,7 +96,7 @@
 .add-tile-dialog__cell--selected {
   background: var(--cui-accent, #FF4081);
   border: 2px solid var(--cui-accent, #FF4081);
-  box-shadow: 0 4px 12px #FF408155;
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--cui-accent, #FF4081) 33%, transparent);
   color: var(--cui-on-accent, #FFFFFF);
 }
 
