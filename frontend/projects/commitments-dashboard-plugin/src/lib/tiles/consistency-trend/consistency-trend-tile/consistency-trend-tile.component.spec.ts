@@ -170,6 +170,21 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(ts).toMatch(/isHighlighted\b/);
   });
 
+  it('extracts chart config building to a private method (bug-119)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend-tile.component.ts'),
+      'utf8'
+    );
+    // ngAfterViewInit body should be brief — most of the chart-config
+    // glue moves into `_buildChartConfig`.
+    const ngAfterViewInitMatch = ts.match(/ngAfterViewInit\(\)\s*:\s*void\s*\{([\s\S]*?)\n  \}/);
+    expect(ngAfterViewInitMatch).toBeTruthy();
+    const body = ngAfterViewInitMatch![1];
+    const lineCount = body.split('\n').filter(l => l.trim().length > 0).length;
+    expect(lineCount).toBeLessThanOrEqual(2);
+    expect(ts).toMatch(/_buildChartConfig\b/);
+  });
+
   it('formats x-axis labels with toLocaleDateString month/day (bug-046)', () => {
     const ts = readFileSync(
       join(__dirname, 'consistency-trend-tile.component.ts'),
