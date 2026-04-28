@@ -11,8 +11,8 @@ html {
   font-family: Inter, Roboto, 'Helvetica Neue', sans-serif;
   height: 100%;
   width: 100%;
-  background-color: var(--cui-bg);
-  color: var(--cui-text-primary);
+  background-color: var(--cui-bg, #121212);
+  color: var(--cui-text-primary, #FFFFFF);
 }
 
 // AG Grid styles - updated for AG Grid 32
