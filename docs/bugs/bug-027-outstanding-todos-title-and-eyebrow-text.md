@@ -1,12 +1,24 @@
 ---
 id: bug-027
 title: Outstanding To-Dos — title and eyebrow strings differ from the design
-status: Open
+status: Fixed
 ---
 
 # Bug 027 — Outstanding To-Dos title + eyebrow text drift
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`outstanding-todos-tile.component.html`:
+- `title="Outstanding To‑Dos"` (U+2011 non-breaking hyphen)
+  → `title="Outstanding Todos"`
+- `eyebrow="Queue"` → `eyebrow="Tasks"`
+
+Coverage:
+- New spec asserts both literals are present and the U+2011 hyphen
+  is absent from the template (regression guard).
+- All 17 affected suites pass (72/72 — was 71/71 before).
 
 ## Description
 
