@@ -1,12 +1,38 @@
 ---
 id: bug-026
 title: Outstanding To-Dos — count and copy stack vertically; design lays them out horizontally
-status: Open
+status: Fixed
 ---
 
 # Bug 026 — Outstanding To-Dos body layout is vertical, design is horizontal
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`outstanding-todos-tile.component.html` wraps `.todo-count` and
+`.todo-copy` in a `<div class="todo-body">` parent, and
+`outstanding-todos-tile.component.scss` adds:
+
+```scss
+.todo-body {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+```
+
+`.todo-count` becomes `flex: 0 0 auto` and `.todo-copy` becomes
+`flex: 1 1 auto` (with its old top margin and `max-width` dropped
+since the flex row now handles width). Visually the count sits on
+the left, the copy stretches to the right, both vertically centered
+— matching the .pen `otBody` frame.
+
+Coverage:
+- New `outstanding-todos-tile.component.spec.ts` reads the template
+  and SCSS and asserts the wrapper exists with `display: flex` +
+  `align-items: center`.
+- All 17 affected suites pass (71/71 — was 61/61 before).
 
 ## Description
 
