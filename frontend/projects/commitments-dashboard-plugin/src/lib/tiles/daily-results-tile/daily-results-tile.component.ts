@@ -36,6 +36,9 @@ export class DailyResultsTileComponent {
 
   protected readonly controller = inject(DailyResultsController);
   protected readonly statusLabel = computed(() => this.controller.mode().toUpperCase());
+  protected readonly pillVariant = computed<'success' | 'review'>(() =>
+    this.controller.mode() === 'review' ? 'review' : 'success'
+  );
 
   constructor() {
     const context = inject(TILE_CONTEXT, { optional: true }) as TileContext | null;

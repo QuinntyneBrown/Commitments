@@ -46,6 +46,11 @@
   background: color-mix(in srgb, var(--cui-info, #42A5F5) 14%, transparent);
 }
 
+.status-pill--success {
+  color: var(--cui-success, #66BB6A);
+  background: color-mix(in srgb, var(--cui-success, #66BB6A) 14%, transparent);
+}
+
 @keyframes status-pill-pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.5; transform: scale(1.4); }

@@ -7,8 +7,8 @@
 >
   <cui-status-pill
     tile-status
-    [variant]="controller.mode()"
-    [pulse]="controller.mode() === 'live'"
+    [variant]="pillVariant()"
+    [pulse]="pillVariant() === 'success'"
     [label]="statusLabel()"
   ></cui-status-pill>
 

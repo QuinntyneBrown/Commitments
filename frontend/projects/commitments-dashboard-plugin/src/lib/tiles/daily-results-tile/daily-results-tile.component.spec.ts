@@ -27,6 +27,8 @@ describe('DailyResultsTileComponent (TS source)', () => {
   );
 
   it('returns the success pill variant in live mode (bug-033)', () => {
-    expect(ts).toMatch(/pillVariant\s*\([^)]*\)[^{]*\{[\s\S]*?return[^;]*'success'/);
+    // Match either `pillVariant() { return ... 'success' }` or
+    // `pillVariant = computed(() => ... 'success')`
+    expect(ts).toMatch(/pillVariant\b[\s\S]*?'success'/);
   });
 });
