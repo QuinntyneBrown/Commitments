@@ -14,4 +14,10 @@ describe('DashboardGridComponent (CSS source)', () => {
       .filter(({ line }) => /var\(--cui-[a-z0-9-]+\)/.test(line));
     expect(offenders).toEqual([]);
   });
+
+  it('edit-mode border-radius uses --cui-radius-md token (bug-184)', () => {
+    const block = scss.match(/\.dashboard-grid--edit-mode gridster-item\s*\{([^}]*)\}/);
+    expect(block).not.toBeNull();
+    expect(block![1]).toMatch(/border-radius\s*:\s*var\(\s*--cui-radius-md/);
+  });
 });
