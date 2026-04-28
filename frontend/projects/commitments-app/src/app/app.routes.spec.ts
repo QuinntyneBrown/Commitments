@@ -210,4 +210,22 @@ describe('app.routes', () => {
       expect(existsSync(file)).toBe(false);
     }
   });
+
+  it('orphaned dashboard cluster (services, dialogs, models) is gone (bug-149)', () => {
+    const { existsSync } = require('fs');
+    const { join } = require('path');
+    const dead = [
+      'services/dashboard.service.ts',
+      'services/dashboard-card.service.ts',
+      'services/add-dashboard-cards-dialog.service.ts',
+      'services/dashboard-card-configuration-dialog.service.ts',
+      'components/add-dashboard-cards-dialog/add-dashboard-cards-dialog.component.ts',
+      'components/dashboard-card-configuration-dialog/dashboard-card-configuration-dialog.component.ts',
+      'models/dashboard.ts',
+      'models/dashboard-card.ts'
+    ];
+    for (const rel of dead) {
+      expect(existsSync(join(__dirname, rel))).toBe(false);
+    }
+  });
 });
