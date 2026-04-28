@@ -9,6 +9,7 @@ import { PlaceholderPageComponent } from './components/placeholder-page/placehol
 import { LoginPageComponent } from './pages/login/login-page/login-page.component';
 import { MyProfilePageComponent } from './pages/my-profile/my-profile-page/my-profile-page.component';
 import { ProfilesPageComponent } from './pages/profiles/profiles-page/profiles-page.component';
+import { SettingsPageComponent } from './pages/settings/settings-page/settings-page.component';
 
 const placeholderPaths = [
   'activities',
@@ -19,8 +20,7 @@ const placeholderPaths = [
   'card-layouts',
   'frequencies',
   'notes',
-  'to-dos',
-  'settings'
+  'to-dos'
 ];
 
 export const routes: Routes = [
@@ -32,6 +32,7 @@ export const routes: Routes = [
       { path: '', component: DashboardShellComponent },
       { path: 'profiles', component: ProfilesPageComponent },
       { path: 'my-profile', component: MyProfilePageComponent },
+      { path: 'settings', component: SettingsPageComponent },
       ...placeholderPaths.map(path => ({ path, component: PlaceholderPageComponent }))
     ]
   }

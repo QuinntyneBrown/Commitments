@@ -4,7 +4,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
-import { accessTokenKey, baseUrl } from './constants';
+import { accessTokenKey, baseUrl, currentProfileIdKey } from './constants';
 import { HubClient } from './hub-client';
 import { LocalStorageService } from './local-storage.service';
 
@@ -18,6 +18,7 @@ export class AuthService {
   public logout() {
     this._hubClient.disconnect();
     this._localStorageService.put({ name: accessTokenKey, value: null });
+    this._localStorageService.put({ name: currentProfileIdKey, value: null });
   }
 
   public tryToLogin(options: { username: string; password: string }) {
