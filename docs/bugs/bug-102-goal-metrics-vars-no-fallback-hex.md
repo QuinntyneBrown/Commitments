@@ -1,12 +1,28 @@
 ---
 id: bug-102
 title: goal-metrics-tile.component.scss var() calls omit the design-system fallback hex
-status: Open
+status: Fixed
 ---
 
 # Bug 102 — goal-metrics var() fallback hex
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added the design-system hex fallback to six `var()` references
+in `goal-metrics-tile.component.scss`:
+
+- `var(--cui-text-primary, #FFFFFF)` (count)
+- `var(--cui-text-secondary, #B0B0B0)` (separator/target/percent/delta default)
+- `var(--cui-success, #66BB6A)` (delta--success)
+- `var(--cui-warning, #FFA726)` (delta--warn)
+
+Final tile in the bug-096 series. **Every dashboard-plugin tile
+SCSS now follows the cui-ui fallback convention** — daily-results,
+outstanding-todos, monthly-progress, relations, weekly-focus,
+consistency-trend, and goal-metrics. Each tile spec has a
+forward-only regex guard. 299/299 workspace tests green.
 
 ## Description
 
