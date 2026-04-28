@@ -1,10 +1,20 @@
 ---
 id: bug-163
 title: Remove 6 dead form-related UI components from @commitments/ui
-status: Open
+status: Fixed
 ---
 
 # Bug 163 — Drop dead form/feedback UI components (button, chip, text-input, radio-group, snackbar, dialog-shell)
+
+**Status**: Fixed
+
+## Fix
+
+18 component files deleted (6 dirs × .ts/.html/.scss). 6 export
+lines removed from `public-api.ts`. 417 lines net. 365/365
+workspace tests green. Six dead UI components remain
+(app-shell, dashboard-tile, sidenav, sidenav-item, toolbar,
+table-row) for follow-up bugs.
 
 ## Description
 
