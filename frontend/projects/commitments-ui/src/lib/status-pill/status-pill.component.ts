@@ -18,4 +18,5 @@ export class StatusPillComponent {
   readonly variant = input<StatusPillVariant>('neutral');
   readonly pulse = input(false);
   readonly label = input('');
+  readonly dot = input(true);
 }

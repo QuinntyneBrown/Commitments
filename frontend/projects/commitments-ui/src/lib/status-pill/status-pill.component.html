@@ -1,6 +1,8 @@
 <mat-chip-set class="status-pill-set" aria-label="Status">
   <mat-chip [class]="'status-pill status-pill--' + variant()">
-    <span class="status-pill__dot" [class.status-pill__dot--pulse]="pulse()"></span>
+    @if (dot()) {
+      <span class="status-pill__dot" [class.status-pill__dot--pulse]="pulse()"></span>
+    }
     <span class="status-pill__label">{{ label() }}</span>
   </mat-chip>
 </mat-chip-set>
