@@ -1,6 +1,13 @@
 <div class="metric-header mat-typography" [class]="'metric-header metric-header--' + accent()">
   <span class="metric-header__value">{{ value() }}</span>
-  @if (caption()) {
-    <span class="metric-header__caption">{{ caption() }}</span>
+  @if (caption() || subCaption()) {
+    <div class="metric-header__captions">
+      @if (caption()) {
+        <span class="metric-header__caption">{{ caption() }}</span>
+      }
+      @if (subCaption()) {
+        <span class="metric-header__sub-caption">{{ subCaption() }}</span>
+      }
+    </div>
   }
 </div>

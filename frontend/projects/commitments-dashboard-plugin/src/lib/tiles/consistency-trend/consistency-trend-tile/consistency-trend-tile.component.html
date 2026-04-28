@@ -5,8 +5,9 @@
   <div class="trend-row">
     <cui-metric-header
       accent="chart"
+      caption="today"
       [value]="controller.currentPercentage() + '%'"
-      [caption]="'Peak ' + controller.peakPercentage() + '% / Low ' + controller.lowPercentage() + '%'">
+      [subCaption]="'Peak ' + controller.peakPercentage() + '% / Low ' + controller.lowPercentage() + '%'">
     </cui-metric-header>
 
     <cui-delta-badge

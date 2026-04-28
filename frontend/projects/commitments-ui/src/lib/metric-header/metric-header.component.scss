@@ -1,6 +1,7 @@
 .metric-header {
-  display: grid;
-  gap: 4px;
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
 }
 
 .metric-header__value {
@@ -11,9 +12,21 @@
   letter-spacing: 0;
 }
 
+.metric-header__captions {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: 4px;
+}
+
 .metric-header__caption {
   color: var(--cui-text-secondary, #B0B0B0);
-  font-size: 13px;
+  font-size: 11px;
+}
+
+.metric-header__sub-caption {
+  color: #666666;
+  font-size: 11px;
 }
 
 .metric-header--live .metric-header__value {

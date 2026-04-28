@@ -17,5 +17,6 @@ export type MetricHeaderAccent = DashboardMode | 'chart';
 export class MetricHeaderComponent {
   readonly value = input('');
   readonly caption = input('');
+  readonly subCaption = input('');
   readonly accent = input<MetricHeaderAccent>('chart');
 }
