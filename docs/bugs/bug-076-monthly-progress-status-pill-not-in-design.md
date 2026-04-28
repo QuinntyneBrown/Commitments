@@ -1,12 +1,25 @@
 ---
 id: bug-076
 title: Monthly Progress tile renders a status pill that the design and README explicitly forbid
-status: Open
+status: Fixed
 ---
 
 # Bug 076 — Monthly Progress tile shouldn't have a status pill
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Dropped the projected `<cui-status-pill>` from the template and
+removed the now-unused `StatusPillComponent` import plus the
+`statusLabel` computed from the component class. `bindTileMode`
+still wires the controller to the dashboard's mode/asOf signals
+— mode is just no longer surfaced in the header.
+
+The bug-057-style "projects pill" spec was inverted to the
+bug-076 form (`<cui-status-pill` must NOT appear). All 15
+monthly-progress specs and the full 260-test workspace suite are
+green.
 
 ## Description
 
