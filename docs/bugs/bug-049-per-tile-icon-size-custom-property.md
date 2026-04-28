@@ -1,12 +1,37 @@
 ---
 id: bug-049
 title: Tile-shell icon hard-codes 20×20; consistency-trend design specifies 22×22
-status: Open
+status: Fixed
 ---
 
 # Bug 049 — Tile-shell icon size is fixed at 20px instead of per-tile-design
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`tile-shell.component.scss`:
+- `.tile-shell__icon` `font-size`, `line-height`, `width`, `height`
+  consume `var(--cui-tile-icon-size, 20px)`.
+
+`consistency-trend-tile.component.scss`:
+- `:host` declares `--cui-tile-icon-size: 22px`.
+
+Other five tiles inherit the 20px default (no override needed).
+
+Three related per-tile customization slots now exist on the
+tile-shell:
+- `--cui-tile-body-gap` (bug-041)
+- `--cui-tile-icon-color` (bug-048)
+- `--cui-tile-icon-size` (bug-049)
+
+Coverage:
+- `tile-shell.component.spec.ts` asserts `.tile-shell__icon`
+  consumes `var(--cui-tile-icon-size)` for font-size, width, and
+  height.
+- `consistency-trend-tile.component.spec.ts` asserts `:host`
+  declares `--cui-tile-icon-size: 22px`.
+- All 20 affected suites pass (121/121 — was 119/119 before).
 
 ## Description
 
