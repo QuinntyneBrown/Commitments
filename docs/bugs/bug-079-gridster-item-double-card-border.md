@@ -1,12 +1,35 @@
 ---
-id: bug-077
+id: bug-079
 title: Dashboard tiles render with a double outer border because gridster-item is styled as a card
-status: Open
+status: Fixed
 ---
 
-# Bug 077 — Dashboard tiles have a double outer border
+# Bug 079 — Dashboard tiles have a double outer border
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`dashboard-grid.component.scss` no longer paints the `gridster-item`
+host as a card. The default rule is reduced to
+`overflow: hidden; background: transparent;`, dropping the 1px
+divider border, the 8px radius, the surface-2 fill, and the 16px
+inner padding that together produced the outer card. The
+edit-mode override gains a matching `border-radius: 8px` so the
+2px accent affordance hugs the tile-shell.
+
+After the change, the only element on the ancestor chain between
+`<body>` and the tile-shell that has a non-zero border or radius
+is the `tile-shell` mat-card itself — confirmed via a runtime
+DOM walk. The visible card now matches `Dashboard-Tile`
+(`0UH2Q`).
+
+A minor edit-mode side effect: the `tile-chrome` overlay
+(DRAG badge + remove X) used to sit in the now-removed 16px
+padding gutter at the top of `gridster-item`, so it now floats
+over the tile-shell's top-left corner. That is a separate
+cosmetic concern and should be tracked as its own bug if/when
+the chrome needs to be repositioned.
 
 ## Description
 
