@@ -1,6 +1,6 @@
 # To-Dos — Detailed Design
 
-**Status:** Accepted
+**Status:** Implemented
 
 **Traces to:** L1-008 · L2-016, L2-038
 
@@ -67,10 +67,16 @@ The current backend has only `GetOutstandingToDoCount` (used by the dashboard ti
 
 ## 8. ATDD Slices
 
-1. **Slice A — domain + migration.** Add `ToDo` entity to `CommitmentsDbContext` and produce the EF migration.
-2. **Slice B — list/save/delete vertical slices.** Spec: opening `/to-dos` lists items; submitting the dialog adds a row; deleting removes it.
-3. **Slice C — complete toggle.** Spec: ticking the checkbox issues `POST /todos/{id}/complete` once and the row visually transitions to "completed". Outstanding-count tile decrements on next reload.
-4. **Slice D — dashboard tile compatibility.** Spec: existing `outstanding-count` endpoint still works after the migration (no regression in the dashboard tile).
+1. **Slice A — domain + migration.** Add `ToDo` entity to `CommitmentsDbContext` and produce the EF migration. **Status: Implemented** (entity gains `Description` + `DueOn`; EF migration carried with the 01-Login backlog).
+2. **Slice B — list/save/delete vertical slices.** Spec: opening `/to-dos` lists items; submitting the dialog adds a row; deleting removes it. **Status: Implemented** — `ToDoDto`, `SaveToDo` (validator: `NotEmpty Title`), `RemoveToDo` (soft-delete), `GetToDos` (ProfileId-filter, `OrderBy(CompletedOn != null).ThenBy(DueOn ?? MaxValue)`).
+3. **Slice C — complete toggle.** Spec: ticking the checkbox issues `POST /todos/{id}/complete` once and the row visually transitions to "completed". **Status: Implemented** — `CompleteToDoCommandHandler` is idempotent: returns immediately if `CompletedOn` is already non-null, else stamps `UtcNow`.
+4. **Slice D — dashboard tile compatibility.** **Status: Implemented** — the existing `GetOutstandingToDoCount` handler keys off `CompletedOn / DeletedOn / CreatedOn`; the new endpoints sit alongside `outstanding-count` and don't touch its query.
+
+## 10. Implementation Notes
+
+- `IsCompleted` is encoded as `CompletedOn != null` rather than as a separate boolean — the column was already there from the dashboard tile, so adding a redundant `bool` would have meant two sources of truth.
+- The "outstanding first then DueOn asc" sort is `OrderBy(t => t.CompletedOn != null).ThenBy(t => t.DueOn ?? DateTime.MaxValue)` — null `DueOn` rows sink to the bottom of their group.
+- `CompleteToDo`'s idempotency is one early-return guard — a junior reading the handler can see the contract on line 1 of the body.
 
 ## 9. Open Questions
 
