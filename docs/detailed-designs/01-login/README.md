@@ -1,6 +1,6 @@
 # Login — Detailed Design
 
-**Status:** Accepted
+**Status:** Implemented
 
 **Traces to:** L1-001, L1-002, L1-013, L1-022 · L2-001, L2-002, L2-003, L2-038, L2-063
 
@@ -90,9 +90,9 @@ No schema migrations.
 
 Implement in this order (one PR each):
 
-1. **Slice A — token endpoint:** `GetTokenByUsernameAndPassword` handler + validator + controller + JWT middleware. Spec: login with seeded creds returns 200 + JWT; bad creds return 401. **Status: Implemented** (commits c1a89fd..f739e66).
-2. **Slice B — current-profile endpoint:** `GetCurrentProfile` handler + controller + `GetUserId()` helper. Spec: bearer-authenticated request returns the caller's profile; missing JWT returns 401. **Status: Pending.**
-3. **Slice C — frontend wiring:** add snackbar on 401, persist `profileId` after `current()`, redirect to pre-login destination. Playwright spec covers L2-001 AC #1–4 and L2-003 AC #1. **Status: Pending.**
+1. **Slice A — token endpoint:** `GetTokenByUsernameAndPassword` handler + validator + controller + JWT middleware. Spec: login with seeded creds returns 200 + JWT; bad creds return 401. **Status: Implemented** (4747238, f739e66).
+2. **Slice B — current-profile endpoint:** `GetCurrentProfile` handler + controller + `GetUserId()` helper. Spec: bearer-authenticated request returns the caller's profile; missing JWT returns 401. **Status: Implemented** (8e620b7, 56515df, 7473c9f).
+3. **Slice C — frontend wiring:** "Login Failed" snackbar on 401; `ProfileService.current()` persistence and pre-login redirect already present. **Status: Implemented** (a9df25f, b593eb7).
 
 ## 9. Open Questions
 
