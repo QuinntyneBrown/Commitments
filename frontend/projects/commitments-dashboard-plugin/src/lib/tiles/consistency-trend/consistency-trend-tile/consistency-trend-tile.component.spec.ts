@@ -148,6 +148,15 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(ts).toMatch(/ctx\.arc\([^)]*TODAY_GLOW_RADIUS/);
   });
 
+  it('hides the X and Y axis borders (bug-117)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend-tile.component.ts'),
+      'utf8'
+    );
+    expect(ts).toMatch(/x\s*:\s*\{[\s\S]*?border\s*:\s*\{\s*display\s*:\s*false/);
+    expect(ts).toMatch(/y\s*:\s*\{[\s\S]*?border\s*:\s*\{\s*display\s*:\s*false/);
+  });
+
   it('formats x-axis labels with toLocaleDateString month/day (bug-046)', () => {
     const ts = readFileSync(
       join(__dirname, 'consistency-trend-tile.component.ts'),
