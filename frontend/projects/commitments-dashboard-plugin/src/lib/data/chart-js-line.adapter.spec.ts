@@ -10,4 +10,8 @@ describe('chart-js-line.adapter (source)', () => {
   it('does not export the dead buildVerticalGradient helper (bug-060)', () => {
     expect(ts).not.toMatch(/buildVerticalGradient\b/);
   });
+
+  it('pins Chart.js default font to Inter (bug-077)', () => {
+    expect(ts).toMatch(/Chart\.defaults\.font\.family\s*=\s*['"][^'"]*Inter/);
+  });
 });
