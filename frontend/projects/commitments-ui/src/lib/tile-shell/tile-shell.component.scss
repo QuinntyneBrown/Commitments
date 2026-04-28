@@ -22,6 +22,7 @@
   align-items: center;
   gap: var(--cui-tile-header-gap, 8px);
   min-height: 0;
+  padding: var(--cui-tile-padding, 16px) var(--cui-tile-padding, 16px) 0;
 }
 
 .tile-shell__heading {
@@ -60,6 +61,8 @@
   flex: 1 1 auto;
   min-height: 0;
   padding-top: var(--cui-tile-body-gap, 10px);
+  padding-inline: var(--cui-tile-padding, 16px);
+  padding-bottom: var(--cui-tile-padding, 16px);
 }
 
 .tile-shell--review {
