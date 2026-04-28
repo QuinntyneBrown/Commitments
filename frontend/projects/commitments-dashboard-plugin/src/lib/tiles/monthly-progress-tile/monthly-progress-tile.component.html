@@ -22,5 +22,10 @@
         ></span>
       }
     </div>
+    <div class="bar-labels" aria-hidden="true">
+      @for (bucket of controller.buckets(); track bucket.weekStart; let i = $index) {
+        <span>W{{ i + 1 }}</span>
+      }
+    </div>
   }
 </commitments-tile-shell>
