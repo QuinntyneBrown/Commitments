@@ -455,4 +455,14 @@ describe('app.routes', () => {
     // The component itself remains exported:
     expect(src).toMatch(/review-scrubber\.component/);
   });
+
+  it('dashboard-framework no longer leaks LayoutPersistenceService (bug-167)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const src = readFileSync(
+      join(__dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'dashboard', 'index.ts'),
+      'utf8'
+    );
+    expect(src).not.toMatch(/layout-persistence\.service/);
+  });
 });
