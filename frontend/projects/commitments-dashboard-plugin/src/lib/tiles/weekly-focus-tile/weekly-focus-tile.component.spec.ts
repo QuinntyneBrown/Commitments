@@ -26,4 +26,10 @@ describe('WeeklyFocusTileComponent (CSS source)', () => {
     const block = ruleBlock('\\.focus-list li');
     expect(block).toMatch(/border-bottom\s*:[^;]*#2A2A2A/i);
   });
+
+  it('pins focus name typography to 14px / 700 (bug-037)', () => {
+    const block = ruleBlock('\\.focus-list strong');
+    expect(block).toMatch(/font-size\s*:\s*14px\b/);
+    expect(block).toMatch(/font-weight\s*:\s*700\b/);
+  });
 });
