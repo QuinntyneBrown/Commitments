@@ -1,5 +1,7 @@
 # Profiles — Detailed Design
 
+**Status:** Accepted
+
 **Traces to:** L1-002, L1-013, L1-017 · L2-003, L2-004, L2-038
 
 ## 1. Overview
