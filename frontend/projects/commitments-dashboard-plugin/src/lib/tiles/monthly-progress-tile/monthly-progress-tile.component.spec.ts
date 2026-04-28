@@ -11,6 +11,10 @@ describe('MonthlyProgressTileComponent (template source)', () => {
     expect(html).toMatch(/class="bar-labels"/);
     expect(html).toMatch(/@for\s*\([^)]*controller\.buckets\(\)/);
   });
+
+  it('projects the status-pill into the tile-shell header (bug-057)', () => {
+    expect(html).toMatch(/<cui-status-pill\b[^>]*\btile-status\b/);
+  });
 });
 
 describe('MonthlyProgressTileComponent (CSS source)', () => {
@@ -52,9 +56,5 @@ describe('MonthlyProgressTileComponent (CSS source)', () => {
   it('opts in to the info-blue icon colour (bug-048)', () => {
     const block = ruleBlock(':host');
     expect(block).toMatch(/--cui-tile-icon-color\s*:[^;]*--cui-info/);
-  });
-
-  it('projects the status-pill into the tile-shell header (bug-057)', () => {
-    expect(html).toMatch(/<cui-status-pill\b[^>]*\btile-status\b/);
   });
 });
