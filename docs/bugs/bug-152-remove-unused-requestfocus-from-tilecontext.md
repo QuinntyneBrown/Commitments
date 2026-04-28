@@ -1,10 +1,19 @@
 ---
 id: bug-152
 title: TileContext.requestFocus() is unused — drop from interface and stubs
-status: Open
+status: Fixed
 ---
 
 # Bug 152 — Drop unused `requestFocus()` from `TileContext`
+
+**Status**: Fixed
+
+## Fix
+
+Three small edits — interface member dropped, dashboard-grid
+stub removed, bind-tile-mode spec fixture updated. 355/355
+workspace tests green. The next iteration's regression-guard
+asserts the symbol does not regrow in `tile.model.ts`.
 
 ## Description
 
