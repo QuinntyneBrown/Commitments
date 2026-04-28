@@ -1,12 +1,28 @@
 ---
 id: bug-067
 title: Tile-shell title doesn't pin font-family; relies on Material's typography cascade
-status: Open
+status: Fixed
 ---
 
 # Bug 067 — Tile-shell title font-family relies on cascade
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`.tile-shell__title` now declares
+`font-family: var(--cui-font-display, 'Inter')`. The title's
+typography choice is independent of Material's typography theme
+— matching every tile .pen's explicit `fontFamily: Inter`.
+
+The eyebrow rule was considered but not pinned: its 11px body
+text inherits from the body cascade (also Inter), and pinning
+both would be belt-and-suspenders without observed drift.
+
+Coverage:
+- New spec asserts `.tile-shell__title` references
+  `--cui-font-display`.
+- All 22 affected suites pass (155/155 — was 154/154 before).
 
 ## Description
 
