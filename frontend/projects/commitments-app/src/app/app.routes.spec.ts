@@ -314,4 +314,22 @@ describe('app.routes', () => {
     expect(modelSrc).not.toMatch(/refresh\$/);
     expect(modelSrc).not.toMatch(/\brequestRefresh\b/);
   });
+
+  it('TileContext + DashboardItem drop the dead maximize/restore feature (bug-157)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const tileModel = readFileSync(
+      join(__dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'tile-registration', 'tile.model.ts'),
+      'utf8'
+    );
+    expect(tileModel).not.toMatch(/\bisMaximized\b/);
+    expect(tileModel).not.toMatch(/\bmaximize\s*\(/);
+    expect(tileModel).not.toMatch(/\brestore\s*\(/);
+
+    const dashModel = readFileSync(
+      join(__dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'dashboard', 'dashboard.model.ts'),
+      'utf8'
+    );
+    expect(dashModel).not.toMatch(/\bmaximized\s*:/);
+  });
 });
