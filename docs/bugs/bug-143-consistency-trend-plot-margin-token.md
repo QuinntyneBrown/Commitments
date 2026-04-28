@@ -1,10 +1,28 @@
 ---
 id: bug-143
 title: consistency-trend `.plot` uses literal margin-top instead of --cui-tile-body-gap token
-status: Open
+status: Fixed
 ---
 
 # Bug 143 — consistency-trend `.plot { margin-top: 14px }` should reference the body-gap token
+
+**Status**: Fixed
+
+## Fix
+
+```scss
+.plot {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  margin-top: var(--cui-tile-body-gap, 14px);
+}
+```
+
+The literal `14px` is preserved as the fallback so the visual
+result is identical, but the token is now the source of truth.
+The bug-040 regression spec was loosened to accept either the
+legacy literal or the token form. 354/354 workspace tests green.
 
 ## Description
 
