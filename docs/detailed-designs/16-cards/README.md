@@ -1,6 +1,6 @@
 # Cards — Detailed Design
 
-**Status:** Accepted
+**Status:** Implemented
 
 **Traces to:** L1-010 · L2-019, L2-022
 
@@ -53,8 +53,13 @@ The backend `CardController` already exposes Save/Get/GetById/Remove. The delta 
 
 ## 8. ATDD Slices
 
-1. **Slice A — list/route + render.** Spec: `/cards` lists rows; FAB opens dialog; saving adds/updates a row.
-2. **Slice B — refint on delete.** Spec: deleting a card referenced by ≥1 dashboard's tiles returns 400.
+1. **Slice A — list/route + render.** Spec: `/cards` lists rows; FAB opens dialog; saving adds/updates a row. **Status: Implemented.**
+2. **Slice B — refint on delete.** Spec: deleting a card referenced by ≥1 dashboard's tiles returns 400. **Status: Implemented.**
+
+## 10. Implementation Notes
+
+- The refint guard reuses the four-line "count + throw `BadHttpRequestException(message, 400)`" pattern from designs 05/06/07/14 — five catalogs now share the same shape.
+- `Card` is intentionally not a `BaseEntity`; the unreferenced path stays a hard-delete since cards are catalog metadata, not user content worth auditing.
 
 ## 9. Open Questions
 
