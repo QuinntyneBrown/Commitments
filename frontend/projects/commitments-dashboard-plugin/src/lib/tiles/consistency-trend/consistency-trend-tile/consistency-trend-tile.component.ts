@@ -95,6 +95,7 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
   }
 
   ngAfterViewInit(): void {
+    const controller = this.controller;
     const config: ChartConfiguration<'line'> = {
       type: 'line',
       data: { labels: this.controller.chartLabels(), datasets: [this.controller.chartDataset()] },
@@ -106,8 +107,8 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
           x: {
             type: 'category',
             ticks: {
-              color: (ctx) => isLastTick(ctx) ? ACCENT_CHART : TEXT_MUTED,
-              font: (ctx) => ({ weight: isLastTick(ctx) ? 700 : 400 }),
+              color: (ctx) => ctx.index === controller.highlightedIndex() ? ACCENT_CHART : TEXT_MUTED,
+              font: (ctx) => ({ weight: ctx.index === controller.highlightedIndex() ? 700 : 400 }),
               autoSkip: true,
               maxTicksLimit: 6,
               callback(value) {
@@ -136,9 +137,4 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
     this.mode() === 'review' ? 'review' : 'chart'
   );
   protected readonly statusLabel = computed(() => this.mode().toUpperCase());
-}
-
-function isLastTick(ctx: { index?: number; scale?: { ticks?: unknown[] } }): boolean {
-  const total = ctx.scale?.ticks?.length ?? 0;
-  return total > 0 && ctx.index === total - 1;
 }
