@@ -45,7 +45,7 @@ describe('WeeklyFocusTileComponent (CSS source)', () => {
     expect(block).toMatch(/--cui-tile-body-gap\s*:\s*12px\b/);
   });
 
-  it('does not project a status-pill — design forbids one (bug-079)', () => {
+  it('does not project a status-pill — design forbids one (bug-080)', () => {
     const html = readFileSync(
       join(__dirname, 'weekly-focus-tile.component.html'),
       'utf8'
