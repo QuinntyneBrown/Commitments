@@ -119,7 +119,7 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
             },
             grid: { display: false }
           },
-          y: { min: 0, max: 100, ticks: { display: false }, grid: { color: 'rgba(255, 255, 255, 0.07)', drawTicks: false } }
+          y: { min: 0, max: 100, ticks: { display: false, maxTicksLimit: 5 }, grid: { color: 'rgba(255, 255, 255, 0.07)', drawTicks: false } }
         },
         interaction: { mode: 'nearest', intersect: false, axis: 'x' }
       }
