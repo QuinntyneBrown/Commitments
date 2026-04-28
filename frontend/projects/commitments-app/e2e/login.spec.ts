@@ -57,15 +57,25 @@ test.describe('login page', () => {
     expect(await login.cardBoxShadow()).toContain('rgba(0, 0, 0, 0.7) 0px 8px 24px');
   });
 
-  test('failed login shows an error snackbar with correct spelling', async ({ page }) => {
+  test('failed login on 401 shows the "Login Failed" snackbar (design 01-Login Slice C, L2-001 AC #3)', async ({ page }) => {
     await login.usernameInput.fill('bad@user.com');
     await login.passwordInput.fill('wrong');
     await login.submitButton.click();
     const snackbar = page.locator('mat-snack-bar-container');
     await expect(snackbar).toBeVisible();
     const text = await snackbar.innerText();
-    expect(text).toContain('occurred');
+    expect(text).toContain('Login Failed');
     expect(text).not.toContain('ocurr.');
+  });
+
+  test('failed login keeps the form editable and stays on /login (design 01-Login Slice C)', async ({ page }) => {
+    await login.usernameInput.fill('bad@user.com');
+    await login.passwordInput.fill('wrong');
+    await login.submitButton.click();
+    await expect(page.locator('mat-snack-bar-container')).toBeVisible();
+    expect(page.url()).toContain('/login');
+    await expect(login.usernameInput).toBeEnabled();
+    await expect(login.passwordInput).toBeEnabled();
   });
 
   test('error snackbar uses the warn (red) background from the design token', async ({ page }) => {
