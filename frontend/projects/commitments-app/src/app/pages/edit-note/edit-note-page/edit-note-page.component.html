@@ -1,8 +1,8 @@
-<app-primary-header *ngIf="!(note$ | async).noteId">
+<app-primary-header *ngIf="!hasNoteId()">
   {{ "Create Note" | translate }}
 </app-primary-header>
 
-<app-primary-header *ngIf="(note$ | async).noteId">
+<app-primary-header *ngIf="hasNoteId()">
   {{ "Edit Note" | translate }}
 </app-primary-header>
 

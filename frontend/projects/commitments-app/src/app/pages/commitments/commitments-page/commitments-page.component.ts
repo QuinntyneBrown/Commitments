@@ -1,14 +1,14 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AgGridModule } from 'ag-grid-angular';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs';
+import { tap } from 'rxjs';
 import { ColDef, GridApi } from 'ag-grid-community';
 import { CommitmentService } from '../../../services/commitment.service';
 import { Commitment } from '../../../models/commitment';
@@ -35,19 +35,16 @@ import { PrimaryHeaderComponent } from '@commitments/ui';
 export class CommitmentsPageComponent {
   private readonly _commitmentService = inject(CommitmentService);
   private readonly _editCommitmentDialog = inject(EditCommitmentDialogService);
+  private readonly _destroyRef = inject(DestroyRef);
+
+  public readonly commitments = signal<Commitment[]>([]);
+
+  public localeText: any = {};
 
   ngOnInit() {
     this._commitmentService.getPersonal()
-      .pipe(takeUntil(this.onDestroy), map(x => this.commitments$.next(x)))
+      .pipe(takeUntilDestroyed(this._destroyRef), tap(x => this.commitments.set(x)))
       .subscribe();
-  }
-
-  public commitments$: BehaviorSubject<Commitment[]> = new BehaviorSubject([]);
-
-  public onDestroy: Subject<void> = new Subject<void>();
-
-  ngOnDestroy() {
-    this.onDestroy.next();
   }
 
   public columnDefs: Array<ColDef> = [
@@ -72,41 +69,38 @@ export class CommitmentsPageComponent {
 
   public handleFABButtonClick() {
     this._editCommitmentDialog.create()
-      .pipe(takeUntil(this.onDestroy))
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe();
   }
 
   public handleEditClick($event) {
     this._editCommitmentDialog.create({ commitmentId: $event.data.commitmentId })
-      .pipe(map(commitment => this.addOrUpdate(commitment)), takeUntil(this.onDestroy))
+      .pipe(takeUntilDestroyed(this._destroyRef), tap(commitment => this.addOrUpdate(commitment)))
       .subscribe();
   }
 
   public handleRemoveClick($event) {
     const commitment = $event.data;
 
-    const commitments: Array<Commitment> = [...this.commitments$.value];
-    const index = commitments.findIndex(x => x.commitmentId == $event.data.commitmentId);
-    commitments.splice(index, 1);
-    this.commitments$.next(commitments);
+    this.commitments.update(commitments => commitments.filter(x => x.commitmentId != commitment.commitmentId));
 
     this._commitmentService.remove({ commitment })
-      .pipe(takeUntil(this.onDestroy))
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe();
   }
 
   public addOrUpdate(commitment: Commitment) {
     if (!commitment) return;
 
-    const commitments = [...this.commitments$.value];
-    const i = commitments.findIndex((t) => t.commitmentId == commitment.commitmentId);
-
-    if (i < 0) {
-      commitments.push(commitment);
-    } else {
-      commitments[i] = commitment;
-    }
-
-    this.commitments$.next(commitments);
+    this.commitments.update(commitments => {
+      const next = [...commitments];
+      const i = next.findIndex(t => t.commitmentId == commitment.commitmentId);
+      if (i < 0) {
+        next.push(commitment);
+      } else {
+        next[i] = commitment;
+      }
+      return next;
+    });
   }
 }

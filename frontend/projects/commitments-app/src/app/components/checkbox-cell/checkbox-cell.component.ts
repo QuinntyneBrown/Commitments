@@ -3,7 +3,6 @@
 
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Subject } from 'rxjs';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -28,11 +27,5 @@ export class CheckboxCellComponent implements ICellRendererAngularComp {
 
   onChange($event) {
     this.params.value = $event;
-  }
-
-  public onDestroy: Subject<void> = new Subject<void>();
-
-  ngOnDestroy() {
-    this.onDestroy.next();
   }
 }

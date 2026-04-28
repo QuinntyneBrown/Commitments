@@ -1,15 +1,15 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AgGridModule } from 'ag-grid-angular';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs';
+import { tap } from 'rxjs';
 import { ColDef, GridApi } from 'ag-grid-community';
 import { CardLayoutService } from '../../../services/card-layout.service';
 import { CardLayout } from '../../../models/card-layout';
@@ -37,29 +37,23 @@ export class CardLayoutsPageComponent {
   private readonly _cardLayoutService = inject(CardLayoutService);
   private readonly _editCardLayoutDialog = inject(EditCardLayoutDialogService);
   private readonly _router = inject(Router);
+  private readonly _destroyRef = inject(DestroyRef);
+
+  public readonly cardLayouts = signal<Array<CardLayout>>([]);
+
+  public localeText: any = {};
 
   ngOnInit() {
     this._cardLayoutService.get()
-      .pipe(map(x => this.cardLayouts$.next(x)))
+      .pipe(takeUntilDestroyed(this._destroyRef), tap(x => this.cardLayouts.set(x)))
       .subscribe();
   }
 
-  public onDestroy: Subject<void> = new Subject<void>();
-
-  public cardLayouts$: BehaviorSubject<Array<CardLayout>> = new BehaviorSubject([]);
-
-  ngOnDestroy() {
-    this.onDestroy.next();
-  }
-
   public handleRemoveClick($event) {
-    const cardLayouts: Array<CardLayout> = [...this.cardLayouts$.value];
-    const index = cardLayouts.findIndex(x => x.cardLayoutId == $event.data.cardLayoutId);
-    cardLayouts.splice(index, 1);
-    this.cardLayouts$.next(cardLayouts);
+    this.cardLayouts.update(layouts => layouts.filter(x => x.cardLayoutId != $event.data.cardLayoutId));
 
     this._cardLayoutService.remove({ cardLayout: $event.data })
-      .pipe(takeUntil(this.onDestroy))
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe();
   }
 
@@ -70,14 +64,16 @@ export class CardLayoutsPageComponent {
   public addOrUpdate(cardLayout: CardLayout) {
     if (!cardLayout) return;
 
-    const cardLayouts = [...this.cardLayouts$.value];
-    const i = cardLayouts.findIndex((t) => t.cardLayoutId == cardLayout.cardLayoutId);
-    if (i < 0) {
-      cardLayouts.push(cardLayout);
-    } else {
-      cardLayouts[i] = cardLayout;
-    }
-    this.cardLayouts$.next(cardLayouts);
+    this.cardLayouts.update(layouts => {
+      const next = [...layouts];
+      const i = next.findIndex(t => t.cardLayoutId == cardLayout.cardLayoutId);
+      if (i < 0) {
+        next.push(cardLayout);
+      } else {
+        next[i] = cardLayout;
+      }
+      return next;
+    });
   }
 
   public columnDefs: Array<ColDef> = [
@@ -101,7 +97,7 @@ export class CardLayoutsPageComponent {
 
   public handleFABButtonClick() {
     this._editCardLayoutDialog.create()
-      .pipe(takeUntil(this.onDestroy), map(x => this.addOrUpdate(x)))
+      .pipe(takeUntilDestroyed(this._destroyRef), tap(x => this.addOrUpdate(x)))
       .subscribe();
   }
 }

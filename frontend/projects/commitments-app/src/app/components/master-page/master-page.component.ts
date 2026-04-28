@@ -1,13 +1,13 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, ElementRef, inject } from '@angular/core';
-import { CommonModule, AsyncPipe } from '@angular/common';
+import { Component, computed, DestroyRef, effect, ElementRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CommonModule } from '@angular/common';
 import { ProfileService } from '../../services/profile.service';
 import { AppStore } from '../../app-store';
-import { map, switchMap } from 'rxjs';
+import { tap } from 'rxjs';
 import { baseUrl } from '../../core/constants';
-import { Observable } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
 import { HubClient } from '../../core/hub-client';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -21,7 +21,6 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [
     CommonModule,
-    AsyncPipe,
     RouterModule,
     MatToolbarModule,
     MatSidenavModule,
@@ -39,34 +38,37 @@ export class MasterPageComponent {
   private readonly _appStore = inject(AppStore);
   private readonly _router = inject(Router);
   private readonly _baseUrl: string = inject(baseUrl as any);
+  private readonly _destroyRef = inject(DestroyRef);
+
+  public readonly profileName = computed(() => this._appStore.currentProfile().name);
+
+  constructor() {
+    effect(() => {
+      const profile = this._appStore.currentProfile();
+      if (profile?.avatarUrl) {
+        this._setCustomProperty('--background-image-url', `url(${this._baseUrl}${profile.avatarUrl})`);
+      }
+    });
+  }
 
   public ngOnInit() {
     this._profileService.current()
       .pipe(
-        map(x => this._appStore.currentProfile$.next(x)),
-        switchMap(x => this._appStore.currentProfile$),
-        map(x => {
-          this._setCustomProperty('--background-image-url', `url(${this._baseUrl}${x.avatarUrl})`);
-        })
+        takeUntilDestroyed(this._destroyRef),
+        tap(x => this._appStore.currentProfile.set(x))
       )
       .subscribe();
 
     this._hubClient.messages$
       .pipe(
-        map(x => {
-          this._appStore.currentProfile$.next(x.profile);
-          this._setCustomProperty('--background-image-url', `url(${this._baseUrl}${x.profile.avatarUrl})`);
-        })
+        takeUntilDestroyed(this._destroyRef),
+        tap(x => this._appStore.currentProfile.set(x.profile))
       )
       .subscribe();
   }
 
   protected _setCustomProperty(key: string, value: any) {
     this._elementRef.nativeElement.style.setProperty(key, value);
-  }
-
-  public get profileName$(): Observable<string> {
-    return this._appStore.currentProfile$.pipe(map(x => x.name));
   }
 
   public onProfileNameClick() {

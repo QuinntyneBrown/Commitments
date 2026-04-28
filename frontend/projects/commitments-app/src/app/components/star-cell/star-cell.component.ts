@@ -3,7 +3,6 @@
 
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Subject } from 'rxjs';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { IAfterGuiAttachedParams, ICellRendererParams } from 'ag-grid-community';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,10 +22,4 @@ export class StarCellComponent implements ICellRendererAngularComp {
   agInit(_params: ICellRendererParams): void {}
 
   afterGuiAttached?(_params?: IAfterGuiAttachedParams): void {}
-
-  public onDestroy: Subject<void> = new Subject<void>();
-
-  ngOnDestroy() {
-    this.onDestroy.next();
-  }
 }

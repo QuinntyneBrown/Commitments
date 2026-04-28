@@ -1,7 +1,8 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, ElementRef, HostListener, inject } from '@angular/core';
+import { Component, DestroyRef, ElementRef, HostListener, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -10,8 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
-import { Subject } from 'rxjs';
-import { map, switchMap, takeUntil, tap } from 'rxjs';
+import { switchMap, tap } from 'rxjs';
 import { AuthService } from '../../../core/auth.service';
 import { LoginRedirectService } from '../../../core/redirect.service';
 import { ErrorService } from '../../../core/error.service';
@@ -41,12 +41,11 @@ export class LoginPageComponent {
   private readonly _loginRedirectService = inject(LoginRedirectService);
   private readonly _profileService = inject(ProfileService);
   private readonly _storage = inject(LocalStorageService);
+  private readonly _destroyRef = inject(DestroyRef);
 
   ngOnInit() {
     this._authService.logout();
   }
-
-  public onDestroy: Subject<void> = new Subject<void>();
 
   ngAfterContentInit() {
     this.usernameNativeElement?.focus();
@@ -79,7 +78,7 @@ export class LoginPageComponent {
         password: $event.value.password
       })
       .pipe(
-        takeUntil(this.onDestroy),
+        takeUntilDestroyed(this._destroyRef),
         switchMap(() => this._profileService.current()),
         tap(profile => this._storage.put({ name: currentProfileIdKey, value: profile.profileId }))
       )
@@ -93,11 +92,7 @@ export class LoginPageComponent {
     const message = errorResponse?.status === 401 ? 'Login Failed' : 'An error occurred. Try it again.';
     this._errorService
       .handle$(errorResponse, message)
-      .pipe(takeUntil(this.onDestroy), map(snackBarRef => (this._snackBarRef = snackBarRef)))
+      .pipe(takeUntilDestroyed(this._destroyRef), tap(snackBarRef => (this._snackBarRef = snackBarRef)))
       .subscribe();
-  }
-
-  ngOnDestroy() {
-    this.onDestroy.next();
   }
 }

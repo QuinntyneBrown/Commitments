@@ -1,15 +1,15 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AgGridModule } from 'ag-grid-angular';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs';
+import { tap } from 'rxjs';
 import { ColDef, GridApi } from 'ag-grid-community';
 import { BehaviourService } from '../../../services/behaviour.service';
 import { Behaviour } from '../../../models/behaviour';
@@ -40,59 +40,53 @@ export class BehavioursPageComponent {
   private readonly _behaviourTypeService = inject(BehaviourTypeService);
   private readonly _editBehaviourDialog = inject(EditBehaviourDialogService);
   private readonly _router = inject(Router);
+  private readonly _destroyRef = inject(DestroyRef);
+
+  public readonly behaviour = signal<Behaviour>(<Behaviour>{});
+  public readonly behaviours = signal<Array<Behaviour>>([]);
+  public readonly behaviourTypes = signal<Array<BehaviourType>>([]);
+
+  public localeText: any = {};
 
   ngOnInit() {
     this._behaviourService.get()
-      .pipe(map(x => this.behaviours$.next(x)))
+      .pipe(takeUntilDestroyed(this._destroyRef), tap(x => this.behaviours.set(x)))
       .subscribe();
   }
-
-  public behaviourTypes$: Observable<Array<BehaviourType>>;
-
-  public onDestroy: Subject<void> = new Subject<void>();
-
-  public behaviour$: BehaviorSubject<Behaviour> = new BehaviorSubject(<Behaviour>{});
-
-  public behaviours$: BehaviorSubject<Array<Behaviour>> = new BehaviorSubject([]);
 
   public handleFABButtonClick() {
-    this._editBehaviourDialog.create({ behaviourId: this.behaviour$.value.behaviourId })
-      .pipe(map(toDo => this.addOrUpdate(toDo)), takeUntil(this.onDestroy))
+    this._editBehaviourDialog.create({ behaviourId: this.behaviour().behaviourId })
+      .pipe(takeUntilDestroyed(this._destroyRef), tap(b => this.addOrUpdate(b)))
       .subscribe();
-  }
-
-  ngOnDestroy() {
-    this.onDestroy.next();
   }
 
   public handleRemoveClick($event) {
-    const behaviours: Array<Behaviour> = [...this.behaviours$.value];
-    const index = behaviours.findIndex(x => x.behaviourId == $event.data.behaviourId);
-    behaviours.splice(index, 1);
-    this.behaviours$.next(behaviours);
+    this.behaviours.update(bs => bs.filter(x => x.behaviourId != $event.data.behaviourId));
 
     this._behaviourService.remove({ behaviour: $event.data })
-      .pipe(takeUntil(this.onDestroy))
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe();
   }
 
   public handleEditClick($event) {
     this._editBehaviourDialog.create({ behaviourId: $event.data.behaviourId })
-      .pipe(map(toDo => this.addOrUpdate(toDo)), takeUntil(this.onDestroy))
+      .pipe(takeUntilDestroyed(this._destroyRef), tap(b => this.addOrUpdate(b)))
       .subscribe();
   }
 
   public addOrUpdate(behaviour: Behaviour) {
     if (!behaviour) return;
 
-    const behaviours = [...this.behaviours$.value];
-    const i = behaviours.findIndex((t) => t.behaviourId == behaviour.behaviourId);
-    if (i < 0) {
-      behaviours.push(behaviour);
-    } else {
-      behaviours[i] = behaviour;
-    }
-    this.behaviours$.next(behaviours);
+    this.behaviours.update(bs => {
+      const next = [...bs];
+      const i = next.findIndex(t => t.behaviourId == behaviour.behaviourId);
+      if (i < 0) {
+        next.push(behaviour);
+      } else {
+        next[i] = behaviour;
+      }
+      return next;
+    });
   }
 
   public columnDefs: Array<ColDef> = [

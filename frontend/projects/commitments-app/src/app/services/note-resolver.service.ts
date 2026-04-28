@@ -16,11 +16,11 @@ export const noteResolver: ResolveFn<Note> = (route, state) => {
 
   if (!slug || slug === 'new') {
     const note = new Note();
-    store.note$.next(note);
+    store.note.set(note);
     return of(note);
   }
 
   return notesService
     .getBySlug({ slug })
-    .pipe(tap(x => store.note$.next(x.note)), map(x => x.note));
+    .pipe(tap(x => store.note.set(x.note)), map(x => x.note));
 };

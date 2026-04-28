@@ -1,7 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, ElementRef, forwardRef, Input, inject } from '@angular/core';
+import { Component, ElementRef, forwardRef, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -49,7 +49,7 @@ export class QuillTextEditorComponent implements ControlValueAccessor {
   public ngAfterViewInit() {
     this._quill = new Quill(this.nativeElement, {
       theme: 'bubble',
-      placeholder: this.editorPlaceholder
+      placeholder: this.editorPlaceholder()
     });
 
     this._quill.on('text-change', this.onTextChanged);
@@ -59,7 +59,7 @@ export class QuillTextEditorComponent implements ControlValueAccessor {
     this.onChangeCallback(this.qlEditorNativeElement.innerHTML);
   }
 
-  @Input() public editorPlaceholder: string;
+  public readonly editorPlaceholder = input<string>('');
 
   public get nativeElement(): HTMLElement {
     return this._elementRef.nativeElement.querySelector('.editor') as HTMLElement;

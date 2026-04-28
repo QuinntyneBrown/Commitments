@@ -6,7 +6,7 @@
 
   <mat-form-field>
     <mat-select placeholder="Behaviour" formControlName="behaviourId" name="behaviourId">
-      <mat-option *ngFor="let behaviour of (behaviours$ | async)" [value]="behaviour.behaviourId">
+      <mat-option *ngFor="let behaviour of behaviours()" [value]="behaviour.behaviourId">
         {{ behaviour.name }}
       </mat-option>
     </mat-select>

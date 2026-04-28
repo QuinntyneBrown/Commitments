@@ -1,14 +1,14 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AgGridModule } from 'ag-grid-angular';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs';
+import { tap } from 'rxjs';
 import { ColDef, GridApi } from 'ag-grid-community';
 import { ProfileService } from '../../../services/profile.service';
 import { Profile } from '../../../models/profile';
@@ -33,13 +33,15 @@ import { PrimaryHeaderComponent } from '@commitments/ui';
 export class ProfilesPageComponent {
   private readonly _createProfileDialog = inject(CreateProfileDialogService);
   private readonly _profileService = inject(ProfileService);
+  private readonly _destroyRef = inject(DestroyRef);
 
-  public profiles$: BehaviorSubject<Array<Profile>> = new BehaviorSubject([]);
+  public readonly profiles = signal<Array<Profile>>([]);
 
   public ngOnInit() {
     this._profileService.get()
       .pipe(
-        map(x => this.profiles$.next(x)), takeUntil(this.onDestroy)
+        takeUntilDestroyed(this._destroyRef),
+        tap(x => this.profiles.set(x))
       )
       .subscribe();
   }
@@ -47,8 +49,8 @@ export class ProfilesPageComponent {
   public handleFABButtonClick() {
     this._createProfileDialog.create()
       .pipe(
-        map(x => this.addOrUpdate(x)),
-        takeUntil(this.onDestroy)
+        takeUntilDestroyed(this._destroyRef),
+        tap(x => this.addOrUpdate(x))
       )
       .subscribe();
   }
@@ -56,26 +58,25 @@ export class ProfilesPageComponent {
   public addOrUpdate(profile: Profile) {
     if (!profile) return;
 
-    const profiles = [...this.profiles$.value];
-    const i = profiles.findIndex((t) => t.profileId == profile.profileId);
-
-    if (i < 0) {
-      profiles.push(profile);
-    } else {
-      profiles[i] = profile;
-    }
-
-    this.profiles$.next(profiles);
+    this.profiles.update(profiles => {
+      const next = [...profiles];
+      const i = next.findIndex(t => t.profileId == profile.profileId);
+      if (i < 0) {
+        next.push(profile);
+      } else {
+        next[i] = profile;
+      }
+      return next;
+    });
   }
 
   public handleRemove($event) {
     const profile: Profile = $event.data;
 
-    const profiles = this.profiles$.value.filter(p => p.profileId !== profile.profileId);
-    this.profiles$.next(profiles);
+    this.profiles.update(profiles => profiles.filter(p => p.profileId !== profile.profileId));
 
     this._profileService.remove({ profile })
-      .pipe(takeUntil(this.onDestroy))
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe();
   }
 
@@ -95,9 +96,5 @@ export class ProfilesPageComponent {
     { cellRenderer: "deleteRenderer", onCellClicked: $event => this.handleRemove($event), width: 30 }
   ];
 
-  public onDestroy: Subject<void> = new Subject<void>();
-
-  ngOnDestroy() {
-    this.onDestroy.next();
-  }
+  public localeText: any = {};
 }

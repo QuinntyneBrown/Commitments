@@ -1,9 +1,9 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, Input, Output, EventEmitter, ViewChild, forwardRef } from '@angular/core';
+import { Component, forwardRef, input, output, viewChild } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
-import { Subject, Observable } from 'rxjs';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { startWith, map } from 'rxjs';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
@@ -34,10 +34,6 @@ import { MatIconModule } from '@angular/material/icon';
   ]
 })
 export class AutoCompleteChipListComponent implements ControlValueAccessor {
-  constructor() {
-    this.onChipClick = new EventEmitter();
-  }
-
   writeValue(obj: any): void {
     obj = this.addItems.value;
   }
@@ -56,67 +52,62 @@ export class AutoCompleteChipListComponent implements ControlValueAccessor {
 
   public onChangeCallback: (_: any) => void = () => {};
 
-  public onDestroy: Subject<void> = new Subject<void>();
+  public readonly onChipClick = output<{ item: any }>();
 
-  ngOnDestroy() {
-    this.onDestroy.next();
-  }
+  public readonly chipInput = viewChild<MatInput>('chipInput');
+  public readonly selectedItems = input<string[]>([]);
+  public readonly items = input<Item[]>([]);
 
-  @Output() public onChipClick: EventEmitter<any>;
-
-  @ViewChild('chipInput') chipInput: MatInput;
-  @Input() selectedItems: string[] = [];
-  filteredItems: Observable<any[]>;
-  addItems: FormControl;
+  public addItems: FormControl = new FormControl();
+  public filteredItems = toSignal(
+    this.addItems.valueChanges.pipe(
+      startWith(''),
+      map(item => (item ? this.filterItems(item.toString()) : this.items().slice()))
+    ),
+    { initialValue: [] as Item[] }
+  );
 
   separatorKeysCodes = [ENTER, COMMA];
 
+  private _localSelected: string[] = [];
+
+  ngOnInit() {
+    this._localSelected = [...(this.selectedItems() ?? [])];
+  }
+
   get itemsData(): string[] {
-    return this.selectedItems;
+    return this._localSelected;
   }
 
   set itemsData(v: string[]) {
-    this.selectedItems = v;
-  }
-
-  @Input() items: Item[] = [];
-
-  ngOnInit() {
-    this.addItems = new FormControl();
-
-    this.filteredItems = this.addItems.valueChanges.pipe(
-      startWith(''),
-      map(item => (item ? this.filterItems(item.toString()) : this.items.slice()))
-    );
+    this._localSelected = v;
   }
 
   filterItems(itemName: string) {
-    return this.items.filter(item => item.name.toLowerCase().indexOf(itemName.toLowerCase()) === 0);
+    return this.items().filter(item => item.name.toLowerCase().indexOf(itemName.toLowerCase()) === 0);
   }
 
   onRemoveItems(itemName: string): void {
-    this.selectedItems = this.selectedItems.filter((name: string) => name !== itemName);
-    this.itemsData = this.selectedItems;
-    this.chipInput['nativeElement'].blur();
-    this.onChangeCallback(this.selectedItems);
+    this._localSelected = this._localSelected.filter(name => name !== itemName);
+    this.chipInput()['nativeElement'].blur();
+    this.onChangeCallback(this._localSelected);
   }
 
   onAddItems(event: MatAutocompleteSelectedEvent) {
     const t: Item = event.option.value;
 
-    if (this.selectedItems.length === 0) {
-      this.selectedItems.push(t.name);
+    if (this._localSelected.length === 0) {
+      this._localSelected.push(t.name);
     } else {
-      const selectLanguageStr = JSON.stringify(this.selectedItems);
+      const selectLanguageStr = JSON.stringify(this._localSelected);
       if (selectLanguageStr.indexOf(t.name) === -1) {
-        this.selectedItems.push(t.name);
+        this._localSelected.push(t.name);
       }
     }
 
-    this.itemsData = this.selectedItems;
-    this.chipInput['nativeElement'].blur();
-    this.chipInput['nativeElement'].value = '';
-    this.onChangeCallback(this.selectedItems);
+    this.chipInput()['nativeElement'].blur();
+    this.chipInput()['nativeElement'].value = '';
+    this.onChangeCallback(this._localSelected);
   }
 }
 

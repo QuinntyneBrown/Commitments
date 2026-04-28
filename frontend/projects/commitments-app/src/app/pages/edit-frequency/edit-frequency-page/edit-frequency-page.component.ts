@@ -1,11 +1,11 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { Subject, takeUntil } from 'rxjs';
 import { EditFrequencyDialogService } from '../../../services/edit-frequency-dialog.service';
 import { PrimaryHeaderComponent } from '@commitments/ui';
 
@@ -20,8 +20,7 @@ export class EditFrequencyPageComponent {
   private readonly _dialog = inject(EditFrequencyDialogService);
   private readonly _route = inject(ActivatedRoute);
   private readonly _router = inject(Router);
-
-  public onDestroy: Subject<void> = new Subject<void>();
+  private readonly _destroyRef = inject(DestroyRef);
 
   ngOnInit() {
     const frequencyIdParam = this._route.snapshot.paramMap.get('frequencyId');
@@ -29,11 +28,7 @@ export class EditFrequencyPageComponent {
     const frequencyId = frequencyIdParam ? Number(frequencyIdParam) : undefined;
 
     this._dialog.create({ frequencyId })
-      .pipe(takeUntil(this.onDestroy))
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe(() => this._router.navigateByUrl(returnTo));
-  }
-
-  ngOnDestroy() {
-    this.onDestroy.next();
   }
 }

@@ -1,9 +1,8 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Subject, BehaviorSubject } from 'rxjs';
 import { FrequencyType } from '../../models/frequency-type';
 import { Frequency } from '../../models/frequency';
 import { ColDef } from 'ag-grid-community';
@@ -17,23 +16,21 @@ import { DeleteCellComponent } from '../delete-cell/delete-cell.component';
   styleUrls: ['./frequencies-editor.component.scss']
 })
 export class FrequenciesEditorComponent {
-  public onDestroy: Subject<void> = new Subject<void>();
+  public readonly frequencyTypes = input<Array<FrequencyType>>([]);
+  public readonly frequencies = input<Array<Frequency>>([]);
 
-  ngOnDestroy() {
-    this.onDestroy.next();
+  private _local: Array<Frequency> = [];
+
+  ngOnInit() {
+    this._local = [...(this.frequencies() ?? [])];
   }
 
-  @Input()
-  public frequencyTypes: Array<FrequencyType> = [];
-
-  @Input()
-  public frequencies$: BehaviorSubject<Array<Frequency>> = new BehaviorSubject([]);
-
-  @Input()
-  public frequencies: any[] = [];
+  public get rows(): Array<Frequency> {
+    return this._local;
+  }
 
   public handleFrequencySave($event) {
-    this.frequencies$.next([...this.frequencies$.value, $event.frequency]);
+    this._local = [...this._local, $event.frequency];
   }
 
   public onGridReady(params) {
@@ -43,10 +40,9 @@ export class FrequenciesEditorComponent {
   public handleSaveClick() {}
 
   public remove($event) {
-    const frequencies: any[] = [...this.frequencies$.value];
-    const index = frequencies.findIndex(x => x.frequency == $event.data.frequency && x.frequencyTypeId == $event.data.frequencyTypeId);
-    frequencies.splice(index, 1);
-    this.frequencies$.next(frequencies);
+    this._local = this._local.filter(
+      x => !(x.frequency == $event.data.frequency && x.frequencyTypeId == $event.data.frequencyTypeId)
+    );
   }
 
   public columnDefs: Array<ColDef> = [
