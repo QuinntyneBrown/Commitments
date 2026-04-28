@@ -1,10 +1,20 @@
 ---
 id: bug-170
 title: DeltaTone type aliases are exported but used only file-locally
-status: Open
+status: Fixed
 ---
 
 # Bug 170 — Drop `export` from `DeltaTone` type aliases
+
+**Status**: Fixed
+
+## Fix
+
+`export` keyword removed from the two `DeltaTone` aliases in
+`outstanding-todos.controller.ts` and `goal-metrics.controller.ts`.
+Both types remain valid for their one internal use as
+`computed<DeltaTone>(...)` per file. 370/370 workspace tests
+green.
 
 ## Description
 
