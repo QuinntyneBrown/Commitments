@@ -1,4 +1,11 @@
+.todo-body {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
 .todo-count {
+  flex: 0 0 auto;
   color: var(--cui-warning);
   font-size: 58px;
   font-weight: 800;
@@ -6,8 +13,8 @@
 }
 
 .todo-copy {
-  max-width: 220px;
-  margin: 10px 0 0;
+  flex: 1 1 auto;
+  margin: 0;
   color: var(--cui-text-secondary);
   font-size: 13px;
   line-height: 1.4;

@@ -11,8 +11,10 @@
     [label]="statusLabel()"
   ></cui-status-pill>
 
-  <div class="todo-count">{{ controller.count() }}</div>
-  <p class="todo-copy">items need attention before the next review.</p>
+  <div class="todo-body">
+    <div class="todo-count">{{ controller.count() }}</div>
+    <p class="todo-copy">items need attention before the next review.</p>
+  </div>
 
   @if (controller.deltaLabel()) {
     <p
