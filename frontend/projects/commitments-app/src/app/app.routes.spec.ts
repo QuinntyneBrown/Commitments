@@ -171,4 +171,17 @@ describe('app.routes', () => {
     expect(child).toBeDefined();
     expect(child!.component).toBe(CardLayoutsPageComponent);
   });
+
+  it('legacy DashboardPageComponent has been removed (bug-146)', () => {
+    const { existsSync } = require('fs');
+    const { join } = require('path');
+    const legacy = join(
+      __dirname,
+      'pages',
+      'dashboard',
+      'dashboard-page',
+      'dashboard-page.component.ts'
+    );
+    expect(existsSync(legacy)).toBe(false);
+  });
 });
