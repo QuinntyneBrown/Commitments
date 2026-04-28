@@ -1,12 +1,36 @@
 ---
 id: bug-072
 title: Goal-metrics uses an `@Input set goalId(...)` decorator with side effects; migrate to `input()` signal + effect
-status: Open
+status: Fixed
 ---
 
 # Bug 072 — Goal-metrics @Input setter migration
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`goal-metrics-tile.component.ts`:
+- `@Input set goalId(...)` removed.
+- New `readonly goalId = input('demo-goal');`.
+- Constructor's `controller.setGoalId('demo-goal');` removed.
+- New `effect(() => this.controller.setGoalId(this.goalId()));`
+  inside the constructor.
+- Import group: `Input` dropped; `effect` and `input` added.
+
+The effect runs once on creation (default seeds `'demo-goal'`)
+and again whenever the input changes — replacing both the
+constructor seed and the setter callback.
+
+`@Input` is now eliminated from every dashboard-plugin tile
+component. Each tile uses Angular's modern signal idiom
+(`input()` / `computed()` / `effect()`) uniformly.
+
+Coverage:
+- New TS-source spec asserts `@Input` is gone, declares `goalId
+  = input(`, and the constructor includes an `effect(...)` that
+  calls `setGoalId(this.goalId())`.
+- All 22 affected suites pass (162/162 — was 161/161 before).
 
 ## Description
 
