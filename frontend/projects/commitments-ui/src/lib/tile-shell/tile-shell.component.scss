@@ -55,17 +55,6 @@
   line-height: 1.2;
 }
 
-.tile-shell__status {
-  flex: 0 0 auto;
-  padding: 4px 8px;
-  border: 1px solid color-mix(in srgb, var(--cui-primary, #9FA8DA) 70%, transparent);
-  border-radius: 999px;
-  color: var(--cui-primary, #9FA8DA);
-  background: color-mix(in srgb, var(--cui-primary, #9FA8DA) 16%, transparent);
-  font-size: 11px;
-  font-weight: 700;
-}
-
 .tile-shell__body {
   display: flex;
   flex-direction: column;
@@ -76,10 +65,4 @@
 
 .tile-shell--review {
   border-color: var(--cui-primary, #9FA8DA);
-}
-
-.tile-shell--chart .tile-shell__status {
-  border-color: color-mix(in srgb, var(--cui-info, #42A5F5) 70%, transparent);
-  color: var(--cui-info, #42A5F5);
-  background: color-mix(in srgb, var(--cui-info, #42A5F5) 16%, transparent);
 }

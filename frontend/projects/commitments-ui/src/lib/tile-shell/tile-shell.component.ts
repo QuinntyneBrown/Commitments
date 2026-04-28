@@ -15,6 +15,5 @@ export class TileShellComponent {
   readonly title = input('');
   readonly eyebrow = input('');
   readonly icon = input('');
-  readonly status = input('');
   readonly variant = input<TileShellVariant>('metric');
 }

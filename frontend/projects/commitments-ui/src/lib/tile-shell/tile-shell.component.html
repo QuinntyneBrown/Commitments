@@ -17,9 +17,6 @@
         <p class="tile-shell__eyebrow">{{ eyebrow() }}</p>
       }
     </div>
-    @if (status()) {
-      <span class="tile-shell__status">{{ status() }}</span>
-    }
     <ng-content select="[tile-status]"></ng-content>
   </mat-card-header>
 
