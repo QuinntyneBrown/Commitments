@@ -1,12 +1,33 @@
 ---
 id: bug-075
 title: tile-shell icon is co-mingled with the title row, so it does not vertically center against the title+eyebrow group as the designs require
-status: Open
+status: Fixed
 ---
 
 # Bug 075 — tile-shell icon vertical-centering against the heading group
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Moved the icon out of the (now removed) `.tile-shell__title-row`
+wrapper and made it a direct child of `.tile-shell__header`,
+sibling to `.tile-shell__heading`. The header switched from
+`align-items: flex-start` to `align-items: center` so all three
+direct children (icon, heading column, status-pill) center on the
+header's main axis — matching every tile's ui-design.pen.
+
+`.tile-shell__heading` now takes `flex: 1 1 auto` (with
+`min-width: 0` to permit text shrink), which keeps the status-pill
+flush right and replaces the prior
+`justify-content: space-between`.
+
+The internal `.tile-shell__title-row` wrapper was deleted: with the
+icon hoisted out, the wrapper would have contained only the title
+text. The bug-050 spec that asserted on its `gap` was dropped (the
+gap moves to the header, already covered by bug-064).
+
+All 18 tile-shell specs pass; full workspace 260/260.
 
 ## Description
 
