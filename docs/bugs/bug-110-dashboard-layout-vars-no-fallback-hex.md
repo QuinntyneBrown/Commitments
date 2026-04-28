@@ -1,12 +1,21 @@
 ---
 id: bug-110
 title: dashboard-layout.component.scss var() calls omit the design-system fallback hex
-status: Open
+status: Fixed
 ---
 
 # Bug 110 — dashboard-layout var() fallback hex
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added the design-system hex fallback to all 17 `var()`
+references in `dashboard-layout.component.scss` across text,
+bg, toolbar, sidenav, divider, hover-overlay, primary, and
+primary-strong tokens. The bug-110 spec is appended to the
+existing dashboard-layout spec with the same regex iteration
+guard. 305/305 workspace tests green.
 
 ## Description
 
