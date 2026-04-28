@@ -90,9 +90,9 @@ No schema migrations.
 
 Implement in this order (one PR each):
 
-1. **Slice A — token endpoint:** `GetTokenByUsernameAndPassword` handler + validator + controller + JWT middleware. Spec: login with seeded creds returns 200 + JWT; bad creds return 401.
-2. **Slice B — current-profile endpoint:** `GetCurrentProfile` handler + controller + `GetUserId()` helper. Spec: bearer-authenticated request returns the caller's profile; missing JWT returns 401.
-3. **Slice C — frontend wiring:** add snackbar on 401, persist `profileId` after `current()`, redirect to pre-login destination. Playwright spec covers L2-001 AC #1–4 and L2-003 AC #1.
+1. **Slice A — token endpoint:** `GetTokenByUsernameAndPassword` handler + validator + controller + JWT middleware. Spec: login with seeded creds returns 200 + JWT; bad creds return 401. **Status: Implemented** (commits c1a89fd..f739e66).
+2. **Slice B — current-profile endpoint:** `GetCurrentProfile` handler + controller + `GetUserId()` helper. Spec: bearer-authenticated request returns the caller's profile; missing JWT returns 401. **Status: Pending.**
+3. **Slice C — frontend wiring:** add snackbar on 401, persist `profileId` after `current()`, redirect to pre-login destination. Playwright spec covers L2-001 AC #1–4 and L2-003 AC #1. **Status: Pending.**
 
 ## 9. Open Questions
 
