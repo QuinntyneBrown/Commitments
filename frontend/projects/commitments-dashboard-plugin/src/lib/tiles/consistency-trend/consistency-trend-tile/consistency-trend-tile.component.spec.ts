@@ -39,4 +39,9 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     // pillVariant() should map live mode to 'chart' for the chart-themed tile
     expect(ts).toMatch(/pillVariant\s*\([^)]*\)[^{]*\{[\s\S]*?return[^;]*'chart'/);
   });
+
+  it('passes today caption + Peak/Low subCaption to the metric header (bug-032)', () => {
+    expect(html).toMatch(/caption="today"/);
+    expect(html).toMatch(/\[subCaption\]\s*=\s*"'Peak/);
+  });
 });

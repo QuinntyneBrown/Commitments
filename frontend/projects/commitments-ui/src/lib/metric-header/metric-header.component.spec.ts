@@ -16,6 +16,11 @@ describe('MetricHeaderComponent', () => {
     expect(component.accent()).toBe('chart');
   });
 
+  it('exposes a subCaption input that defaults to empty (bug-032)', () => {
+    const component = TestBed.createComponent(MetricHeaderComponent).componentInstance;
+    expect(component.subCaption()).toBe('');
+  });
+
   describe('CSS source', () => {
     const scss = readFileSync(
       join(__dirname, 'metric-header.component.scss'),
@@ -31,6 +36,12 @@ describe('MetricHeaderComponent', () => {
       const block = ruleBlock('\\.metric-header__value');
       expect(block).toMatch(/font-size\s*:\s*48px\b/);
       expect(block).toMatch(/font-weight\s*:\s*700\b/);
+    });
+
+    it('lays value and captions side-by-side, baseline-aligned (bug-032)', () => {
+      const block = ruleBlock('\\.metric-header');
+      expect(block).toMatch(/display\s*:\s*flex\b/);
+      expect(block).toMatch(/align-items\s*:\s*flex-end\b/);
     });
   });
 });
