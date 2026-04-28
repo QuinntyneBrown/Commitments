@@ -1,10 +1,26 @@
 ---
 id: bug-177
 title: add-tile-dialog disabled button fallbacks are off — text-disabled and undeclared cui-disabled
-status: Open
+status: Fixed
 ---
 
 # Bug 177 — add-tile-dialog disabled-button fallback fixes
+
+**Status**: Fixed
+
+## Fix
+
+Two-line correction in
+`.add-tile-dialog__btn--primary[disabled]`:
+
+- `background: var(--cui-disabled, #555)` → `background: #555`
+  (the token wasn't declared anywhere; the `var()` was dead
+  indirection).
+- `color: var(--cui-text-disabled, #888)` →
+  `color: var(--cui-text-disabled, #666666)` (matches the
+  canonical token value).
+
+377/377 workspace tests green.
 
 ## Description
 
