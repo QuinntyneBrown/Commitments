@@ -577,4 +577,16 @@ describe('app.routes', () => {
     expect(styles).toMatch(/var\(\s*--cui-warn\s*,\s*#F44336\s*\)/);
     expect(styles).not.toMatch(/^\s*font-family\s*:\s*Inter\b/m);
   });
+
+  it('primary-header drops dead --cui-header-padding and literal Inter font shorthand (bug-183)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const scss = readFileSync(
+      join(__dirname, '..', '..', '..', 'commitments-ui', 'src', 'lib', 'primary-header', 'primary-header.component.scss'),
+      'utf8'
+    );
+    expect(scss).not.toMatch(/--cui-header-padding/);
+    expect(scss).not.toMatch(/\bfont\s*:\s*\d+\s+\d+px\/[\d.]+\s+Inter\b/);
+    expect(scss).toMatch(/font-family\s*:\s*var\(\s*--cui-font-display/);
+  });
 });
