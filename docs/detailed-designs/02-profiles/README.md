@@ -66,9 +66,9 @@ The delete cell triggers `ProfileService.remove(profile)`; on success the row is
 
 ## 8. ATDD Slices
 
-1. **Slice A — list scoping:** add `userId` filter to `GetProfilesHandler`. Spec: a second user's seeded profile is not in the response.
-2. **Slice B — page wiring:** replace placeholder route, render grid, wire FAB → `CreateProfileDialog`. Spec: opening `/profiles` lists the seeded profile; submitting the dialog adds a row without page refresh.
-3. **Slice C — delete:** wire delete cell + soft-delete server-side. Spec: deleted row disappears, dashboard still loads.
+1. **Slice A — list scoping:** add `userId` filter to `GetProfilesHandler`. Spec: a second user's seeded profile is not in the response. **Status: Implemented.**
+2. **Slice B — page wiring:** replace placeholder route, render grid, wire FAB → `CreateProfileDialog`. Spec: opening `/profiles` lists the seeded profile; submitting the dialog adds a row without page refresh. **Status: Pending.**
+3. **Slice C — delete:** wire delete cell + soft-delete server-side. Spec: deleted row disappears, dashboard still loads. **Status: Pending.**
 
 ## 9. Open Questions
 
