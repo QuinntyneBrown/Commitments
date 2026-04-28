@@ -110,6 +110,16 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(block).toMatch(/--cui-tile-header-gap\s*:\s*10px\b/);
   });
 
+  it('uses signal-form input() for goalId and windowDays (bug-071)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend-tile.component.ts'),
+      'utf8'
+    );
+    expect(ts).not.toMatch(/@Input\b/);
+    expect(ts).toMatch(/\bgoalId\s*=\s*input\(/);
+    expect(ts).toMatch(/\bwindowDays\s*=\s*input\(/);
+  });
+
   it('keeps every template line under 110 characters (bug-070)', () => {
     const lines = html.split(/\r?\n/);
     const overLong = lines
