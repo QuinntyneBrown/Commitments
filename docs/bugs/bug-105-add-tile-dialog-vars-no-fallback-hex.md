@@ -1,12 +1,26 @@
 ---
 id: bug-105
 title: add-tile-dialog.component.scss var() calls omit the design-system fallback hex
-status: Open
+status: Fixed
 ---
 
 # Bug 105 — add-tile-dialog var() fallback hex
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added the design-system hex fallback to all 16 `var(--cui-*)`
+references in `add-tile-dialog.component.scss` across surface,
+text, divider, accent, surface-2, primary-dim, and primary
+tokens. Created a minimal CSS-source spec (no spec previously
+existed) with the bug-105 regex guard.
+
+The dialog renders one cell per registered tile from
+`tileMetadata.displayName` + icon, so its chrome staying in
+sync with the design system is directly tile-related.
+
+302/302 workspace tests green.
 
 ## Description
 
