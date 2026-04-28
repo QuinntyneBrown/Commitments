@@ -1,12 +1,26 @@
 ---
 id: bug-107
 title: review-scrubber.component.scss var() calls omit the design-system fallback hex
-status: Open
+status: Fixed
 ---
 
 # Bug 107 — review-scrubber var() fallback hex
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added the design-system hex fallback to 8 `var()` references
+in `review-scrubber.component.scss` across surface, surface-3,
+text, and primary tokens. Final dashboard-framework component
+in the bug-096–106 series.
+
+The bug-107 spec regex was broadened from `[a-z-]+` to
+`[a-z0-9-]+` so it also catches tokens with digits like
+`surface-3` — without that, line 57 (`var(--cui-surface-3)`)
+would have slipped past the regression guard.
+
+304/304 workspace tests green.
 
 ## Description
 
