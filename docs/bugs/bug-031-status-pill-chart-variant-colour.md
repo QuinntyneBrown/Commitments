@@ -1,12 +1,37 @@
 ---
 id: bug-031
 title: Consistency Trend — LIVE pill renders pink (accent), but the .pen ctLive pill is info blue (#42A5F5)
-status: Open
+status: Fixed
 ---
 
 # Bug 031 — Status pill colour wrong for chart-variant tiles
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+- `StatusPillVariant` gains a `'chart'` member.
+- New `.status-pill--chart` rule uses `var(--cui-info)` for the
+  text/dot colour and a 14% tint for the background, mirroring the
+  existing `--live` pattern.
+- `ConsistencyTrendTileComponent.pillVariant()` returns `'chart'`
+  for live mode and `'review'` for review mode — chart tiles never
+  want the pink accent.
+- `pillLabel()` reads the underlying mode directly so the user
+  still sees `LIVE` / `REVIEW`.
+- Template binding `[pulse]="pillVariant() === 'chart'"` keeps the
+  pulse on live snapshots.
+
+The split is principled: `variant` controls *colour*, `label`
+describes *state*. Junior devs can extend the pattern by adding new
+variants for future themed tiles.
+
+Coverage:
+- `status-pill.component.spec.ts` asserts the `.status-pill--chart`
+  rule references `var(--cui-info)`.
+- `consistency-trend-tile.component.spec.ts` asserts
+  `pillVariant()` returns `'chart'`.
+- All 20 affected suites pass (85/85 — was 83/83 before).
 
 ## Description
 
