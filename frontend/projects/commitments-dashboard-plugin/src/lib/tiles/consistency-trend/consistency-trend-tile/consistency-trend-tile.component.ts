@@ -96,6 +96,8 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
 
   ngAfterViewInit(): void {
     const controller = this.controller;
+    const TODAY_GLOW_RADIUS = 7; // matches dataset POINT_RADIUS_HIGHLIGHT
+    const TODAY_GLOW_BLUR = 8;   // design todayDot effect.blur
     const todayPointGlow: Plugin<'line'> = {
       id: 'todayPointGlow',
       afterDatasetDraw(chart) {
@@ -105,11 +107,11 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
         if (!point) return;
         const ctx = chart.ctx;
         ctx.save();
-        ctx.shadowBlur = 8;
+        ctx.shadowBlur = TODAY_GLOW_BLUR;
         ctx.shadowColor = ACCENT_CHART + 'CC';
         ctx.fillStyle = ACCENT_CHART;
         ctx.beginPath();
-        ctx.arc(point.x, point.y, 7, 0, Math.PI * 2);
+        ctx.arc(point.x, point.y, TODAY_GLOW_RADIUS, 0, Math.PI * 2);
         ctx.fill();
         ctx.restore();
       }

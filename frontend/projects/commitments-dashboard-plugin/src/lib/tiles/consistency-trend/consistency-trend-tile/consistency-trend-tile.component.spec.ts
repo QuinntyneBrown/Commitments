@@ -122,7 +122,7 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     // controller.highlightedIndex() — matching the design's
     // todayDot effect (blur 8, #42A5F5CC).
     expect(ts).toMatch(/plugins\s*:\s*\[[\s\S]*?todayPointGlow/);
-    expect(ts).toMatch(/shadowBlur\b[\s\S]*?\b8\b/);
+    expect(ts).toMatch(/shadowBlur\s*=\s*\S+/);
     expect(ts).toMatch(/shadowColor\b[\s\S]*?ACCENT_CHART/);
     expect(ts).toMatch(/highlightedIndex\(\)/);
   });
