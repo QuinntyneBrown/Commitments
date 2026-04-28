@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   align-items: end;
-  gap: 10px;
+  gap: 12px;
   height: 100%;
   min-height: 0;
 }
@@ -10,14 +10,14 @@
 .bars span {
   display: block;
   min-height: 18px;
-  border-radius: 6px 6px 0 0;
+  border-radius: 4px 4px 0 0;
   background: linear-gradient(180deg, #2f6db3, #8bb8e8);
 }
 
 .bar-labels {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 12px;
   margin-top: 8px;
   padding: 0 4px;
   color: #666666;
