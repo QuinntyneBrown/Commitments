@@ -1,10 +1,30 @@
 ---
 id: bug-140
 title: goal-progress.service mixes inject() with @Optional()/@Inject() constructor decorators
-status: Open
+status: Fixed
 ---
 
 # Bug 140 — goal-progress.service: drop decorator-based DI for `inject()` form
+
+**Status**: Fixed
+
+## Fix
+
+```ts
+import { Injectable, InjectionToken, inject } from '@angular/core';
+...
+export class GoalProgressService {
+  private readonly _client = inject(HttpClient);
+  private readonly _baseUrl = inject(GOAL_PROGRESS_BASE_URL, { optional: true });
+  ...
+}
+```
+
+`Inject` and `Optional` decorator imports dropped, empty
+constructor removed. With this fix, every data service in the
+dashboard plugin uses the modern `inject()` form — sweep grep
+across `data/` for `@Optional()` returns 0 matches. 350/350
+workspace tests green.
 
 ## Description
 
