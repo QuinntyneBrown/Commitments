@@ -57,4 +57,18 @@ describe('ModeToggleComponent', () => {
     expect(block).toBeTruthy();
     expect(block![1]).toMatch(/font-family\s*:\s*var\(\s*--cui-font-display/);
   });
+
+  it('migrates @Input setters to input() / model() (bug-127)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'mode-toggle.component.ts'),
+      'utf8'
+    );
+    const inputCount = (ts.match(/@Input\b/g) ?? []).length;
+    expect(inputCount).toBe(0);
+    expect(ts).toMatch(/import\s*\{[^}]*\binput\b[^}]*\}\s*from\s*'@angular\/core'/);
+    expect(ts).toMatch(/import\s*\{[^}]*\bmodel\b[^}]*\}\s*from\s*'@angular\/core'/);
+    expect(ts).toMatch(/\bdisabled\s*=\s*input\(/);
+    expect(ts).toMatch(/\bmode\s*=\s*model</);
+    expect(ts).not.toMatch(/modeChange\s*=\s*output</);
+  });
 });
