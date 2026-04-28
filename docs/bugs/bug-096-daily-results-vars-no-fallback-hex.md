@@ -1,12 +1,27 @@
 ---
 id: bug-096
 title: daily-results-tile.component.scss var() calls omit the design-system fallback hex used everywhere else
-status: Open
+status: Fixed
 ---
 
 # Bug 096 — daily-results var() fallback hex
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added the matching design-system hex fallback to four `var()`
+references in `daily-results-tile.component.scss`:
+
+- `var(--cui-success)`        → `var(--cui-success, #66BB6A)`
+- `var(--cui-text-secondary)` → `var(--cui-text-secondary, #B0B0B0)`
+- `var(--cui-divider)`        → `var(--cui-divider, #3A3A3A)`
+- `var(--cui-success)`        → `var(--cui-success, #66BB6A)`
+
+Matches the cui-ui library's convention. The bug-096 spec is a
+forward-only guard — a regex iteration over the SCSS asserting
+no `var(--cui-*)` reference appears without a fallback — so
+future drift is caught early. 293/293 workspace tests green.
 
 ## Description
 
