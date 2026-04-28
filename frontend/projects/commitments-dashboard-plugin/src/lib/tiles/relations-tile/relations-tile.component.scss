@@ -1,13 +1,29 @@
 .relations {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  height: 100%;
   color: var(--cui-text-secondary);
-  font-size: 13px;
+  font-size: 14px;
+}
+
+.relations__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0 8px;
+  border-bottom: 1px solid #2A2A2A;
+}
+
+.relations__row:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
 }
 
 .relations strong {
   color: var(--cui-text-primary);
+  font-weight: 700;
 }
 
 .empty {

@@ -16,8 +16,10 @@
   } @else {
     <div class="relations">
       @for (relation of controller.relations(); track relation.behaviourTypeId) {
-        <span>{{ relation.name }}</span>
-        <strong>{{ relation.percentage }}%</strong>
+        <div class="relations__row">
+          <span>{{ relation.name }}</span>
+          <strong>{{ relation.percentage }}%</strong>
+        </div>
       }
     </div>
   }
