@@ -23,4 +23,11 @@ describe('OutstandingTodosTileComponent (template + CSS source)', () => {
     expect(block).toMatch(/display\s*:\s*flex\b/);
     expect(block).toMatch(/align-items\s*:\s*center\b/);
   });
+
+  it('uses the .pen-aligned title and eyebrow strings (bug-027)', () => {
+    expect(html).toMatch(/title="Outstanding Todos"/);
+    expect(html).toMatch(/eyebrow="Tasks"/);
+    // U+2011 non-breaking hyphen must not appear in the template
+    expect(html).not.toContain('‑');
+  });
 });
