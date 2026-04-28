@@ -1,12 +1,25 @@
 ---
 id: bug-133
 title: consistency-trend _fallbackMode / _fallbackDate use signal().asReadonly() for constant values; computed() is more idiomatic
-status: Open
+status: Fixed
 ---
 
 # Bug 133 — fallback signals: signal().asReadonly() → computed()
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Replaced both fallback declarations with `computed()`:
+
+```ts
+private readonly _fallbackMode = computed<'live' | 'review'>(() => 'live');
+private readonly _fallbackDate = computed<string | null>(() => null);
+```
+
+`signal()` is for mutable state; `computed()` is for
+derived/constant read-only signals. The now-unused `signal`
+import was dropped. 329/329 workspace tests green.
 
 ## Description
 
