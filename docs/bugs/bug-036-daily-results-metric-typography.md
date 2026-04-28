@@ -1,12 +1,26 @@
 ---
 id: bug-036
 title: Daily Results — metric value renders at 42px / 800 and label at 13px; design specifies 48px / 700 and 12px
-status: Open
+status: Fixed
 ---
 
 # Bug 036 — Daily Results metric typography
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`daily-results-tile.component.scss`:
+- `.metric__value` font-size 42px → 48px, font-weight 800 → 700
+- `.metric__label` font-size 13px → 12px
+
+Colours already matched via the existing tokens
+(`var(--cui-success)` and `var(--cui-text-secondary)`).
+
+Coverage:
+- Two new specs in `daily-results-tile.component.spec.ts` assert
+  the value's 48px / 700 and the label's 12px.
+- All 20 affected suites pass (97/97 — was 95/95 before).
 
 ## Description
 
