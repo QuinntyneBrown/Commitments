@@ -1,12 +1,23 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TileMetadata } from '@commitments/dashboard-framework';
-import { TileShellComponent } from '@commitments/ui';
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import {
+  TILE_CONTEXT,
+  TileContext,
+  TileMetadata,
+  bindTileMode
+} from '@commitments/dashboard-framework';
+import { StatusPillComponent, TileShellComponent } from '@commitments/ui';
+
+import { RelationsController } from './relations.controller';
 
 @Component({
   selector: 'commitments-relations-tile',
   standalone: true,
-  imports: [TileShellComponent],
+  imports: [TileShellComponent, StatusPillComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [RelationsController],
   templateUrl: './relations-tile.component.html',
   styleUrls: ['./relations-tile.component.scss']
 })
@@ -19,6 +30,18 @@ export class RelationsTileComponent {
     category: 'Commitments',
     defaultSize: { cols: 4, rows: 2 },
     defaultPosition: { x: 0, y: 2 },
-    includeByDefault: true
+    includeByDefault: true,
+    supportedModes: ['live', 'review']
   };
+
+  protected readonly controller = inject(RelationsController);
+  protected readonly statusLabel = computed(() => this.controller.mode().toUpperCase());
+
+  constructor() {
+    const context = inject(TILE_CONTEXT, { optional: true }) as TileContext | null;
+    bindTileMode({
+      context,
+      load: (mode, asOf) => this.controller.load(mode, asOf)
+    });
+  }
 }

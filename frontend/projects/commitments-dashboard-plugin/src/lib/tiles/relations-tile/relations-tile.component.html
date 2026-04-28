@@ -1,7 +1,24 @@
-<commitments-tile-shell title="Relations" eyebrow="Balance" icon="diversity_3">
-  <div class="relations">
-    <span>Health</span><strong>42%</strong>
-    <span>Work</span><strong>33%</strong>
-    <span>Personal</span><strong>25%</strong>
-  </div>
+<commitments-tile-shell
+  title="Relations"
+  eyebrow="Balance"
+  icon="diversity_3"
+  variant="metric"
+  data-testid="relations-tile"
+>
+  <cui-status-pill
+    [variant]="controller.mode()"
+    [pulse]="controller.mode() === 'live'"
+    [label]="statusLabel()"
+  ></cui-status-pill>
+
+  @if (controller.isEmpty()) {
+    <p class="empty">No commitments yet.</p>
+  } @else {
+    <div class="relations">
+      @for (relation of controller.relations(); track relation.behaviourTypeId) {
+        <span>{{ relation.name }}</span>
+        <strong>{{ relation.percentage }}%</strong>
+      }
+    </div>
+  }
 </commitments-tile-shell>
