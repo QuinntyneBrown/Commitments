@@ -1,12 +1,44 @@
 ---
 id: bug-029
 title: Consistency Trend — delta badge sits on its own row beneath the metric; design has them inline on the same row
-status: Open
+status: Fixed
 ---
 
 # Bug 029 — Consistency Trend metric and delta on separate rows
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`consistency-trend-tile.component.html` moves `<cui-metric-header>`
+inside the existing `<div class="trend-row">` so it lives next to
+`<cui-delta-badge>`. `consistency-trend-tile.component.scss` upgrades
+`.trend-row` from a plain `margin-top: 6px;` block to:
+
+```scss
+.trend-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 6px;
+}
+```
+
+Metric headline now stays on the left while the delta badge floats
+to the right edge with baselines aligned, matching the .pen
+ctMetric frame.
+
+Out of scope (tracked separately if filed):
+- metric-header internal value font 42px vs design 48px;
+- metric-header doesn't yet stack a `today` sublabel above the
+  Peak/Low caption.
+
+Coverage:
+- Two new specs in
+  `consistency-trend-tile.component.spec.ts` cover both the template
+  co-location and the flex-row CSS commitments.
+- All 20 affected suites pass (82/82 — was 80/80 before).
 
 ## Description
 
