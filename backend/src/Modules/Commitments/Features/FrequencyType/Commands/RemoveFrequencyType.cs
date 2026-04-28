@@ -3,8 +3,7 @@
 
 using FluentValidation;
 using MediatR;
-using System.Threading.Tasks;
-using System.Threading;
+using Microsoft.AspNetCore.Http;
 
 
 namespace Commitments.Features.FrequencyType;
@@ -30,6 +29,12 @@ public class RemoveFrequencyTypeCommandHandler : IRequestHandler<RemoveFrequency
 
     public async Task Handle(RemoveFrequencyTypeRequest request, CancellationToken cancellationToken)
     {
+        var referenceCount = _context.Frequencies.Count(f => f.FrequencyTypeId == request.FrequencyTypeId);
+        if (referenceCount > 0)
+        {
+            throw new BadHttpRequestException($"Cannot delete: referenced by {referenceCount} frequency(ies)", 400);
+        }
+
         _context.FrequencyTypes.Remove(await _context.FrequencyTypes.FindAsync(request.FrequencyTypeId));
         await _context.SaveChangesAsync(cancellationToken);
     }

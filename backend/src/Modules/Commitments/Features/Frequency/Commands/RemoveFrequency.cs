@@ -3,8 +3,7 @@
 
 using FluentValidation;
 using MediatR;
-using System.Threading.Tasks;
-using System.Threading;
+using Microsoft.AspNetCore.Http;
 
 
 namespace Commitments.Features.Frequency;
@@ -30,6 +29,12 @@ public class RemoveFrequencyCommandHandler : IRequestHandler<RemoveFrequencyRequ
 
     public async Task Handle(RemoveFrequencyRequest request, CancellationToken cancellationToken)
     {
+        var referenceCount = _context.CommitmentFrequencies.Count(cf => cf.FrequencyId == request.FrequencyId);
+        if (referenceCount > 0)
+        {
+            throw new BadHttpRequestException($"Cannot delete: referenced by {referenceCount} commitment-frequency join(s)", 400);
+        }
+
         _context.Frequencies.Remove(await _context.Frequencies.FindAsync(request.FrequencyId));
         await _context.SaveChangesAsync(cancellationToken);
     }
