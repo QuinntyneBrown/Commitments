@@ -1,6 +1,6 @@
 # Behaviour Types — Detailed Design
 
-**Status:** Accepted
+**Status:** Implemented
 
 **Traces to:** L1-003 · L2-006
 
@@ -55,8 +55,13 @@ All routes carry `Authorize` + `ProfileId` header per L2-038.
 
 ## 8. ATDD Slices
 
-1. **Slice A — route wiring + spec:** replace placeholder with real component. Spec: list loads ordered by name; FAB opens dialog; saving appends/updates a row.
-2. **Slice B — referential integrity:** add guard in `RemoveBehaviourTypeHandler`. Spec: deleting a type used by at least one behaviour returns 400 and the row remains.
+1. **Slice A — route wiring + spec:** replace placeholder with real component. Spec: list loads ordered by name; FAB opens dialog; saving appends/updates a row. **Status: Implemented.**
+2. **Slice B — referential integrity:** add guard in `RemoveBehaviourTypeHandler`. Spec: deleting a type used by at least one behaviour returns 400 and the row remains. **Status: Implemented.**
+
+## 10. Implementation Notes
+
+- The integrity guard is four lines in the handler: count non-deleted referencing `Behaviour`s, throw `BadHttpRequestException(message, 400)` if any. ASP.NET Core converts that to a 400 response automatically — no controller change needed.
+- Bulk side-fix: 13 commitments-app files still imported AG Grid types from the bare `'ag-grid'` module (which v32 no longer ships). Swapped to `'ag-grid-community'` here so the routed page actually compiles under jest-preset-angular and so future ATDD work on designs 06, 07, 09–12, 14, 16, 17 inherits a clean baseline.
 
 ## 9. Open Questions
 
