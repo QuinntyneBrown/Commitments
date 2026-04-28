@@ -517,4 +517,24 @@ describe('app.routes', () => {
       expect(scss).not.toMatch(/var\(--cui-on-accent,\s*#fff\)/);
     }
   });
+
+  it('_tokens.scss no longer carries legacy non-prefixed token duplicates (bug-179)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const tokens = readFileSync(
+      join(__dirname, '..', '..', '..', 'commitments-ui', 'src', 'lib', 'tokens', '_tokens.scss'),
+      'utf8'
+    );
+    const dead = [
+      '--bg-app:', '--bg-toolbar:', '--bg-sidebar:',
+      '--surface-tile:', '--surface-raised:', '--divider:',
+      '--accent-live:', '--accent-review:', '--accent-chart:',
+      '--accent-success:',
+      '--text-primary:', '--text-secondary:', '--text-muted:',
+      '--radius-tile:', '--space-tile-pad:', '--shadow-tile:'
+    ];
+    for (const decl of dead) {
+      expect(tokens).not.toContain(decl);
+    }
+  });
 });
