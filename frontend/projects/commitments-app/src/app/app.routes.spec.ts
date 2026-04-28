@@ -10,6 +10,7 @@ import { LoginPageComponent } from './pages/login/login-page/login-page.componen
 import { ActivitiesPageComponent } from './pages/activities/activities-page/activities-page.component';
 import { ToDosPageComponent } from './pages/to-dos/to-dos-page/to-dos-page.component';
 import { NotesPageComponent } from './pages/notes/notes-page/notes-page.component';
+import { EditNotePageComponent } from './pages/edit-note/edit-note-page/edit-note-page.component';
 import { BehaviourTypesPageComponent } from './pages/behaviour-types/behaviour-types-page/behaviour-types-page.component';
 import { BehavioursPageComponent } from './pages/behaviours/behaviours-page/behaviours-page.component';
 import { CommitmentsPageComponent } from './pages/commitments/commitments-page/commitments-page.component';
@@ -131,5 +132,14 @@ describe('app.routes', () => {
     const child = home?.children?.find((c) => c.path === 'notes');
     expect(child).toBeDefined();
     expect(child!.component).toBe(NotesPageComponent);
+  });
+
+  it('routes /edit-note/:slug to EditNotePageComponent with the note resolver (design 13-Edit-Note Slice A)', () => {
+    const home = routes.find((r) => r.path === '');
+    const child = home?.children?.find((c) => c.path === 'edit-note/:slug');
+    expect(child).toBeDefined();
+    expect(child!.component).toBe(EditNotePageComponent);
+    expect(child!.resolve).toBeDefined();
+    expect(child!.resolve!['note']).toBeDefined();
   });
 });
