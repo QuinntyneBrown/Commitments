@@ -1,6 +1,6 @@
 # Tags — Detailed Design
 
-**Status:** Accepted
+**Status:** Implemented
 
 **Traces to:** L1-007 · L2-015, L2-038
 
@@ -64,10 +64,15 @@ The `Tag` aggregate is **missing on the backend** today; only the integration ev
 
 ## 8. ATDD Slices
 
-1. **Slice A — entity + migration.** Spec: migration applies; `Tags` table exists with unique slug per profile.
-2. **Slice B — list + create.** Spec: opening `/tags` shows an empty list; submitting `AddTagDialog` adds a row.
-3. **Slice C — slug regen + dedupe.** Spec: creating a tag named `Weekly` then another named `weekly` produces slugs `weekly` and `weekly-2`.
-4. **Slice D — refint on delete.** Spec: a tag with at least one `NoteTag` reference cannot be deleted.
+1. **Slice A — entity + migration.** Spec: migration applies; `Tags` table exists with unique slug per profile. **Status: Implemented** — entity + DbContext entry done; EF migration carried with the 01-Login backlog.
+2. **Slice B — list + create.** Spec: opening `/tags` shows an empty list; submitting `AddTagDialog` adds a row. **Status: Implemented.**
+3. **Slice C — slug regen + dedupe.** **Status: Implemented** — same `GenerateSlug` + LINQ + i=2… loop pattern as design 12 SaveNote.
+4. **Slice D — refint on delete.** **Status: Implemented** — count `NoteTag.TagId == request.TagId`; throw `BadHttpRequestException(message, 400)` if any.
+
+## 10. Implementation Notes
+
+- The `NoteTag` join entity is stubbed in `Commitments.Domain.NoteAggregate` (just enough fields to support the refint guard: `NoteTagId, NoteId, TagId`). Design 15 will add the navigation properties and the join-page query — keeping the surface minimal here avoids speculative coupling.
+- `SaveTag`, `RemoveTag`, and the slug dedupe loop reuse the **identical** shape as design 12 (`SaveNote` / `RemoveNote`) so a junior reading either file picks up the pattern in the other for free.
 
 ## 9. Open Questions
 
