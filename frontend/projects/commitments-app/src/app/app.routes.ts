@@ -8,6 +8,7 @@ import { DashboardLayoutComponent } from './components/dashboard-layout/dashboar
 import { PlaceholderPageComponent } from './components/placeholder-page/placeholder-page.component';
 import { ActivitiesPageComponent } from './pages/activities/activities-page/activities-page.component';
 import { ToDosPageComponent } from './pages/to-dos/to-dos-page/to-dos-page.component';
+import { NotesPageComponent } from './pages/notes/notes-page/notes-page.component';
 import { BehaviourTypesPageComponent } from './pages/behaviour-types/behaviour-types-page/behaviour-types-page.component';
 import { BehavioursPageComponent } from './pages/behaviours/behaviours-page/behaviours-page.component';
 import { CommitmentsPageComponent } from './pages/commitments/commitments-page/commitments-page.component';
@@ -20,8 +21,7 @@ import { SettingsPageComponent } from './pages/settings/settings-page/settings-p
 
 const placeholderPaths = [
   'cards',
-  'card-layouts',
-  'notes'
+  'card-layouts'
 ];
 
 export const routes: Routes = [
@@ -42,6 +42,7 @@ export const routes: Routes = [
       { path: 'commitments', component: CommitmentsPageComponent },
       { path: 'activities', component: ActivitiesPageComponent },
       { path: 'to-dos', component: ToDosPageComponent },
+      { path: 'notes', component: NotesPageComponent },
       ...placeholderPaths.map(path => ({ path, component: PlaceholderPageComponent }))
     ]
   }
