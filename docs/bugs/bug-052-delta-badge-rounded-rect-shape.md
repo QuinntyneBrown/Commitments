@@ -1,12 +1,31 @@
 ---
 id: bug-052
 title: Delta-badge renders as a 24×pill (999px corner-radius); design specifies 20px rounded rect with 4px corners
-status: Open
+status: Fixed
 ---
 
 # Bug 052 — Delta-badge dimensions and corner-radius
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`delta-badge.component.scss` `.delta-badge`:
+- border-radius: 999px → 4px
+- min-height: 24px → 20px
+- padding: 0 8px → 0 6px
+- gap: 6px → 4px
+
+Coverage:
+- New CSS-source spec asserts all four properties match the .pen
+  ctDelta values.
+- All 20 affected suites pass (125/125 — was 124/124 before).
+
+Out of scope (separate bugs to be filed if pursued):
+- Adding the leading `arrow_upward` 12×12 icon.
+- Merging value (700) and caption (500/secondary) into a single
+  uniform Inter 11/500 line, plus refactoring the consistency-
+  trend tile's `[delta]`/`[caption]` wiring.
 
 ## Description
 
