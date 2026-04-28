@@ -1,12 +1,35 @@
 ---
 id: bug-073
 title: Only consistency-trend's spec has a line-length cap; six other tile specs lack the same regression guard
-status: Open
+status: Fixed
 ---
 
 # Bug 073 — Line-length regression guard missing from six tile specs
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added the same 110-char line-length cap that bug-070 added for
+consistency-trend to the other six tile spec files:
+
+- daily-results, weekly-focus, monthly-progress,
+  outstanding-todos, relations, goal-metrics
+
+Each new `it('keeps every template line under 110 characters
+(bug-073)')` reads its component's HTML, splits into lines, and
+asserts none exceeds 110 characters.
+
+All six pass on the current templates (no actual reformatting was
+needed). Future drift is caught early.
+
+The relations-tile spec also collapsed a redundant inner
+`readFileSync(html…)` since the outer-scope `html` constant was
+already accessible.
+
+Coverage:
+- 6 new specs, all green; 41 tests across the 6 affected files.
+- All 22 affected suites pass.
 
 ## Description
 
