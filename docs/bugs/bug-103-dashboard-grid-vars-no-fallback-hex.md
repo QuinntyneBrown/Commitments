@@ -1,12 +1,29 @@
 ---
 id: bug-103
 title: dashboard-grid.component.scss var() calls omit the design-system fallback hex
-status: Open
+status: Fixed
 ---
 
 # Bug 103 — dashboard-grid var() fallback hex
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added the design-system hex fallback to six `var()` references
+in `dashboard-grid.component.scss`:
+
+- `var(--cui-bg, #121212)` (gridster background)
+- `var(--cui-accent, #FF4081)` (edit border, drag chip)
+- `var(--cui-warn, #F44336)` (remove chip)
+- `var(--cui-text-secondary, #B0B0B0)` (drag icon, empty copy)
+- `var(--cui-text-primary, #FFFFFF)` (drag label, empty title)
+
+Created a minimal `dashboard-grid.component.spec.ts` with the
+bug-103 regex guard (no spec previously existed).
+300/300 workspace tests green. Brings the dashboard-framework
+host into the same fallback convention as the dashboard-plugin
+tiles (bug-096–102).
 
 ## Description
 
