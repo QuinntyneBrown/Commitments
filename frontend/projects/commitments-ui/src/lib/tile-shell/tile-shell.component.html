@@ -1,8 +1,5 @@
 <mat-card
-  class="tile-shell"
-  [class.tile-shell--metric]="variant() === 'metric'"
-  [class.tile-shell--review]="variant() === 'review'"
-  [class.tile-shell--chart]="variant() === 'chart'"
+  [class]="'tile-shell tile-shell--' + variant()"
   appearance="outlined"
   data-testid="tile-shell">
   <mat-card-header class="tile-shell__header">
