@@ -1,10 +1,19 @@
 ---
 id: bug-158
 title: TileContext.remove() and isEditMode are unused — drop both
-status: Open
+status: Fixed
 ---
 
 # Bug 158 — Drop dead `TileContext.remove()` and `TileContext.isEditMode`
+
+**Status**: Fixed
+
+## Fix
+
+7 lines removed across 3 files. After this cleanup, TileContext
+is just `tileId`, `instanceId`, `mode`, `selectedReviewDate` —
+exactly what the framework's reactive bindings actually
+consume. 360/360 workspace tests green.
 
 ## Description
 
