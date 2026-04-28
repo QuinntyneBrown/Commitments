@@ -1,12 +1,40 @@
 ---
 id: bug-057
 title: Five tile pills lack the `tile-status` projection attribute, so they render in the body slot instead of the tile-shell header
-status: Open
+status: Fixed
 ---
 
 # Bug 057 — Pills not projected into the tile-shell header slot
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added the `tile-status` attribute to the `<cui-status-pill>` in
+five plugin tiles:
+
+- weekly-focus-tile
+- monthly-progress-tile
+- outstanding-todos-tile
+- relations-tile
+- consistency-trend-tile
+
+The shell's `<ng-content select="[tile-status]">` (introduced by
+bug-018) catches each pill into the header's right slot,
+matching every tile's .pen header layout.
+
+`daily-results-tile` already had the attribute from bug-018; all
+six in-scope plugin tiles now project their pills consistently
+into the header.
+
+`goal-metrics-tile` (in the dashboard plugin but outside
+`docs/tiles/`) still projects into the body slot — candidate
+for a follow-up consistency bug.
+
+Coverage:
+- Each affected tile's component spec asserts the pill carries
+  the `tile-status` attribute.
+- All 20 affected suites pass (141/141 — was 136/136 before).
 
 ## Description
 
