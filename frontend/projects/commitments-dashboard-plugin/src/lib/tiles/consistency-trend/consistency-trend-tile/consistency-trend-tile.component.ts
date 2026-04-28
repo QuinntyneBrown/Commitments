@@ -15,7 +15,7 @@ import {
   input,
   signal
 } from '@angular/core';
-import { Chart, ChartConfiguration } from 'chart.js';
+import { ChartConfiguration, Plugin } from 'chart.js';
 import { TILE_CONTEXT, TileContext, TileMetadata } from '@commitments/dashboard-framework';
 import {
   ACCENT_CHART,
@@ -96,9 +96,9 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
 
   ngAfterViewInit(): void {
     const controller = this.controller;
-    const todayPointGlow = {
+    const todayPointGlow: Plugin<'line'> = {
       id: 'todayPointGlow',
-      afterDatasetDraw(chart: Chart<'line'>): void {
+      afterDatasetDraw(chart) {
         const idx = controller.highlightedIndex();
         if (idx < 0) return;
         const point = chart.getDatasetMeta(0).data[idx];
