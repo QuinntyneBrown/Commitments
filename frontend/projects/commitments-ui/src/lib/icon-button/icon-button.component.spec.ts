@@ -53,12 +53,21 @@ describe('IconButtonComponent', () => {
       join(__dirname, 'icon-button.component.ts'),
       'utf8'
     );
-    // pressed remains a writable signal + @Input setter for the 2-way
-    // binding shape; the other three migrate to input().
-    const inputCount = (ts.match(/@Input\b/g) ?? []).length;
-    expect(inputCount).toBe(1);
     expect(ts).toMatch(/\bicon\s*=\s*input\(/);
     expect(ts).toMatch(/\bariaLabel\s*=\s*input\(/);
     expect(ts).toMatch(/\bdisabled\s*=\s*input\(/);
+  });
+
+  it('migrates pressed to model() for 2-way binding (bug-126)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'icon-button.component.ts'),
+      'utf8'
+    );
+    // model() collapses signal + @Input setter + output into one.
+    const inputCount = (ts.match(/@Input\b/g) ?? []).length;
+    expect(inputCount).toBe(0);
+    expect(ts).toMatch(/import\s*\{[^}]*\bmodel\b[^}]*\}\s*from\s*'@angular\/core'/);
+    expect(ts).toMatch(/\bpressed\s*=\s*model\(/);
+    expect(ts).not.toMatch(/pressedChange\s*=\s*output</);
   });
 });
