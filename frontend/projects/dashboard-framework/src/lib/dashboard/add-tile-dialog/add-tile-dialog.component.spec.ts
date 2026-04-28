@@ -33,4 +33,9 @@ describe('AddTileDialogComponent (CSS source)', () => {
     expect(scss).not.toMatch(/var\(--cui-text-disabled,\s*#888\)/);
     expect(scss).toMatch(/var\(\s*--cui-text-disabled\s*,\s*#666666\s*\)/);
   });
+
+  it('selected-cell box-shadow uses color-mix on --cui-accent (bug-189)', () => {
+    expect(scss).not.toMatch(/#FF408155/);
+    expect(scss).toMatch(/box-shadow:[^;]*color-mix\(in srgb,\s*var\(\s*--cui-accent[^)]*\)\s*33%,\s*transparent\)/);
+  });
 });
