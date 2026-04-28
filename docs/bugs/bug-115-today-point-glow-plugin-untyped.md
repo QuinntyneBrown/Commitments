@@ -1,12 +1,23 @@
 ---
 id: bug-115
 title: bug-114's todayPointGlow plugin object is untyped
-status: Open
+status: Fixed
 ---
 
 # Bug 115 — todayPointGlow plugin typing
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Replaced the explicit `chart: Chart<'line'>` parameter
+annotation on the `afterDatasetDraw` hook with a `Plugin<'line'>`
+type on the plugin object itself. Chart.js's plugin shape is
+now type-checked end-to-end — typos in the hook name or `id`
+field fail to compile.
+
+The previously-imported `Chart` type was unused and was
+replaced with `Plugin`. 312/312 workspace tests green.
 
 ## Description
 
