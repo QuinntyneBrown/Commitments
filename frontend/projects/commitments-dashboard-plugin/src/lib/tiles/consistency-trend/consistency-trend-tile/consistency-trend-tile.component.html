@@ -11,9 +11,9 @@
     </cui-metric-header>
 
     <cui-delta-badge
-      [delta]="controller.currentPercentage() - controller.lowPercentage()"
+      [delta]="controller.deltaPercentage()"
       format="percent"
-      [caption]="controller.deltaLabel()">
+      [caption]="controller.deltaCaption()">
     </cui-delta-badge>
   </div>
 

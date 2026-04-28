@@ -24,6 +24,14 @@ export class ConsistencyTrendController {
   readonly peakPercentage = computed(() => this.trend()?.peakPercentage ?? 0);
   readonly lowPercentage = computed(() => this.trend()?.lowPercentage ?? 0);
   readonly deltaLabel = computed(() => this.trend()?.deltaLabel ?? '');
+  readonly deltaPercentage = computed(() => {
+    const match = this.deltaLabel().match(/-?\d+/);
+    return match ? Number(match[0]) : 0;
+  });
+  readonly deltaCaption = computed(() => {
+    const idx = this.deltaLabel().indexOf('%');
+    return idx >= 0 ? this.deltaLabel().slice(idx + 1).trim() : '';
+  });
 
   readonly highlightedIndex = computed(() => {
     const trend = this.trend();
