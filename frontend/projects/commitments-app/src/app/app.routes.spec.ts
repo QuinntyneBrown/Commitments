@@ -407,4 +407,19 @@ describe('app.routes', () => {
       expect(existsSync(file)).toBe(false);
     }
   });
+
+  it('6 dead shell UI components are gone from commitments-ui (bug-164)', () => {
+    const { existsSync } = require('fs');
+    const { join } = require('path');
+    const dead = [
+      'app-shell', 'dashboard-tile', 'sidenav',
+      'sidenav-item', 'toolbar', 'table-row'
+    ];
+    for (const dir of dead) {
+      const file = join(
+        __dirname, '..', '..', '..', 'commitments-ui', 'src', 'lib', dir, `${dir}.component.ts`
+      );
+      expect(existsSync(file)).toBe(false);
+    }
+  });
 });
