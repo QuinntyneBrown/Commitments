@@ -537,4 +537,32 @@ describe('app.routes', () => {
       expect(tokens).not.toContain(decl);
     }
   });
+
+  it('_tokens.scss no longer declares 30 unused --cui- design tokens (bug-180)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const tokens = readFileSync(
+      join(__dirname, '..', '..', '..', 'commitments-ui', 'src', 'lib', 'tokens', '_tokens.scss'),
+      'utf8'
+    );
+    const dead = [
+      // Typography scale (none consumed via var())
+      '--cui-fs-xs:', '--cui-fs-sm:', '--cui-fs-body:', '--cui-fs-md:',
+      '--cui-fs-lg:', '--cui-fs-xl:', '--cui-fs-h3:', '--cui-fs-h2:',
+      '--cui-fs-h1:', '--cui-fs-display:',
+      '--cui-fw-regular:', '--cui-fw-medium:', '--cui-fw-bold:',
+      // Spacing scale (none consumed via var())
+      '--cui-sp-1:', '--cui-sp-2:', '--cui-sp-3:', '--cui-sp-4:',
+      '--cui-sp-5:', '--cui-sp-6:', '--cui-sp-7:', '--cui-sp-8:',
+      '--cui-sp-9:', '--cui-sp-10:',
+      // Misc unused
+      '--cui-text-on-primary:', '--cui-shadow-raised:',
+      '--cui-shadow-floating:', '--cui-toolbar-height:',
+      '--cui-sidenav-width:', '--cui-font-body:', '--cui-font-mono:',
+      '--cui-focus-ring:'
+    ];
+    for (const decl of dead) {
+      expect(tokens).not.toContain(decl);
+    }
+  });
 });
