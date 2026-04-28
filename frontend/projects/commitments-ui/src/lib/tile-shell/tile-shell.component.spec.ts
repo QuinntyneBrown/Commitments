@@ -109,6 +109,11 @@ describe('TileShellComponent', () => {
       expect(block).toMatch(/font-family\s*:\s*var\(\s*--cui-font-display/);
     });
 
+    it('pins eyebrow font-family to the same design font token (bug-111)', () => {
+      const block = ruleBlock('\\.tile-shell__eyebrow');
+      expect(block).toMatch(/font-family\s*:\s*var\(\s*--cui-font-display/);
+    });
+
     it('body padding-top consumes the per-tile custom property (bug-041)', () => {
       const block = ruleBlock('\\.tile-shell__body');
       expect(block).toMatch(/padding-top\s*:\s*var\(\s*--cui-tile-body-gap/);
