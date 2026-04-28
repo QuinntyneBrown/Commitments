@@ -1,12 +1,24 @@
 ---
 id: bug-058
 title: goal-metrics-tile pill still projects into the body slot; lone holdout after bug-057's pill-header sweep
-status: Open
+status: Fixed
 ---
 
 # Bug 058 — goal-metrics-tile pill not projected into the tile-shell header
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`goal-metrics-tile.component.html` adds `tile-status` to the
+`<cui-status-pill>`. With the change, all seven dashboard-plugin
+tiles project their pills consistently into the tile-shell
+header named slot.
+
+Coverage:
+- New `goal-metrics-tile.component.spec.ts` (template-source
+  describe block) asserts the pill carries the attribute.
+- All 21 affected suites pass (142/142 — was 141/141 before).
 
 ## Description
 
