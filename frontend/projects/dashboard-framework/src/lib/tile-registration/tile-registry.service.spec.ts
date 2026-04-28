@@ -70,7 +70,7 @@ describe('TileRegistryService.registerTile (mode-invariant validation)', () => {
       // ignore
     }
     expect(registry.getTile('offender')).toBeUndefined();
-    expect(registry.listTiles()).toHaveLength(0);
+    expect(registry.tiles()).toHaveLength(0);
   });
 });
 

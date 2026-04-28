@@ -44,10 +44,6 @@ export class TileRegistryService {
     return this.byId.get(tileId);
   }
 
-  listTiles(): TileDescriptor[] {
-    return this.descriptors();
-  }
-
   tilesForMode(mode: DashboardMode): TileDescriptor[] {
     return this.descriptors().filter((d) => supports(d, mode));
   }
