@@ -98,5 +98,11 @@ describe('TileShellComponent', () => {
       // bug-041 replaces it with the per-tile custom property.
       expect(scss).not.toMatch(/\.tile-shell--chart\s+\.tile-shell__body\s*\{[^}]*padding-top/);
     });
+
+    it('renders the .pen drop shadow on every tile (bug-042)', () => {
+      const block = ruleBlock('\\.tile-shell');
+      expect(block).toMatch(/box-shadow\s*:[^;]*4px[^;]*12px/);
+      expect(block).not.toMatch(/box-shadow\s*:\s*none\b/);
+    });
   });
 });
