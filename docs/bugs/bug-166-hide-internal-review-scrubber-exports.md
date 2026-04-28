@@ -1,10 +1,20 @@
 ---
 id: bug-166
 title: review-scrubber controller and helpers leak into dashboard-framework public API
-status: Open
+status: Fixed
 ---
 
 # Bug 166 — Hide internal review-scrubber implementation from public-api
+
+**Status**: Fixed
+
+## Fix
+
+Two re-export lines deleted from
+`dashboard-framework/src/lib/dashboard/index.ts`. The
+controller and helper files remain in place — just no longer
+published as part of the framework's public API. 366/366
+workspace tests green.
 
 ## Description
 
