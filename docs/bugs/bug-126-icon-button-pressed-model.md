@@ -1,12 +1,23 @@
 ---
 id: bug-126
 title: icon-button.pressed still uses three separate declarations (signal + @Input setter + output) — should be model()
-status: Open
+status: Fixed
 ---
 
 # Bug 126 — icon-button pressed → model()
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Replaced the writable-signal + @Input setter + output trio
+with one declaration: `readonly pressed = model(false)`.
+`toggle()` simplified to `this.pressed.set(!this.pressed())`.
+Net diff: 3 inserts, 10 deletes. Last `@Input` decorator in
+the file is gone; icon-button is now fully signal-based.
+
+323/323 workspace tests green. Closes the bug-125 →
+bug-126 chain.
 
 ## Description
 
