@@ -80,6 +80,11 @@ describe('StatusPillComponent', () => {
       const block = ruleBlock('\\.status-pill');
       expect(block).toMatch(/letter-spacing\s*:\s*1px\b/);
     });
+
+    it('pins font-family to --cui-font-display at the root (bug-112)', () => {
+      const block = ruleBlock('\\.status-pill');
+      expect(block).toMatch(/font-family\s*:\s*var\(\s*--cui-font-display/);
+    });
   });
 
   describe('template (bug-069)', () => {

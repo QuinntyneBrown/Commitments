@@ -61,6 +61,11 @@ describe('DeltaBadgeComponent', () => {
       expect(block).not.toMatch(/align-items\s*:\s*baseline\b/);
     });
 
+    it('pins font-family to --cui-font-display at the root (bug-112)', () => {
+      const block = ruleBlock('\\.delta-badge');
+      expect(block).toMatch(/font-family\s*:\s*var\(\s*--cui-font-display/);
+    });
+
     it('sizes the directional icon to 12px (bug-053)', () => {
       const block = ruleBlock('\\.delta-badge__icon');
       expect(block).toMatch(/font-size\s*:\s*12px\b/);

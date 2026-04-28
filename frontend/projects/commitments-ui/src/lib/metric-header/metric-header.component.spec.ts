@@ -54,6 +54,11 @@ describe('MetricHeaderComponent', () => {
       expect(block).toMatch(/var\(\s*--cui-text-disabled/);
       expect(block).not.toMatch(/color\s*:\s*#666666\b/i);
     });
+
+    it('pins font-family to --cui-font-display at the root (bug-112)', () => {
+      const block = ruleBlock('\\.metric-header');
+      expect(block).toMatch(/font-family\s*:\s*var\(\s*--cui-font-display/);
+    });
   });
 
   describe('template (bug-068)', () => {
