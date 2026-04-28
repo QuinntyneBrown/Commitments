@@ -36,6 +36,12 @@ describe('DailyResultsTileComponent (CSS source)', () => {
     expect(block).toMatch(/margin-top\s*:\s*(?:10px|var\(\s*--cui-tile-body-gap)/);
     expect(block).not.toMatch(/margin-top\s*:\s*18px\b/);
   });
+
+  it('progress bar uses the --cui-radius-full token, not literal 999px (bug-095)', () => {
+    const block = ruleBlock('\\.progress');
+    expect(block).toMatch(/border-radius\s*:\s*var\(\s*--cui-radius-full/);
+    expect(block).not.toMatch(/border-radius\s*:\s*999px\b/);
+  });
 });
 
 describe('DailyResultsTileComponent (TS source)', () => {
