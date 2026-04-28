@@ -4,5 +4,4 @@ export * from './dashboard-layout.store';
 export * from './dashboard-mode.service';
 export * from './dashboard-shell/dashboard-shell.component';
 export * from './dashboard.model';
-export * from './layout-persistence.service';
 export * from './review-scrubber/review-scrubber.component';
