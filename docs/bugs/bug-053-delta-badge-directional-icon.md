@@ -1,12 +1,44 @@
 ---
 id: bug-053
 title: Delta-badge has no leading icon; design ctDelta carries an `arrow_upward` 12×12 icon
-status: Open
+status: Fixed
 ---
 
 # Bug 053 — Delta-badge missing directional icon
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`DeltaBadgeComponent` adds an `icon()` method mirroring `tone()`:
+
+```ts
+icon(): string {
+  const t = this.tone();
+  if (t === 'positive') return 'arrow_upward';
+  if (t === 'negative') return 'arrow_downward';
+  return '';
+}
+```
+
+Template projects the icon as a Material Symbols Rounded span
+ahead of the value when `icon()` is non-empty, marked
+`aria-hidden="true"` (the formatted value + badge tone already
+convey direction to assistive tech).
+
+SCSS adds `.delta-badge__icon` sized 12×12 with `flex-shrink: 0`
+so the icon retains its dimensions in tight badges.
+
+The explicit if-chain in `icon()` is preserved over a more compact
+lookup-table form to stay readable for junior devs (mirrors
+`tone()`'s structure).
+
+Coverage:
+- Three branch specs cover positive (`'arrow_upward'`), negative
+  (`'arrow_downward'`), and zero (`''`).
+- One CSS-source spec asserts `.delta-badge__icon` sizes the icon
+  to 12px on font-size, width, and height.
+- All 20 affected suites pass (129/129 — was 125/125 before).
 
 ## Description
 
