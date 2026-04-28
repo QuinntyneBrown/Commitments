@@ -1,7 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { ChangeDetectionStrategy, Component, Input, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, model } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -17,17 +17,10 @@ export class IconButtonComponent {
   readonly icon = input('');
   readonly ariaLabel = input('');
   readonly disabled = input(false);
-  readonly pressed = signal(false);
-  readonly pressedChange = output<boolean>();
-
-  @Input({ alias: 'pressed' }) set pressedInput(value: boolean) {
-    this.pressed.set(Boolean(value));
-  }
+  readonly pressed = model(false);
 
   toggle(): void {
     if (this.disabled()) return;
-    const next = !this.pressed();
-    this.pressed.set(next);
-    this.pressedChange.emit(next);
+    this.pressed.set(!this.pressed());
   }
 }
