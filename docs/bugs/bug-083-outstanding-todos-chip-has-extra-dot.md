@@ -1,12 +1,27 @@
 ---
 id: bug-083
 title: Outstanding Todos chip renders a dot the design omits — design's otChip is text-only ("4 OPEN")
-status: Open
+status: Fixed
 ---
 
 # Bug 083 — Outstanding Todos chip dot
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added an optional `dot` input to `StatusPillComponent` (default
+`true`, preserving every existing consumer) and gated the dot
+`<span>` behind `@if (dot()) { … }`. `outstanding-todos-tile`
+now passes `[dot]="false"` so its chip is text-only, matching
+the design's `otChip` "4 OPEN".
+
+The now-irrelevant `[pulse]` binding on outstanding-todos was
+removed in a follow-up — there's no dot to animate.
+
+All 7 other tile pills (live/review/chart/success) inherit the
+default and still render the dot. 272/272 workspace tests
+green.
 
 ## Description
 
