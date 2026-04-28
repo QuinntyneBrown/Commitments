@@ -1,12 +1,20 @@
 ---
 id: bug-130
 title: GoalMetricsController._reviewDelta() is a method called from two computed signals; should itself be computed
-status: Open
+status: Fixed
 ---
 
 # Bug 130 — _reviewDelta method → computed signal
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Hoisted `_reviewDelta` from a private method to a private
+`computed<number | null>(...)` at the class top. `deltaLabel`
+and `deltaTone` read it via the same call site — but the
+result memoizes, so each mode/current/today change drives one
+evaluation, not two. 327/327 workspace tests green.
 
 ## Description
 
