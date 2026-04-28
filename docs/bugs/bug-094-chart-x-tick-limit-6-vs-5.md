@@ -1,12 +1,20 @@
 ---
 id: bug-094
 title: Consistency Trend chart x-axis maxTicksLimit is 6 but design has exactly 5 dates
-status: Open
+status: Fixed
 ---
 
 # Bug 094 — chart x-axis tick count
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Reduced X-axis `maxTicksLimit` from `6` to `5`, matching the
+design's `xLabRow` of five dates (Apr 13/16/19/22/25). The
+chart's X- and Y-axis now both render 5 ticks, aligning with
+the design's overall visual rhythm. 291/291 workspace tests
+green.
 
 ## Description
 
