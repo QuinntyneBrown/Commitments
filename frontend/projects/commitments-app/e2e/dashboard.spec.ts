@@ -114,7 +114,7 @@ test.describe('dashboard shell', () => {
   test('loads the dashboard with registered plugin tiles', async () => {
     await dashboard.expectDefaultDashboard();
     // Default mode is 'live'; the catalog is filtered to live-supporting tiles.
-    // Review Goal History has supportedModes: ['review'] and is hidden here.
+    // Goal Metrics is the merged dual-mode tile (design 07) — visible in both modes.
     await dashboard.openAddTileDialog();
     await expect(dashboard.addTileDialogLabels).toHaveText([
       'Daily Results',
@@ -123,7 +123,7 @@ test.describe('dashboard shell', () => {
       'Outstanding Todos',
       'Relations',
       'Consistency Trend',
-      'Live Goal Metrics',
+      'Goal Metrics',
     ]);
     await dashboard.cancelAddTileDialog();
   });
