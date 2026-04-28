@@ -1,10 +1,21 @@
 ---
 id: bug-184
 title: dashboard-grid edit-mode border-radius uses literal 8px instead of --cui-radius-md token
-status: Open
+status: Fixed
 ---
 
 # Bug 184 — dashboard-grid edit-mode `border-radius` should use `--cui-radius-md`
+
+**Status**: Fixed
+
+## Fix
+
+```scss
+- border-radius: 8px;
++ border-radius: var(--cui-radius-md, 8px);
+```
+
+384/384 workspace tests green.
 
 ## Description
 
