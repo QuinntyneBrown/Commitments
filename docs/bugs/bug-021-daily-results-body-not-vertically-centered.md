@@ -1,12 +1,28 @@
 ---
 id: bug-021
 title: Daily Results — metric value and label are not vertically centered between header and progress bar
-status: Open
+status: Fixed
 ---
 
 # Bug 021 — Daily Results body content not centered
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`daily-results-tile.component.scss` swaps `.metric` from
+`display: grid` to a flex column that fills the available body height
+(`flex: 1 1 auto`) and centers both axes
+(`align-items: center`, `justify-content: center`, `text-align: center`).
+The "7 / 9" value and the supporting label now sit visually centered
+between the header and the progress bar, matching the .pen `drBody`
+frame.
+
+Coverage:
+- New `daily-results-tile.component.spec.ts` reads the SCSS source
+  and asserts `.metric` declares `display: flex`,
+  `justify-content: center`, and `align-items: center`.
+- All 11 affected suites pass (44/44 — was 43/43 before).
 
 ## Description
 
