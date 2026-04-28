@@ -565,4 +565,16 @@ describe('app.routes', () => {
       expect(tokens).not.toContain(decl);
     }
   });
+
+  it('styles.scss uses canonical fallback hex and font-display token (bug-181)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const styles = readFileSync(
+      join(__dirname, '..', '..', 'styles.scss'),
+      'utf8'
+    );
+    expect(styles).not.toMatch(/var\(--cui-warn,\s*#f44336\)/);
+    expect(styles).toMatch(/var\(\s*--cui-warn\s*,\s*#F44336\s*\)/);
+    expect(styles).not.toMatch(/^\s*font-family\s*:\s*Inter\b/m);
+  });
 });
