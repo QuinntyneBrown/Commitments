@@ -16,7 +16,7 @@
 }
 
 .icon-button:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--cui-hover-overlay, rgba(255, 255, 255, 0.08));
   color: var(--cui-text-primary, #FFFFFF);
 }
 
