@@ -105,6 +105,20 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(ts).toMatch(/font\s*:\s*\([^)]*\)\s*=>[\s\S]*?\b700\b/);
   });
 
+  it('tick label highlight tracks controller.highlightedIndex, not isLastTick (bug-092)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'consistency-trend-tile.component.ts'),
+      'utf8'
+    );
+    // The tick color/font Scriptables should compare ctx.index to
+    // controller.highlightedIndex() so review mode highlights the
+    // selected date's label, not always the last.
+    expect(ts).toMatch(/color\s*:\s*\([^)]*\)\s*=>[\s\S]*?highlightedIndex\(\)/);
+    expect(ts).toMatch(/font\s*:\s*\([^)]*\)\s*=>[\s\S]*?highlightedIndex\(\)/);
+    // The isLastTick helper has no remaining callers and should be gone.
+    expect(ts).not.toMatch(/isLastTick\b/);
+  });
+
   it('non-highlighted tick color uses TEXT_MUTED token, not literal #666666 (bug-088)', () => {
     const ts = readFileSync(
       join(__dirname, 'consistency-trend-tile.component.ts'),
