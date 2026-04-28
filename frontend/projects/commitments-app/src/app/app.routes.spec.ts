@@ -570,7 +570,7 @@ describe('app.routes', () => {
     const { readFileSync } = require('fs');
     const { join } = require('path');
     const styles = readFileSync(
-      join(__dirname, '..', '..', 'styles.scss'),
+      join(__dirname, '..', 'styles.scss'),
       'utf8'
     );
     expect(styles).not.toMatch(/var\(--cui-warn,\s*#f44336\)/);
