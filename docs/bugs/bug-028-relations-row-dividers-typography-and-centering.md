@@ -1,12 +1,35 @@
 ---
 id: bug-028
 title: Relations — rows lack #2A2A2A dividers, body not vertically centered, row text 13px instead of 14px
-status: Open
+status: Fixed
 ---
 
 # Bug 028 — Relations row dividers, typography, body centering
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`relations-tile.component.html` wraps each iterated relation in a
+`<div class="relations__row">`. `relations-tile.component.scss`:
+
+- `.relations` switches from 2-column grid to flex column with
+  `justify-content: center; height: 100%; gap: 8px; font-size: 14px`.
+- `.relations__row` is a flex row (`justify-content: space-between`)
+  with `padding: 0 0 8px` and a 1px `#2A2A2A` bottom border.
+- `.relations__row:last-child` drops the divider and bottom padding,
+  mirroring the .pen `rlRow3` having no stroke.
+- `.relations strong` keeps `color: var(--cui-text-primary)` and
+  pins `font-weight: 700`.
+
+The pattern mirrors the weekly-focus-tile fix (bug-022) so juniors can
+learn the row+last-child idiom from either tile. A shared SCSS mixin
+is *not* introduced — two tiles isn't a strong abstraction case yet.
+
+Coverage:
+- Three new specs in `relations-tile.component.spec.ts` cover the
+  row wrapper, font-size + vertical centering, and the divider colour.
+- All 19 affected suites pass (80/80 — was 72/72 before).
 
 ## Description
 
