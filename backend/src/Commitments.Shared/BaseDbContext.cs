@@ -24,7 +24,8 @@ public abstract class BaseDbContext : DbContext
             entity.LastModifiedOn = DateTime.UtcNow;
         }
 
-        foreach (var item in ChangeTracker.Entries().Where(e => e.State == EntityState.Deleted))
+        foreach (var item in ChangeTracker.Entries()
+            .Where(e => e.State == EntityState.Deleted && e.Entity is ILoggable))
         {
             item.State = EntityState.Modified;
             item.CurrentValues["IsDeleted"] = true;

@@ -24,7 +24,7 @@ public class GetPersonalCommitmentsScopingTests
 
         await using var ctx = new CommitmentsDbContext(options);
         var bt = new BehaviourType { BehaviourTypeId = Guid.NewGuid(), Name = "x" };
-        var b = new Behaviour { BehaviourId = Guid.NewGuid(), Name = "y", BehaviourTypeId = bt.BehaviourTypeId };
+        var b = new Behaviour { BehaviourId = Guid.NewGuid(), Name = "y", Slug = "y", Description = "y", BehaviourTypeId = bt.BehaviourTypeId };
         ctx.BehaviourTypes.Add(bt);
         ctx.Behaviours.Add(b);
         ctx.Commitments.Add(new CommitmentEntity { CommitmentId = Guid.NewGuid(), ProfileId = caller, BehaviourId = b.BehaviourId });

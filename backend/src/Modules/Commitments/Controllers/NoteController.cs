@@ -49,4 +49,19 @@ public class NoteController
     [HttpDelete("{noteId:guid}")]
     public async Task Remove([FromRoute] Guid noteId)
         => await _sender.Send(new RemoveNoteRequest { NoteId = noteId });
+
+    [HttpGet("tag/{slug}")]
+    [ProducesResponseType(typeof(GetNotesByTagSlugResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetNotesByTagSlugResponse>> GetByTagSlug([FromRoute] string slug)
+        => await _sender.Send(new GetNotesByTagSlugRequest { ProfileId = _httpContextAccessor.GetProfileId(), Slug = slug });
+
+    [HttpPost("{noteId:guid}/tag/{tagId:guid}")]
+    public async Task AddTag([FromRoute] Guid noteId, [FromRoute] Guid tagId)
+        => await _sender.Send(new AddTagToNoteRequest { NoteId = noteId, TagId = tagId });
+
+    [HttpPost("{noteId:guid}/removeTag")]
+    public async Task RemoveTag([FromRoute] Guid noteId, [FromBody] RemoveTagFromNoteBody body)
+        => await _sender.Send(new RemoveTagFromNoteRequest { NoteId = noteId, TagId = body.TagId });
+
+    public record RemoveTagFromNoteBody(Guid TagId);
 }

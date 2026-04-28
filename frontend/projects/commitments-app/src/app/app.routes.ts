@@ -11,6 +11,7 @@ import { ToDosPageComponent } from './pages/to-dos/to-dos-page/to-dos-page.compo
 import { NotesPageComponent } from './pages/notes/notes-page/notes-page.component';
 import { EditNotePageComponent } from './pages/edit-note/edit-note-page/edit-note-page.component';
 import { TagsPageComponent } from './pages/tags/tags-page/tags-page.component';
+import { NotesByTagPageComponent } from './pages/notes-by-tag/notes-by-tag-page/notes-by-tag-page.component';
 import { noteResolver } from './services/note-resolver.service';
 import { BehaviourTypesPageComponent } from './pages/behaviour-types/behaviour-types-page/behaviour-types-page.component';
 import { BehavioursPageComponent } from './pages/behaviours/behaviours-page/behaviours-page.component';
@@ -48,6 +49,7 @@ export const routes: Routes = [
       { path: 'notes', component: NotesPageComponent },
       { path: 'edit-note/:slug', component: EditNotePageComponent, resolve: { note: noteResolver } },
       { path: 'tags', component: TagsPageComponent },
+      { path: 'notes-by-tag/:slug', component: NotesByTagPageComponent },
       ...placeholderPaths.map(path => ({ path, component: PlaceholderPageComponent }))
     ]
   }
