@@ -10,7 +10,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs';
-import { ColDef, GridApi } from 'ag-grid';
+import { ColDef, GridApi } from 'ag-grid-community';
 import { BehaviourTypeService } from '../../../services/behaviour-type.service';
 import { BehaviourType } from '../../../models/behaviour-type';
 import { EditBehaviourTypeDialogService } from '../../../services/edit-behaviour-type-dialog.service';

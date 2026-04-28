@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AgGridModule } from 'ag-grid-angular';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs';
-import { ColDef, GridApi } from 'ag-grid';
+import { ColDef, GridApi } from 'ag-grid-community';
 import { CardService } from '../../../services/card.service';
 import { Card } from '../../../models/card';
 import { EditCardDialogService } from '../../../services/edit-card-dialog.service';

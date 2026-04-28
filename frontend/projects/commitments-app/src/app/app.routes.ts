@@ -6,6 +6,7 @@ import { DashboardShellComponent } from '@commitments/dashboard-framework';
 
 import { DashboardLayoutComponent } from './components/dashboard-layout/dashboard-layout.component';
 import { PlaceholderPageComponent } from './components/placeholder-page/placeholder-page.component';
+import { BehaviourTypesPageComponent } from './pages/behaviour-types/behaviour-types-page/behaviour-types-page.component';
 import { LoginPageComponent } from './pages/login/login-page/login-page.component';
 import { MyProfilePageComponent } from './pages/my-profile/my-profile-page/my-profile-page.component';
 import { ProfilesPageComponent } from './pages/profiles/profiles-page/profiles-page.component';
@@ -14,7 +15,6 @@ import { SettingsPageComponent } from './pages/settings/settings-page/settings-p
 const placeholderPaths = [
   'activities',
   'behaviours',
-  'behaviour-types',
   'commitments',
   'cards',
   'card-layouts',
@@ -33,6 +33,7 @@ export const routes: Routes = [
       { path: 'profiles', component: ProfilesPageComponent },
       { path: 'my-profile', component: MyProfilePageComponent },
       { path: 'settings', component: SettingsPageComponent },
+      { path: 'behaviour-types', component: BehaviourTypesPageComponent },
       ...placeholderPaths.map(path => ({ path, component: PlaceholderPageComponent }))
     ]
   }

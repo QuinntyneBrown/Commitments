@@ -3,8 +3,7 @@
 
 using FluentValidation;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 
 namespace Commitments.Features.BehaviourType;
@@ -30,6 +29,12 @@ public class RemoveBehaviourTypeCommandHandler : IRequestHandler<RemoveBehaviour
 
     public async Task Handle(RemoveBehaviourTypeRequest request, CancellationToken cancellationToken)
     {
+        var referenceCount = _context.Behaviours.Count(b => b.BehaviourTypeId == request.BehaviourTypeId);
+        if (referenceCount > 0)
+        {
+            throw new BadHttpRequestException($"Cannot delete: referenced by {referenceCount} behaviour(s)", 400);
+        }
+
         _context.BehaviourTypes.Remove(await _context.BehaviourTypes.FindAsync(request.BehaviourTypeId));
         await _context.SaveChangesAsync(cancellationToken);
     }

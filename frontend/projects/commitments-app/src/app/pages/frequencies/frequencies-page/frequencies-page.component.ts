@@ -10,7 +10,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs';
-import { ColDef, GridApi } from 'ag-grid';
+import { ColDef, GridApi } from 'ag-grid-community';
 import { FrequencyService } from '../../../services/frequency.service';
 import { Frequency } from '../../../models/frequency';
 import { EditFrequencyDialogService } from '../../../services/edit-frequency-dialog.service';

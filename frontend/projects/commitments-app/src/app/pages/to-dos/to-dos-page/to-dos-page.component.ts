@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AgGridModule } from 'ag-grid-angular';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs';
-import { ColDef, GridApi } from 'ag-grid';
+import { ColDef, GridApi } from 'ag-grid-community';
 import { ToDoService } from '../../../services/to-do.service';
 import { ToDo } from '../../../models/to-do';
 import { EditToDoDialogService } from '../../../services/edit-to-do-dialog.service';

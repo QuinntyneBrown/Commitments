@@ -11,7 +11,7 @@ import { Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Observable, Subject } from 'rxjs';
 import { map, takeUntil, tap } from 'rxjs';
-import { ColDef } from 'ag-grid';
+import { ColDef } from 'ag-grid-community';
 import { TagsService } from '../../../services/tags.service';
 import { Tag } from '../../../models/tag';
 import { Store } from '../../../core/store';

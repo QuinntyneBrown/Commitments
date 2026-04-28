@@ -10,7 +10,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs';
-import { ColDef, GridApi } from 'ag-grid';
+import { ColDef, GridApi } from 'ag-grid-community';
 import { CardLayoutService } from '../../../services/card-layout.service';
 import { CardLayout } from '../../../models/card-layout';
 import { EditCardLayoutDialogService } from '../../../services/edit-card-layout-dialog.service';

@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { FrequencyType } from '../../models/frequency-type';
 import { Frequency } from '../../models/frequency';
-import { ColDef } from 'ag-grid';
+import { ColDef } from 'ag-grid-community';
 import { DeleteCellComponent } from '../delete-cell/delete-cell.component';
 
 @Component({

@@ -8,7 +8,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { map, takeUntil, tap } from 'rxjs';
-import { ColDef } from 'ag-grid';
+import { ColDef } from 'ag-grid-community';
 import { NotesService } from '../../../services/notes.service';
 import { Note } from '../../../models/note';
 import { Store } from '../../../core/store';

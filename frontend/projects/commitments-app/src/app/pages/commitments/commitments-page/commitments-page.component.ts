@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AgGridModule } from 'ag-grid-angular';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs';
-import { ColDef, GridApi } from 'ag-grid';
+import { ColDef, GridApi } from 'ag-grid-community';
 import { CommitmentService } from '../../../services/commitment.service';
 import { Commitment } from '../../../models/commitment';
 import { EditCommitmentDialogService } from '../../../services/edit-commitment-dialog.service';
