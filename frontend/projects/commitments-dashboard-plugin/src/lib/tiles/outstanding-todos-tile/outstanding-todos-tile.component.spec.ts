@@ -30,4 +30,12 @@ describe('OutstandingTodosTileComponent (template + CSS source)', () => {
     // U+2011 non-breaking hyphen must not appear in the template
     expect(html).not.toContain('‑');
   });
+
+  it('returns the warning pill variant in live mode (bug-035)', () => {
+    const ts = readFileSync(
+      join(__dirname, 'outstanding-todos-tile.component.ts'),
+      'utf8'
+    );
+    expect(ts).toMatch(/pillVariant\b[\s\S]*?'warning'/);
+  });
 });

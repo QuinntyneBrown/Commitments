@@ -37,6 +37,11 @@ describe('StatusPillComponent', () => {
       expect(block).toMatch(/var\(--cui-success/);
     });
 
+    it('exposes a warning variant tinted with --cui-warning (bug-035)', () => {
+      const block = ruleBlock('\\.status-pill--warning');
+      expect(block).toMatch(/var\(--cui-warning/);
+    });
+
     it('renders the dot at 8x8 (bug-034)', () => {
       const block = ruleBlock('\\.status-pill__dot');
       expect(block).toMatch(/width\s*:\s*8px\b/);
