@@ -44,4 +44,16 @@ describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
     expect(html).toMatch(/caption="today"/);
     expect(html).toMatch(/\[subCaption\]\s*=\s*"'Peak/);
   });
+
+  it('aligns trend-row with chart-variant body padding-top (bug-040)', () => {
+    const block = ruleBlock('\\.trend-row');
+    // .trend-row should not add its own margin-top now that the
+    // tile-shell chart variant supplies the 14px gap from above.
+    expect(block).not.toMatch(/margin-top\s*:/);
+  });
+
+  it('uses 14px gap above the chart canvas (bug-040)', () => {
+    const block = ruleBlock('\\.plot');
+    expect(block).toMatch(/margin-top\s*:\s*14px\b/);
+  });
 });

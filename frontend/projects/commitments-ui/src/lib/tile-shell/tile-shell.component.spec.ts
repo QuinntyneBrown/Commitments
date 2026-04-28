@@ -87,5 +87,10 @@ describe('TileShellComponent', () => {
       const block = ruleBlock('\\.tile-shell__title');
       expect(block).toMatch(/font-size\s*:\s*16px\b/);
     });
+
+    it('chart-variant body uses 14px padding-top to match .pen tile gap (bug-040)', () => {
+      const block = ruleBlock('\\.tile-shell--chart \\.tile-shell__body');
+      expect(block).toMatch(/padding-top\s*:\s*14px\b/);
+    });
   });
 });
