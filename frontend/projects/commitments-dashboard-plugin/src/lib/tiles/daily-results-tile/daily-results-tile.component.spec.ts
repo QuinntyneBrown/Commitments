@@ -32,7 +32,8 @@ describe('DailyResultsTileComponent (CSS source)', () => {
 
   it('progress bar margin matches the design root gap of 10px (bug-085)', () => {
     const block = ruleBlock('\\.progress');
-    expect(block).toMatch(/margin-top\s*:\s*10px\b/);
+    // Either the literal 10px or the --cui-tile-body-gap token (default 10px).
+    expect(block).toMatch(/margin-top\s*:\s*(?:10px|var\(\s*--cui-tile-body-gap)/);
     expect(block).not.toMatch(/margin-top\s*:\s*18px\b/);
   });
 });
