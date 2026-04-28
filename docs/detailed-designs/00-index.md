@@ -26,7 +26,7 @@ Conventions used by every design document:
 | 13 | [Edit Note](13-edit-note/README.md) | Implemented | Add slug-based load + Quill save round-trip + sanitisation (L2-014, L2-041) |
 | 14 | [Tags](14-tags/README.md) | Implemented | Add `Tag` aggregate + controller — currently missing backend-side (L2-015) |
 | 15 | [Notes by Tag](15-notes-by-tag/README.md) | Implemented | Add `Note ⟷ Tag` join + `GET /api/notes/tag/{slug}` (L2-015) |
-| 16 | [Cards](16-cards/README.md) | Accepted | Wire catalog page to existing `CardController` with edit dialog (L2-019, L2-022) |
+| 16 | [Cards](16-cards/README.md) | Implemented | Wire catalog page to existing `CardController` with edit dialog (L2-019, L2-022) |
 | 17 | [Card Layouts](17-card-layouts/README.md) | Draft | Wire catalog page to existing `CardLayoutController` with edit dialog (L2-022) |
 
 **Status legend:** Draft → In Review → Approved → Implemented.
