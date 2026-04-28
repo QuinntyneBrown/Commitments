@@ -303,4 +303,15 @@ describe('app.routes', () => {
     expect(src).not.toMatch(/\bliveLayout\b/);
     expect(src).not.toMatch(/\breviewLayout\b/);
   });
+
+  it('TileContext drops dead refresh pipeline — refresh$ + requestRefresh (bug-156)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const modelSrc = readFileSync(
+      join(__dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'tile-registration', 'tile.model.ts'),
+      'utf8'
+    );
+    expect(modelSrc).not.toMatch(/refresh\$/);
+    expect(modelSrc).not.toMatch(/\brequestRefresh\b/);
+  });
 });
