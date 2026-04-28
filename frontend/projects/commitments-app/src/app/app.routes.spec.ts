@@ -13,6 +13,7 @@ import { NotesPageComponent } from './pages/notes/notes-page/notes-page.componen
 import { EditNotePageComponent } from './pages/edit-note/edit-note-page/edit-note-page.component';
 import { TagsPageComponent } from './pages/tags/tags-page/tags-page.component';
 import { NotesByTagPageComponent } from './pages/notes-by-tag/notes-by-tag-page/notes-by-tag-page.component';
+import { CardsPageComponent } from './pages/cards/cards-page/cards-page.component';
 import { BehaviourTypesPageComponent } from './pages/behaviour-types/behaviour-types-page/behaviour-types-page.component';
 import { BehavioursPageComponent } from './pages/behaviours/behaviours-page/behaviours-page.component';
 import { CommitmentsPageComponent } from './pages/commitments/commitments-page/commitments-page.component';
@@ -43,7 +44,6 @@ describe('app.routes', () => {
   });
 
   it.each([
-    'cards',
     'card-layouts'
   ])('routes the %s child path to PlaceholderPageComponent under the layout', (path) => {
     const home = routes.find((r) => r.path === '');
@@ -157,5 +157,12 @@ describe('app.routes', () => {
     const child = home?.children?.find((c) => c.path === 'notes-by-tag/:slug');
     expect(child).toBeDefined();
     expect(child!.component).toBe(NotesByTagPageComponent);
+  });
+
+  it('routes /cards to CardsPageComponent (design 16-Cards Slice A)', () => {
+    const home = routes.find((r) => r.path === '');
+    const child = home?.children?.find((c) => c.path === 'cards');
+    expect(child).toBeDefined();
+    expect(child!.component).toBe(CardsPageComponent);
   });
 });
