@@ -27,4 +27,15 @@ describe('GoalMetricsTileComponent (template source)', () => {
       .filter(({ len }) => len > 110);
     expect(overLong).toEqual([]);
   });
+
+  it('e2e dashboard.spec matches the merged tile name — no stale "Live Goal Metrics" (bug-084)', () => {
+    const spec = readFileSync(
+      join(__dirname, '../../../../../commitments-app/e2e/dashboard.spec.ts'),
+      'utf8'
+    );
+    // design-07 merged "Live Goal Metrics" + "Review Goal History"
+    // into a single dual-mode "Goal Metrics" tile. The e2e catalog
+    // assertion must use the merged displayName.
+    expect(spec).not.toMatch(/Live Goal Metrics/);
+  });
 });
