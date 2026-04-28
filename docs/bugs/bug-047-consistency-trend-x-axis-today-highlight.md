@@ -1,12 +1,39 @@
 ---
 id: bug-047
 title: Consistency Trend chart x-axis renders all ticks in `#666666` / weight 400; design highlights the last "today" tick in `#42A5F5` / weight 700
-status: Open
+status: Fixed
 ---
 
 # Bug 047 — Consistency Trend x-axis "today" tick highlight
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`consistency-trend-tile.component.ts`:
+- Adds `ACCENT_CHART` to the existing `@commitments/ui` import.
+- Replaces flat `color: '#666666'` and missing `font` with
+  Scriptable callbacks:
+  ```ts
+  color: (ctx) => isLastTick(ctx) ? ACCENT_CHART : '#666666',
+  font:  (ctx) => ({ weight: isLastTick(ctx) ? 700 : 400 }),
+  ```
+- New `isLastTick(ctx)` module-level helper returns `true` when
+  `ctx.index === ctx.scale.ticks.length - 1`. Pure, no `this`
+  binding, easy to read.
+
+`autoSkip: true` keeps the first and last ticks, so the rightmost
+rendered tick remains the today data point — the highlight lands
+on the correct label.
+
+The two Scriptable callbacks each call `isLastTick` independently;
+caching is unnecessary at tick-render frequency.
+
+Coverage:
+- New TS-source spec asserts the x-axis tick `color` is a
+  Scriptable function referencing `ACCENT_CHART` and the `font`
+  is a Scriptable function with weight `700`.
+- All 20 affected suites pass (115/115 — was 114/114 before).
 
 ## Description
 
