@@ -70,7 +70,7 @@
 .review-scrubber__date {
   min-width: 110px;
   padding: 4px 10px;
-  border-radius: 999px;
+  border-radius: var(--cui-radius-full, 9999px);
   background: rgba(159, 168, 218, 0.18);
   color: var(--cui-primary, #9FA8DA);
   font-weight: 700;
