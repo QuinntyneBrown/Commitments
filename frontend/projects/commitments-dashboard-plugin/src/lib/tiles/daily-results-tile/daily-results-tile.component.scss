@@ -24,7 +24,7 @@
   overflow: hidden;
   height: 8px;
   margin-top: var(--cui-tile-body-gap, 10px);
-  border-radius: 999px;
+  border-radius: var(--cui-radius-full, 9999px);
   background: var(--cui-divider);
 }
 
