@@ -1,12 +1,39 @@
 ---
 id: bug-054
 title: Delta-badge value/caption use different weight (700/500) and colour (accent/secondary); design renders the whole text uniformly Inter 11/500 in the accent colour
-status: Open
+status: Fixed
 ---
 
 # Bug 054 — Delta-badge typography splits value from caption; design is uniform
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+`delta-badge.component.scss`:
+- `.delta-badge` font-size 12px → 11px, font-weight 600 → 500.
+- `.delta-badge__value` rule removed entirely.
+- `.delta-badge__caption` rule removed entirely.
+
+Both spans now inherit font-size / font-weight / colour
+uniformly from the parent — matching the .pen ctDelta single
+Inter 11/500 styled line.
+
+Other consumers in `commitments-ui` (`line-chart-tile`,
+`real-time-metric-tile`, `review-tile`) are demo components not
+referenced by the live app, so the visual change is safely
+scoped to the consistency-trend tile's actual rendering.
+
+The consistency-trend wiring concern (passing both `[delta]` and
+the API's full `caption` produces a duplicated number in the
+displayed text) remains a separate bug to be filed when observed
+in the browser.
+
+Coverage:
+- New spec asserts `.delta-badge` declares `font-size: 11px` and
+  `font-weight: 500`, and that `__value` does not bump weight to
+  ≥600 nor `__caption` overrides colour to `--cui-text-secondary`.
+- All 20 affected suites pass (130/130 — was 129/129 before).
 
 ## Description
 
