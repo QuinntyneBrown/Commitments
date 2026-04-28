@@ -1,12 +1,24 @@
 ---
 id: bug-106
 title: dashboard-shell.component.scss var() calls omit the design-system fallback hex
-status: Open
+status: Fixed
 ---
 
 # Bug 106 — dashboard-shell var() fallback hex
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Added the design-system hex fallback to 5 `var()` references in
+`dashboard-shell.component.scss`:
+
+- `var(--cui-text-primary, #FFFFFF)` (host color, edit chrome)
+- `var(--cui-bg, #121212)` (host background)
+- `var(--cui-accent, #FF4081)` (FAB)
+
+Created a minimal CSS-source spec with the bug-106 regex guard.
+303/303 workspace tests green.
 
 ## Description
 
