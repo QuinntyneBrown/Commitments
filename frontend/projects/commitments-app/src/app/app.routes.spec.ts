@@ -392,4 +392,19 @@ describe('app.routes', () => {
       expect(existsSync(file)).toBe(false);
     }
   });
+
+  it('6 dead form/feedback UI components are gone from commitments-ui (bug-163)', () => {
+    const { existsSync } = require('fs');
+    const { join } = require('path');
+    const dead = [
+      'button', 'chip', 'text-input',
+      'radio-group', 'snackbar', 'dialog-shell'
+    ];
+    for (const dir of dead) {
+      const file = join(
+        __dirname, '..', '..', '..', 'commitments-ui', 'src', 'lib', dir, `${dir}.component.ts`
+      );
+      expect(existsSync(file)).toBe(false);
+    }
+  });
 });
