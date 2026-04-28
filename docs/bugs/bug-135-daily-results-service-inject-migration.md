@@ -1,10 +1,28 @@
 ---
 id: bug-135
 title: daily-results.service mixes inject() with @Optional()/@Inject() constructor decorators
-status: Open
+status: Fixed
 ---
 
 # Bug 135 — daily-results.service: drop decorator-based DI for `inject()` form
+
+**Status**: Fixed
+
+## Fix
+
+```ts
+import { Injectable, InjectionToken, inject } from '@angular/core';
+...
+export class DailyResultsService {
+  private readonly _client = inject(HttpClient);
+  private readonly _baseUrl = inject(DAILY_RESULTS_BASE_URL, { optional: true });
+  ...
+}
+```
+
+`Inject` and `Optional` decorator imports dropped, empty
+constructor removed. Both DI sites now use the `inject()`
+function. 335/335 workspace tests green.
 
 ## Description
 
