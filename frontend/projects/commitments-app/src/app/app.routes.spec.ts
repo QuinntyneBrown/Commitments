@@ -377,4 +377,19 @@ describe('app.routes', () => {
     // Match the legacy LAYOUT_STORAGE_KEY *export*, not the live/review variants.
     expect(src).not.toMatch(/^export const LAYOUT_STORAGE_KEY\b/m);
   });
+
+  it('5 dead tile-like UI components are gone from commitments-ui (bug-162)', () => {
+    const { existsSync } = require('fs');
+    const { join } = require('path');
+    const dead = [
+      'card', 'review-tile', 'timeline-scrubber',
+      'line-chart-tile', 'real-time-metric-tile'
+    ];
+    for (const dir of dead) {
+      const file = join(
+        __dirname, '..', '..', '..', 'commitments-ui', 'src', 'lib', dir, `${dir}.component.ts`
+      );
+      expect(existsSync(file)).toBe(false);
+    }
+  });
 });
