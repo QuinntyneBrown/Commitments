@@ -1,8 +1,10 @@
 # Monthly Progress Tile — Dual-Mode Design
 
-**Status:** Accepted — 2026-04-27
+**Status:** Implemented — 2026-04-27
 **Tile ID:** `commitments.monthly-progress`
 **Traces to:** L1-010, L1-011, L1-012, **L1-012a**; L2-018, **L2-031a**, L2-038, L2-045.
+
+> Implementation note: SignalR `monthlyProgress` invalidation wiring deferred (cross-lib coupling — same as designs 02/03). Live refresh works via `TileContext.refresh\$`.
 
 ## 1. Overview
 

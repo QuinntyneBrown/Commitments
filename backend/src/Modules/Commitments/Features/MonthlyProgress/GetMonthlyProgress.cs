@@ -64,8 +64,8 @@ public class GetMonthlyProgressHandler : IRequestHandler<GetMonthlyProgressReque
 
         for (var i = 0; i < BucketCount; i++)
         {
-            var bucketStart = asOfUtc.AddDays(-(BucketCount - i) * BucketDays);
-            var bucketEnd = asOfUtc.AddDays(-(BucketCount - i - 1) * BucketDays);
+            var bucketStart = windowStart.AddDays(i * BucketDays);
+            var bucketEnd = windowStart.AddDays((i + 1) * BucketDays);
             var completed = activityDates.Count(p => p >= bucketStart && p < bucketEnd);
             var percentage = bucketTarget > 0
                 ? Math.Clamp((int)Math.Round((double)completed / bucketTarget * 100), 0, 100)
