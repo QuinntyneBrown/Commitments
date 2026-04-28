@@ -24,6 +24,11 @@ describe('OutstandingTodosTileComponent (template + CSS source)', () => {
     expect(block).toMatch(/align-items\s*:\s*center\b/);
   });
 
+  it('insets .todo-body content by 4px to match otBody.padding (bug-089)', () => {
+    const block = ruleBlock('\\.todo-body');
+    expect(block).toMatch(/padding\s*:\s*4px\b/);
+  });
+
   it('uses the .pen-aligned title and eyebrow strings (bug-027)', () => {
     expect(html).toMatch(/title="Outstanding Todos"/);
     expect(html).toMatch(/eyebrow="Tasks"/);
