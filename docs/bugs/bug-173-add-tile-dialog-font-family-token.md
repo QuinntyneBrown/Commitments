@@ -1,10 +1,18 @@
 ---
 id: bug-173
 title: add-tile-dialog SCSS uses literal `font-family: Inter` instead of --cui-font-display token
-status: Open
+status: Fixed
 ---
 
 # Bug 173 — add-tile-dialog font-family should reference `--cui-font-display`
+
+**Status**: Fixed
+
+## Fix
+
+One-line SCSS swap on `.add-tile-dialog` to
+`var(--cui-font-display, 'Inter')`. The cells inherit, so no
+other rule needed updating. 373/373 workspace tests green.
 
 ## Description
 
