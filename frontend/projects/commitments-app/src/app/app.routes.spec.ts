@@ -366,4 +366,15 @@ describe('app.routes', () => {
     );
     expect(specSrc).not.toMatch(/\blistTiles\s*\(/);
   });
+
+  it('dashboard.model.ts no longer exports the dead LAYOUT_STORAGE_KEY constant (bug-161)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const src = readFileSync(
+      join(__dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'dashboard', 'dashboard.model.ts'),
+      'utf8'
+    );
+    // Match the legacy LAYOUT_STORAGE_KEY *export*, not the live/review variants.
+    expect(src).not.toMatch(/^export const LAYOUT_STORAGE_KEY\b/m);
+  });
 });
