@@ -2,13 +2,13 @@
   <cui-status-pill [variant]="pillVariant()" [pulse]="pillVariant() === 'live'" [label]="pillLabel()">
   </cui-status-pill>
 
-  <cui-metric-header
-    accent="chart"
-    [value]="controller.currentPercentage() + '%'"
-    [caption]="'Peak ' + controller.peakPercentage() + '% / Low ' + controller.lowPercentage() + '%'">
-  </cui-metric-header>
-
   <div class="trend-row">
+    <cui-metric-header
+      accent="chart"
+      [value]="controller.currentPercentage() + '%'"
+      [caption]="'Peak ' + controller.peakPercentage() + '% / Low ' + controller.lowPercentage() + '%'">
+    </cui-metric-header>
+
     <cui-delta-badge
       [delta]="controller.currentPercentage() - controller.lowPercentage()"
       format="percent"
