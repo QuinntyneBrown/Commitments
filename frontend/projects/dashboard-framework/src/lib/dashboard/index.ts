@@ -1,4 +1,3 @@
-export * from './dashboard-framework.initializer';
 export * from './dashboard-grid/dashboard-grid.component';
 export * from './dashboard-layout.store';
 export * from './dashboard-mode.service';
