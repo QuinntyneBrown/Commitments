@@ -3,8 +3,7 @@ import {
   Component,
   Injector,
   computed,
-  inject,
-  signal
+  inject
 } from '@angular/core';
 import { NgComponentOutlet } from '@angular/common';
 import { Gridster, GridsterItem as GridsterItemComponent, type GridsterItemConfig } from 'angular-gridster2';
@@ -55,23 +54,13 @@ export class DashboardGridComponent {
       return cached;
     }
 
-    const maximizedSignal = signal(item.maximized);
     const context: TileContext = {
       tileId: item.tileId,
       instanceId: item.instanceId,
       isEditMode: this.layoutStore.isEditMode,
-      isMaximized: maximizedSignal.asReadonly(),
       mode: this.modeService.mode,
       selectedReviewDate: this.modeService.selectedReviewDate,
-      remove: () => this.layoutStore.removeTile(item.instanceId),
-      maximize: () => {
-        maximizedSignal.set(true);
-        this.layoutStore.updateItem(item.instanceId, { maximized: true });
-      },
-      restore: () => {
-        maximizedSignal.set(false);
-        this.layoutStore.updateItem(item.instanceId, { maximized: false });
-      }
+      remove: () => this.layoutStore.removeTile(item.instanceId)
     };
 
     const injector = Injector.create({

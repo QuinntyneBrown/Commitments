@@ -7,7 +7,6 @@ export interface DashboardItem {
   rows: number;
   x: number;
   y: number;
-  maximized: boolean;
 }
 
 export interface PersistedLayout {

@@ -9,12 +9,9 @@ function makeContext(overrides?: Partial<TileContext>): TileContext {
     tileId: 't',
     instanceId: 'i',
     isEditMode: signal(false).asReadonly(),
-    isMaximized: signal(false).asReadonly(),
     mode: signal<DashboardMode>('live').asReadonly(),
     selectedReviewDate: signal<string | null>(null).asReadonly(),
     remove: () => {},
-    maximize: () => {},
-    restore: () => {},
     ...overrides
   };
 }

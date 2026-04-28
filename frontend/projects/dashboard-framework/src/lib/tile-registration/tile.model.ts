@@ -33,10 +33,7 @@ export interface TileContext {
   readonly tileId: string;
   readonly instanceId: string;
   readonly isEditMode: Signal<boolean>;
-  readonly isMaximized: Signal<boolean>;
   readonly mode: Signal<DashboardMode>;
   readonly selectedReviewDate: Signal<string | null>;
   remove(): void;
-  maximize(): void;
-  restore(): void;
 }

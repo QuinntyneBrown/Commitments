@@ -100,8 +100,7 @@ export class DashboardLayoutStore {
       cols: size.cols,
       rows: size.rows,
       x: position.x,
-      y: position.y,
-      maximized: false
+      y: position.y
     };
   }
 

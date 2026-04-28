@@ -15,7 +15,7 @@ describe('LayoutPersistenceService', () => {
 
   it('saves and loads the live layout under the live storage key', () => {
     const layout = fixture([
-      { instanceId: 'a', tileId: 't1', cols: 3, rows: 2, x: 0, y: 0, maximized: false }
+      { instanceId: 'a', tileId: 't1', cols: 3, rows: 2, x: 0, y: 0 }
     ]);
 
     service.save('live', layout);
@@ -27,7 +27,7 @@ describe('LayoutPersistenceService', () => {
 
   it('saves and loads the review layout under the review storage key', () => {
     const layout = fixture([
-      { instanceId: 'b', tileId: 't2', cols: 3, rows: 2, x: 0, y: 0, maximized: false }
+      { instanceId: 'b', tileId: 't2', cols: 3, rows: 2, x: 0, y: 0 }
     ]);
 
     service.save('review', layout);
