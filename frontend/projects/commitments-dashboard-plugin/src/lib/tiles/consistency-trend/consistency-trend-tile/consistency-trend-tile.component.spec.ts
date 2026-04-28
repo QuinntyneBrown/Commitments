@@ -1,6 +1,30 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
+describe('ConsistencyTrendTileComponent (single fetch effect, source)', () => {
+  const ts = readFileSync(
+    join(__dirname, 'consistency-trend-tile.component.ts'),
+    'utf8'
+  );
+
+  it('does not call controller.refresh() from the tile (bug-142)', () => {
+    expect(ts).not.toMatch(/this\.controller\.refresh\(/);
+  });
+
+  it('reads tile-context mode/asOf inside the goalId/load effect (bug-142)', () => {
+    // The effect that calls controller.load() must also subscribe
+    // to mode/asOf signals so a single effect handles every fetch
+    // trigger. Match the effect block that contains
+    // `controller.load(` and assert it also reads
+    // `_tileContext?.mode()` and `_tileContext?.selectedReviewDate()`.
+    const match = ts.match(/effect\(\s*\(\)\s*=>\s*\{([\s\S]*?)\bthis\.controller\.load\([\s\S]*?\}\s*\)\s*;/);
+    expect(match).not.toBeNull();
+    const body = match![0];
+    expect(body).toMatch(/this\._tileContext\?\.mode\(\)/);
+    expect(body).toMatch(/this\._tileContext\?\.selectedReviewDate\(\)/);
+  });
+});
+
 describe('ConsistencyTrendTileComponent (template + CSS source)', () => {
   const html = readFileSync(
     join(__dirname, 'consistency-trend-tile.component.html'),
