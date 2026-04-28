@@ -139,9 +139,10 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
                 return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
               }
             },
-            grid: { display: false }
+            grid: { display: false },
+            border: { display: false }
           },
-          y: { min: 0, max: 100, ticks: { display: false, maxTicksLimit: 5 }, grid: { color: 'rgba(255, 255, 255, 0.07)', drawTicks: false } }
+          y: { min: 0, max: 100, ticks: { display: false, maxTicksLimit: 5 }, grid: { color: 'rgba(255, 255, 255, 0.07)', drawTicks: false }, border: { display: false } }
         },
         interaction: { mode: 'nearest', intersect: false, axis: 'x' }
       },
