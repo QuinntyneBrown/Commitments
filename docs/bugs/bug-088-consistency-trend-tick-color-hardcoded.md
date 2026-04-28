@@ -1,12 +1,22 @@
 ---
 id: bug-088
 title: consistency-trend chart's x-axis tick color uses literal '#666666' instead of the TEXT_MUTED design-system token
-status: Open
+status: Fixed
 ---
 
 # Bug 088 — chart tick color hardcoded hex
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Replaced the literal `'#666666'` in the x-axis tick-color
+callback with `TEXT_MUTED` imported from `@commitments/ui`.
+Same shape as the existing `ACCENT_CHART` import a few lines
+above. The chart now inherits any future palette rotation in
+the design system, instead of silently drifting away from it.
+
+284/284 workspace tests green.
 
 ## Description
 
