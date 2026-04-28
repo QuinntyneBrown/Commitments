@@ -1,12 +1,27 @@
 ---
 id: bug-065
 title: `metric-header__sub-caption` and `monthly-progress.bar-labels` use literal `#666666` instead of the existing `--cui-text-disabled` token
-status: Open
+status: Fixed
 ---
 
 # Bug 065 — Replace literal #666666 with `--cui-text-disabled` token
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Two single-property edits replace literal `#666666` with
+`var(--cui-text-disabled, #666666)`:
+- `.metric-header__sub-caption` (`metric-header.component.scss`)
+- `.bar-labels` (`monthly-progress-tile.component.scss`)
+
+`#666666` is preserved as the fallback for environments where the
+token sheet isn't loaded.
+
+Coverage:
+- Two new specs assert each rule references
+  `var(--cui-text-disabled)` and no longer hard-codes `#666666`.
+- All 22 affected suites pass (152/152 — was 150/150 before).
 
 ## Description
 
