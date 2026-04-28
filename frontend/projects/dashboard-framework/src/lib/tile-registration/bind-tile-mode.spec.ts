@@ -6,8 +6,6 @@ import { DashboardMode, TileContext } from './tile.model';
 
 function makeContext(overrides?: Partial<TileContext>): TileContext {
   return {
-    tileId: 't',
-    instanceId: 'i',
     mode: signal<DashboardMode>('live').asReadonly(),
     selectedReviewDate: signal<string | null>(null).asReadonly(),
     ...overrides

@@ -30,8 +30,6 @@ export interface TileDescriptor extends TileMetadata {
 }
 
 export interface TileContext {
-  readonly tileId: string;
-  readonly instanceId: string;
   readonly mode: Signal<DashboardMode>;
   readonly selectedReviewDate: Signal<string | null>;
 }

@@ -55,8 +55,6 @@ export class DashboardGridComponent {
     }
 
     const context: TileContext = {
-      tileId: item.tileId,
-      instanceId: item.instanceId,
       mode: this.modeService.mode,
       selectedReviewDate: this.modeService.selectedReviewDate
     };
