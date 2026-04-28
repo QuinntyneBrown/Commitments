@@ -2,7 +2,7 @@
   display: block;
   height: 100%;
   --cui-tile-body-gap: 14px;
-  --cui-tile-icon-color: var(--cui-info);
+  --cui-tile-icon-color: var(--cui-info, #42A5F5);
   --cui-tile-icon-size: 22px;
   --cui-tile-header-gap: 10px;
   --cui-tile-padding: 20px;
