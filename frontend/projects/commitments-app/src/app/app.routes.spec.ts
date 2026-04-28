@@ -7,6 +7,7 @@ import { routes } from './app.routes';
 import { DashboardLayoutComponent } from './components/dashboard-layout/dashboard-layout.component';
 import { PlaceholderPageComponent } from './components/placeholder-page/placeholder-page.component';
 import { LoginPageComponent } from './pages/login/login-page/login-page.component';
+import { ActivitiesPageComponent } from './pages/activities/activities-page/activities-page.component';
 import { BehaviourTypesPageComponent } from './pages/behaviour-types/behaviour-types-page/behaviour-types-page.component';
 import { BehavioursPageComponent } from './pages/behaviours/behaviours-page/behaviours-page.component';
 import { CommitmentsPageComponent } from './pages/commitments/commitments-page/commitments-page.component';
@@ -37,7 +38,6 @@ describe('app.routes', () => {
   });
 
   it.each([
-    'activities',
     'cards',
     'card-layouts',
     'notes',
@@ -110,5 +110,12 @@ describe('app.routes', () => {
     const child = home?.children?.find((c) => c.path === 'commitments');
     expect(child).toBeDefined();
     expect(child!.component).toBe(CommitmentsPageComponent);
+  });
+
+  it('routes /activities to ActivitiesPageComponent (design 10-Activities Slice A)', () => {
+    const home = routes.find((r) => r.path === '');
+    const child = home?.children?.find((c) => c.path === 'activities');
+    expect(child).toBeDefined();
+    expect(child!.component).toBe(ActivitiesPageComponent);
   });
 });
