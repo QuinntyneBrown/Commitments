@@ -1,6 +1,6 @@
 # To-Dos — Detailed Design
 
-**Status:** Draft
+**Status:** Accepted
 
 **Traces to:** L1-008 · L2-016, L2-038
 
