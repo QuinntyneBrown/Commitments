@@ -21,7 +21,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--cui-tile-header-gap, 8px);
   min-height: 0;
 }
 
