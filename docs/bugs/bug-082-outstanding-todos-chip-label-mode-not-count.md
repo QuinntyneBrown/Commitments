@@ -1,12 +1,31 @@
 ---
 id: bug-082
 title: Outstanding Todos chip shows the dashboard mode ("LIVE"/"REVIEW") instead of "{count} OPEN" as the design specifies
-status: Open
+status: Fixed
 ---
 
 # Bug 082 — Outstanding Todos chip label
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Replaced
+
+```ts
+statusLabel = computed(() => this.controller.mode().toUpperCase())
+```
+
+with
+
+```ts
+statusLabel = computed(() => `${this.controller.count()} OPEN`)
+```
+
+The chip now reads `4 OPEN` (or whatever the current count is)
+matching the design's `otChip` text. `pillVariant` still
+distinguishes review-mode tinting, so REVIEW colour state is
+unaffected. 268/268 workspace tests pass.
 
 ## Description
 
