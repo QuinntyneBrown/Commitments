@@ -1,10 +1,18 @@
 ---
 id: bug-179
 title: _tokens.scss carries 16 legacy non-prefixed token duplicates that nothing references
-status: Open
+status: Fixed
 ---
 
 # Bug 179 — Drop legacy non-`--cui-`-prefixed token duplicates from `_tokens.scss`
+
+**Status**: Fixed
+
+## Fix
+
+16 dead CSS custom property declarations removed from
+`_tokens.scss`. The token file shrinks from 93 → 79 lines.
+379/379 workspace tests green.
 
 ## Description
 
