@@ -1,12 +1,26 @@
 ---
 id: bug-034
 title: Tile shell title is 18px and status-pill dot is 6×6 with 0.6px tracking; every tile design specifies 16px / 8×8 / 1px
-status: Open
+status: Fixed
 ---
 
 # Bug 034 — Shared primitive sizing drift across all tiles
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+Three single-property edits propagating to every plugin tile:
+- `.tile-shell__title` font-size: 18px → 16px
+- `.status-pill__dot` width/height: 6px → 8px
+- `.status-pill` letter-spacing: 0.6px → 1px
+
+Coverage:
+- New spec `renders the title at 16px to match every tile design`
+  in `tile-shell.component.spec.ts`.
+- New specs `renders the dot at 8x8` and `uses 1px letter-spacing
+  on the pill text` in `status-pill.component.spec.ts`.
+- All 20 affected suites pass (93/93 — was 90/90 before).
 
 ## Description
 
