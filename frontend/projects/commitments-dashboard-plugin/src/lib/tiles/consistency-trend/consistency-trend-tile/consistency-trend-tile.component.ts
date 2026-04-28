@@ -95,7 +95,10 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
   }
 
   ngAfterViewInit(): void {
-    const controller = this.controller;
+    this._adapter.attach(this.plotRef, this._buildChartConfig(this.controller));
+  }
+
+  private _buildChartConfig(controller: ConsistencyTrendController): ChartConfiguration<'line'> {
     const TODAY_GLOW_RADIUS = 7; // matches dataset POINT_RADIUS_HIGHLIGHT
     const TODAY_GLOW_BLUR = 8;   // design todayDot effect.blur
     const isHighlighted = (ctx: { index?: number }) =>
@@ -118,9 +121,9 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
         ctx.restore();
       }
     };
-    const config: ChartConfiguration<'line'> = {
+    return {
       type: 'line',
-      data: { labels: this.controller.chartLabels(), datasets: [this.controller.chartDataset()] },
+      data: { labels: controller.chartLabels(), datasets: [controller.chartDataset()] },
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -150,7 +153,6 @@ export class ConsistencyTrendTileComponent implements OnInit, AfterViewInit, OnD
       },
       plugins: [todayPointGlow]
     };
-    this._adapter.attach(this.plotRef, config);
   }
 
   ngOnDestroy(): void {
