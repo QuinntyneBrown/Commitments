@@ -625,4 +625,15 @@ describe('app.routes', () => {
       expect(offenders).toEqual([]);
     }
   });
+
+  it('review-scrubber date pill uses color-mix on --cui-primary, not literal rgba (bug-187)', () => {
+    const { readFileSync } = require('fs');
+    const { join } = require('path');
+    const scss = readFileSync(
+      join(__dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'dashboard', 'review-scrubber', 'review-scrubber.component.scss'),
+      'utf8'
+    );
+    expect(scss).not.toMatch(/rgba\(159,\s*168,\s*218,\s*0\.18\)/);
+    expect(scss).toMatch(/color-mix\(in srgb,\s*var\(\s*--cui-primary[^)]*\)\s*18%,\s*transparent\)/);
+  });
 });
