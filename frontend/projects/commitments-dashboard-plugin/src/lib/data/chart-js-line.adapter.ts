@@ -40,14 +40,3 @@ export class ChartJsLineAdapter {
     }
   }
 }
-
-export function buildVerticalGradient(
-  ctx: CanvasRenderingContext2D,
-  fromColor: string,
-  height: number = 240
-): CanvasGradient {
-  const gradient = ctx.createLinearGradient(0, 0, 0, height);
-  gradient.addColorStop(0, fromColor);
-  gradient.addColorStop(1, 'rgba(0,0,0,0)');
-  return gradient;
-}
