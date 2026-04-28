@@ -1,12 +1,36 @@
 ---
 id: bug-035
 title: Outstanding Todos — LIVE pill renders accent-pink, but the .pen otChip is warning-amber (#FFA726)
-status: Open
+status: Fixed
 ---
 
 # Bug 035 — Outstanding Todos pill colour wrong for warning-themed tile
 
-**Status**: Open
+**Status**: Fixed
+
+## Fix
+
+- `StatusPillVariant` gains a `'warning'` member.
+- New `.status-pill--warning` rule uses `var(--cui-warning)` for the
+  text/dot colour and a 14% tint for the background.
+- `OutstandingTodosTileComponent` adds a `pillVariant` computed
+  signal returning `'warning'` for live mode and `'review'` for
+  review.
+- Template `[variant]` and `[pulse]` read the computed; statusLabel
+  still emits `LIVE`/`REVIEW`.
+
+Mirrors the chart-variant (bug-031) and success-variant (bug-033)
+patterns. Three near-identical themed rules now exist; SASS mixin
+extraction is intentionally deferred to keep junior readability
+(literal colour/tint relationships) and avoid retrofitting the
+three matching source-level specs.
+
+Coverage:
+- `status-pill.component.spec.ts` asserts `.status-pill--warning`
+  references `var(--cui-warning)`.
+- `outstanding-todos-tile.component.spec.ts` asserts the TS source
+  contains `pillVariant` returning `'warning'`.
+- All 20 affected suites pass (95/95 — was 93/93 before).
 
 ## Description
 
