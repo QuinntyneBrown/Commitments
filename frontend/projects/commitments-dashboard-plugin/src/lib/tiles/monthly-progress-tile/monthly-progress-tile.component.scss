@@ -1,6 +1,6 @@
 :host {
   --cui-tile-body-gap: 12px;
-  --cui-tile-icon-color: var(--cui-info);
+  --cui-tile-icon-color: var(--cui-info, #42A5F5);
 }
 
 .bars {
@@ -33,6 +33,6 @@
 
 .empty {
   margin: 12px 0 0;
-  color: var(--cui-text-secondary);
+  color: var(--cui-text-secondary, #B0B0B0);
   font-size: 13px;
 }
