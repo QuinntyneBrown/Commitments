@@ -1,0 +1,12 @@
+<h1>Activities</h1>
+<table role="table">
+  <thead><tr role="row"><th>Commitment</th><th>Performed On</th></tr></thead>
+  <tbody>
+    @for (a of activities(); track a.activityId) {
+      <tr role="row">
+        <td>{{ a.commitmentId }}</td>
+        <td>{{ a.performedOn }}</td>
+      </tr>
+    }
+  </tbody>
+</table>

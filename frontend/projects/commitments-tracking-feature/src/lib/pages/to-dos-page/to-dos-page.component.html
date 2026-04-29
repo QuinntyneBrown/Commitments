@@ -1,0 +1,12 @@
+<h1>To-Dos</h1>
+<table role="table">
+  <thead><tr role="row"><th>Commitment</th><th>Due On</th></tr></thead>
+  <tbody>
+    @for (t of toDos(); track t.toDoId) {
+      <tr role="row">
+        <td>{{ t.commitmentId }}</td>
+        <td>{{ t.dueOn }}</td>
+      </tr>
+    }
+  </tbody>
+</table>

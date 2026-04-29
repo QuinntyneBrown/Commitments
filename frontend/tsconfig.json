@@ -67,6 +67,9 @@
       ],
       "@commitments/commitments-feature": [
         "projects/commitments-commitments-feature/src/public-api.ts"
+      ],
+      "@commitments/tracking-feature": [
+        "projects/commitments-tracking-feature/src/public-api.ts"
       ]
     }
   },
@@ -142,6 +145,15 @@
     },
     {
       "path": "./projects/commitments-commitments-feature-host/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/commitments-tracking-feature/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/commitments-tracking-feature/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/commitments-tracking-feature-host/tsconfig.app.json"
     }
   ]
 }
