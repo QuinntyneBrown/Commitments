@@ -36,6 +36,7 @@ const config: Config = {
     '**/projects/commitments-dashboard-plugin-host/src/**/*.spec.ts',
     '**/projects/commitments-identity-feature/src/**/*.spec.ts',
     '**/projects/commitments-behaviours-feature/src/**/*.spec.ts',
+    '**/projects/commitments-frequencies-feature/src/**/*.spec.ts',
   ],
   testPathIgnorePatterns: ['/node_modules/', '/e2e/'],
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
@@ -51,6 +52,8 @@ const config: Config = {
       '<rootDir>/projects/commitments-identity-feature/src/public-api.ts',
     '^@commitments/behaviours-feature$':
       '<rootDir>/projects/commitments-behaviours-feature/src/public-api.ts',
+    '^@commitments/frequencies-feature$':
+      '<rootDir>/projects/commitments-frequencies-feature/src/public-api.ts',
   },
   transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
   passWithNoTests: true,
