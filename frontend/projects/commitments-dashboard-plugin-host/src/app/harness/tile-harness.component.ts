@@ -14,6 +14,7 @@ import {
   TileRegistryService,
   DashboardMode
 } from '@commitments/dashboard-framework';
+import { WindowBridgeService } from './window-bridge.service';
 
 @Component({
   selector: 'app-tile-harness',
@@ -26,6 +27,7 @@ export class TileHarnessComponent {
   private readonly registry = inject(TileRegistryService);
   private readonly route = inject(ActivatedRoute);
   private readonly parentInjector = inject(Injector);
+  private readonly bridge = inject(WindowBridgeService);
 
   readonly tileId = signal<string>('');
   readonly mode = signal<DashboardMode>('live');
@@ -45,11 +47,19 @@ export class TileHarnessComponent {
   });
 
   constructor() {
-    this.route.paramMap.subscribe((p) => this.tileId.set(p.get('tileId') ?? ''));
+    this.route.paramMap.subscribe((p) => {
+      const id = p.get('tileId') ?? '';
+      this.bridge.reset();
+      this.tileId.set(id);
+      this.bridge.setTile(id);
+    });
     this.route.queryParamMap.subscribe((q) => {
       const m = q.get('mode');
-      this.mode.set(m === 'review' ? 'review' : 'live');
+      const mode: DashboardMode = m === 'review' ? 'review' : 'live';
+      this.mode.set(mode);
       this.asOf.set(q.get('asOf'));
+      this.bridge.setMode(mode);
+      this.bridge.setAsOf(q.get('asOf'));
     });
   }
 }
