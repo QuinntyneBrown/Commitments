@@ -64,6 +64,9 @@
       ],
       "@commitments/frequencies-feature": [
         "projects/commitments-frequencies-feature/src/public-api.ts"
+      ],
+      "@commitments/commitments-feature": [
+        "projects/commitments-commitments-feature/src/public-api.ts"
       ]
     }
   },
@@ -130,6 +133,15 @@
     },
     {
       "path": "./projects/commitments-frequencies-feature-host/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/commitments-commitments-feature/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/commitments-commitments-feature/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/commitments-commitments-feature-host/tsconfig.app.json"
     }
   ]
 }

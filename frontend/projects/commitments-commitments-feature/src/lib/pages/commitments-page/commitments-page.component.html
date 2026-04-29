@@ -1,0 +1,12 @@
+<h1>Commitments</h1>
+<table role="table">
+  <thead><tr role="row"><th>Behaviour</th><th>Frequencies</th></tr></thead>
+  <tbody>
+    @for (c of commitments(); track c.commitmentId) {
+      <tr role="row">
+        <td>{{ c.behaviourId }}</td>
+        <td>{{ c.commitmentFrequencies.length }}</td>
+      </tr>
+    }
+  </tbody>
+</table>
