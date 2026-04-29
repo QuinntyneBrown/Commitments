@@ -1,7 +1,7 @@
 ---
 id: bug-193
 title: DASHBOARD_BACKEND_BASE_URL in app.config.ts points to port 52748 which is not running — backend is on 63714 (HTTP) / 63713 (HTTPS)
-status: Open
+status: Fixed
 ---
 
 ## Symptom

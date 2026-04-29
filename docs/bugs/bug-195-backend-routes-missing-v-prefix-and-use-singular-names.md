@@ -1,7 +1,7 @@
 ---
 id: bug-195
 title: All backend controller routes missing 'v' prefix and controllers using [controller] produce singular names — frontend services call api/v1.0/{plural} but backend exposes api/1.0/{singular}
-status: Open
+status: Fixed
 ---
 
 ## Symptom

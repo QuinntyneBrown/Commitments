@@ -1,7 +1,7 @@
 ---
 id: bug-194
 title: SQL Server connection strings missing TrustServerCertificate=True — token and all DB operations fail with SSL cert chain error
-status: Open
+status: Fixed
 ---
 
 ## Symptom
