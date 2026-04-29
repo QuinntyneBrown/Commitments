@@ -35,6 +35,14 @@ Conventions used by every design document:
 | 22 | [Notes Mat-Table](22-notes-mat-table/README.md) | Draft | Migrate Notes page; replace `onCellClicked` with native `<a [routerLink]>` (L2-014, L2-041) |
 | 23 | [Frequencies Editor Mat-Table](23-frequencies-editor-mat-table/README.md) | Draft | Migrate the embedded grid inside `FrequenciesEditorComponent` (L2-007, L2-008) |
 | 24 | [Ag-Grid Removal](24-ag-grid-removal/README.md) | Draft | Drop `ag-grid-angular` + `ag-grid-community` deps, delete renderer wrappers + CSS imports, smoke spec — depends on 18-23 |
+| 25 | [Plugin Host Playwright Config](25-plugin-host-playwright-config/README.md) | Draft | Add `playwright.host.config.ts` + `e2e:host` scripts + smoke spec for `commitments-dashboard-plugin-host` on :4300 |
+| 26 | [Tile Harness Route](26-tile-harness-route/README.md) | Draft | Add `/tile/:tileId` route in host that renders any tile with `TILE_CONTEXT` from query params (no dashboard chrome) |
+| 27 | [Window Bridge](27-window-bridge/README.md) | Draft | Expose `window.__pluginHarness` snapshot via `WindowBridgeService` so Playwright can read tileId/mode/asOf and append http/chart records |
+| 28 | [HTTP Recorder & Stubs](28-http-recorder-and-stubs/README.md) | Draft | Host `HttpInterceptor` records every outgoing request to bridge; `stubJson()` Playwright helper for fixtures via `page.route` |
+| 29 | [Chart Recorder](29-chart-recorder/README.md) | Draft | `CHART_RECORDER` injection token in plugin's `ChartJsLineAdapter`; host writes serialised chart calls to bridge |
+| 30 | [Metric-Tile Acceptance Suite](30-metric-tile-acceptance/README.md) | Draft | Per-tile POMs + specs for Daily Results, Weekly Focus, Outstanding Todos, Relations (live mode) |
+| 31 | [Chart-Tile Acceptance Suite](31-chart-tile-acceptance/README.md) | Draft | Per-tile POMs + specs for Consistency Trend (and any other chart tiles) — DOM + chart bridge + HTTP assertions |
+| 32 | [Review-Mode Acceptance Suite](32-review-mode-acceptance/README.md) | Draft | Per-tile review-mode specs asserting `asOf` propagates to HTTP and chart `pointRadius` highlights the asOf index |
 
 **Status legend:** Draft → In Review → Approved → Implemented.
 
