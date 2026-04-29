@@ -10,10 +10,8 @@ import { DASHBOARD_BACKEND_BASE_URL, provideDashboardFramework } from '@commitme
 import { provideCommitmentsDashboardPlugin } from '@commitments/dashboard-plugin';
 
 import { routes } from './app.routes';
-import { baseUrl, minimumLogLevel } from './core/constants';
 import { headerInterceptor } from './core/headers.interceptor';
 import { jwtInterceptor } from './core/jwt.interceptor';
-import { LogLevel } from './core/logger.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,7 +22,5 @@ export const appConfig: ApplicationConfig = {
     ...provideDashboardFramework(),
     ...provideCommitmentsDashboardPlugin(),
     { provide: DASHBOARD_BACKEND_BASE_URL, useValue: 'http://localhost:52748/' },
-    { provide: baseUrl, useValue: 'http://localhost:52748/' },
-    { provide: minimumLogLevel, useValue: LogLevel.Trace }
   ]
 };

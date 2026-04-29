@@ -3,23 +3,17 @@
 
 import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { LocalStorageService } from './local-storage.service';
-import { LoginRedirectService } from './redirect.service';
-import { accessTokenKey } from './constants';
+import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 
 export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
-  const localStorageService = inject(LocalStorageService);
-  const loginRedirectService = inject(LoginRedirectService);
-
+  const router = inject(Router);
   return next(req).pipe(
-    tap({
-      error: (error) => {
-        if (error instanceof HttpErrorResponse && error.status === 401) {
-          localStorageService.put({ name: accessTokenKey, value: null });
-          loginRedirectService.redirectToLogin();
-        }
+    tap({ error: (e) => {
+      if (e instanceof HttpErrorResponse && e.status === 401) {
+        localStorage.removeItem('accessTokenKey');
+        router.navigate(['/login']);
       }
-    })
+    }})
   );
 };

@@ -2,17 +2,8 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 import { HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
-import { LocalStorageService } from './local-storage.service';
-import { accessTokenKey } from './constants';
 
 export const headerInterceptor: HttpInterceptorFn = (req, next) => {
-  const storage = inject(LocalStorageService);
-  const token = storage.get({ name: accessTokenKey }) || '';
-
-  const clonedReq = req.clone({
-    headers: req.headers.set('Authorization', `Bearer ${token}`)
-  });
-
-  return next(clonedReq);
+  const token = localStorage.getItem('accessTokenKey') || '';
+  return next(req.clone({ headers: req.headers.set('Authorization', `Bearer ${token}`) }));
 };

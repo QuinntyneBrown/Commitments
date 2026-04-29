@@ -1,9 +1,10 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { ProfileService } from '@commitments/identity-feature';
 
 interface SidenavItem {
   label: string;
@@ -20,8 +21,11 @@ interface SidenavItem {
   templateUrl: './dashboard-layout.component.html',
   styleUrls: ['./dashboard-layout.component.scss']
 })
-export class DashboardLayoutComponent {
+export class DashboardLayoutComponent implements OnInit {
+  private readonly _profileService = inject(ProfileService);
+
   protected readonly sidenavOpen = signal(true);
+  protected readonly profileName = signal('');
 
   protected readonly navItems: ReadonlyArray<SidenavItem> = [
     { label: 'Dashboard', icon: 'dashboard', routerLink: '/', exact: true },
@@ -37,6 +41,11 @@ export class DashboardLayoutComponent {
     { label: "To Do's", icon: 'checklist', routerLink: '/to-dos' },
     { label: 'Logout', icon: 'logout', routerLink: '/login' }
   ];
+
+  async ngOnInit(): Promise<void> {
+    const { profile } = await this._profileService.current();
+    this.profileName.set(profile.name);
+  }
 
   protected toggleSidenav(): void {
     this.sidenavOpen.update(v => !v);
