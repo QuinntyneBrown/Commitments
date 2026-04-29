@@ -6,8 +6,9 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideDashboardFramework } from '@commitments/dashboard-framework';
-import { provideCommitmentsDashboardPlugin } from '@commitments/dashboard-plugin';
+import { provideCommitmentsDashboardPlugin, CHART_RECORDER } from '@commitments/dashboard-plugin';
 import { httpRecorderInterceptor } from './harness/http-recorder.interceptor';
+import { WindowBridgeChartRecorder } from './harness/window-bridge-chart-recorder';
 
 import { routes } from './app.routes';
 
@@ -17,6 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideRouter(routes, withComponentInputBinding()),
     ...provideDashboardFramework(),
-    ...provideCommitmentsDashboardPlugin()
+    ...provideCommitmentsDashboardPlugin(),
+    { provide: CHART_RECORDER, useExisting: WindowBridgeChartRecorder }
   ]
 };
