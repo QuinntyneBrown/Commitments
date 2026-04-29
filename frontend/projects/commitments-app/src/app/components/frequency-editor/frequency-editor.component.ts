@@ -4,15 +4,30 @@
 import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { Frequency } from '../../models/frequency';
 import { FrequencyType } from '../../models/frequency-type';
 
 @Component({
   selector: 'app-frequency-editor',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    TranslateModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+  ],
   templateUrl: './frequency-editor.component.html',
-  styleUrls: ['./frequency-editor.component.scss']
+  styleUrls: ['./frequency-editor.component.scss'],
 })
 export class FrequencyEditorComponent {
   public frequency: number;
