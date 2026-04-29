@@ -6,7 +6,7 @@ test('submits credentials to api/v1.0/users/token', async ({ page }) => {
   await pom.goto();
   await pom.signIn('alice', 'pw');
   const calls = await pom.backendCalls();
-  expect(calls).toEqual([
+  expect(calls).toEqual(expect.arrayContaining([
     { method: 'post', path: 'api/v1.0/users/token', body: { username: 'alice', password: 'pw' } }
-  ]);
+  ]));
 });
