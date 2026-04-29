@@ -13,10 +13,10 @@ import { behavioursRoutes } from '@commitments/behaviours-feature';
 import { commitmentsRoutes } from '@commitments/commitments-feature';
 import { frequenciesRoutes } from '@commitments/frequencies-feature';
 import { notesRoutes } from '@commitments/notes-feature';
+import { settingsRoutes } from '@commitments/settings-feature';
 import { LoginPageComponent } from './pages/login/login-page/login-page.component';
 import { MyProfilePageComponent } from './pages/my-profile/my-profile-page/my-profile-page.component';
 import { ProfilesPageComponent } from './pages/profiles/profiles-page/profiles-page.component';
-import { SettingsPageComponent } from './pages/settings/settings-page/settings-page.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
@@ -27,7 +27,7 @@ export const routes: Routes = [
       { path: '', component: DashboardShellComponent },
       { path: 'profiles', component: ProfilesPageComponent },
       { path: 'my-profile', component: MyProfilePageComponent },
-      { path: 'settings', component: SettingsPageComponent },
+      ...settingsRoutes,
       ...behavioursRoutes,
       ...frequenciesRoutes,
       ...commitmentsRoutes,

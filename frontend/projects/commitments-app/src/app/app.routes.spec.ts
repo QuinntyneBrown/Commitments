@@ -17,7 +17,7 @@ import { CommitmentsPageComponent } from '@commitments/commitments-feature';
 import { EditFrequencyPageComponent, FrequenciesPageComponent } from '@commitments/frequencies-feature';
 import { MyProfilePageComponent } from './pages/my-profile/my-profile-page/my-profile-page.component';
 import { ProfilesPageComponent } from './pages/profiles/profiles-page/profiles-page.component';
-import { SettingsPageComponent } from './pages/settings/settings-page/settings-page.component';
+import { SettingsPageComponent } from '@commitments/settings-feature';
 
 describe('app.routes', () => {
   it('maps /login to LoginPageComponent', () => {
