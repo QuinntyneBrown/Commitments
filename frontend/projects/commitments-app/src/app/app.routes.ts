@@ -14,11 +14,9 @@ import { NotesByTagPageComponent } from './pages/notes-by-tag/notes-by-tag-page/
 import { CardsPageComponent } from './pages/cards/cards-page/cards-page.component';
 import { CardLayoutsPageComponent } from './pages/card-layouts/card-layouts-page/card-layouts-page.component';
 import { noteResolver } from './services/note-resolver.service';
-import { BehaviourTypesPageComponent } from './pages/behaviour-types/behaviour-types-page/behaviour-types-page.component';
-import { BehavioursPageComponent } from './pages/behaviours/behaviours-page/behaviours-page.component';
-import { CommitmentsPageComponent } from './pages/commitments/commitments-page/commitments-page.component';
-import { EditFrequencyPageComponent } from './pages/edit-frequency/edit-frequency-page/edit-frequency-page.component';
-import { FrequenciesPageComponent } from './pages/frequencies/frequencies-page/frequencies-page.component';
+import { behavioursRoutes } from '@commitments/behaviours-feature';
+import { commitmentsRoutes } from '@commitments/commitments-feature';
+import { frequenciesRoutes } from '@commitments/frequencies-feature';
 import { LoginPageComponent } from './pages/login/login-page/login-page.component';
 import { MyProfilePageComponent } from './pages/my-profile/my-profile-page/my-profile-page.component';
 import { ProfilesPageComponent } from './pages/profiles/profiles-page/profiles-page.component';
@@ -34,12 +32,9 @@ export const routes: Routes = [
       { path: 'profiles', component: ProfilesPageComponent },
       { path: 'my-profile', component: MyProfilePageComponent },
       { path: 'settings', component: SettingsPageComponent },
-      { path: 'behaviour-types', component: BehaviourTypesPageComponent },
-      { path: 'behaviours', component: BehavioursPageComponent },
-      { path: 'frequencies', component: FrequenciesPageComponent },
-      { path: 'edit-frequency', component: EditFrequencyPageComponent },
-      { path: 'edit-frequency/:frequencyId', component: EditFrequencyPageComponent },
-      { path: 'commitments', component: CommitmentsPageComponent },
+      ...behavioursRoutes,
+      ...frequenciesRoutes,
+      ...commitmentsRoutes,
       { path: 'activities', component: ActivitiesPageComponent },
       { path: 'to-dos', component: ToDosPageComponent },
       { path: 'notes', component: NotesPageComponent },
