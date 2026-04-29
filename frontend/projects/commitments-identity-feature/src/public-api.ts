@@ -1,3 +1,4 @@
+export * from './lib/guards/auth.guard';
 export * from './lib/data/auth.service';
 export * from './lib/data/profile.service';
 export * from './lib/data/profile';

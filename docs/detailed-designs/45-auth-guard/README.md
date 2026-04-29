@@ -1,6 +1,6 @@
 # Design 45 — Auth Guard
 
-Status: Accepted
+Status: Complete
 
 ## Context
 
