@@ -1,5 +1,7 @@
 # Feature Library Host Pattern — Detailed Design
 
+**Status:** Accepted
+
 ## 1. Overview
 
 Goal: define **once** the reusable pattern that every per-feature slice (34 — 41) follows when lifting a feature out of `commitments-app` into its own Angular library. Slices 34 — 41 each apply this pattern to a single bounded context; this slice owns the *shape* of that pattern so each feature design can stay short.
