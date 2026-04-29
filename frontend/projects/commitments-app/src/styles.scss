@@ -15,10 +15,6 @@ html {
   color: var(--cui-text-primary, #FFFFFF);
 }
 
-// AG Grid styles - updated for AG Grid 32
-@import 'ag-grid-community/styles/ag-grid.css';
-@import 'ag-grid-community/styles/ag-theme-material.css';
-
 .snackbar--error .mdc-snackbar__surface {
   background-color: var(--cui-warn, #F44336) !important;
   color: #fff !important;

@@ -37,8 +37,6 @@
     "@microsoft/signalr": "^8.0.0",
     "@ngx-translate/core": "^16.0.0",
     "@ngx-translate/http-loader": "^16.0.0",
-    "ag-grid-angular": "^32.0.0",
-    "ag-grid-community": "^32.0.0",
     "angular-gridster2": "^21.0.1",
     "chart.js": "^4.5.1",
     "moment": "^2.30.0",

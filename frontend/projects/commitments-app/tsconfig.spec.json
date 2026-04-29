@@ -17,8 +17,7 @@
       "@pages/*": ["projects/commitments-app/src/app/pages/*"],
       "@commitments/ui": ["projects/commitments-ui/src/public-api.ts"],
       "@commitments/dashboard-framework": ["projects/dashboard-framework/src/public-api.ts"],
-      "@commitments/dashboard-plugin": ["projects/commitments-dashboard-plugin/src/public-api.ts"],
-      "ag-grid": ["__mocks__/ag-grid"]
+      "@commitments/dashboard-plugin": ["projects/commitments-dashboard-plugin/src/public-api.ts"]
     }
   },
   "include": [

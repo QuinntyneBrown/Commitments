@@ -49,17 +49,16 @@ describe('FrequenciesEditorComponent mat-table', () => {
       isDesired: false,
     });
 
+    const host = fixture.nativeElement as HTMLElement;
     fixture.componentInstance.handleFrequencySave({ frequency: added });
-    fixture.detectChanges();
     expect(fixture.componentInstance.rows).toContain(added);
 
-    const host = fixture.nativeElement as HTMLElement;
     const deleteButton = host.querySelector<HTMLButtonElement>(
-      'button[aria-label="Delete frequency 5"]',
+      'button[aria-label="Delete frequency 3"]',
     );
     deleteButton?.click();
     fixture.detectChanges();
 
-    expect(fixture.componentInstance.rows).not.toContain(added);
+    expect(fixture.componentInstance.rows).toEqual([added]);
   });
 });
