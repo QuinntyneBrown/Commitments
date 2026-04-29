@@ -51,6 +51,10 @@
     "build:behaviours-host": "ng build commitments-behaviours-feature-host",
     "e2e:behaviours-host": "playwright test --config=playwright.behaviours-host.config.ts",
     "e2e:behaviours-host:ui": "playwright test --config=playwright.behaviours-host.config.ts --ui",
+    "start:settings-host": "ng serve commitments-settings-feature-host",
+    "build:settings-host": "ng build commitments-settings-feature-host",
+    "e2e:settings-host": "playwright test --config=playwright.settings-host.config.ts",
+    "e2e:settings-host:ui": "playwright test --config=playwright.settings-host.config.ts --ui",
     "storybook": "ng run commitments-app:storybook",
     "build-storybook": "ng run commitments-app:build-storybook"
   },

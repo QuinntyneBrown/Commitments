@@ -76,6 +76,9 @@
       ],
       "@commitments/cards-feature": [
         "projects/commitments-cards-feature/src/public-api.ts"
+      ],
+      "@commitments/settings-feature": [
+        "projects/commitments-settings-feature/src/public-api.ts"
       ]
     }
   },
@@ -178,6 +181,15 @@
     },
     {
       "path": "./projects/commitments-cards-feature-host/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/commitments-settings-feature/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/commitments-settings-feature/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/commitments-settings-feature-host/tsconfig.app.json"
     }
   ]
 }

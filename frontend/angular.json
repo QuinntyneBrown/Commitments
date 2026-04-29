@@ -863,6 +863,77 @@
           "defaultConfiguration": "development"
         }
       }
+    },
+    "commitments-settings-feature": {
+      "projectType": "library",
+      "root": "projects/commitments-settings-feature",
+      "sourceRoot": "projects/commitments-settings-feature/src",
+      "prefix": "commitments",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/commitments-settings-feature/ng-package.json",
+            "tsConfig": "projects/commitments-settings-feature/tsconfig.lib.json"
+          }
+        }
+      }
+    },
+    "commitments-settings-feature-host": {
+      "projectType": "application",
+      "root": "projects/commitments-settings-feature-host",
+      "sourceRoot": "projects/commitments-settings-feature-host/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "outputPath": "dist/commitments-settings-feature-host",
+            "index": "projects/commitments-settings-feature-host/src/index.html",
+            "browser": "projects/commitments-settings-feature-host/src/main.ts",
+            "tsConfig": "projects/commitments-settings-feature-host/tsconfig.app.json",
+            "styles": [
+              "projects/commitments-settings-feature-host/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "commitments-settings-feature-host:build:production"
+            },
+            "development": {
+              "buildTarget": "commitments-settings-feature-host:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
     }
   },
   "cli": {
