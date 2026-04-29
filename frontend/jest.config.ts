@@ -34,6 +34,7 @@ const config: Config = {
     '**/projects/dashboard-framework/src/**/*.spec.ts',
     '**/projects/commitments-dashboard-plugin/src/**/*.spec.ts',
     '**/projects/commitments-dashboard-plugin-host/src/**/*.spec.ts',
+    '**/projects/commitments-identity-feature/src/**/*.spec.ts',
   ],
   testPathIgnorePatterns: ['/node_modules/', '/e2e/'],
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
@@ -45,6 +46,8 @@ const config: Config = {
       '<rootDir>/projects/dashboard-framework/src/public-api.ts',
     '^@commitments/dashboard-plugin$':
       '<rootDir>/projects/commitments-dashboard-plugin/src/public-api.ts',
+    '^@commitments/identity-feature$':
+      '<rootDir>/projects/commitments-identity-feature/src/public-api.ts',
   },
   transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
   passWithNoTests: true,
