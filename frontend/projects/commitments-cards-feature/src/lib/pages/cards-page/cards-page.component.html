@@ -1,0 +1,12 @@
+<h1>Cards</h1>
+<table role="table">
+  <thead><tr role="row"><th>Name</th><th>Layout</th></tr></thead>
+  <tbody>
+    @for (c of cards(); track c.cardId) {
+      <tr role="row">
+        <td>{{ c.name }}</td>
+        <td>{{ c.cardLayoutId }}</td>
+      </tr>
+    }
+  </tbody>
+</table>

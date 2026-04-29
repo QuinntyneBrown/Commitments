@@ -73,6 +73,9 @@
       ],
       "@commitments/notes-feature": [
         "projects/commitments-notes-feature/src/public-api.ts"
+      ],
+      "@commitments/cards-feature": [
+        "projects/commitments-cards-feature/src/public-api.ts"
       ]
     }
   },
@@ -166,6 +169,15 @@
     },
     {
       "path": "./projects/commitments-notes-feature-host/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/commitments-cards-feature/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/commitments-cards-feature/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/commitments-cards-feature-host/tsconfig.app.json"
     }
   ]
 }

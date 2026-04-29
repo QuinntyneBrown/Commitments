@@ -792,6 +792,77 @@
           "defaultConfiguration": "development"
         }
       }
+    },
+    "commitments-cards-feature": {
+      "projectType": "library",
+      "root": "projects/commitments-cards-feature",
+      "sourceRoot": "projects/commitments-cards-feature/src",
+      "prefix": "commitments",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/commitments-cards-feature/ng-package.json",
+            "tsConfig": "projects/commitments-cards-feature/tsconfig.lib.json"
+          }
+        }
+      }
+    },
+    "commitments-cards-feature-host": {
+      "projectType": "application",
+      "root": "projects/commitments-cards-feature-host",
+      "sourceRoot": "projects/commitments-cards-feature-host/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "outputPath": "dist/commitments-cards-feature-host",
+            "index": "projects/commitments-cards-feature-host/src/index.html",
+            "browser": "projects/commitments-cards-feature-host/src/main.ts",
+            "tsConfig": "projects/commitments-cards-feature-host/tsconfig.app.json",
+            "styles": [
+              "projects/commitments-cards-feature-host/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "commitments-cards-feature-host:build:production"
+            },
+            "development": {
+              "buildTarget": "commitments-cards-feature-host:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
     }
   },
   "cli": {
