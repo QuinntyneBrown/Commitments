@@ -27,6 +27,8 @@ const deleted = [
   'overlay-ref-wrapper.ts',
   'deep-copy.ts',
   'error.service.ts',
+  'local-storage.service.ts',
+  'redirect.service.ts',
 ];
 
 describe('commitments-app core dead-code removal (design 44)', () => {
