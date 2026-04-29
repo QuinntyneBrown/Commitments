@@ -1,6 +1,6 @@
 # Tracking Feature Library — Detailed Design
 
-**Status:** Draft
+**Status:** Accepted
 
 ## 1. Overview
 
@@ -90,7 +90,7 @@ export const appConfig: ApplicationConfig = {
       backendResponses: {
         'api/v1.0/activities':  { activities: activityFixtures },
         'api/v1.0/toDos':       { toDos: toDoFixtures },
-        'api/v1.0/commitments': { commitments: commitmentFixtures, count: commitmentFixtures.length }
+        'api/v1.0/commitments': { commitments: commitmentFixtures }
       }
     })
   ]
