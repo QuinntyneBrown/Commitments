@@ -1,6 +1,9 @@
 import { expect, test } from '@playwright/test';
 import { LoginPage } from './pages/login.page';
 
+const VALID_USERNAME = 'quinntynebrown@gmail.com';
+const VALID_PASSWORD = 'P@ssw0rd';
+
 const DESIGN_BG = 'rgb(18, 18, 18)';
 
 test.describe('login page', () => {
@@ -98,5 +101,20 @@ test.describe('login page', () => {
     await expect(actionBtn).toBeVisible();
     const label = await actionBtn.innerText();
     expect(label.trim().length).toBeLessThan(15);
+  });
+
+  test('successful login with valid credentials navigates to dashboard (bug-193)', async ({ page }) => {
+    const requests: string[] = [];
+    page.on('request', req => {
+      if (req.url().includes('token')) requests.push(req.url());
+    });
+
+    await login.usernameInput.fill(VALID_USERNAME);
+    await login.passwordInput.fill(VALID_PASSWORD);
+    await login.submitButton.click();
+
+    await page.waitForURL('/', { timeout: 5000 });
+    expect(requests.some(u => u.includes(':63714'))).toBe(true);
+    await expect(page.getByTestId('dashboard-sidenav')).toBeVisible();
   });
 });
