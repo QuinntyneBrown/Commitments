@@ -27,9 +27,20 @@ class FrequencyTypeService {
   +list(): Promise<{frequencyTypes}>
 }
 
-class Frequency { +frequencyId: Guid; +name: string; +isDesirable: bool }
-class FrequencyType { +frequencyTypeId: Guid; +name: string }
-class CommitmentFrequency { +commitmentFrequencyId: Guid; +commitmentId: Guid; +frequencyId: Guid }
+class Frequency {
+  +frequencyId: Guid
+  +name: string
+  +isDesirable: bool
+}
+class FrequencyType {
+  +frequencyTypeId: Guid
+  +name: string
+}
+class CommitmentFrequency {
+  +commitmentFrequencyId: Guid
+  +commitmentId: Guid
+  +frequencyId: Guid
+}
 
 class DashboardBackendService <<framework>>
 

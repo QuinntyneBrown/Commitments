@@ -30,8 +30,18 @@ class TagsService {
   +remove(id): Promise<void>
 }
 
-class Note { +noteId: number; +slug: string; +title: string; +body: string; +tags: Tag[] }
-class Tag { +tagId: number; +slug: string; +name: string }
+class Note {
+  +noteId: number
+  +slug: string
+  +title: string
+  +body: string
+  +tags: Tag[]
+}
+class Tag {
+  +tagId: number
+  +slug: string
+  +name: string
+}
 
 class DashboardBackendService <<framework>>
 

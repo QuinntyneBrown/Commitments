@@ -23,8 +23,17 @@ class CardLayoutService {
   +remove(id): Promise<void>
 }
 
-class Card { +cardId: Guid; +cardLayoutId: Guid; +title: string; +position: number }
-class CardLayout { +cardLayoutId: Guid; +name: string; +cards: Card[] }
+class Card {
+  +cardId: Guid
+  +cardLayoutId: Guid
+  +title: string
+  +position: number
+}
+class CardLayout {
+  +cardLayoutId: Guid
+  +name: string
+  +cards: Card[]
+}
 
 class DashboardBackendService <<framework>>
 

@@ -25,8 +25,16 @@ class BehaviourService {
   +remove(id): Promise<void>
 }
 
-class BehaviourType { +behaviourTypeId; +name; +isCommon }
-class Behaviour { +behaviourId; +name; +behaviourTypeId }
+class BehaviourType {
+  +behaviourTypeId: Guid
+  +name: string
+  +isCommon: bool
+}
+class Behaviour {
+  +behaviourId: Guid
+  +name: string
+  +behaviourTypeId: Guid
+}
 
 class DashboardBackendService <<framework>>
 

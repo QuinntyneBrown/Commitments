@@ -23,8 +23,17 @@ class ToDoService {
   +dismiss(id): Promise<void>
 }
 
-class Activity { +activityId: Guid; +commitmentId: Guid; +performedOn: string }
-class ToDo { +toDoId: Guid; +commitmentId: Guid; +dueOn: string; +done: bool }
+class Activity {
+  +activityId: Guid
+  +commitmentId: Guid
+  +performedOn: string
+}
+class ToDo {
+  +toDoId: Guid
+  +commitmentId: Guid
+  +dueOn: string
+  +done: bool
+}
 
 class DashboardBackendService <<framework>>
 
