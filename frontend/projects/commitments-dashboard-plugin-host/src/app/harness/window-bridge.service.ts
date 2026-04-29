@@ -21,7 +21,7 @@ export class WindowBridgeService {
   };
 
   constructor() {
-    (window as any).__pluginHarness = this.snapshot;
+    window.__pluginHarness = this.snapshot;
   }
 
   setTile(tileId: string): void { this.snapshot.tileId = tileId; }
