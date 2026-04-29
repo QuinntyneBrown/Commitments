@@ -1,6 +1,6 @@
 # Design 47 — Login Post-Auth Redirect + Interceptor Simplification
 
-Status: Accepted
+Status: Complete
 
 ## Context
 

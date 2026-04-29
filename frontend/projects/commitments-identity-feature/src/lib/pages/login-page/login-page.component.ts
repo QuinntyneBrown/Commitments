@@ -1,5 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -14,6 +15,7 @@ import { AuthService } from '../../data/auth.service';
 })
 export class LoginPageComponent {
   private readonly _auth = inject(AuthService);
+  private readonly _router = inject(Router);
 
   readonly form = new FormGroup({
     username: new FormControl('', [Validators.required]),
@@ -25,10 +27,12 @@ export class LoginPageComponent {
   async signIn(): Promise<void> {
     if (this.form.invalid) return;
     try {
-      await this._auth.token({
+      const { accessToken } = await this._auth.token({
         username: this.form.value.username!,
         password: this.form.value.password!,
       });
+      localStorage.setItem('accessTokenKey', accessToken);
+      this._router.navigate(['/']);
     } catch {
       this.error.set('Login failed');
     }
