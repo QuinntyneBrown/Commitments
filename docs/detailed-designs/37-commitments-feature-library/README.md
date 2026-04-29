@@ -1,6 +1,6 @@
 # Commitments Feature Library — Detailed Design
 
-**Status:** Draft
+**Status:** Accepted
 
 ## 1. Overview
 
@@ -63,11 +63,9 @@ export const commitmentsRoutes: Routes = [
 @Injectable({ providedIn: 'root' })
 export class CommitmentService {
   private readonly _backend = inject(DashboardBackendService);
-  list(opts?: { skip?: number; take?: number }): Promise<{ commitments: Commitment[]; count: number }> {
-    return this._backend.get('api/v1.0/commitments', { skip: opts?.skip, take: opts?.take });
-  }
-  save(input):  Promise<{ commitment: Commitment }> { return this._backend.post('api/v1.0/commitments', input); }
-  remove(id):   Promise<void>                       { return this._backend.delete(`api/v1.0/commitments/${id}`); }
+  list(): Promise<{ commitments: Commitment[] }>    { return this._backend.get('api/v1.0/commitments'); }
+  save(input): Promise<{ commitment: Commitment }>  { return this._backend.post('api/v1.0/commitments', input); }
+  remove(id):  Promise<void>                        { return this._backend.delete(`api/v1.0/commitments/${id}`); }
 }
 ```
 
@@ -82,7 +80,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter([{ path: '', redirectTo: 'commitments', pathMatch: 'full' }, ...commitmentsRoutes]),
     ...provideMockDashboardFramework({
       backendResponses: {
-        'api/v1.0/commitments':       { commitments: commitmentFixtures.slice(0, 5), count: 12 },
+        'api/v1.0/commitments':       { commitments: commitmentFixtures },
         'api/v1.0/behaviours':        { behaviours: behaviourFixtures },
         'api/v1.0/frequencies':       { frequencies: frequencyFixtures },
         'api/v1.0/frequencyTypes':    { frequencyTypes: frequencyTypeFixtures }
@@ -99,18 +97,15 @@ Port: **4340**.
 ```ts
 // support/commitments-page.po.ts
 export class CommitmentsPagePo extends BasePage {
-  readonly url = '/commitments';
-  readonly addButton    = this.page.getByRole('button', { name: 'Add Commitment' });
-  readonly nextPage     = this.page.getByRole('button', { name: /next page/i });
-  readonly rows         = this.page.getByRole('row');
+  readonly url       = '/commitments';
+  readonly rows      = this.page.getByRole('row');
 }
 ```
 
 Spec (single `commitments-page.spec.ts`):
 
-- Asserts initial `get api/v1.0/commitments` with `{ skip: 0, take: 5 }` params.
-- Asserts paginator emits `{ skip: 5, take: 5 }` on next-page click.
-- Asserts compose-and-save fires `post api/v1.0/commitments` with the correct body shape (commitmentName + behaviourId + commitmentFrequencies[]).
+- Asserts initial `get api/v1.0/commitments` on load.
+- Asserts table renders one row per fixture commitment.
 - All assertions read from `pom.backendCalls()`.
 
 ### 3.5 `commitments-app` cleanup
