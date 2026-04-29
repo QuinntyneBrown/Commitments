@@ -1,5 +1,7 @@
 # Metric-Tile Acceptance Suite — Detailed Design
 
+**Status:** Accepted
+
 ## 1. Overview
 
 Goal: deliver concrete, end-to-end Playwright acceptance specs for the four **metric / list** plugin tiles — those with no chart canvas:
