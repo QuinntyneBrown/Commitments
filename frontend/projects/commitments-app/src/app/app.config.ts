@@ -21,6 +21,6 @@ export const appConfig: ApplicationConfig = {
     provideTranslateService({ defaultLanguage: 'en' }),
     ...provideDashboardFramework(),
     ...provideCommitmentsDashboardPlugin(),
-    { provide: DASHBOARD_BACKEND_BASE_URL, useValue: 'http://localhost:52748/' },
+    { provide: DASHBOARD_BACKEND_BASE_URL, useValue: 'http://localhost:63714/' },
   ]
 };
