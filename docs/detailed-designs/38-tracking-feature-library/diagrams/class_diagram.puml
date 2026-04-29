@@ -1,0 +1,40 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Tracking Feature Library - Class Model
+
+class ActivitiesPageComponent
+class ToDosPageComponent
+class EditActivityDialogComponent
+class EditToDoDialogComponent
+
+class ActivityService {
+  -backend: DashboardBackendService
+  +list(): Promise<{activities}>
+  +record(input): Promise<{activity}>
+  +remove(id): Promise<void>
+}
+class ToDoService {
+  -backend: DashboardBackendService
+  +list(): Promise<{toDos}>
+  +create(input): Promise<{toDo}>
+  +dismiss(id): Promise<void>
+}
+
+class Activity { +activityId: Guid; +commitmentId: Guid; +performedOn: string }
+class ToDo { +toDoId: Guid; +commitmentId: Guid; +dueOn: string; +done: bool }
+
+class DashboardBackendService <<framework>>
+
+ActivitiesPageComponent --> ActivityService
+ActivitiesPageComponent --> EditActivityDialogComponent
+ToDosPageComponent --> ToDoService
+ToDosPageComponent --> EditToDoDialogComponent
+ActivityService --> DashboardBackendService
+ToDoService --> DashboardBackendService
+ActivityService --> Activity
+ToDoService --> ToDo
+
+@enduml

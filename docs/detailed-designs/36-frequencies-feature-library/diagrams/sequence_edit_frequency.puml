@@ -1,0 +1,37 @@
+@startuml sequence_edit_frequency
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Edit-Frequency deep-link load + save - boundary assertions
+
+actor Spec
+participant Po as "EditFrequencyPagePo"
+participant Browser
+participant Page as "EditFrequencyPageComponent"
+participant Svc as "FrequencyService"
+participant Mock as "MockDashboardBackendService"
+participant Bridge as "WindowFeatureBridgeService"
+
+Spec -> Po: new EditFrequencyPagePo(page, '11111111...')
+Spec -> Po: pom.goto()
+Po -> Browser: page.goto('/edit-frequency/11111111...')
+Browser -> Page: ngOnInit()
+Page -> Svc: getById('11111111...')
+Svc -> Mock: get('api/v1.0/frequencies/11111111...')
+Mock -> Bridge: recordBackend(get)
+Mock --> Svc: {frequency}
+Svc --> Page: render
+
+Spec -> Po: pom.fillName('Daily Run')
+Spec -> Po: pom.save.click()
+Po -> Browser: click "Save"
+Browser -> Page: save()
+Page -> Svc: save({frequencyId, name})
+Svc -> Mock: post('api/v1.0/frequencies', body)
+Mock -> Bridge: recordBackend(post)
+
+Spec -> Po: pom.backendCalls()
+Po --> Spec: [get(by id), post]
+Spec -> Spec: expect both shapes
+
+@enduml

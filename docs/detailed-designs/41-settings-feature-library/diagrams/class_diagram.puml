@@ -1,0 +1,30 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Settings Feature Library - Class Model
+
+class SettingsPageComponent {
+  -profiles: ProfileService
+  +ngOnInit(): Promise<void>
+}
+
+class ProfileService <<peer:identity-feature>> {
+  -backend: DashboardBackendService
+  +current(): Promise<{profile}>
+}
+
+class Profile <<from identity-feature>> {
+  +profileId: Guid
+  +displayName: string
+  +avatarUrl: string
+}
+
+class DashboardBackendService <<framework>>
+
+SettingsPageComponent --> ProfileService
+ProfileService --> DashboardBackendService
+ProfileService --> Profile
+
+@enduml

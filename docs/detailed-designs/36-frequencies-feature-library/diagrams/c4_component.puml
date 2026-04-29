@@ -1,0 +1,42 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Frequencies Feature Library - Component Diagram
+
+Container_Boundary(host, "commitments-frequencies-feature-host") {
+  Component(appCfg, "app.config.ts", "Angular", "Mock providers + frequenciesRoutes")
+  Component(fixtures, "hostFixtures", "JSON map", "frequencies, types, single freq")
+}
+
+Container_Boundary(lib, "@commitments/frequencies-feature") {
+  Component(routes, "frequenciesRoutes", "Routes[]", "/frequencies + /edit-frequency[/:id]")
+  Component(listP, "FrequenciesPageComponent", "Standalone")
+  Component(editP, "EditFrequencyPageComponent", "Standalone")
+  Component(editor1, "FrequencyEditor", "Standalone")
+  Component(editor2, "FrequenciesEditor", "Standalone")
+  Component(fSvc, "FrequencyService", "Service")
+  Component(ftSvc, "FrequencyTypeService", "Service")
+  Component(dlg, "EditFrequencyDialog", "Standalone")
+  Component(boundary, "backend-transport-boundary.spec", "Jest")
+}
+
+Container_Boundary(framework, "@commitments/dashboard-framework/testing") {
+  Component(mockKit, "provideMockDashboardFramework()", "Provider[]")
+  Component(bridge, "WindowFeatureBridgeService", "Service")
+}
+
+Rel(appCfg, routes, "provideRouter()")
+Rel(appCfg, mockKit, "spreads")
+Rel(listP, fSvc, "inject()")
+Rel(listP, dlg, "open()")
+Rel(editP, fSvc, "load by id, save")
+Rel(editP, editor2, "renders")
+Rel(editor1, ftSvc, "loads types")
+Rel(editor2, editor1, "renders rows")
+Rel(fSvc, mockKit, "DashboardBackendService (mock)")
+Rel(ftSvc, mockKit, "DashboardBackendService (mock)")
+Rel(mockKit, bridge, "recordBackend(call)")
+Rel(mockKit, fixtures, "lookup")
+
+@enduml

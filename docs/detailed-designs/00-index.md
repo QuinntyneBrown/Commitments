@@ -43,6 +43,15 @@ Conventions used by every design document:
 | 30 | [Metric-Tile Acceptance Suite](30-metric-tile-acceptance/README.md) | Draft | Per-tile POMs + specs for Daily Results, Weekly Focus, Outstanding Todos, Relations (live mode) |
 | 31 | [Chart-Tile Acceptance Suite](31-chart-tile-acceptance/README.md) | Draft | Per-tile POMs + specs for Consistency Trend (and any other chart tiles) — DOM + chart bridge + HTTP assertions |
 | 32 | [Review-Mode Acceptance Suite](32-review-mode-acceptance/README.md) | Draft | Per-tile review-mode specs asserting `asOf` propagates to HTTP and chart `pointRadius` highlights the asOf index |
+| 33 | [Feature Library Host Pattern](33-feature-library-host-pattern/README.md) | Accepted | Shared kit: `WindowFeatureBridgeService`, `provideMockDashboardFramework()`, `playwright.<feature>-host.config.ts` template, POM base — owned once, applied by 34 — 41 |
+| 34 | [Identity Feature Library](34-identity-feature-library/README.md) | Draft | Lift Login + My Profile + Profiles into `@commitments/identity-feature` + host on :4310 (L2-001..L2-004) |
+| 35 | [Behaviours Feature Library](35-behaviours-feature-library/README.md) | Draft | Lift Behaviour Types + Behaviours into `@commitments/behaviours-feature` + host on :4320 (L2-005, L2-006) |
+| 36 | [Frequencies Feature Library](36-frequencies-feature-library/README.md) | Draft | Lift Frequencies + Edit Frequency into `@commitments/frequencies-feature` + host on :4330 (L2-007, L2-008) |
+| 37 | [Commitments Feature Library](37-commitments-feature-library/README.md) | Draft | Lift Commitments page into `@commitments/commitments-feature` + host on :4340 (L2-009..L2-011) |
+| 38 | [Tracking Feature Library](38-tracking-feature-library/README.md) | Draft | Lift Activities + To-Dos into `@commitments/tracking-feature` + host on :4350 (L2-012, L2-016) |
+| 39 | [Notes Feature Library](39-notes-feature-library/README.md) | Draft | Lift Notes + Edit Note + Tags + Notes-by-Tag into `@commitments/notes-feature` + host on :4360 (L2-014, L2-015, L2-041) |
+| 40 | [Cards Feature Library](40-cards-feature-library/README.md) | Draft | Lift Cards + Card Layouts into `@commitments/cards-feature` + host on :4370 (L2-019, L2-022) |
+| 41 | [Settings Feature Library](41-settings-feature-library/README.md) | Draft | Lift Settings into `@commitments/settings-feature` + host on :4380 (L2-035, L2-037) |
 
 **Status legend:** Draft → In Review → Approved → Implemented.
 
@@ -73,6 +82,24 @@ Order:
 8. **32 Review-Mode Acceptance** — every tile re-tested with `mode=review&asOf=...` URL.
 
 Slice 29 contains the **only** plugin-side code change in the arc (~6-line delta to `ChartJsLineAdapter`). Every other change is host-only and additive.
+
+## Feature library extraction (slices 33 — 41)
+
+Slices 33 — 41 form a self-contained arc that lifts every page out of `commitments-app` into a per-bounded-context Angular library, each with its own `commitments-<feature>-feature-host` Angular SPA driven by Playwright (POM specs). Source intent: keep each library radically simple; route all backend transport through `dashboard-framework`'s `DashboardBackendService`; mock that service in the host with a recording mock that pushes calls into a `window.__featureHarness` bridge so Playwright can assert the library uses the framework boundary correctly.
+
+The pattern is the same one slices 25 — 32 prove for `commitments-dashboard-plugin-host` — but for **pages with routes** instead of dashboard tiles. Slice 33 owns the shared kit (bridge service, mock provider factory, Playwright config template, POM base class). Slices 34 — 41 each apply the kit to one bounded context.
+
+Order:
+
+1. **33 Feature Library Host Pattern** — pipeline foundation; ships `WindowFeatureBridgeService`, `provideMockDashboardFramework()`, the Playwright config template, and the boundary spec template. No feature is migrated.
+2. **34 Identity** (Login + Profiles + My Profile) — must land before any other host can have a "logged-in" fixture profile to point at.
+3. **35 Behaviours** → **36 Frequencies** — catalog libs that 37 / 38 reuse as peer typed deps.
+4. **37 Commitments** → **38 Tracking** — core CRUD libs that depend on 35 + 36.
+5. **39 Notes** — largest standalone lib (Note ⟷ Tag domain).
+6. **40 Cards** — exports `EditCardDialog` consumed by 37.
+7. **41 Settings** — last; depends on 34's `ProfileService` and is the smallest slice (one page, no service).
+
+After slice 41 ships, `commitments-app/src/app/pages/` is empty and `commitments-app/src/app/app.routes.ts` is a flat list of `...identityRoutes, ...behavioursRoutes, ...` imports — every page is exercised in isolation by its host's Playwright suite **and** still composed inside the production app via the dashboard layout. Slice 33's boundary spec runs in every lib's CI, guaranteeing nothing in a lib bypasses `DashboardBackendService`.
 
 ## ag-grid → Angular Material migration
 

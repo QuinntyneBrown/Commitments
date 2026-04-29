@@ -1,0 +1,48 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Notes Feature Library - Component Diagram
+
+Container_Boundary(host, "commitments-notes-feature-host") {
+  Component(appCfg, "app.config.ts", "Angular", "Mock providers + notesRoutes")
+  Component(fixtures, "hostFixtures", "JSON map", "notes, tags, by-slug, by-tag")
+}
+
+Container_Boundary(lib, "@commitments/notes-feature") {
+  Component(routes, "notesRoutes", "Routes[]", "/notes /edit-note/:slug /tags /notes-by-tag/:slug")
+  Component(notesP, "NotesPageComponent", "Standalone")
+  Component(editP, "EditNotePageComponent", "Standalone")
+  Component(tagsP, "TagsPageComponent", "Standalone")
+  Component(byTagP, "NotesByTagPageComponent", "Standalone")
+  Component(quill, "QuillTextEditor", "Standalone")
+  Component(chips, "AutoCompleteChipList", "Standalone")
+  Component(tagDlg, "AddTagDialog", "Standalone")
+  Component(notesSvc, "NotesService", "Service")
+  Component(tagsSvc, "TagsService", "Service")
+  Component(resolver, "noteResolver / tagsResolver", "Functional ResolveFn")
+  Component(boundary, "backend-transport-boundary.spec", "Jest")
+}
+
+Container_Boundary(framework, "@commitments/dashboard-framework/testing") {
+  Component(mockKit, "provideMockDashboardFramework()", "Provider[]")
+  Component(bridge, "WindowFeatureBridgeService", "Service")
+}
+
+Rel(appCfg, routes, "provideRouter()")
+Rel(appCfg, mockKit, "spreads")
+Rel(notesP, notesSvc, "list/remove")
+Rel(editP, resolver, "loads via resolver")
+Rel(editP, quill, "renders editor")
+Rel(editP, chips, "tag picker")
+Rel(editP, tagDlg, "open()")
+Rel(editP, notesSvc, "save")
+Rel(tagsP, tagsSvc, "CRUD")
+Rel(byTagP, notesSvc, "getByTagSlug")
+Rel(resolver, notesSvc, "getBySlug")
+Rel(notesSvc, mockKit, "DashboardBackendService (mock)")
+Rel(tagsSvc, mockKit, "DashboardBackendService (mock)")
+Rel(mockKit, bridge, "recordBackend(call)")
+Rel(mockKit, fixtures, "lookup")
+
+@enduml

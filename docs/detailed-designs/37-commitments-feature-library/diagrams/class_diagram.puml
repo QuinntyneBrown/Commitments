@@ -1,0 +1,47 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Commitments Feature Library - Class Model
+
+class CommitmentsPageComponent {
+  -svc: CommitmentService
+  +ngOnInit(): Promise<void>
+  +openAdd(): void
+  +nextPage(): Promise<void>
+  +refresh(): Promise<void>
+}
+class EditCommitmentDialogComponent
+class CommitmentService {
+  -backend: DashboardBackendService
+  +list(opts): Promise<{commitments,count}>
+  +save(input): Promise<{commitment}>
+  +remove(id): Promise<void>
+}
+
+class Commitment {
+  +commitmentId: Guid
+  +behaviourId: Guid
+  +commitmentName: string
+  +commitmentFrequencies: CommitmentFrequency[]
+}
+class CommitmentFrequency {
+  +commitmentFrequencyId: Guid
+  +commitmentId: Guid
+  +frequencyId: Guid
+}
+
+class BehaviourService <<peer:behaviours-feature>>
+class FrequenciesEditor <<peer:frequencies-feature>>
+class DashboardBackendService <<framework>>
+
+CommitmentsPageComponent --> CommitmentService
+CommitmentsPageComponent --> EditCommitmentDialogComponent
+EditCommitmentDialogComponent --> BehaviourService
+EditCommitmentDialogComponent --> FrequenciesEditor
+CommitmentService --> DashboardBackendService
+CommitmentService --> Commitment
+Commitment "1" *-- "*" CommitmentFrequency
+
+@enduml

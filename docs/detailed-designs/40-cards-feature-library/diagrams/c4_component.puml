@@ -1,0 +1,39 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Cards Feature Library - Component Diagram
+
+Container_Boundary(host, "commitments-cards-feature-host") {
+  Component(appCfg, "app.config.ts", "Angular", "Mock providers + cardsRoutes")
+  Component(fixtures, "hostFixtures", "JSON map", "cards + cardLayouts")
+}
+
+Container_Boundary(lib, "@commitments/cards-feature") {
+  Component(routes, "cardsRoutes", "Routes[]", "/cards /card-layouts")
+  Component(cardsP, "CardsPageComponent", "Standalone")
+  Component(layoutsP, "CardLayoutsPageComponent", "Standalone")
+  Component(cardSvc, "CardService", "Service")
+  Component(layoutSvc, "CardLayoutService", "Service")
+  Component(cardDlg, "EditCardDialog", "Standalone (exported)")
+  Component(layoutDlg, "EditCardLayoutDialog", "Standalone")
+  Component(boundary, "backend-transport-boundary.spec", "Jest")
+}
+
+Container_Boundary(framework, "@commitments/dashboard-framework/testing") {
+  Component(mockKit, "provideMockDashboardFramework()", "Provider[]")
+  Component(bridge, "WindowFeatureBridgeService", "Service")
+}
+
+Rel(appCfg, routes, "provideRouter()")
+Rel(appCfg, mockKit, "spreads")
+Rel(cardsP, cardSvc, "list/save/remove")
+Rel(cardsP, cardDlg, "open()")
+Rel(layoutsP, layoutSvc, "list/save")
+Rel(layoutsP, layoutDlg, "open()")
+Rel(cardSvc, mockKit, "DashboardBackendService (mock)")
+Rel(layoutSvc, mockKit, "DashboardBackendService (mock)")
+Rel(mockKit, bridge, "recordBackend(call)")
+Rel(mockKit, fixtures, "lookup")
+
+@enduml

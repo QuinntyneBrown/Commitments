@@ -1,0 +1,35 @@
+@startuml sequence_save_layout
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Save Card Layout - boundary assertions
+
+actor Spec
+participant Po as "CardLayoutsPagePo"
+participant Browser
+participant Page as "CardLayoutsPageComponent"
+participant Dlg as "EditCardLayoutDialog"
+participant Svc as "CardLayoutService"
+participant Mock as "MockDashboardBackendService"
+participant Bridge as "WindowFeatureBridgeService"
+
+Spec -> Po: pom.goto()
+Po -> Browser: page.goto('/card-layouts')
+Browser -> Page: ngOnInit()
+Page -> Svc: list()
+Svc -> Mock: get('api/v1.0/cardLayouts')
+Mock -> Bridge: recordBackend(get)
+
+Spec -> Po: pom.openLayout('Daily')
+Page -> Dlg: open
+Spec -> Dlg: reorder cards
+Spec -> Dlg: save
+Dlg -> Svc: save({cardLayout})
+Svc -> Mock: post('api/v1.0/cardLayouts', body)
+Mock -> Bridge: recordBackend(post)
+
+Spec -> Po: pom.backendCalls()
+Po --> Spec: [get, post]
+Spec -> Spec: expect post.body.cardLayout.cards is reordered
+
+@enduml

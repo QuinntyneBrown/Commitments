@@ -1,5 +1,7 @@
 # Identity Feature Library — Detailed Design
 
+**Status:** Draft
+
 ## 1. Overview
 
 Goal: lift the **Login**, **My Profile**, and **Profiles** pages out of `commitments-app/src/app/pages/` into a new `@commitments/identity-feature` library, and stand up a `commitments-identity-feature-host` Angular app where every page can be exercised in isolation by Playwright.

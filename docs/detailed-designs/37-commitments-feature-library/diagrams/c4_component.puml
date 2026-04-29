@@ -1,0 +1,41 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Commitments Feature Library - Component Diagram
+
+Container_Boundary(host, "commitments-commitments-feature-host") {
+  Component(appCfg, "app.config.ts", "Angular", "Mock providers + commitmentsRoutes")
+  Component(fixtures, "hostFixtures", "JSON map", "commitments + behaviours + frequencies")
+}
+
+Container_Boundary(lib, "@commitments/commitments-feature") {
+  Component(routes, "commitmentsRoutes", "Routes[]", "/commitments")
+  Component(page, "CommitmentsPageComponent", "Standalone")
+  Component(dlg, "EditCommitmentDialog", "Standalone", "Composes behaviour + frequencies")
+  Component(svc, "CommitmentService", "Service", "DashboardBackendService delegate")
+  Component(boundary, "backend-transport-boundary.spec", "Jest")
+}
+
+Container_Boundary(peers, "Sibling feature libs (typed deps)") {
+  Component(behSvc, "BehaviourService", "From behaviours-feature")
+  Component(freqEditor, "FrequenciesEditor", "From frequencies-feature")
+}
+
+Container_Boundary(framework, "@commitments/dashboard-framework/testing") {
+  Component(mockKit, "provideMockDashboardFramework()", "Provider[]")
+  Component(bridge, "WindowFeatureBridgeService", "Service")
+}
+
+Rel(appCfg, routes, "provideRouter()")
+Rel(appCfg, mockKit, "spreads")
+Rel(page, svc, "list/save/remove")
+Rel(page, dlg, "open()")
+Rel(dlg, behSvc, "list behaviours")
+Rel(dlg, freqEditor, "renders frequency selection")
+Rel(svc, mockKit, "DashboardBackendService (mock)")
+Rel(behSvc, mockKit, "DashboardBackendService (mock)")
+Rel(mockKit, bridge, "recordBackend(call)")
+Rel(mockKit, fixtures, "lookup")
+
+@enduml

@@ -1,0 +1,52 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Notes Feature Library - Class Model
+
+class NotesPageComponent
+class EditNotePageComponent
+class TagsPageComponent
+class NotesByTagPageComponent
+class AddTagDialogComponent
+class QuillTextEditorComponent
+class AutoCompleteChipListComponent
+
+class NotesService {
+  -backend: DashboardBackendService
+  +list(): Promise<{notes}>
+  +getBySlug(slug): Promise<{note}>
+  +getByTagSlug(slug): Promise<{notes}>
+  +save(input): Promise<{note}>
+  +addTag(noteId, tagId): Promise<void>
+  +removeTag(noteId, tagId): Promise<void>
+  +remove(id): Promise<void>
+}
+class TagsService {
+  -backend: DashboardBackendService
+  +list(): Promise<{tags}>
+  +create(input): Promise<{tag}>
+  +remove(id): Promise<void>
+}
+
+class Note { +noteId: number; +slug: string; +title: string; +body: string; +tags: Tag[] }
+class Tag { +tagId: number; +slug: string; +name: string }
+
+class DashboardBackendService <<framework>>
+
+NotesPageComponent --> NotesService
+EditNotePageComponent --> NotesService
+EditNotePageComponent --> QuillTextEditorComponent
+EditNotePageComponent --> AutoCompleteChipListComponent
+EditNotePageComponent --> AddTagDialogComponent
+TagsPageComponent --> TagsService
+NotesByTagPageComponent --> NotesService
+AddTagDialogComponent --> TagsService
+NotesService --> DashboardBackendService
+TagsService --> DashboardBackendService
+NotesService --> Note
+TagsService --> Tag
+Note "*" -- "*" Tag
+
+@enduml

@@ -1,0 +1,40 @@
+@startuml sequence_edit_note
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Edit Note - load by slug + save round-trip
+
+actor Spec
+participant Po as "EditNotePagePo"
+participant Browser
+participant Resolver as "noteResolver (ResolveFn)"
+participant Page as "EditNotePageComponent"
+participant Quill as "QuillTextEditor"
+participant Svc as "NotesService"
+participant Mock as "MockDashboardBackendService"
+participant Bridge as "WindowFeatureBridgeService"
+
+Spec -> Po: pom.goto()  // /edit-note/getting-started
+Po -> Browser: page.goto
+Browser -> Resolver: resolve(route)
+Resolver -> Svc: getBySlug('getting-started')
+Svc -> Mock: get('api/v1.0/notes/slug/getting-started')
+Mock -> Bridge: recordBackend(get)
+Mock --> Svc: {note}
+Svc --> Resolver: note
+Resolver --> Page: data.note
+
+Spec -> Po: pom.type('<p>updated</p>')
+Po -> Browser: editor.evaluate(set innerHTML)
+Browser -> Quill: contentChange event
+
+Spec -> Po: pom.save.click()
+Page -> Svc: save({note})
+Svc -> Mock: post('api/v1.0/notes', body)
+Mock -> Bridge: recordBackend(post)
+
+Spec -> Po: pom.backendCalls()
+Po --> Spec: [get(by slug), post]
+Spec -> Spec: expect post.body.note.body contains 'updated'
+
+@enduml

@@ -5,7 +5,7 @@ Pull any changes from origin
 
 Find a detailed design in C:\projects\Commitments\docs\detailed-designs that is not implemented respecting the sequential order.
 
-Start at C:\projects\Commitments\docs\detailed-designs\26-tile-harness-route as the previous designs are already implemented.
+Start at C:\projects\Commitments\docs\detailed-designs\33-feature-library-host-pattern and go to C:\projects\Commitments\docs\detailed-designs\41-settings-feature-library.
 
 Mark the design as accepted.
 

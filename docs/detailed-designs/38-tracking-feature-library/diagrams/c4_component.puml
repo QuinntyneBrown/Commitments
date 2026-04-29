@@ -1,0 +1,39 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Tracking Feature Library - Component Diagram
+
+Container_Boundary(host, "commitments-tracking-feature-host") {
+  Component(appCfg, "app.config.ts", "Angular", "Mock providers + trackingRoutes")
+  Component(fixtures, "hostFixtures", "JSON map", "activities, toDos, commitments")
+}
+
+Container_Boundary(lib, "@commitments/tracking-feature") {
+  Component(routes, "trackingRoutes", "Routes[]", "/activities /to-dos")
+  Component(actP, "ActivitiesPageComponent", "Standalone")
+  Component(todoP, "ToDosPageComponent", "Standalone")
+  Component(actSvc, "ActivityService", "Service")
+  Component(todoSvc, "ToDoService", "Service")
+  Component(actDlg, "EditActivityDialog", "Standalone")
+  Component(todoDlg, "EditToDoDialog", "Standalone")
+  Component(boundary, "backend-transport-boundary.spec", "Jest")
+}
+
+Container_Boundary(framework, "@commitments/dashboard-framework/testing") {
+  Component(mockKit, "provideMockDashboardFramework()", "Provider[]")
+  Component(bridge, "WindowFeatureBridgeService", "Service")
+}
+
+Rel(appCfg, routes, "provideRouter()")
+Rel(appCfg, mockKit, "spreads")
+Rel(actP, actSvc, "list/record/remove")
+Rel(actP, actDlg, "open()")
+Rel(todoP, todoSvc, "list/record/dismiss")
+Rel(todoP, todoDlg, "open()")
+Rel(actSvc, mockKit, "DashboardBackendService (mock)")
+Rel(todoSvc, mockKit, "DashboardBackendService (mock)")
+Rel(mockKit, bridge, "recordBackend(call)")
+Rel(mockKit, fixtures, "lookup")
+
+@enduml

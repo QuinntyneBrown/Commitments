@@ -1,5 +1,7 @@
 # Behaviours Feature Library — Detailed Design
 
+**Status:** Draft
+
 ## 1. Overview
 
 Goal: lift the **Behaviour Types** and **Behaviours** catalog pages out of `commitments-app/src/app/pages/` into `@commitments/behaviours-feature`, with a `commitments-behaviours-feature-host` Angular app driven by Playwright.

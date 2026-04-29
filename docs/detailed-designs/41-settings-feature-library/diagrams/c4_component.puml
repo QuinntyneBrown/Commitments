@@ -1,0 +1,34 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Settings Feature Library - Component Diagram
+
+Container_Boundary(host, "commitments-settings-feature-host") {
+  Component(appCfg, "app.config.ts", "Angular", "Mock providers + settingsRoutes")
+  Component(fixtures, "hostFixtures", "JSON map", "current profile")
+}
+
+Container_Boundary(lib, "@commitments/settings-feature") {
+  Component(routes, "settingsRoutes", "Routes[]", "/settings")
+  Component(page, "SettingsPageComponent", "Standalone", "Read-only panel")
+  Component(boundary, "backend-transport-boundary.spec", "Jest")
+}
+
+Container_Boundary(peer, "Peer lib (typed dep)") {
+  Component(profSvc, "ProfileService", "From identity-feature")
+}
+
+Container_Boundary(framework, "@commitments/dashboard-framework/testing") {
+  Component(mockKit, "provideMockDashboardFramework()", "Provider[]")
+  Component(bridge, "WindowFeatureBridgeService", "Service")
+}
+
+Rel(appCfg, routes, "provideRouter()")
+Rel(appCfg, mockKit, "spreads")
+Rel(page, profSvc, "current()")
+Rel(profSvc, mockKit, "DashboardBackendService (mock)")
+Rel(mockKit, bridge, "recordBackend(call)")
+Rel(mockKit, fixtures, "lookup")
+
+@enduml

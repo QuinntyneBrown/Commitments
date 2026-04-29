@@ -1,0 +1,48 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Frequencies Feature Library - Class Model
+
+class FrequenciesPageComponent
+class EditFrequencyPageComponent {
+  -route: ActivatedRoute
+  +ngOnInit(): Promise<void>
+  +save(): Promise<void>
+}
+class FrequencyEditor
+class FrequenciesEditor
+class EditFrequencyDialogComponent
+
+class FrequencyService {
+  -backend: DashboardBackendService
+  +list(): Promise<{frequencies}>
+  +getById(id): Promise<{frequency}>
+  +save(input): Promise<{frequency}>
+  +remove(id): Promise<void>
+}
+class FrequencyTypeService {
+  -backend: DashboardBackendService
+  +list(): Promise<{frequencyTypes}>
+}
+
+class Frequency { +frequencyId: Guid; +name: string; +isDesirable: bool }
+class FrequencyType { +frequencyTypeId: Guid; +name: string }
+class CommitmentFrequency { +commitmentFrequencyId: Guid; +commitmentId: Guid; +frequencyId: Guid }
+
+class DashboardBackendService <<framework>>
+
+FrequenciesPageComponent --> FrequencyService
+FrequenciesPageComponent --> EditFrequencyDialogComponent
+EditFrequencyPageComponent --> FrequencyService
+EditFrequencyPageComponent --> FrequenciesEditor
+FrequenciesEditor --> FrequencyEditor
+FrequencyEditor --> FrequencyTypeService
+FrequencyService --> DashboardBackendService
+FrequencyTypeService --> DashboardBackendService
+FrequencyService --> Frequency
+FrequencyTypeService --> FrequencyType
+Frequency "1" -- "*" CommitmentFrequency
+
+@enduml

@@ -1,0 +1,39 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Cards Feature Library - Class Model
+
+class CardsPageComponent
+class CardLayoutsPageComponent
+class EditCardDialogComponent
+class EditCardLayoutDialogComponent
+
+class CardService {
+  -backend: DashboardBackendService
+  +list(): Promise<{cards}>
+  +save(input): Promise<{card}>
+  +remove(id): Promise<void>
+}
+class CardLayoutService {
+  -backend: DashboardBackendService
+  +list(): Promise<{cardLayouts}>
+  +save(input): Promise<{cardLayout}>
+  +remove(id): Promise<void>
+}
+
+class Card { +cardId: Guid; +cardLayoutId: Guid; +title: string; +position: number }
+class CardLayout { +cardLayoutId: Guid; +name: string; +cards: Card[] }
+
+class DashboardBackendService <<framework>>
+
+CardsPageComponent --> CardService
+CardsPageComponent --> EditCardDialogComponent
+CardLayoutsPageComponent --> CardLayoutService
+CardLayoutsPageComponent --> EditCardLayoutDialogComponent
+CardService --> DashboardBackendService
+CardLayoutService --> DashboardBackendService
+CardLayout "1" *-- "*" Card
+
+@enduml
