@@ -28,11 +28,12 @@ export class LoginPageComponent {
   async signIn(): Promise<void> {
     if (this.form.invalid) return;
     try {
-      const { accessToken } = await this._auth.token({
+      const { accessToken, profileId } = await this._auth.token({
         username: this.form.value.username!,
         password: this.form.value.password!,
       });
       localStorage.setItem('accessTokenKey', accessToken);
+      if (profileId) localStorage.setItem('profileId', profileId);
       this._router.navigate(['/']);
     } catch {
       this._snackBar.open('Login Failed', 'Dismiss', { panelClass: ['snackbar--error'] });

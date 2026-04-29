@@ -15,6 +15,7 @@ public class GetTokenByUsernameAndPasswordRequest : IRequest<GetTokenByUsernameA
 public class GetTokenByUsernameAndPasswordResponse
 {
     public string? AccessToken { get; set; }
+    public Guid? ProfileId { get; set; }
 }
 
 public class GetTokenByUsernameAndPasswordRequestValidator : AbstractValidator<GetTokenByUsernameAndPasswordRequest>
@@ -56,9 +57,15 @@ public class GetTokenByUsernameAndPasswordRequestHandler
         if (!_hasher.Verify(request.Password, user.PasswordSalt, user.PasswordHash))
             return new GetTokenByUsernameAndPasswordResponse();
 
+        var profile = await _context.Profiles
+            .Where(p => p.UserId == user.UserId)
+            .OrderBy(p => p.CreatedOn)
+            .FirstOrDefaultAsync(cancellationToken);
+
         return new GetTokenByUsernameAndPasswordResponse
         {
-            AccessToken = _tokenIssuer.Issue(user.UserId, user.Username)
+            AccessToken = _tokenIssuer.Issue(user.UserId, user.Username),
+            ProfileId = profile?.ProfileId
         };
     }
 }

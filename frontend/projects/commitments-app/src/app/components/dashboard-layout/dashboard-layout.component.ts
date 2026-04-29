@@ -53,6 +53,7 @@ export class DashboardLayoutComponent implements OnInit {
 
   protected logout(): void {
     localStorage.removeItem('accessTokenKey');
+    localStorage.removeItem('profileId');
     this._router.navigate(['/login']);
   }
 

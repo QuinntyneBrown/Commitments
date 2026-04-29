@@ -5,5 +5,8 @@ import { HttpInterceptorFn } from '@angular/common/http';
 
 export const headerInterceptor: HttpInterceptorFn = (req, next) => {
   const token = localStorage.getItem('accessTokenKey') || '';
-  return next(req.clone({ headers: req.headers.set('Authorization', `Bearer ${token}`) }));
+  const profileId = localStorage.getItem('profileId') || '';
+  let headers = req.headers.set('Authorization', `Bearer ${token}`);
+  if (profileId) headers = headers.set('ProfileId', profileId);
+  return next(req.clone({ headers }));
 };
