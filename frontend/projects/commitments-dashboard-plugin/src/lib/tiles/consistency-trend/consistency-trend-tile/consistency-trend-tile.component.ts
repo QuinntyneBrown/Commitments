@@ -79,7 +79,7 @@ export class ConsistencyTrendTileComponent implements AfterViewInit, OnDestroy {
     effect(() => {
       const dataset = this.controller.chartDataset();
       const labels = this.controller.chartLabels();
-      if (this.plotRef()) {
+      if (this.plotRef() && labels.length > 0) {
         this._adapter.updateDataset(dataset, labels);
       }
     });
