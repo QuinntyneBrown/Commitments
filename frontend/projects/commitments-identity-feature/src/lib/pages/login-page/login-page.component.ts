@@ -1,28 +1,29 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthService } from '../../data/auth.service';
 
 @Component({
   selector: 'commitments-login-page',
   standalone: true,
-  imports: [ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+  imports: [ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSnackBarModule],
   templateUrl: './login-page.component.html',
+  styleUrl: './login-page.component.scss',
 })
 export class LoginPageComponent {
   private readonly _auth = inject(AuthService);
   private readonly _router = inject(Router);
+  private readonly _snackBar = inject(MatSnackBar);
 
   readonly form = new FormGroup({
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
   });
-
-  readonly error = signal<string | null>(null);
 
   async signIn(): Promise<void> {
     if (this.form.invalid) return;
@@ -34,7 +35,7 @@ export class LoginPageComponent {
       localStorage.setItem('accessTokenKey', accessToken);
       this._router.navigate(['/']);
     } catch {
-      this.error.set('Login failed');
+      this._snackBar.open('Login Failed', 'Dismiss', { panelClass: ['snackbar--error'] });
     }
   }
 }

@@ -1,4 +1,10 @@
 <mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <h1>Commitments</h1>
+    </mat-card-title>
+    <mat-card-subtitle>Login</mat-card-subtitle>
+  </mat-card-header>
   <mat-card-content>
     <form [formGroup]="form" (ngSubmit)="signIn()">
       <mat-form-field>
@@ -9,10 +15,7 @@
         <mat-label>Password</mat-label>
         <input matInput type="password" formControlName="password" id="password" autocomplete="current-password" />
       </mat-form-field>
-      @if (error()) {
-        <p class="error">{{ error() }}</p>
-      }
-      <button mat-flat-button type="submit">Sign in</button>
+      <button mat-flat-button type="submit" [disabled]="form.invalid">Submit</button>
     </form>
   </mat-card-content>
 </mat-card>

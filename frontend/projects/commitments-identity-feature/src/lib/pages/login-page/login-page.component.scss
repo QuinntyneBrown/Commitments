@@ -1,0 +1,38 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+mat-card {
+  width: 480px;
+  background-color: var(--cui-surface, #1e1e1e);
+  border-radius: var(--cui-radius-md, 8px);
+  box-shadow: rgba(0, 0, 0, 0.7) 0px 8px 24px;
+
+  mat-card-title h1 {
+    margin: 0;
+    font-size: 34px;
+    font-weight: 700;
+    font-family: var(--cui-font-display, 'Inter');
+    color: var(--cui-text-primary, #ffffff);
+  }
+
+  mat-card-subtitle {
+    color: var(--cui-text-secondary, #b0b0b0);
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+  }
+}
