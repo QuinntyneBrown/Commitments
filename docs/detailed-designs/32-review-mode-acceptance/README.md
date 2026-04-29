@@ -1,5 +1,7 @@
 # Review-Mode Acceptance Suite — Detailed Design
 
+**Status:** Accepted
+
 ## 1. Overview
 
 Goal: prove every plugin tile reacts correctly when `TILE_CONTEXT` reports `mode: 'review'` with an `asOf` date — by asserting on the **observable side-effects** the plugin produces:
