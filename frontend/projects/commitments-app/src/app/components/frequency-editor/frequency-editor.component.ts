@@ -47,6 +47,6 @@ export class FrequencyEditorComponent {
   public form: FormGroup = new FormGroup({
     frequency: new FormControl(null, [Validators.required]),
     frequencyTypeId: new FormControl(null, [Validators.required]),
-    isDesired: new FormControl(true, [Validators.required])
+    isDesired: new FormControl(true, [Validators.required]),
   });
 }
