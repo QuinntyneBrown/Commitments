@@ -12,7 +12,7 @@ namespace Commitments.Controllers;
 [Authorize]
 [ApiController]
 [ApiVersion("1.0")]
-[Route("api/{version:apiVersion}/todos")]
+[Route("api/v{version:apiVersion}/toDos")]
 [Produces(MediaTypeNames.Application.Json)]
 [Consumes(MediaTypeNames.Application.Json)]
 public class ToDoController

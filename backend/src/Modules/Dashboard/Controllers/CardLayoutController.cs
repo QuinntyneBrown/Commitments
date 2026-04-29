@@ -10,7 +10,7 @@ namespace Dashboard.Controllers;
 
 [ApiController]
 [ApiVersion("1.0")]
-[Route("api/{version:apiVersion}/[controller]")]
+[Route("api/v{version:apiVersion}/cardLayouts")]
 [Produces(MediaTypeNames.Application.Json)]
 [Consumes(MediaTypeNames.Application.Json)]
 public class CardLayoutController

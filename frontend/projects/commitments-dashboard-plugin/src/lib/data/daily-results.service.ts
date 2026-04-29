@@ -17,7 +17,7 @@ export class DailyResultsService {
   private readonly _backend = inject(DashboardBackendService);
 
   get(asOf: string | null): Promise<DailyResultsDto> {
-    return this._backend.get<DailyResultsDto>('api/v1.0/commitment/daily-results', {
+    return this._backend.get<DailyResultsDto>('api/v1.0/commitments/daily-results', {
       asOf: asOf ? new Date(asOf) : null
     });
   }

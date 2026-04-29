@@ -12,7 +12,7 @@ namespace Commitments.Controllers;
 [Authorize]
 [ApiController]
 [ApiVersion("1.0")]
-[Route("api/{version:apiVersion}/weekly-focus")]
+[Route("api/v{version:apiVersion}/weekly-focus")]
 [Produces(MediaTypeNames.Application.Json)]
 [Consumes(MediaTypeNames.Application.Json)]
 public class WeeklyFocusController

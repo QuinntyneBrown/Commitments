@@ -13,7 +13,7 @@ namespace Identity.Controllers;
 
 [ApiController]
 [ApiVersion("1.0")]
-[Route("api/{version:apiVersion}/[controller]")]
+[Route("api/v{version:apiVersion}/profiles")]
 [Produces(MediaTypeNames.Application.Json)]
 [Consumes(MediaTypeNames.Application.Json)]
 public class ProfileController

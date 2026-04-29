@@ -11,7 +11,7 @@ namespace Commitments.Controllers;
 [Authorize]
 [ApiController]
 [ApiVersion("1.0")]
-[Route("api/{version:apiVersion}/goal-progress")]
+[Route("api/v{version:apiVersion}/goal-progress")]
 [Produces(MediaTypeNames.Application.Json)]
 [Consumes(MediaTypeNames.Application.Json)]
 public class GoalProgressController

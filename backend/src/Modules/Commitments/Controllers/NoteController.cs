@@ -9,7 +9,7 @@ namespace Commitments.Controllers;
 [Authorize]
 [ApiController]
 [ApiVersion("1.0")]
-[Route("api/{version:apiVersion}/notes")]
+[Route("api/v{version:apiVersion}/notes")]
 [Produces(MediaTypeNames.Application.Json)]
 [Consumes(MediaTypeNames.Application.Json)]
 public class NoteController

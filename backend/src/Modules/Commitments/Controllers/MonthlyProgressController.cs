@@ -12,7 +12,7 @@ namespace Commitments.Controllers;
 [Authorize]
 [ApiController]
 [ApiVersion("1.0")]
-[Route("api/{version:apiVersion}/monthly-progress")]
+[Route("api/v{version:apiVersion}/monthly-progress")]
 [Produces(MediaTypeNames.Application.Json)]
 [Consumes(MediaTypeNames.Application.Json)]
 public class MonthlyProgressController
