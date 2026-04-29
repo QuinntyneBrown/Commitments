@@ -1,36 +1,36 @@
-import { Component, inject, signal, OnInit, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
+import { Component, inject, signal, OnInit } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { FrequencyService } from '../../data/frequency.service';
-import { Frequency } from '../../data/frequency';
 
 @Component({
   selector: 'commitments-edit-frequency-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+  imports: [ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatInputModule],
   templateUrl: './edit-frequency-page.component.html',
 })
 export class EditFrequencyPageComponent implements OnInit {
   private readonly _service = inject(FrequencyService);
+  private readonly _route = inject(ActivatedRoute);
+  private readonly _router = inject(Router);
 
-  readonly frequencyId = input<string | undefined>(undefined);
-  readonly frequency = signal<Frequency | null>(null);
-  readonly form = new FormGroup({ frequency: new FormControl<number | null>(null) });
+  readonly frequencyControl = new FormControl<number>(1);
+  readonly frequencyTypeId = signal<number | string>(1);
 
   async ngOnInit(): Promise<void> {
-    const id = this.frequencyId();
+    const id = this._route.snapshot.paramMap.get('frequencyId');
     if (id) {
       const { frequency } = await this._service.getById(id);
-      this.frequency.set(frequency);
-      this.form.patchValue({ frequency: frequency.frequency });
+      this.frequencyControl.setValue(frequency.frequency);
+      this.frequencyTypeId.set(frequency.frequencyTypeId);
     }
   }
 
   async save(): Promise<void> {
-    const id = this.frequencyId();
-    await this._service.save({ ...(id ? { frequencyId: Number(id) } : {}), ...this.form.value });
+    await this._service.save({ frequency: this.frequencyControl.value ?? 1, frequencyTypeId: this.frequencyTypeId() });
+    this._router.navigate(['/frequencies']);
   }
 }

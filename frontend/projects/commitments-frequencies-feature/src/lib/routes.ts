@@ -4,6 +4,6 @@ import { EditFrequencyPageComponent } from './pages/edit-frequency-page/edit-fre
 
 export const frequenciesRoutes: Routes = [
   { path: 'frequencies',                   component: FrequenciesPageComponent },
-  { path: 'edit-frequency',               component: EditFrequencyPageComponent },
-  { path: 'edit-frequency/:frequencyId',  component: EditFrequencyPageComponent },
+  { path: 'edit-frequency',                component: EditFrequencyPageComponent },
+  { path: 'edit-frequency/:frequencyId',   component: EditFrequencyPageComponent },
 ];

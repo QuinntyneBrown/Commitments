@@ -36,7 +36,11 @@
     "e2e:behaviours-host": "playwright test --config=playwright.behaviours-host.config.ts",
     "e2e:behaviours-host:ui": "playwright test --config=playwright.behaviours-host.config.ts --ui",
     "storybook": "ng run commitments-app:storybook",
-    "build-storybook": "ng run commitments-app:build-storybook"
+    "build-storybook": "ng run commitments-app:build-storybook",
+    "start:frequencies-host": "ng serve commitments-frequencies-feature-host",
+    "build:frequencies-host": "ng build commitments-frequencies-feature-host",
+    "e2e:frequencies-host": "playwright test --config=playwright.frequencies-host.config.ts",
+    "e2e:frequencies-host:ui": "playwright test --config=playwright.frequencies-host.config.ts --ui"
   },
   "private": true,
   "dependencies": {

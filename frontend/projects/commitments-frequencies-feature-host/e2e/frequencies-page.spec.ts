@@ -13,3 +13,10 @@ test('renders one row per fixture frequency', async ({ page }) => {
   await pom.goto();
   await expect(pom.rows).toHaveCount(2); // 1 header + 1 fixture
 });
+
+test('edit link navigates to edit-frequency page', async ({ page }) => {
+  const pom = new FrequenciesPagePo(page);
+  await pom.goto();
+  await pom.editLinks.first().click();
+  await expect(page).toHaveURL(/\/edit-frequency\//);
+});

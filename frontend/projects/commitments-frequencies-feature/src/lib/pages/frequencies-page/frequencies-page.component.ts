@@ -1,14 +1,13 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 import { FrequencyService } from '../../data/frequency.service';
 import { Frequency } from '../../data/frequency';
 
 @Component({
   selector: 'commitments-frequencies-page',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, RouterLink],
+  imports: [RouterLink, MatButtonModule],
   templateUrl: './frequencies-page.component.html',
 })
 export class FrequenciesPageComponent implements OnInit {

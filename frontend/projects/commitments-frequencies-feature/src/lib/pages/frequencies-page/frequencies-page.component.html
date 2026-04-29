@@ -1,11 +1,18 @@
 <h1>Frequencies</h1>
 <table role="table">
-  <thead><tr role="row"><th>Frequency</th><th>Type</th></tr></thead>
+  <thead>
+    <tr role="row">
+      <th>Frequency</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
   <tbody>
     @for (f of frequencies(); track f.frequencyId) {
       <tr role="row">
         <td>{{ f.frequency }}</td>
-        <td><a [routerLink]="['/edit-frequency', f.frequencyId]">Edit</a></td>
+        <td>
+          <a [routerLink]="['/edit-frequency', f.frequencyId]" mat-button>Edit</a>
+        </td>
       </tr>
     }
   </tbody>

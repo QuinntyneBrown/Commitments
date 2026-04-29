@@ -1,6 +1,6 @@
 export interface Frequency {
-  frequencyId: number;
+  frequencyId: number | string;
   frequency: number;
-  frequencyTypeId: number;
+  frequencyTypeId: number | string;
   isDesired?: boolean;
 }

@@ -1,4 +1,4 @@
 export interface FrequencyType {
-  frequencyTypeId: number;
+  frequencyTypeId: number | string;
   name: string;
 }
