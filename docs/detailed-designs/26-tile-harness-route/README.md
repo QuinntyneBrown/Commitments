@@ -1,5 +1,7 @@
 # Tile Harness Route — Detailed Design
 
+**Status:** Accepted
+
 ## 1. Overview
 
 Goal: render any plugin tile in isolation under `/tile/:tileId` in the plugin host, without going through `DashboardShellComponent`, `DashboardGridComponent`, `AddTileDialogComponent`, or any other dashboard chrome. The plugin tile is the System Under Test; everything else is replaced by the radically-simple `TileHarnessComponent`.

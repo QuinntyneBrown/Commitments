@@ -33,6 +33,7 @@ const config: Config = {
     '**/projects/commitments-ui/src/**/*.spec.ts',
     '**/projects/dashboard-framework/src/**/*.spec.ts',
     '**/projects/commitments-dashboard-plugin/src/**/*.spec.ts',
+    '**/projects/commitments-dashboard-plugin-host/src/**/*.spec.ts',
   ],
   testPathIgnorePatterns: ['/node_modules/', '/e2e/'],
   modulePathIgnorePatterns: ['<rootDir>/dist/'],

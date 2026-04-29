@@ -19,6 +19,10 @@
     "e2e:debug": "playwright test --debug",
     "e2e:chromium": "playwright test --project=chromium",
     "e2e:report": "playwright show-report",
+    "start:host": "ng serve commitments-dashboard-plugin-host",
+    "e2e:host": "playwright test --config=playwright.host.config.ts",
+    "e2e:host:ui": "playwright test --config=playwright.host.config.ts --ui",
+    "e2e:host:report": "playwright show-report playwright-host-report",
     "storybook": "ng run commitments-app:storybook",
     "build-storybook": "ng run commitments-app:build-storybook"
   },
