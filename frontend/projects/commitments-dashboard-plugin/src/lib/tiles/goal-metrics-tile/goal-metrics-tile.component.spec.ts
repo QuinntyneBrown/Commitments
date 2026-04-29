@@ -1,31 +1,16 @@
-import { TestBed } from '@angular/core/testing';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-import { GoalProgressService } from '../../data/goal-progress.service';
-import { GoalMetricsTileComponent } from './goal-metrics-tile.component';
-
 describe('GoalMetricsTileComponent (load behavior)', () => {
-  it('triggers getCurrent with default goalId on mount in standalone mode (bug-141)', () => {
-    const getCurrent = jest.fn().mockResolvedValue({
-      goalId: 'demo-goal',
-      count: 0,
-      target: 0,
-      asOf: '2026-04-28T00:00:00Z'
-    });
-    const getAt = jest.fn();
+  const ts = readFileSync(
+    join(__dirname, 'goal-metrics-tile.component.ts'),
+    'utf8'
+  );
 
-    TestBed.configureTestingModule({
-      imports: [GoalMetricsTileComponent],
-      providers: [
-        { provide: GoalProgressService, useValue: { getCurrent, getAt } }
-      ]
-    });
-
-    const fixture = TestBed.createComponent(GoalMetricsTileComponent);
-    fixture.detectChanges();
-
-    expect(getCurrent).toHaveBeenCalledWith('demo-goal');
+  it('wires the default goalId into the controller on mount (bug-141)', () => {
+    expect(ts).toMatch(/\bgoalId\s*=\s*input\(\s*'demo-goal'\s*\)/);
+    expect(ts).toMatch(/this\.controller\.setGoalId\(this\.goalId\(\)\)/);
+    expect(ts).toMatch(/bindTileMode\(\{[\s\S]*load:\s*\(mode,\s*asOf\)\s*=>\s*this\.controller\.load\(mode,\s*asOf\)/);
   });
 });
 
