@@ -5,18 +5,14 @@ import { Routes } from '@angular/router';
 import { DashboardShellComponent } from '@commitments/dashboard-framework';
 
 import { DashboardLayoutComponent } from './components/dashboard-layout/dashboard-layout.component';
-import { ActivitiesPageComponent } from './pages/activities/activities-page/activities-page.component';
-import { ToDosPageComponent } from './pages/to-dos/to-dos-page/to-dos-page.component';
-import { CardsPageComponent } from './pages/cards/cards-page/cards-page.component';
-import { CardLayoutsPageComponent } from './pages/card-layouts/card-layouts-page/card-layouts-page.component';
 import { behavioursRoutes } from '@commitments/behaviours-feature';
+import { cardsRoutes } from '@commitments/cards-feature';
 import { commitmentsRoutes } from '@commitments/commitments-feature';
 import { frequenciesRoutes } from '@commitments/frequencies-feature';
+import { LoginPageComponent, MyProfilePageComponent, ProfilesPageComponent } from '@commitments/identity-feature';
 import { notesRoutes } from '@commitments/notes-feature';
 import { settingsRoutes } from '@commitments/settings-feature';
-import { LoginPageComponent } from './pages/login/login-page/login-page.component';
-import { MyProfilePageComponent } from './pages/my-profile/my-profile-page/my-profile-page.component';
-import { ProfilesPageComponent } from './pages/profiles/profiles-page/profiles-page.component';
+import { trackingRoutes } from '@commitments/tracking-feature';
 
 export const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
@@ -25,17 +21,15 @@ export const routes: Routes = [
     component: DashboardLayoutComponent,
     children: [
       { path: '', component: DashboardShellComponent },
-      { path: 'profiles', component: ProfilesPageComponent },
+      { path: 'profiles',   component: ProfilesPageComponent },
       { path: 'my-profile', component: MyProfilePageComponent },
       ...settingsRoutes,
       ...behavioursRoutes,
       ...frequenciesRoutes,
       ...commitmentsRoutes,
-      { path: 'activities', component: ActivitiesPageComponent },
-      { path: 'to-dos', component: ToDosPageComponent },
+      ...trackingRoutes,
       ...notesRoutes,
-      { path: 'cards', component: CardsPageComponent },
-      { path: 'card-layouts', component: CardLayoutsPageComponent }
+      ...cardsRoutes,
     ]
   }
 ];

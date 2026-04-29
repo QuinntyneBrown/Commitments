@@ -20,6 +20,8 @@
       "@commitments/commitments-feature": ["projects/commitments-commitments-feature/src/public-api.ts"],
       "@commitments/notes-feature": ["projects/commitments-notes-feature/src/public-api.ts"],
       "@commitments/identity-feature": ["projects/commitments-identity-feature/src/public-api.ts"],
+      "@commitments/tracking-feature": ["projects/commitments-tracking-feature/src/public-api.ts"],
+      "@commitments/cards-feature": ["projects/commitments-cards-feature/src/public-api.ts"],
       "@commitments/settings-feature": ["projects/commitments-settings-feature/src/public-api.ts"]
     }
   },

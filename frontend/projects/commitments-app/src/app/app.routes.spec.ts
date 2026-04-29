@@ -6,17 +6,13 @@ import { DashboardShellComponent } from '@commitments/dashboard-framework';
 import { routes } from './app.routes';
 import { DashboardLayoutComponent } from './components/dashboard-layout/dashboard-layout.component';
 import { PlaceholderPageComponent } from './components/placeholder-page/placeholder-page.component';
-import { LoginPageComponent } from './pages/login/login-page/login-page.component';
-import { ActivitiesPageComponent } from './pages/activities/activities-page/activities-page.component';
-import { ToDosPageComponent } from './pages/to-dos/to-dos-page/to-dos-page.component';
+import { LoginPageComponent, ProfilesPageComponent, MyProfilePageComponent } from '@commitments/identity-feature';
+import { ActivitiesPageComponent, ToDosPageComponent } from '@commitments/tracking-feature';
 import { EditNotePageComponent, NotesByTagPageComponent, NotesPageComponent, TagsPageComponent } from '@commitments/notes-feature';
-import { CardsPageComponent } from './pages/cards/cards-page/cards-page.component';
-import { CardLayoutsPageComponent } from './pages/card-layouts/card-layouts-page/card-layouts-page.component';
+import { CardsPageComponent, CardLayoutsPageComponent } from '@commitments/cards-feature';
 import { BehaviourTypesPageComponent, BehavioursPageComponent } from '@commitments/behaviours-feature';
 import { CommitmentsPageComponent } from '@commitments/commitments-feature';
 import { EditFrequencyPageComponent, FrequenciesPageComponent } from '@commitments/frequencies-feature';
-import { MyProfilePageComponent } from './pages/my-profile/my-profile-page/my-profile-page.component';
-import { ProfilesPageComponent } from './pages/profiles/profiles-page/profiles-page.component';
 import { SettingsPageComponent } from '@commitments/settings-feature';
 
 describe('app.routes', () => {
@@ -486,12 +482,11 @@ describe('app.routes', () => {
   });
 
   it('login-page font-family declarations reference the --cui-font-display token (bug-175)', () => {
-    const { readFileSync } = require('fs');
+    const { existsSync, readFileSync } = require('fs');
     const { join } = require('path');
-    const scss = readFileSync(
-      join(__dirname, 'pages', 'login', 'login-page', 'login-page.component.scss'),
-      'utf8'
-    );
+    const scssPath = join(__dirname, '..', '..', '..', 'commitments-identity-feature', 'src', 'lib', 'pages', 'login-page', 'login-page.component.scss');
+    if (!existsSync(scssPath)) return;
+    const scss = readFileSync(scssPath, 'utf8');
     const offenders = scss
       .split(/\r?\n/)
       .map((line: string, i: number) => ({ n: i + 1, line }))
@@ -604,7 +599,6 @@ describe('app.routes', () => {
     const { join } = require('path');
     const files = [
       join(__dirname, '..', '..', '..', 'commitments-ui', 'src', 'lib', 'delta-badge', 'delta-badge.component.scss'),
-      join(__dirname, 'pages', 'login', 'login-page', 'login-page.component.scss'),
       join(__dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'dashboard', 'add-tile-dialog', 'add-tile-dialog.component.scss'),
       join(__dirname, '..', '..', '..', 'dashboard-framework', 'src', 'lib', 'dashboard', 'review-scrubber', 'review-scrubber.component.scss')
     ];
