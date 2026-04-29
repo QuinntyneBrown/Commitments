@@ -1,0 +1,8 @@
+<h1>Edit Frequency</h1>
+<form [formGroup]="form" (ngSubmit)="save()">
+  <mat-form-field>
+    <mat-label>Frequency</mat-label>
+    <input matInput type="number" formControlName="frequency" />
+  </mat-form-field>
+  <button mat-flat-button type="submit">Save</button>
+</form>

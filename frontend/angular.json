@@ -492,6 +492,87 @@
           "defaultConfiguration": "development"
         }
       }
+    },
+    "commitments-frequencies-feature": {
+      "projectType": "library",
+      "root": "projects/commitments-frequencies-feature",
+      "sourceRoot": "projects/commitments-frequencies-feature/src",
+      "prefix": "commitments",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/commitments-frequencies-feature/tsconfig.lib.json"
+            },
+            "development": {
+              "tsConfig": "projects/commitments-frequencies-feature/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/commitments-frequencies-feature/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "commitments-frequencies-feature-host": {
+      "projectType": "application",
+      "root": "projects/commitments-frequencies-feature-host",
+      "sourceRoot": "projects/commitments-frequencies-feature-host/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/commitments-frequencies-feature-host",
+            "index": "projects/commitments-frequencies-feature-host/src/index.html",
+            "browser": "projects/commitments-frequencies-feature-host/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/commitments-frequencies-feature-host/tsconfig.app.json",
+            "assets": [],
+            "styles": [
+              "projects/commitments-frequencies-feature-host/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2MB",
+                  "maximumError": "5MB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "commitments-frequencies-feature-host:build:production"
+            },
+            "development": {
+              "buildTarget": "commitments-frequencies-feature-host:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
     }
   },
   "cli": {
