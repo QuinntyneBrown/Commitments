@@ -1,7 +1,7 @@
 ---
 id: bug-196
 title: Login card is full-width (1280px) not centered — form fields are horizontal not stacked, button says "Sign in" not "Submit", button never disabled
-status: Open
+status: Fixed
 ---
 
 ## Symptoms
