@@ -9,7 +9,7 @@ import { behavioursRoutes } from '@commitments/behaviours-feature';
 import { cardsRoutes } from '@commitments/cards-feature';
 import { commitmentsRoutes } from '@commitments/commitments-feature';
 import { frequenciesRoutes } from '@commitments/frequencies-feature';
-import { authGuard, LoginPageComponent, MyProfilePageComponent, ProfilesPageComponent } from '@commitments/identity-feature';
+import { authGuard, identityRoutes, LoginPageComponent } from '@commitments/identity-feature';
 import { notesRoutes } from '@commitments/notes-feature';
 import { settingsRoutes } from '@commitments/settings-feature';
 import { trackingRoutes } from '@commitments/tracking-feature';
@@ -22,8 +22,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: '', component: DashboardShellComponent },
-      { path: 'profiles',   component: ProfilesPageComponent },
-      { path: 'my-profile', component: MyProfilePageComponent },
+      ...identityRoutes,
       ...settingsRoutes,
       ...behavioursRoutes,
       ...frequenciesRoutes,

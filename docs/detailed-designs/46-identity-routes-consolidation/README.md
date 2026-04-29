@@ -1,6 +1,6 @@
 # Design 46 — Identity Routes Consolidation
 
-Status: Accepted
+Status: Complete
 
 ## Context
 
