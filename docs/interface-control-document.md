@@ -2,7 +2,7 @@
 
 **Document ID:** ICD-BFF-001  
 **Status:** Draft target contract  
-**Last updated:** 2026-04-26  
+**Last updated:** 2026-04-29  
 **Scope:** Commitments Angular frontend, dashboard tile libraries, and .NET backend API/hub interface.
 
 ## 1. Purpose
@@ -22,6 +22,7 @@ The contract is based on `docs/specs/L1.md`, `docs/specs/L2.md`, `docs/detailed-
 |---|---|---:|---|---|
 | REST API | HTTPS, JSON | Frontend -> Backend | Partially implemented | Commands, CRUD reads, dashboard bootstrap, tile data snapshots |
 | SignalR hub | WebSocket preferred, SignalR fallback transports | Backend -> Frontend | Frontend client exists; backend hub still to implement | Live updates and cache invalidation for tiles |
+| Dashboard backend transport | Angular DI service | Plugin -> Backend | Implemented for REST | Framework-owned transport boundary for plugin HTTP/WS communication |
 | Tile context | Angular DI/signals | Framework -> Tile | Implemented in `dashboard-framework` | Pass mode, selected review date, refresh hooks, and tile instance operations |
 | Local storage | Browser storage | Frontend only | Implemented | Mode, review date, and layout persistence |
 | In-process event bus | .NET process memory | Backend module -> Backend module | Implemented | Backend module integration. Not a frontend contract. |
@@ -92,6 +93,15 @@ Cache-Control: public, max-age=300
 ```
 
 The current backend policy uses this rule when `asOf` is older than one minute. Requests with no `asOf`, or with `asOf` inside the last minute, shall use `no-store`.
+
+### 3.6 Dashboard plugin backend boundary
+
+Dashboard plugin libraries shall not own backend transport. Any REST, WebSocket, or SignalR communication needed by a plugin tile shall be routed through services exported by `dashboard-framework`.
+
+- Plugin production source shall not import Angular `HttpClient`, SignalR packages, or browser transport primitives directly.
+- Plugin data services may define tile-specific DTOs and endpoint parameter assembly, but they shall delegate transport to `DashboardBackendService` or the corresponding framework realtime service.
+- Plugin controllers shall keep tile UI state in Angular signals and shall prefer promise/signal-friendly framework service APIs over RxJS subscription chains.
+- Host applications configure framework backend services, including backend base URL and any future realtime connection adapter.
 
 ## 4. Shared Types
 
@@ -548,7 +558,7 @@ interface TileContext {
 }
 ```
 
-Backend dependencies shall not leak into tile context. Tile context is frontend-only orchestration.
+Backend dependencies shall not leak into tile context. Tile context is frontend-only orchestration; backend communication enters plugin tiles through framework backend services instead.
 
 ## 9. Implementation Alignment Items
 
