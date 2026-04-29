@@ -21,7 +21,7 @@ test('save fires POST to api/v1.0/frequencies', async ({ page }) => {
   const pom = new EditFrequencyPagePo(page);
   await pom.goto();
   await pom.nameInput.fill('3');
-  await pom.save.click();
+  await Promise.all([page.waitForURL('**/frequencies'), pom.save.click()]);
   const calls = await pom.backendCalls();
   expect(calls).toContainEqual(expect.objectContaining({ method: 'post', path: 'api/v1.0/frequencies' }));
 });

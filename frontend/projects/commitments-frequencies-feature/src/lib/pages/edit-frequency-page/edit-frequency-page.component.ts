@@ -1,5 +1,5 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,20 +17,20 @@ export class EditFrequencyPageComponent implements OnInit {
   private readonly _route = inject(ActivatedRoute);
   private readonly _router = inject(Router);
 
-  readonly frequencyControl = new FormControl<number>(1);
+  readonly form = new FormGroup({ frequency: new FormControl<number>(1) });
   readonly frequencyTypeId = signal<number | string>(1);
 
   async ngOnInit(): Promise<void> {
     const id = this._route.snapshot.paramMap.get('frequencyId');
     if (id) {
       const { frequency } = await this._service.getById(id);
-      this.frequencyControl.setValue(frequency.frequency);
+      this.form.setValue({ frequency: frequency.frequency });
       this.frequencyTypeId.set(frequency.frequencyTypeId);
     }
   }
 
   async save(): Promise<void> {
-    await this._service.save({ frequency: this.frequencyControl.value ?? 1, frequencyTypeId: this.frequencyTypeId() });
+    await this._service.save({ frequency: this.form.value.frequency ?? 1, frequencyTypeId: this.frequencyTypeId() });
     this._router.navigate(['/frequencies']);
   }
 }

@@ -2,8 +2,11 @@ import { Page } from '@playwright/test';
 import { BasePage } from './pom-base';
 
 export class EditFrequencyPagePo extends BasePage {
-  constructor(page: Page, private readonly frequencyId?: string) { super(page); }
-  get url() { return this.frequencyId ? `/edit-frequency/${this.frequencyId}` : '/edit-frequency'; }
-  readonly nameInput = this.page.getByLabel('Name');
+  readonly url: string;
+  readonly nameInput = this.page.getByLabel('Frequency');
   readonly save = this.page.getByRole('button', { name: 'Save' });
+  constructor(page: Page, frequencyId?: string) {
+    super(page);
+    this.url = frequencyId ? `/edit-frequency/${frequencyId}` : '/edit-frequency';
+  }
 }
