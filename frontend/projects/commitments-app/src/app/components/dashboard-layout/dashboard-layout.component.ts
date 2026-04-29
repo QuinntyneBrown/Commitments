@@ -43,8 +43,12 @@ export class DashboardLayoutComponent implements OnInit {
   ];
 
   async ngOnInit(): Promise<void> {
-    const { profile } = await this._profileService.current();
-    this.profileName.set(profile.name);
+    try {
+      const { profile } = await this._profileService.current();
+      this.profileName.set(profile?.name ?? '');
+    } catch {
+      // No profile yet; the layout still renders correctly without a profile name.
+    }
   }
 
   protected logout(): void {
