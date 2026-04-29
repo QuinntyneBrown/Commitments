@@ -1,13 +1,20 @@
 import { expect, Locator, Page } from '@playwright/test';
 
+export interface GotoOpts {
+  mode?: 'live' | 'review';
+  asOf?: string;
+  params?: Record<string, string>;
+}
+
 export class TileHarnessPage {
   constructor(public readonly page: Page) {}
 
-  async goto(tileId: string, opts: { mode?: 'live' | 'review'; asOf?: string } = {}) {
-    const params = new URLSearchParams();
-    if (opts.mode) params.set('mode', opts.mode);
-    if (opts.asOf) params.set('asOf', opts.asOf);
-    const qs = params.toString();
+  async goto(tileId: string, opts: GotoOpts = {}) {
+    const search = new URLSearchParams();
+    if (opts.mode) search.set('mode', opts.mode);
+    if (opts.asOf) search.set('asOf', opts.asOf);
+    for (const [k, v] of Object.entries(opts.params ?? {})) search.set(k, v);
+    const qs = search.toString();
     await this.page.goto(`/tile/${tileId}${qs ? '?' + qs : ''}`);
     await expect(this.page.getByTestId('tile-shell')).toBeVisible();
   }

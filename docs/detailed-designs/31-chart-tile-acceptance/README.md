@@ -1,5 +1,7 @@
 # Chart-Tile Acceptance Suite — Detailed Design
 
+**Status:** Accepted
+
 ## 1. Overview
 
 Goal: deliver concrete, end-to-end Playwright acceptance specs for every plugin tile that draws a chart. These tiles need the chart-recorder bridge from slice 29 in addition to the HTTP / DOM substrate from slices 25-28.

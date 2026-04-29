@@ -5,11 +5,18 @@ function makePoint(date: string, percentage: number) {
 }
 
 export const goalTrendFixture: GoalTrendDto = {
-  goalId: 'demo-goal',
+  goalId: 'g-1',
   mode: 'live',
   asOf: '2026-04-29T00:00:00Z',
-  windowDays: 7,
+  windowDays: 14,
   points: [
+    makePoint('2026-04-16', 55),
+    makePoint('2026-04-17', 60),
+    makePoint('2026-04-18', 58),
+    makePoint('2026-04-19', 65),
+    makePoint('2026-04-20', 70),
+    makePoint('2026-04-21', 68),
+    makePoint('2026-04-22', 72),
     makePoint('2026-04-23', 70),
     makePoint('2026-04-24', 75),
     makePoint('2026-04-25', 80),
@@ -20,6 +27,6 @@ export const goalTrendFixture: GoalTrendDto = {
   ],
   currentPercentage: 88,
   peakPercentage: 90,
-  lowPercentage: 70,
-  deltaLabel: '+18% this week'
+  lowPercentage: 55,
+  deltaLabel: '+33% vs prior 14d'
 };
