@@ -5,7 +5,7 @@ import { DashboardShellComponent } from '@commitments/dashboard-framework';
 
 import { routes } from './app.routes';
 import { DashboardLayoutComponent } from './components/dashboard-layout/dashboard-layout.component';
-import { LoginPageComponent, ProfilesPageComponent, MyProfilePageComponent } from '@commitments/identity-feature';
+import { authGuard, identityRoutes, LoginPageComponent, ProfilesPageComponent, MyProfilePageComponent } from '@commitments/identity-feature';
 import { ActivitiesPageComponent, ToDosPageComponent } from '@commitments/tracking-feature';
 import { EditNotePageComponent, NotesByTagPageComponent, NotesPageComponent, TagsPageComponent } from '@commitments/notes-feature';
 import { CardsPageComponent, CardLayoutsPageComponent } from '@commitments/cards-feature';
@@ -13,7 +13,6 @@ import { BehaviourTypesPageComponent, BehavioursPageComponent } from '@commitmen
 import { CommitmentsPageComponent } from '@commitments/commitments-feature';
 import { EditFrequencyPageComponent, FrequenciesPageComponent } from '@commitments/frequencies-feature';
 import { SettingsPageComponent } from '@commitments/settings-feature';
-import { authGuard } from '@commitments/identity-feature';
 
 describe('app.routes', () => {
   it('maps /login to LoginPageComponent', () => {
@@ -52,6 +51,12 @@ describe('app.routes', () => {
     const child = home?.children?.find((c) => c.path === 'my-profile');
     expect(child).toBeDefined();
     expect(child!.component).toBe(MyProfilePageComponent);
+  });
+
+  it('uses identityRoutes spread for profiles and my-profile (design 46)', () => {
+    const home = routes.find((r) => r.path === '');
+    const usesSpread = home?.children?.some((c) => identityRoutes.includes(c));
+    expect(usesSpread).toBe(true);
   });
 
   it('routes /settings to SettingsPageComponent (design 04-Settings Slice A)', () => {
