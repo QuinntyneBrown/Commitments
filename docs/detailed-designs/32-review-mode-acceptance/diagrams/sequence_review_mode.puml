@@ -1,0 +1,37 @@
+@startuml sequence_review_mode
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Review-Mode Spec - Consistency Trend (mode + asOf flow)
+
+actor "Playwright spec" as SPEC
+participant "TileHarnessPage" as HARN_POM
+participant "TileHarnessComponent" as HARN
+participant "ConsistencyTrendTile" as TILE
+participant "ConsistencyTrendController" as CTRL
+participant "GoalTrendService" as SVC
+participant "HttpRecorderInterceptor" as HREC
+participant "ChartJsLineAdapter" as ADAPT
+participant "WindowBridge" as BRIDGE
+
+SPEC -> HARN_POM: goto('commitments.consistency-trend',\n{ mode:'review', asOf:'2026-04-01' })
+HARN_POM -> HARN: route /tile/...?mode=review&asOf=2026-04-01
+HARN -> BRIDGE: setMode('review')\nsetAsOf('2026-04-01')
+HARN -> TILE: NgComponentOutlet w/ TILE_CONTEXT={mode:'review', asOf:'2026-04-01'}
+TILE -> CTRL: load('g-1', 14)
+CTRL -> SVC: getTrend('g-1','review','2026-04-01',14)
+SVC -> HREC: HttpRequest GET ...?asOf=2026-04-01
+HREC -> BRIDGE: recordHttp({url contains 'asOf=2026-04-01'})
+HREC --> SVC: 200 + review fixture
+SVC --> CTRL: trend dto
+CTRL -> CTRL: highlightedIndex = points.findIndex(p.date == asOf)
+TILE -> ADAPT: attach(canvas, config) where pointRadius[highlightedIdx]=7
+ADAPT -> BRIDGE: recordChart({kind:'attach', dataset.pointRadius highlighted})
+TILE -> ADAPT: updateDataset(dataset, labels)
+ADAPT -> BRIDGE: recordChart({kind:'updateDataset'})
+
+SPEC -> BRIDGE: getBridge(page)
+BRIDGE --> SPEC: { mode:'review', asOf:'2026-04-01', http:[...], chart:[...] }
+SPEC -> SPEC: expect(http[0].url).toContain('asOf=2026-04-01')\nexpect(chart[1].dataset.pointRadius[asOfIdx]).toBe(7)\nexpect(pillLabel).toHaveText('REVIEW')
+
+@enduml

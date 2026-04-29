@@ -1,0 +1,18 @@
+@startuml c4_context
+!theme plain
+!include <C4/C4_Context>
+
+title Plugin Host Playwright Config - System Context
+
+Person(dev, "Frontend Developer", "Authors and runs plugin tile acceptance tests")
+System_Boundary(plug, "Plugin Acceptance Test Pipeline") {
+    System(host, "commitments-dashboard-plugin-host", "Angular SPA on :4300")
+    System(pw, "Playwright (host config)", "Headless Chromium runner")
+}
+System_Ext(app, "commitments-app pipeline", "Existing :4200 app + playwright.config.ts (unchanged)")
+
+Rel(dev, pw, "npm run e2e:host")
+Rel(pw, host, "HTTP, page.goto('/')")
+Rel(dev, app, "npm run e2e (separate, untouched)")
+
+@enduml

@@ -1,0 +1,29 @@
+@startuml sequence_compose
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Frequencies Editor - Compose Rows (post-migration)
+
+actor User
+participant "<app-frequency-editor>" as Inner
+participant "FrequenciesEditorComponent" as Self
+participant "<app-data-table>" as DT
+participant "MatTableDataSource" as DS
+
+User -> Inner: enter value + type, click Save
+Inner -> Self: (save) emits { frequency }
+Self -> Self: _local = [..._local, frequency]
+Self -> DT: rows getter returns new array
+DT -> DS: dataSource.data = rows
+DS -> DT: re-render
+DT --> User: row appears
+
+User -> DT: click close on a row
+DT -> Self: remove({ data: row })
+Self -> Self: _local = _local.filter(...)
+Self -> DT: rows getter returns new array
+DT -> DS: dataSource.data = rows
+DS -> DT: re-render
+DT --> User: row removed
+
+@enduml

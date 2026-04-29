@@ -1,0 +1,59 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Window Bridge - Class Model
+
+class WindowBridgeService <<host>> {
+    -snapshot: PluginHarnessSnapshot
+    +setTile(tileId): void
+    +setMode(mode): void
+    +setAsOf(asOf): void
+    +recordHttp(call): void
+    +recordChart(call): void
+    +reset(): void
+}
+
+class PluginHarnessSnapshot <<DTO>> {
+    +tileId: string | null
+    +mode: 'live' | 'review'
+    +asOf: string | null
+    +http: HttpCall[]
+    +chart: ChartCall[]
+}
+
+class HttpCall <<DTO (slice 28)>> {
+    +method: string
+    +url: string
+    +params?: Record<string,string>
+}
+
+class ChartCall <<DTO (slice 29)>> {
+    +kind: 'attach'|'updateDataset'|'destroy'
+    +data?: unknown
+    +options?: unknown
+    +labels?: string[]
+    +dataset?: unknown
+}
+
+class TileHarnessComponent <<host>> {
+    +setSnapshotFromRoute()
+}
+
+class "window.__pluginHarness" as WIN <<global>> {
+    (PluginHarnessSnapshot reference)
+}
+
+class "getBridge(page)" as HELPER <<e2e support>> {
+    +returns: PluginHarnessSnapshot
+}
+
+WindowBridgeService o-- PluginHarnessSnapshot : owns
+WindowBridgeService ..> WIN : writes once
+PluginHarnessSnapshot *-- HttpCall : http[]
+PluginHarnessSnapshot *-- ChartCall : chart[]
+TileHarnessComponent ..> WindowBridgeService : setTile/setMode/setAsOf/reset
+HELPER ..> WIN : page.evaluate
+
+@enduml

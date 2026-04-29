@@ -1,0 +1,71 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Tracking Pages - Class Dependencies
+
+class Commitment {
+    +commitmentId: Guid
+    +behaviour: Behaviour
+}
+class Behaviour {
+    +behaviourId: Guid
+    +name: string
+    +behaviourType: BehaviourType
+}
+class BehaviourType {
+    +behaviourTypeId: Guid
+    +name: string
+}
+class ToDo {
+    +toDoId: Guid
+    +name: string
+    +dueOn: string (ISO)
+    +completedOn?: string (ISO)
+}
+class Activity {
+    +activityId: Guid
+    +behaviour: Behaviour
+    +performedOn: string (ISO)
+}
+
+Commitment "1" -- "1" Behaviour
+Behaviour "1" -- "1" BehaviourType
+Activity "1" -- "1" Behaviour
+
+interface "DataTableColumn<T>" as DTC {
+    +key: string
+    +header: string
+    +cell?: (T) => string
+    +template?: TemplateRef
+    +width?: string
+}
+
+class CommitmentsPageComponent {
+    +commitments: Signal<Commitment[]>
+    +columns: DataTableColumn<Commitment>[]
+}
+class ToDosPageComponent {
+    +toDos: Signal<ToDo[]>
+    +columns: DataTableColumn<ToDo>[]
+}
+class ActivitiesPageComponent {
+    +activities: Signal<Activity[]>
+    +columns: DataTableColumn<Activity>[]
+}
+
+CommitmentsPageComponent --> DTC : declares
+ToDosPageComponent --> DTC : declares
+ActivitiesPageComponent --> DTC : declares
+CommitmentsPageComponent ..> Commitment
+ToDosPageComponent ..> ToDo
+ActivitiesPageComponent ..> Activity
+
+note right of DTC
+  cell: r => r.behaviour?.behaviourType?.name ?? ''
+  Replaces ag-grid's implicit
+  dot-path resolution.
+end note
+
+@enduml

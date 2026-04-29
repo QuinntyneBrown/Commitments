@@ -1,19 +1,20 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { Component, DestroyRef, inject } from '@angular/core';
+import { Component, DestroyRef, TemplateRef, ViewChild, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { AgGridModule } from 'ag-grid-angular';
-import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { tap } from 'rxjs';
-import { ColDef } from 'ag-grid-community';
 import { NotesService } from '../../../services/notes.service';
 import { Note } from '../../../models/note';
 import { Store } from '../../../core/store';
-import { DeleteCellComponent } from '../../../components/delete-cell/delete-cell.component';
-import { PrimaryHeaderComponent } from '@commitments/ui';
+import { DataTableColumn, DataTableComponent, PrimaryHeaderComponent } from '@commitments/ui';
+
+type NoteTableEvent = { data: Note };
 
 @Component({
   selector: 'app-notes-page',
@@ -21,78 +22,54 @@ import { PrimaryHeaderComponent } from '@commitments/ui';
   imports: [
     CommonModule,
     TranslateModule,
-    AgGridModule,
+    RouterLink,
+    MatButtonModule,
+    MatIconModule,
+    DataTableComponent,
     PrimaryHeaderComponent,
   ],
   templateUrl: './notes-page.component.html',
-  styleUrls: ['./notes-page.component.scss']
+  styleUrls: ['./notes-page.component.scss'],
 })
 export class NotesPageComponent {
+  @ViewChild('titleTpl', { static: true })
+  titleTpl!: TemplateRef<{ $implicit: Note }>;
+
+  @ViewChild('deleteTpl', { static: true })
+  deleteTpl!: TemplateRef<{ $implicit: Note }>;
+
   private readonly _notesService = inject(NotesService);
   private readonly _store = inject(Store);
-  private readonly _router = inject(Router);
-  private readonly _translateService = inject(TranslateService);
   private readonly _destroyRef = inject(DestroyRef);
 
   public readonly notes = this._store.notes;
 
-  public localeText: any = {};
+  public columns: DataTableColumn<Note>[] = [];
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.columns = [
+      { key: 'title', header: 'Title', template: this.titleTpl },
+      { key: 'delete', header: '', template: this.deleteTpl, width: '40px' },
+    ];
+
     this._notesService
       .get()
       .pipe(
         takeUntilDestroyed(this._destroyRef),
-        tap(x => this._store.notes.set(x.notes))
-      )
-      .subscribe();
-
-    this._translateService
-      .get(['Title', 'Page', 'of', 'to'])
-      .pipe(
-        takeUntilDestroyed(this._destroyRef),
-        tap(translations => {
-          this.localeText = translations;
-          this.columnDefs = [
-            {
-              headerName: translations['Title'],
-              field: 'title',
-              onCellClicked: $event => this.handleTitleClick($event)
-            },
-            {
-              cellRenderer: 'deleteRenderer',
-              onCellClicked: $event => this.handleDelete($event),
-              width: 20
-            }
-          ];
-        })
+        tap((x) => this._store.notes.set(x.notes)),
       )
       .subscribe();
   }
 
-  public handleDelete($event) {
+  public handleDelete($event: NoteTableEvent): void {
     this._notesService
       .remove({ note: <Note>$event.data })
       .pipe(
         takeUntilDestroyed(this._destroyRef),
         tap(() => {
-          this._store.notes.update(notes => notes.filter(x => x.noteId != $event.data.noteId));
-        })
+          this._store.notes.update((notes) => notes.filter((x) => x.noteId != $event.data.noteId));
+        }),
       )
       .subscribe();
-  }
-
-  public handleTitleClick($event) {
-    this._router.navigateByUrl(`/notes/${$event.data.slug}`);
-  }
-
-  public frameworkComponents = {
-    deleteRenderer: DeleteCellComponent
-  };
-
-  public columnDefs: Array<ColDef> = [];
-
-  public onGridReady($event) {
-    $event.api.sizeColumnsToFit();
   }
 }

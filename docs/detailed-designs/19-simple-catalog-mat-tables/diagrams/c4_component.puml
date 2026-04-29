@@ -1,0 +1,30 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Simple Catalog Pages - Before / After Migration
+
+Container_Boundary(before, "Before (current)") {
+    Component(p_old, "Page Component", "Angular", "BehaviourTypes / Behaviours / Frequencies / Cards / CardLayouts / Profiles")
+    Component(ag, "<ag-grid-angular>", "ag-grid-angular", "ColDef[], paginator, frameworkComponents map")
+    Component(rw, "EditCell / DeleteCell / CheckboxCell", "Angular", "Renderer wrappers implementing ICellRendererAngularComp")
+    Component(svc_b, "Entity Service", "Angular", "get(), remove(), save() — unchanged")
+}
+
+Container_Boundary(after, "After (this slice)") {
+    Component(p_new, "Page Component", "Angular", "Same component class — only template/columns swap")
+    Component(dt, "<app-data-table>", "commitments-ui", "Generic MatTable wrapper")
+    Component(tpl, "editTpl + deleteTpl", "<ng-template>", "Inline action cells with mat-icon-button")
+    Component(svc_a, "Entity Service", "Angular", "Unchanged")
+}
+
+Rel(p_old, ag, "Binds columnDefs + rowData")
+Rel(ag, rw, "Resolves frameworkComponents")
+Rel(p_old, svc_b, "Calls")
+
+Rel(p_new, dt, "Binds rows + columns")
+Rel(p_new, tpl, "Declares + ViewChild()")
+Rel(dt, tpl, "ngTemplateOutlet")
+Rel(p_new, svc_a, "Calls (unchanged)")
+
+@enduml

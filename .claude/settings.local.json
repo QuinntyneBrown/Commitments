@@ -4,7 +4,11 @@
       "Bash(git checkout:*)",
       "Bash(src/Commitments.Api/Features/FrequencyType/Commands/SaveFrequencyType.cs )",
       "Bash(src/Commitments.Api/Features/DigitalAsset/Commands/CreateDigitalAsset.cs )",
-      "Bash(src/Commitments.Api/Features/DigitalAsset/Commands/UploadDigitalAsset.cs)"
+      "Bash(src/Commitments.Api/Features/DigitalAsset/Commands/UploadDigitalAsset.cs)",
+      "Bash(rm -f ../.git/index.lock)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ],
     "deny": [],
     "ask": []

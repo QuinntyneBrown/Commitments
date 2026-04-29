@@ -1,0 +1,32 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Tile Harness Route - Components
+
+Container_Boundary(host, "commitments-dashboard-plugin-host") {
+    Component(routes, "app.routes.ts", "Angular Routes", "tile/:tileId -> TileHarnessComponent\n'' -> tile-index")
+    Component(harness, "TileHarnessComponent", "Standalone component", "Reads tileId+mode+asOf from URL, provides TILE_CONTEXT, renders tile via NgComponentOutlet")
+    Component(idx, "TileIndexComponent", "Standalone component", "Lists every registered tileId for manual DX")
+}
+
+Container_Boundary(fw, "@commitments/dashboard-framework (unchanged)") {
+    Component(reg, "TileRegistryService", "Injectable", "Tile lookup by tileId (used read-only)")
+    Component(ctxToken, "TILE_CONTEXT", "InjectionToken", "Provided by harness, read by tiles")
+    Component(boot, "TileRegistrationBootstrapper", "APP_INITIALIZER", "Still runs to populate registry from PLUGIN_TILES")
+}
+
+Container_Boundary(pl, "@commitments/dashboard-plugin (unchanged)") {
+    Component(tile, "Plugin tile components", "Standalone components", "DailyResults, WeeklyFocus, ... ConsistencyTrend, GoalMetrics")
+}
+
+Rel(routes, harness, "matches /tile/:tileId")
+Rel(routes, idx, "matches /")
+Rel(harness, reg, "getTile(tileId)")
+Rel(harness, ctxToken, "provides per-tile via child Injector")
+Rel(harness, tile, "instantiates via NgComponentOutlet")
+Rel(tile, ctxToken, "inject(TILE_CONTEXT)")
+Rel(boot, reg, "registerTile(...) on bootstrap")
+Rel(idx, reg, "tiles() for link list")
+
+@enduml

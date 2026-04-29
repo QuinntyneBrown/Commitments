@@ -6,3 +6,4 @@ export * from './lib/status-pill/status-pill.component';
 export * from './lib/icon-button/icon-button.component';
 export * from './lib/metric-header/metric-header.component';
 export * from './lib/delta-badge/delta-badge.component';
+export * from './lib/data-table/data-table.component';

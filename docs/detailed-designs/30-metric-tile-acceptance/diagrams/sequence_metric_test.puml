@@ -1,0 +1,38 @@
+@startuml sequence_metric_test
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Per-Tile Metric Spec - Daily Results
+
+actor "Playwright spec" as SPEC
+participant "stubJson()" as STUB
+participant "TileHarnessPage" as HARN_POM
+participant "DailyResultsTilePage" as DR_POM
+participant "Browser" as BR
+participant "TileHarnessComponent" as HARN
+participant "DailyResultsTile" as TILE
+participant "DailyResultsService" as SVC
+participant "HttpRecorderInterceptor" as REC
+participant "bridge" as BRIDGE
+
+SPEC -> STUB: stubJson(page, /\\/daily-results/, fixture)
+SPEC -> HARN_POM: goto('commitments.daily-results')
+HARN_POM -> BR: page.goto('/tile/commitments.daily-results')
+BR -> HARN: instantiate
+HARN -> BRIDGE: setTile + setMode('live')
+HARN -> TILE: NgComponentOutlet
+TILE -> SVC: get(null)
+SVC -> REC: HttpRequest GET
+REC -> BRIDGE: recordHttp({GET, /commitment/daily-results})
+REC --> SVC: 200 + fixture (via stub)
+SVC --> TILE: dto
+TILE --> BR: render '7 / 12'
+
+SPEC -> DR_POM: expectMetric(7, 12)
+DR_POM -> BR: locator('.metric__value').toHaveText('7 / 12')
+BR --> DR_POM: pass
+
+SPEC -> SPEC: getBridge(page)
+SPEC -> SPEC: expect(http[0].method).toBe('GET')\nexpect(http[0].url).toMatch(/daily-results/)
+
+@enduml

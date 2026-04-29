@@ -1,0 +1,42 @@
+@startuml sequence_http_stub_and_record
+!theme plain
+skinparam sequenceMessageAlign center
+
+title HTTP Stub + Record (Daily Results)
+
+actor "Playwright spec" as SPEC
+participant "stubJson()" as HELP
+participant "Browser" as BR
+participant "TileHarness" as HARN
+participant "DailyResultsTile" as TILE
+participant "DailyResultsService" as SVC
+participant "HttpRecorderInterceptor" as REC
+participant "WindowBridgeService" as BRIDGE
+participant "window.__pluginHarness" as WIN
+participant "page.route" as PWR
+
+SPEC -> HELP: stubJson(page, /daily-results/, fixture)
+HELP -> PWR: register fulfill -> 200 + JSON
+
+SPEC -> BR: harness.goto('commitments.daily-results')
+BR -> HARN: instantiate
+HARN -> TILE: render via NgComponentOutlet
+TILE -> SVC: get(null)
+SVC -> REC: HttpRequest GET api/v1.0/commitment/daily-results
+REC -> BRIDGE: recordHttp({method:'GET', url, params:{}})
+BRIDGE -> WIN: append HttpCall
+REC -> PWR: forward request to network
+PWR --> REC: 200 + fixture body
+REC --> SVC: response
+SVC --> TILE: dto observable
+TILE -> TILE: snapshot.set(dto)\nrender '7 / 12'
+
+SPEC -> BR: expect(tile).toContainText('7 / 12')
+BR --> SPEC: pass
+SPEC -> BR: getBridge(page)
+BR -> WIN: read
+WIN --> BR: { http:[{ method:'GET', url:'api/v1.0/commitment/daily-results', ...}] }
+BR --> SPEC: snapshot
+SPEC -> SPEC: expect(http[0].url).toMatch(/daily-results/)
+
+@enduml

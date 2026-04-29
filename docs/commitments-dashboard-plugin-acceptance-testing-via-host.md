@@ -1,0 +1,6 @@
+- each tile can be rendered and tested in commitments-dashboard-plugin-host
+- commitments-dashboard-plugin-host as e2e tests using playwright and page object model for each tile
+- the goal is to component test the commitments-dashboard-plugin tile logic / behaviour using playwright
+- a mock of the dashboard-framework interface shall be mocked in commitments-dashboard-plugin-host so that the playwright tests do not exercise dashboard-framework code, it exercises the mock that replaces dashboard-framework in the DI of commitments-dashboard-plugin-host
+- in commitments-dashboard-plugin-host, there shall be a bridge to expose the mocked dashboard-framework services on the window to allow for the playwright tests to verify the commitments-dashboard-plugin tiles are calling into dashboard-framework correctly.
+- need a way to have tests to verify that chart.js is being called as expected by the tiles

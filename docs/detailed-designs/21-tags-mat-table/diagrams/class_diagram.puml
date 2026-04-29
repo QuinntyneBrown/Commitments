@@ -1,0 +1,49 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Tags Page - Class Diagram (post-migration)
+
+class Tag {
+    +tagId: Guid
+    +name: string
+}
+
+class TagsPageComponent {
+    +tags: Signal<Tag[]>
+    +columns: DataTableColumn<Tag>[]
+    +nameTpl: TemplateRef
+    +deleteTpl: TemplateRef
+    +onNameInput(row, value): void
+    +handleChange($event): void
+    +handleDelete($event): void
+    +handleCreateClick(): void
+}
+
+class TagsService {
+    +get(): Observable<{ tags: Tag[] }>
+    +save(args): Observable<void>
+    +remove(args): Observable<void>
+}
+
+class DataTableComponent<T>
+class MatFormField <<Material>>
+class MatInput <<Material>>
+class FormsModule <<Angular>>
+
+TagsPageComponent --> DataTableComponent : renders
+TagsPageComponent --> Tag : items
+TagsPageComponent --> TagsService : calls
+TagsPageComponent ..> MatFormField : nameTpl uses
+TagsPageComponent ..> MatInput : nameTpl uses
+TagsPageComponent ..> FormsModule : ngModel binding
+
+note right of TagsPageComponent
+  Inline-edit pattern is page-local.
+  No shared "editable cell" component
+  is hoisted until a 2nd consumer
+  appears.
+end note
+
+@enduml

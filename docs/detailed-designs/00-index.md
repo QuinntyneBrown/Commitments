@@ -28,6 +28,13 @@ Conventions used by every design document:
 | 15 | [Notes by Tag](15-notes-by-tag/README.md) | Implemented | Add `Note ⟷ Tag` join + `GET /api/notes/tag/{slug}` (L2-015) |
 | 16 | [Cards](16-cards/README.md) | Implemented | Wire catalog page to existing `CardController` with edit dialog (L2-019, L2-022) |
 | 17 | [Card Layouts](17-card-layouts/README.md) | Implemented | Wire catalog page to existing `CardLayoutController` with edit dialog (L2-022) |
+| 18 | [Mat-Table Foundation](18-mat-table-foundation/README.md) | Draft | Introduce shared `<app-data-table>` in `commitments-ui` + action-cell `<ng-template>` pattern (no L1/L2 surface change) |
+| 19 | [Simple Catalog Mat-Tables](19-simple-catalog-mat-tables/README.md) | Draft | Migrate Profiles, Behaviour Types, Behaviours, Frequencies, Cards, Card Layouts pages off ag-grid (L2-003, L2-005, L2-006, L2-007, L2-019, L2-022) |
+| 20 | [Tracking Mat-Tables](20-tracking-mat-tables/README.md) | Draft | Migrate Commitments, To-Dos, Activities pages off ag-grid (nested-path + date columns) (L2-009..L2-012, L2-016) |
+| 21 | [Tags Mat-Table](21-tags-mat-table/README.md) | Draft | Migrate Tags page; replace ag-grid `editable: true` with `<input matInput>` blur/Enter pattern (L2-015) |
+| 22 | [Notes Mat-Table](22-notes-mat-table/README.md) | Draft | Migrate Notes page; replace `onCellClicked` with native `<a [routerLink]>` (L2-014, L2-041) |
+| 23 | [Frequencies Editor Mat-Table](23-frequencies-editor-mat-table/README.md) | Draft | Migrate the embedded grid inside `FrequenciesEditorComponent` (L2-007, L2-008) |
+| 24 | [Ag-Grid Removal](24-ag-grid-removal/README.md) | Draft | Drop `ag-grid-angular` + `ag-grid-community` deps, delete renderer wrappers + CSS imports, smoke spec — depends on 18-23 |
 
 **Status legend:** Draft → In Review → Approved → Implemented.
 
@@ -41,3 +48,15 @@ The deltas above are independent slices wherever possible, but a sensible order 
 4. **12 Notes** → **13 Edit Note** → **14 Tags** → **15 Notes by Tag** — the notes module (largest backend delta).
 5. **16 Cards** → **17 Card Layouts** — dashboard catalog management.
 6. **04 Settings** — last; depends on every other page being routable so it can deep-link to them.
+
+## ag-grid → Angular Material migration
+
+Deltas 18 — 24 form a self-contained refactor arc. The build stays green at every step because ag-grid stays installed until 24, and `<app-data-table>` co-exists with `<ag-grid-angular>` in 18 — 23. Order:
+
+1. **18 Mat-Table Foundation** — ship `DataTableComponent` in `commitments-ui` (no consumer flips yet).
+2. **19 Simple Catalog Mat-Tables** — flip Profiles → Behaviour Types → Frequencies → Behaviours → Cards → Card Layouts (one PR each in that order).
+3. **20 Tracking Mat-Tables** — flip Activities → To-Dos → Commitments.
+4. **21 Tags Mat-Table** — flip Tags (special: inline-edit cell pattern).
+5. **22 Notes Mat-Table** — flip Notes (special: routerLink cell).
+6. **23 Frequencies Editor Mat-Table** — flip the embedded grid in `FrequenciesEditorComponent`.
+7. **24 Ag-Grid Removal** — gated on every consumer above being on `<app-data-table>`. Drops the npm deps, the four renderer wrappers, the two CSS imports, and adds the sentinel smoke spec.

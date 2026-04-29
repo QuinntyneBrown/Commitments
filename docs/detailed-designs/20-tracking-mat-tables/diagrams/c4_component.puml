@@ -1,0 +1,44 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Tracking Pages - Component Diagram (post-migration)
+
+Container_Boundary(app, "commitments-app") {
+    Component(cp, "CommitmentsPageComponent", "Angular", "Type + Name (nested) + edit + delete")
+    Component(tp, "ToDosPageComponent", "Angular", "Name + DueOn + CompletedOn + edit + delete")
+    Component(ap, "ActivitiesPageComponent", "Angular", "Behaviour (nested) + PerformedOn + edit + delete")
+    Component(tpl, "edit/deleteTpl <ng-template>", "Angular templates", "Inline action-cell templates per page")
+}
+
+Container_Boundary(ui, "commitments-ui") {
+    Component(dt, "DataTableComponent", "Angular standalone", "Generic <mat-table> wrapper")
+    Component(col, "DataTableColumn<T>", "TypeScript", "key, header, cell?, template?, width?")
+}
+
+Container_Boundary(svc, "Application services (unchanged)") {
+    Component(cs, "CommitmentService", "Angular", "getPersonal(), remove()")
+    Component(ts, "ToDoService", "Angular", "get(), remove()")
+    Component(as_, "ActivityService", "Angular", "get(), remove()")
+    Component(d1, "EditCommitmentDialogService", "Angular", "create({ id? })")
+    Component(d2, "EditToDoDialogService", "Angular", "create({ id? })")
+    Component(d3, "EditActivityDialogService", "Angular", "create({ id? })")
+}
+
+Rel(cp, dt, "Renders [rows]+[columns]")
+Rel(tp, dt, "Renders [rows]+[columns]")
+Rel(ap, dt, "Renders [rows]+[columns]")
+Rel(cp, col, "Builds with cell: r => r.behaviour.behaviourType.name")
+Rel(tp, col, "Builds with cell: r => r.dueOn")
+Rel(ap, col, "Builds with cell: r => r.behaviour.name")
+Rel(cp, tpl, "Declares")
+Rel(tp, tpl, "Declares")
+Rel(ap, tpl, "Declares")
+Rel(cp, cs, "Calls")
+Rel(cp, d1, "Opens")
+Rel(tp, ts, "Calls")
+Rel(tp, d2, "Opens")
+Rel(ap, as_, "Calls")
+Rel(ap, d3, "Opens")
+
+@enduml

@@ -1,0 +1,41 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Tags Page - Component Diagram (post-migration)
+
+Container_Boundary(app, "commitments-app") {
+    Component(page, "TagsPageComponent", "Angular standalone", "Renders editable name cell + delete cell")
+    Component(nt, "nameTpl <ng-template>", "Angular template", "<mat-form-field> + <input matInput> w/ ngModel")
+    Component(dt2, "deleteTpl <ng-template>", "Angular template", "<button mat-icon-button>")
+    Component(addDlg, "AddTagDialogComponent", "Angular", "CDK overlay-based create dialog (unchanged)")
+}
+
+Container_Boundary(ui, "commitments-ui") {
+    Component(dt, "DataTableComponent", "Angular", "Generic <mat-table> wrapper")
+}
+
+Container_Boundary(mat, "@angular/material") {
+    Component(mff, "MatFormFieldModule", "Angular", "Outline form field around input")
+    Component(mi, "MatInputModule", "Angular", "matInput directive")
+    Component(fm, "FormsModule", "Angular", "ngModel two-way binding")
+}
+
+Container_Boundary(svc, "Application services") {
+    Component(ts, "TagsService", "Angular", "save({ tag }), remove({ tagId })")
+    Component(store, "Store", "Angular signals", "tags signal")
+    Component(hub, "HubClient", "@microsoft/signalr", "Tag updated broadcasts")
+}
+
+Rel(page, dt, "Renders")
+Rel(page, nt, "Declares")
+Rel(page, dt2, "Declares")
+Rel(nt, mff, "Uses")
+Rel(nt, mi, "Uses")
+Rel(nt, fm, "Uses ngModel")
+Rel(page, ts, "Calls save / remove")
+Rel(page, store, "Reads tags signal")
+Rel(page, addDlg, "Opens via Overlay")
+Rel(page, hub, "Subscribes to broadcasts")
+
+@enduml

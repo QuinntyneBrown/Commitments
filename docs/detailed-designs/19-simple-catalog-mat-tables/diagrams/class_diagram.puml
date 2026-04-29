@@ -1,0 +1,52 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Simple Catalog Pages - Class Dependencies
+
+abstract class "CatalogPageComponent<T>" as PG {
+    +items: WritableSignal<T[]>
+    +columns: DataTableColumn<T>[]
+    +editTpl: TemplateRef
+    +deleteTpl: TemplateRef
+    +handleEditClick($event): void
+    +handleRemoveClick($event): void
+    +handleFABButtonClick(): void
+    +addOrUpdate(item: T): void
+}
+
+class ProfilesPageComponent
+class BehaviourTypesPageComponent
+class BehavioursPageComponent
+class FrequenciesPageComponent
+class CardsPageComponent
+class CardLayoutsPageComponent
+
+PG <|-- ProfilesPageComponent
+PG <|-- BehaviourTypesPageComponent
+PG <|-- BehavioursPageComponent
+PG <|-- FrequenciesPageComponent
+PG <|-- CardsPageComponent
+PG <|-- CardLayoutsPageComponent
+
+class DataTableComponent<T>
+class "EntityService<T>" as Svc {
+    +get(): Observable<T[]>
+    +remove(args): Observable<void>
+}
+class "EditDialogService<T>" as Dlg {
+    +create(args?): Observable<T>
+}
+
+PG --> DataTableComponent : renders <app-data-table>
+PG --> Svc : injects
+PG --> Dlg : injects
+
+note bottom of PG
+  Not literally a base class —
+  this is the *shape* every page
+  takes after migration.
+end note
+
+@enduml

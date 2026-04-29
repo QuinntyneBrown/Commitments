@@ -1,0 +1,30 @@
+@startuml sequence_load_tile
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Test Loads One Tile via Harness Route
+
+actor "Playwright spec" as SPEC
+participant "TileHarnessPage" as POM
+participant "Browser" as BR
+participant "Angular Router" as RTR
+participant "TileHarnessComponent" as HARNESS
+participant "TileRegistryService" as REG
+participant "Plugin Tile\n(e.g. DailyResults)" as TILE
+
+SPEC -> POM: goto('commitments.daily-results',\n{ mode: 'live' })
+POM -> BR: page.goto('/tile/commitments.daily-results?mode=live')
+BR -> RTR: navigate
+RTR -> HARNESS: instantiate
+HARNESS -> HARNESS: tileId.set('commitments.daily-results')\nmode.set('live')
+HARNESS -> REG: getTile('commitments.daily-results')
+REG --> HARNESS: TileDescriptor { componentType: DailyResultsTileComponent }
+HARNESS -> HARNESS: build Injector w/ TILE_CONTEXT={mode, asOf}
+HARNESS -> TILE: NgComponentOutlet instantiates
+TILE -> TILE: inject(TILE_CONTEXT)\nbindTileMode({ context, load })
+TILE --> BR: render <commitments-tile-shell data-testid="tile-shell">
+POM -> BR: expect(getByTestId('tile-shell')).toBeVisible()
+BR --> POM: pass
+POM --> SPEC: ready
+
+@enduml

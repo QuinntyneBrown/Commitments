@@ -1,0 +1,26 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title Plugin Host Playwright Config - Containers
+
+Person(dev, "Frontend Developer")
+
+System_Boundary(workspace, "frontend workspace") {
+    Container(cfg, "playwright.host.config.ts", "Node module", "testDir, baseURL :4300, webServer cmd")
+    Container(scripts, "package.json scripts", "npm aliases", "start:host, e2e:host, e2e:host:ui")
+    Container(spec, "host-smoke.spec.ts", "Playwright TS", "Boot smoke assertion only")
+    Container(host, "ng serve commitments-dashboard-plugin-host", "Angular dev server", "Serves SPA on :4300")
+    Container(pw, "Playwright runner", "Node + Chromium", "Reads config, runs specs")
+    Container(report, "playwright-host-report/", "html + junit", "Separate from app report")
+}
+
+Rel(dev, scripts, "npm run e2e:host")
+Rel(scripts, pw, "spawns")
+Rel(pw, cfg, "reads")
+Rel(pw, host, "GET / on :4300")
+Rel(pw, spec, "executes")
+Rel(spec, host, "page.goto('/')")
+Rel(pw, report, "writes")
+
+@enduml

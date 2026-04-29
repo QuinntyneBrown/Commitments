@@ -1,0 +1,41 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Notes Page - Class Diagram (post-migration)
+
+class Note {
+    +noteId: Guid
+    +title: string
+    +slug: string
+}
+
+class NotesPageComponent {
+    +notes: Signal<Note[]>
+    +columns: DataTableColumn<Note>[]
+    +titleTpl: TemplateRef
+    +deleteTpl: TemplateRef
+    +handleDelete($event): void
+}
+
+class NotesService {
+    +get(): Observable<{ notes: Note[] }>
+    +remove(args): Observable<void>
+}
+
+class DataTableComponent<T>
+class RouterLink <<Angular>>
+
+NotesPageComponent --> DataTableComponent : renders
+NotesPageComponent --> Note : items
+NotesPageComponent --> NotesService : calls
+NotesPageComponent ..> RouterLink : titleTpl uses
+
+note right of NotesPageComponent
+  Removed: handleTitleClick(),
+  Router injection, translateService
+  column-rebuild block.
+end note
+
+@enduml

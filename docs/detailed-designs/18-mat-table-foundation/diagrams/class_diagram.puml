@@ -1,0 +1,52 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Mat-Table Foundation - Class Diagram
+
+interface "DataTableColumn<T>" as DTC {
+    +key: string
+    +header: string
+    +cell?: (row: T) => string
+    +template?: TemplateRef<{$implicit: T}>
+    +width?: string
+}
+
+class DataTableComponent<T> {
+    +rows: InputSignal<T[]>
+    +columns: InputSignal<DataTableColumn<T>[]>
+    +pageSize: InputSignal<number>
+    +trackBy: InputSignal<TrackByFunction<T>>
+    +rowClick: OutputEmitterRef<T>
+    -dataSource: MatTableDataSource<T>
+    -paginator: ViewChild<MatPaginator>
+    -displayedColumns(): string[]
+}
+
+class MatTable
+class MatPaginator
+class MatTableDataSource
+
+DataTableComponent --> "1" MatTableDataSource : owns
+DataTableComponent --> "1" MatPaginator : viewChild
+DataTableComponent --> "many" DTC : iterates
+MatTableDataSource --> MatTable : feeds
+
+note right of DTC
+  template? — projected via
+  <ng-container *ngTemplateOutlet>
+  for action / link / checkbox cells
+end note
+
+class EditCellComponent <<deprecated>>
+class DeleteCellComponent <<deprecated>>
+class CheckboxCellComponent <<deprecated>>
+class StarCellComponent <<deprecated>>
+
+note bottom of EditCellComponent
+  Removed in slice 24 (ag-grid removal)
+  once all pages have migrated.
+end note
+
+@enduml

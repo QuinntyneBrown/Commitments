@@ -1,0 +1,31 @@
+@startuml sequence_compose
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Foundation - Page composes a DataTable
+
+actor Developer
+participant "Page Component" as Page
+participant "DataTableComponent" as DT
+participant "MatTableDataSource" as DS
+participant "MatPaginator" as Pag
+participant "MatTable" as MT
+
+Developer -> Page: declare columns + signals
+Page -> DT: <app-data-table [rows]=" " [columns]=" ">
+DT -> DS: new MatTableDataSource()
+DT -> Pag: viewChild()
+DT -> DS: dataSource.paginator = paginator
+loop for each row update
+    Page -> DT: rows() emits new array
+    DT -> DS: dataSource.data = rows()
+    DS -> MT: re-render visible page
+end
+Developer -> Page: declare <ng-template #editActionTpl let-row>
+Page -> DT: column.template = editActionTpl
+DT -> MT: render *ngTemplateOutlet per cell
+MT --> Developer: edit/delete buttons appear in row
+Developer -> MT: click edit
+MT --> Page: handleEditClick(row)
+
+@enduml

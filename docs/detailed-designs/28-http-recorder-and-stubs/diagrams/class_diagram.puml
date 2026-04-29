@@ -1,0 +1,50 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title HTTP Recorder & Stubs - Class Model
+
+class HttpRecorderInterceptor <<host>> {
+    -bridge: WindowBridgeService
+    +intercept(req, next): Observable<HttpEvent>
+}
+
+class HttpCall <<DTO>> {
+    +method: string
+    +url: string
+    +params: Record<string,string>
+}
+
+class WindowBridgeService <<host (slice 27)>> {
+    +recordHttp(call: HttpCall): void
+}
+
+class "stubJson(page, pattern, body)" as STUBJSON <<e2e support>> {
+}
+
+class "stubAllPluginEndpoints(page)" as STUBALL <<e2e support>> {
+}
+
+class DailyResultsFixture <<e2e fixture>> {
+    +mode: 'live'
+    +asOf: ISO string
+    +completed: 7
+    +total: 12
+}
+
+class "page.route(pattern, fulfill)" as PWROUTE <<Playwright>> {
+}
+
+class "Plugin tile services\n(DailyResultsService, ...)" as PLUGSVC <<plugin (unchanged)>> {
+    +HttpClient.get('api/v1.0/...')
+}
+
+HttpRecorderInterceptor ..> WindowBridgeService : recordHttp
+HttpRecorderInterceptor ..> HttpCall : creates
+PLUGSVC ..> HttpRecorderInterceptor : passes through
+STUBJSON ..> PWROUTE : await page.route
+STUBALL ..> PWROUTE : await page.route
+DailyResultsFixture ..> STUBJSON : body argument
+
+@enduml

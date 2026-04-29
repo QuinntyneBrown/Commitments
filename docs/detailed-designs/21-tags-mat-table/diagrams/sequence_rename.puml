@@ -1,0 +1,26 @@
+@startuml sequence_rename
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Tags - Inline Rename (post-migration)
+
+actor User
+participant "<input matInput>" as Input
+participant "TagsPageComponent" as Page
+participant "TagsService" as Svc
+participant "Backend API" as API
+participant "HubClient" as Hub
+
+User -> Input: focus + type new name
+Input -> Page: (ngModelChange) -> onNameInput(row, value)
+Page -> Page: row.name = value (in-memory)
+User -> Input: press Enter (or blur)
+Input -> Page: handleChange({ data: row })
+Page -> Svc: save({ tag })
+Svc -> API: PUT /api/v1.0/tags
+API --> Svc: 200
+Svc --> Page: void
+API -> Hub: broadcast Tag updated
+Hub --> Page: tag-updated event (other clients)
+
+@enduml

@@ -1,0 +1,37 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Notes Page - Component Diagram (post-migration)
+
+Container_Boundary(app, "commitments-app") {
+    Component(page, "NotesPageComponent", "Angular standalone", "Renders title link + delete cell")
+    Component(tt, "titleTpl <ng-template>", "Angular template", "<a [routerLink]='[/notes, row.slug]'>{{ row.title }}</a>")
+    Component(dt2, "deleteTpl <ng-template>", "Angular template", "<button mat-icon-button>")
+    Component(edit, "EditNotePageComponent", "Angular", "Route /notes/:slug (design 13)")
+}
+
+Container_Boundary(ui, "commitments-ui") {
+    Component(dt, "DataTableComponent", "Angular", "Generic <mat-table> wrapper")
+}
+
+Container_Boundary(svc, "Application services") {
+    Component(ns, "NotesService", "Angular", "get(), remove({ note })")
+    Component(store, "Store", "Angular signals", "notes signal")
+}
+
+Container_Boundary(router, "@angular/router") {
+    Component(rl, "RouterLink", "Angular", "Anchor-based navigation")
+    Component(r, "Router outlet", "Angular", "Resolves /notes/:slug")
+}
+
+Rel(page, dt, "Renders")
+Rel(page, tt, "Declares")
+Rel(page, dt2, "Declares")
+Rel(tt, rl, "Uses [routerLink]")
+Rel(rl, r, "Resolves segment")
+Rel(r, edit, "Activates")
+Rel(page, ns, "Calls remove()")
+Rel(page, store, "Reads notes signal")
+
+@enduml

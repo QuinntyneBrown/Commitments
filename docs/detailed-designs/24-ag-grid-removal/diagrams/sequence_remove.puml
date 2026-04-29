@@ -1,0 +1,28 @@
+@startuml sequence_remove
+!theme plain
+skinparam sequenceMessageAlign center
+
+title ag-grid Removal - Sequence
+
+actor Developer
+participant "rg pre-flight" as RG
+participant "Workspace" as WS
+participant "npm" as NPM
+participant "Jest" as J
+participant "ng build" as B
+
+Developer -> RG: rg -n 'ag-grid|AgGrid|ICellRendererAngularComp'
+RG --> Developer: 0 matches (pass)
+Developer -> WS: rm components/{edit,delete,checkbox,star}-cell
+Developer -> WS: edit package.json (drop two deps)
+Developer -> NPM: npm install
+NPM --> WS: regenerate package-lock.json
+Developer -> WS: edit styles.scss (drop two @import)
+Developer -> WS: add ag-grid-removal.spec.ts
+Developer -> J: npm test
+J --> Developer: green
+Developer -> B: npm run build
+B --> Developer: green
+Developer -> Developer: open PR (gated on 18-23 merged)
+
+@enduml

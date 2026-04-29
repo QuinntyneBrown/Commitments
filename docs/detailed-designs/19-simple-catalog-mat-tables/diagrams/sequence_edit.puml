@@ -1,0 +1,34 @@
+@startuml sequence_edit
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Simple Catalog - Edit Flow (post-migration)
+
+actor User
+participant "<app-data-table>" as DT
+participant "editTpl <ng-template>" as TPL
+participant "Page Component" as Page
+participant "EditDialogService" as Dlg
+participant "EntityService" as Svc
+participant "Backend API" as API
+
+User -> DT: click pencil icon
+DT -> TPL: render row outlet
+TPL -> Page: handleEditClick({ data: row })
+Page -> Dlg: create({ id: row.id })
+Dlg -> Svc: getById(id)
+Svc -> API: GET /api/v1.0/<resource>/{id}
+API --> Svc: 200 entity
+Svc --> Dlg: entity
+Dlg --> User: dialog opens
+User -> Dlg: edit + Save
+Dlg -> Svc: save(entity)
+Svc -> API: PUT /api/v1.0/<resource>
+API --> Svc: 200
+Svc --> Dlg: saved
+Dlg --> Page: emits saved entity
+Page -> Page: addOrUpdate(saved)
+Page -> DT: rows() signal updated
+DT -> DT: MatTableDataSource.data = rows()
+
+@enduml

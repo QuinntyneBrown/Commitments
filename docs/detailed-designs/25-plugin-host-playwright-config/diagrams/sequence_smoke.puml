@@ -1,0 +1,28 @@
+@startuml sequence_smoke
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Smoke Test - Verify Pipeline Health
+
+actor Dev
+participant "npm run e2e:host" as NPM
+participant "Playwright runner" as PW
+participant "ng serve\n(:4300)" as NG
+participant "host-smoke.spec.ts" as SPEC
+participant "Chromium page" as PAGE
+
+Dev -> NPM: invoke
+NPM -> PW: spawn with --config=playwright.host.config.ts
+PW -> NG: start (webServer.command)
+NG --> PW: ready on :4300
+PW -> SPEC: run
+SPEC -> PAGE: page.goto('/')
+PAGE -> NG: GET /
+NG --> PAGE: 200 + index.html
+SPEC -> PAGE: expect(<app-root>).toBeVisible()
+SPEC -> PAGE: expect(title).toBe('Commitments Dashboard Plugin Host')
+PAGE --> SPEC: pass
+SPEC --> PW: green
+PW --> NPM: exit 0
+
+@enduml

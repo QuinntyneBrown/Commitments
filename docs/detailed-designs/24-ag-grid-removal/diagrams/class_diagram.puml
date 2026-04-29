@@ -1,0 +1,38 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title ag-grid Removal - Removed Surface
+
+class EditCellComponent <<deleted>> {
+  - implements ICellRendererAngularComp
+}
+class DeleteCellComponent <<deleted>> {
+  - implements ICellRendererAngularComp
+}
+class CheckboxCellComponent <<deleted>> {
+  - implements ICellRendererAngularComp
+}
+class StarCellComponent <<deleted>>
+
+package "ag-grid-angular (npm)" <<deleted>> {
+  class AgGridModule
+}
+package "ag-grid-community (npm)" <<deleted>> {
+  interface ColDef
+  interface ICellRendererParams
+  interface GridApi
+}
+
+EditCellComponent ..> ICellRendererParams : agInit param
+DeleteCellComponent ..> ICellRendererParams : agInit param
+CheckboxCellComponent ..> ICellRendererParams : agInit param
+StarCellComponent ..> ICellRendererParams : agInit param
+
+note right of "ag-grid-angular (npm)"
+  Removed from package.json
+  package-lock.json regenerated
+end note
+
+@enduml

@@ -1,0 +1,38 @@
+@startuml sequence_chart_capture
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Chart.js Call Capture (Consistency Trend)
+
+actor "Playwright spec" as SPEC
+participant "TileHarness" as HARN
+participant "ConsistencyTrendTile" as TILE
+participant "ChartJsLineAdapter" as ADAPT
+participant "WindowBridgeChartRecorder" as REC
+participant "WindowBridgeService" as BRIDGE
+participant "Chart.js" as CHART
+participant "window.__pluginHarness" as WIN
+
+SPEC -> HARN: goto('commitments.consistency-trend?windowDays=14')
+HARN -> TILE: render
+TILE -> TILE: ngAfterViewInit\n_buildChartConfig(controller)
+TILE -> ADAPT: attach(canvas, config)
+ADAPT -> REC: onAttach(config)
+REC -> BRIDGE: recordChart({kind:'attach', type:'line', data, options})
+BRIDGE -> WIN: append ChartCall
+ADAPT -> CHART: new Chart(canvas, config)
+CHART --> ADAPT: chart instance
+
+TILE -> TILE: controller.load(...)\ntrend signal resolves
+TILE -> TILE: effect(() => updateDataset(dataset, labels))
+TILE -> ADAPT: updateDataset(dataset, labels)
+ADAPT -> REC: onUpdateDataset(dataset, labels)
+REC -> BRIDGE: recordChart({kind:'updateDataset', labels, dataset})
+BRIDGE -> WIN: append ChartCall
+ADAPT -> CHART: chart.update('none')
+
+SPEC -> WIN: page.evaluate(() => __pluginHarness.chart)
+WIN --> SPEC: [{kind:'attach',...}, {kind:'updateDataset',...}]
+SPEC -> SPEC: expect(chart[0].kind).toBe('attach')\nexpect(chart[0].data.labels.length).toBe(14)
+
+@enduml

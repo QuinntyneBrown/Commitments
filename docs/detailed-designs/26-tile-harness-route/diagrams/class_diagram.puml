@@ -1,0 +1,52 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Tile Harness Route - Class Model
+
+class TileHarnessComponent <<host>> {
+    -registry: TileRegistryService
+    -route: ActivatedRoute
+    -parentInjector: Injector
+    +tileId: WritableSignal<string>
+    +mode: WritableSignal<'live'|'review'>
+    +asOf: WritableSignal<string|null>
+    +descriptor: Signal<TileDescriptor|undefined>
+    +tileInjector: Signal<Injector>
+}
+
+class TileIndexComponent <<host>> {
+    -registry: TileRegistryService
+    +tiles: Signal<TileDescriptor[]>
+}
+
+interface TileContext <<framework>> {
+    +mode: Signal<DashboardMode>
+    +selectedReviewDate: Signal<string|null>
+}
+
+interface TileDescriptor <<framework>> {
+    +tileId: string
+    +displayName: string
+    +componentType: Type<unknown>
+}
+
+class TileRegistryService <<framework>> {
+    +getTile(id): TileDescriptor|undefined
+    +tiles: Signal<TileDescriptor[]>
+}
+
+class TileHarnessPage <<e2e>> {
+    +page: Page
+    +goto(tileId, opts): Promise<void>
+    +tile(): Locator
+}
+
+TileHarnessComponent ..> TileRegistryService : getTile()
+TileHarnessComponent ..> TileContext : creates and provides
+TileHarnessComponent ..> TileDescriptor : reads
+TileIndexComponent ..> TileRegistryService : tiles()
+TileHarnessPage ..> TileHarnessComponent : drives via URL
+
+@enduml

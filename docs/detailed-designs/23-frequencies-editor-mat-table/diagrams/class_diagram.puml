@@ -1,0 +1,41 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Frequencies Editor - Class Diagram (post-migration)
+
+class Frequency {
+    +frequency: number
+    +frequencyTypeId: Guid
+}
+
+class FrequenciesEditorComponent {
+    +frequencyTypes: InputSignal<FrequencyType[]>
+    +frequencies: InputSignal<Frequency[]>
+    -_local: Frequency[]
+    +rows: get => Frequency[]
+    +columns: DataTableColumn<Frequency>[]
+    +deleteTpl: TemplateRef
+    +handleFrequencySave($event): void
+    +remove($event): void
+}
+
+class FrequencyType {
+    +frequencyTypeId: Guid
+    +name: string
+}
+
+class DataTableComponent<T>
+
+FrequenciesEditorComponent --> Frequency : composes
+FrequenciesEditorComponent --> FrequencyType : selects from
+FrequenciesEditorComponent --> DataTableComponent : renders
+
+note right of FrequenciesEditorComponent
+  In-memory composition only.
+  Persistence happens in the
+  outer dialog on Save.
+end note
+
+@enduml

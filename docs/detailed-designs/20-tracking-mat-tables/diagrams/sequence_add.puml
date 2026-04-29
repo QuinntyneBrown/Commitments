@@ -1,0 +1,34 @@
+@startuml sequence_add
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Tracking - Add Commitment, render via mat-table
+
+actor User
+participant "CommitmentsPageComponent" as Page
+participant "EditCommitmentDialogService" as Dlg
+participant "CommitmentService" as Svc
+participant "Backend API" as API
+participant "<app-data-table>" as DT
+participant "MatTableDataSource" as DS
+participant "MatTable" as MT
+
+User -> Page: click FAB (+)
+Page -> Dlg: create()
+Dlg --> User: composition dialog opens
+User -> Dlg: pick behaviour + Save
+Dlg -> Svc: save(commitment)
+Svc -> API: POST /api/v1.0/commitments
+API --> Svc: 200 saved (with behaviour projection)
+Svc --> Dlg: saved
+Dlg --> Page: emits saved
+Page -> Page: addOrUpdate(saved)
+Page -> DT: rows() signal updated
+DT -> DS: dataSource.data = rows()
+DS -> MT: re-render
+loop for each visible column
+    MT -> MT: column.cell(row) -> string
+end
+MT --> User: new row appears with Type + Name resolved
+
+@enduml

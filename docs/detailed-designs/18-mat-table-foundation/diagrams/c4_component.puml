@@ -1,0 +1,32 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Mat-Table Foundation - Component Diagram
+
+Container_Boundary(ui, "commitments-ui (lib)") {
+    Component(dt, "DataTableComponent", "Angular standalone", "Generic <mat-table> wrapper with paginator + column descriptor inputs")
+    Component(idx, "Public API barrel", "TypeScript", "Re-exports DataTableComponent for app + plugin")
+}
+
+Container_Boundary(app, "commitments-app") {
+    Component(page, "Page component (e.g. CommitmentsPageComponent)", "Angular", "Owns rows signal + handlers; declares <ng-template> action cells")
+    Component(tpl, "Action-cell ng-templates", "Angular templates", "edit / delete / checkbox cells using mat-icon-button + mat-checkbox")
+    Component(legacy, "Cell renderer wrappers (legacy)", "Angular", "Edit/Delete/Checkbox/StarCellComponent — kept until slice 24")
+}
+
+Container_Boundary(mat, "@angular/material") {
+    Component(mt, "MatTableModule", "Angular", "MatTable + MatTableDataSource")
+    Component(mp, "MatPaginatorModule", "Angular", "Client-side paginator")
+    Component(mi, "MatIconModule + MatButtonModule", "Angular", "Icons inside action cells")
+}
+
+Rel(page, dt, "Renders, binds rows + columns")
+Rel(page, tpl, "Declares")
+Rel(dt, mt, "Composes")
+Rel(dt, mp, "Composes")
+Rel(tpl, mi, "Uses")
+Rel(idx, dt, "Exports")
+Rel_Back(legacy, page, "Replaced by tpl in deltas 19-23")
+
+@enduml

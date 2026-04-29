@@ -1,0 +1,23 @@
+@startuml sequence_open
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Notes - Open Note via Title Link (post-migration)
+
+actor User
+participant "<a [routerLink]>" as Link
+participant "Angular Router" as R
+participant "EditNotePageComponent" as Edit
+participant "NotesService" as Svc
+participant "Backend API" as API
+
+User -> Link: click title
+Link -> R: navigate(['/notes', slug])
+R -> Edit: activate with :slug param
+Edit -> Svc: getBySlug(slug)
+Svc -> API: GET /api/v1.0/notes/by-slug/{slug}
+API --> Svc: 200 note
+Svc --> Edit: note
+Edit --> User: editor mounts with note content
+
+@enduml

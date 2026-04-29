@@ -1,0 +1,26 @@
+<div class="data-table">
+  <table mat-table class="data-table__table" [dataSource]="dataSource" [trackBy]="trackBy()">
+    @for (column of columns(); track column.key) {
+      <ng-container [matColumnDef]="column.key">
+        <th mat-header-cell *matHeaderCellDef [style.width]="column.width">
+          {{ column.header }}
+        </th>
+        <td mat-cell *matCellDef="let row" [style.width]="column.width">
+          @if (column.template) {
+            <ng-container
+              [ngTemplateOutlet]="column.template"
+              [ngTemplateOutletContext]="{ $implicit: row }"
+            ></ng-container>
+          } @else {
+            {{ cellText(row, column) }}
+          }
+        </td>
+      </ng-container>
+    }
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns()" (click)="rowClick.emit(row)"></tr>
+  </table>
+
+  <mat-paginator [pageSize]="pageSize()" [hidePageSize]="true" showFirstLastButtons></mat-paginator>
+</div>

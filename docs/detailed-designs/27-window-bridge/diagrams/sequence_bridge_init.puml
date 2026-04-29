@@ -1,0 +1,32 @@
+@startuml sequence_bridge_init
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Window Bridge - Init and Read
+
+actor "Playwright spec" as SPEC
+participant "TileHarnessPage" as POM
+participant "Browser" as BR
+participant "TileHarnessComponent" as HARNESS
+participant "WindowBridgeService" as BRIDGE
+participant "window.__pluginHarness" as WIN
+
+SPEC -> POM: goto('id', { mode:'review', asOf:'2026-04-29' })
+POM -> BR: page.goto('/tile/id?mode=review&asOf=2026-04-29')
+BR -> HARNESS: instantiate
+HARNESS -> BRIDGE: reset()
+BRIDGE -> WIN: write snapshot { tileId:null, mode:'live', asOf:null, http:[], chart:[] }
+HARNESS -> BRIDGE: setTile('id')
+HARNESS -> BRIDGE: setMode('review')
+HARNESS -> BRIDGE: setAsOf('2026-04-29')
+note over BRIDGE,WIN: snapshot mutated in-place; window holds the same reference
+HARNESS --> BR: tile rendered
+POM --> SPEC: ready
+
+SPEC -> BR: page.evaluate(() => window.__pluginHarness)
+BR -> WIN: read
+WIN --> BR: { tileId:'id', mode:'review', asOf:'2026-04-29', http:[], chart:[] }
+BR --> SPEC: snapshot
+SPEC -> SPEC: expect(snapshot.mode).toBe('review')
+
+@enduml

@@ -1,19 +1,33 @@
 <app-primary-header>
-  {{ "Frequencies" | translate }}
+  {{ 'Frequencies' | translate }}
 </app-primary-header>
 
 <section class="page-content-container">
-  <ag-grid-angular class="ag-theme-material"
-                   [columnDefs]="columnDefs"
-                   [rowData]="frequencies()"
-                   [pagination]="true"
-                   [paginationPageSize]="5"
-                   [localeText]="localeText"
-                   [frameworkComponents]="frameworkComponents"
-                   (gridReady)="onGridReady($event)">
-  </ag-grid-angular>
-</section>
+  <app-data-table [rows]="frequencies()" [columns]="columns" [pageSize]="5"></app-data-table>
 
-<button mat-fab (click)="handleFABButtonClick()">
-<mat-icon>add</mat-icon>
-</button>
+  <ng-template #editTpl let-row>
+    <button
+      mat-icon-button
+      type="button"
+      [attr.aria-label]="'Edit ' + row.name"
+      (click)="$event.stopPropagation(); handleEditClick({ data: row })"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
+  </ng-template>
+
+  <ng-template #deleteTpl let-row>
+    <button
+      mat-icon-button
+      type="button"
+      [attr.aria-label]="'Delete ' + row.name"
+      (click)="$event.stopPropagation(); handleRemoveClick({ data: row })"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </ng-template>
+
+  <button mat-fab class="catalog-fab" type="button" (click)="handleFABButtonClick()">
+    <mat-icon>add</mat-icon>
+  </button>
+</section>

@@ -1,0 +1,26 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title ag-grid Removal - Before / After
+
+Container_Boundary(before, "Before this slice (post-23)") {
+    Component(pkg1, "ag-grid-angular ^32", "npm package", "Installed but unused at runtime")
+    Component(pkg2, "ag-grid-community ^32", "npm package", "Installed but unused at runtime")
+    Component(css, "styles.scss imports", "SCSS", "@import 'ag-grid-community/styles/...' (dead)")
+    Component(rw, "Edit/Delete/Checkbox/StarCellComponent", "Angular", "Renderer wrappers (orphan)")
+    Component(spec, "Renderer-wrapper specs", "Jest", "Cover orphan code")
+}
+
+Container_Boundary(after, "After this slice") {
+    Component(none, "(removed)", " ", "No ag-grid imports anywhere in projects/commitments-app")
+    Component(smoke, "ag-grid-removal.spec.ts", "Jest", "Sentinel test ensuring no future re-introduction")
+}
+
+Rel(pkg1, none, "deleted", "package.json")
+Rel(pkg2, none, "deleted", "package.json")
+Rel(css, none, "deleted", "styles.scss")
+Rel(rw, none, "deleted", "rm -rf components/")
+Rel(spec, smoke, "replaced by")
+
+@enduml

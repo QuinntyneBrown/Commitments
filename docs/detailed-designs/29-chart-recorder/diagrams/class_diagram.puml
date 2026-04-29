@@ -1,0 +1,61 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Chart Recorder - Class Model
+
+interface ChartRecorder <<plugin>> {
+    +onAttach(config): void
+    +onUpdateDataset(dataset, labels): void
+    +onDestroy(): void
+}
+
+class NOOP_CHART_RECORDER <<plugin (default)>> {
+    {static} (no-op implementation)
+}
+
+class CHART_RECORDER <<InjectionToken>> {
+    factory: () => NOOP_CHART_RECORDER
+}
+
+class ChartJsLineAdapter <<plugin (modified)>> {
+    -recorder: ChartRecorder = inject(CHART_RECORDER)
+    -_chart: Chart<'line'> | null
+    +attach(canvas, config): void
+    +updateDataset(dataset, labels): void
+    +destroy(): void
+}
+
+class WindowBridgeChartRecorder <<host>> {
+    -bridge: WindowBridgeService
+    +onAttach(config): void
+    +onUpdateDataset(dataset, labels): void
+    +onDestroy(): void
+}
+
+class WindowBridgeService <<host (slice 27)>> {
+    +recordChart(call: ChartCall): void
+}
+
+class ChartCall <<DTO>> {
+    kind: 'attach' | 'updateDataset' | 'destroy'
+    data?, options?, labels?, dataset?, type?
+}
+
+CHART_RECORDER ..> ChartRecorder : provides
+NOOP_CHART_RECORDER ..|> ChartRecorder
+WindowBridgeChartRecorder ..|> ChartRecorder
+ChartJsLineAdapter ..> CHART_RECORDER : inject
+ChartJsLineAdapter ..> ChartRecorder : invokes
+WindowBridgeChartRecorder ..> WindowBridgeService : recordChart
+WindowBridgeChartRecorder ..> ChartCall : creates
+
+note right of ChartJsLineAdapter
+  ~6 line delta:
+  recorder.onAttach(config) before new Chart()
+  recorder.onUpdateDataset before chart.update()
+  recorder.onDestroy before chart.destroy()
+end note
+
+@enduml

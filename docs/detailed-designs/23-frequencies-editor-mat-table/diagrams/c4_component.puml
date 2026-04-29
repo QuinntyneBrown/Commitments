@@ -1,0 +1,25 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Frequencies Editor - Component Diagram (post-migration)
+
+Container_Boundary(app, "commitments-app") {
+    Component(fe, "FrequenciesEditorComponent", "Angular standalone", "Hosts an in-memory list of frequency rules during composition")
+    Component(inner, "<app-frequency-editor>", "Angular sibling", "Add-row form (unchanged)")
+    Component(dt2, "deleteTpl <ng-template>", "Angular template", "<button mat-icon-button>")
+    Component(parent, "Outer dialog (Edit Frequency etc.)", "Angular", "Persists composed list on Save")
+}
+
+Container_Boundary(ui, "commitments-ui") {
+    Component(dt, "DataTableComponent", "Angular", "Generic <mat-table> wrapper")
+}
+
+Rel(parent, fe, "Embeds")
+Rel(fe, inner, "Listens (save) event")
+Rel(fe, dt, "Renders rows")
+Rel(fe, dt2, "Declares")
+Rel(dt, dt2, "ngTemplateOutlet on delete cell")
+Rel(parent, fe, "Reads composed _local on Save")
+
+@enduml

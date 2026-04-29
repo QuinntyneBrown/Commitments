@@ -1,0 +1,44 @@
+@startuml sequence_chart_test
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Per-Tile Chart Spec - Consistency Trend
+
+actor "Playwright spec" as SPEC
+participant "stubJson()" as STUB
+participant "TileHarnessPage" as HARN_POM
+participant "Browser" as BR
+participant "TileHarnessComponent" as HARN
+participant "ConsistencyTrendTile" as TILE
+participant "GoalTrendService" as SVC
+participant "HttpRecorderInterceptor" as HREC
+participant "ChartJsLineAdapter" as ADAPT
+participant "WindowBridgeChartRecorder" as CREC
+participant "bridge" as BRIDGE
+
+SPEC -> STUB: stubJson(page, /\\/goal-progress\\/trend/, goalTrendFixture)
+SPEC -> HARN_POM: goto('commitments.consistency-trend?goalId=g-1&windowDays=14')
+HARN_POM -> BR: page.goto(...)
+BR -> HARN: instantiate
+HARN -> BRIDGE: setTile + setMode('live')
+HARN -> TILE: NgComponentOutlet
+TILE -> SVC: getTrend('g-1','live',null,14)
+SVC -> HREC: HttpRequest GET goal-progress/trend
+HREC -> BRIDGE: recordHttp({GET, params:{goalId:'g-1', windowDays:'14'}})
+HREC --> SVC: 200 + fixture
+SVC --> TILE: trend dto
+
+TILE -> TILE: ngAfterViewInit\n_buildChartConfig
+TILE -> ADAPT: attach(canvas, config)
+ADAPT -> CREC: onAttach(config)
+CREC -> BRIDGE: recordChart({kind:'attach',data,options})
+TILE -> TILE: effect runs (signals resolved)
+TILE -> ADAPT: updateDataset(dataset, labels)
+ADAPT -> CREC: onUpdateDataset(dataset, labels)
+CREC -> BRIDGE: recordChart({kind:'updateDataset',labels,dataset})
+
+SPEC -> BR: getBridge(page)
+BR --> SPEC: { http:[...], chart:[attach, updateDataset] }
+SPEC -> SPEC: expect(chart[0].data.labels.length).toBe(14)\nexpect(chart[1].dataset.data).toEqual(fixture percentages)\nexpect(http[0].params.goalId).toBe('g-1')
+
+@enduml
