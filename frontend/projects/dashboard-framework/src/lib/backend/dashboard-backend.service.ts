@@ -22,6 +22,18 @@ export class DashboardBackendService {
     );
   }
 
+  post<T>(path: string, body: unknown): Promise<T> {
+    return firstValueFrom(this._client.post<T>(`${this._baseUrl}${path}`, body));
+  }
+
+  put<T>(path: string, body: unknown): Promise<T> {
+    return firstValueFrom(this._client.put<T>(`${this._baseUrl}${path}`, body));
+  }
+
+  delete<T = void>(path: string): Promise<T> {
+    return firstValueFrom(this._client.delete<T>(`${this._baseUrl}${path}`));
+  }
+
   private _toHttpParams(params: DashboardBackendParams = {}): HttpParams {
     return Object.entries(params).reduce((httpParams, [key, value]) => {
       if (value == null) return httpParams;
