@@ -1,0 +1,43 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Behaviours Feature Library - Class Model
+
+class BehaviourTypesPageComponent
+class BehavioursPageComponent
+class EditBehaviourTypeDialogComponent
+class EditBehaviourDialogComponent
+
+class BehaviourTypeService {
+  -backend: DashboardBackendService
+  +list(): Promise<{behaviourTypes}>
+  +create(input): Promise<{behaviourType}>
+  +update(input): Promise<{behaviourType}>
+  +remove(id): Promise<void>
+}
+class BehaviourService {
+  -backend: DashboardBackendService
+  +list(): Promise<{behaviours}>
+  +create(input): Promise<{behaviour}>
+  +update(input): Promise<{behaviour}>
+  +remove(id): Promise<void>
+}
+
+class BehaviourType { +behaviourTypeId; +name; +isCommon }
+class Behaviour { +behaviourId; +name; +behaviourTypeId }
+
+class DashboardBackendService <<framework>>
+
+BehaviourTypesPageComponent --> BehaviourTypeService
+BehaviourTypesPageComponent --> EditBehaviourTypeDialogComponent
+BehavioursPageComponent --> BehaviourService
+BehavioursPageComponent --> EditBehaviourDialogComponent
+EditBehaviourDialogComponent --> BehaviourTypeService : loads picker
+BehaviourTypeService --> DashboardBackendService
+BehaviourService --> DashboardBackendService
+BehaviourTypeService --> BehaviourType
+BehaviourService --> Behaviour
+
+@enduml

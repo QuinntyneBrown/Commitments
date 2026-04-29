@@ -1,0 +1,40 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Identity Feature Library - Component Diagram
+
+Container_Boundary(host, "commitments-identity-feature-host") {
+  Component(appCfg, "app.config.ts", "Angular", "Mock providers + identityRoutes")
+  Component(appShell, "AppComponent", "Standalone", "<router-outlet>")
+  Component(fixtures, "hostFixtures", "JSON map", "profiles, current profile")
+}
+
+Container_Boundary(lib, "@commitments/identity-feature") {
+  Component(routes, "identityRoutes", "Routes[]", "/login /profiles /my-profile")
+  Component(loginP, "LoginPageComponent", "Standalone", "Form + AuthService")
+  Component(myProfP, "MyProfilePageComponent", "Standalone", "ProfileService.current()")
+  Component(profsP, "ProfilesPageComponent", "Standalone", "ProfileService.list()")
+  Component(authS,  "AuthService", "Service", "DashboardBackendService delegate")
+  Component(profS,  "ProfileService", "Service", "DashboardBackendService delegate")
+  Component(dialog, "CreateProfileDialog", "Standalone", "Used by ProfilesPage")
+  Component(boundary, "backend-transport-boundary.spec", "Jest", "no HttpClient/fetch")
+}
+
+Container_Boundary(framework, "@commitments/dashboard-framework/testing") {
+  Component(mockKit, "provideMockDashboardFramework()", "Provider[]", "Mocks DashboardBackendService")
+  Component(bridge,  "WindowFeatureBridgeService", "Service", "window.__featureHarness")
+}
+
+Rel(appCfg, routes, "provideRouter()")
+Rel(appCfg, mockKit, "spreads")
+Rel(loginP, authS, "inject()")
+Rel(myProfP, profS, "inject()")
+Rel(profsP, profS, "inject()")
+Rel(profsP, dialog, "open()")
+Rel(authS, mockKit, "DashboardBackendService (mock)")
+Rel(profS, mockKit, "DashboardBackendService (mock)")
+Rel(mockKit, bridge, "recordBackend(call)")
+Rel(mockKit, fixtures, "lookup")
+
+@enduml

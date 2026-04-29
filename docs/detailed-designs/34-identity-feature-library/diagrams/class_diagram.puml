@@ -1,0 +1,56 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Identity Feature Library - Class Model
+
+class LoginPageComponent <<lib/pages>> {
+  -auth: AuthService
+  +submit(form): Promise<void>
+}
+class MyProfilePageComponent <<lib/pages>> {
+  -profiles: ProfileService
+  +ngOnInit(): Promise<void>
+}
+class ProfilesPageComponent <<lib/pages>> {
+  -profiles: ProfileService
+  +ngOnInit(): Promise<void>
+  +openCreate(): void
+}
+class CreateProfileDialogComponent <<lib/dialogs>>
+
+class AuthService <<lib/data>> {
+  -backend: DashboardBackendService
+  +token(input): Promise<TokenResult>
+}
+class ProfileService <<lib/data>> {
+  -backend: DashboardBackendService
+  +current(): Promise<{profile}>
+  +list(): Promise<{profiles}>
+  +uploadAvatar(form): Promise<{profile}>
+}
+class Profile <<model>> {
+  +profileId: Guid
+  +displayName: string
+  +avatarUrl: string
+}
+class TokenResult <<DTO>> {
+  +accessToken: string
+  +profileId: string
+}
+
+class DashboardBackendService <<framework>>
+class MockDashboardBackendService <<framework/testing>>
+
+LoginPageComponent --> AuthService
+MyProfilePageComponent --> ProfileService
+ProfilesPageComponent --> ProfileService
+ProfilesPageComponent --> CreateProfileDialogComponent
+AuthService --> DashboardBackendService
+ProfileService --> DashboardBackendService
+DashboardBackendService <|.. MockDashboardBackendService : provided in host
+ProfileService --> Profile
+AuthService --> TokenResult
+
+@enduml

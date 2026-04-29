@@ -1,0 +1,40 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Behaviours Feature Library - Component Diagram
+
+Container_Boundary(host, "commitments-behaviours-feature-host") {
+  Component(appCfg, "app.config.ts", "Angular", "Mock providers + behavioursRoutes")
+  Component(fixtures, "hostFixtures", "JSON map", "behaviour types + behaviours")
+}
+
+Container_Boundary(lib, "@commitments/behaviours-feature") {
+  Component(routes, "behavioursRoutes", "Routes[]", "/behaviour-types /behaviours")
+  Component(typesP, "BehaviourTypesPageComponent", "Standalone", "List + edit dialog")
+  Component(behP,   "BehavioursPageComponent", "Standalone", "List + edit dialog")
+  Component(typeS,  "BehaviourTypeService", "Service", "DashboardBackendService delegate")
+  Component(behS,   "BehaviourService", "Service", "DashboardBackendService delegate")
+  Component(typeD,  "EditBehaviourTypeDialog", "Standalone", "Form")
+  Component(behD,   "EditBehaviourDialog", "Standalone", "Form + behaviourType picker")
+  Component(boundary, "backend-transport-boundary.spec", "Jest", "Forbids direct HTTP")
+}
+
+Container_Boundary(framework, "@commitments/dashboard-framework/testing") {
+  Component(mockKit, "provideMockDashboardFramework()", "Provider[]")
+  Component(bridge,  "WindowFeatureBridgeService", "Service")
+}
+
+Rel(appCfg, routes, "provideRouter()")
+Rel(appCfg, mockKit, "spreads")
+Rel(typesP, typeS, "inject()")
+Rel(typesP, typeD, "open()")
+Rel(behP, behS, "inject()")
+Rel(behP, behD, "open()")
+Rel(behD, typeS, "loads picker options")
+Rel(typeS, mockKit, "DashboardBackendService (mock)")
+Rel(behS, mockKit, "DashboardBackendService (mock)")
+Rel(mockKit, bridge, "recordBackend(call)")
+Rel(mockKit, fixtures, "lookup")
+
+@enduml

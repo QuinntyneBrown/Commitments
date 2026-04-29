@@ -1,0 +1,39 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Feature Library Host Pattern - Component Diagram
+
+Container_Boundary(host, "commitments-<feature>-host") {
+  Component(appCfg, "app.config.ts", "Angular", "Wires providers + routes")
+  Component(appRoutes, "app.routes.ts", "Angular", "Imports <feature>Routes")
+  Component(appShell, "AppComponent", "Standalone", "<router-outlet>")
+}
+
+Container_Boundary(testKit, "@commitments/dashboard-framework/testing") {
+  Component(provider, "provideMockDashboardFramework()", "Provider factory", "Returns Provider[]")
+  Component(mockBackend, "createMockBackend()", "Factory", "Records + resolves from fixtures")
+  Component(mockMode, "MockDashboardModeService", "Class", "signal('live') / setMode")
+  Component(bridgeSvc, "WindowFeatureBridgeService", "Class", "Owns window.__featureHarness")
+}
+
+Container_Boundary(libCommon, "commitments-<feature> lib (shape)") {
+  Component(featProvider, "provideXxxFeature()", "Optional Provider[]", "Parity with plugin lib")
+  Component(featRoutesC, "<feature>Routes", "Routes[]", "Page route entries")
+  Component(libPage, "Page components", "Standalone", "Use data services")
+  Component(libSvc, "Data services", "Inject DashboardBackendService", "Promise-returning")
+  Component(boundarySpec, "backend-transport-boundary.spec.ts", "Jest", "Forbids HttpClient/fetch/etc")
+}
+
+Rel(appCfg, provider, "spreads into providers[]")
+Rel(appCfg, appRoutes, "provideRouter()")
+Rel(appRoutes, featRoutesC, "imports + concats")
+Rel(provider, mockBackend, "useFactory")
+Rel(provider, mockMode, "useClass")
+Rel(provider, bridgeSvc, "registers")
+Rel(mockBackend, bridgeSvc, "recordBackend(call)")
+Rel(libPage, libSvc, "inject()")
+Rel(libSvc, mockBackend, "DashboardBackendService token (mocked)")
+Rel(boundarySpec, libSvc, "asserts no HttpClient/fetch")
+
+@enduml

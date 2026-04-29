@@ -1,0 +1,34 @@
+@startuml sequence_add_behaviour
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Add Behaviour - Spec asserts boundary call shape
+
+actor Spec
+participant "BehavioursPagePo" as Po
+participant Browser
+participant "BehavioursPageComponent" as Page
+participant "EditBehaviourDialog" as Dlg
+participant "BehaviourService" as Svc
+participant "MockDashboardBackendService" as Mock
+participant "WindowFeatureBridgeService" as Bridge
+
+Spec -> Po: pom.openAdd()
+Po -> Browser: click "Add Behaviour"
+Browser -> Page: openAdd()
+Page -> Dlg: open dialog
+Spec -> Dlg: fill name + type
+Spec -> Dlg: submit
+Dlg -> Svc: create({name, behaviourTypeId})
+Svc -> Mock: post('api/v1.0/behaviours', body)
+Mock -> Bridge: recordBackend({method:'post', path, body})
+Mock --> Svc: {behaviour}
+Svc --> Page: refresh list
+Page -> Svc: list()
+Svc -> Mock: get('api/v1.0/behaviours')
+Mock -> Bridge: recordBackend({method:'get', path})
+Spec -> Po: pom.backendCalls()
+Po --> Spec: [post, get]
+Spec -> Spec: expect both calls
+
+@enduml

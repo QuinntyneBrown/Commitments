@@ -1,0 +1,40 @@
+@startuml sequence_spec_run
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Spec asserts feature uses dashboard-framework boundary correctly
+
+actor "Playwright Spec" as Spec
+participant "PagePo (POM)" as Po
+participant "Browser" as Browser
+participant "AppComponent" as App
+participant "Page Component" as Page
+participant "DataService\n(lib)" as Svc
+participant "MockDashboardBackendService" as Mock
+participant "WindowFeatureBridgeService" as Bridge
+database "hostFixtures" as Fix
+
+Spec -> Po: new NotesListPo(page)
+Spec -> Po: pom.goto()
+Po -> Browser: page.goto('/notes')
+Browser -> App: bootstrap with provideMockDashboardFramework()
+App -> Bridge: setFeature('notes'), setRoute('/notes')
+App -> Page: render NotesListComponent
+Page -> Svc: notesService.getAll()
+Svc -> Mock: get('api/v1.0/notes')
+Mock -> Bridge: recordBackend({method:'get', path:'api/v1.0/notes'})
+Mock -> Fix: lookup 'api/v1.0/notes'
+Fix --> Mock: { notes: [...] }
+Mock --> Svc: Promise<{notes}>
+Svc --> Page: { notes: [...] }
+Page --> Browser: rendered DOM
+
+Spec -> Po: pom.rows()
+Po -> Browser: page.locator('tr')
+Browser --> Po: 3 rows
+Spec -> Po: pom.backendCalls()
+Po -> Browser: page.evaluate(() => __featureHarness.backendCalls)
+Browser --> Po: [{method:'get', path:'api/v1.0/notes'}]
+Spec -> Spec: expect(calls).toEqual([...])
+
+@enduml

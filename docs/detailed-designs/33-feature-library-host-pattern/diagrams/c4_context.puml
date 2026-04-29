@@ -1,0 +1,26 @@
+@startuml c4_context
+!theme plain
+!include <C4/C4_Context>
+
+title Feature Library Host Pattern - System Context
+
+Person(dev, "Frontend Developer", "Lifts a feature out of commitments-app")
+Person(spec, "Playwright Spec Author", "Writes acceptance tests for the feature")
+
+System_Boundary(sb, "Feature Library Extraction Pattern") {
+  System(featLib, "commitments-<feature> library", "Pages + data services\nDashboardBackendService boundary")
+  System(featHost, "commitments-<feature>-host app", "Standalone Angular SPA\nMocks dashboard-framework in DI\nExposes window.__featureHarness")
+  System(playwright, "Playwright suite", "POM specs assert DOM + boundary calls")
+}
+
+System_Ext(framework, "@commitments/dashboard-framework", "Real services in prod;\nmocked in host")
+System_Ext(api, "Commitments API", "Never called from host")
+
+Rel(dev, featLib, "Adds pages, services")
+Rel(dev, featHost, "Configures + serves locally")
+Rel(spec, playwright, "Writes/runs specs")
+Rel(playwright, featHost, "Drives via HTTP", "127.0.0.1:43xx")
+Rel(featLib, framework, "Imports DashboardBackendService")
+Rel(framework, api, "HTTPS (real)", "production only")
+
+@enduml

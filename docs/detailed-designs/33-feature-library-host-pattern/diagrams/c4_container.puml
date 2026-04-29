@@ -1,0 +1,35 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title Feature Library Host Pattern - Container Diagram
+
+Person(spec, "Playwright Spec")
+
+System_Boundary(host, "commitments-<feature>-host SPA") {
+  Container(app, "Host App Shell", "Angular standalone", "router-outlet, app.config.ts")
+  Container(featRoutes, "<feature>Routes", "Routes[]", "Imported from the lib")
+  Container(mockKit, "Mock DI Kit", "@commitments/dashboard-framework/testing", "provideMockDashboardFramework()")
+  Container(bridge, "WindowFeatureBridgeService", "Angular service", "Owns window.__featureHarness")
+}
+
+System_Boundary(lib, "commitments-<feature> library") {
+  Container(pages, "Page components", "Standalone Angular", "Lifted from commitments-app")
+  Container(services, "Data services", "Inject DashboardBackendService", "Promise-based delegates")
+  Container(boundary, "backend-transport-boundary.spec.ts", "Jest", "Build-time guard against direct HTTP")
+}
+
+ContainerDb(fixtures, "hostFixtures", "Inline JSON map", "{ path -> response }")
+
+Rel(spec, app, "page.goto / page.evaluate", "HTTP")
+Rel(app, featRoutes, "provideRouter()")
+Rel(app, mockKit, "appConfig.providers")
+Rel(mockKit, bridge, "Constructs / wires recording mocks")
+Rel(featRoutes, pages, "Mounts under /")
+Rel(pages, services, "inject()")
+Rel(services, mockKit, "DashboardBackendService (mock)")
+Rel(mockKit, bridge, "recordBackend(call)")
+Rel(mockKit, fixtures, "Resolves response by path")
+Rel(spec, bridge, "page.evaluate(() => __featureHarness)")
+
+@enduml

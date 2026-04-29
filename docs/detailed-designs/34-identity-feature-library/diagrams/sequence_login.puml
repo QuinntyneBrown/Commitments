@@ -1,0 +1,28 @@
+@startuml sequence_login
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Login spec asserts boundary call shape
+
+actor Spec
+participant "LoginPagePo" as Po
+participant Browser
+participant "LoginPageComponent" as Page
+participant "AuthService" as Auth
+participant "MockDashboardBackendService" as Mock
+participant "WindowFeatureBridgeService" as Bridge
+
+Spec -> Po: pom.signIn('alice','pw')
+Po -> Browser: fill + click submit
+Browser -> Page: form.submit()
+Page -> Auth: token({username, password})
+Auth -> Mock: post('api/v1.0/users/token', body)
+Mock -> Bridge: recordBackend({method:'post', path, body})
+Mock --> Auth: {accessToken,profileId}
+Auth --> Page: result
+Spec -> Po: pom.backendCalls()
+Po -> Browser: page.evaluate(() => __featureHarness.backendCalls)
+Browser --> Po: [{method:'post', path:'api/v1.0/users/token', body:{...}}]
+Spec -> Spec: expect(...).toEqual(...)
+
+@enduml

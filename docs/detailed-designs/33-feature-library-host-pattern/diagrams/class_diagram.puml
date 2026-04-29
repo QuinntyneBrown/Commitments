@@ -1,0 +1,68 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Feature Library Host Pattern - Class Model
+
+class WindowFeatureBridgeService <<framework/testing>> {
+    -snapshot: FeatureHarnessSnapshot
+    +setFeature(name): void
+    +setRoute(path): void
+    +recordBackend(call): void
+    +recordOverlay(call): void
+    +recordRealtime(call): void
+    +reset(): void
+}
+
+class FeatureHarnessSnapshot <<DTO>> {
+    +feature: string | null
+    +route: string | null
+    +backendCalls: BackendCall[]
+    +overlayCalls: OverlayCall[]
+    +realtimeCalls: RealtimeCall[]
+}
+
+class BackendCall <<DTO>> {
+    +method: 'get'|'post'|'put'|'delete'
+    +path: string
+    +params?: Record<string, unknown>
+    +body?: unknown
+}
+
+class MockDashboardBackendService <<framework/testing>> {
+    -bridge: WindowFeatureBridgeService
+    -responses: Record<string, unknown>
+    +get<T>(path, params): Promise<T>
+    +post<T>(path, body): Promise<T>
+}
+
+class MockDashboardModeService <<framework/testing>> {
+    +mode: signal<'live'|'review'>
+    +setMode(m): void
+}
+
+class "provideMockDashboardFramework()" as PROVIDE <<factory>> {
+    +returns: Provider[]
+}
+
+class "window.__featureHarness" as WIN <<global>>
+
+class BasePage <<e2e POM>> {
+    #page: Page
+    +{abstract} url: string
+    +goto(): Promise<void>
+    +bridge(): Promise<FeatureHarnessSnapshot>
+    +backendCalls(): Promise<BackendCall[]>
+}
+
+WindowFeatureBridgeService o-- FeatureHarnessSnapshot : owns
+WindowFeatureBridgeService ..> WIN : writes once
+FeatureHarnessSnapshot *-- BackendCall : backendCalls[]
+MockDashboardBackendService ..> WindowFeatureBridgeService : recordBackend
+PROVIDE ..> MockDashboardBackendService : useFactory
+PROVIDE ..> MockDashboardModeService : useClass
+PROVIDE ..> WindowFeatureBridgeService : registers
+BasePage ..> WIN : page.evaluate
+
+@enduml
