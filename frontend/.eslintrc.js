@@ -16,10 +16,5 @@ module.exports = {
         ],
       },
     },
-    {
-      files: ['*.stories.ts'],
-      extends: ['plugin:storybook/recommended'],
-      rules: {},
-    },
   ],
 };

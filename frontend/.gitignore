@@ -51,6 +51,3 @@ Thumbs.db
 # Angular cache
 .angular/
 
-# Storybook
-storybook-static/
-
