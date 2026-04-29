@@ -9,10 +9,7 @@ import { PlaceholderPageComponent } from './components/placeholder-page/placehol
 import { LoginPageComponent } from './pages/login/login-page/login-page.component';
 import { ActivitiesPageComponent } from './pages/activities/activities-page/activities-page.component';
 import { ToDosPageComponent } from './pages/to-dos/to-dos-page/to-dos-page.component';
-import { NotesPageComponent } from './pages/notes/notes-page/notes-page.component';
-import { EditNotePageComponent } from './pages/edit-note/edit-note-page/edit-note-page.component';
-import { TagsPageComponent } from './pages/tags/tags-page/tags-page.component';
-import { NotesByTagPageComponent } from './pages/notes-by-tag/notes-by-tag-page/notes-by-tag-page.component';
+import { EditNotePageComponent, NotesByTagPageComponent, NotesPageComponent, TagsPageComponent } from '@commitments/notes-feature';
 import { CardsPageComponent } from './pages/cards/cards-page/cards-page.component';
 import { CardLayoutsPageComponent } from './pages/card-layouts/card-layouts-page/card-layouts-page.component';
 import { BehaviourTypesPageComponent, BehavioursPageComponent } from '@commitments/behaviours-feature';

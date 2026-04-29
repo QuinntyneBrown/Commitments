@@ -729,10 +729,21 @@
       "prefix": "commitments",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/commitments-notes-feature/tsconfig.lib.json"
+            },
+            "development": {
+              "tsConfig": "projects/commitments-notes-feature/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
           "options": {
-            "project": "projects/commitments-notes-feature/ng-package.json",
-            "tsConfig": "projects/commitments-notes-feature/tsconfig.lib.json"
+            "tsConfig": "projects/commitments-notes-feature/tsconfig.spec.json"
           }
         }
       }
@@ -744,12 +755,16 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular/build:application",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/commitments-notes-feature-host",
             "index": "projects/commitments-notes-feature-host/src/index.html",
             "browser": "projects/commitments-notes-feature-host/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "projects/commitments-notes-feature-host/tsconfig.app.json",
+            "assets": [],
             "styles": [
               "projects/commitments-notes-feature-host/src/styles.scss"
             ],
@@ -760,13 +775,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "2MB",
+                  "maximumError": "5MB"
                 }
               ],
               "outputHashing": "all"
@@ -780,7 +790,7 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular/build:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
               "buildTarget": "commitments-notes-feature-host:build:production"

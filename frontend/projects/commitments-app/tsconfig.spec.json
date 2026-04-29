@@ -17,7 +17,8 @@
       "@commitments/dashboard-plugin": ["projects/commitments-dashboard-plugin/src/public-api.ts"],
       "@commitments/behaviours-feature": ["projects/commitments-behaviours-feature/src/public-api.ts"],
       "@commitments/frequencies-feature": ["projects/commitments-frequencies-feature/src/public-api.ts"],
-      "@commitments/commitments-feature": ["projects/commitments-commitments-feature/src/public-api.ts"]
+      "@commitments/commitments-feature": ["projects/commitments-commitments-feature/src/public-api.ts"],
+      "@commitments/notes-feature": ["projects/commitments-notes-feature/src/public-api.ts"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts"],

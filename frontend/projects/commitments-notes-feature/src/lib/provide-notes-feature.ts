@@ -1,2 +1,5 @@
 import { Provider } from '@angular/core';
-export function provideNotesFeature(): Provider[] { return []; }
+
+export function provideNotesFeature(): Provider[] {
+  return [];
+}

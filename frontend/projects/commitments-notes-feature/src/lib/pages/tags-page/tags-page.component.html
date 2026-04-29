@@ -1,6 +1,17 @@
 <h1>Tags</h1>
-<ul>
-  @for (t of tags(); track t.tagId) {
-    <li>{{ t.name }}</li>
-  }
-</ul>
+<table role="table">
+  <thead>
+    <tr role="row">
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (t of tags(); track t.tagId) {
+      <tr role="row">
+        <td>{{ t.name }}</td>
+        <td></td>
+      </tr>
+    }
+  </tbody>
+</table>

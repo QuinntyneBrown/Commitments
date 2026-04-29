@@ -1,12 +1,8 @@
 <h1>Edit Note</h1>
-<form [formGroup]="form" (ngSubmit)="save()">
+<form (ngSubmit)="save()">
   <mat-form-field>
     <mat-label>Title</mat-label>
-    <input matInput formControlName="title" />
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Body</mat-label>
-    <textarea matInput formControlName="body"></textarea>
+    <input matInput [formControl]="titleControl" />
   </mat-form-field>
   <button mat-flat-button type="submit">Save</button>
 </form>

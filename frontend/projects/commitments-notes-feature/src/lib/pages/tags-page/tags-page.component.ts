@@ -1,12 +1,12 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 import { TagsService } from '../../data/tags.service';
-import { Tag } from '../../data/tag';
+import { Tag } from '../../data/note';
 
 @Component({
   selector: 'commitments-tags-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [MatButtonModule],
   templateUrl: './tags-page.component.html',
 })
 export class TagsPageComponent implements OnInit {

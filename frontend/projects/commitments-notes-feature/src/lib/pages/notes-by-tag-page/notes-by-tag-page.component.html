@@ -1,6 +1,4 @@
 <h1>Notes by Tag</h1>
-<ul>
-  @for (n of notes(); track n.noteId) {
-    <li><a [routerLink]="['/edit-note', n.slug]">{{ n.title }}</a></li>
-  }
-</ul>
+@for (n of notes(); track n.noteId) {
+  <a [routerLink]="['/edit-note', n.slug]">{{ n.title }}</a>
+}
