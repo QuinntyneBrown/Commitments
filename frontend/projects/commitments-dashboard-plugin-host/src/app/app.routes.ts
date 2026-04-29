@@ -2,8 +2,11 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 import { Routes } from '@angular/router';
-import { DashboardShellComponent } from '@commitments/dashboard-framework';
+import { TileHarnessComponent } from './harness/tile-harness.component';
+import { TileIndexComponent } from './harness/tile-index.component';
 
 export const routes: Routes = [
-  { path: '', component: DashboardShellComponent }
+  { path: 'tile/:tileId', component: TileHarnessComponent },
+  { path: '', redirectTo: 'tile-index', pathMatch: 'full' },
+  { path: 'tile-index', component: TileIndexComponent }
 ];

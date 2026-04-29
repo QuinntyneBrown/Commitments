@@ -4,7 +4,7 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideDashboardFramework } from '@commitments/dashboard-framework';
 import { provideCommitmentsDashboardPlugin } from '@commitments/dashboard-plugin';
 
@@ -14,7 +14,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(),
     provideAnimations(),
-    provideRouter(routes),
+    provideRouter(routes, withComponentInputBinding()),
     ...provideDashboardFramework(),
     ...provideCommitmentsDashboardPlugin()
   ]

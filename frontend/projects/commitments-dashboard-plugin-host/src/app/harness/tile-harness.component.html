@@ -1,0 +1,5 @@
+@if (descriptor()) {
+  <ng-container *ngComponentOutlet="descriptor()!.componentType; injector: tileInjector()" />
+} @else {
+  <p data-testid="tile-not-found">Unknown tile: {{ tileId() }}</p>
+}
