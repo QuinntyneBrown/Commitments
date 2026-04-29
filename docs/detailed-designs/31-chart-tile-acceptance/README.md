@@ -1,6 +1,6 @@
 # Chart-Tile Acceptance Suite — Detailed Design
 
-**Status:** Accepted
+**Status:** Complete
 
 ## 1. Overview
 
