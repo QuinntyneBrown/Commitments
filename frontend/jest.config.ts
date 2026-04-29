@@ -40,6 +40,7 @@ const config: Config = {
     '**/projects/commitments-commitments-feature/src/**/*.spec.ts',
     '**/projects/commitments-tracking-feature/src/**/*.spec.ts',
     '**/projects/commitments-notes-feature/src/**/*.spec.ts',
+    '**/projects/commitments-cards-feature/src/**/*.spec.ts',
   ],
   testPathIgnorePatterns: ['/node_modules/', '/e2e/'],
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
@@ -63,6 +64,8 @@ const config: Config = {
       '<rootDir>/projects/commitments-tracking-feature/src/public-api.ts',
     '^@commitments/notes-feature$':
       '<rootDir>/projects/commitments-notes-feature/src/public-api.ts',
+    '^@commitments/cards-feature$':
+      '<rootDir>/projects/commitments-cards-feature/src/public-api.ts',
   },
   transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
   passWithNoTests: true,
