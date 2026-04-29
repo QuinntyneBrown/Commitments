@@ -41,6 +41,7 @@ coverage/
 # Playwright
 test-results/
 playwright-report/
+playwright-*-report/
 playwright/.cache/
 
 # System Files
