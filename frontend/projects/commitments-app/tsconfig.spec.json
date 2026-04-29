@@ -2,10 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/spec",
-    "types": [
-      "jest",
-      "node"
-    ],
+    "types": ["jest", "node"],
     "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "paths": {
@@ -20,11 +17,6 @@
       "@commitments/dashboard-plugin": ["projects/commitments-dashboard-plugin/src/public-api.ts"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts"
-  ],
-  "exclude": [
-    "e2e/**/*"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.d.ts"],
+  "exclude": ["e2e/**/*"]
 }

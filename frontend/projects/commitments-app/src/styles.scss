@@ -12,15 +12,14 @@ html {
   height: 100%;
   width: 100%;
   background-color: var(--cui-bg, #121212);
-  color: var(--cui-text-primary, #FFFFFF);
+  color: var(--cui-text-primary, #ffffff);
 }
 
 .snackbar--error .mdc-snackbar__surface {
-  background-color: var(--cui-warn, #F44336) !important;
+  background-color: var(--cui-warn, #f44336) !important;
   color: #fff !important;
 }
 
 .snackbar--error .mdc-snackbar__surface button {
   color: #fff !important;
 }
-
