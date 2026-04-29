@@ -1,6 +1,6 @@
 # Behaviours Feature Library — Detailed Design
 
-**Status:** Draft
+**Status:** Accepted
 
 ## 1. Overview
 
