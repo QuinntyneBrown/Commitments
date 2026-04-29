@@ -1,5 +1,7 @@
 # Window Bridge — Detailed Design
 
+**Status:** Accepted
+
 ## 1. Overview
 
 Goal: expose a small, deliberately-shaped object on `window` so Playwright tests can read what the harness *believes* is true (current `tileId`, `mode`, `asOf`) and — once slices 28 and 29 land — what *interactions* the plugin tile has produced (HTTP requests, chart configs).
