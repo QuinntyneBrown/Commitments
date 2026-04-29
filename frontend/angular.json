@@ -320,6 +320,97 @@
           }
         }
       }
+    },
+    "commitments-identity-feature": {
+      "projectType": "library",
+      "root": "projects/commitments-identity-feature",
+      "sourceRoot": "projects/commitments-identity-feature/src",
+      "prefix": "commitments",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/commitments-identity-feature/tsconfig.lib.json"
+            },
+            "development": {
+              "tsConfig": "projects/commitments-identity-feature/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/commitments-identity-feature/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "commitments-identity-feature-host": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/commitments-identity-feature-host",
+      "sourceRoot": "projects/commitments-identity-feature-host/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/commitments-identity-feature-host",
+            "index": "projects/commitments-identity-feature-host/src/index.html",
+            "browser": "projects/commitments-identity-feature-host/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/commitments-identity-feature-host/tsconfig.app.json",
+            "assets": [],
+            "styles": [
+              "projects/commitments-identity-feature-host/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2MB",
+                  "maximumError": "5MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kB",
+                  "maximumError": "10kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "commitments-identity-feature-host:build:production"
+            },
+            "development": {
+              "buildTarget": "commitments-identity-feature-host:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
     }
   },
   "cli": {

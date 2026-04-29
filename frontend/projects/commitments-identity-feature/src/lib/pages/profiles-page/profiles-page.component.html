@@ -1,0 +1,11 @@
+<h1>Profiles</h1>
+<table role="table">
+  <thead>
+    <tr role="row"><th>Name</th></tr>
+  </thead>
+  <tbody>
+    @for (p of profiles(); track p.profileId) {
+      <tr role="row"><td>{{ p.name }}</td></tr>
+    }
+  </tbody>
+</table>

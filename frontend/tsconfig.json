@@ -45,6 +45,9 @@
       ],
       "@commitments-dashboard-plugin-host/*": [
         "projects/commitments-dashboard-plugin-host/src/app/*"
+      ],
+      "@commitments/identity-feature": [
+        "projects/commitments-identity-feature/src/public-api.ts"
       ]
     }
   },
@@ -84,6 +87,15 @@
     },
     {
       "path": "./projects/commitments-dashboard-plugin-host/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/commitments-identity-feature/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/commitments-identity-feature/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/commitments-identity-feature-host/tsconfig.app.json"
     }
   ]
 }
