@@ -18,24 +18,19 @@ export class EditFrequencyPageComponent implements OnInit {
 
   readonly frequencyId = input<string | undefined>(undefined);
   readonly frequency = signal<Frequency | null>(null);
-
-  readonly form = new FormGroup({
-    frequency: new FormControl<number | null>(null),
-    frequencyTypeId: new FormControl<number | null>(null),
-  });
+  readonly form = new FormGroup({ frequency: new FormControl<number | null>(null) });
 
   async ngOnInit(): Promise<void> {
     const id = this.frequencyId();
     if (id) {
       const { frequency } = await this._service.getById(id);
       this.frequency.set(frequency);
-      this.form.patchValue({ frequency: frequency.frequency, frequencyTypeId: frequency.frequencyTypeId });
+      this.form.patchValue({ frequency: frequency.frequency });
     }
   }
 
   async save(): Promise<void> {
     const id = this.frequencyId();
-    const value = this.form.value;
-    await this._service.save({ ...(id ? { frequencyId: Number(id) } : {}), ...value });
+    await this._service.save({ ...(id ? { frequencyId: Number(id) } : {}), ...this.form.value });
   }
 }
