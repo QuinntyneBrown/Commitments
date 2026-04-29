@@ -1,6 +1,6 @@
 # Design 44 — commitments-app core/ dead-code removal
 
-Status: Accepted
+Status: Complete
 
 ## Context
 
