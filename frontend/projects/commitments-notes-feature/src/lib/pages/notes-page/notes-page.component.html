@@ -1,0 +1,12 @@
+<h1>Notes</h1>
+<table role="table">
+  <thead><tr role="row"><th>Title</th><th>Actions</th></tr></thead>
+  <tbody>
+    @for (n of notes(); track n.noteId) {
+      <tr role="row">
+        <td><a [routerLink]="['/edit-note', n.slug]">{{ n.title }}</a></td>
+        <td>{{ n.slug }}</td>
+      </tr>
+    }
+  </tbody>
+</table>
