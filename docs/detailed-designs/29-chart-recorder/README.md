@@ -1,5 +1,7 @@
 # Chart Recorder — Detailed Design
 
+**Status:** Accepted
+
 ## 1. Overview
 
 Goal: let Playwright tests assert that a plugin tile **called Chart.js with the right data and options** — without trying to introspect the canvas pixel grid or the rendered chart.
