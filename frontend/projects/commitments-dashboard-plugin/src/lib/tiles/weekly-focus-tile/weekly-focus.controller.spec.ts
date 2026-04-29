@@ -32,38 +32,36 @@ describe('WeeklyFocusController', () => {
     expect(controller.weekLabel()).toBe('');
   });
 
-  it('exposes the loaded focus areas', () => {
-    get.mockReturnValue({ subscribe: (fn: (v: WeeklyFocusDto) => void) => fn(dtoFixture()) });
+  it('exposes the loaded focus areas', async () => {
+    get.mockResolvedValue(dtoFixture());
 
     const controller = new WeeklyFocusController(service);
-    controller.load('live', null);
+    await controller.load('live', null);
 
     expect(controller.focusAreas()).toHaveLength(3);
     expect(controller.focusAreas()[0].name).toBe('Move');
   });
 
-  it('formats the week label as "MMM d – MMM d"', () => {
-    get.mockReturnValue({ subscribe: (fn: (v: WeeklyFocusDto) => void) => fn(dtoFixture()) });
+  it('formats the week label as "MMM d – MMM d"', async () => {
+    get.mockResolvedValue(dtoFixture());
 
     const controller = new WeeklyFocusController(service);
-    controller.load('live', null);
+    await controller.load('live', null);
 
     expect(controller.weekLabel()).toBe('Apr 20 – Apr 26');
   });
 
-  it('mirrors the mode passed to load', () => {
-    get.mockReturnValue({
-      subscribe: (fn: (v: WeeklyFocusDto) => void) => fn(dtoFixture({ mode: 'review' }))
-    });
+  it('mirrors the mode passed to load', async () => {
+    get.mockResolvedValue(dtoFixture({ mode: 'review' }));
 
     const controller = new WeeklyFocusController(service);
-    controller.load('review', '2026-04-15T18:30:00Z');
+    await controller.load('review', '2026-04-15T18:30:00Z');
 
     expect(controller.mode()).toBe('review');
   });
 
   it('passes asOf through to the service', () => {
-    get.mockReturnValue({ subscribe: () => {} });
+    get.mockResolvedValue(dtoFixture());
 
     const controller = new WeeklyFocusController(service);
     controller.load('review', '2026-04-15T18:30:00Z');

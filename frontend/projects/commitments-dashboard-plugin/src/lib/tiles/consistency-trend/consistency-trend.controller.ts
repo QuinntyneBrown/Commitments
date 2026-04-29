@@ -77,21 +77,19 @@ export class ConsistencyTrendController {
     private readonly _selectedReviewDate: Signal<string | null>
   ) {}
 
-  load(goalId: string, windowDays: number = 30): void {
+  load(goalId: string, windowDays: number = 30): Promise<void> {
     this._goalId = goalId;
     this._windowDays = windowDays;
-    this._fetch();
+    return this._fetch();
   }
 
-  private _fetch(): void {
+  private async _fetch(): Promise<void> {
     if (!this._goalId) return;
     if (this._goalId === 'demo-goal') {
       this.trend.set(synthesizeDemoTrend(this._windowDays, this._mode(), this._selectedReviewDate()));
       return;
     }
-    this._service
-      .getTrend(this._goalId, this._mode(), this._selectedReviewDate(), this._windowDays)
-      .subscribe(trend => this.trend.set(trend));
+    this.trend.set(await this._service.getTrend(this._goalId, this._mode(), this._selectedReviewDate(), this._windowDays));
   }
 }
 

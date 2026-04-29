@@ -31,32 +31,28 @@ describe('RelationsController', () => {
     expect(controller.isEmpty()).toBe(true);
   });
 
-  it('exposes the loaded relations', () => {
-    get.mockReturnValue({
-      subscribe: (fn: (v: RelationsSummaryDto) => void) => fn(dtoFixture())
-    });
+  it('exposes the loaded relations', async () => {
+    get.mockResolvedValue(dtoFixture());
 
     const controller = new RelationsController(service);
-    controller.load('live', null);
+    await controller.load('live', null);
 
     expect(controller.relations()).toHaveLength(3);
     expect(controller.relations()[0].name).toBe('Health');
     expect(controller.isEmpty()).toBe(false);
   });
 
-  it('mirrors the mode passed to load', () => {
-    get.mockReturnValue({
-      subscribe: (fn: (v: RelationsSummaryDto) => void) => fn(dtoFixture({ mode: 'review' }))
-    });
+  it('mirrors the mode passed to load', async () => {
+    get.mockResolvedValue(dtoFixture({ mode: 'review' }));
 
     const controller = new RelationsController(service);
-    controller.load('review', '2026-04-15T18:30:00Z');
+    await controller.load('review', '2026-04-15T18:30:00Z');
 
     expect(controller.mode()).toBe('review');
   });
 
   it('passes asOf through to the service', () => {
-    get.mockReturnValue({ subscribe: () => {} });
+    get.mockResolvedValue(dtoFixture());
 
     const controller = new RelationsController(service);
     controller.load('review', '2026-04-15T18:30:00Z');
@@ -64,14 +60,11 @@ describe('RelationsController', () => {
     expect(get).toHaveBeenCalledWith('2026-04-15T18:30:00Z');
   });
 
-  it('reports isEmpty=true when relations array is empty', () => {
-    get.mockReturnValue({
-      subscribe: (fn: (v: RelationsSummaryDto) => void) =>
-        fn(dtoFixture({ relations: [], totalCommitments: 0 }))
-    });
+  it('reports isEmpty=true when relations array is empty', async () => {
+    get.mockResolvedValue(dtoFixture({ relations: [], totalCommitments: 0 }));
 
     const controller = new RelationsController(service);
-    controller.load('live', null);
+    await controller.load('live', null);
 
     expect(controller.isEmpty()).toBe(true);
   });

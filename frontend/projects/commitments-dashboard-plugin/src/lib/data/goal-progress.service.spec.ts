@@ -19,9 +19,9 @@ describe('GoalProgressService (DI shape, source)', () => {
     expect(src).not.toMatch(/\bconstructor\s*\(/);
   });
 
-  it('uses inject(GOAL_PROGRESS_BASE_URL, { optional: true }) for the base URL (bug-140)', () => {
-    expect(src).toMatch(
-      /private\s+readonly\s+_baseUrl\s*=\s*inject\(\s*GOAL_PROGRESS_BASE_URL\s*,\s*\{\s*optional:\s*true\s*\}\s*\)/
-    );
+  it('delegates backend communication to DashboardBackendService', () => {
+    expect(src).toContain('DashboardBackendService');
+    expect(src).toMatch(/private\s+readonly\s+_backend\s*=\s*inject\(\s*DashboardBackendService\s*\)/);
+    expect(src).not.toContain('HttpClient');
   });
 });

@@ -6,7 +6,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { provideTranslateService } from '@ngx-translate/core';
-import { provideDashboardFramework } from '@commitments/dashboard-framework';
+import { DASHBOARD_BACKEND_BASE_URL, provideDashboardFramework } from '@commitments/dashboard-framework';
 import { provideCommitmentsDashboardPlugin } from '@commitments/dashboard-plugin';
 
 import { routes } from './app.routes';
@@ -23,6 +23,7 @@ export const appConfig: ApplicationConfig = {
     provideTranslateService({ defaultLanguage: 'en' }),
     ...provideDashboardFramework(),
     ...provideCommitmentsDashboardPlugin(),
+    { provide: DASHBOARD_BACKEND_BASE_URL, useValue: 'http://localhost:52748/' },
     { provide: baseUrl, useValue: 'http://localhost:52748/' },
     { provide: minimumLogLevel, useValue: LogLevel.Trace }
   ]

@@ -29,31 +29,29 @@ describe('DailyResultsController', () => {
     expect(controller.percentage()).toBe(0);
   });
 
-  it('exposes completed/total/percentage from the loaded snapshot', () => {
+  it('exposes completed/total/percentage from the loaded snapshot', async () => {
     const dto = dtoFixture({ completed: 7, total: 9 });
-    get.mockReturnValue({ subscribe: (fn: (v: DailyResultsDto) => void) => fn(dto) });
+    get.mockResolvedValue(dto);
 
     const controller = new DailyResultsController(service);
-    controller.load('live', null);
+    await controller.load('live', null);
 
     expect(controller.completed()).toBe(7);
     expect(controller.total()).toBe(9);
     expect(controller.percentage()).toBe(78);
   });
 
-  it('mirrors the mode passed to load', () => {
-    get.mockReturnValue({
-      subscribe: (fn: (v: DailyResultsDto) => void) => fn(dtoFixture({ mode: 'review' }))
-    });
+  it('mirrors the mode passed to load', async () => {
+    get.mockResolvedValue(dtoFixture({ mode: 'review' }));
 
     const controller = new DailyResultsController(service);
-    controller.load('review', '2026-04-15T18:30:00Z');
+    await controller.load('review', '2026-04-15T18:30:00Z');
 
     expect(controller.mode()).toBe('review');
   });
 
   it('passes asOf through to the service', () => {
-    get.mockReturnValue({ subscribe: () => {} });
+    get.mockResolvedValue(dtoFixture());
 
     const controller = new DailyResultsController(service);
     controller.load('review', '2026-04-15T18:30:00Z');
@@ -61,24 +59,20 @@ describe('DailyResultsController', () => {
     expect(get).toHaveBeenCalledWith('2026-04-15T18:30:00Z');
   });
 
-  it('percentage is zero when total is zero', () => {
-    get.mockReturnValue({
-      subscribe: (fn: (v: DailyResultsDto) => void) => fn(dtoFixture({ completed: 0, total: 0 }))
-    });
+  it('percentage is zero when total is zero', async () => {
+    get.mockResolvedValue(dtoFixture({ completed: 0, total: 0 }));
 
     const controller = new DailyResultsController(service);
-    controller.load('live', null);
+    await controller.load('live', null);
 
     expect(controller.percentage()).toBe(0);
   });
 
-  it('percentage rounds to nearest integer', () => {
-    get.mockReturnValue({
-      subscribe: (fn: (v: DailyResultsDto) => void) => fn(dtoFixture({ completed: 1, total: 3 }))
-    });
+  it('percentage rounds to nearest integer', async () => {
+    get.mockResolvedValue(dtoFixture({ completed: 1, total: 3 }));
 
     const controller = new DailyResultsController(service);
-    controller.load('live', null);
+    await controller.load('live', null);
 
     expect(controller.percentage()).toBe(33);
   });

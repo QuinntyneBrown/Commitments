@@ -39,12 +39,12 @@ describe('ConsistencyTrendController', () => {
     trendService = { getTrend } as unknown as GoalTrendService;
   });
 
-  it('exposes summary signals from the loaded trend', () => {
+  it('exposes summary signals from the loaded trend', async () => {
     const trend = trendFixture();
-    getTrend.mockReturnValue({ subscribe: (fn: (v: GoalTrendDto) => void) => fn(trend) });
+    getTrend.mockResolvedValue(trend);
 
     const controller = new ConsistencyTrendController(trendService, mode, selectedReviewDate);
-    controller.load('goal-1');
+    await controller.load('goal-1');
 
     expect(controller.currentPercentage()).toBe(20);
     expect(controller.peakPercentage()).toBe(20);
@@ -52,46 +52,46 @@ describe('ConsistencyTrendController', () => {
     expect(controller.deltaLabel()).toBe('+3% vs prior 14d');
   });
 
-  it('highlights the last point in live mode', () => {
+  it('highlights the last point in live mode', async () => {
     const trend = trendFixture();
-    getTrend.mockReturnValue({ subscribe: (fn: (v: GoalTrendDto) => void) => fn(trend) });
+    getTrend.mockResolvedValue(trend);
 
     const controller = new ConsistencyTrendController(trendService, mode, selectedReviewDate);
-    controller.load('goal-1');
+    await controller.load('goal-1');
 
     expect(controller.highlightedIndex()).toBe(4);
   });
 
-  it('highlights the matching date in review mode', () => {
+  it('highlights the matching date in review mode', async () => {
     mode.set('review');
     selectedReviewDate.set('2026-04-24');
     const trend = trendFixture({ mode: 'review' });
-    getTrend.mockReturnValue({ subscribe: (fn: (v: GoalTrendDto) => void) => fn(trend) });
+    getTrend.mockResolvedValue(trend);
 
     const controller = new ConsistencyTrendController(trendService, mode, selectedReviewDate);
-    controller.load('goal-1');
+    await controller.load('goal-1');
 
     expect(controller.highlightedIndex()).toBe(2);
   });
 
-  it('returns -1 highlightedIndex when the selected date is not in the window', () => {
+  it('returns -1 highlightedIndex when the selected date is not in the window', async () => {
     mode.set('review');
     selectedReviewDate.set('2025-01-01');
     const trend = trendFixture({ mode: 'review' });
-    getTrend.mockReturnValue({ subscribe: (fn: (v: GoalTrendDto) => void) => fn(trend) });
+    getTrend.mockResolvedValue(trend);
 
     const controller = new ConsistencyTrendController(trendService, mode, selectedReviewDate);
-    controller.load('goal-1');
+    await controller.load('goal-1');
 
     expect(controller.highlightedIndex()).toBe(-1);
   });
 
-  it('toChartDataset returns a non-empty data array', () => {
+  it('toChartDataset returns a non-empty data array', async () => {
     const trend = trendFixture();
-    getTrend.mockReturnValue({ subscribe: (fn: (v: GoalTrendDto) => void) => fn(trend) });
+    getTrend.mockResolvedValue(trend);
 
     const controller = new ConsistencyTrendController(trendService, mode, selectedReviewDate);
-    controller.load('goal-1');
+    await controller.load('goal-1');
 
     const dataset = controller.chartDataset();
     expect(dataset.data.length).toBe(5);
@@ -130,28 +130,32 @@ describe('ConsistencyTrendController', () => {
   });
 
   describe('deltaPercentage / deltaCaption (bug-055)', () => {
-    function loadWithLabel(label: string) {
+    async function loadWithLabel(label: string) {
       const trend = trendFixture({ deltaLabel: label });
-      getTrend.mockReturnValue({ subscribe: (fn: (v: GoalTrendDto) => void) => fn(trend) });
+      getTrend.mockResolvedValue(trend);
       const controller = new ConsistencyTrendController(trendService, mode, selectedReviewDate);
-      controller.load('goal-1');
+      await controller.load('goal-1');
       return controller;
     }
 
-    it('parses a positive deltaPercentage', () => {
-      expect(loadWithLabel('+12% vs prior 14d').deltaPercentage()).toBe(12);
+    it('parses a positive deltaPercentage', async () => {
+      const controller = await loadWithLabel('+12% vs prior 14d');
+      expect(controller.deltaPercentage()).toBe(12);
     });
 
-    it('parses a negative deltaPercentage', () => {
-      expect(loadWithLabel('-3% vs prior 14d').deltaPercentage()).toBe(-3);
+    it('parses a negative deltaPercentage', async () => {
+      const controller = await loadWithLabel('-3% vs prior 14d');
+      expect(controller.deltaPercentage()).toBe(-3);
     });
 
-    it('parses zero deltaPercentage', () => {
-      expect(loadWithLabel('±0% vs prior 14d').deltaPercentage()).toBe(0);
+    it('parses zero deltaPercentage', async () => {
+      const controller = await loadWithLabel('±0% vs prior 14d');
+      expect(controller.deltaPercentage()).toBe(0);
     });
 
-    it('extracts the caption suffix after the percent sign', () => {
-      expect(loadWithLabel('+12% vs prior 14d').deltaCaption()).toBe('vs prior 14d');
+    it('extracts the caption suffix after the percent sign', async () => {
+      const controller = await loadWithLabel('+12% vs prior 14d');
+      expect(controller.deltaCaption()).toBe('vs prior 14d');
     });
   });
 

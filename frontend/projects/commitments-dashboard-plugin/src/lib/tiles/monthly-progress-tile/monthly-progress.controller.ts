@@ -16,8 +16,8 @@ export class MonthlyProgressController {
 
   constructor(private readonly _service: MonthlyProgressService) {}
 
-  load(mode: DashboardMode, asOf: string | null): void {
+  async load(mode: DashboardMode, asOf: string | null): Promise<void> {
     this.mode.set(mode);
-    this._service.get(asOf).subscribe((dto) => this.snapshot.set(dto));
+    this.snapshot.set(await this._service.get(asOf));
   }
 }

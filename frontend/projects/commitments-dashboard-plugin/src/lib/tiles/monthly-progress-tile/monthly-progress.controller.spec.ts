@@ -33,44 +33,39 @@ describe('MonthlyProgressController', () => {
     expect(controller.isEmpty()).toBe(true);
   });
 
-  it('exposes the four loaded buckets', () => {
-    get.mockReturnValue({ subscribe: (fn: (v: MonthlyProgressDto) => void) => fn(dtoFixture()) });
+  it('exposes the four loaded buckets', async () => {
+    get.mockResolvedValue(dtoFixture());
 
     const controller = new MonthlyProgressController(service);
-    controller.load('live', null);
+    await controller.load('live', null);
 
     expect(controller.buckets()).toHaveLength(4);
     expect(controller.buckets()[3].percentage).toBe(86);
   });
 
-  it('mirrors the snapshot isEmpty flag', () => {
-    get.mockReturnValue({
-      subscribe: (fn: (v: MonthlyProgressDto) => void) =>
-        fn(dtoFixture({
-          buckets: dtoFixture().buckets.map(b => ({ ...b, completed: 0, percentage: 0 })),
-          isEmpty: true
-        }))
-    });
+  it('mirrors the snapshot isEmpty flag', async () => {
+    get.mockResolvedValue(dtoFixture({
+      buckets: dtoFixture().buckets.map(b => ({ ...b, completed: 0, percentage: 0 })),
+      isEmpty: true
+    }));
 
     const controller = new MonthlyProgressController(service);
-    controller.load('live', null);
+    await controller.load('live', null);
 
     expect(controller.isEmpty()).toBe(true);
   });
 
-  it('mirrors the mode passed to load', () => {
-    get.mockReturnValue({
-      subscribe: (fn: (v: MonthlyProgressDto) => void) => fn(dtoFixture({ mode: 'review' }))
-    });
+  it('mirrors the mode passed to load', async () => {
+    get.mockResolvedValue(dtoFixture({ mode: 'review' }));
 
     const controller = new MonthlyProgressController(service);
-    controller.load('review', '2026-04-15T18:30:00Z');
+    await controller.load('review', '2026-04-15T18:30:00Z');
 
     expect(controller.mode()).toBe('review');
   });
 
   it('passes asOf through to the service', () => {
-    get.mockReturnValue({ subscribe: () => {} });
+    get.mockResolvedValue(dtoFixture());
 
     const controller = new MonthlyProgressController(service);
     controller.load('review', '2026-04-15T18:30:00Z');

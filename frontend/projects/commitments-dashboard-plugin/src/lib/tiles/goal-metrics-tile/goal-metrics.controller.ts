@@ -3,7 +3,6 @@
 
 import { Injectable, computed, signal } from '@angular/core';
 import { DashboardMode } from '@commitments/dashboard-framework';
-import { forkJoin } from 'rxjs';
 
 import {
   GoalProgressDto,
@@ -55,13 +54,13 @@ export class GoalMetricsController {
     this._goalId = goalId;
   }
 
-  load(mode: DashboardMode, asOf: string | null): void {
+  async load(mode: DashboardMode, asOf: string | null): Promise<void> {
     this.mode.set(mode);
     if (!this._goalId) return;
 
     if (mode === 'live') {
       this.today.set(null);
-      this._service.getCurrent(this._goalId).subscribe((dto) => this.current.set(dto));
+      this.current.set(await this._service.getCurrent(this._goalId));
       return;
     }
 
@@ -70,12 +69,11 @@ export class GoalMetricsController {
       this.current.set(null);
       return;
     }
-    forkJoin({
-      historical: this._service.getAt(this._goalId, asOf),
-      now: this._service.getCurrent(this._goalId)
-    }).subscribe(({ historical, now }) => {
-      this.current.set(historical);
-      this.today.set(now);
-    });
+    const [historical, now] = await Promise.all([
+      this._service.getAt(this._goalId, asOf),
+      this._service.getCurrent(this._goalId)
+    ]);
+    this.current.set(historical);
+    this.today.set(now);
   }
 }

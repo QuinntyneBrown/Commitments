@@ -1,12 +1,8 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable, InjectionToken, inject } from '@angular/core';
-import { DashboardMode } from '@commitments/dashboard-framework';
-import { Observable } from 'rxjs';
-
-export const WEEKLY_FOCUS_BASE_URL = new InjectionToken<string>('WEEKLY_FOCUS_BASE_URL');
+import { Injectable, inject } from '@angular/core';
+import { DashboardBackendService, DashboardMode } from '@commitments/dashboard-framework';
 
 export interface WeeklyFocusItemDto {
   name: string;
@@ -24,15 +20,11 @@ export interface WeeklyFocusDto {
 
 @Injectable({ providedIn: 'root' })
 export class WeeklyFocusService {
-  private readonly _client = inject(HttpClient);
-  private readonly _baseUrl = inject(WEEKLY_FOCUS_BASE_URL, { optional: true });
+  private readonly _backend = inject(DashboardBackendService);
 
-  get(asOf: string | null): Observable<WeeklyFocusDto> {
-    let params = new HttpParams();
-    if (asOf) {
-      params = params.set('asOf', new Date(asOf).toISOString());
-    }
-    const url = `${this._baseUrl ?? ''}api/v1.0/weekly-focus`;
-    return this._client.get<WeeklyFocusDto>(url, { params });
+  get(asOf: string | null): Promise<WeeklyFocusDto> {
+    return this._backend.get<WeeklyFocusDto>('api/v1.0/weekly-focus', {
+      asOf: asOf ? new Date(asOf) : null
+    });
   }
 }

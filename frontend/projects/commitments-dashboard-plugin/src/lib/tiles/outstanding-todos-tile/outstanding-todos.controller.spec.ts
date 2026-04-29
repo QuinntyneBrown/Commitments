@@ -27,19 +27,17 @@ describe('OutstandingTodosController', () => {
     expect(controller.deltaTone()).toBe('neutral');
   });
 
-  it('exposes count from the loaded snapshot', () => {
-    get.mockReturnValue({
-      subscribe: (fn: (v: OutstandingTodosDto) => void) => fn(dtoFixture({ count: 7 }))
-    });
+  it('exposes count from the loaded snapshot', async () => {
+    get.mockResolvedValue(dtoFixture({ count: 7 }));
 
     const controller = new OutstandingTodosController(service);
-    controller.load('live', null);
+    await controller.load('live', null);
 
     expect(controller.count()).toBe(7);
   });
 
   it('passes asOf and includeToday=true to service in review mode', () => {
-    get.mockReturnValue({ subscribe: () => {} });
+    get.mockResolvedValue(dtoFixture());
 
     const controller = new OutstandingTodosController(service);
     controller.load('review', '2026-04-15T18:30:00Z');
@@ -48,7 +46,7 @@ describe('OutstandingTodosController', () => {
   });
 
   it('passes null asOf in live mode', () => {
-    get.mockReturnValue({ subscribe: () => {} });
+    get.mockResolvedValue(dtoFixture());
 
     const controller = new OutstandingTodosController(service);
     controller.load('live', null);
@@ -56,64 +54,49 @@ describe('OutstandingTodosController', () => {
     expect(get).toHaveBeenCalledWith('live', null);
   });
 
-  it('returns null delta when not in review mode', () => {
-    get.mockReturnValue({
-      subscribe: (fn: (v: OutstandingTodosDto) => void) =>
-        fn(dtoFixture({ mode: 'live', count: 4, todayCount: 4 }))
-    });
+  it('returns null delta when not in review mode', async () => {
+    get.mockResolvedValue(dtoFixture({ mode: 'live', count: 4, todayCount: 4 }));
 
     const controller = new OutstandingTodosController(service);
-    controller.load('live', null);
+    await controller.load('live', null);
 
     expect(controller.deltaLabel()).toBeNull();
   });
 
-  it('returns null delta when todayCount is missing', () => {
-    get.mockReturnValue({
-      subscribe: (fn: (v: OutstandingTodosDto) => void) =>
-        fn(dtoFixture({ mode: 'review', count: 6 }))
-    });
+  it('returns null delta when todayCount is missing', async () => {
+    get.mockResolvedValue(dtoFixture({ mode: 'review', count: 6 }));
 
     const controller = new OutstandingTodosController(service);
-    controller.load('review', '2026-04-15T18:30:00Z');
+    await controller.load('review', '2026-04-15T18:30:00Z');
 
     expect(controller.deltaLabel()).toBeNull();
   });
 
-  it('formats positive delta as "+N vs today"', () => {
-    get.mockReturnValue({
-      subscribe: (fn: (v: OutstandingTodosDto) => void) =>
-        fn(dtoFixture({ mode: 'review', count: 6, todayCount: 4 }))
-    });
+  it('formats positive delta as "+N vs today"', async () => {
+    get.mockResolvedValue(dtoFixture({ mode: 'review', count: 6, todayCount: 4 }));
 
     const controller = new OutstandingTodosController(service);
-    controller.load('review', '2026-04-15T18:30:00Z');
+    await controller.load('review', '2026-04-15T18:30:00Z');
 
     expect(controller.deltaLabel()).toBe('+2 vs today');
     expect(controller.deltaTone()).toBe('success');
   });
 
-  it('formats negative delta as "-N vs today" with warn tone', () => {
-    get.mockReturnValue({
-      subscribe: (fn: (v: OutstandingTodosDto) => void) =>
-        fn(dtoFixture({ mode: 'review', count: 2, todayCount: 5 }))
-    });
+  it('formats negative delta as "-N vs today" with warn tone', async () => {
+    get.mockResolvedValue(dtoFixture({ mode: 'review', count: 2, todayCount: 5 }));
 
     const controller = new OutstandingTodosController(service);
-    controller.load('review', '2026-04-15T18:30:00Z');
+    await controller.load('review', '2026-04-15T18:30:00Z');
 
     expect(controller.deltaLabel()).toBe('-3 vs today');
     expect(controller.deltaTone()).toBe('warn');
   });
 
-  it('formats zero delta as "±0 vs today" with neutral tone', () => {
-    get.mockReturnValue({
-      subscribe: (fn: (v: OutstandingTodosDto) => void) =>
-        fn(dtoFixture({ mode: 'review', count: 4, todayCount: 4 }))
-    });
+  it('formats zero delta as "±0 vs today" with neutral tone', async () => {
+    get.mockResolvedValue(dtoFixture({ mode: 'review', count: 4, todayCount: 4 }));
 
     const controller = new OutstandingTodosController(service);
-    controller.load('review', '2026-04-15T18:30:00Z');
+    await controller.load('review', '2026-04-15T18:30:00Z');
 
     expect(controller.deltaLabel()).toBe('±0 vs today');
     expect(controller.deltaTone()).toBe('neutral');

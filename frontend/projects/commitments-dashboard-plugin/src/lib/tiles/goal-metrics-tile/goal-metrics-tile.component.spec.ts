@@ -1,19 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import { of } from 'rxjs';
 
 import { GoalProgressService } from '../../data/goal-progress.service';
 import { GoalMetricsTileComponent } from './goal-metrics-tile.component';
 
 describe('GoalMetricsTileComponent (load behavior)', () => {
   it('triggers getCurrent with default goalId on mount in standalone mode (bug-141)', () => {
-    const getCurrent = jest.fn().mockReturnValue(of({
+    const getCurrent = jest.fn().mockResolvedValue({
       goalId: 'demo-goal',
       count: 0,
       target: 0,
       asOf: '2026-04-28T00:00:00Z'
-    }));
+    });
     const getAt = jest.fn();
 
     TestBed.configureTestingModule({

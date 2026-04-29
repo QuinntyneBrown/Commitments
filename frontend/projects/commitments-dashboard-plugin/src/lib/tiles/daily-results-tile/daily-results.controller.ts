@@ -20,8 +20,8 @@ export class DailyResultsController {
 
   constructor(private readonly _service: DailyResultsService) {}
 
-  load(mode: DashboardMode, asOf: string | null): void {
+  async load(mode: DashboardMode, asOf: string | null): Promise<void> {
     this.mode.set(mode);
-    this._service.get(asOf).subscribe((dto) => this.snapshot.set(dto));
+    this.snapshot.set(await this._service.get(asOf));
   }
 }
