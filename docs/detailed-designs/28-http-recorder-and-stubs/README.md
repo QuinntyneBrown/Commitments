@@ -1,5 +1,7 @@
 # HTTP Recorder & Stubs — Detailed Design
 
+**Status:** Accepted
+
 ## 1. Overview
 
 Goal: let Playwright tests **stub** the HTTP responses the plugin tile receives (so tests are deterministic and the backend is never touched), and **record** the HTTP requests the plugin actually issued (so tests can assert the tile called the right endpoint with the right query params).
