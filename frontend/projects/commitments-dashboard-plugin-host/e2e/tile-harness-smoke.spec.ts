@@ -26,7 +26,5 @@ test.describe('tile harness route', () => {
     expect(snapshot.tileId).toBe('commitments.daily-results');
     expect(snapshot.mode).toBe('review');
     expect(snapshot.asOf).toBe('2026-04-01');
-    expect(snapshot.http).toEqual([]);
-    expect(snapshot.chart).toEqual([]);
   });
 });

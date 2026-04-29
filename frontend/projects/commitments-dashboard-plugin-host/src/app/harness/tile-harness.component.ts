@@ -32,6 +32,7 @@ export class TileHarnessComponent {
   readonly tileId = signal<string>('');
   readonly mode = signal<DashboardMode>('live');
   readonly asOf = signal<string | null>(null);
+  readonly tileInputs = signal<Record<string, unknown>>({});
 
   readonly descriptor = computed(() => this.registry.getTile(this.tileId()));
 
@@ -60,6 +61,13 @@ export class TileHarnessComponent {
       this.asOf.set(q.get('asOf'));
       this.bridge.setMode(mode);
       this.bridge.setAsOf(q.get('asOf'));
+      const inputs: Record<string, unknown> = {};
+      for (const key of q.keys()) {
+        if (key === 'mode' || key === 'asOf') continue;
+        const v = q.get(key)!;
+        inputs[key] = v !== '' && !isNaN(Number(v)) ? Number(v) : v;
+      }
+      this.tileInputs.set(inputs);
     });
   }
 }

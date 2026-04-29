@@ -1,5 +1,5 @@
 @if (descriptor()) {
-  <ng-container *ngComponentOutlet="descriptor()!.componentType; injector: tileInjector()" />
+  <ng-container *ngComponentOutlet="descriptor()!.componentType; injector: tileInjector(); inputs: tileInputs()" />
 } @else {
   <p data-testid="tile-not-found">Unknown tile: {{ tileId() }}</p>
 }
