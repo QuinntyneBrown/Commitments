@@ -5,9 +5,13 @@ Pull any changes from origin
 
 Find a detailed design in C:\projects\Commitments\docs\detailed-designs that is not implemented respecting the sequential order.
 
+Start at C:\projects\Commitments\docs\detailed-designs\26-tile-harness-route as the previous designs are already implemented.
+
 Mark the design as accepted.
 
 COMMIT ALL CHANGES AND PUSH TO ORIGIN
+
+Verify the design still makes sense as the code base has changed and update design if needed. The designed code shall be radically simple
 
 Implement the detailed design using Acceptance Test Driven Development.
 
