@@ -5,7 +5,6 @@ import { DashboardShellComponent } from '@commitments/dashboard-framework';
 
 import { routes } from './app.routes';
 import { DashboardLayoutComponent } from './components/dashboard-layout/dashboard-layout.component';
-import { PlaceholderPageComponent } from './components/placeholder-page/placeholder-page.component';
 import { LoginPageComponent, ProfilesPageComponent, MyProfilePageComponent } from '@commitments/identity-feature';
 import { ActivitiesPageComponent, ToDosPageComponent } from '@commitments/tracking-feature';
 import { EditNotePageComponent, NotesByTagPageComponent, NotesPageComponent, TagsPageComponent } from '@commitments/notes-feature';
@@ -33,13 +32,6 @@ describe('app.routes', () => {
     const index = home?.children?.find((c) => c.path === '');
     expect(index).toBeDefined();
     expect(index!.component).toBe(DashboardShellComponent);
-  });
-
-  it('contains no PlaceholderPageComponent routes — every page is fully wired (designs 02–17)', () => {
-    const home = routes.find((r) => r.path === '');
-    home?.children?.forEach(child => {
-      if (child.path !== '') expect(child.component).not.toBe(PlaceholderPageComponent);
-    });
   });
 
   it('routes /profiles to ProfilesPageComponent (design 02-Profiles Slice B)', () => {

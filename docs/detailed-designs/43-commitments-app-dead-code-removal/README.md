@@ -1,6 +1,6 @@
 # commitments-app Dead-Code Removal — Detailed Design
 
-**Status:** Accepted
+**Status:** Complete
 
 ## 1. Overview
 

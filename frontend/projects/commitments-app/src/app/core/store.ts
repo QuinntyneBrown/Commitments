@@ -5,8 +5,7 @@ import { Injectable, inject, signal, WritableSignal } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 import { HubClient } from './hub-client';
-import { Note } from '../models/note';
-import { Tag } from '../models/tag';
+import { Note, Tag } from '@commitments/notes-feature';
 
 export interface NoteSavedPayload { noteId: string; title: string; kind: 'Created' | 'Updated'; }
 export interface NoteRemovedPayload { noteId: string; }
