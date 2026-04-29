@@ -1,0 +1,10 @@
+<h1>Behaviours</h1>
+<button mat-flat-button (click)="ngOnInit()">Add Behaviour</button>
+<table role="table">
+  <thead><tr role="row"><th>Name</th></tr></thead>
+  <tbody>
+    @for (b of behaviours(); track b.behaviourId) {
+      <tr role="row"><td>{{ b.name }}</td></tr>
+    }
+  </tbody>
+</table>

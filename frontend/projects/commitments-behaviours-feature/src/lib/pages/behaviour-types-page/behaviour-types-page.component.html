@@ -1,0 +1,10 @@
+<h1>Behaviour Types</h1>
+<button mat-flat-button (click)="ngOnInit()">Add Behaviour Type</button>
+<table role="table">
+  <thead><tr role="row"><th>Name</th></tr></thead>
+  <tbody>
+    @for (bt of behaviourTypes(); track bt.behaviourTypeId) {
+      <tr role="row"><td>{{ bt.name }}</td></tr>
+    }
+  </tbody>
+</table>

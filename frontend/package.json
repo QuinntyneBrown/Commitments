@@ -27,6 +27,10 @@
     "build:identity-host": "ng build commitments-identity-feature-host",
     "e2e:identity-host": "playwright test --config=playwright.identity-host.config.ts",
     "e2e:identity-host:ui": "playwright test --config=playwright.identity-host.config.ts --ui",
+    "start:behaviours-host": "ng serve commitments-behaviours-feature-host",
+    "build:behaviours-host": "ng build commitments-behaviours-feature-host",
+    "e2e:behaviours-host": "playwright test --config=playwright.behaviours-host.config.ts",
+    "e2e:behaviours-host:ui": "playwright test --config=playwright.behaviours-host.config.ts --ui",
     "storybook": "ng run commitments-app:storybook",
     "build-storybook": "ng run commitments-app:build-storybook"
   },

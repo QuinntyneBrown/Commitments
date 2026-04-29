@@ -411,6 +411,87 @@
           "defaultConfiguration": "development"
         }
       }
+    },
+    "commitments-behaviours-feature": {
+      "projectType": "library",
+      "root": "projects/commitments-behaviours-feature",
+      "sourceRoot": "projects/commitments-behaviours-feature/src",
+      "prefix": "commitments",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/commitments-behaviours-feature/tsconfig.lib.json"
+            },
+            "development": {
+              "tsConfig": "projects/commitments-behaviours-feature/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/commitments-behaviours-feature/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "commitments-behaviours-feature-host": {
+      "projectType": "application",
+      "root": "projects/commitments-behaviours-feature-host",
+      "sourceRoot": "projects/commitments-behaviours-feature-host/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/commitments-behaviours-feature-host",
+            "index": "projects/commitments-behaviours-feature-host/src/index.html",
+            "browser": "projects/commitments-behaviours-feature-host/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/commitments-behaviours-feature-host/tsconfig.app.json",
+            "assets": [],
+            "styles": [
+              "projects/commitments-behaviours-feature-host/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2MB",
+                  "maximumError": "5MB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "commitments-behaviours-feature-host:build:production"
+            },
+            "development": {
+              "buildTarget": "commitments-behaviours-feature-host:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
     }
   },
   "cli": {
