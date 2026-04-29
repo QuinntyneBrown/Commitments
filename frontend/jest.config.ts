@@ -39,6 +39,7 @@ const config: Config = {
     '**/projects/commitments-frequencies-feature/src/**/*.spec.ts',
     '**/projects/commitments-commitments-feature/src/**/*.spec.ts',
     '**/projects/commitments-tracking-feature/src/**/*.spec.ts',
+    '**/projects/commitments-notes-feature/src/**/*.spec.ts',
   ],
   testPathIgnorePatterns: ['/node_modules/', '/e2e/'],
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
@@ -60,6 +61,8 @@ const config: Config = {
       '<rootDir>/projects/commitments-commitments-feature/src/public-api.ts',
     '^@commitments/tracking-feature$':
       '<rootDir>/projects/commitments-tracking-feature/src/public-api.ts',
+    '^@commitments/notes-feature$':
+      '<rootDir>/projects/commitments-notes-feature/src/public-api.ts',
   },
   transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
   passWithNoTests: true,
