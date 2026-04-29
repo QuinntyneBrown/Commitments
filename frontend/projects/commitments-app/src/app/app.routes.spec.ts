@@ -13,6 +13,7 @@ import { BehaviourTypesPageComponent, BehavioursPageComponent } from '@commitmen
 import { CommitmentsPageComponent } from '@commitments/commitments-feature';
 import { EditFrequencyPageComponent, FrequenciesPageComponent } from '@commitments/frequencies-feature';
 import { SettingsPageComponent } from '@commitments/settings-feature';
+import { authGuard } from '@commitments/identity-feature';
 
 describe('app.routes', () => {
   it('maps /login to LoginPageComponent', () => {
@@ -25,6 +26,11 @@ describe('app.routes', () => {
     const home = routes.find((r) => r.path === '');
     expect(home).toBeDefined();
     expect(home!.component).toBe(DashboardLayoutComponent);
+  });
+
+  it('applies authGuard to the dashboard layout route (design 45)', () => {
+    const home = routes.find((r) => r.path === '');
+    expect(home?.canActivate).toContain(authGuard);
   });
 
   it('renders DashboardShellComponent at the index child of the layout', () => {
