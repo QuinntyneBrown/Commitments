@@ -7,6 +7,7 @@ export class DailyResultsTilePage {
   get root(): Locator { return this.harness.page.getByTestId('daily-results-tile'); }
   get metricValue(): Locator { return this.root.locator('.metric__value'); }
   get progressBar(): Locator { return this.root.locator('[role="progressbar"]'); }
+  get statusPillLabel(): Locator { return this.root.locator('.status-pill__label'); }
 
   async expectMetric(completed: number, total: number): Promise<void> {
     await expect(this.metricValue).toHaveText(`${completed} / ${total}`);

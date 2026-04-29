@@ -9,6 +9,7 @@ export class ConsistencyTrendTilePage {
   get currentPercent(): Locator { return this.root.locator('.metric-header__value'); }
   get subCaption(): Locator { return this.root.locator('.metric-header__sub-caption'); }
   get deltaValue(): Locator { return this.root.locator('.delta-badge__value'); }
+  get statusPillLabel(): Locator { return this.root.locator('.status-pill__label'); }
 
   async expectCanvasVisible(): Promise<void> {
     await expect(this.canvas).toBeVisible();
