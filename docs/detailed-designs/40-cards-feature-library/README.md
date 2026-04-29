@@ -1,6 +1,6 @@
 # Cards Feature Library — Detailed Design
 
-**Status:** Accepted
+**Status:** Complete
 
 ## 1. Overview
 
