@@ -1,11 +1,10 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ProfileService } from '@commitments/identity-feature';
 
 @Component({
   selector: 'commitments-settings-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './settings-page.component.html',
 })
 export class SettingsPageComponent implements OnInit {

@@ -13,3 +13,9 @@ test('renders the fixture profile display name', async ({ page }) => {
   await pom.goto();
   await expect(pom.displayName).toHaveText('Test User');
 });
+
+test('renders a non-empty version string', async ({ page }) => {
+  const pom = new SettingsPagePo(page);
+  await pom.goto();
+  await expect(pom.version).not.toBeEmpty();
+});
