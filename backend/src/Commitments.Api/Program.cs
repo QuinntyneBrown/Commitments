@@ -234,6 +234,49 @@ try
                 });
                 identityContext.SaveChanges();
             }
+
+            var seedProfile = identityContext.Profiles.First(p => p.UserId == seedUser.UserId);
+
+            var healthType = commitmentsContext.BehaviourTypes.First(bt => bt.Name == "Health");
+            if (!commitmentsContext.Behaviours.Any(b => b.Name == "Exercise"))
+            {
+                commitmentsContext.Behaviours.Add(new Commitments.Domain.BehaviourAggregate.Behaviour
+                {
+                    Name = "Exercise",
+                    Slug = "exercise",
+                    Description = "Daily exercise",
+                    BehaviourTypeId = healthType.BehaviourTypeId
+                });
+                commitmentsContext.SaveChanges();
+            }
+
+            var exerciseBehaviour = commitmentsContext.Behaviours.First(b => b.Name == "Exercise");
+
+            var weekStart = DateTime.UtcNow.Date.AddDays(-(int)DateTime.UtcNow.DayOfWeek);
+            if (!commitmentsContext.Activities.Any(a => a.ProfileId == seedProfile.ProfileId))
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    commitmentsContext.Activities.Add(new Commitments.Domain.ActivityAggregate.Activity
+                    {
+                        ProfileId = seedProfile.ProfileId,
+                        BehaviourId = exerciseBehaviour.BehaviourId,
+                        PerformedOn = weekStart.AddDays(i),
+                        Description = "Morning workout"
+                    });
+                }
+                commitmentsContext.SaveChanges();
+            }
+
+            if (!commitmentsContext.Commitments.Any(c => c.ProfileId == seedProfile.ProfileId))
+            {
+                commitmentsContext.Commitments.Add(new Commitments.Domain.CommitmentAggregate.Commitment
+                {
+                    ProfileId = seedProfile.ProfileId,
+                    BehaviourId = exerciseBehaviour.BehaviourId
+                });
+                commitmentsContext.SaveChanges();
+            }
         }
 
         if (args.Contains("stop"))
