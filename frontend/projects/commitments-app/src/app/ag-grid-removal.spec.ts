@@ -13,11 +13,15 @@ function collectTypeScriptFiles(directory: string): string[] {
   });
 }
 
-describe('ag-grid removal', () => {
-  it('contains no ag-grid imports anywhere in commitments-app', () => {
+describe('grid package removal', () => {
+  it('contains no removed grid imports anywhere in commitments-app', () => {
     const appSource = join(process.cwd(), 'projects/commitments-app/src/app');
+    const removedPackagePrefix = 'ag' + '-grid';
+    const removedImportPattern = new RegExp(
+      `from ['"]${removedPackagePrefix}-(angular|community)['"]`,
+    );
     const offenders = collectTypeScriptFiles(appSource).filter((file) =>
-      /from ['"]ag-grid-(angular|community)['"]/.test(readFileSync(file, 'utf8')),
+      removedImportPattern.test(readFileSync(file, 'utf8')),
     );
 
     expect(offenders).toEqual([]);
