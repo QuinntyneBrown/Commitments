@@ -9,13 +9,14 @@ import { OverlayRefWrapper } from '../../core/overlay-ref-wrapper';
 import { FrequencyTypeService } from '../../services/frequency-type.service';
 import { FrequencyService } from '../../services/frequency.service';
 import { tap } from 'rxjs';
+import { FrequencyEditorComponent } from '../frequency-editor/frequency-editor.component';
 
 @Component({
   selector: 'app-edit-frequency-dialog',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FrequencyEditorComponent],
   templateUrl: './edit-frequency-dialog.html',
-  styleUrls: ['./edit-frequency-dialog.scss']
+  styleUrls: ['./edit-frequency-dialog.scss'],
 })
 export class EditFrequencyDialogComponent {
   public _overlay = inject(OverlayRefWrapper);
@@ -23,18 +24,21 @@ export class EditFrequencyDialogComponent {
   public frequencyService = inject(FrequencyService);
   private readonly _destroyRef = inject(DestroyRef);
 
-  public readonly frequencyTypes = toSignal(this.frequencyTypeService.get(), { initialValue: [] as Array<FrequencyType> });
+  public readonly frequencyTypes = toSignal(this.frequencyTypeService.get(), {
+    initialValue: [] as Array<FrequencyType>,
+  });
 
   public frequencyId: number;
 
   public handleSave($event) {
-    this.frequencyService.save({ frequency: $event.frequency })
+    this.frequencyService
+      .save({ frequency: $event.frequency })
       .pipe(
         takeUntilDestroyed(this._destroyRef),
-        tap(x => {
+        tap((x) => {
           $event.frequency.frequencyId = x.frequencyId;
           this._overlay.close($event.frequency);
-        })
+        }),
       )
       .subscribe();
   }
