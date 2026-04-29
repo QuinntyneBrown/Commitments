@@ -62,7 +62,7 @@ export class TileHarnessComponent {
       this.bridge.setMode(mode);
       this.bridge.setAsOf(q.get('asOf'));
       const inputs: Record<string, unknown> = {};
-      for (const key of q.keys()) {
+      for (const key of q.keys) {
         if (key === 'mode' || key === 'asOf') continue;
         const v = q.get(key)!;
         inputs[key] = v !== '' && !isNaN(Number(v)) ? Number(v) : v;
