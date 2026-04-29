@@ -1,11 +1,17 @@
-<app-frequency-editor [frequencyTypes]="frequencyTypes()"
-                      (save)="handleFrequencySave($event)">
+<app-frequency-editor
+  [frequencyTypes]="frequencyTypes()"
+  (save)="handleFrequencySave($event)"
+></app-frequency-editor>
 
-</app-frequency-editor>
+<app-data-table [rows]="rows" [columns]="columns" [pageSize]="20"></app-data-table>
 
-<ag-grid-angular class="ag-theme-material"
-                 [columnDefs]="columnDefs"
-                 [rowData]="rows"
-                 (gridReady)="onGridReady($event)">
-</ag-grid-angular>
-
+<ng-template #deleteTpl let-row>
+  <button
+    mat-icon-button
+    type="button"
+    [attr.aria-label]="'Delete frequency ' + row.frequency"
+    (click)="$event.stopPropagation(); remove({ data: row })"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</ng-template>

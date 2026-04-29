@@ -57,6 +57,23 @@ The deltas above are independent slices wherever possible, but a sensible order 
 5. **16 Cards** → **17 Card Layouts** — dashboard catalog management.
 6. **04 Settings** — last; depends on every other page being routable so it can deep-link to them.
 
+## Plugin acceptance testing via host (slices 25 — 32)
+
+Slices 25 — 32 form a self-contained arc that stands up Playwright acceptance tests for `commitments-dashboard-plugin` tiles, exercised inside `commitments-dashboard-plugin-host` so the dashboard-framework chrome and the real backend are bypassed. Source intent: [`docs/commitments-dashboard-plugin-acceptance-testing-via-host.md`](../commitments-dashboard-plugin-acceptance-testing-via-host.md) and [`docs/pllug in testing.drawio`](../pllug%20in%20testing.drawio).
+
+Order:
+
+1. **25 Plugin Host Playwright Config** — pipeline foundation; smoke spec proves it boots.
+2. **26 Tile Harness Route** — `/tile/:tileId` mounts a single tile bare, providing `TILE_CONTEXT` from URL.
+3. **27 Window Bridge** — `window.__pluginHarness` snapshot owned by `WindowBridgeService`.
+4. **28 HTTP Recorder & Stubs** — interceptor records outgoing calls; `page.route` stubs responses.
+5. **29 Chart Recorder** — `CHART_RECORDER` token in plugin chart adapter; host bridge captures chart.js calls.
+6. **30 Metric-Tile Acceptance** — first concrete tile specs (Daily Results, Weekly Focus, Outstanding Todos, Relations).
+7. **31 Chart-Tile Acceptance** — Consistency Trend (and any other chart tiles).
+8. **32 Review-Mode Acceptance** — every tile re-tested with `mode=review&asOf=...` URL.
+
+Slice 29 contains the **only** plugin-side code change in the arc (~6-line delta to `ChartJsLineAdapter`). Every other change is host-only and additive.
+
 ## ag-grid → Angular Material migration
 
 Deltas 18 — 24 form a self-contained refactor arc. The build stays green at every step because ag-grid stays installed until 24, and `<app-data-table>` co-exists with `<ag-grid-angular>` in 18 — 23. Order:
