@@ -1,6 +1,6 @@
 # Tile Harness Route — Detailed Design
 
-**Status:** Accepted
+**Status:** Complete
 
 ## 1. Overview
 
