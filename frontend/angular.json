@@ -197,32 +197,6 @@
         }
       }
     },
-    "identity": {
-      "projectType": "library",
-      "root": "projects/identity",
-      "sourceRoot": "projects/identity/src",
-      "prefix": "commitments",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:ng-packagr",
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/identity/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/identity/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular/build:unit-test",
-          "options": {
-            "tsConfig": "projects/identity/tsconfig.spec.json"
-          }
-        }
-      }
-    },
     "commitments-dashboard-plugin-host": {
       "projectType": "application",
       "schematics": {

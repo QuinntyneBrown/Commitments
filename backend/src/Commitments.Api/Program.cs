@@ -65,6 +65,7 @@ try
         .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer(options =>
         {
+            options.MapInboundClaims = false;
             options.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = true,
@@ -207,6 +208,32 @@ try
         if (args.Contains("seeddb"))
         {
             commitmentsContext.Seed();
+
+            var hasher = app.Services.GetRequiredService<Identity.Security.IPasswordHasher>();
+            const string seedUsername = "quinntynebrown@gmail.com";
+            if (!identityContext.Users.Any(u => u.Username == seedUsername))
+            {
+                var (hash, salt) = hasher.Hash("P@ssw0rd");
+                identityContext.Users.Add(new Identity.Domain.UserAggregate.User
+                {
+                    Username = seedUsername,
+                    Email = seedUsername,
+                    PasswordHash = hash,
+                    PasswordSalt = salt
+                });
+                identityContext.SaveChanges();
+            }
+
+            var seedUser = identityContext.Users.First(u => u.Username == seedUsername);
+            if (!identityContext.Profiles.Any(p => p.UserId == seedUser.UserId))
+            {
+                identityContext.Profiles.Add(new Identity.Domain.ProfileAggregate.Profile
+                {
+                    UserId = seedUser.UserId,
+                    DisplayName = "Quinntyne Brown"
+                });
+                identityContext.SaveChanges();
+            }
         }
 
         if (args.Contains("stop"))

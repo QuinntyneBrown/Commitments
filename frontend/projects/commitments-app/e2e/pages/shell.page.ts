@@ -10,6 +10,15 @@ export class ShellPage {
   }
 
   async goto() {
+    const tokenRes = await this.page.request.post('https://localhost:63713/api/v1.0/users/token', {
+      data: { username: 'quinntynebrown@gmail.com', password: 'P@ssw0rd' },
+      ignoreHTTPSErrors: true,
+    });
+    const { accessToken } = await tokenRes.json() as { accessToken: string };
+    await this.page.addInitScript((token: string) => {
+      localStorage.setItem('accessTokenKey', token);
+    }, accessToken);
+
     await this.page.goto('/');
     await this.page.waitForSelector('[data-testid="dashboard-sidenav"]');
   }

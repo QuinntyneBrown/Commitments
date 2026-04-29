@@ -50,9 +50,6 @@
       "@commitments/ui": [
         "projects/commitments-ui/src/public-api.ts"
       ],
-      "@commitments/identity": [
-        "projects/identity/src/public-api.ts"
-      ],
       "@commitments-dashboard-plugin-host/*": [
         "projects/commitments-dashboard-plugin-host/src/app/*"
       ],
@@ -106,12 +103,6 @@
     },
     {
       "path": "./projects/commitments-ui/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/identity/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/identity/tsconfig.spec.json"
     },
     {
       "path": "./projects/commitments-dashboard-plugin-host/tsconfig.app.json"

@@ -47,7 +47,6 @@ export class DashboardPage {
     if (options.clearStorage ?? true) {
       await this.page.addInitScript((storageKey) => {
         const setupKey = `${storageKey}.e2e-cleared`;
-
         if (!sessionStorage.getItem(setupKey)) {
           localStorage.removeItem(storageKey);
           sessionStorage.setItem(setupKey, 'true');
@@ -55,14 +54,20 @@ export class DashboardPage {
       }, LAYOUT_STORAGE_KEY);
     }
 
-    await this.page.goto('/');
+    // Use the real login flow so the Angular app handles auth state correctly
+    await this.page.goto('/login');
+    await this.page.fill('[id="username"]', 'quinntynebrown@gmail.com');
+    await this.page.fill('[id="password"]', 'P@ssw0rd');
+    await this.page.click('button[type="submit"]');
+
+    await this.page.waitForURL('/');
     await this.waitUntilReady();
   }
 
   async waitUntilReady() {
-    await expect(this.shell).toBeVisible();
-    await expect(this.heading).toBeVisible();
-    await expect(this.grid).toBeVisible();
+    await expect(this.shell).toBeVisible({ timeout: 10000 });
+    await expect(this.heading).toBeVisible({ timeout: 10000 });
+    await expect(this.grid).toBeVisible({ timeout: 15000 });
   }
 
   async expectDefaultDashboard() {

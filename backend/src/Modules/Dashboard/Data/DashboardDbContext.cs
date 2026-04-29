@@ -5,6 +5,8 @@ using Dashboard.Domain.DashboardCardAggregate;
 using Dashboard.Domain.CardAggregate;
 using Dashboard.Domain.CardLayoutAggregate;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Newtonsoft.Json.Linq;
 
 namespace Dashboard.Data;
 
@@ -23,6 +25,26 @@ public class DashboardDbContext : BaseDbContext, IDashboardDbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("Dashboard");
+
+        modelBuilder.Entity<DashboardEntity>()
+            .HasKey(d => d.DashboardId);
+
+        modelBuilder.Entity<Card>()
+            .HasKey(c => c.CardId);
+
+        modelBuilder.Entity<CardLayout>()
+            .HasKey(cl => cl.CardLayoutId);
+
+        modelBuilder.Entity<DashboardCard>()
+            .HasKey(dc => dc.DashboardCardId);
+
+        var jobjectConverter = new ValueConverter<JObject, string>(
+            v => v.ToString(),
+            v => JObject.Parse(v));
+
+        modelBuilder.Entity<DashboardCard>()
+            .Property(dc => dc.Options)
+            .HasConversion(jobjectConverter);
 
         modelBuilder.Entity<DashboardCard>()
             .HasOne(dc => dc.Dashboard)

@@ -4,6 +4,7 @@
 using Commitments.Domain.CommitmentAggregate;
 using Commitments.Features.Commitment;
 using Commitments.Domain.Tests.Helpers;
+using Commitments.Shared;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -61,7 +62,8 @@ public class SaveCommitmentTests
         var mockDbSet = MockDbContextFactory.CreateMockDbSet(commitments);
         mockContext.Setup(c => c.Commitments).Returns(mockDbSet.Object);
 
-        var handler = new SaveCommitmentCommandHandler(mockContext.Object);
+        var mockBus = new Mock<IEventBus>();
+        var handler = new SaveCommitmentCommandHandler(mockContext.Object, mockBus.Object);
         var request = new SaveCommitmentRequest
         {
             Commitment = new CommitmentDto

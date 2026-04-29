@@ -1,5 +1,5 @@
 
-Ensure the app is fully running, backend and frontend and accessible via url.
+Ensure the app is fully running, backend and frontend (commitments-app) and accessible via url.
 
 Pull any changes from origin
 
