@@ -1,6 +1,6 @@
 # Design 50 — Logout Action
 
-Status: Accepted
+Status: Complete
 
 ## Context
 

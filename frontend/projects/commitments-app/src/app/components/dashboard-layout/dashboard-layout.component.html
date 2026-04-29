@@ -33,6 +33,15 @@
           <span class="sidenav-item__label">{{ item.label }}</span>
         </a>
       }
+      <button
+        type="button"
+        class="sidenav-item"
+        data-testid="sidenav-item-Logout"
+        (click)="logout()"
+      >
+        <span class="material-symbols-rounded sidenav-item__icon">logout</span>
+        <span class="sidenav-item__label">Logout</span>
+      </button>
     </nav>
     <main class="dashboard-layout__content">
       <router-outlet></router-outlet>

@@ -3,7 +3,7 @@
 
 import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { ProfileService } from '@commitments/identity-feature';
 
 interface SidenavItem {
@@ -23,6 +23,7 @@ interface SidenavItem {
 })
 export class DashboardLayoutComponent implements OnInit {
   private readonly _profileService = inject(ProfileService);
+  private readonly _router = inject(Router);
 
   protected readonly sidenavOpen = signal(true);
   protected readonly profileName = signal('');
@@ -39,12 +40,16 @@ export class DashboardLayoutComponent implements OnInit {
     { label: 'Notes', icon: 'sticky_note_2', routerLink: '/notes' },
     { label: 'Profiles', icon: 'group', routerLink: '/profiles' },
     { label: "To Do's", icon: 'checklist', routerLink: '/to-dos' },
-    { label: 'Logout', icon: 'logout', routerLink: '/login' }
   ];
 
   async ngOnInit(): Promise<void> {
     const { profile } = await this._profileService.current();
     this.profileName.set(profile.name);
+  }
+
+  protected logout(): void {
+    localStorage.removeItem('accessTokenKey');
+    this._router.navigate(['/login']);
   }
 
   protected toggleSidenav(): void {
