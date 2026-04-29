@@ -1,6 +1,6 @@
 # Design 49 — Core Final Cleanup
 
-Status: Accepted
+Status: Complete
 
 ## Context
 
