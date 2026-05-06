@@ -1,5 +1,1 @@
-export interface Profile {
-  profileId: number;
-  name: string;
-  avatarUrl: string;
-}
+export type { Profile } from '@commitments/dashboard-framework';

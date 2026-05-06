@@ -1,7 +1,7 @@
 ---
 id: bug-199
 title: ProfileId not included in token response and not sent in request headers — all profile-scoped endpoints throw FormatException (500)
-status: Open
+status: Fixed
 ---
 
 ## Symptom

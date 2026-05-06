@@ -1,12 +1,76 @@
-<h1>Activities</h1>
-<table role="table">
-  <thead><tr role="row"><th>Commitment</th><th>Performed On</th></tr></thead>
-  <tbody>
-    @for (a of activities(); track a.activityId) {
-      <tr role="row">
-        <td>{{ a.commitmentId }}</td>
-        <td>{{ a.performedOn }}</td>
-      </tr>
-    }
-  </tbody>
-</table>
+<div class="app-shell">
+  <header class="app-shell__topbar">
+    <span class="app-shell__brand" data-testid="app-brand">Commitments</span>
+    <span class="app-shell__user">&#64;quinntynebrown</span>
+  </header>
+  <div class="app-shell__body">
+    <nav class="app-shell__sidebar" aria-label="Primary">
+      @for (n of navItems; track n.label) {
+        <a class="app-shell__nav-item"
+           [class.app-shell__nav-item--active]="n.active"
+           [attr.data-testid]="n.active ? 'nav-active' : null"
+           [attr.aria-current]="n.active ? 'page' : null"
+           href="javascript:void(0)">{{ n.label }}</a>
+      }
+    </nav>
+    <main class="activities-page">
+      <h1 class="activities-page__heading">Activities</h1>
+      <p class="activities-page__subtitle" data-testid="activities-subtitle">
+        Record activities tied to behaviours. Filter by date range, sort by Performed On. (L2-012)
+      </p>
+      <section class="activities-page__card" aria-label="Activities table">
+        <table class="activities-page__table" role="table">
+          <thead>
+            <tr role="row">
+              <th role="columnheader" scope="col">Behaviour</th>
+              <th role="columnheader" scope="col" class="col-performed-on">Performed On</th>
+              <th role="columnheader" scope="col" class="col-description">Description</th>
+              <th role="columnheader" scope="col" class="col-actions">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (a of activities(); track a.activityId) {
+              <tr role="row">
+                <td class="cell-primary">{{ a.commitmentId }}</td>
+                <td>{{ a.performedOn }}</td>
+                <td></td>
+                <td class="col-actions">
+                  <a class="activities-page__edit-link"
+                     role="link"
+                     [attr.data-activity-id]="a.activityId"
+                     href="javascript:void(0)"
+                     (click)="openEdit(a)">Edit &#8943;</a>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+        <footer class="activities-page__pagination" data-testid="activities-pagination">
+          <span>Rows per page: 5</span>
+          <span>1&ndash;{{ activities().length }} of {{ activities().length }}</span>
+          <button type="button" class="activities-page__page-btn" aria-label="Previous page">&lsaquo;</button>
+          <button type="button" class="activities-page__page-btn" aria-label="Next page">&rsaquo;</button>
+        </footer>
+      </section>
+      <button type="button"
+              class="activities-page__fab"
+              aria-label="Record Activity"
+              (click)="openCreate()">+</button>
+    </main>
+  </div>
+
+  @if (isCreateOpen()) {
+    <commitments-create-activity-dialog
+      [commitments]="commitments()"
+      (closed)="closeCreate()"
+      (recorded)="onRecorded()" />
+  }
+  @if (editing(); as a) {
+    <commitments-edit-activity-dialog
+      [activity]="a"
+      [commitments]="commitments()"
+      (closed)="closeEdit()"
+      (saved)="onSaved()"
+      (removed)="onRemoved()" />
+  }
+</div>

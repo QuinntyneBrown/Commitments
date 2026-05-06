@@ -1,4 +1,1 @@
-export interface BehaviourType {
-  behaviourTypeId: number;
-  name: string;
-}
+export type { BehaviourType } from '@commitments/dashboard-framework';

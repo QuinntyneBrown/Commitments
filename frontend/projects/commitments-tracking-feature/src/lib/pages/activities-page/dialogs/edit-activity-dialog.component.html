@@ -1,0 +1,48 @@
+<div class="dialog-backdrop" (click)="cancel()"></div>
+<section class="dialog"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="edit-activity-title"
+         data-testid="edit-activity-dialog">
+  <header class="dialog__header">
+    <h2 class="dialog__title" id="edit-activity-title" data-testid="edit-activity-title">Edit Activity</h2>
+    <button type="button" class="dialog__close" aria-label="Close" (click)="cancel()">&times;</button>
+  </header>
+  <div class="dialog__divider"></div>
+  <div class="dialog__body">
+    <label class="dialog__field" data-testid="edit-activity-commitment-field">
+      <span class="dialog__label">Commitment</span>
+      <select class="dialog__input"
+              [(ngModel)]="commitmentId"
+              data-testid="edit-activity-commitment">
+        @for (c of commitments(); track c.commitmentId) {
+          <option [value]="c.commitmentId">Commitment #{{ c.commitmentId }}</option>
+        }
+      </select>
+    </label>
+    <label class="dialog__field" data-testid="edit-activity-performed-on-field">
+      <span class="dialog__label">Performed On</span>
+      <input class="dialog__input"
+             type="text"
+             placeholder="YYYY-MM-DD HH:MM"
+             [(ngModel)]="performedOn"
+             data-testid="edit-activity-performed-on" />
+    </label>
+  </div>
+  <div class="dialog__divider"></div>
+  <footer class="dialog__footer">
+    <button type="button"
+            class="dialog__btn dialog__btn--danger"
+            data-testid="edit-activity-delete"
+            (click)="remove()">Delete</button>
+    <span class="dialog__spacer"></span>
+    <button type="button"
+            class="dialog__btn dialog__btn--secondary"
+            data-testid="edit-activity-cancel"
+            (click)="cancel()">Cancel</button>
+    <button type="button"
+            class="dialog__btn dialog__btn--primary"
+            data-testid="edit-activity-save"
+            (click)="save()">Save</button>
+  </footer>
+</section>

@@ -1,1 +1,1 @@
-export interface Activity { activityId: number; commitmentId: number; performedOn: string; }
+export type { Activity } from '@commitments/dashboard-framework';

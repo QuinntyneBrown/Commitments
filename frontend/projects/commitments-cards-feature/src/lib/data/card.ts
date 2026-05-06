@@ -1,1 +1,1 @@
-export interface Card { cardId: number; cardLayoutId: number; name: string; }
+export type { Card } from '@commitments/dashboard-framework';

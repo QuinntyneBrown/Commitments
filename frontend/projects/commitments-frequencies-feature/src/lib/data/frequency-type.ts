@@ -1,4 +1,1 @@
-export interface FrequencyType {
-  frequencyTypeId: number | string;
-  name: string;
-}
+export type { FrequencyType } from '@commitments/dashboard-framework';

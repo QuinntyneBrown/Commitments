@@ -1,1 +1,1 @@
-export interface ToDo { toDoId: number; commitmentId: number; dueOn: string; }
+export type { ToDo } from '@commitments/dashboard-framework';
